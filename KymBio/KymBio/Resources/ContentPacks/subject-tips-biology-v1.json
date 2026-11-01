@@ -1,0 +1,477 @@
+{
+  "schemaVersion": 1,
+  "subject": "biology",
+  "tips": [
+    {
+      "id": "BIO-01",
+      "strand": "Inheritance and probability",
+      "title": "A probability is not a promise",
+      "summary": "Use a simple inheritance model to predict proportions, then distinguish prediction from certainty.",
+      "prediction": "In an Aa × Aa model, must every group of four offspring include exactly one aa?",
+      "why": "For one gene with two allele versions, each Aa parent can pass on A or a. Under equal segregation and independent fertilisation, the four equally likely pairings are AA, Aa, aA and aa. Two pairings are heterozygous; one is aa. This describes probabilities for each offspring, not an ordered set of four births. Many traits involve several genes or the environment and need a different model.",
+      "whenToUse": "Use this model for a stated single-gene cross. First list the possible gametes from each parent.",
+      "watchFor": "Dominant does not mean common or better. Expected counts are averages over repetitions, not promises about one family.",
+      "explainPrompt": "Why can four offspring include no aa individuals even when the chance for each is one quarter?",
+      "visual": {
+        "kind": "sliderRelation",
+        "formula": "expected count = offspring count × probability",
+        "operation": "multiply",
+        "inputs": [
+          {
+            "name": "offspring count",
+            "symbol": "n",
+            "unit": "offspring",
+            "min": 4,
+            "max": 100,
+            "step": 4,
+            "initial": 20
+          },
+          {
+            "name": "probability",
+            "symbol": "p",
+            "unit": "fraction",
+            "min": 0,
+            "max": 1,
+            "step": 0.25,
+            "initial": 0.25
+          }
+        ],
+        "output": {
+          "name": "expected count",
+          "symbol": "E",
+          "unit": "offspring"
+        },
+        "observation": "Keep probability at 0.25 for Aa × Aa. Double the number of offspring. The expected count doubles; actual counts can differ. Changing p explores other stated models, not a change to this cross."
+      },
+      "goDeeper": {
+        "workedExamples": [
+          {
+            "problem": "For Aa × Aa, what fraction of offspring are expected to be aa?",
+            "steps": [
+              "List four equally likely pairings: AA, Aa, aA, aa.",
+              "One of four is aa: 1/4 = 0.25."
+            ],
+            "answer": "1/4, or 25%."
+          },
+          {
+            "problem": "In this model, what is the expected aa count among 20 offspring?",
+            "steps": [
+              "Multiply the total by the probability.",
+              "20 × 1/4 = 5. An actual group may have more or fewer."
+            ],
+            "answer": "5 expected; not guaranteed."
+          }
+        ],
+        "mistakes": [
+          "Treating the four boxes as four guaranteed births.",
+          "Applying a single-gene model to every human characteristic."
+        ],
+        "realWorld": "Breeders use inheritance models as predictions and compare them with observations. This example is a fictional single-gene cross, not a prediction about a person."
+      },
+      "sources": [
+        "https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits"
+      ],
+      "version": 1,
+      "subject": "biology",
+      "syllabusRefs": [
+        "School science connections: Inheritance and probability; enrichment, no automatic mastery credit"
+      ],
+      "rights": "Original Kymaia explanations and fictional examples, 26 October 2026. References support scientific context; no endorsement.",
+      "reviewedOn": "2026-10-26",
+      "practice": [
+        {
+          "question": "In a simple Aa × Aa cross, P(aa) = 1/4. Among 8 offspring, what is the expected number of aa offspring?",
+          "answer": "2",
+          "explanation": "8/4 = 2. Single locus, equal segregation, independent offspring. Expected count is not guaranteed."
+        },
+        {
+          "question": "In a simple Aa × Aa cross, P(aa) = 1/4. Among 12 offspring, what is the expected number of aa offspring?",
+          "answer": "3",
+          "explanation": "12/4 = 3. Single locus, equal segregation, independent offspring. Expected count is not guaranteed."
+        },
+        {
+          "question": "In a simple Aa × Aa cross, P(aa) = 1/4. Among 16 offspring, what is the expected number of aa offspring?",
+          "answer": "4",
+          "explanation": "16/4 = 4. Single locus, equal segregation, independent offspring. Expected count is not guaranteed."
+        }
+      ],
+      "computationalClaims": [
+        {
+          "excerpt": "1/4 = 0.25.",
+          "left": "1/4",
+          "right": "0.25",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        },
+        {
+          "excerpt": "20 × 1/4 = 5.",
+          "left": "20/4",
+          "right": "5",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        },
+        {
+          "excerpt": "8/4 = 2. Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "left": "8/4",
+          "right": "2",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        },
+        {
+          "excerpt": "12/4 = 3. Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "left": "12/4",
+          "right": "3",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        },
+        {
+          "excerpt": "16/4 = 4. Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "left": "16/4",
+          "right": "4",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        },
+        {
+          "excerpt": "8/4 = 2. Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "left": "8/4",
+          "right": "2",
+          "assumptions": "Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        },
+        {
+          "excerpt": "12/4 = 3. Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "left": "12/4",
+          "right": "3",
+          "assumptions": "Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        },
+        {
+          "excerpt": "16/4 = 4. Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "left": "16/4",
+          "right": "4",
+          "assumptions": "Single locus, equal segregation, independent offspring. Expected count is not guaranteed.",
+          "sourceFingerprint": "409d45039bf549367910f6b50d2b7df479695f6fe7c3c13ce9c1362118da5774"
+        }
+      ]
+    },
+    {
+      "id": "BIO-02",
+      "strand": "Ecology and sampling",
+      "title": "Count a sample, estimate a population",
+      "summary": "Use representative quadrats to estimate plant density and scale it to a larger area.",
+      "prediction": "If you double the area while keeping estimated density fixed, what happens to the estimated count?",
+      "why": "Counting every plant is often impractical. Count plants in several randomly placed quadrats of known area, then divide the combined count by the sampled area. Multiply that density by the habitat area to estimate a total. Random placement helps avoid choosing only crowded patches, but an estimate still has sampling uncertainty.",
+      "whenToUse": "Use for plants or other organisms that can be counted reliably in area samples. Keep area units consistent.",
+      "watchFor": "A sample from the greenest patch is biased. A precise calculation cannot repair an unrepresentative sample.",
+      "explainPrompt": "How could two groups calculate correctly yet estimate different plant populations?",
+      "visual": {
+        "kind": "sliderRelation",
+        "formula": "estimated population = estimated density × area",
+        "operation": "multiply",
+        "inputs": [
+          {
+            "name": "estimated density",
+            "symbol": "d",
+            "unit": "plants/m2",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "initial": 4
+          },
+          {
+            "name": "plot area",
+            "symbol": "A",
+            "unit": "m2",
+            "min": 5,
+            "max": 100,
+            "step": 5,
+            "initial": 20
+          }
+        ],
+        "output": {
+          "name": "estimated population",
+          "symbol": "N",
+          "unit": "plants"
+        },
+        "observation": "Compare changing area with changing estimated density. The rectangle shows the multiplication model, not the real locations of plants. Repeat random samples before trusting the estimate."
+      },
+      "goDeeper": {
+        "workedExamples": [
+          {
+            "problem": "Five 1 m2 quadrats contain 3, 5, 4, 2 and 6 plants. Estimate density.",
+            "steps": [
+              "Total count: 3 + 5 + 4 + 2 + 6 = 20.",
+              "Sampled area: 5 m2. Density = 20/5 = 4 plants/m2."
+            ],
+            "answer": "4 plants/m2."
+          },
+          {
+            "problem": "Use that density to estimate the count in 20 m2.",
+            "steps": [
+              "Assume the samples represent the plot.",
+              "4 × 20 = 80 plants estimated."
+            ],
+            "answer": "About 80 plants; sampling uncertainty remains."
+          }
+        ],
+        "mistakes": [
+          "Using total count as the count per square metre.",
+          "Treating a sample estimate as an exact census."
+        ],
+        "realWorld": "Ecologists sample multiple locations and report variation. Clumped growth can make a small sample misleading."
+      },
+      "sources": [
+        "https://openstax.org/books/biology-2e/pages/45-1-population-demography"
+      ],
+      "version": 1,
+      "subject": "biology",
+      "syllabusRefs": [
+        "School science connections: Ecology and sampling; enrichment, no automatic mastery credit"
+      ],
+      "rights": "Original Kymaia explanations and fictional examples, 26 October 2026. References support scientific context; no endorsement.",
+      "reviewedOn": "2026-10-26",
+      "practice": [
+        {
+          "question": "A representative sample estimates 2 plants per m2. Estimate the number in a 20 m2 plot.",
+          "answer": "40",
+          "explanation": "2*20 = 40. Representative random quadrats; approximately similar density across the plot; estimate only."
+        },
+        {
+          "question": "A representative sample estimates 3 plants per m2. Estimate the number in a 20 m2 plot.",
+          "answer": "60",
+          "explanation": "3*20 = 60. Representative random quadrats; approximately similar density across the plot; estimate only."
+        },
+        {
+          "question": "A representative sample estimates 4 plants per m2. Estimate the number in a 20 m2 plot.",
+          "answer": "80",
+          "explanation": "4*20 = 80. Representative random quadrats; approximately similar density across the plot; estimate only."
+        }
+      ],
+      "computationalClaims": [
+        {
+          "excerpt": "3 + 5 + 4 + 2 + 6 = 20.",
+          "left": "3+5+4+2+6",
+          "right": "20",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "20/5 = 4 plants/m2.",
+          "left": "20/5",
+          "right": "4",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "4 × 20 = 80",
+          "left": "4*20",
+          "right": "80",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "2*20 = 40. Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "left": "2*20",
+          "right": "40",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "3*20 = 60. Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "left": "3*20",
+          "right": "60",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "4*20 = 80. Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "left": "4*20",
+          "right": "80",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "2*20 = 40. Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "left": "2*20",
+          "right": "40",
+          "assumptions": "Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "3*20 = 60. Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "left": "3*20",
+          "right": "60",
+          "assumptions": "Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        },
+        {
+          "excerpt": "4*20 = 80. Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "left": "4*20",
+          "right": "80",
+          "assumptions": "Representative random quadrats; approximately similar density across the plot; estimate only.",
+          "sourceFingerprint": "afa6f0cbc0e935a04bd03fdc24a1ac2fd203cdd0eaa1cc89cc8f01658c29b513"
+        }
+      ]
+    },
+    {
+      "id": "BIO-03",
+      "strand": "Photosynthesis and experimental evidence",
+      "title": "Compare rates using the same clock",
+      "summary": "Calculate an experimental rate and ask whether the measurement is a fair comparison.",
+      "prediction": "One plant gives 30 bubbles in 3 minutes; another gives 24 in 2 minutes. Which has the higher average bubble rate?",
+      "why": "A rate compares an amount with elapsed time. Divide each bubble count by its observation time before comparing. Bubble counting is only a rough proxy for gas production because bubbles can differ in size and some gas dissolves. A change in bubble rate alone does not prove that light caused it: temperature, carbon dioxide and other conditions may also change.",
+      "whenToUse": "Use consistent time units, repeat observations and compare like conditions. Distinguish a measurement from an explanation.",
+      "watchFor": "More bubbles in a longer observation does not necessarily mean a higher rate. Light and photosynthesis are not proportional at every intensity.",
+      "explainPrompt": "What would you hold constant and repeat to investigate the effect of light fairly?",
+      "visual": {
+        "kind": "sliderRelation",
+        "formula": "average bubble rate = bubble count / time",
+        "operation": "divide",
+        "inputs": [
+          {
+            "name": "bubble count",
+            "symbol": "b",
+            "unit": "bubbles",
+            "min": 0,
+            "max": 120,
+            "step": 6,
+            "initial": 30
+          },
+          {
+            "name": "observation time",
+            "symbol": "t",
+            "unit": "min",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "initial": 3
+          }
+        ],
+        "output": {
+          "name": "average bubble rate",
+          "symbol": "r",
+          "unit": "bubbles/min"
+        },
+        "observation": "Change count and time separately. This graph calculates an observed average; it does not simulate how a plant responds to light. Bubble size and other conditions affect interpretation."
+      },
+      "goDeeper": {
+        "workedExamples": [
+          {
+            "problem": "Compare 30 bubbles in 3 min with 24 bubbles in 2 min.",
+            "steps": [
+              "First rate: 30/3 = 10 bubbles/min.",
+              "Second rate: 24/2 = 12 bubbles/min.",
+              "The second average bubble rate is higher, even though its total count is lower."
+            ],
+            "answer": "10 and 12 bubbles/min; second is higher."
+          },
+          {
+            "problem": "Repeated one-minute observations give 8, 10 and 12 bubbles. Find the mean.",
+            "steps": [
+              "Total: 8 + 10 + 12 = 30.",
+              "Mean: 30/3 = 10 bubbles per one-minute observation."
+            ],
+            "answer": "Mean 10 bubbles/min; the observations vary."
+          }
+        ],
+        "mistakes": [
+          "Comparing raw counts collected over different times.",
+          "Calling a correlation proof of one cause."
+        ],
+        "realWorld": "Plant investigations use controlled conditions and repeats. Gas volume can be more informative than counting unequal bubbles."
+      },
+      "sources": [
+        "https://www.monash.edu/student-academic-success/biology/photosynthesis/factors-affecting-photosynthesis"
+      ],
+      "version": 1,
+      "subject": "biology",
+      "syllabusRefs": [
+        "School science connections: Photosynthesis and experimental evidence; enrichment, no automatic mastery credit"
+      ],
+      "rights": "Original Kymaia explanations and fictional examples, 26 October 2026. References support scientific context; no endorsement.",
+      "reviewedOn": "2026-10-26",
+      "practice": [
+        {
+          "question": "A plant releases 6 bubbles during 3 minutes. Find the average bubble rate per minute.",
+          "answer": "2",
+          "explanation": "6/3 = 2. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model."
+        },
+        {
+          "question": "A plant releases 9 bubbles during 3 minutes. Find the average bubble rate per minute.",
+          "answer": "3",
+          "explanation": "9/3 = 3. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model."
+        },
+        {
+          "question": "A plant releases 12 bubbles during 3 minutes. Find the average bubble rate per minute.",
+          "answer": "4",
+          "explanation": "12/3 = 4. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model."
+        }
+      ],
+      "computationalClaims": [
+        {
+          "excerpt": "30/3 = 10 bubbles/min.",
+          "left": "30/3",
+          "right": "10",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "24/2 = 12 bubbles/min.",
+          "left": "24/2",
+          "right": "12",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "8 + 10 + 12 = 30.",
+          "left": "8+10+12",
+          "right": "30",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "6/3 = 2. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "left": "6/3",
+          "right": "2",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "9/3 = 3. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "left": "9/3",
+          "right": "3",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "12/3 = 4. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "left": "12/3",
+          "right": "4",
+          "assumptions": "Exact arithmetic within the stated model; not proof of biological interpretation.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "6/3 = 2. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "left": "6/3",
+          "right": "2",
+          "assumptions": "Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "9/3 = 3. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "left": "9/3",
+          "right": "3",
+          "assumptions": "Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        },
+        {
+          "excerpt": "12/3 = 4. Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "left": "12/3",
+          "right": "4",
+          "assumptions": "Bubble count is a rough proxy; bubble sizes may vary. This is a measured average, not a causal model.",
+          "sourceFingerprint": "f8f8804effd5898866872899c0eca0bb06ef039ac9cb9bbce677e811226734be"
+        }
+      ]
+    }
+  ]
+}

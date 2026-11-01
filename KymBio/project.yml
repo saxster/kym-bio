@@ -1,0 +1,224 @@
+name: KymBio
+options:
+  bundleIdPrefix: com.kymaia
+  deploymentTarget:
+    macOS: "14.0"
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+  defaultConfig: Debug
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    GENERATE_INFOPLIST_FILE: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift.git
+    from: "6.24.0"
+
+targets:
+  KymBio:
+    type: application
+    platform: macOS
+    sources:
+      - path: KymBio
+        excludes:
+          - "**/*.md"
+          - "**/Resources/**"
+      - path: KymBio/Resources/ContentPacks
+        type: folder
+        buildPhase: resources
+      - path: KymBio/Resources/LivingWorldBook
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: GRDB
+        product: GRDB
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio
+        INFOPLIST_KEY_CFBundleDisplayName: "KymBio"
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.education"
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "KymBio uses the microphone for Biology voice study, pronunciation and Socratic Coach sessions."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "KymBio transcribes your spoken answers on device for Biology practice."
+        INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "KymBio reads your school calendar to plan revision around Science tests and creates study blocks when you ask."
+        INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription: "KymBio creates Biology study blocks on your calendar."
+        CODE_SIGN_ENTITLEMENTS: KymBio/KymBio.entitlements
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        ENABLE_HARDENED_RUNTIME: YES
+    entitlements:
+      path: KymBio/KymBio.entitlements
+      properties:
+        com.apple.security.app-sandbox: false
+        com.apple.security.network.client: true
+        com.apple.security.device.audio-input: true
+        com.apple.security.personal-information.calendars: true
+
+  KymBio-iPad:
+    type: application
+    platform: iOS
+    sources:
+      - path: KymBio
+        excludes:
+          - "**/*.md"
+          - "**/Resources/**"
+      - path: KymBio/Resources/ContentPacks
+        type: folder
+        buildPhase: resources
+      - path: KymBio/Resources/LivingWorldBook
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: GRDB
+        product: GRDB
+      - target: KymBioWidgets
+        embed: true
+      - target: KymBioShareExtension
+        embed: true
+    info:
+      path: KymBio/Info-iPad.plist
+      properties:
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleURLTypes:
+          - CFBundleURLName: com.kymaia.bio.deeplink
+            CFBundleURLSchemes:
+              - kymbio
+        LSApplicationQueriesSchemes:
+          - kymbio
+          - kymchem
+          - kymphysics
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio.ipad
+        PRODUCT_NAME: KymBio
+        DEVELOPMENT_TEAM: LJA377LKZF
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        INFOPLIST_KEY_CFBundleDisplayName: "KymBio"
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.education"
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UIRequiresFullScreen: NO
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "KymBio uses the microphone for Biology voice study, pronunciation and Socratic Coach sessions."
+        INFOPLIST_KEY_NSSpeechRecognitionUsageDescription: "KymBio transcribes your spoken answers on device for Biology practice."
+        INFOPLIST_KEY_NSCameraUsageDescription: "KymBio uses the camera to scan pages from your Cambridge Science 8 Learner's Book, Workbook and microscope slides."
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "KymBio imports diagram photos and textbook pages from your library."
+        INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription: "KymBio reads your school calendar to plan revision around Science tests and creates study blocks when you ask."
+        INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription: "KymBio creates Biology study blocks on your calendar."
+        CODE_SIGN_ENTITLEMENTS: KymBio/KymBio-iPad.entitlements
+        CODE_SIGN_STYLE: Automatic
+    entitlements:
+      path: KymBio/KymBio-iPad.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.kymaia.science
+          - group.com.kymaia.bio
+
+  KymBioWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: KymBioWidgets
+      - path: KymBio/Core/SystemSurfaces/SystemSurfaceSnapshotStore.swift
+    info:
+      path: KymBioWidgets/Info.plist
+      properties:
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: KymBioWidgets/KymBioWidgets.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.kymaia.science
+          - group.com.kymaia.bio
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio.ipad.widgets
+        DEVELOPMENT_TEAM: LJA377LKZF
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: true
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: KYMBIO_WIDGET_EXTENSION
+
+  KymBioShareExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: KymBioShareExtension
+    info:
+      path: KymBioShareExtension/Info.plist
+      properties:
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleDisplayName: "Send to KymBio"
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: ShareViewController
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsFileWithMaxCount: 10
+              NSExtensionActivationSupportsImageWithMaxCount: 10
+              NSExtensionActivationSupportsText: true
+              NSExtensionActivationSupportsWebURLWithMaxCount: 5
+    entitlements:
+      path: KymBioShareExtension/KymBioShareExtension.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.kymaia.science
+          - group.com.kymaia.bio
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio.ipad.share
+        DEVELOPMENT_TEAM: LJA377LKZF
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: true
+        TARGETED_DEVICE_FAMILY: "1,2"
+
+  KymBioTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: KymBio
+      - package: GRDB
+        product: GRDB
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio.tests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/KymBio.app/Contents/MacOS/KymBio"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+
+schemes:
+  KymBio:
+    build:
+      targets:
+        KymBio: all
+        KymBioTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - KymBioTests
+  KymBio-iPad:
+    build:
+      targets:
+        KymBio-iPad: all
+    run:
+      config: Debug

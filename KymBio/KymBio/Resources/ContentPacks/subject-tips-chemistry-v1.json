@@ -1,0 +1,1457 @@
+{
+ "schemaVersion": 1,
+ "subject": "chemistry",
+ "tips": [
+  {
+   "id": "CHE-01",
+   "strand": "Atoms and elements",
+   "title": "Protons decide what an element is",
+   "summary": "Change the protons and you change the element. That one count is the atom's name badge.",
+   "prediction": "Here is an atom with 6 protons in its centre: carbon, the stuff of pencil lead and diamonds. Imagine sneaking in just one more proton, making 7. Is it still carbon, only slightly heavier? Or has it become a completely different element? Pick one before you look. Being unsure is fine; the whole tip is about this question.",
+   "why": "Everything you can touch is built from atoms, and every atom shares the same architecture: an extraordinarily tiny, dense nucleus at the centre surrounded by shells of fast-moving electrons. Inside the nucleus sit positively charged protons (+1 each, relative mass 1) and neutral neutrons (0 charge, relative mass 1). Whizzing in shells far outside sit negatively charged electrons (−1 each, almost zero mass — about 1/1836 of a proton). Opposite charges attract, so the positive nucleus holds the negative electron cloud in place.\n\nHere is the master rule of chemistry: the number of protons alone (the atomic number, Z) decides which element an atom is. 1 proton is always hydrogen; 6 protons is always carbon; 11 protons is always sodium; 79 protons is always gold. Add one proton to carbon and you do not make 'heavy carbon' — you make nitrogen (7 protons), a gas with completely different chemistry.\n\nWhat about neutrons and electrons? Neutrons act as nuclear glue that spaces out repelling protons without adding charge. Changing the neutron count changes the mass number (A = protons + neutrons) and makes a heavier or lighter isotope of the exact same element (like carbon-12 vs carbon-14). Electrons arrange themselves into concentric shells from the inside out with capacities 2, then 8, then 8. Chemical reactions only ever trade or share electrons in the outermost (valence) shell — creating charged ions when electrons ≠ protons — while the nucleus stays untouched.",
+   "whenToUse": "Whenever you meet a new element symbol, find its atomic number first: that tells you its proton count, and in a neutral atom its electron count too. If a question asks whether two atoms are the same element, compare protons, nothing else.",
+   "watchFor": "Do not use mass to name an element. Two different elements can have similar masses, and one element can have several masses (isotopes). Protons are the name badge; mass is just the total luggage, protons plus neutrons.",
+   "explainPrompt": "Explain to a friend, in two sentences, why adding one proton to oxygen (8 protons) does not make 'heavy oxygen'. What does it make instead?",
+   "visual": {
+    "kind": "atomBuilder",
+    "maxProtons": 20,
+    "initialProtons": 6,
+    "initialNeutrons": 6,
+    "initialElectrons": 6,
+    "observation": "Start at carbon (6 protons). Add one proton: new element or heavier carbon? Then change only neutrons, then only electrons, and read what each change is called."
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "An atom has 11 protons, 12 neutrons and 11 electrons. Which element is it, and what is its mass number?",
+      "steps": [
+       "Name the element from protons alone: 11 protons is sodium (Na).",
+       "Mass number counts protons + neutrons: 11 + 12 = 23.",
+       "Electrons are so light they do not change the mass number."
+      ],
+      "answer": "Sodium, mass number 23."
+     },
+     {
+      "problem": "An oxygen-18 atom (8 protons, 10 neutrons) gains 2 extra electrons when it reacts with magnesium. Find its element name, mass number, overall charge, and electron shell arrangement.",
+      "steps": [
+       "8 protons means the element is still oxygen (atomic number 8), even with 10 neutrons (an isotope of oxygen).",
+       "Mass number = 8 protons + 10 neutrons = 18 (electrons have negligible mass).",
+       "With 8 positive protons and 8 + 2 = 10 negative electrons, the net charge is 8 − 10 = −2 (an oxide ion, O²⁻).",
+       "10 electrons fill shell 1 (2) and shell 2 (8), giving a full 2 · 8 noble-gas shell arrangement."
+      ],
+      "answer": "Oxide ion (¹⁸O²⁻), mass number 18, charge −2, shells 2 · 8."
+     }
+    ],
+    "mistakes": [
+     "Saying an atom with more neutrons is a different element. Neutrons change mass, never identity.",
+     "Counting electrons to name an element. Ions gain or lose electrons and stay the same element.",
+     "Thinking the atomic number counts everything in the nucleus. It counts protons only."
+    ],
+    "realWorld": "Smoke alarms, airport scanners and hospital tracers all rely on isotopes: same element, different neutron counts. Carbon-14 (6 protons, 8 neutrons) ticks away at a steady rate, which is how archaeologists date ancient wood and bone."
+   },
+   "practice": [
+    {
+     "question": "An atom has 26 protons. A second atom has 26 protons and 4 extra neutrons. Are they the same element, and what are they called?",
+     "answer": "Yes — both are iron (Fe), and they are isotopes of iron.",
+     "explanation": "Protons alone decide the element: 26 protons is always iron. Having different neutron counts (and therefore different mass numbers) makes them isotopes of the same element."
+    },
+    {
+     "question": "A particle has 11 protons, 12 neutrons, and 10 electrons. Name the element, its mass number, its overall charge, and its electron shell arrangement.",
+     "answer": "Sodium ion (Na⁺), mass number 23, charge +1, shells 2 · 8.",
+     "explanation": "11 protons means sodium. Mass number = 11 protons + 12 neutrons = 23. With 11 positive protons and 10 negative electrons, the net charge is +1, leaving a full 2 · 8 shell pattern."
+    },
+    {
+     "question": "Why does carbon-14 (6 protons, 8 neutrons) undergo the exact same chemical reactions as carbon-12 (6 protons, 6 neutrons)?",
+     "answer": "Both have 6 electrons in the same shell pattern (2 · 4), and chemical reactions only involve outer-shell electrons.",
+     "explanation": "Extra neutrons sit quietly in the nucleus and change mass, not the outer electron shell where bonding happens."
+    }
+   ],
+   "syllabusRefs": [
+    "7Cp.01 Know that all substances are made of atoms and that the type of atom is defined by its proton number."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/2-3-atomic-structure-and-symbolism",
+    "https://phet.colorado.edu/en/simulations/build-an-atom",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 2,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-08",
+   "strand": "Atoms and elements",
+   "title": "The periodic table is a map: position predicts personality",
+   "summary": "Columns are families that behave alike, so the map predicts reactions you have never seen.",
+   "prediction": "Fluorine and chlorine sit in the same column and are both reactive, poisonous gases. Bromine sits below them in that column. Before exploring: is bromine more likely a calm metal, or reactive and nasty like its family?",
+   "why": "The periodic table lines elements up in order of atomic number (proton count), starting a new row (period) each time a new electron shell begins filling. That simple rule creates a two-dimensional coordinate map where an element's row tells you how many electron shells it has, and its column (group) tells you how many electrons sit in its outermost valence shell.\n\nBecause chemical reactions are driven by outer-shell electrons, elements in the same vertical column behave like a family:\n• Group 1 (alkali metals: Li, Na, K) all have 1 outer electron (2·1, 2·8·1, 2·8·8·1). They eagerly lose that single electron to form +1 ions. Moving down Group 1, that lone electron sits in a shell further from the positive nucleus and is shielded by more inner shells, so it is lost even more easily — making potassium fizz far more fiercely on water than lithium.\n• Group 17 (halogens: F, Cl, Br) all have 7 outer electrons — one short of a full octet. They grab or share 1 electron. Moving down Group 17, Reactivity decreases because an incoming electron is further from the nucleus's pull.\n• Group 18 (noble gases: He, Ne, Ar) already have completely full outer shells (2, 2·8, 2·8·8), so they have no reason to gain, lose, or share electrons.\n\nReading horizontally across a period, each step adds one proton and one outer electron into the same shell, shifting character from shiny, conductive metals on the left, through semi-conducting metalloids (like B and Si), to non-metals on the right.",
+   "whenToUse": "Meeting a new element? Find its column first and ask what its family does; that is your best first prediction. Find its side of the table to judge metal or non-metal. Use position before memorising facts.",
+   "watchFor": "Families resemble each other; they are not identical. Reactivity trends run down a group (potassium out-fizzes sodium), and hydrogen, sitting alone at the top, plays by its own rules.",
+   "explainPrompt": "Using only the map, predict two things about rubidium (Rb, under potassium in Group 1) and say what evidence from its neighbours supports each prediction.",
+   "visual": {
+    "kind": "periodicGrid",
+    "elements": [
+     {
+      "symbol": "H",
+      "name": "Hydrogen",
+      "atomicNumber": 1,
+      "column": 1,
+      "row": 1,
+      "family": "Reactive non-metal",
+      "fact": "1 proton, the lightest element — most of the universe is made of it."
+     },
+     {
+      "symbol": "He",
+      "name": "Helium",
+      "atomicNumber": 2,
+      "column": 18,
+      "row": 1,
+      "family": "Noble gas",
+      "fact": "Balloons and airships; refuses to react with anything."
+     },
+     {
+      "symbol": "Li",
+      "name": "Lithium",
+      "atomicNumber": 3,
+      "column": 1,
+      "row": 2,
+      "family": "Alkali metal",
+      "fact": "Soft metal inside rechargeable batteries; fizzes on water."
+     },
+     {
+      "symbol": "Be",
+      "name": "Beryllium",
+      "atomicNumber": 4,
+      "column": 2,
+      "row": 2,
+      "family": "Alkaline earth metal",
+      "fact": "A light, stiff metal used in aerospace parts."
+     },
+     {
+      "symbol": "B",
+      "name": "Boron",
+      "atomicNumber": 5,
+      "column": 13,
+      "row": 2,
+      "family": "Metalloid",
+      "fact": "In oven-proof glass and detergents."
+     },
+     {
+      "symbol": "C",
+      "name": "Carbon",
+      "atomicNumber": 6,
+      "column": 14,
+      "row": 2,
+      "family": "Reactive non-metal",
+      "fact": "Pencil lead, diamond, and the backbone of every living thing."
+     },
+     {
+      "symbol": "N",
+      "name": "Nitrogen",
+      "atomicNumber": 7,
+      "column": 15,
+      "row": 2,
+      "family": "Reactive non-metal",
+      "fact": "78% of the air you breathe; fairly unreactive as a gas."
+     },
+     {
+      "symbol": "O",
+      "name": "Oxygen",
+      "atomicNumber": 8,
+      "column": 16,
+      "row": 2,
+      "family": "Reactive non-metal",
+      "fact": "The gas fires and lungs both need; joins with almost everything."
+     },
+     {
+      "symbol": "F",
+      "name": "Fluorine",
+      "atomicNumber": 9,
+      "column": 17,
+      "row": 2,
+      "family": "Halogen",
+      "fact": "The most reactive element of all. Extreme care needed."
+     },
+     {
+      "symbol": "Ne",
+      "name": "Neon",
+      "atomicNumber": 10,
+      "column": 18,
+      "row": 2,
+      "family": "Noble gas",
+      "fact": "Glows orange-red in signs; reacts with nothing."
+     },
+     {
+      "symbol": "Na",
+      "name": "Sodium",
+      "atomicNumber": 11,
+      "column": 1,
+      "row": 3,
+      "family": "Alkali metal",
+      "fact": "Fizzes violently on water; joined to chlorine it becomes table salt."
+     },
+     {
+      "symbol": "Mg",
+      "name": "Magnesium",
+      "atomicNumber": 12,
+      "column": 2,
+      "row": 3,
+      "family": "Alkaline earth metal",
+      "fact": "Burns with a blinding white flame."
+     },
+     {
+      "symbol": "Al",
+      "name": "Aluminium",
+      "atomicNumber": 13,
+      "column": 13,
+      "row": 3,
+      "family": "Post-transition metal",
+      "fact": "Planes and cans; protects itself with a thin oxide skin."
+     },
+     {
+      "symbol": "Si",
+      "name": "Silicon",
+      "atomicNumber": 14,
+      "column": 14,
+      "row": 3,
+      "family": "Metalloid",
+      "fact": "Beach sand and computer chips share this element."
+     },
+     {
+      "symbol": "P",
+      "name": "Phosphorus",
+      "atomicNumber": 15,
+      "column": 15,
+      "row": 3,
+      "family": "Reactive non-metal",
+      "fact": "Your DNA and bones need it; some forms catch fire in air."
+     },
+     {
+      "symbol": "S",
+      "name": "Sulfur",
+      "atomicNumber": 16,
+      "column": 16,
+      "row": 3,
+      "family": "Reactive non-metal",
+      "fact": "Yellow solid; its compounds give the rotten-egg smell."
+     },
+     {
+      "symbol": "Cl",
+      "name": "Chlorine",
+      "atomicNumber": 17,
+      "column": 17,
+      "row": 3,
+      "family": "Halogen",
+      "fact": "Poisonous green gas that disinfects pools at tiny doses."
+     },
+     {
+      "symbol": "Ar",
+      "name": "Argon",
+      "atomicNumber": 18,
+      "column": 18,
+      "row": 3,
+      "family": "Noble gas",
+      "fact": "Fills light bulbs precisely because it will not react."
+     },
+     {
+      "symbol": "K",
+      "name": "Potassium",
+      "atomicNumber": 19,
+      "column": 1,
+      "row": 4,
+      "family": "Alkali metal",
+      "fact": "Under sodium — even more violent with water, as the map predicts."
+     },
+     {
+      "symbol": "Ca",
+      "name": "Calcium",
+      "atomicNumber": 20,
+      "column": 2,
+      "row": 4,
+      "family": "Alkaline earth metal",
+      "fact": "Bones, teeth, chalk and limestone are built around it."
+     }
+    ],
+    "observation": "Tap down the Group 1 column (Li, Na, K), then across to the noble gases (He, Ne, Ar). What do column-mates share that neighbours in a row do not?"
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Predict what happens when potassium meets water, using sodium's behaviour.",
+      "steps": [
+       "Sodium (Group 1) fizzes violently on water, making hydrogen and an alkali.",
+       "Potassium is in the same family, one row down: same outer pattern, trend is more reactive downwards.",
+       "Prediction: potassium reacts even more violently, likely igniting the hydrogen."
+      ],
+      "answer": "A faster, fiercer version of sodium's reaction — which is what happens."
+     },
+     {
+      "problem": "Element X has atomic number 16. Without looking at a table, find its period, group, outer-shell electron count, and whether it is a metal or non-metal.",
+      "steps": [
+       "Fill electron shells using the 2 · 8 · 8 rule for 16 electrons: 2 in shell 1, 8 in shell 2, and 6 left in shell 3 (2 · 8 · 6).",
+       "Three occupied shells means Period 3 (row 3).",
+       "Six outer-shell electrons places it in Group 16 (two columns left of the noble gases, directly under oxygen).",
+       "Sitting on the right side with 6 outer electrons (needing 2 more to fill its shell), it is a reactive non-metal (sulfur, S)."
+      ],
+      "answer": "Period 3, Group 16, 6 outer electrons — a reactive non-metal (sulfur)."
+     }
+    ],
+    "mistakes": [
+     "Reading the table as alphabetical or by discovery date. Order is proton number; families are columns.",
+     "Expecting row neighbours to behave alike. Sodium (metal) sits near chlorine (gas); resemblance runs down columns.",
+     "Thinking noble gases are lazy versions of other gases. Their full outer shells leave them nothing to gain by reacting."
+    ],
+    "realWorld": "Mendeleev predicted 'eka-silicon' in 1871 — its density, melting point and compounds — from a gap under silicon. Germanium was found in 1886 matching the forecast almost exactly: the map predicting undiscovered country."
+   },
+   "practice": [
+    {
+     "question": "Astatine sits below iodine in Group 17 (the halogen column). Predict its outer-shell electron count and two chemical properties.",
+     "answer": "7 outer-shell electrons; a reactive non-metal that forms −1 halide ions with metals (and is less reactive and higher-melting than iodine above it).",
+     "explanation": "Every Group 17 halogen has 7 valence electrons, needs 1 electron to complete its shell, and follows the column trend toward darker, higher-melting solids down the group."
+    },
+    {
+     "question": "Why does potassium (2 · 8 · 8 · 1) react more violently with water than lithium (2 · 1), even though both have 1 outer electron?",
+     "answer": "Potassium's outer electron is in the 4th shell — further from the positive nucleus and shielded by three inner shells — so it is lost much more easily.",
+     "explanation": "Group 1 metals react by losing their single outer electron. Greater distance and inner-shell shielding weaken the nucleus's electrostatic grip."
+    },
+    {
+     "question": "Argon (18 protons) has a higher atomic number than chlorine (17 protons), yet chlorine is a reactive toxic gas while argon won't react at all. Why?",
+     "answer": "Argon's shells are completely full (2 · 8 · 8), whereas chlorine (2 · 8 · 7) is one electron short of a full outer shell.",
+     "explanation": "Reactivity comes from an incomplete outer shell, not from having more protons."
+    }
+   ],
+   "syllabusRefs": [
+    "8Cp.02 Use the periodic table's groups and periods to predict element behaviour."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/2-5-the-periodic-table",
+    "https://phet.colorado.edu/en/simulations/build-an-atom",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-02",
+   "strand": "Atoms and elements",
+   "title": "Element, compound or mixture? Ask how the atoms are joined",
+   "summary": "One kind of atom: element. Atoms joined: compound. Just mixed: mixture. Three boxes sort everything.",
+   "prediction": "Salt water, pure salt, and the oxygen in the air: one is an element, one a compound and one a mixture. Decide which is which before you try the sorting. Most people swap two of them; see if you can beat that.",
+   "why": "Chemists classify every sample of matter in the universe by looking at its particles and asking two questions: how many kinds of atom are present, and how are they joined?\n\n1. An element contains only one kind of atom (all with the same proton number). Pure copper wire is a lattice of copper atoms (Cu); oxygen gas consists of pairs of oxygen atoms bonded together (O₂). Even though O₂ is a molecule, both atoms are oxygen, so it is still a pure element.\n\n2. A compound forms when two or more different elements chemically bond in a fixed atomic ratio. Water (H₂O) is always 2 hydrogen atoms covalently bonded to 1 oxygen atom; sodium chloride (NaCl) is always a 1:1 lattice of Na⁺ and Cl⁻ ions. Chemical bonding completely transforms properties: iron (Fe) is a magnetic grey metal and sulfur (S) is a yellow powder, but heat them together and they react to form iron(II) sulfide (FeS), a black, non-magnetic solid that cannot be separated with a magnet.\n\n3. A mixture contains two or more substances (elements or compounds) stirred together without chemical bonds between them. Because no bonds formed, each component keeps its own chemical identity, the proportions can vary freely (weak vs strong salt water), and physical methods (filtration, evaporation, distillation, or a magnet) can separate them again.",
+   "whenToUse": "Use the join test on any substance: can it be separated by simple physical methods (filter, evaporate, magnet)? Mixture. Does it need a chemical reaction to split? Compound. Cannot be split into anything simpler at all? Element.",
+   "watchFor": "A compound is not a mixture just because it contains two elements. In a compound the atoms are joined, the recipe is fixed, and the properties are new. Also, one kind of molecule, like O2 or H2O, can still be pure; purity is about one substance, not one atom.",
+   "explainPrompt": "A classmate says orange juice is a compound because it has many ingredients. Explain, using the join test, why it is a mixture instead.",
+   "visual": {
+    "kind": "sortClassify",
+    "prompt": "Sort each substance: element, compound or mixture?",
+    "bins": [
+     "Element",
+     "Compound",
+     "Mixture"
+    ],
+    "items": [
+     {
+      "label": "Oxygen gas (O2)",
+      "bin": "Element",
+      "reason": "Only oxygen atoms, joined in pairs. One kind of atom means element."
+     },
+     {
+      "label": "Water (H2O)",
+      "bin": "Compound",
+      "reason": "Hydrogen and oxygen atoms chemically joined in a fixed 2-to-1 pattern."
+     },
+     {
+      "label": "Sea water",
+      "bin": "Mixture",
+      "reason": "Salt spread through water without joining; evaporate the water and the salt returns."
+     },
+     {
+      "label": "Iron nail",
+      "bin": "Element",
+      "reason": "Nothing but iron atoms."
+     },
+     {
+      "label": "Carbon dioxide (CO2)",
+      "bin": "Compound",
+      "reason": "One carbon atom joined to two oxygen atoms, always in that recipe."
+     },
+     {
+      "label": "Air",
+      "bin": "Mixture",
+      "reason": "Nitrogen, oxygen and other gases mixed together, never joined."
+     },
+     {
+      "label": "Sand and iron filings stirred together",
+      "bin": "Mixture",
+      "reason": "A magnet lifts the iron straight back out; nothing was joined."
+     }
+    ]
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Is bronze (copper with tin melted into it) an element, compound or mixture?",
+      "steps": [
+       "Ask the join question: are copper and tin atoms chemically joined in a fixed recipe?",
+       "No: the proportions can vary and the metals sit mixed as atoms. That is a mixture (called an alloy)."
+      ],
+      "answer": "A mixture (an alloy)."
+     },
+     {
+      "problem": "A dish contains grey iron filings and yellow sulfur powder stirred together. A second dish has the black solid formed after heating them strongly. How does a magnet test distinguish the two dishes at the particle level?",
+      "steps": [
+       "In the first dish, iron atoms and sulfur atoms are not bonded to each other — it is a mixture.",
+       "Iron keeps its metallic magnetism, so a magnet pulls the iron filings cleanly out of the yellow sulfur.",
+       "In the second dish, heating caused a chemical reaction forming iron(II) sulfide (FeS), where iron and sulfur ions are locked in a 1:1 compound with completely new non-magnetic properties."
+      ],
+      "answer": "Dish 1 is a mixture (magnet lifts the iron); Dish 2 is a compound, FeS (magnet has no effect)."
+     }
+    ],
+    "mistakes": [
+     "Calling anything with two ingredients a compound. Compounds need chemical joining, not just mixing.",
+     "Saying oxygen gas O2 is a compound because it has two atoms. Both atoms are oxygen, so it is an element.",
+     "Thinking mixtures always look mixed. Sea water and air look single and clear, but they are mixtures."
+    ],
+    "realWorld": "Recycling plants live on this distinction: magnets pull iron from crushed mixtures, filters clean water, and distillation separates fuels. None of those tricks can split a compound; that needs chemistry."
+   },
+   "practice": [
+    {
+     "question": "Sodium is a soft metal that catches fire on water, and chlorine is a choking green gas. Joined together, they make table salt (NaCl), which is safe to eat. What does this show about compounds?",
+     "answer": "A compound has completely new chemical and physical properties, different from the elements that made it.",
+     "explanation": "Forming chemical bonds (here, transferring an electron to make Na⁺ and Cl⁻ ions) creates a brand-new substance rather than a blend of the originals."
+    },
+    {
+     "question": "A cylinder contains pure nitrogen gas (N₂) and pure oxygen gas (O₂) stirred together. Is the gas inside an element, a compound, or a mixture?",
+     "answer": "A mixture of two elements.",
+     "explanation": "N₂ and O₂ are each elements (only one kind of atom in each molecule), and because they are not chemically bonded to one another in the cylinder, together they form a mixture."
+    },
+    {
+     "question": "How can you tell from a melting point measurement whether a clear colourless liquid is pure water (a compound) or salt water (a mixture)?",
+     "answer": "Pure water melts and boils at sharp, fixed temperatures (0 °C and 100 °C at 1 atm); a mixture melts and boils over a range of temperatures.",
+     "explanation": "A pure element or compound has a single fixed particle type and sharp phase-change temperatures, whereas dissolved impurities shift and broaden the melting and boiling range."
+    }
+   ],
+   "syllabusRefs": [
+    "7Cp.02 Distinguish elements, compounds and mixtures by their particle composition."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/1-2-phases-and-classification-of-matter",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-09",
+   "strand": "Atoms and elements",
+   "title": "Bonding is atoms filling their outer shells — by sharing or swapping electrons",
+   "summary": "Full outer shells are stable. Atoms share electrons (covalent) or hand them over (ionic) to get there.",
+   "prediction": "A sodium atom has 1 lonely outer electron; a chlorine atom has 7 of the 8 it 'wants'. If the two meet, what single electron move leaves both with full outer shells? Picture it before stepping through.",
+   "why": "Why do atoms bond at all? Look at Group 18 (the noble gases): their outermost electron shells are completely full, which is a low-energy, electrostatically stable arrangement. Other atoms reach that same full-shell stability in one of two ways, depending on whether metals or non-metals are meeting.\n\n1. Covalent bonding (sharing electrons — non-metal + non-metal): Non-metal atoms have nearly full outer shells and hold onto their electrons tightly. When two non-metals meet, neither will give up an electron, so their outer shells overlap and share one or more pairs of electrons. Both positive nuclei pull on the negatively charged shared pair between them — that mutual electrostatic tug-of-war is the covalent bond. Sharing builds discrete molecules (H₂, H₂O, CO₂, CH₄). Inside each molecule, the covalent bonds are very strong, but the intermolecular forces between neighbouring molecules are weak — which is why water and methane boil at low temperatures and do not conduct electricity.\n\n2. Ionic bonding (transferring electrons — metal + non-metal): Metals (like Na or Mg) have only 1–3 loosely held outer electrons; non-metals (like Cl or O) have 6–7 outer electrons. When they meet, the metal transfers its outer electron(s) completely to the non-metal. Both now have full noble-gas shells, but opposite electrical charges (Na⁺ and Cl⁻, or Mg²⁺ and O²⁻). Strong electrostatic attraction pulls billions of positive and negative ions into a rigid 3D giant ionic crystal lattice. Breaking that lattice takes huge thermal energy (so ionic solids have high melting points), and they conduct electricity only when melted or dissolved in water so the ions are free to move.",
+   "whenToUse": "Predict a compound's type from its ingredients: metal with non-metal suggests ionic; non-metals together suggest covalent molecules. Then predict: crystal or molecules? high or low melting point? conducts when?",
+   "watchFor": "Atoms do not literally 'want' anything; full shells are simply lower-energy, so changes that reach them tend to happen. Also, the strong covalent bonds are inside molecules — melting a covalent substance only overcomes the weak forces between molecules, which is why it melts so easily.",
+   "explainPrompt": "Explain why sodium chloride must be molten or dissolved to conduct electricity, while a copper wire conducts as a solid. Use 'ions' and 'move' in your answer.",
+   "visual": {
+    "kind": "stepSequence",
+    "steps": [
+     {
+      "title": "The outer-shell goal: full noble-gas shells",
+      "caption": "Fluorine (2·7) has 1 empty valence slot; neon (2·8) has a full octet and never reacts. Bonding is how incomplete shells get filled.",
+      "symbol": "checkmark.circle.fill"
+     },
+     {
+      "title": "Covalent sharing (non-metal + non-metal)",
+      "caption": "Two non-metal atoms overlap their outer shells and share a pair of electrons. Both positive nuclei attract the shared pair between them.",
+      "symbol": "link"
+     },
+     {
+      "title": "Ionic transfer (metal + non-metal)",
+      "caption": "Sodium (2·8·1) transfers 1 outer electron to chlorine (2·8·7), forming Na⁺ (2·8) and Cl⁻ (2·8·8) ions with full shells and opposite charges.",
+      "symbol": "arrow.left.arrow.right"
+     },
+     {
+      "title": "Structure sets properties: lattice vs molecules",
+      "caption": "Oppositely charged ions stack into high-melting ionic lattices (NaCl), while shared electron pairs form discrete covalent molecules (H₂O).",
+      "symbol": "square.grid.3x3.fill"
+     }
+    ]
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Magnesium (outer shell 2) meets oxygen (outer shell 6). Predict the ions and the formula of the compound.",
+      "steps": [
+       "Magnesium reaches a full shell by losing 2 electrons: Mg2+.",
+       "Oxygen reaches a full shell by gaining 2 electrons: O2−.",
+       "Charges balance one-to-one, so the formula is MgO."
+      ],
+      "answer": "Mg2+ and O2−, giving MgO."
+     },
+     {
+      "problem": "Calcium (Group 2, shells 2 · 8 · 8 · 2) reacts with fluorine (Group 17, shells 2 · 7). Predict the bonding type, the ion charges, and the chemical formula.",
+      "steps": [
+       "Calcium is a Group 2 metal (2 outer electrons to lose); fluorine is a Group 17 non-metal (needs 1 electron to fill its shell). Metal + non-metal means ionic bonding.",
+       "One calcium atom loses 2 electrons to become Ca²⁺ (2 · 8 · 8).",
+       "Each fluorine atom can only accept 1 electron to become F⁻ (2 · 8), so two fluorine atoms are needed to take calcium's 2 electrons.",
+       "Balancing the charges (+2 from one Ca²⁺ and −2 from two F⁻) gives the formula unit CaF₂."
+      ],
+      "answer": "Ionic bonding; Ca²⁺ and two F⁻ ions; formula CaF₂."
+     }
+    ],
+    "mistakes": [
+     "Drawing shared electrons as given away in covalent bonds. Sharing means both atoms count the pair.",
+     "Calling NaCl a molecule. It is a giant ionic lattice; NaCl is a ratio, not a molecule.",
+     "Saying ionic solids cannot conduct because they have no charges. They are full of charges — the ions just cannot move until molten or dissolved."
+    ],
+    "realWorld": "Your nerves fire by moving sodium and potassium ions across cell membranes, and rehydration drinks work because dissolved ionic compounds split into the ions (electrolytes) your body runs on."
+   },
+   "practice": [
+    {
+     "question": "Methane (CH₄) boils at −162 °C, while magnesium oxide (MgO) melts at 2852 °C. Use their bonding and structure to explain this huge difference.",
+     "answer": "CH₄ consists of small covalent molecules with weak forces between molecules; MgO is a giant 3D ionic lattice of Mg²⁺ and O²⁻ ions held by strong electrostatic attractions.",
+     "explanation": "Boiling methane does not break the C–H covalent bonds — it only separates one CH₄ molecule from the next. Melting MgO requires breaking strong ionic bonds throughout the entire crystal."
+    },
+    {
+     "question": "Solid sodium chloride (NaCl) does not conduct electricity, but when dissolved in water or melted it conducts well. Why?",
+     "answer": "In solid NaCl, the Na⁺ and Cl⁻ ions are locked in fixed lattice positions; melting or dissolving frees the charged ions to move and carry current.",
+     "explanation": "Electrical conduction requires mobile charged particles. Ionic solids already contain ions, but those ions can only move once the rigid lattice is broken."
+    },
+    {
+     "question": "Nitrogen (Group 15) and hydrogen (1 outer electron) form ammonia (NH₃). Is the bonding ionic or covalent, and how many electron pairs are shared?",
+     "answer": "Covalent bonding; 3 shared pairs of electrons (one pair with each of the 3 H atoms).",
+     "explanation": "Both nitrogen and hydrogen are non-metals. Nitrogen has 5 outer electrons and needs 3 more to reach 8, so it shares one electron pair with each of three hydrogen atoms."
+    }
+   ],
+   "syllabusRefs": [
+    "9Cp.01 Describe covalent and ionic bonding as routes to full outer electron shells."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/7-2-covalent-bonding",
+    "https://openstax.org/books/chemistry-2e/pages/7-3-ionic-bonding",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-06",
+   "strand": "Particles and states",
+   "title": "Formulas are atom headcounts: read the little numbers",
+   "summary": "H2O says two hydrogens, one oxygen. The small numbers count atoms; brackets multiply a whole group.",
+   "prediction": "Quick headcount before the steps: how many atoms in total inside one formula unit of Ca(OH)2? Keep your number. Almost everyone undercounts the brackets the first time.",
+   "why": "A chemical formula is a compact atomic blueprint. Every capital letter starts an element symbol (C is carbon, O is oxygen, whereas Co is cobalt), and the small subscript number immediately after a symbol counts how many atoms of that element sit inside one unit. When no subscript is written, the count is exactly 1. Thus H₂O means 2 H and 1 O (3 atoms total), while H₂O₂ (hydrogen peroxide) means 2 H and 2 O (4 atoms total).\n\nMany compounds contain polyatomic ions — tight-knit groups of bonded atoms that travel and react as a single charged packet, such as hydroxide (OH⁻), nitrate (NO₃⁻), sulfate (SO₄²⁻), carbonate (CO₃²⁻), and ammonium (NH₄⁺). When a formula needs more than one of these packets, chemists wrap the packet in brackets and place a subscript outside: in Ca(OH)₂, the subscript 2 multiplies every atom inside the bracket, giving 1 Ca + (2 × 1 O) + (2 × 1 H) = 5 atoms.\n\nFinally, in chemical equations, a full-size coefficient written in front of a formula (like the 3 in 3 CO₂ or 2 Mg(NO₃)₂) multiplies the entire formula unit from left to right. Reading subscripts, brackets, and coefficients in order gives you an infallible atom audit.",
+   "whenToUse": "Read any formula left to right: symbol, then its count. For brackets, count inside first, then multiply by the number outside. Finish by asking: does this headcount match the substance I meant?",
+   "watchFor": "The big number in front in an equation (like the 2 in 2H2O) is not part of the formula: it counts whole molecules. Subscripts belong to the substance; front numbers belong to the reaction. Never swap their jobs.",
+   "explainPrompt": "Explain why H2O, H2O2 and HO would be three different substances, even though all contain only hydrogen and oxygen.",
+   "visual": {
+    "kind": "stepSequence",
+    "steps": [
+     {
+      "title": "Subscripts count the symbol they touch",
+      "caption": "In H₂O, the small 2 applies only to H (2 hydrogens). O has no subscript, which means 1 oxygen: 3 atoms total.",
+      "symbol": "2.circle.fill"
+     },
+     {
+      "title": "Brackets multiply everything inside",
+      "caption": "In Ca(OH)₂, two (OH)⁻ packets flank one Ca²⁺: multiply inside the bracket by 2 to get 1 Ca, 2 O, and 2 H (5 atoms).",
+      "symbol": "parentheses"
+     },
+     {
+      "title": "Front coefficients scale whole molecules",
+      "caption": "3 CO₂ means three separate O=C=O molecules: 3 × 1 C = 3 carbons and 3 × 2 O = 6 oxygens (9 atoms total).",
+      "symbol": "number.square.fill"
+     },
+     {
+      "title": "Combine all three rules for any formula",
+      "caption": "In Mg(NO₃)₂, count 1 Mg + 2 × (1 N + 3 O) = 1 Mg, 2 N, and 6 O = 9 atoms per formula unit.",
+      "symbol": "sum"
+     }
+    ]
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Count every atom in one formula unit of Mg(NO3)2.",
+      "steps": [
+       "Mg has no number: 1 magnesium.",
+       "Inside the brackets: 1 nitrogen and 3 oxygen.",
+       "Multiply by the 2 outside: 2 nitrogen and 6 oxygen.",
+       "Total: 1 + 2 + 6 = 9 atoms."
+      ],
+      "answer": "9 atoms: 1 Mg, 2 N, 6 O."
+     },
+     {
+      "problem": "Count the number of each atom and the total atom count in 2 formula units of aluminium sulfate: 2 Al₂(SO₄)₃.",
+      "steps": [
+       "Start with one formula unit of Al₂(SO₄)₃: outside the bracket there are 2 Al atoms.",
+       "Inside the bracket (SO₄) there is 1 S and 4 O. Multiply by the subscript 3 outside the bracket: 3 S and 12 O per unit (2 + 3 + 12 = 17 atoms per unit).",
+       "Now multiply the whole unit by the front coefficient 2: 4 Al, 6 S, and 24 O.",
+       "Total atoms = 4 + 6 + 24 = 34 atoms."
+      ],
+      "answer": "4 Al, 6 S, 24 O (34 atoms total)."
+     }
+    ],
+    "mistakes": [
+     "Forgetting to multiply bracket contents, reading Ca(OH)2 as 1 O and 1 H.",
+     "Reading the front number of an equation into the formula, so 2H2O becomes 'H4O2'. It is two separate water molecules.",
+     "Treating a missing subscript as zero. No number means one."
+    ],
+    "realWorld": "Medicine doses depend on headcounts: paracetamol is C8H9NO2, and changing even one atom makes a different molecule with different effects. Pharmacists are professional atom counters."
+   },
+   "practice": [
+    {
+     "question": "How many oxygen atoms are there in 3 formula units of calcium hydroxide, 3 Ca(OH)₂?",
+     "answer": "6 oxygen atoms.",
+     "explanation": "One unit of Ca(OH)₂ has 2 × 1 = 2 oxygen atoms inside the brackets. Three units have 3 × 2 = 6 oxygen atoms."
+    },
+    {
+     "question": "A student writes 'Co₂' when they mean carbon dioxide (CO₂). Explain the chemical difference between CO₂ and Co₂.",
+     "answer": "CO₂ is one carbon atom bonded to two oxygen atoms; Co₂ would mean two atoms of the metal cobalt (Co).",
+     "explanation": "Capitalisation is strict in chemistry: a second capital letter starts a new element, whereas a lowercase letter continues the same element symbol."
+    },
+    {
+     "question": "How many total atoms are in one formula unit of ammonium carbonate, (NH₄)₂CO₃?",
+     "answer": "14 atoms (2 N, 8 H, 1 C, 3 O).",
+     "explanation": "The bracketed (NH₄) group is doubled (2 N + 8 H = 10 atoms), plus 1 C and 3 O outside the bracket = 14 atoms."
+    }
+   ],
+   "syllabusRefs": [
+    "8Cp.04 Interpret chemical formulas, including subscripts and brackets, as counts of atoms."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/2-6-chemical-formulas",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-03",
+   "strand": "Particles and states",
+   "title": "Heating does not melt particles; it makes them move more",
+   "summary": "Solid, liquid, gas: same particles, different dance. Heat changes the moves, never the particles.",
+   "prediction": "An ice cube melts in a warm room. Did the particles themselves get bigger, softer or break into pieces? Or is something else going on? Choose before you look, because your first guess is the one almost everyone gets wrong.",
+   "why": "Every state of matter is a tug-of-war between two things: the attractive forces pulling particles together and the thermal kinetic energy shaking them apart. The particles themselves — their size, shape, mass, and chemical formula — never change when a substance melts, boils, condenses, or freezes.\n\n• Solid: Attractive forces win. Particles are packed closely in a regular crystal lattice and can only vibrate about fixed positions. Because there are no gaps between particles, solids cannot be compressed, and because neighbours are locked in place, solids keep a fixed shape.\n• Liquid: At the melting point, vibrations become strong enough to loosen the rigid lattice. Particles still touch their neighbours (so liquids are virtually incompressible and keep a fixed volume), but they slide and tumble past one another, letting the liquid flow and take the shape of its container.\n• Gas: At the boiling point, particles have enough kinetic energy to break free of each other's attractions altogether. They dart rapidly in straight lines across large empty spaces, colliding elastically with each other and with the container walls (which creates gas pressure).\n\nNotice what happens during melting or boiling itself: if you heat melting ice or boiling water, the thermometer reading stays completely flat until the phase change finishes! That 'hidden' energy (latent heat) is being used to pull particles apart against their attractions rather than speeding them up.",
+   "whenToUse": "Explain any change of state in two moves: say what happens to particle movement, then what happens to the arrangement and spacing. Melting, boiling, condensing, freezing and spreading smells all yield to the same two moves.",
+   "watchFor": "Never draw particles getting bigger when heated, or melting like butter. Particles do not change size or split; the gaps and the movement change. Bubbles in boiling water are water vapour, not air and not hydrogen and oxygen.",
+   "explainPrompt": "Explain, using particles, why a sealed bag of crisps puffs up on a mountain or in an aeroplane, and why the crisps do not.",
+   "visual": {
+    "kind": "particleStates",
+    "substance": "Water",
+    "initialHeat": 10,
+    "observation": "Raise the heat slowly and watch the same particles. At what point do they stop being a pattern? When do they escape each other completely? Then cool back down."
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Why can you smell perfume seconds after someone sprays it across the room?",
+      "steps": [
+       "Perfume particles leave the liquid and join the air as a gas.",
+       "Gas particles move freely and randomly, spreading from where they are crowded to where they are few. This is diffusion.",
+       "When enough reach your nose, you smell it. No fan or wind is needed."
+      ],
+      "answer": "Gas particles diffuse across the room on their own."
+     },
+     {
+      "problem": "A beaker of crushed ice at −10 °C is heated steadily until it becomes steam at 110 °C. Why does the temperature pause at 0 °C and again at 100 °C even though the heater stays on?",
+      "steps": [
+       "Temperature measures the average kinetic energy (speed) of the particles.",
+       "At 0 °C (melting) and 100 °C (boiling), the incoming heat energy goes into overcoming the attractive forces holding the particles together (latent heat) rather than making them move faster.",
+       "Once all the ice has melted (or all the liquid has boiled into steam), added heat speeds the particles up again and the temperature rises."
+      ],
+      "answer": "At 0 °C and 100 °C, heat energy is used to break inter-particle attractions (latent heat) rather than raising particle speed."
+     }
+    ],
+    "mistakes": [
+     "Drawing particles swelling when heated. Only spacing and speed change.",
+     "Saying particles in a solid do not move. They vibrate constantly; more heat, bigger vibrations.",
+     "Calling boiling a chemical change. Steam is still H2O; no new substance forms."
+    ],
+    "realWorld": "A pressure cooker speeds up dinner using particle energy: trapped steam raises the pressure, so water boils hotter than 100 degrees C and food cooks faster. The particles are the same; they are just moving with more energy."
+   },
+   "practice": [
+    {
+     "question": "A sealed bottle of water is frozen into ice, melted back to liquid, and boiled into steam inside a rigid sealed chamber. When is the total mass smallest?",
+     "answer": "Never — the total mass stays identical in all three states.",
+     "explanation": "Melting, freezing, and boiling only change particle spacing and motion; the number and mass of H₂O molecules never change."
+    },
+    {
+     "question": "Why can you squash a sealed syringe full of air to half its volume with your thumb, but you cannot squash the same syringe when filled with water?",
+     "answer": "Air (a gas) has huge empty spaces between particles; water (a liquid) has particles already touching with almost no gaps to close.",
+     "explanation": "Compressing a gas pushes far-apart particles closer together; the particles themselves never shrink."
+    },
+    {
+     "question": "Why does wet laundry dry on a washing line on a breezy 18 °C day, even though water boils at 100 °C?",
+     "answer": "Evaporation happens at any temperature when the fastest-moving particles at the liquid surface have enough energy to escape into the air.",
+     "explanation": "Boiling happens throughout the whole liquid at 100 °C, whereas evaporation happens only at the surface whenever high-energy particles break free."
+    }
+   ],
+   "syllabusRefs": [
+    "7Cp.03 Use the particle model to explain states of matter and changes of state."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/1-2-phases-and-classification-of-matter",
+    "https://phet.colorado.edu/en/simulations/states-of-matter-basics",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 2,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-11",
+   "strand": "Particles and states",
+   "title": "Separating mixtures: find a difference and exploit it",
+   "summary": "Every separation trick is the same idea: pick a property where the parts differ, then use only that.",
+   "prediction": "You must rescue salt, sand and iron filings stirred into one pot — all three, separately, dry. Before sorting methods below, sketch your order of operations. The order matters more than the tricks.",
+   "why": "Because the components of a mixture are not chemically bonded to each other, every separation method works the same way: identify one physical property where the components differ, and pass the mixture through a barrier or process that sorts by that single property.\n\n1. Filtration (difference: particle size & solubility): An insoluble solid suspended in a liquid (like sand or chalk in water) has particles far larger than the microscopic pores in filter paper. Water molecules and dissolved ions pass straight through as the filtrate, while the insoluble solid stays behind as the residue.\n\n2. Evaporation & Crystallisation (difference: volatility / boiling point when you want the solid): Dissolved ions (Na⁺ and Cl⁻) are molecular-sized and pass right through filter paper. Heating drives off the volatile water solvent (boiling point 100 °C), leaving the high-melting ionic salt behind to form crystals.\n\n3. Simple & Fractional Distillation (difference: boiling points when you want the liquid): Boiling the solution and cooling the rising vapour in a condenser recovers the pure liquid distillate (desalinating sea water, or separating ethanol boiling at 78 °C from water boiling at 100 °C).\n\n4. Chromatography (difference: solubility in mobile solvent vs attraction to stationary paper): As solvent climbs paper, dyes that dissolve better in the moving solvent and cling less to the paper fibres travel higher up the strip, separating a single ink dot into distinct bands.",
+   "whenToUse": "For any mixture: list each part's state, solubility, boiling point, magnetism and particle size. Pick the difference that isolates one part cleanly, remove it, then repeat on what remains.",
+   "watchFor": "Filtering a solution does nothing: dissolved particles pass through filter paper. And evaporating a flammable liquid to dryness is a fire risk — distil, collecting the vapour, instead.",
+   "explainPrompt": "Plan, step by step, how to obtain pure dry salt and pure dry sand from salty sandy water, naming the difference each step exploits.",
+   "visual": {
+    "kind": "sortClassify",
+    "prompt": "Which first trick separates each mixture?",
+    "bins": [
+     "Filter it",
+     "Evaporate or distil it",
+     "Magnet or dissolve trick"
+    ],
+    "items": [
+     {
+      "label": "Sand stirred into water",
+      "bin": "Filter it",
+      "reason": "Sand is insoluble: water passes through the filter, sand stays."
+     },
+     {
+      "label": "Salt dissolved in water (you want the salt)",
+      "bin": "Evaporate or distil it",
+      "reason": "Dissolved salt passes any filter; boil the water away instead."
+     },
+     {
+      "label": "Iron filings mixed with sulfur powder",
+      "bin": "Magnet or dissolve trick",
+      "reason": "Only the iron is magnetic; a magnet lifts it straight out."
+     },
+     {
+      "label": "Pure water from sea water",
+      "bin": "Evaporate or distil it",
+      "reason": "Distillation boils the water off and condenses it, leaving salts behind."
+     },
+     {
+      "label": "Coffee grounds in brewed coffee",
+      "bin": "Filter it",
+      "reason": "Grounds are insoluble solid particles; the drink passes through."
+     },
+     {
+      "label": "Sugar and rice mixed dry",
+      "bin": "Magnet or dissolve trick",
+      "reason": "Dissolve the sugar in water (rice will not dissolve), filter out the rice, then evaporate to recover sugar."
+     }
+    ]
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Recover salt, sand and iron filings, each dry, from one mixed pot.",
+      "steps": [
+       "Magnet first, while dry: iron filings lift out. (Magnetism.)",
+       "Add water and stir: salt dissolves, sand does not. (Solubility.)",
+       "Filter: sand stays on the paper; rinse and dry it. (Particle size.)",
+       "Evaporate the filtrate: water leaves, dry salt remains. (Boiling point.)"
+      ],
+      "answer": "Magnet → dissolve → filter → evaporate, one difference per step."
+     },
+     {
+      "problem": "A student runs paper chromatography on a black ink spot using water. Dye A travels 6 cm up the paper, Dye B travels 2 cm, and the water front reaches 8 cm. Which dye is more soluble in water (or less attracted to the paper), and why must the baseline be drawn in pencil?",
+      "steps": [
+       "Compare distances relative to the 8 cm solvent front: Dye A moved 6/8 = 0.75 of the way (Rf = 0.75), while Dye B moved 2/8 = 0.25 (Rf = 0.25).",
+       "Dye A spent more time dissolved in the moving water and less time clinging to the paper fibres, so it travelled further.",
+       "Pencil lead is graphite (insoluble in water), so the baseline stays put instead of dissolving and running up the paper like pen ink would."
+      ],
+      "answer": "Dye A is more soluble in the mobile phase; pencil graphite is insoluble so it will not smudge the chromatogram."
+     }
+    ],
+    "mistakes": [
+     "Reaching for a filter for dissolved substances. Check solubility first.",
+     "Evaporating before filtering a sandy salt solution — you get hot salty sand. Order follows the differences.",
+     "Distilling when only the solid is wanted: evaporation is simpler and quicker."
+    ],
+    "realWorld": "Oil refineries are giant fractional-distillation columns exploiting boiling-point differences to pull petrol, diesel and bitumen from crude oil — the school bench trick at industrial scale."
+   },
+   "practice": [
+    {
+     "question": "Ink is a mixture of coloured dyes. Which property difference does paper chromatography exploit to separate them?",
+     "answer": "Each dye's balance between solubility in the moving solvent (mobile phase) and attraction to the paper fibres (stationary phase).",
+     "explanation": "Dyes that dissolve more readily in the solvent and cling less strongly to the paper travel further up the chromatogram."
+    },
+    {
+     "question": "Why does pouring salty water through fine filter paper fail to remove the salt?",
+     "answer": "Dissolved sodium and chloride ions are separated down to individual hydrated ions, which are thousands of times smaller than the pores in filter paper.",
+     "explanation": "Filtration only traps undissolved (insoluble) solid grains; dissolved solutes require evaporation or distillation."
+    },
+    {
+     "question": "Ethanol boils at 78 °C and water boils at 100 °C. How can you separate a mixture of ethanol and water and keep both liquids?",
+     "answer": "Fractional distillation: heat the mixture to around 78 °C so ethanol vapour boils off first and condenses in the cooler, leaving water behind.",
+     "explanation": "A 22 °C difference in boiling points allows the more volatile liquid (ethanol) to vaporise and condense first."
+    }
+   ],
+   "syllabusRefs": [
+    "7Cp.05 Choose separation methods (filtration, evaporation, distillation, magnetism, chromatography) from property differences."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/1-2-phases-and-classification-of-matter",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-04",
+   "strand": "Reactions",
+   "title": "In a reaction, atoms change partners; none are lost",
+   "summary": "Burning, rusting, fizzing: atoms rearrange into new substances, and every atom can be accounted for.",
+   "prediction": "You burn a 100 g log down to a small pile of ash that weighs far less. Has the missing mass been destroyed? Weigh in with a guess before the reveal, because the answer makes balancing equations feel obvious instead of annoying.",
+   "why": "In every chemical reaction — whether a match burning, iron rusting, or an antacid tablet fizzing — chemical bonds in the reactants break and new chemical bonds form in the products. Crucially, no atoms are ever created, destroyed, or transmuted into other elements. Every single atom present before the reaction is still present after the reaction, just bonded to new partners.\n\nBecause atoms keep their mass regardless of who they are bonded to, the total mass of all reactants equals the total mass of all products in any closed system (Lavoisier's Law of Conservation of Mass). Whenever a reaction on an open balance seems to lose or gain mass, look for an invisible gas crossing the boundary:\n• Apparent mass loss: Calcium carbonate + acid (CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂↑) fizzes away carbon dioxide gas into the room. Weigh the flask with a balloon sealing the neck and the reading never drops.\n• Apparent mass gain: Heating magnesium ribbon in air (2Mg + O₂ → 2MgO) pulls oxygen atoms out of the air and locks them into the white solid powder, so the ash weighs more than the starting metal.\n\nBalancing an equation is simply honest atomic bookkeeping. You may never alter a small subscript inside a formula (H₂O → H₂O₂ changes water into bleach!), so you balance by adjusting the front coefficients — scaling whole molecules until the left and right atom tallies match in the smallest whole numbers.",
+   "whenToUse": "To check or balance any equation, count atoms of each element on both sides. They must match. To explain any mass change in an open container, ask which gas joined from the air or escaped into it.",
+   "watchFor": "Never change the little subscript numbers inside a formula to make an equation balance: H2O2 is hydrogen peroxide, a different substance from water. Only change the big numbers in front, which say how many molecules take part.",
+   "explainPrompt": "A candle burns inside a sealed jar on a balance. Predict what the balance reads, and justify it by counting atoms.",
+   "visual": {
+    "kind": "equationBalance",
+    "terms": [
+     {
+      "formula": "H₂",
+      "side": "reactant",
+      "counts": {
+       "H": 2
+      }
+     },
+     {
+      "formula": "O₂",
+      "side": "reactant",
+      "counts": {
+       "O": 2
+      }
+     },
+     {
+      "formula": "H₂O",
+      "side": "product",
+      "counts": {
+       "H": 2,
+       "O": 1
+      }
+     }
+    ],
+    "observation": "Oxygen is short on the right. Which molecule count fixes oxygen without breaking hydrogen? Balance it, then double every number: still balanced — so why do chemists prefer the smaller set?"
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Balance this equation: CH4 + O2 -> CO2 + H2O (methane burning).",
+      "steps": [
+       "Count left: 1 C, 4 H, 2 O. Count right: 1 C, 2 H, 3 O.",
+       "Fix hydrogen: put 2 in front of H2O. Now right has 4 H and 4 O (2 in CO2, 2 in the waters).",
+       "Fix oxygen: put 2 in front of O2 on the left: 4 O. Check: 1 C, 4 H, 4 O on both sides."
+      ],
+      "answer": "CH4 + 2O2 -> CO2 + 2H2O."
+     },
+     {
+      "problem": "10.0 g of calcium carbonate (CaCO₃) is heated strongly in an open crucible until it decomposes completely into 5.6 g of calcium oxide (CaO) and carbon dioxide gas (CO₂). What mass of CO₂ gas escaped?",
+      "steps": [
+       "Write the reaction: CaCO₃(s) → CaO(s) + CO₂(g).",
+       "By conservation of mass, total mass of reactants = total mass of products.",
+       "10.0 g (CaCO₃) = 5.6 g (CaO) + mass of CO₂.",
+       "Mass of CO₂ = 10.0 − 5.6 = 4.4 g."
+      ],
+      "answer": "4.4 g of carbon dioxide gas escaped into the air."
+     }
+    ],
+    "mistakes": [
+     "Changing subscripts to balance (turning H2O into H2O2). That invents a different substance.",
+     "Saying mass disappeared when a gas escaped an open flask. The atoms left; they were not destroyed.",
+     "Forgetting that gases from the air, like oxygen, are reactants with mass too."
+    ],
+    "realWorld": "Your body runs the partner swap every second: glucose and oxygen rearrange into carbon dioxide and water, releasing energy. The CO2 you breathe out carries away carbon atoms that arrived in your food, which is literally how lost body mass leaves."
+   },
+   "practice": [
+    {
+     "question": "Magnesium ribbon burns in air to form white magnesium oxide powder (2Mg + O₂ → 2MgO). The white powder weighs more than the magnesium ribbon did. Where did the extra mass come from?",
+     "answer": "Oxygen atoms from the air bonded with the magnesium atoms to become part of the solid powder.",
+     "explanation": "On the initial weighing only the solid Mg was on the balance; after burning, the solid MgO includes the mass of the captured O₂."
+    },
+    {
+     "question": "Why is it wrong to balance H₂ + O₂ → H₂O by changing the right-hand side to H₂O₂?",
+     "answer": "Changing a subscript changes the substance itself: H₂O₂ is hydrogen peroxide, not water. Equations must be balanced using front coefficients only (2H₂ + O₂ → 2H₂O).",
+     "explanation": "Subscripts define how atoms are bonded in a specific compound; coefficients count how many molecules react."
+    },
+    {
+     "question": "Nitrogen and hydrogen react to make ammonia: N₂ + 3H₂ → 2NH₃. Count the N and H atoms on both sides to verify it is balanced.",
+     "answer": "Left: 2 N and 3 × 2 = 6 H. Right: 2 × 1 = 2 N and 2 × 3 = 6 H. Both sides match (2 N, 6 H).",
+     "explanation": "One N₂ molecule and three H₂ molecules rearrange their 8 total atoms into two NH₃ molecules."
+    }
+   ],
+   "syllabusRefs": [
+    "8Cr.01 Know that in a chemical reaction atoms are rearranged and mass is conserved."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
+    "https://phet.colorado.edu/en/simulations/balancing-chemical-equations",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 2,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18",
+   "computationalClaims": [
+    {
+     "excerpt": "Left: 2 N and 3 × 2 = 6 H. Right: 2 × 1 = 2 N and 2 × 3 = 6 H. Both sides match (2 N, 6 H).",
+     "left": "3*2",
+     "right": "2*3",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "aa82efbcb039fe3f148ab1912db7cadaaaf08fe02936388f2bb21c4dffd6bc31"
+    },
+    {
+     "excerpt": "Left: 2 N and 3 × 2 = 6 H. Right: 2 × 1 = 2 N and 2 × 3 = 6 H. Both sides match (2 N, 6 H).",
+     "left": "2",
+     "right": "2*1",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "aa82efbcb039fe3f148ab1912db7cadaaaf08fe02936388f2bb21c4dffd6bc31"
+    }
+   ]
+  },
+  {
+   "id": "CHE-12",
+   "strand": "Reactions",
+   "title": "Chemical or physical change? Ask whether a new substance appeared",
+   "summary": "Melting and dissolving rearrange; burning and rusting create. New substance is the deciding test.",
+   "prediction": "Salt dissolves in water and seems to vanish; an egg fries and cannot unfry. One of these is a chemical change. Which test — 'can I reverse it?' or 'did a new substance form?' — gives the right answer even for tricky cases? Predict, then sort.",
+   "why": "To tell a physical change from a chemical change (a chemical reaction), ignore how dramatic the change looks and ask one atomic question: did the bonds between atoms break and rearrange to make a brand-new substance?\n\nIn a physical change — melting, boiling, condensing, freezing, crushing, or dissolving — only the spacing and movement between particles change. When ice melts and boils into steam, every molecule is still H₂O. When table salt dissolves in warm water, Na⁺ and Cl⁻ ions separate and spread among water molecules, and evaporating the water brings the exact same salt crystals back.\n\nIn a chemical change, atoms break their existing chemical bonds and form new bonds with new partners, producing one or more new substances with different formulas and properties. Because breaking old bonds absorbs energy and forming new bonds releases energy, chemical reactions often reveal themselves through energy and matter clues:\n• Exothermic reactions release net energy to the surroundings as heat, light, or sound (burning fuels, hand warmers, magnesium in acid).\n• Endothermic reactions absorb net heat from the surroundings, making the vessel feel cold (instant sports cold packs, thermal decomposition, photosynthesis).\n• Other telltale clues: effervescence (bubbles of a new gas formed at room temperature, like CO₂ from vinegar + baking soda), a precipitate (an insoluble solid clouding a clear solution), or an unexpected colour change.",
+   "whenToUse": "Ask: could I get the starting substance back exactly as it was, with no new material involved? And is there evidence of a new substance (gas, colour, heat, new solid)? New substance means chemical, whatever it looks like.",
+   "watchFor": "Dissolving looks like disappearing but is physical: the particles spread out and come back unchanged. And boiling produces bubbles of the same substance as a gas — not the 'new gas' clue of a reaction.",
+   "explainPrompt": "A candle burning shows melted wax near the flame. Explain why one candle demonstrates both kinds of change at once.",
+   "visual": {
+    "kind": "sortClassify",
+    "prompt": "Chemical change (new substance) or physical change (rearranged only)?",
+    "bins": [
+     "Chemical change",
+     "Physical change"
+    ],
+    "items": [
+     {
+      "label": "Ice melting on a warm plate",
+      "bin": "Physical change",
+      "reason": "H2O before and after; only particle energy and arrangement changed."
+     },
+     {
+      "label": "An iron gate rusting orange",
+      "bin": "Chemical change",
+      "reason": "Iron + oxygen + water form rust, a new substance with new properties."
+     },
+     {
+      "label": "Salt dissolving in soup",
+      "bin": "Physical change",
+      "reason": "Salt particles spread through the water; evaporate and identical salt returns."
+     },
+     {
+      "label": "Wood burning to ash and smoke",
+      "bin": "Chemical change",
+      "reason": "Wood and oxygen rearrange into ash, carbon dioxide and water vapour."
+     },
+     {
+      "label": "A chocolate bar softening in the sun",
+      "bin": "Physical change",
+      "reason": "Melting only; it sets again unchanged when cooled."
+     },
+     {
+      "label": "Fizz when vinegar meets bicarbonate",
+      "bin": "Chemical change",
+      "reason": "A new gas, carbon dioxide, is made — it was in neither starting substance."
+     },
+     {
+      "label": "Crushing a sugar cube to powder",
+      "bin": "Physical change",
+      "reason": "Smaller pieces of the same substance; nothing new formed."
+     },
+     {
+      "label": "Milk going sour",
+      "bin": "Chemical change",
+      "reason": "Bacteria convert milk sugars into lactic acid — new substances, new taste."
+     }
+    ]
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "A glow stick is snapped and glows for hours, then fades. Chemical or physical?",
+      "steps": [
+       "Look for a new substance: snapping mixes two chemicals that react, releasing light without heat from a battery or flame.",
+       "The used liquids cannot be un-mixed into the originals by cooling or filtering; new substances formed."
+      ],
+      "answer": "A chemical change (the snap itself only breaks an inner tube — physical)."
+     },
+     {
+      "problem": "Two clear colourless solutions (lead nitrate and potassium iodide) are poured together, and a bright yellow solid immediately clouds the beaker. Is this a physical or chemical change, and what is the yellow solid called?",
+      "steps": [
+       "Ask the new-substance question: neither starting liquid was yellow or solid.",
+       "The dissolved ions swapped partners to form an insoluble new compound (lead iodide) that cannot stay dissolved.",
+       "An insoluble solid formed by a reaction between two solutions is called a precipitate — a classic proof of a chemical change."
+      ],
+      "answer": "A chemical change; the new insoluble yellow solid is a precipitate."
+     }
+    ],
+    "mistakes": [
+     "Calling dissolving a chemical change because the solid 'disappears'. It spreads out; it is recoverable unchanged.",
+     "Calling every colour change chemical. Mixing paint or diluting squash changes colour physically.",
+     "Using 'irreversible' as the definition. Tearing paper is irreversible and physical."
+    ],
+    "realWorld": "Cooking is applied chemical change: browning toast (the Maillard reaction) creates hundreds of new flavour substances, which is why toast can never become bread again — while melting butter on it stays physical."
+   },
+   "practice": [
+    {
+     "question": "When a candle burns, wax near the wick melts into a clear pool while wax vapour in the flame burns into carbon dioxide and water. Which part is physical and which is chemical?",
+     "answer": "Melting wax is a physical change (same wax molecules, liquid instead of solid); burning wax vapour in oxygen is a chemical change (new substances CO₂ and H₂O form).",
+     "explanation": "Liquid wax solidifies back into wax on cooling, whereas the carbon dioxide and water vapour released by the flame are completely new compounds."
+    },
+    {
+     "question": "Both boiling water and dropping magnesium into acid produce bubbles. Why is one a physical change and the other a chemical change?",
+     "answer": "Boiling water makes bubbles of steam (still H₂O); magnesium in acid reacts to make bubbles of a brand-new substance, hydrogen gas (H₂).",
+     "explanation": "Phase-change bubbles are the same substance turning into vapour on heating; reaction effervescence produces a new gas without needing to boil the liquid."
+    },
+    {
+     "question": "When ammonium nitrate dissolves in a medical cold pack, or when citric acid reacts with baking soda, the mixture gets noticeably colder. What word describes a change that absorbs heat from its surroundings?",
+     "answer": "Endothermic.",
+     "explanation": "Endothermic changes take in thermal energy from the surroundings (lowering the temperature), whereas exothermic changes release heat (raising the temperature)."
+    }
+   ],
+   "syllabusRefs": [
+    "7Cr.01 Distinguish chemical from physical changes by whether new substances form."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/1-3-physical-and-chemical-properties",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-05",
+   "strand": "Reactions",
+   "title": "pH is just a sour-to-soapy score from 0 to 14",
+   "summary": "Acids score below 7, alkalis above. Mix the right pair and they cancel towards neutral 7.",
+   "prediction": "Lemon juice, pure water and oven cleaner are tested with universal indicator. Put them in pH order before you sort anything. Then decide: what happens to the pH if you stir a little alkali into the lemon juice?",
+   "why": "What makes an acid acidic and an alkali alkaline at the particle level? In aqueous (water) solution:\n• Acids — like hydrochloric acid (HCl), sulfuric acid (H₂SO₄), nitric acid (HNO₃), and citric acid in lemons — release hydrogen ions, H⁺(aq).\n• Alkalis (soluble bases, like sodium hydroxide NaOH or soapy water) release hydroxide ions, OH⁻(aq).\n• Pure water at pH 7 contains tiny, exactly equal concentrations of H⁺(aq) and OH⁻(aq) ions, so neither dominates and the liquid is neutral.\n\nThe pH scale (from 0 to 14) is a logarithmic measure of how crowded those H⁺(aq) ions are:\n• Below pH 7 is acidic (more H⁺ than OH⁻), and smaller numbers mean higher H⁺ concentration.\n• Every single step down the pH scale multiplies the H⁺(aq) concentration by 10! Moving from pH 6 to pH 5 is 10× as acidic; from pH 6 to pH 4 is 10 × 10 = 100× as acidic; from pH 7 to pH 1 (stomach acid) is 10⁶ = 1,000,000× as acidic.\n• Above pH 7 is alkaline (more OH⁻ than H⁺), where each step up multiplies alkalinity by 10.\n\nBe careful not to confuse strong/weak with concentrated/dilute: a strong acid (like HCl) splits 100% into ions in water, while a weak acid (like vinegar's ethanoic acid) only partly ionises; concentration simply tells you how many grams of acid were dissolved per litre of water.",
+   "whenToUse": "Read any pH by distance from 7: below means acid, above means alkali, further means stronger. To tame an acid, add alkali a little at a time and watch the indicator walk towards green; the same in reverse for an alkali.",
+   "watchFor": "Strong is not the same as concentrated, and neither means the pH number is bigger for acids: a stronger acid has a smaller pH. Also, adding water dilutes an acid towards 7 but can never push it past 7 into alkaline territory.",
+   "explainPrompt": "Explain to a younger student why toothpaste (mildly alkaline) helps after sugary food, using the words acid, alkali and neutralise.",
+   "visual": {
+    "kind": "sortClassify",
+    "prompt": "Sort each everyday liquid by its pH character.",
+    "bins": [
+     "Acid (below 7)",
+     "Neutral (7)",
+     "Alkali (above 7)"
+    ],
+    "items": [
+     {
+      "label": "Lemon juice, about pH 2",
+      "bin": "Acid (below 7)",
+      "reason": "Well below 7, and it tastes sour, the classic acid clue."
+     },
+     {
+      "label": "Vinegar, about pH 3",
+      "bin": "Acid (below 7)",
+      "reason": "Acetic acid in water; below 7 means acid."
+     },
+     {
+      "label": "Pure water, pH 7",
+      "bin": "Neutral (7)",
+      "reason": "Exactly 7: neither acid nor alkali."
+     },
+     {
+      "label": "Salt solution, pH 7",
+      "bin": "Neutral (7)",
+      "reason": "Table salt dissolved in water stays at 7."
+     },
+     {
+      "label": "Soapy water, about pH 10",
+      "bin": "Alkali (above 7)",
+      "reason": "Above 7, and slippery to touch, the classic alkali clue."
+     },
+     {
+      "label": "Oven cleaner, about pH 13",
+      "bin": "Alkali (above 7)",
+      "reason": "Far above 7: a strong alkali, which is why it needs gloves."
+     }
+    ]
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "Universal indicator in a soil sample turns orange (about pH 4). A farmer wants pH 7. What should be added, and how is it done safely?",
+      "steps": [
+       "pH 4 is acidic, so an alkali is needed: lime is the usual choice.",
+       "Add a little at a time and re-test. Each addition moves the pH towards 7; too much overshoots into alkaline soil."
+      ],
+      "answer": "Add lime gradually, testing until the indicator reaches green (pH 7)."
+     },
+     {
+      "problem": "Cola has a pH of about 3, while black coffee has a pH of about 5. How many times higher is the hydrogen ion (H⁺) concentration in cola than in black coffee?",
+      "steps": [
+       "Find the number of pH steps between the two solutions: 5 − 3 = 2 steps.",
+       "Each step down toward 0 multiplies the H⁺(aq) ion concentration by 10.",
+       "For 2 steps, multiply 10 × 10 = 10² = 100."
+      ],
+      "answer": "Cola is 100 times as acidic (100× higher H⁺ concentration) as black coffee."
+     }
+    ],
+    "mistakes": [
+     "Saying a stronger acid has a higher pH. Stronger acid means lower pH.",
+     "Claiming dilution can turn an acid into an alkali. Water only pulls pH towards 7, never past it.",
+     "Treating neutralisation as disappearance. It makes new substances: a salt plus water."
+    ],
+    "realWorld": "Bee stings inject acid and wasp stings inject alkali, which is why the old remedies use opposite kitchen chemicals. The chemistry is the same cancellation you see with indicator in a test tube."
+   },
+   "practice": [
+    {
+     "question": "A solution at pH 2 is compared with one at pH 5. Which is more acidic, and by what factor?",
+     "answer": "The pH 2 solution is 1,000 times (10³×) as acidic as the pH 5 solution.",
+     "explanation": "From pH 5 down to pH 2 is 3 steps on the tenfold scale: 10 × 10 × 10 = 1,000."
+    },
+    {
+     "question": "A student adds 10 litres of pure water (pH 7) to a small beaker of hydrochloric acid (pH 1). Can the pH ever rise to pH 8?",
+     "answer": "No — diluting an acid with neutral water moves the pH closer to 7 (e.g. towards 5 or 6), but can never cross 7 to become alkaline.",
+     "explanation": "Pure water adds no excess OH⁻ ions, so the diluted solution always has slightly more H⁺ than OH⁻ and stays at or below pH 7."
+    },
+    {
+     "question": "Which ions make all aqueous acids acidic, and which ions make all aqueous alkalis alkaline?",
+     "answer": "Hydrogen ions, H⁺(aq), make solutions acidic; hydroxide ions, OH⁻(aq), make solutions alkaline.",
+     "explanation": "At pH 7, [H⁺] and [OH⁻] are equal; acids tip the balance toward H⁺ and alkalis tip it toward OH⁻."
+    }
+   ],
+   "syllabusRefs": [
+    "7Cr.02 Use the pH scale and indicators to classify solutions as acidic, neutral or alkaline."
+   ],
+   "sources": [
+    "https://phet.colorado.edu/en/simulations/ph-scale-basics",
+    "https://openstax.org/books/chemistry-2e/pages/14-2-ph-and-poh",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18",
+   "computationalClaims": [
+    {
+     "excerpt": "Cola is 100 times as acidic (100× higher H⁺ concentration) as black coffee.",
+     "left": "10^2",
+     "right": "100",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "2e69a41c8e3318f4b16091bcc897199ce6278f370c13c6be519d68820ff06d2d"
+    }
+   ]
+  },
+  {
+   "id": "CHE-10",
+   "strand": "Reactions",
+   "title": "Neutralisation is a walk to pH 7 — and you can overshoot",
+   "summary": "Add alkali to acid spoon by spoon and the pH climbs to 7; keep going and you have made an alkali.",
+   "prediction": "You are adding alkali to an acid, one spoon at a time, watching the indicator. You overshoot past green into blue. Without starting again, how do you get back to exactly neutral? Decide before driving the scale.",
+   "why": "When an acid and an alkali meet, their signature ions cancel each other in one of chemistry's cleanest reactions:\nH⁺(aq) + OH⁻(aq) → H₂O(l)\nThe acid's hydrogen ions and the alkali's hydroxide ions join to become neutral water molecules! Meanwhile, the remaining metal ion from the alkali/base and the negative ion from the acid partner up in solution to form a compound called a salt:\nAcid + Alkali (or Base) → Salt + Water\n\nEvery salt has a two-part name: the first word comes from the metal (e.g. sodium, magnesium, copper), and the second word comes from the acid used:\n• Hydrochloric acid (HCl) always makes a chloride (e.g. NaOH + HCl → NaCl + H₂O, sodium chloride).\n• Sulfuric acid (H₂SO₄) always makes a sulfate (e.g. magnesium sulfate, copper sulfate).\n• Nitric acid (HNO₃) always makes a nitrate (e.g. potassium nitrate, fertilising crops).\n(And if you neutralise an acid with a metal carbonate like limestone CaCO₃, you get Salt + Water + Carbon dioxide gas, which is why acid fizzes on chalk or marble!)\n\nBecause every spoon of alkali consumes a fixed amount of H⁺, the pH walks toward 7 step by step. Add one spoon too many past pH 7 and excess OH⁻ takes over — you have overshot into an alkali, and must walk back with small drops of acid.",
+   "whenToUse": "To neutralise anything: add the opposite in small steps, stir, test, repeat — smaller steps as you near 7. If you overshoot, walk back with the other side rather than starting over.",
+   "watchFor": "Reaching pH 7 in the middle of mixing does not mean both liquids vanished: they became a salt solution. And a single big pour cannot be fine-tuned; precision lives in small final additions.",
+   "explainPrompt": "Explain to a farmer, in plain words, why 'just dump in lots of lime to be safe' is worse than liming gradually with soil tests.",
+   "visual": {
+    "kind": "phScale",
+    "initialPH": 2,
+    "examples": [
+     {
+      "name": "Battery acid",
+      "ph": 0
+     },
+     {
+      "name": "Stomach acid",
+      "ph": 1
+     },
+     {
+      "name": "Lemon juice",
+      "ph": 2
+     },
+     {
+      "name": "Vinegar",
+      "ph": 3
+     },
+     {
+      "name": "Orange juice",
+      "ph": 4
+     },
+     {
+      "name": "Black coffee",
+      "ph": 5
+     },
+     {
+      "name": "Rainwater",
+      "ph": 6
+     },
+     {
+      "name": "Pure water",
+      "ph": 7
+     },
+     {
+      "name": "Sea water",
+      "ph": 8
+     },
+     {
+      "name": "Baking soda solution",
+      "ph": 9
+     },
+     {
+      "name": "Soapy water",
+      "ph": 10
+     },
+     {
+      "name": "Bleach",
+      "ph": 12
+     },
+     {
+      "name": "Oven cleaner",
+      "ph": 13
+     }
+    ],
+    "observation": "Start at lemon juice (pH 2). Add alkali one spoon at a time and stop exactly at 7. Then deliberately overshoot — and walk back with acid. How many spoons each way?"
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "25 cm3 of an alkali needs exactly 20 cm3 of acid to reach the indicator's endpoint. In a rush, 30 cm3 of acid goes in. Describe the mixture now, and the fix.",
+      "steps": [
+       "The first 20 cm3 neutralised the alkali, making a salt solution at pH 7.",
+       "The extra 10 cm3 of acid has nothing to cancel, so the mixture is now acidic.",
+       "Fix: add alkali gradually, testing, to walk the pH back to 7 — no need to restart."
+      ],
+      "answer": "An acidic salt solution; walk it back with small alkali additions."
+     },
+     {
+      "problem": "Name the salt and all other products formed when (a) potassium hydroxide reacts with nitric acid, and (b) calcium carbonate reacts with hydrochloric acid.",
+      "steps": [
+       "For (a): Potassium hydroxide is an alkali (metal = potassium) and nitric acid makes nitrates. Acid + alkali → salt + water, so the products are potassium nitrate and water.",
+       "For (b): Calcium carbonate is a metal carbonate (metal = calcium) and hydrochloric acid makes chlorides.",
+       "Acid + metal carbonate → salt + water + carbon dioxide, so the products are calcium chloride, water, and carbon dioxide gas."
+      ],
+      "answer": "(a) Potassium nitrate + water; (b) Calcium chloride + water + carbon dioxide."
+     }
+    ],
+    "mistakes": [
+     "Adding water to 'neutralise' an alkali overshoot. Dilution only drifts towards 7 slowly and never fixes which side you are on.",
+     "Assuming equal volumes neutralise. What matters is amounts of acid and alkali, which is why titration measures them.",
+     "Treating the endpoint as the liquids disappearing. A salt remains dissolved in the water formed."
+    ],
+    "realWorld": "Pharmacists and food makers titrate constantly: the acidity of vinegar, fruit juice and medicines is measured by exactly this spoon-by-spoon walk to an endpoint, scaled up to factory precision."
+   },
+   "practice": [
+    {
+     "question": "During a titration of acid with alkali, universal indicator flashes blue where each drop lands, then returns to green when swirled. What does this tell you, and how should you proceed?",
+     "answer": "You are right at the neutral pH 7 endpoint; each drop locally overshoots before mixing. Add single drops and swirl after every drop.",
+     "explanation": "Near pH 7, the tiny remaining amount of acid is neutralized by a single drop, so careful drop-by-drop addition prevents overshooting."
+    },
+    {
+     "question": "Which acid and which alkali would you react together to make pure crystals of magnesium sulfate (Epsom salt)?",
+     "answer": "Sulfuric acid (for the sulfate part) and magnesium hydroxide or magnesium oxide (for the magnesium part).",
+     "explanation": "The metal comes from the base/alkali (magnesium) and the acid anion comes from sulfuric acid (sulfate)."
+    },
+    {
+     "question": "Why does indigestion powder containing sodium hydrogen carbonate (baking soda) make you burp after neutralising stomach acid?",
+     "answer": "Carbonates and hydrogen carbonates neutralise acid to form salt + water + carbon dioxide gas (CO₂).",
+     "explanation": "Stomach acid (HCl) reacts with the carbonate to produce harmless CO₂ gas alongside sodium chloride and water."
+    }
+   ],
+   "syllabusRefs": [
+    "8Cr.03 Describe neutralisation as acid + alkali forming a salt and water, tracked with indicators."
+   ],
+   "sources": [
+    "https://phet.colorado.edu/en/simulations/ph-scale",
+    "https://openstax.org/books/chemistry-2e/pages/4-5-quantitative-chemical-analysis",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18"
+  },
+  {
+   "id": "CHE-07",
+   "strand": "Reactions",
+   "title": "Concentration is just how crowded the solute is",
+   "summary": "Same salt, less water, stronger solution. Concentration equals mass of solute divided by volume.",
+   "prediction": "Two beakers each hold 10 g of dissolved salt. One has 1 litre of water, the other only half a litre. Which tastes saltier, and is it twice as salty or just a bit? Commit to a number before sliding anything.",
+   "why": "When a solute (like salt or copper sulfate) dissolves in a solvent (like water) to form a solution, its particles spread evenly throughout the liquid volume. Concentration measures how crowded those solute particles are in a given space:\nConcentration (c) = Mass of solute (m) ÷ Volume of solution (V)\n\nIn chemistry, mass is measured in grams (g) and volume in cubic decimetres (dm³, where 1 dm³ = 1 litre = 1,000 cm³ = 1,000 mL), giving units of g/dm³. Look at what the fraction tells you:\n• Dissolve twice as much solute in the same volume (m doubles, V fixed) → particles are twice as crowded (c doubles).\n• Add water until the total volume doubles (m fixed, V doubles) → the exact same solute particles spread across twice the space (c halves).\n\nWhy does particle crowding matter so much in chemistry? Because reactions only happen when reactant particles collide! In a more concentrated solution, there are more reactant particles packed into every cubic centimetre, so collisions happen much more frequently and the reaction runs faster. And remember the golden unit conversion: if a question gives volume in cm³ or mL, divide by 1,000 to convert to dm³ before calculating g/dm³.",
+   "whenToUse": "To compare solutions, convert both to g/dm3: divide the solute mass by the volume. To make a solution twice as concentrated, double the solute or halve the volume; either move doubles the ratio.",
+   "watchFor": "Amount is not concentration. A bath of weak tea holds more tea particles in total than a thimble of strong tea, but the thimble is more concentrated. Always ask 'per how much volume?'",
+   "explainPrompt": "Explain, with the crowding idea, why concentrated acid eats through marble faster than dilute acid, even when both beakers contain acid left over at the end.",
+   "visual": {
+    "kind": "sliderRelation",
+    "formula": "concentration = mass of solute / volume",
+    "operation": "divide",
+    "inputs": [
+     {
+      "name": "mass of solute",
+      "symbol": "m",
+      "unit": "g",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "initial": 20
+     },
+     {
+      "name": "volume",
+      "symbol": "V",
+      "unit": "dm3",
+      "min": 0.5,
+      "max": 5,
+      "step": 0.5,
+      "initial": 2
+     }
+    ],
+    "output": {
+     "name": "concentration",
+     "symbol": "c",
+     "unit": "g/dm3"
+    },
+    "observation": "Halve the volume and watch the crowding. Then double the mass instead. Which move wins, or do they tie?"
+   },
+   "goDeeper": {
+    "workedExamples": [
+     {
+      "problem": "25 g of sugar dissolves in water to make 0.5 dm3 of solution. What is its concentration?",
+      "steps": [
+       "Use concentration = mass / volume.",
+       "25 / 0.5 = 50.",
+       "Units follow the numbers: grams per cubic decimetre."
+      ],
+      "answer": "50 g/dm3."
+     },
+     {
+      "problem": "15 g of copper sulfate is dissolved in water to make 250 cm³ of solution. Calculate its concentration in g/dm³.",
+      "steps": [
+       "Convert the volume from cm³ to dm³ by dividing by 1,000: 250 ÷ 1,000 = 0.25 dm³.",
+       "Apply concentration = mass ÷ volume: c = 15 g ÷ 0.25 dm³.",
+       "Dividing by 0.25 is the same as multiplying by 4: 15 × 4 = 60 g/dm³."
+      ],
+      "answer": "60 g/dm³."
+     }
+    ],
+    "mistakes": [
+     "Comparing solutions by solute mass alone, ignoring volume. 50 g in a bucket can be weaker than 5 g in a cup.",
+     "Dividing the wrong way (volume / mass). Crowding grows when mass grows, so mass belongs on top.",
+     "Saying a saturated solution 'cannot hold any mass'. It cannot dissolve more at that temperature; warming often lets it hold more."
+    ],
+    "realWorld": "Sports drinks are mixed to about the concentration of your blood so water moves into the body at the right rate. Too concentrated and they pull water the wrong way; the ratio, not the bottle size, decides."
+   },
+   "practice": [
+    {
+     "question": "Beaker A has 30 g of salt in 3 dm³ of solution. Beaker B has 12 g of salt in 1 dm³. Which is more concentrated?",
+     "answer": "Beaker B (12 g/dm³ vs 10 g/dm³ in Beaker A).",
+     "explanation": "Beaker A has c = 30 ÷ 3 = 10 g/dm³. Beaker B has c = 12 ÷ 1 = 12 g/dm³. Beaker B holds less total salt, but its particles are more crowded."
+    },
+    {
+     "question": "You have 0.5 dm³ of a 40 g/dm³ sugar solution. You add pure water until the total volume is 2.0 dm³. What is the new concentration, and what mass of sugar is inside?",
+     "answer": "New concentration = 10 g/dm³; total mass of sugar is still 20 g.",
+     "explanation": "Initial sugar mass = 40 g/dm³ × 0.5 dm³ = 20 g. Adding water does not change the sugar mass, so new concentration = 20 g ÷ 2.0 dm³ = 10 g/dm³ (volume quadrupled, so concentration quartered)."
+    },
+    {
+     "question": "A student dissolves 8 g of salt to make 200 cm³ of solution and writes '8 ÷ 200 = 0.04 g/dm³'. Spot the mistake and find the right concentration in g/dm³.",
+     "answer": "They forgot to convert 200 cm³ into dm³ (0.2 dm³). The true concentration is 8 ÷ 0.2 = 40 g/dm³.",
+     "explanation": "1 dm³ = 1,000 cm³, so 200 cm³ = 0.2 dm³. Dividing 8 g by 0.2 dm³ gives 40 g/dm³."
+    }
+   ],
+   "syllabusRefs": [
+    "8Cp.05 Describe concentration as mass of solute per volume of solution and compare solutions."
+   ],
+   "sources": [
+    "https://openstax.org/books/chemistry-2e/pages/3-3-molarity",
+    "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/"
+   ],
+   "version": 1,
+   "subject": "chemistry",
+   "rights": "Original Kymaia explanations, examples and interactive demonstrations. Curriculum alignment: Cambridge Lower Secondary Science framework. No copied text or third-party assets.",
+   "reviewedOn": "2026-10-18",
+   "computationalClaims": [
+    {
+     "excerpt": "50 g/dm3.",
+     "left": "25/0.5",
+     "right": "50",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "124b28c38b0589152fdf8656acb672e429ac350d667605991e8c122ec01d9e2f",
+     "leftUnit": "g/dm^3",
+     "rightUnit": "g/dm^3"
+    },
+    {
+     "excerpt": "Convert the volume from cm³ to dm³ by dividing by 1,000: 250 ÷ 1,000 = 0.25 dm³.",
+     "left": "250",
+     "right": "0.25",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "124b28c38b0589152fdf8656acb672e429ac350d667605991e8c122ec01d9e2f",
+     "leftUnit": "cm^3",
+     "rightUnit": "dm^3"
+    },
+    {
+     "excerpt": "60 g/dm³.",
+     "left": "15/0.25",
+     "right": "60",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "124b28c38b0589152fdf8656acb672e429ac350d667605991e8c122ec01d9e2f",
+     "leftUnit": "g/dm^3",
+     "rightUnit": "g/dm^3"
+    },
+    {
+     "excerpt": "Beaker A has c = 30 ÷ 3 = 10 g/dm³. Beaker B has c = 12 ÷ 1 = 12 g/dm³. Beaker B holds less total salt, but its particles are more crowded.",
+     "left": "30/3",
+     "right": "10",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "124b28c38b0589152fdf8656acb672e429ac350d667605991e8c122ec01d9e2f",
+     "leftUnit": "g/dm^3",
+     "rightUnit": "g/dm^3"
+    },
+    {
+     "excerpt": "Initial sugar mass = 40 g/dm³ × 0.5 dm³ = 20 g. Adding water does not change the sugar mass, so new concentration = 20 g ÷ 2.0 dm³ = 10 g/dm³ (volume quadrupled, so concentration quartered).",
+     "left": "40*0.5",
+     "right": "20",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "124b28c38b0589152fdf8656acb672e429ac350d667605991e8c122ec01d9e2f",
+     "leftUnit": "g/dm^3*dm^3",
+     "rightUnit": "g"
+    },
+    {
+     "excerpt": "New concentration = 10 g/dm³; total mass of sugar is still 20 g.",
+     "left": "20/2",
+     "right": "10",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "124b28c38b0589152fdf8656acb672e429ac350d667605991e8c122ec01d9e2f",
+     "leftUnit": "g/dm^3",
+     "rightUnit": "g/dm^3"
+    },
+    {
+     "excerpt": "They forgot to convert 200 cm³ into dm³ (0.2 dm³). The true concentration is 8 ÷ 0.2 = 40 g/dm³.",
+     "left": "8/0.2",
+     "right": "40",
+     "assumptions": "Given solution volumes and formulas; atom counts verify conservation, not reaction feasibility. pH comparison uses the stated dilute-solution approximation.",
+     "sourceFingerprint": "124b28c38b0589152fdf8656acb672e429ac350d667605991e8c122ec01d9e2f",
+     "leftUnit": "g/dm^3",
+     "rightUnit": "g/dm^3"
+    }
+   ]
+  }
+ ]
+}

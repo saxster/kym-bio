@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+echo "==> 1. Verifying KymBio seed pack compilation..."
+python3 ../source/export_kymbio_pack.py
+
+if command -v xcodegen >/dev/null 2>&1; then
+  echo "==> 1b. Generating KymBio.xcodeproj via xcodegen..."
+  xcodegen generate
+fi
+
+echo "==> 2. Checking design-language guardrails (no raw Color(hex:) or .regularMaterial in Features/)..."
+if grep -rn "Color(hex:" KymBio/Features/ >/dev/null 2>&1; then
+  echo "ERROR: Raw Color(hex:) found in KymBio/Features/. Use Color.kymaia* tokens."
+  exit 1
+fi
+if grep -rn "\.regularMaterial" KymBio/Features/ >/dev/null 2>&1; then
+  echo "ERROR: .regularMaterial found in KymBio/Features/. Use solid paper surfaces."
+  exit 1
+fi
+
+echo "==> 3. Running SwiftPM unit & domain tests..."
+swift test
+
+echo "==> 4. Verifying iPadOS + WidgetKit + ShareExtension Xcode build (KymBio-iPad)..."
+xcodebuild -project KymBio.xcodeproj -scheme KymBio-iPad -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build -quiet
+
+echo "==> KymBio doctor passed!"
