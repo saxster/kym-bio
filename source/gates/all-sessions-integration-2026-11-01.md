@@ -39,7 +39,8 @@ Final result: **pass**, exit 0. Receipts: `/tmp/bio-all-sessions-integration`.
 - All sixty revised Atlas stations in Chapters 1–15 rendered actual WebGL with
   changed controls and mobile checks; no browser errors. Chapters 6–10 also pass
   the regression requiring a redraw after the paused interaction window expires.
-- Whole-book live-figure/explorer smoke passed. Service worker ready; offline
+- The 47 non-Atlas live figures and three explorers passed the whole-book smoke.
+  Atlas coverage is the sixty revised stations above. Service worker ready; offline
   reload opened the book and a live figure; no console errors. The harness ignored
   two known software-GL performance notes.
 - All source hashes remained stable throughout the run. The root site is copied

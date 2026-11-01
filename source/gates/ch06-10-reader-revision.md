@@ -30,7 +30,7 @@ All five reports use the same frozen build, cache `lw-16fe6e9ae30f`. They cover 
 
 Reports: `/tmp/bio-ch06-10-complete/qa_ch06/report.json` through `qa_ch10/report.json`. The current repository entry point `index.html` was also rebuilt locally with all sixteen chapters; no publication or source push was performed.
 
-The one-command local runner completed successfully: `PASS: Chapters 6–10 build, domain, browser, print, WebGL and offline checks.` Whole-book smoke opened all 63 live widgets and the three additional explorers; the service worker became ready, offline reload opened the book and a live figure, and there were no console errors. Receipt: `/tmp/bio-ch06-10-complete/offline.log`.
+The one-command local runner completed successfully: `PASS: Chapters 6–10 build, domain, browser, print, WebGL and offline checks.` Whole-book smoke opened 47 non-Atlas live figures and the three additional explorers; the service worker became ready, offline reload opened the book and a live figure, and there were no console errors. Receipt: `/tmp/bio-ch06-10-complete/offline.log`.
 
 ## Actual WebGL and final delivery refinements
 
