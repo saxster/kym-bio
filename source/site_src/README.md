@@ -1,20 +1,31 @@
-# The Moving World
+# The Living World
 
-A physics book told as a historical adventure: how things move, push, shine and spin, and how we know. It was written for Kym, a 12-year-old in Mumbai, and anyone else is welcome to read it.
+Biology from the dry seed to the thinking brain. Sixteen chapters follow cells,
+food, energy, body systems, inheritance, evolution and ecosystems through the
+people and experiments that helped explain them. Written for Kym, aged 12, in
+Mumbai; anyone else is welcome to read it.
 
-**Read it here:** https://saxster.github.io/kym-physics/
+**Read the book:** https://saxster.github.io/kym-bio/
 
-The book is one web page, with:
-- Live figures you can play, turn in 3D or listen to.
-- Experiments with your own phone's sensors and your own slow-motion videos (nothing leaves your device).
-- Life stories of the people who worked it all out.
-- Explorers: Powers of Ten, the Sun, Earth and Moon, the ladder of light, and a map of where it all happened.
-- Questions to predict before you look, and kitchen-safe experiments.
+The book includes:
 
-It works offline once it has been opened, and it can be installed on a phone or tablet. Notes and progress are saved only in the reader's own browser.
+- Interactive figures and 3D models, alongside still illustrations.
+- Investigations, predictions, worked examples and explain-back questions.
+- Stories of discoveries and the people behind them.
+- Explorers for biological scale, cells, DNA and protein synthesis, and discovery locations.
 
-Facts were checked against sources, and the page "Where this book comes from" lists what each section drew on. Where a story is a legend or an anecdote, the book says so. If you find an error, please open an issue.
+The book works offline after an initial online visit and can be installed on a
+phone or tablet. Notes and progress stay in the reader's browser. Optional phone
+sensors and read-aloud tools start only when requested.
 
-Licensed CC BY-NC-SA 4.0 (see LICENSE.md). See NOTICES.md for the typefaces, software and map data, which keep their own licences.
+Sources, qualifications and model assumptions appear in the book. Local checks
+cover its calculations and software; household activities and understanding still
+benefit from trials with a reader. Please report any errors through this
+repository's issues.
 
-The book's source, and the playbook used to make it, are in the `source/` folder.
+The source, teaching playbook and local verification instructions are in
+`source/`. See [source/VERIFY.md](source/VERIFY.md). Publishing uses the prebuilt
+root files and `.nojekyll`, with GitHub Actions disabled. Verification runs locally.
+
+Licensed CC BY-NC-SA 4.0; see [LICENSE.md](LICENSE.md) and
+[NOTICES.md](NOTICES.md) for source, typeface, software and map credits.

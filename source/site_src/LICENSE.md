@@ -1,11 +1,11 @@
 # Licence
 
-**The Moving World** © 2026 Amar Sukhi, written for Kym.
+**The Living World** © 2026 Amar Sukhi, written for Kym.
 
 This book is licensed under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International** licence (CC BY-NC-SA 4.0): https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 You are free to read, share and adapt it, on three conditions:
-- **Attribution:** give credit and link back to https://saxster.github.io/kym-physics/
+- **Attribution:** give credit and link back to https://saxster.github.io/kym-bio/
 - **NonCommercial:** no commercial use
 - **ShareAlike:** share anything you build from it under the same licence
 
