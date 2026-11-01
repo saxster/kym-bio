@@ -17,7 +17,7 @@ def record(name,data,status,attempt):
  print(name,status,'MATCH' if result['matches_release'] else 'MISMATCH',flush=True);return result
 # Chromium reliably handles the large compressed HTML response and its fonts.
 with sync_playwright() as p:
- browser=p.chromium.launch();page=browser.new_page();response=page.goto(BASE,wait_until='load',timeout=180000);results.append(record('index.html',response.body(),response.status,1));browser.close()
+ browser=p.chromium.launch();page=browser.new_page(service_workers='block');response=page.goto(BASE,wait_until='domcontentloaded',timeout=180000);results.append(record('index.html',response.body(),response.status,1));browser.close()
 def fetch(name):
  for attempt in [1,2]:
   try:

@@ -49,6 +49,7 @@ profiles:
 .venv/bin/python source/tests/qa_published_site.py explorers --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py explorers-offline --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py explorers-webkit --out /tmp/bio-live
+.venv/bin/python source/tests/qa_explorer_lifecycle.py --out /tmp/bio-live/explorer-lifecycle
 ```
 
 The URL defaults to the published Biology book. Both scripts accept `--url` and
@@ -73,3 +74,7 @@ activates before the existing reader is finished. The Atlas browser checks also
 require one reused canvas across chapters and separate, unclipped visible labels.
 WebKit online checks block service-worker prefetch so they test rendering and
 interaction without a parallel whole-book download; offline coverage uses Chromium.
+
+The explorer lifecycle check opens the cell and DNA explorers twelve times in
+mobile WebKit, changes their selections, requires one shared canvas, and counts
+GPU buffer/texture creation and deletion to check bounded resources after close.

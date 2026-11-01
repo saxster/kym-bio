@@ -2,8 +2,9 @@
 // Shows the Watson-Crick B-DNA 3D double helix (10 base pairs per 3.4 nm turn), complementary
 // A=T and C≡G base pairing, ribosome codon stepping, and the sickle-cell GAG -> GTG point mutation.
 import App from './core.js';
+import { acquireRenderer, releaseRenderer, webglOK, clearGroup } from '../live/three_kit.js';
 import {
-  Scene, PerspectiveCamera, WebGLRenderer, HemisphereLight, DirectionalLight, AmbientLight,
+  Scene, PerspectiveCamera, HemisphereLight, DirectionalLight, AmbientLight,
   Group, Mesh, SphereGeometry, CylinderGeometry, MeshStandardMaterial, Color, Vector3, Quaternion, SRGBColorSpace,
 } from 'three';
 
@@ -35,16 +36,6 @@ const CODON6_MUTANT = {
   note: 'SICKLE-CELL MUTATION (HbS): Swapping A → T in DNA flips codon 6 from GAG (Glutamate) to GUG (Valine), creating a sticky hydrophobic patch that makes deoxygenated haemoglobin polymerise into rigid fibres!',
 };
 
-function canWebGL() {
-  try {
-    const c = document.createElement('canvas');
-    const gl = c.getContext('webgl2') || c.getContext('webgl');
-    gl?.getExtension('WEBGL_lose_context')?.loseContext();
-    return !!gl;
-  } catch (_) {
-    return false;
-  }
-}
 
 App.explorer('code', {
   mount(stage, { close }) {
@@ -96,9 +87,9 @@ App.explorer('code', {
     stage.replaceChildren(wrap);
 
     let renderer = null, scene = null, camera = null, root = null;
-    if (canWebGL()) {
+    if (webglOK()) {
       try {
-        renderer = new WebGLRenderer({ antialias: true, alpha: true });
+        renderer = acquireRenderer();
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         renderer.outputColorSpace = SRGBColorSpace;
         viewWrap.append(renderer.domElement);
@@ -127,12 +118,24 @@ App.explorer('code', {
         });
         viewWrap.addEventListener('pointerup', () => { drag = null; });
       } catch (_) {
+        if (renderer) releaseRenderer(renderer, renderer.getContext().isContextLost());
         renderer = null;
       }
     }
 
+    if (!renderer) {
+      viewWrap.removeAttribute('role');viewWrap.removeAttribute('aria-label');viewWrap.removeAttribute('tabindex');
+      spinBtn.hidden = true;
+      viewWrap.style.height = 'auto';viewWrap.style.padding = '1rem';
+      viewWrap.append(el('p', {}, '3D is unavailable in this browser. The evidence cards below still work. ',
+        el('a', { href: '#ch11' }, 'Open the DNA drawings in Chapter 11.')));
+    }
+
     const sphereGeo = new SphereGeometry(1, 24, 18);
     const cylGeo = new CylinderGeometry(1, 1, 1, 16);
+
+    // These primitives belong to this explorer session and survive rebuilds.
+    for (const geometry of [sphereGeo, cylGeo]) geometry.userData.shared = true;
 
     function mat(hex, opts = {}) {
       return new MeshStandardMaterial({ color: new Color(hex), roughness: 0.48, metalness: 0.05, ...opts });
@@ -140,7 +143,7 @@ App.explorer('code', {
 
     function buildHelix() {
       if (!root) return;
-      while (root.children.length) root.remove(root.children[0]);
+      clearGroup(root);
       const codons = activeCodons();
       const bases = codons.map(c => c.dna).join(''); // 21 bases = 7 codons
       const total = bases.length;
@@ -253,9 +256,12 @@ App.explorer('code', {
       if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
       if (renderer) {
-        renderer.dispose();
-        renderer.forceContextLoss?.();
+        if (root) clearGroup(root);
+        scene?.clear();
+        releaseRenderer(renderer, renderer.getContext().isContextLost());
+        renderer = null;root = null;scene = null;
       }
+      for (const geometry of [sphereGeo, cylGeo]) geometry.dispose();
     }
     return cleanup;
   },

@@ -158,7 +158,7 @@ try:
   context.add_init_script('''window.qaDraws=0;window.qaGLDraws=0;window.qaAtlasCanvases=new Set();for(const p of [WebGLRenderingContext.prototype,WebGL2RenderingContext.prototype])for(const k of ['drawElements','drawArrays','drawElementsInstanced','drawArraysInstanced']){const f=p[k];if(f)p[k]=function(...a){window.qaDraws++;window.qaGLDraws++;return f.apply(this,a)}}for(const k of ['fillRect','fillText','drawImage','stroke']){const f=CanvasRenderingContext2D.prototype[k];CanvasRenderingContext2D.prototype[k]=function(...a){window.qaDraws++;return f.apply(this,a)}}''')
   page.on('pageerror',lambda e:report['errors'].append(str(e)))
   page.on('console',lambda m:report['errors'].append(m.text) if m.type=='error' else None)
-  response=page.goto(args.url+'#ch0',wait_until='load',timeout=180000);check(response.status==200,'live HTTP 200');page.evaluate('document.fonts.ready');page.locator('.lab-open').first.wait_for(state='attached',timeout=45000)
+  response=page.goto(args.url if args.task=='offline' else args.url+'#ch0',wait_until='domcontentloaded' if args.task=='offline' else 'load',timeout=180000);check(response.status==200,'live HTTP 200');page.evaluate('document.fonts.ready');page.locator('.lab-open').first.wait_for(state='attached',timeout=45000)
   if args.task=='figures':
    for width in [360,390,768,1440]:
     page.set_viewport_size({'width':width,'height':390 if mobile and width>=800 else 844 if mobile else 900})
@@ -200,6 +200,10 @@ try:
      f.locator('.atlas-pages button').nth(station).tap();check(f.locator('.atlas-badge').inner_text().startswith('2D Schematic View'),f'no-WebGL {n}.{station} explicit fallback');check('NaN' not in f.locator('.live-readout').inner_text(),f'no-WebGL {n}.{station} readout')
     if n in [0,6,10]:snap(f,f'no-webgl-{n}')
     f.locator('.live-close').tap();check(f.locator('svg.fig').is_visible(),f'no-WebGL {n} restores still figure')
+   for name,ch in [('cell',2),('code',11)]:
+    mount=page.locator('[data-mount="'+name+'"]');sid=mount.evaluate('e=>e.closest("section").id');page.evaluate('s=>location.hash="#"+s',sid);mount.scroll_into_view_if_needed();mount.locator('.explore-open').click();mount.get_by_text('3D is unavailable',exact=False).wait_for();check('3D is unavailable' in mount.inner_text(),'no-WebGL '+name+' honest explanation');check(mount.get_by_role('link',name='Open the',exact=False).get_attribute('href')=='#ch'+str(ch),'no-WebGL '+name+' still-drawing link')
+    tabs=mount.get_by_role('tablist').first.get_by_role('tab');tabs.last.tap();check(tabs.last.get_attribute('aria-selected')=='true','no-WebGL '+name+' evidence selection works');mount.get_by_role('button',name='Close explorer',exact=True).click()
+
   check(not report['errors'],'no browser errors',details=report['errors']);browser.close()
 except Exception as e:
  report['exception']=str(e);traceback.print_exc();report['issues'].append({'exception':str(e)})

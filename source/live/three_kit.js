@@ -37,7 +37,7 @@ function destroyRenderer(renderer) {
   if (!context.isContextLost()) renderer.forceContextLoss();
   renderer.domElement.remove();
 }
-function acquireRenderer() {
+export function acquireRenderer() {
   let renderer = idleRenderer; idleRenderer = null;
   if (renderer?.getContext().isContextLost()) { destroyRenderer(renderer); renderer=null; }
   renderer ||= new WebGLRenderer({ antialias:true,alpha:true });
@@ -47,7 +47,7 @@ function acquireRenderer() {
   renderer.setClearColor(0x000000,0);
   return renderer;
 }
-function releaseRenderer(renderer, lost) {
+export function releaseRenderer(renderer, lost) {
   renderer.domElement.remove();
   if (lost || renderer.getContext().isContextLost() || idleRenderer) { destroyRenderer(renderer); return; }
   renderer.renderLists.dispose(); renderer.setRenderTarget(null);
