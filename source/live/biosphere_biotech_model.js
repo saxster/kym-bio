@@ -61,9 +61,10 @@ export function simulateTrophicEcosystem(params = {}) {
   const eff = transferEffPct / 100;
   const secondaryParam = clamp(params.secondaryParam ?? 50, 0, 100);
 
+  // Illustrative budget, not SGNP measurements. Loss shares are chosen for teaching.
   // Base solar input and producer net primary productivity (kJ m⁻² yr⁻¹)
   const solarIncidentKj = 1000000;
-  const producerEnergyKj = 10000; // 1% of incident light captured by chlorophyll
+  const producerEnergyKj = 10000; // assumed NPP equivalent to 1% of incident solar energy
 
   if (mode === 'sgnp_web') {
     // secondaryParam maps to chain length (3 to 5 levels) or producer scale
@@ -72,8 +73,8 @@ export function simulateTrophicEcosystem(params = {}) {
       '1. Producers (Karvi shrubs & grasses)',
       '2. Primary consumers (Spotted deer & insects)',
       '3. Secondary consumers (Leopards & frogs)',
-      '4. Tertiary consumers (Python / eagle)',
-      '5. Quaternary apex (Rare hyper-predator)',
+      '4. Tertiary consumers (Insect-eating bird predators)',
+      '5. Quaternary consumers (Illustrative level)',
     ];
     const baseBiomassKg = 1200; // dry mass kg ha⁻¹
     const baseNumbers = [50000, 1800, 90, 6, 0.4];
@@ -88,7 +89,7 @@ export function simulateTrophicEcosystem(params = {}) {
       const respHeatKj = roundTo(lossTotalKj * 0.6, 2);
       const egestExcretKj = roundTo(lossTotalKj * 0.25, 2);
       const uneatenDetritusKj = roundTo(lossTotalKj - respHeatKj - egestExcretKj, 2);
-      const viable = energyKj >= 8; // minimum viable population threshold (kJ m⁻² yr⁻¹)
+      // Population viability cannot be inferred from energy per area alone.
 
       levels.push({
         level: i + 1,
@@ -101,14 +102,12 @@ export function simulateTrophicEcosystem(params = {}) {
         respHeatKj,
         egestExcretKj,
         uneatenDetritusKj,
-        viable,
       });
     }
 
     const topActive = levels[chainLength - 1];
     const totalDecomposerInputKj = roundTo(
-      levels.slice(1, chainLength).reduce((acc, l) => acc + l.egestExcretKj + l.uneatenDetritusKj, 0) +
-        producerEnergyKj * (1 - eff) * 0.4,
+      levels.slice(1, chainLength).reduce((acc, l) => acc + l.egestExcretKj + l.uneatenDetritusKj, 0),
       1
     );
 
@@ -121,15 +120,14 @@ export function simulateTrophicEcosystem(params = {}) {
       producerEnergyKj,
       levels,
       topLevelEnergyKj: topActive.energyKj,
-      topLevelViable: topActive.viable,
       lossPerStepPct: roundTo(100 - transferEffPct, 1),
       totalDecomposerInputKj,
       pyramidNumbersInverted: false,
       pyramidBiomassUpright: true,
       pyramidEnergyUpright: true,
       summaryText:
-        `At ${transferEffPct}% transfer (${roundTo(100 - transferEffPct, 1)}% lost per step as respiration heat, faeces, urea, and uneaten parts), ` +
-        `Level ${chainLength} receives ${topActive.energyKj} kJ m⁻² yr⁻¹ (${topActive.viable ? 'viable population' : 'below viable predator threshold'}).`,
+        `Illustrative model: At ${transferEffPct}% transfer (${roundTo(100 - transferEffPct, 1)}% lost per step as respiration heat, faeces, urea, and uneaten parts), ` +
+        `Level ${chainLength} receives ${topActive.energyKj} kJ m⁻² yr⁻¹ of new biomass production; population viability also needs habitat area and consumer requirements.`,
     };
   }
 
@@ -142,7 +140,7 @@ export function simulateTrophicEcosystem(params = {}) {
     const e4 = roundTo(e3 * eff, 1);
 
     const b1 = roundTo(4500 * treeCount, 1);
-    const b2 = roundTo(b1 * eff * 0.3, 1);
+    const b2 = roundTo(b1 * eff * (4 / 15), 1);
     const b3 = roundTo(b2 * eff, 1);
     const b4 = roundTo(b3 * eff, 2);
 
@@ -161,21 +159,21 @@ export function simulateTrophicEcosystem(params = {}) {
       },
       {
         level: 2,
-        name: '2. Primary consumers (Fruit bats & caterpillars)',
+        name: '2. Primary consumers (Caterpillars)',
         numbers: n2,
         biomassKg: b2,
         energyKj: e2,
       },
       {
         level: 3,
-        name: '3. Secondary consumers (Mantids & tree frogs)',
+        name: '3. Secondary consumers (Insect-eating birds)',
         numbers: n3,
         biomassKg: b3,
         energyKj: e3,
       },
       {
         level: 4,
-        name: '4. Tertiary consumers (Serpent eagles & snakes)',
+        name: '4. Tertiary consumers (Bird-eating predators)',
         numbers: n4,
         biomassKg: b4,
         energyKj: e4,
@@ -194,7 +192,7 @@ export function simulateTrophicEcosystem(params = {}) {
       topLevelEnergyKj: e4,
       lossPerStepPct: roundTo(100 - transferEffPct, 1),
       summaryText:
-        `${n1} banyan tree(s) support ${n2} primary consumers: the pyramid of numbers is inverted at the base (${n1} < ${n2}), ` +
+        `Illustrative model: ${n1} banyan tree(s) support ${n2} primary consumers: the pyramid of numbers is inverted at the base (${n1} < ${n2}), ` +
         `while dry biomass (${b1} → ${b2} → ${b3} → ${b4} kg) and energy (${e1} → ${e2} → ${e3} → ${e4} kJ m⁻² yr⁻¹) remain strictly upright.`,
     };
   }
@@ -202,23 +200,23 @@ export function simulateTrophicEcosystem(params = {}) {
   if (mode === 'diet_efficiency') {
     const plantSharePct = clamp(secondaryParam, 0, 100);
     const meatSharePct = roundTo(100 - plantSharePct, 1);
-    const cropHarvestKj = 10000; // kJ m⁻² yr⁻¹ of edible crop energy harvested per hectare unit
+    const cropHarvestKj = 10000; // kJ in the same assumed harvested edible crop supply
 
     const cropDirectKj = roundTo(cropHarvestKj * (plantSharePct / 100), 1);
     const cropToLivestockKj = roundTo(cropHarvestKj * (meatSharePct / 100), 1);
 
-    // Livestock retains eff of the crop fed to it; human assimilates eff of what human eats
+    // One assumed feed-to-edible-food conversion; human digestion is outside this model.
     const livestockMeatKj = roundTo(cropToLivestockKj * eff, 1);
     const livestockLossKj = roundTo(cropToLivestockKj - livestockMeatKj, 1);
 
-    const humanEnergyFromPlantsKj = roundTo(cropDirectKj * eff, 1);
-    const humanEnergyFromMeatKj = roundTo(livestockMeatKj * eff, 1);
-    const totalHumanAssimilatedKj = roundTo(humanEnergyFromPlantsKj + humanEnergyFromMeatKj, 1);
+    const directFoodEnergyKj = cropDirectKj;
+    const animalFoodEnergyKj = livestockMeatKj;
+    const totalFoodSuppliedKj = roundTo(directFoodEnergyKj + animalFoodEnergyKj, 1);
 
-    const allMeatBaselineKj = roundTo(cropHarvestKj * eff * eff, 1);
-    const allPlantMaxKj = roundTo(cropHarvestKj * eff, 1);
-    const relativePeopleSupported = roundTo(totalHumanAssimilatedKj / Math.max(1, allMeatBaselineKj), 2);
-    const hectaresNeededForFixedPop = roundTo(allPlantMaxKj / Math.max(1, totalHumanAssimilatedKj), 2);
+    const allMeatBaselineKj = roundTo(cropHarvestKj * eff, 1);
+    const allPlantMaxKj = cropHarvestKj;
+    const relativeFoodEnergy = roundTo(totalFoodSuppliedKj / Math.max(1, allMeatBaselineKj), 2);
+    const cropInputMultiplier = roundTo(allPlantMaxKj / Math.max(1, totalFoodSuppliedKj), 2);
 
     return {
       mode,
@@ -231,16 +229,16 @@ export function simulateTrophicEcosystem(params = {}) {
       cropToLivestockKj,
       livestockMeatKj,
       livestockLossKj,
-      humanEnergyFromPlantsKj,
-      humanEnergyFromMeatKj,
-      totalHumanAssimilatedKj,
-      relativePeopleSupported,
-      hectaresNeededForFixedPop,
-      topLevelEnergyKj: totalHumanAssimilatedKj,
+      directFoodEnergyKj,
+      animalFoodEnergyKj,
+      totalFoodSuppliedKj,
+      relativeFoodEnergy,
+      cropInputMultiplier,
+      topLevelEnergyKj: totalFoodSuppliedKj,
       lossPerStepPct: roundTo(100 - transferEffPct, 1),
       summaryText:
-        `With ${plantSharePct}% plant crops and ${meatSharePct}% livestock meat at ${transferEffPct}% trophic efficiency, ` +
-        `humans receive ${totalHumanAssimilatedKj} kJ m⁻² yr⁻¹ (supporting ${relativePeopleSupported}× as many people per hectare as a 100% meat diet).`,
+        `Illustrative model: With ${plantSharePct}% plant crops and ${meatSharePct}% livestock meat at an assumed ${transferEffPct}% feed-to-edible-food conversion, ` +
+        `the same crop supply provides ${totalFoodSuppliedKj} kJ of food before human digestion (${relativeFoodEnergy}× the all-livestock-route food energy in this model). This does not predict actual people per hectare.`,
     };
   }
 
@@ -339,7 +337,7 @@ export function captureTrophicTrial(params = {}) {
     metricPrimary: sim.topLevelEnergyKj,
     metricSecondary:
       sim.mode === 'diet_efficiency'
-        ? sim.relativePeopleSupported
+        ? sim.relativeFoodEnergy
         : sim.mode === 'banyan_pyramid'
         ? sim.levels[1].numbers
         : sim.mode === 'sigmoid_population'
@@ -411,10 +409,10 @@ export function simulateNutrientCyclesEutrophication(params = {}) {
     const nodulePct = primaryLevel;
     const aerationPct = secondaryLevel;
 
-    // Biological N2 fixation by Rhizobium + free-living Azotobacter + lightning
+    // Illustrative biological fixation by Rhizobium and free-living microbes; lightning is a separate nitrate input.
     const rhizobiumFixationKgHa = roundTo((nodulePct / 100) * 180, 1);
-    const freeLivingAndLightningKgHa = roundTo(18 + (aerationPct / 100) * 14, 1);
-    const totalN2FixedKgHa = roundTo(rhizobiumFixationKgHa + freeLivingAndLightningKgHa, 1);
+    const freeLivingFixationKgHa = roundTo(18 + (aerationPct / 100) * 14, 1);
+    const totalN2FixedKgHa = roundTo(rhizobiumFixationKgHa + freeLivingFixationKgHa, 1);
 
     // Ammonification by decomposers (proteins & urea -> NH4+)
     const ammonificationKgHa = roundTo(45 + (nodulePct / 100) * 25, 1);
@@ -448,7 +446,7 @@ export function simulateNutrientCyclesEutrophication(params = {}) {
       nodulePct,
       aerationPct,
       rhizobiumFixationKgHa,
-      freeLivingAndLightningKgHa,
+      freeLivingFixationKgHa,
       totalN2FixedKgHa,
       ammonificationKgHa,
       nitrificationFluxKgHa,
@@ -464,7 +462,7 @@ export function simulateNutrientCyclesEutrophication(params = {}) {
       headlineMetric: soilNitrateMgKg,
       secondaryMetric: plantProteinYieldKgHa,
       summaryText:
-        `At ${nodulePct}% legume nodulation and ${aerationPct}% soil aeration: Rhizobium fixes ${rhizobiumFixationKgHa} kg N ha⁻¹ yr⁻¹, ` +
+        `Illustrative model: At ${nodulePct}% legume nodulation and ${aerationPct}% soil aeration: Rhizobium fixes ${rhizobiumFixationKgHa} kg N ha⁻¹ yr⁻¹, ` +
         `nitrifying bacteria produce ${nitrificationFluxKgHa} kg NO₃⁻-N ha⁻¹, denitrifiers lose ${denitrificationLossKgHa} kg N₂ ha⁻¹, ` +
         `yielding ${soilNitrateMgKg} mg kg⁻¹ soil NO₃⁻ and ${plantProteinYieldKgHa} kg ha⁻¹ plant protein.`,
     };
@@ -526,7 +524,7 @@ export function simulateNutrientCyclesEutrophication(params = {}) {
       headlineMetric: dissolvedOxygenMgL,
       secondaryMetric: fishSurvivalPct,
       summaryText:
-        `Runoff load ${runoffPct}% drives surface algal bloom (${surfaceAlgalBloomIdx}%), cutting underwater light to ${underwaterLightPct}%. ` +
+        `Illustrative model: Runoff load ${runoffPct}% drives surface algal bloom (${surfaceAlgalBloomIdx}%), cutting underwater light to ${underwaterLightPct}%. ` +
         `Decomposer bacteria respiring dead plants raise BOD to ${aerobicBacteriaBodMgL} mg L⁻¹, dropping dissolved O₂ to ${dissolvedOxygenMgL} mg L⁻¹ (${fishSurvivalPct}% fish survival).`,
     };
   }
@@ -577,7 +575,7 @@ export function simulateNutrientCyclesEutrophication(params = {}) {
       headlineMetric: atmosphericCo2Ppm,
       secondaryMetric: tempAnomalyC,
       summaryText:
-        `With ${emissionPct}% fossil/methane emissions and ${forestCoverPct}% forest sink, atmospheric CO₂ reaches ${atmosphericCo2Ppm} ppm ` +
+        `Illustrative model: With ${emissionPct}% fossil/methane emissions and ${forestCoverPct}% forest sink, atmospheric CO₂ reaches ${atmosphericCo2Ppm} ppm ` +
         `and CH₄ reaches ${methanePpb} ppb (enhanced greenhouse warming +${tempAnomalyC} °C).`,
     };
   }
@@ -694,52 +692,61 @@ export function simulateBiotechFermenterPlasmid(params = {}) {
     // primaryParam = Restriction enzyme sticky-end match & DNA ligase efficiency (0-100%)
     // secondaryParam = Fermenter culture duration scaled (0-100% -> 1 to 10 hours, doubling every 20 min)
     const ligaseEffPct = primaryParam;
-    const sameRestrictionEnzyme = ligaseEffPct >= 25;
+    // Presets combine assembly quality with an incompatible-end example below 25%.
+    // Explicit enzyme names permit independent compatible-end comparisons.
+    const insertEnzyme = params.insertEnzyme ?? 'EcoRI';
+    const vectorEnzyme = params.vectorEnzyme ?? (ligaseEffPct >= 25 ? 'EcoRI' : 'BamHI');
+    const compatiblePairs = new Set(['EcoRI/EcoRI', 'BamHI/BamHI', 'BglII/BglII', 'BamHI/BglII', 'BglII/BamHI']);
+    const endsCompatible = compatiblePairs.has(`${insertEnzyme}/${vectorEnzyme}`);
+    const intronFree = params.intronFree !== false;
+    const bacterialControls = params.bacterialControls !== false;
+    const productProcessed = params.productProcessed !== false;
+    const constructExpressible = endsCompatible && intronFree && bacterialControls;
     const cultureHours = roundTo(1 + (secondaryParam / 100) * 9, 1);
     const doublings = roundTo(cultureHours * 3, 1); // 20 min generation time = 3 doublings per hour
 
-    const stickyEndAnnealingPct = sameRestrictionEnzyme ? roundTo(ligaseEffPct * 0.96, 1) : 0;
-    const recombinantPlasmidPct = sameRestrictionEnzyme ? roundTo(ligaseEffPct * 0.88, 1) : 0;
+    const stickyEndAnnealingPct = endsCompatible ? roundTo(ligaseEffPct * 0.96, 1) : 0;
+    const recombinantPlasmidPct = endsCompatible ? roundTo(ligaseEffPct * 0.88, 1) : 0;
 
     // Cloned E. coli cells (×10⁶ mL⁻¹) capped by fermenter stationary density
     const rawFold = Math.pow(2, Math.min(doublings, 14));
-    const transformedCellDensity = sameRestrictionEnzyme
+    const transformedCellDensity = constructExpressible
       ? roundTo(Math.min(4800, 0.5 * (recombinantPlasmidPct / 100) * rawFold), 1)
       : 0;
-    const humanInsulinYieldMgL = roundTo(transformedCellDensity * 0.42, 1);
+    const humanInsulinYieldMgL = productProcessed ? roundTo(transformedCellDensity * 0.42, 1) : 0;
 
     const pipelineSteps = [
       {
         step: 1,
-        title: '1. Cut human insulin gene with restriction enzyme',
-        detail: 'Isolates human insulin gene with single-stranded sticky ends (e.g. AATT)',
+        title: '1. Prepare intron-free insulin coding DNA',
+        detail: 'Synthetic DNA or cDNA, with bacterial expression controls; cut to compatible ends',
         active: true,
       },
       {
         step: 2,
-        title: '2. Cut bacterial plasmid with SAME restriction enzyme',
-        detail: sameRestrictionEnzyme
-          ? 'Produces complementary sticky ends (TTAA) on open plasmid vector'
+        title: '2. Cut plasmid to compatible ends',
+        detail: endsCompatible
+          ? 'Compatible ends can pair; the same enzyme is one route'
           : 'Mismatched cut ends cannot base-pair with the human gene',
-        active: sameRestrictionEnzyme,
+        active: endsCompatible,
       },
       {
         step: 3,
         title: '3. Join with DNA ligase to form recombinant plasmid',
         detail: `Complementary sticky ends base-pair; DNA ligase seals sugar-phosphate backbone (${recombinantPlasmidPct}% yield)`,
-        active: sameRestrictionEnzyme,
+        active: endsCompatible,
       },
       {
         step: 4,
         title: '4. Insert recombinant plasmid into host bacteria',
         detail: 'E. coli cells take up the recombinant plasmid vector via transformation',
-        active: sameRestrictionEnzyme,
+        active: endsCompatible,
       },
       {
         step: 5,
         title: '5. Clone in industrial fermenter & purify insulin',
-        detail: `${doublings} binary fission doublings (${cultureHours} h) synthesize ${humanInsulinYieldMgL} mg L⁻¹ human insulin`,
-        active: sameRestrictionEnzyme,
+        detail: `Idealised growth (${cultureHours} h), then processing, folding and purification; ${humanInsulinYieldMgL} mg L⁻¹ model yield`,
+        active: endsCompatible,
       },
     ];
 
@@ -748,7 +755,11 @@ export function simulateBiotechFermenterPlasmid(params = {}) {
       primaryParam,
       secondaryParam,
       ligaseEffPct,
-      sameRestrictionEnzyme,
+      endsCompatible,
+      intronFree,
+      bacterialControls,
+      productProcessed,
+      constructExpressible,
       cultureHours,
       doublings,
       stickyEndAnnealingPct,
@@ -758,10 +769,9 @@ export function simulateBiotechFermenterPlasmid(params = {}) {
       pipelineSteps,
       headlineMetric: humanInsulinYieldMgL,
       secondaryMetric: recombinantPlasmidPct,
-      summaryText: sameRestrictionEnzyme
-        ? `Cutting both human DNA and bacterial plasmid with the SAME restriction enzyme + ${ligaseEffPct}% DNA ligase activity yields ${recombinantPlasmidPct}% recombinant plasmids; ` +
-          `${cultureHours} h (${doublings} doublings) in the fermenter produces ${humanInsulinYieldMgL} mg L⁻¹ pure human insulin.`
-        : `Without matching restriction enzyme sticky ends and DNA ligase (${ligaseEffPct}%), complementary base pairing fails and 0 mg L⁻¹ recombinant human insulin is produced.`,
+      summaryText: constructExpressible && productProcessed
+        ? `Illustrative insulin model: compatible ends (${insertEnzyme}/${vectorEnzyme}), intron-free coding DNA, bacterial controls and ligase give ${recombinantPlasmidPct}% recombinant plasmids; ${cultureHours} h idealised growth followed by processing/purification gives ${humanInsulinYieldMgL} mg L⁻¹. Mature insulin has two chains.`
+        : `Illustrative insulin model: incompatible ends, unusable coding DNA, missing expression controls or omitted product processing prevent a finished insulin product (${humanInsulinYieldMgL} mg L⁻¹).`,
     };
   }
 
@@ -803,7 +813,7 @@ export function simulateBiotechFermenterPlasmid(params = {}) {
       headlineMetric: productYieldGL,
       secondaryMetric: dissolvedO2Pct,
       summaryText:
-        `At ${tempC} °C (${denatured ? 'enzymes denatured above optimum' : 'active enzyme conformation'}) and ${controlPct}% sparger/pH/stirrer control ` +
+        `Illustrative model: At ${tempC} °C (${denatured ? 'enzymes denatured above optimum' : 'active enzyme conformation'}) and ${controlPct}% sparger/pH/stirrer control ` +
         `(pH ${culturePh}, ${dissolvedO2Pct}% dissolved O₂, cooling jacket removing ${coolingHeatRemovedKw} kW heat), fermenter yield is ${productYieldGL} g L⁻¹.`,
     };
   }
@@ -843,7 +853,8 @@ export function simulateBiotechFermenterPlasmid(params = {}) {
         : 180 * Math.exp(-Math.pow((tempC - 35) / 6.0, 2)) * (0.5 + 0.5 * (enzymeLoadingPct / 100)),
       1
     );
-    const ethanolRemainingInBreadPct = tempC >= 65 ? 0 : roundTo(clamp(1.8 * (1 - Math.max(0, tempC - 35) / 30), 0, 1.8), 2);
+    // Baking time, moisture and loaf geometry are absent: no residual ethanol prediction.
+    const ethanolRemainingInBreadPct = null;
 
     return {
       mode,
@@ -861,9 +872,9 @@ export function simulateBiotechFermenterPlasmid(params = {}) {
       headlineMetric: washStainRemovalPct,
       secondaryMetric: lactoseHydrolysedPct,
       summaryText:
-        `At ${tempC} °C and ${enzymeLoadingPct}% enzyme loading: biological washing powder removes ${washStainRemovalPct}% of protein/lipid stains, ` +
+        `Illustrative model: At ${tempC} °C and ${enzymeLoadingPct}% enzyme loading: biological washing powder removes ${washStainRemovalPct}% of protein/lipid stains, ` +
         `pectinase yields ${pectinaseYieldMl} mL clarified juice (${juiceClarityPct}% clarity), immobilised lactase hydrolyses ${lactoseHydrolysedPct}% of lactose into glucose + galactose, ` +
-        `and yeast evolves ${yeastDoughCo2Cm3} cm³ CO₂ (${ethanolRemainingInBreadPct}% ethanol left after baking heat).`,
+        `and yeast evolves ${yeastDoughCo2Cm3} cm³ CO₂. Baking removes much ethanol; the remaining amount cannot be inferred from this temperature control alone.`,
     };
   }
 
@@ -890,19 +901,19 @@ export function simulateBiotechFermenterPlasmid(params = {}) {
       dimension: 'Gene source',
       selectiveBreeding: 'Same species / cross-fertile relatives only',
       geneticModification: 'Any species across kingdoms (transgenic)',
-      crisprEditing: 'Exact target base/gene via guide RNA + Cas9',
+      crisprEditing: 'Guide targets suitable DNA near a PAM',
     },
     {
       dimension: 'Genetic precision',
       selectiveBreeding: 'Thousands of linked alleles shuffled together',
-      geneticModification: 'Single isolated target gene inserted via vector',
-      crisprEditing: 'Single locus cut at PAM address (<1% off-target)',
+      geneticModification: 'Chosen insertion, deletion or base changes; test outcome',
+      crisprEditing: 'Targeted cut, then repair; check unintended changes',
     },
     {
       dimension: 'Timescale',
       selectiveBreeding: 'Many generations (years or decades)',
-      geneticModification: 'Single laboratory generation + cloning',
-      crisprEditing: 'Single generation direct edit',
+      geneticModification: 'Initial modification, then selection and testing',
+      crisprEditing: 'Editing, repair, selection and validation',
     },
   ];
 

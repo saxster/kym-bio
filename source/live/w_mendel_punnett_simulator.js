@@ -24,7 +24,7 @@ Live.register(
       api,
       640,
       360,
-      'Mendel monohybrid Punnett square simulator, test-cross verifier, enzyme dose ledger, and 1866 Brno pea sample convergence lab'
+      'Mendel monohybrid Punnett square simulator, test-cross verifier, working allele copy ledger, and 1866 Brno pea sample convergence lab'
     );
 
     const say = api.readout();
@@ -252,7 +252,7 @@ Live.register(
               color: bCol,
               align: 'center',
             });
-            draw.text(ctx, `Enzyme: ${cell.enzymeDosePct}% dose`, cx + 48, gy + 52, {
+            draw.text(ctx, `${sim.trait.dominantSymbol} copies: ${cell.workingAlleleCopies}`, cx + 48, gy + 52, {
               size: 8.0,
               color: c.muted,
               align: 'center',
@@ -386,7 +386,7 @@ Live.register(
 
         const rightRows = [
           ['Sample size (N)', `${sim.empirical.sampleSize} offspring`],
-          ['Observed ratio', sim.empirical.observedRatioText],
+          [sim.empirical.sampleKind === 'historical' ? 'Observed ratio' : sim.empirical.sampleKind === 'illustrative' ? 'Example ratio' : 'Expected ratio', sim.empirical.observedRatioText],
           ['Theoretical ratio', sim.theoreticalPhenotypeRatio],
           [
             'Mendel 1866 trait count',
@@ -451,7 +451,7 @@ Live.register(
         .join(' | ');
 
       say(
-        `${sim.mode.label} · ${sim.trait.character} (${sim.crossCode}): theoretical genotype ratio ${sim.theoreticalGenotypeRatio} and phenotype ratio ${sim.theoreticalPhenotypeRatio} (${sim.theoreticalDominantPct}% ${sim.trait.dominantTrait} : ${sim.theoreticalRecessivePct}% ${sim.trait.recessiveTrait}). At sample ${sim.sampleMeta.shortLabel} (N = ${sim.empirical.sampleSize}), observed count is ${sim.empirical.dominantCount} dominant : ${sim.empirical.recessiveCount} recessive (${sim.empirical.observedRatioText}). ${sim.trait.geneMechanism} ${cmpText} Saved: ${history || 'none'}.`
+        `${sim.mode.label} · ${sim.trait.character} (${sim.crossCode}): theoretical genotype ratio ${sim.theoreticalGenotypeRatio} and phenotype ratio ${sim.theoreticalPhenotypeRatio} (${sim.theoreticalDominantPct}% ${sim.trait.dominantTrait} : ${sim.theoreticalRecessivePct}% ${sim.trait.recessiveTrait}). At sample ${sim.sampleMeta.shortLabel} (N = ${sim.empirical.sampleSize}), ${sim.empirical.sampleKind} count is ${sim.empirical.dominantCount} dominant : ${sim.empirical.recessiveCount} recessive (${sim.empirical.observedRatioText}). ${sim.trait.geneMechanism} One working allele can be sufficient; copy counts do not measure enzyme percentages. Preset illustrative samples are not fresh random tosses and do not guarantee convergence on every run. ${cmpText} Saved: ${history || 'none'}.`
       );
     }
 

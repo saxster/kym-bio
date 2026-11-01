@@ -485,7 +485,7 @@ export const DIVISION_MODE_PRESETS = Object.freeze([
     defaultOrganismPreset: 1,
     nuclearDivisions: 1,
     daughterCellCount: 2,
-    geneticIdentity: 'Genetically identical to each other and to the parent cell (clones)',
+    geneticIdentity: 'Same inherited chromosome copies in this model; new mutations are not represented',
     biologicalRoles: 'Growth, repair of damaged tissues, replacement of worn-out cells, and asexual reproduction',
   }),
   Object.freeze({
@@ -509,7 +509,7 @@ export const DIVISION_MODE_PRESETS = Object.freeze([
     defaultOrganismPreset: 3,
     nuclearDivisions: 2,
     daughterCellCount: 4,
-    geneticIdentity: 'Mitosis clones 3n = 33 suckers identically; Meiosis I jams on 11 odd triplets (sterile)',
+    geneticIdentity: 'Mitosis produces low-diversity 3n = 33 clonal lineages; odd triplets often yield unbalanced meiotic products',
     biologicalRoles: 'Explains why commercial bananas are seedless and why cloned plantations face Panama TR4 risk',
   }),
   Object.freeze({
@@ -589,7 +589,7 @@ export function simulateMitosisMeiosisStepper(params = {}) {
       chromatidsPerCell = baseChromosomes * 2;
       dnaMassC = org.ploidyMultiple * 2;
       cellCount = 1;
-      stageMechanism = `Exact semi-conservative DNA replication duplicates every chromosome into 2 sister chromatids joined at 1 centromere (${baseChromosomes} chromosomes, ${baseChromosomes * 2} chromatids).`;
+      stageMechanism = `In this idealised model, semi-conservative DNA replication copies each chromosome into 2 linked sister chromatids (${baseChromosomes} chromosomes, ${baseChromosomes * 2} chromatids).`;
     } else if (stage === 3) {
       stageTitle = 'Stage 3: Mitotic Alignment at Cell Equator';
       chromosomesPerCell = baseChromosomes;
@@ -603,14 +603,14 @@ export function simulateMitosisMeiosisStepper(params = {}) {
       chromatidsPerCell = baseChromosomes * 2;
       dnaMassC = org.ploidyMultiple * 2;
       cellCount = 1;
-      stageMechanism = `Each centromere splits; spindle fibres pull ${baseChromosomes} identical daughter chromosomes toward each opposite pole.`;
+      stageMechanism = `Protein links release; sister centromeres separate; spindle fibres pull ${baseChromosomes} daughter chromosomes toward each opposite pole in this copying model.`;
     } else {
-      stageTitle = 'Stage 5: Two Genetically Identical Daughter Cells';
+      stageTitle = 'Stage 5: Two Daughter Cells with the Same Model Chromosome Copies';
       chromosomesPerCell = baseChromosomes;
       chromatidsPerCell = baseChromosomes;
       dnaMassC = org.ploidyMultiple;
       cellCount = 2;
-      stageMechanism = `Nuclear membranes re-form and cytoplasm divides, yielding 2 genetically identical daughter cells each holding ${org.ploidySymbol} = ${baseChromosomes} chromosomes.`;
+      stageMechanism = `Nuclear membranes re-form and cytoplasm divides, yielding 2 daughter cells with matching chromosome copies in this model, each holding ${org.ploidySymbol} = ${baseChromosomes} chromosomes.`;
     }
   } else if (isTriploid && modePreset.id === 'cavendish_triploid') {
     // Triploid Cavendish 3n = 33 meiosis jam vs mitotic sucker comparison
@@ -640,21 +640,21 @@ export function simulateMitosisMeiosisStepper(params = {}) {
       homologousPairing = true;
       stageMechanism = 'Homologous chromosomes try to pair up, but 3 copies per set cannot divide evenly 2-by-2: each triplet splits 2-vs-1 at random.';
     } else if (stage === 4) {
-      stageTitle = 'Stage 4: Unbalanced Aneuploid Spores Abort (Seedless Fruit)';
+      stageTitle = 'Stage 4: Unbalanced Meiotic Products (Poor Fertility)';
       chromosomesPerCell = 16; // uneven 11..22 range
       chromatidsPerCell = 16;
       dnaMassC = 1.5;
-      ploidyLabel = 'Unbalanced (11–22 chr, sterile)';
+      ploidyLabel = 'Unbalanced model (11–22 chr)';
       cellCount = 4;
-      stageMechanism = 'Daughter cells receive scrambled chromosome counts (between 11 and 22) and abort, producing lush seedless fruit with zero viable seeds.';
+      stageMechanism = 'The illustrated products have unbalanced chromosome counts. Triploid meiosis often reduces fertility; parthenocarpy lets fruit develop without fertilisation. The model does not claim every product is inviable.';
     } else {
       stageTitle = 'Stage 5: Mitotic Sucker / Tissue-Culture Cloning (3n = 33 Clones)';
       chromosomesPerCell = 33;
       chromatidsPerCell = 33;
       dnaMassC = 3;
-      ploidyLabel = '3n = 33 (100% clone)';
+      ploidyLabel = '3n = 33 (clonal crop)';
       cellCount = 2;
-      stageMechanism = 'Because meiosis fails, farmers propagate Cavendish bananas asexually by mitosis (suckers/tissue culture), making every plant genetically identical.';
+      stageMechanism = 'Because triploid meiosis often produces unbalanced products, farmers propagate Cavendish bananas asexually by mitosis (suckers/tissue culture), forming low-diversity clonal lineages with possible new mutations.';
     }
   } else {
     // Meiosis I & II + Fertilisation (Human 2n=46, Wild banana 2n=22, or Sugarcane 2n=80)
@@ -695,7 +695,7 @@ export function simulateMitosisMeiosisStepper(params = {}) {
       ploidyLabel = `n = ${halfChr} (haploid gamete)`;
       cellCount = 4;
       crossingOverActive = true;
-      stageMechanism = `Sister chromatids separate without further DNA copying, forming 4 genetically unique haploid gametes each holding n = ${halfChr} single chromosomes.`;
+      stageMechanism = `Sister chromatids separate without further DNA copying, forming 4 haploid products (sperm model) each holding n = ${halfChr} single chromosomes.`;
     } else {
       stageTitle = `Stage 5: Fertilisation Restores Diploid Zygote (n + n → 2n = ${baseChromosomes})`;
       chromosomesPerCell = baseChromosomes;
@@ -786,7 +786,7 @@ export const GENE_PANEL = Object.freeze([
     chromosome: 'Chromosome 18',
     category: 'housekeeping',
     proteinProduct: 'Mitochondrial ATP synthase complex',
-    functionNote: 'Essential in every living cell with mitochondria to synthesise ATP for active transport and protein synthesis.',
+    functionNote: 'Broadly used in mitochondrial ATP synthesis; kept ON as a housekeeping example in this panel.',
   }),
   Object.freeze({
     symbol: 'GAPDH',
@@ -794,7 +794,7 @@ export const GENE_PANEL = Object.freeze([
     chromosome: 'Chromosome 12',
     category: 'housekeeping',
     proteinProduct: 'Glycolysis housekeeping enzyme',
-    functionNote: 'Expressed in all metabolically active cells to break down glucose in the cytoplasm.',
+    functionNote: 'A broadly expressed glycolysis enzyme; kept ON as a housekeeping example in this panel.',
   }),
   Object.freeze({
     symbol: 'OCT4_SOX2',
@@ -810,7 +810,7 @@ export const GENE_PANEL = Object.freeze([
     chromosome: 'Chromosome 11',
     category: 'specialist_beta',
     proteinProduct: 'Insulin peptide hormone (51 aa)',
-    functionNote: 'Switched ON only in pancreatic beta cells (regulated by PDX1) to lower blood glucose; silenced in blood, nerve, and skin cells.',
+    functionNote: 'A pancreatic beta-cell example supporting insulin production; the panel models INS as ON in this lineage and OFF in the comparison lineages.',
   }),
   Object.freeze({
     symbol: 'HBB',
@@ -821,12 +821,12 @@ export const GENE_PANEL = Object.freeze([
     functionNote: 'Switched ON massively in bone-marrow erythroblasts (regulated by GATA1) to pack 270 million haemoglobin molecules per red blood cell.',
   }),
   Object.freeze({
-    symbol: 'CHAT_SCN9A',
-    name: 'Choline Acetyltransferase & Nav Channel',
-    chromosome: 'Chromosomes 10 & 2',
+    symbol: 'CHAT',
+    name: 'Choline Acetyltransferase',
+    chromosome: 'Chromosome 10',
     category: 'specialist_neural',
-    proteinProduct: 'Acetylcholine enzyme & voltage-gated Na⁺ channel',
-    functionNote: 'Switched ON in spinal motor neurones (regulated by NEUROD1/ISL1) to fire action potentials and signal skeletal muscle.',
+    proteinProduct: 'Choline acetyltransferase (acetylcholine synthesis)',
+    functionNote: 'Expressed in cholinergic motor neurones to synthesise acetylcholine for signalling to skeletal muscle. The panel uses an illustrative on/off programme.',
   }),
 ]);
 
@@ -842,7 +842,7 @@ export const STEM_CELL_LINEAGE_PRESETS = Object.freeze([
     specialistProtein: 'Insulin hormone (secreted into islet capillaries)',
     chromosomesInNucleus: 46,
     totalGenesInNucleus: 20000,
-    nuclearStatusAtStage4: 'Intact diploid nucleus (2n = 46, 100% of genes retained)',
+    nuclearStatusAtStage4: 'Illustrative diploid nucleus: 46 chromosomes; displayed entries retained',
   }),
   Object.freeze({
     modeIndex: 1,
@@ -855,7 +855,7 @@ export const STEM_CELL_LINEAGE_PRESETS = Object.freeze([
     specialistProtein: 'Haemoglobin (270 million molecules per cell)',
     chromosomesInNucleus: 46,
     totalGenesInNucleus: 20000,
-    nuclearStatusAtStage4: 'Nucleated erythroblast holds 2n = 46; mature mammalian RBC ejects nucleus after stockpiling HBB protein',
+    nuclearStatusAtStage4: 'This panel models a nucleated diploid erythroblast; a mature mammalian red blood cell has lost its nucleus.',
   }),
   Object.freeze({
     modeIndex: 2,
@@ -863,12 +863,12 @@ export const STEM_CELL_LINEAGE_PRESETS = Object.freeze([
     label: 'Spinal Motor Neurone (Action-potential wire)',
     shortLabel: 'Spinal Motor Neurone',
     stemCellOrigin: 'Embryonic neural tube ectoderm progenitor',
-    masterRegulator: 'NEUROD1 & ISL1 transcription factors',
-    specialistGeneSymbol: 'CHAT_SCN9A',
-    specialistProtein: 'Voltage-gated Na⁺ channels & acetylcholine synthase',
+    masterRegulator: 'Illustrative motor-neurone regulatory programme',
+    specialistGeneSymbol: 'CHAT',
+    specialistProtein: 'Choline acetyltransferase for acetylcholine synthesis',
     chromosomesInNucleus: 46,
     totalGenesInNucleus: 20000,
-    nuclearStatusAtStage4: 'Intact diploid nucleus (2n = 46, 100% of genes retained)',
+    nuclearStatusAtStage4: 'Illustrative diploid nucleus: 46 chromosomes; displayed entries retained',
   }),
   Object.freeze({
     modeIndex: 3,
@@ -881,7 +881,7 @@ export const STEM_CELL_LINEAGE_PRESETS = Object.freeze([
     specialistProtein: 'Re-opened pluripotent chromatin & multi-lineage proteins',
     chromosomesInNucleus: 46,
     totalGenesInNucleus: 20000,
-    nuclearStatusAtStage4: 'Proves 100% of genome was conserved during specialisation: silent genes can be switched back ON',
+    nuclearStatusAtStage4: 'Reprogramming shows that many specialised nuclei retain developmental information; it does not prove every sequence is unchanged.',
   }),
 ]);
 
@@ -969,7 +969,7 @@ export function simulateStemCellExpressionLab(params = {}) {
     diffStage === 1 || (effectiveProgramme === 'gurdon_yamanaka' && diffStage >= 3);
 
   const geneStates = GENE_PANEL.map((g) => {
-    const presentInDna = true; // 100% of genes are present in every nucleated cell
+    const presentInDna = true; // Explicit assumption: all six displayed entries remain in this model.
     let expressed = false;
     let mrnaCopiesPerCell = 0;
     let chromatinState = 'Closed heterochromatin (SILENCED)';
@@ -977,7 +977,7 @@ export function simulateStemCellExpressionLab(params = {}) {
     if (g.category === 'housekeeping') {
       expressed = true;
       mrnaCopiesPerCell = 450;
-      chromatinState = 'Open euchromatin (ALWAYS ON)';
+      chromatinState = 'Open chromatin (ON in this panel)';
     } else if (g.category === 'pluripotency') {
       if (isStemOrReprogrammed) {
         expressed = true;
@@ -996,11 +996,11 @@ export function simulateStemCellExpressionLab(params = {}) {
         mrnaCopiesPerCell = diffStage === 2 ? 400 : diffStage === 3 ? 1800 : 3500;
         chromatinState = 'Open euchromatin (GATA1-activated ON)';
       }
-    } else if (g.symbol === 'CHAT_SCN9A') {
+    } else if (g.symbol === 'CHAT') {
       if (effectiveProgramme === 'motor_neurone' && diffStage >= 2) {
         expressed = true;
         mrnaCopiesPerCell = diffStage === 2 ? 220 : diffStage === 3 ? 650 : 1400;
-        chromatinState = 'Open euchromatin (NEUROD1-activated ON)';
+        chromatinState = 'Open chromatin (motor-neurone model ON)';
       }
     }
 
@@ -1024,17 +1024,17 @@ export function simulateStemCellExpressionLab(params = {}) {
   let igcseRuleExplanation = '';
   if (effectiveProgramme === 'gurdon_yamanaka' && diffStage >= 3) {
     igcseRuleExplanation =
-      'Gurdon (1962) & Yamanaka (2006) proof: introducing Oct4, Sox2, Klf4, and c-Myc (or egg cytoplasm) unlocks silent genes, proving specialised cells still hold 100% of the genome.';
+      'Gurdon nuclear transfer and Yamanaka reprogramming show that many specialised nuclei retain information supporting other developmental programmes. They do not show that every body cell retains an identical complete genome. This panel keeps six displayed entries as a model assumption.';
   } else if (diffStage === 1) {
     igcseRuleExplanation =
       'Unspecialised stem cell (0610 17.2.5): divides by mitosis to self-renew and produce daughter cells that can specialise as tissue transcription factors switch on.';
   } else {
-    igcseRuleExplanation = `Selective gene expression (0610 17.1.6): cell retains all 46 chromosomes (100% of genes in DNA), but expresses only housekeeping genes + ${
+    igcseRuleExplanation = `Illustrative selective-expression model: this diploid nucleus is assigned 46 chromosomes and keeps all six displayed entries; the ON entries are housekeeping examples + ${
       effectiveProgramme === 'pancreatic_beta'
         ? 'INS (insulin)'
         : effectiveProgramme === 'erythroblast_rbc'
         ? 'HBB (haemoglobin)'
-        : 'CHAT/SCN9A (neuronal signalling)'
+        : 'CHAT (acetylcholine synthesis)'
     }.`;
   }
 
@@ -1046,7 +1046,7 @@ export function simulateStemCellExpressionLab(params = {}) {
     effectiveProgramme,
     differentiationStage: diffStage,
     stageLabel: stagePreset.label,
-    potencyLabel: isStemOrReprogrammed ? 'Pluripotent (Can form all cell types)' : stagePreset.potencyLabel,
+    potencyLabel: isStemOrReprogrammed ? 'Stem / reprogrammed model' : stagePreset.potencyLabel,
     mitoticIndexPct: isStemOrReprogrammed ? 85 : stagePreset.mitoticIndexPct,
     specialisationPct: isStemOrReprogrammed ? 15 : stagePreset.specialisationPct,
     tfSwitchIndex: tfSwitchIdx,
@@ -1055,6 +1055,11 @@ export function simulateStemCellExpressionLab(params = {}) {
     chromosomesInNucleus: 46,
     totalGenesInNucleus: 20000,
     dnaGenesRetainedPct,
+    modelAssumptions: Object.freeze({ illustrative: true, retainedPanelEntries: 6,
+      nucleus: 'A diploid human nucleus with 46 chromosomes is chosen for this comparison, not asserted for every nucleated cell.',
+      panel: 'Six displayed entries, including the grouped OCT4/SOX2 entry, are retained. The percentage is panel retention, not a complete-genome measurement.',
+      expression: 'On/off states, transcript counts, differentiation percentages and regulator overrides are invented teaching values. Housekeeping examples remain ON in this panel.',
+      limits: 'Most body cells share most inherited DNA. Mutation, immune-cell DNA rearrangement, polyploidy and loss of the nucleus are relevant exceptions.' }),
     panelGenesTotal: geneStates.length,
     expressedPanelGenes: expressedCount,
     silencedPanelGenes: silencedCount,
@@ -1094,6 +1099,6 @@ export function compareExpressionTrials(trialA, trialB) {
     chromosomeDifference: b.chromosomesInNucleus - a.chromosomesInNucleus, // always 0
     dnaRetainedDeltaPct: b.dnaGenesRetainedPct - a.dnaGenesRetainedPct, // always 0
     expressedCountDelta: b.expressedPanelGenes - a.expressedPanelGenes,
-    summary: `Both cells hold ${a.chromosomesInNucleus} chromosomes (100% DNA retained); ${a.shortModeLabel} expresses [${aActive}] whereas ${b.shortModeLabel} expresses [${bActive}].`,
+    summary: `Both illustrative states use ${a.chromosomesInNucleus} chromosomes and retain the six displayed entries; ${a.shortModeLabel} expresses [${aActive}] whereas ${b.shortModeLabel} expresses [${bActive}].`,
   });
 }

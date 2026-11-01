@@ -67,7 +67,7 @@ def c14_mutation_variation_spectra() -> str:
     heading(
         f,
         "14.1  Continuous vs Discontinuous Variation: Spectra, Categories & Causes",
-        "Polygenic + environmental bell curves (height) vs single-gene distinct category bars (ABO blood groups & pea coats)",
+        "Polygenic + environmental bell curves (height) vs single-gene distinct category bars (ABO blood groups & pea seeds)",
     )
 
     # LEFT PANEL: Continuous Variation (Student Height Histogram + Bell Curve)
@@ -158,7 +158,7 @@ def c14_mutation_variation_spectra() -> str:
         [
             (20, "Discontinuous Variation Contract (0610 18.1)", "t b g"),
             (40, "• Distinct categories with NO intermediates", "t"),
-            (59, "• Controlled by 1 or a few genes; 0% env shift", "t b p"),
+            (59, "• Our ABO example is controlled by inherited alleles", "t b p"),
             (77, "• Examples: ABO blood group, pea seed shape/colour", "t m"),
         ],
         "plate",
@@ -261,9 +261,9 @@ def c14_mutagens_dna_glitches() -> str:
         [
             (22, "Mutagen Dose vs Spontaneous Baseline Rate", "t b"),
             (48, "1× Baseline (no mutagen): 1 per 10⁸ divisions", "t b g"),
-            (74, "8× UV-B Radiation: thymine dimers (8 / 10⁸)", "t"),
-            (100, "20× Chemical Mutagens: tobacco tar / HNO₂", "t b e"),
-            (126, "50× Ionising Radiation: X-rays / gamma rays", "t b p"),
+            (74, "UV-B radiation: adjacent-base damage", "t"),
+            (100, "Chemical mutagens: tobacco tar / HNO₂", "t b e"),
+            (126, "Ionising radiation: X-rays / gamma rays", "t b p"),
             (154, "Rule: Mutagens boost glitch frequency across", "t m"),
             (172, "all loci; they NEVER aim for a useful allele.", "t b"),
         ],
@@ -341,7 +341,7 @@ def c14_mutagens_dna_glitches() -> str:
         584,
         46,
         [
-            (18, "Decisive Proof: Picking colony C3 from the antibiotic-free Master Plate yields a 100% resistant culture", "t b p"),
+            (18, "Recover and purify resistant cells from an unexposed source; coordinates C3/C7/C11 are illustrative", "t b p"),
             (35, "without those cells EVER touching penicillin or streptomycin — mutations arise randomly BEFORE selection.", "t"),
         ],
         "wash-p",
@@ -463,99 +463,13 @@ def c14_natural_selection_six_steps() -> str:
 # ──────────────────────────────────────────────────────────────────────
 @figure
 def c14_antibiotic_resistance_selection() -> str:
-    f = Fig(
-        640,
-        595,
-        "Evolution of antibiotic resistance in bacteria by natural selection and clinical comparison of a completed 7-day course vs stopping on Day 3",
-    )
-    heading(
-        f,
-        "14.4  Antibiotic Resistance as Natural Selection in Action",
-        "Why stopping antibiotics on Day 3 breeds a resistant relapse while a full course clears infection",
-    )
-
-    # TOP PANEL: 4-Stage Antibiotic Selection Mechanism
-    f.rect(16, 54, 608, 224, "wash-p", rx=10)
-    txt(f, 320, 74, "1. How an Antibiotic Acts as an Environmental Selection Pressure (0610 18.3)", "t b p", 9.4)
-
-    stages = [
-        ("1. Pre-Existing Variation", "99% sensitive (wild-type)", "1% random resistant mutant", "(e.g. β-lactamase plasmid)", "BEFORE antibiotic exposure.", "plate"),
-        ("2. Antibiotic Applied", "Drug inhibits bacterial cell", "wall or 70S ribosome; lyses", "sensitive bacteria first", "(never viruses).", "wash-e"),
-        ("3. Survivors Reproduce", "Freed from competition for", "nutrients & space, resistant", "survivors divide every", "20 min by binary fission.", "plate"),
-        ("4. Resistant Population", "Resistance allele passed to", "offspring; entire bacterial", "population is now resistant", "to that antibiotic.", "wash-p"),
-    ]
-    for idx, (st, l1, l2, l3, l4, scls) in enumerate(stages):
-        sx = 28 + idx * 148
-        box(
-            f,
-            sx,
-            88,
-            140,
-            176,
-            [
-                (22, st, "t b p" if idx in (0, 3) else "t b e"),
-                (50, l1, "t"),
-                (72, l2, "t b"),
-                (94, l3, "t"),
-                (118, l4, "t m"),
-                (150, f"Stage {idx + 1} / 4", "t mono"),
-            ],
-            scls,
-            7.8,
-        )
-
-    # BOTTOM LEFT: Full 7-Day Course
-    f.rect(16, 290, 296, 290, "wash-g", rx=10)
-    txt(f, 164, 310, "2. Completed 7-Day Antibiotic Course", "t b g", 9.4)
-    txt(f, 164, 327, "Sustained dose + host immune phagocytes clear infection", "t m", 8.0)
-
-    box(
-        f,
-        28,
-        340,
-        272,
-        226,
-        [
-            (22, "Trajectory Across Steps 0 → 10 (Days 0 → 7)", "t b g"),
-            (46, "• Step 0: 100% bacterial load (1.0% resistant)", "t mono"),
-            (68, "• Step 3 (Day 3): Load drops to 26%; fever fades", "t"),
-            (90, "• Step 6 (Day 5): Load drops to 4.5%; drug kept high", "t"),
-            (112, "• Step 10 (Day 7): 0% bacterial load (Cleared)", "t b g"),
-            (142, "Why completion works:", "t b e"),
-            (164, "Sustained antibiotic pressure + host white blood", "t"),
-            (184, "cells (phagocytes & antibodies) eliminate the", "t"),
-            (204, "few partially resistant survivors before rebound.", "t m"),
-        ],
-        "plate",
-        8.0,
-    )
-
-    # BOTTOM RIGHT: Stopped Early on Day 3
-    f.rect(328, 290, 296, 290, "wash-p", rx=10)
-    txt(f, 476, 310, "3. Stopped Early on Day 3 (Resistant Relapse)", "t b p", 9.4)
-    txt(f, 476, 327, "Symptom relief at Day 3 ≠ bacterial eradication", "t m", 8.0)
-
-    box(
-        f,
-        340,
-        340,
-        272,
-        226,
-        [
-            (22, "Trajectory When Pills Stop at Step 3 (Day 3)", "t b p"),
-            (46, "• Step 0: 100% bacterial load (1.0% resistant)", "t mono"),
-            (68, "• Step 3 (Stopped): Load 26% (21.2% resistant)", "t b p"),
-            (90, "• Step 6 (Relapse): Load rebounds to 74% (95% res)", "t"),
-            (112, "• Step 10 (Full Relapse): 98% load (99.4% resistant)", "t b p"),
-            (142, "Why stopping early is dangerous:", "t b"),
-            (164, "Days 1–3 kill sensitive competitors, leaving", "t"),
-            (184, "resistant bacteria alive with zero competition to", "t"),
-            (204, "multiply into a drug-resistant relapse (e.g. MRSA).", "t m"),
-        ],
-        "plate",
-        8.0,
-    )
-
+    f = Fig(640, 560, 'Model steps are not clinical days; no patient or treatment duration is represented')
+    heading(f, '14.4  Selection in an Illustrative Bacterial Culture', 'Model steps are not clinical days; no patient or treatment duration is represented')
+    box(f, 16, 58, 296, 214, [(23, '1. Inherited variation', 't b e'), (48, 'Start: 990 susceptible + 10 resistant cells.', 't'), (71, 'A mutation or gene transfer supplies variation.', 't'), (94, 'The culture model starts with resistance present.', 't'), (117, 'Changes can also arise during exposure.', 't'), (140, 'The drug does not specify a helpful mutation.', 't')], "plate", 8.1)
+    box(f, 328, 58, 296, 214, [(23, '2. Differential survival', 't b e'), (48, 'A worked example: kill 90% of susceptible cells.', 't'), (71, 'Let all 10 resistant cells survive this exposure.', 't'), (94, '99 susceptible + 10 resistant = 109 survivors.', 't'), (117, 'Resistant number: still 10.', 't'), (140, 'Resistant fraction: 1% → about 9.2%.', 't')], "plate", 8.1)
+    box(f, 16, 284, 296, 214, [(23, '3. Reproduction changes the next generation', 't b e'), (48, 'Survivors can pass resistance to offspring.', 't'), (71, 'Density and reproductive costs also matter.', 't'), (94, 'The interactive model compares exposure', 't'), (117, 'with drug removal after an illustrative step.', 't'), (140, 'Changing assumptions changes the result.', 't')], "plate", 8.1)
+    box(f, 328, 284, 296, 214, [(23, '4. Clinical decisions require clinical evidence', 't b e'), (48, 'Follow the clinician’s dose and duration.', 't'), (71, 'Ask before changing a prescribed treatment.', 't'), (94, 'Unnecessary drug exposure also selects resistance.', 't'), (117, 'Neither longer nor shorter is always best.', 't'), (140, 'Hygiene limits spread of resistant strains.', 't')], "plate", 8.1)
+    txt(f, 320, 536, 'Selection changes relative contribution to descendants; these numbers are chosen, not clinical data.', "t m", 8.0)
     return f.svg()
 
 
@@ -564,96 +478,13 @@ def c14_antibiotic_resistance_selection() -> str:
 # ──────────────────────────────────────────────────────────────────────
 @figure
 def c14_xerophyte_hydrophyte_adaptations() -> str:
-    f = Fig(
-        640,
-        595,
-        "Xerophyte (Ammophila arenaria marram grass and Opuntia cactus) vs hydrophyte (Nymphaea water lily) structural adaptations and leaf metrics",
-    )
-    heading(
-        f,
-        "14.5  Adaptive Features of Xerophytes vs Hydrophytes (0610 18.2)",
-        "How marram grass and cacti conserve water in arid dunes while water lilies thrive on freshwater ponds",
-    )
-
-    # LEFT PANEL: Xerophyte (Marram Grass & Cactus)
-    f.rect(16, 54, 296, 344, "wash-p", rx=10)
-    txt(f, 164, 74, "1. Xerophyte: Marram Grass & Cactus (Arid)", "t b p", 9.4)
-    txt(f, 164, 91, "Selection pressure: Intense heat, wind & dry sand", "t m", 8.1)
-
-    box(
-        f,
-        28,
-        102,
-        272,
-        282,
-        [
-            (22, "Four Inherited Water-Conserving Features", "t b p"),
-            (46, "1. Thick waxy cuticle (8.5 µm vs 2.2 µm bean):", "t b"),
-            (64, "   Waterproof barrier cuts epidermal water loss ~85%.", "t"),
-            (90, "2. Sunken stomata in rolled grooves + trichomes:", "t b e"),
-            (108, "   C-shaped rolled leaf & hairs trap moist air,", "t"),
-            (126, "   lowering ΔΨ water potential gradient.", "t m"),
-            (152, "3. Small rolled leaves or cactus spines:", "t b"),
-            (170, "   Minimises evaporating surface area; green", "t"),
-            (188, "   succulent stem stores water & photosynthesises.", "t m"),
-            (214, "4. Deep taproots (3.2 m) + wide surface roots:", "t b g"),
-            (232, "   Reaches deep water table and absorbs brief rain.", "t"),
-            (260, "Transpiration loss: 1.4 mg/cm²/h (92% conserved)", "t mono"),
-        ],
-        "plate",
-        7.9,
-    )
-
-    # RIGHT PANEL: Hydrophyte (Floating Water Lily)
-    f.rect(328, 54, 296, 344, "wash-e", rx=10)
-    txt(f, 476, 74, "2. Hydrophyte: Floating Water Lily (Aquatic)", "t b e", 9.4)
-    txt(f, 476, 91, "Selection pressure: Abundant water, low submerged O₂", "t m", 8.1)
-
-    box(
-        f,
-        340,
-        102,
-        272,
-        282,
-        [
-            (22, "Four Inherited Aquatic Adaptive Features", "t b e"),
-            (46, "1. Large air spaces (aerenchyma = 58% volume):", "t b g"),
-            (64, "   Buoyancy keeps leaf blades sunlit at water surface;", "t"),
-            (82, "   forms internal O₂ diffusion highway to roots.", "t m"),
-            (108, "2. Stomata on UPPER epidermis only (280/mm²):", "t b e"),
-            (126, "   Upper surface contacts air for CO₂/O₂ exchange;", "t"),
-            (144, "   lower surface touches water (0 stomata/mm²).", "t m"),
-            (170, "3. Very thin or absent waxy cuticle (0.4 µm):", "t b"),
-            (188, "   No need to restrict water loss when surrounded", "t"),
-            (206, "   by pond water; allows direct gas/ion diffusion.", "t m"),
-            (232, "4. Reduced roots (0.25 m) & minimal xylem:", "t b p"),
-            (260, "Water supports stems; leaves absorb water directly.", "t mono"),
-        ],
-        "plate",
-        7.9,
-    )
-
-    # BOTTOM BAR: Quantitative Comparison Table
-    f.rect(16, 410, 608, 170, "wash-g", rx=10)
-    txt(f, 320, 430, "3. Quantitative Leaf & Root Comparison Across Three Plant Groups", "t b g", 9.4)
-
-    box(
-        f,
-        28,
-        442,
-        584,
-        126,
-        [
-            (20, "Feature                   | Xerophyte (Marram)      | Mesophyte (Bean)       | Hydrophyte (Water Lily)", "t b mono"),
-            (44, "Waxy cuticle thickness    | 8.5 µm (very thick)     | 2.2 µm (moderate)      | 0.4 µm (thin / absent)", "t mono"),
-            (66, "Stomata (upper / lower)   | 0 / 45 per mm² (sunken) | 40 / 240 per mm²       | 280 / 0 per mm² (upper only)", "t mono"),
-            (88, "Internal air space %      | 12% (compact mesophyll) | 25% (spongy mesophyll) | 58% (large aerenchyma)", "t mono"),
-            (110, "Root system depth         | 3.2 m deep + dense xylem| 0.8 m branching roots  | 0.25 m feathery; low xylem", "t mono"),
-        ],
-        "plate",
-        7.7,
-    )
-
+    f = Fig(640, 560, 'Dry-habitat, floating and submerged leaves require different gas-exchange arrangements')
+    heading(f, '14.5  Leaves Solve Different Physical Problems', 'Dry-habitat, floating and submerged leaves require different gas-exchange arrangements')
+    box(f, 16, 58, 296, 214, [(23, 'Dry habitat: marram grass', 't b e'), (48, 'Rolled blade shelters inner stomata.', 't'), (71, 'Hairs and grooves retain still, humid air.', 't'), (94, 'A smaller water-vapour gradient slows loss.', 't'), (117, 'A waxy surface restricts epidermal evaporation.', 't'), (140, 'Different xerophytes have different root systems.', 't')], "plate", 8.1)
+    box(f, 328, 58, 296, 214, [(23, 'Dry habitat: cactus', 't b e'), (48, 'Spines reduce the area of exposed leaves.', 't'), (71, 'Green succulent stems store water and photosynthesise.', 't'), (94, 'Stem stomata commonly open mainly at night.', 't'), (117, 'CAM stores captured carbon for daylight use.', 't'), (140, 'These are not all features of marram grass.', 't')], "plate", 8.1)
+    box(f, 16, 284, 296, 214, [(23, 'Floating water lily: Nymphaea', 't b e'), (48, 'Upper stomata exchange gases with air.', 't'), (71, 'The upper surface can carry water-repellent wax.', 't'), (94, 'Aerenchyma provides buoyancy and gas pathways.', 't'), (117, 'Roots anchor the plant and obtain nutrients.', 't'), (140, 'A floating leaf is not a wholly submerged leaf.', 't')], "plate", 8.1)
+    box(f, 328, 284, 296, 214, [(23, 'Fully submerged: Elodea', 't b e'), (48, 'Thin simple leaves exchange dissolved gases.', 't'), (71, 'Submerged leaves have no stomata.', 't'), (94, 'Thin surface barriers shorten diffusion routes.', 't'), (117, 'Water supports flexible shoots.', 't'), (140, 'Internal gas spaces help supply submerged tissues.', 't')], "plate", 8.1)
+    txt(f, 320, 536, 'Dimensions and performance in the interactive comparison are invented teaching values, not species constants.', "t m", 8.0)
     return f.svg()
 
 
@@ -784,7 +615,7 @@ def c14_selective_breeding_vs_natural() -> str:
     heading(
         f,
         "14.7  Selective Breeding (Artificial Selection) vs Natural Selection",
-        "The 5-step human breeding cycle, Janaki Ammal's Coimbatore sugarcane, and the 6-point contrast",
+        "Five-step breeding cycle, illustrative invented trajectories, and a comparison with natural selection",
     )
 
     # TOP PANEL: 5-Step Selective Breeding Loop
@@ -823,9 +654,9 @@ def c14_selective_breeding_vs_natural() -> str:
         584,
         82,
         [
-            (20, "Landmark Selective Breeding Trajectories (Generation 0 → Generation 40):", "t b p"),
-            (40, "• Coimbatore Sugarcane (E. K. Janaki Ammal, Saccharum hybrids): Stalk sucrose 8.5% → 17.8% (+109%)", "t b g"),
-            (58, "• Indian Gir & Sahiwal Cattle: Milk yield 1,350 L → 4,200 L (+211%), while heterozygosity drops 0.78 → 0.34", "t"),
+            (20, "Illustrative Invented Trajectories (Generation 0 → Generation 40):", "t b p"),
+            (40, "• Illustrative sugarcane programme (invented trajectory): Stalk sucrose 8.5% → 17.8% (+109%)", "t b g"),
+            (58, "• Illustrative dairy herd: Milk yield 1,350 L → 4,200 L (+211%), while heterozygosity drops 0.78 → 0.34", "t"),
             (74, "• Wild Brassica oleracea diverged into cabbage (bud), broccoli (flowers), kale (leaves) & kohlrabi (stem)", "t m"),
         ],
         "plate",
@@ -846,11 +677,11 @@ def c14_selective_breeding_vs_natural() -> str:
             (22, "Dimension              | Natural Selection                        | Selective Breeding (Artificial)", "t b mono"),
             (50, "1. Selective agent     | Environment (predators, disease, climate)| Humans (farmers, breeders, scientists)", "t mono"),
             (78, "2. Trait favoured      | Adaptive features aiding wild survival   | Traits useful or profitable to humans", "t mono"),
-            (106, "3. Effect on wild fit. | Increases survival fitness in habitat    | May lower wild survival (e.g. heavy udder)", "t mono"),
-            (134, "4. Speed of change     | Usually slower over evolutionary eras    | Faster across tens of human generations", "t mono"),
-            (162, "5. Genetic diversity   | Maintained higher across wild gene pools | Reduced (inbreeding depression & disease)", "t b p"),
+            (106, "3. Wild contribution  | Favours more descendants in this setting | Human-desired trait may hinder wild life", "t mono"),
+            (134, "4. Speed of change     | Depends on variation and generation time | Depends on selection and generation time", "t mono"),
+            (162, "5. Genetic diversity   | Can increase or decrease                 | Small parent pools can reduce diversity", "t b p"),
             (190, "6. Classic examples    | Peppered moths, antibiotic resistance    | Coimbatore sugarcane, Gir cattle, wheat", "t mono"),
-            (218, "Key Trade-Off: Selective breeding narrows the gene pool, raising homozygosity for deleterious recessives.", "t b e"),
+            (218, "Related mating can expose harmful recessives; uniformity can separately increase shared disease risk.", "t b e"),
         ],
         "plate",
         7.6,
@@ -864,114 +695,13 @@ def c14_selective_breeding_vs_natural() -> str:
 # ──────────────────────────────────────────────────────────────────────
 @figure
 def c14_sahni_fossils_dna_clocks() -> str:
-    f = Fig(
-        640,
-        595,
-        "Birbal Sahni Gondwana plant fossils (Pentoxyleae and Glossopteris), Cytochrome c molecular clock, and Carl Woese 1977 three domains",
-    )
-    heading(
-        f,
-        "14.8  Fossils, DNA Sequence Clocks & the Tree of Life (0610 1.2 & 18.3)",
-        "How Birbal Sahni's Gondwana fossils and modern DNA/amino-acid alignments reconstruct evolution",
-    )
-
-    # TOP LEFT: Birbal Sahni & Fossil Strata
-    f.rect(16, 54, 296, 256, "wash-p", rx=10)
-    txt(f, 164, 74, "1. Birbal Sahni & Gondwana Fossil Strata", "t b p", 9.4)
-    txt(f, 164, 91, "Lucknow palaeobotany & chronological rock layers", "t m", 8.0)
-
-    box(
-        f,
-        28,
-        102,
-        272,
-        196,
-        [
-            (22, "Stratigraphic Order (Youngest Top → Oldest Deep)", "t b p"),
-            (46, "• Cenozoic (66–0 Ma, Deccan Intertrappean beds):", "t b"),
-            (64, "  Fossil palms, early angiosperms & mammals.", "t"),
-            (88, "• Jurassic (201–145 Ma, Rajmahal Hills, Bihar):", "t b e"),
-            (106, "  Birbal Sahni's Pentoxyleae (extinct gymnosperm", "t"),
-            (124, "  order bridging seed-ferns and conifers).", "t m"),
-            (148, "• Permian (299–252 Ma, Gondwana coal seams):", "t b g"),
-            (166, "  Glossopteris flora across India & Antarctica.", "t"),
-            (186, "• Deep Cambrian (>500 Ma): simple marine life.", "t mono"),
-        ],
-        "plate",
-        7.9,
-    )
-
-    # TOP RIGHT: Molecular Clock (Cytochrome c & HBB)
-    f.rect(328, 54, 296, 256, "wash-e", rx=10)
-    txt(f, 476, 74, "2. Molecular Clock: Cytochrome c (104 aa)", "t b e", 9.4)
-    txt(f, 476, 91, "Fewer sequence differences = more recent ancestor", "t m", 8.0)
-
-    box(
-        f,
-        340,
-        102,
-        272,
-        196,
-        [
-            (22, "Comparison with Human (Cyt c / HBB / Split)", "t b e"),
-            (48, "• Chimpanzee: 0/104 Cyt c | 0/146 HBB (~6.5 Ma)", "t b g"),
-            (72, "  Coding DNA identity = 98.8% (closest relative)", "t m"),
-            (96, "• Rhesus Monkey: 1/104 Cyt c | 8/146 HBB (~27 Ma)", "t"),
-            (120, "• Domestic Dog: 11/104 Cyt c | 15/146 HBB (~92 Ma)", "t"),
-            (144, "• Tuna Fish: 21/104 Cyt c | 68/146 HBB (~430 Ma)", "t b p"),
-            (168, "• Baker's Yeast: 45/104 Cyt c diffs (~1,100 Ma)", "t"),
-            (186, "Rule: DNA base similarity measures relatedness.", "t mono"),
-        ],
-        "plate",
-        7.9,
-    )
-
-    # BOTTOM PANEL: Cladogram & Carl Woese Three Domains
-    f.rect(16, 322, 608, 258, "wash-g", rx=10)
-    txt(f, 320, 342, "3. Sequence Classification (0610 1.2.5–1.2.6) & Carl Woese's Three Domains (1977)", "t b g", 9.4)
-
-    box(
-        f,
-        28,
-        356,
-        282,
-        210,
-        [
-            (22, "Why DNA Beats Morphology Alone (0610 1.2)", "t b e"),
-            (46, "• Morphology can mislead via convergent evolution", "t"),
-            (64, "  (e.g. shark vs dolphin streamlined fins).", "t m"),
-            (90, "• Comparing DNA base sequences & amino acid", "t b g"),
-            (108, "  sequences provides quantitative clocks:", "t"),
-            (132, "  More similar base sequences = species share a", "t b"),
-            (150, "  MORE RECENT common ancestor (cladogram node).", "t b p"),
-            (176, "• Greater base differences = longer divergence", "t"),
-            (194, "  time as neutral mutations accumulate steadily.", "t m"),
-        ],
-        "plate",
-        7.9,
-    )
-
-    box(
-        f,
-        326,
-        356,
-        286,
-        210,
-        [
-            (22, "Carl Woese (1977) 16S rRNA Three Domains", "t b p"),
-            (46, "Sequencing 16S ribosomal RNA split 'prokaryotes'", "t"),
-            (64, "into two evolutionary domains plus Eukarya:", "t m"),
-            (90, "1. Bacteria: True bacteria (peptidoglycan walls;", "t b e"),
-            (108, "   cyanobacteria, E. coli).", "t"),
-            (132, "2. Archaea: Extremophiles & methanogens (no", "t b p"),
-            (150, "   peptidoglycan; transcription closer to Eukarya).", "t"),
-            (174, "3. Eukarya: Nucleated cells (linked to Lynn", "t b g"),
-            (192, "   Margulis's endosymbiotic mitochondria/plastids).", "t m"),
-        ],
-        "plate",
-        7.9,
-    )
-
+    f = Fig(640, 560, 'Fossils and homologous sequences supply evidence; interpretation and uncertainty remain')
+    heading(f, '14.8  Reconstructing Evolutionary History', 'Fossils and homologous sequences supply evidence; interpretation and uncertainty remain')
+    box(f, 16, 58, 296, 214, [(23, '1. Birbal Sahni and Rajmahal fossils', 't b e'), (48, 'Sahni described Pentoxyleae in 1948.', 't'), (71, 'His original paper called the material Jurassic.', 't'), (94, 'Relevant Rajmahal deposits were later dated', 't'), (117, 'to the Early Cretaceous. Mixed anatomical traits', 't'), (140, 'do not alone establish a direct ancestor.', 't')], "plate", 8.1)
+    box(f, 328, 58, 296, 214, [(23, '2. Compare the same inherited sequence', 't b e'), (48, 'Illustrative A: A T G C C T A G', 't'), (71, 'Illustrative B: A T G C C T A A', 't'), (94, 'A and B differ at 1 of 8 aligned positions.', 't'), (117, 'That is 87.5% identity in this short sample.', 't'), (140, 'A close match supports a close relationship.', 't')], "plate", 8.1)
+    box(f, 16, 284, 296, 214, [(23, '3. A clock needs calibration', 't b e'), (48, 'Sequence changes accumulate through time.', 't'), (71, 'Rates vary among genes and lineages.', 't'), (94, 'Fossils can constrain minimum ages.', 't'), (117, 'Compare many sequences and allow uncertainty.', 't'), (140, 'Raw similarity is not an automatic stopwatch.', 't')], "plate", 8.1)
+    box(f, 328, 284, 296, 214, [(23, '4. Woese and colleagues', 't b e'), (48, '1977: Woese and Fox identify an archaeal lineage.', 't'), (71, '1990: Woese, Kandler and Wheelis propose domains.', 't'), (94, 'Bacteria and Archaea have 16S small-subunit rRNA.', 't'), (117, 'Eukaryotic cytoplasmic ribosomes have 18S rRNA.', 't'), (140, 'Shared RNA sequences help test relationships.', 't')], "plate", 8.1)
+    txt(f, 320, 536, 'The sequence widget uses invented alignments; no coding-genome percentages or divergence dates are asserted.', "t m", 8.0)
     return f.svg()
 
 
@@ -980,125 +710,13 @@ def c14_sahni_fossils_dna_clocks() -> str:
 # ──────────────────────────────────────────────────────────────────────
 @figure
 def c14_sickle_cell_malaria_case() -> str:
-    f = Fig(
-        640,
-        595,
-        "Balancing selection of the sickle-cell allele (HbS) in Plasmodium falciparum malaria belts across East Africa (Allison 1954) and Central/Western India (Sanghvi)",
-    )
-    heading(
-        f,
-        "14.9  Balancing Selection: Why the Sickle-Cell Allele (Hbˢ) Persists",
-        "Anthony Allison (1954) & L. D. Sanghvi's proof of heterozygote advantage in P. falciparum malaria belts",
-    )
-
-    # TOP PANEL: Three Genotypes in a Malaria Belt
-    f.rect(16, 54, 608, 250, "wash-p", rx=10)
-    txt(f, 320, 74, "1. Opposing Selection Pressures on the Three HBB Genotypes (Chromosome 11)", "t b p", 9.4)
-
-    genos = [
-        (
-            "1. Normal Homozygote (HbᴬHbᴬ)",
-            "100% Normal Haemoglobin A",
-            "Flexible biconcave RBCs",
-            "• No sickle-cell anaemia",
-            "• HIGH susceptibility to lethal",
-            "  cerebral P. falciparum malaria",
-            "Relative fitness w ≈ 0.85",
-            "wash-e",
-        ),
-        (
-            "2. Heterozygous Carrier (HbᴬHbˢ)",
-            "~60% HbA + ~40% HbS (Sickle Trait)",
-            "Normal at rest; infected cells cleared",
-            "• No severe sickle-cell anaemia",
-            "• ~60–80% PROTECTED against",
-            "  severe P. falciparum malaria",
-            "HIGHEST fitness w = 1.00",
-            "wash-g",
-        ),
-        (
-            "3. Sickle Homozygote (HbˢHbˢ)",
-            "100% Sickle Haemoglobin S",
-            "Polymerises at low O₂ into crescents",
-            "• Severe sickle-cell anaemia;",
-            "  capillary blockage & pain crises",
-            "• Strong negative selection",
-            "Low wild fitness w ≈ 0.20",
-            "plate",
-        ),
-    ]
-    for idx, (gt, l1, l2, l3, l4, l5, w_str, gcls) in enumerate(genos):
-        gx = 28 + idx * 198
-        box(
-            f,
-            gx,
-            88,
-            188,
-            202,
-            [
-                (22, gt, "t b g" if idx == 1 else "t b p"),
-                (44, l1, "t b"),
-                (64, l2, "t m"),
-                (92, l3, "t"),
-                (114, l4, "t b e" if idx == 1 else "t"),
-                (134, l5, "t"),
-                (166, w_str, "t mono"),
-                (186, "Favoured by selection" if idx == 1 else "Selected against", "t b"),
-            ],
-            gcls,
-            7.9,
-        )
-
-    # BOTTOM LEFT: Geographic Concordance (Allison & Sanghvi)
-    f.rect(16, 316, 296, 264, "wash-e", rx=10)
-    txt(f, 164, 336, "2. Geographic Concordance (Allison & Sanghvi)", "t b e", 9.2)
-
-    box(
-        f,
-        28,
-        348,
-        272,
-        218,
-        [
-            (22, "HbᴬHbˢ Carrier % vs Malaria Endemicity", "t b e"),
-            (46, "• Highland / Malaria-Free Zones:", "t b"),
-            (64, "  0.8% carriers (q ≈ 0.004) — Hbˢ selected out.", "t m"),
-            (90, "• Seasonal / Lowland Fringe:", "t b"),
-            (108, "  9.5% carriers (q ≈ 0.050) — moderate balance.", "t m"),
-            (134, "• Holoendemic Lake Victoria (Allison 1954):", "t b p"),
-            (152, "  26.6% carriers (q ≈ 0.158); parasite rate 28%", "t"),
-            (170, "  in HbᴬHbˢ vs 46% in HbᴬHbᴬ children.", "t b g"),
-            (196, "• Central & Western India (Sanghvi): 20–24% carriers.", "t mono"),
-        ],
-        "plate",
-        7.8,
-    )
-
-    # BOTTOM RIGHT: Volume IV Synthesis Chain
-    f.rect(328, 316, 296, 264, "wash-g", rx=10)
-    txt(f, 476, 336, "3. Volume IV Synthesis: Base to Evolution", "t b g", 9.2)
-
-    box(
-        f,
-        340,
-        348,
-        272,
-        218,
-        [
-            (22, "One Continuous Story Across Chapters 11–14", "t b g"),
-            (46, "• Chapter 11 (DNA & Protein Synthesis):", "t b e"),
-            (64, "  HBB codon 6 base substitution GAG → GTG (Val⁶).", "t"),
-            (90, "• Chapter 12 (Replication & Meiosis):", "t b"),
-            (108, "  Copied by DNA polymerase & segregated into gametes.", "t"),
-            (134, "• Chapter 13 (Mendelian Inheritance):", "t b p"),
-            (152, "  HbᴬHbˢ × HbᴬHbˢ yields 25% HbᴬHbᴬ : 50% HbᴬHbˢ : 25% HbˢHbˢ.", "t"),
-            (178, "• Chapter 14 (Natural Selection):", "t b g"),
-            (196, "  Balancing selection stabilises q ≈ 15.8% in malaria belts.", "t m"),
-        ],
-        "plate",
-        7.8,
-    )
-
+    f = Fig(640, 560, 'Hypothetical large random-mating populations: constant fitness, no migration or new mutation')
+    heading(f, '14.9  Why Selection Can Maintain the HbS Allele', 'Hypothetical large random-mating populations: constant fitness, no migration or new mutation')
+    box(f, 16, 58, 296, 214, [(23, '1. Three genotypes in the malaria model', 't b e'), (48, 'HbAA: predominantly HbA; model w = 0.85.', 't'), (71, 'HbAS: roughly 60:40 HbA:HbS; w = 1.00.', 't'), (94, 'HbSS: predominantly HbS, variable HbF; w = 0.20.', 't'), (117, 'HbSS can cause severe sickle-cell disease.', 't'), (140, 'Values are relative reproductive contributions.', 't')], "plate", 8.1)
+    box(f, 328, 58, 296, 214, [(23, '2. Heterozygote advantage', 't b e'), (48, 'One HbS copy can reduce severe-malaria risk.', 't'), (71, 'That is not complete protection from infection.', 't'), (94, 'Parasite prevalence is a different measurement', 't'), (117, 'from severe illness or contribution to offspring.', 't'), (140, 'The model assumes HbAS has the highest fitness.', 't')], "plate", 8.1)
+    box(f, 16, 284, 296, 214, [(23, '3. Equilibrium in this model', 't b e'), (48, 'Selection against AA: s = 0.15.', 't'), (71, 'Selection against SS: t = 0.80.', 't'), (94, 'q* = s / (s + t) ≈ 0.1579.', 't'), (117, 'Newborn carrier fraction: 2pq ≈ 26.6%.', 't'), (140, 'This is not a universal district carrier rate.', 't')], "plate", 8.1)
+    box(f, 328, 284, 296, 214, [(23, '4. Remove the malaria advantage', 't b e'), (48, 'Now assume wAA = wAS = 1; retain wSS = 0.20.', 't'), (71, 'Starting q = 0.158, after 20 generations:', 't'), (94, 'q ≈ 0.0454; newborn carriers ≈ 8.66%.', 't'), (117, 'HbS copies are sheltered in heterozygotes.', 't'), (140, 'The allele declines but does not rapidly vanish.', 't')], "plate", 8.1)
+    txt(f, 320, 536, 'Historical malaria studies motivate the question; these model outputs do not forecast modern patients.', "t m", 8.0)
     return f.svg()
 
 

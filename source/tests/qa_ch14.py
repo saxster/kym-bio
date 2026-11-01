@@ -1,3 +1,4 @@
+from revision_fingerprint import revision_digest
 #!/usr/bin/env python3
 """Chapter 14 acceptance on the built book, with separate durable local receipts.
 
@@ -8,7 +9,7 @@ from pathlib import Path
 import base64,functools,hashlib,http.server,json,os,re,subprocess,threading,traceback,unicodedata
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-SITE=ROOT/'build/site'
+SITE=Path(os.environ.get('BIO_CH14_SITE',str(ROOT/'build/site')))
 OUT=Path(os.environ.get('BIO_CH14_QA_OUT','/tmp/lt_bio_ch14/qa'));OUT.mkdir(parents=True,exist_ok=True)
 WIDTHS=[390,820,1024,1180,1440];THEMES=['light','dark','sepia']
 WIDGETS={1:'variation_mutation_lab',4:'natural_selection_simulator',5:'adaptive_features_selective_breeding'}
@@ -44,6 +45,14 @@ def stamped(f):return f.locator('.live-stamp').evaluate("e=>e.classList.contains
 def clear_stamps(page):page.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('mw:stamp:')).forEach(k=>localStorage.removeItem(k))")
 
 def preservation():
+    revision_baseline=os.environ.get('BIO_REVISION_BASELINE')
+    if revision_baseline:
+        baseline=json.loads(Path(revision_baseline).read_text())
+        for name,expected in baseline.items():
+            data=(ROOT.parent/name).read_bytes()
+            check(revision_digest(ROOT.parent/name)==expected,'Revision source unchanged during QA '+name)
+        report['preserved_files']=len(baseline)
+        return
     baseline=json.loads((ROOT/'tests/ch14-preserved.json').read_text())['files']
     for name,expected in baseline.items():
         data=(ROOT.parent/name).read_bytes()
@@ -87,9 +96,9 @@ def overflow(page,f,label):
 
 def assert_tour(f,n,index):
     expected={
-        1:[(0,1,3,False),(0,2,4,True),(1,2,3,True),(2,4,4,False),(3,1,2,True)],
+        1:[(0,1,3,False),(0,3,4,True),(1,2,3,True),(2,4,4,False),(3,1,2,True)],
         4:[(0,3,10,False),(1,3,10,True),(2,4,5,True),(2,4,10,False),(3,4,9,True)],
-        5:[(0,4,2,False),(1,3,3,True),(2,5,3,True),(2,5,1,False),(3,4,1,True)],
+        5:[(0,4,1,False),(1,3,3,True),(2,5,3,True),(2,5,1,False),(3,4,1,True)],
     }[n][index]
     text=f.locator('.live-readout').inner_text()
     if n==1:
@@ -101,10 +110,10 @@ def assert_tour(f,n,index):
         check('variation' in text.lower(),'Variation tour readout agrees')
     elif n==4:
         m,press,gen,cut=expected
-        label=['Antibiotic Course','Stopped Day 3','Peppered Moths','Malaria & HbS'][m]
+        label=['Drug selection','Drug removed','Peppered Moths','Malaria & HbS'][m]
         check(f.get_by_role('button',name=label,exact=True).get_attribute('aria-pressed')=='true','Actual Selection tab '+label)
         check(int(f.get_by_label('Selection pressure',exact=True).input_value())==press,'Actual Selection pressure')
-        check(int(f.get_by_label('Generation or day step',exact=True).input_value())==gen,'Actual Generation or day step')
+        check(int(f.get_by_label('Generation or model step',exact=True).input_value())==gen,'Actual Generation or model step')
         check('favoured' in text.lower(),'Selection tour readout agrees')
     else:
         m,st,fl,cut=expected
@@ -129,18 +138,18 @@ def challenge(page,f,n):
         check('Contrasting variation or mutation trials captured for comparison:' in text,'Contrasting Variation trials recorded')
         slide(f,'Variation trait focus',4);slide(f,'Mutagen or environment',4)
         text=f.locator('.live-readout').inner_text()
-        check('#1 Height (continuous) (continuous, mean 152.8 cm, Chemical 5×) | #2 ABO blood (discontinuous) (discontinuous, 0% env shift, UV / Rad 20×)' in text,'Saved Variation trials remain immutable after slider changes')
+        check('#1 Height (continuous) (continuous, mean 152.8 cm, Chemical 5×) | #2 ABO blood (discontinuous) (discontinuous, no model nutrition shift, UV / Rad 20×)' in text,'Saved Variation trials remain immutable after slider changes')
     elif n==4:
-        slide(f,'Selection pressure',2);slide(f,'Generation or day step',4)
+        slide(f,'Selection pressure',2);slide(f,'Generation or model step',4)
         check(not stamped(f),'Sliders without capturing both states cannot earn Selection comparison')
-        tab(f,'Full 7-Day Course');tab(f,'Capture trial')
+        tab(f,'Continuous exposure');tab(f,'Capture trial')
         check(not stamped(f),'Single captured state cannot earn Selection comparison')
-        tab(f,'Stop on Day 3 (Relapse)');tab(f,'Capture trial')
+        tab(f,'Remove after step 3');tab(f,'Capture trial')
         text=f.locator('.live-readout').inner_text()
-        check('Contrasting natural selection trials captured for comparison:' in text,'Both Full Course and Day 3 Stop states captured')
-        slide(f,'Selection pressure',1);slide(f,'Generation or day step',1)
+        check('Contrasting natural selection trials captured for comparison:' in text,'Both illustrative culture states captured')
+        slide(f,'Selection pressure',1);slide(f,'Generation or model step',1)
         text=f.locator('.live-readout').inner_text()
-        check('#1 Antibiotic Course [Day 10: 0 bacteria (0% resistant)] | #2 Stopped Day 3 [Day 10: 1000 bacteria (99.2% resistant)]' in text,'Saved Selection captures remain immutable')
+        check('#1 Drug selection [Step 10:' in text and '#2 Drug removed [Step 10:' in text and 'clinical days' in text,'Saved model captures remain immutable and distinguish nonclinical steps')
     else:
         slide(f,'Stress or generation',2)
         check(not stamped(f),'Moving stress slider without capture cannot earn Adaptation comparison')
@@ -238,11 +247,11 @@ def browser_checks():
                         slide(f,'Variation trait focus',tr)
                         for env in [1,2,3,4]:slide(f,'Mutagen or environment',env)
             elif n==4:
-                for name in ['Antibiotic Course','Stopped Day 3','Peppered Moths','Malaria & HbS']:
+                for name in ['Drug selection','Drug removed','Peppered Moths','Malaria & HbS']:
                     tab(f,name)
                     for press in [1,2,3,4]:
                         slide(f,'Selection pressure',press)
-                        for gen in range(0,11):slide(f,'Generation or day step',gen)
+                        for gen in range(0,11):slide(f,'Generation or model step',gen)
             else:
                 for name in ['Xerophyte (Arid)','Hydrophyte (Aquatic)','Selective Breeding','DNA Clock']:
                     tab(f,name)

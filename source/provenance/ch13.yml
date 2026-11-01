@@ -10,6 +10,12 @@
     url: https://openstax.org/books/concepts-of-biology/pages/8-1-mendels-experiments
     took: Accessible explanation of homologous chromosome allele pairs in diploid cells and how enzyme sufficiency explains complete dominance
   research:
+  - what: Allele copy counts do not establish enzyme concentration; the dwarfing allele retains reduced rather than zero activity.
+    source: Martin et al. 1997, original dwarfing-gene enzyme study
+    url: https://pmc.ncbi.nlm.nih.gov/articles/pmid/9238076/
+  - what: Pollen produces/carries sperm; ovules contain eggs and maternal diploid tissue, rather than being gametes.
+    source: Glöckle et al. 2018, original pollen/gamete differentiation study
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC5825867/
   - what: 'Core/Supplement placement independently checked: Topic 17.4 Monohybrid inheritance (Core 17.4.1–17.4.9: inheritance as transmission of genetic information from generation to generation; dominant allele expressed if present in genotype; recessive allele only expressed when no dominant allele is present; genotype as genetic make-up in terms of alleles present; phenotype as observable features; homozygous as two identical alleles and pure-breeding; heterozygous as two different alleles and not pure-breeding) and Topic 17.1.2–17.1.3 (gene as length of DNA coding for a protein; allele as alternative form of a gene)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
@@ -32,9 +38,9 @@
     limits: 'Not to scale; P, F₁, F₂, and F₃ breeding flowchart paired with Mendel''s complete 7-trait 1866 Brno ledger (19,959 outcomes, 2.98 : 1)'
   - name: c13_homologous_loci_alleles
     origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
-    limits: Not to scale; maternal and paternal homologous chromosomes showing matching gene loci (RR, Bb, tt) and the SBEI enzyme dosage mechanism (100% RR, 50% haplosufficient Rr, 0% rr)
+    limits: Not to scale; maternal and paternal homologous chromosomes showing matching gene loci (RR, Bb, tt) and the SBEI sufficiency mechanism (two working R copies in RR, one sufficient copy in Rr, no functional SBEI in rr); copy counts do not measure enzyme amount
   licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Mendel 1866 7-trait counts (14,949 : 5,010 = 2.98 : 1), F₃ progeny test ratios (193 : 372 = 1 : 1.93), SBEI enzyme dosage (100%, 50%, 0%), and sample-size convergence from N = 16 to 19,959 computed in source/live/inheritance_model.js and verified in tests/ch13_domain.mjs.'
+  computed: 'Mendel 1866 7-trait counts (14,949 : 5,010 = 2.98 : 1), F₃ progeny test ratios (193 : 372 = 1 : 1.93), working dominant-allele copy counts (2, 1, 0; not enzyme-dose measurements), and sample-size convergence from N = 16 to 19,959 computed in source/live/inheritance_model.js and verified in tests/ch13_domain.mjs.'
   scope: Opens Chapter 13 by answering Question 1 of Chapter 12's bridge (how two alleles on homologous chromosomes interact and why discrete alleles do not blend).
 
 '13.2':
@@ -49,6 +55,9 @@
     url: https://openstax.org/books/concepts-of-biology/pages/8-2-laws-of-inheritance
     took: Step-by-step monohybrid genetic diagrams, probability rules, and carrier deductions in human family trees
   research:
+  - what: Pedigree deductions require full expression/no new mutation; all-dominant finite test crosses do not prove homozygosity.
+    source: NHS Genomics Education, penetrance
+    url: https://www.genomicseducation.hee.nhs.uk/genotes/knowledge-hub/penetrance/
   - what: 'Core/Supplement placement independently checked: Topic 17.4 Monohybrid inheritance (Core 17.4.10: construct and interpret genetic diagrams including Punnett squares for monohybrid crosses; Core 17.4.11: use and interpret pedigree diagrams; Core 17.4.12: calculate phenotypic ratios 1:1 and 3:1 and probabilities; Supplement 17.4.13–17.4.14: identify an unknown genotype by a test cross with a homozygous recessive individual)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
@@ -85,6 +94,12 @@
     url: https://openstax.org/books/concepts-of-biology/pages/8-3-extensions-of-the-laws-of-inheritance
     took: ABO blood group genotypes and why codominant heterozygotes express both alleles simultaneously without blending
   research:
+  - what: Chromosome 9 mapping postdates Bernstein; ordinary three-allele ABO excludes rare variants/H-antigen deficiency and does not independently confirm identity.
+    source: Ferguson-Smith et al. 1976 original mapping study
+    url: https://pubmed.ncbi.nlm.nih.gov/184030/
+  - what: H-antigen dependence, Bombay phenotype and common versus all O alleles.
+    source: NCBI Blood Groups and Red Cell Antigens, ABO
+    url: https://www.ncbi.nlm.nih.gov/sites/books/NBK2267/
   - what: 'Core/Supplement placement independently checked: Topic 17.4 Monohybrid inheritance (Supplement 17.4.15: describe codominance as a situation in which both alleles in heterozygous organisms contribute to the phenotype; Supplement 17.4.17: explain the inheritance of ABO blood groups with phenotypes A, B, AB and O and alleles IA, IB and IO; Supplement 17.4.18: construct and interpret genetic diagrams involving codominance and calculate phenotypic ratios and probabilities)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
@@ -95,7 +110,7 @@
   - what: 'TRUE:Karl Landsteiner (1900–1901) at the University of Vienna discovered the human ABO blood groups by cross-testing washed erythrocytes and blood sera; Felix Bernstein (1924) proved mathematically from family studies that A, B, and O are inherited as three multiple alleles at a single genetic locus'
     source: 'Landsteiner K (1901) Über Agglutinationserscheinungen normalen menschlichen Blutes, Wiener klinische Wochenschrift 14:1132–1134; Bernstein F (1924) Klinische Wochenschrift 3:1495–1497'
     url: https://doi.org/10.1007/BF01736255
-  - what: 'TRUE:Fumi-ichiro Yamamoto, Henrik Clausen, T. White, J. Marken, and Sen-itiroh Hakomori (1990) cloned and sequenced the human ABO locus on Chromosome 9 (9q34.2), showing that IA encodes α-1,3-N-acetylgalactosaminyltransferase (GTA), IB differs by 4 amino-acid substitutions to encode α-1,3-galactosyltransferase (GTB), and IO carries a single-base deletion (ΔG261) frameshift inactivating the enzyme'
+  - what: 'TRUE:Fumi-ichiro Yamamoto, Henrik Clausen, T. White, J. Marken, and Sen-itiroh Hakomori (1990) cloned and sequenced the human ABO locus on Chromosome 9 (9q34.2), showing that IA encodes α-1,3-N-acetylgalactosaminyltransferase (GTA), IB differs by 4 amino-acid substitutions to encode α-1,3-galactosyltransferase (GTB), and a common IO allele carries a single-base deletion (ΔG261) frameshift inactivating the enzyme'
     source: 'Yamamoto F et al. (1990) Molecular genetic basis of the histo-blood group ABO system, Nature 345(6272):229–233'
     url: https://doi.org/10.1038/345229a0
   figures:
@@ -121,6 +136,24 @@
     url: https://openstax.org/books/concepts-of-biology/pages/8-3-extensions-of-the-laws-of-inheritance
     took: Why X-linked recessive traits are more frequent in males than females and why carrier mothers transmit X-linked traits to 50% of their sons
   research:
+  - what: Factor VIII is a cofactor; separate F8/F9 genes act upstream of thrombin-mediated fibrinogen conversion.
+    source: NCBI Gene F8
+    url: https://www.ncbi.nlm.nih.gov/gene?from_uid=306700&linkname=omim_gene
+  - what: Thrombin, rather than VIII or IX, directly converts fibrinogen to fibrin.
+    source: MedlinePlus Genetics F2
+    url: https://medlineplus.gov/download/genetics/gene/f2.pdf
+  - what: Women heterozygous for a haemophilia variant can have bleeding symptoms; diagrams are a simple recessive model.
+    source: CDC haemophilia in women
+    url: https://www.cdc.gov/hemophilia/about/information-for-women.html
+  - what: Human fertilisation and birth sex ratios differ; expected probabilities are not an exact observed birth ratio.
+    source: Orzack et al. 2015 original population study
+    url: https://pubmed.ncbi.nlm.nih.gov/25825766/
+  - what: Colour-vision prevalence varies by ancestry; cited 1/12 male and 1/200 female estimates describe Northern European ancestry.
+    source: MedlinePlus Genetics colour vision deficiency
+    url: https://medlineplus.gov/genetics/condition/color-vision-deficiency/
+  - what: Morgan reported 1,237 red F1 and three white-eyed male exceptions; an idealised cross is distinguished from historical data.
+    source: Morgan 1910 original experimental paper
+    url: https://old.esp.org/foundations/genetics/classical/thm-10a.pdf
   - what: 'Core/Supplement placement independently checked: Topic 17.1 & 17.4 (XX in females, XY in males, 1:1 sex determination Punnett square; Supplement 17.4.16: describe a sex-linked characteristic as a characteristic in which the gene responsible is located on a sex chromosome and that this makes it more common in one sex than in the other; Supplement 17.4.19: describe red–green colour blindness as an example of sex linkage; Supplement 17.4.20: use genetic diagrams to predict the results of monohybrid crosses involving sex linkage and calculate phenotypic ratios and probabilities)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
@@ -134,7 +167,7 @@
   - what: 'TRUE:Nettie Maria Stevens (1905) at Bryn Mawr College demonstrated in Tenebrio molitor (yellow mealworm beetle) that females carry two large X chromosomes (XX, producing uniform X ova) while males carry one large X and one small Y chromosome (XY, producing 50% X sperm and 50% Y sperm), establishing chromosomal sex determination'
     source: 'Stevens NM (1905) Studies in spermatogenesis with especial reference to the "accessory chromosome", Carnegie Institution of Washington Publication 36:1–32'
     url: https://doi.org/10.5962/bhl.title.56515
-  - what: 'TRUE:Thomas Hunt Morgan (1910) at Columbia University bred a white-eyed male Drosophila melanogaster with red-eyed females (1,237 red F₁; 3,470 red : 782 white F₂, all white-eyed F₂ flies being male XwY) and performed reciprocal/test crosses proving that the eye-colour gene is located physically on the X chromosome'
+  - what: 'TRUE:Thomas Hunt Morgan (1910) at Columbia University bred a white-eyed male Drosophila melanogaster with red-eyed females (1,237 red plus three white-eyed male F₁; 3,470 red : 782 white F₂, all white-eyed F₂ flies being male XwY) and performed reciprocal/test crosses proving that the eye-colour gene is located physically on the X chromosome'
     source: 'Morgan TH (1910) Sex limited inheritance in Drosophila, Science 32(812):120–122'
     url: https://doi.org/10.1126/science.32.812.120
   figures:
@@ -218,7 +251,7 @@ story:mendel-morgan-sanghvi-inheritance:
     url: https://doi.org/10.1126/science.32.812.120
   figures: []
   licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes or art copied.
-  truth_status: 'TRUE documented places (St Thomas''s Abbey Brno, University of Vienna, University of Cambridge, Bryn Mawr College, Schermerhorn Hall Columbia University New York, Indian Cancer Research Centre Parel Mumbai), dates (1851–1853, 1856–1863, 1865, 1866, 1900, 1905, 1910, 1933, 1949), and quantitative results (19,959 F₂ outcomes, 5,474:1,850 round/wrinkled, 6,022:2,001 yellow/green, 705:224 purple/white, 193:372 F₃ seed test, 1,237 F₁ and 3,470:782 F₂ Drosophila counts). No invented dialogue or scenes.'
+  truth_status: 'TRUE documented places (St Thomas''s Abbey Brno, University of Vienna, University of Cambridge, Bryn Mawr College, Schermerhorn Hall Columbia University New York, Indian Cancer Research Centre Parel Mumbai), dates (1851–1853, 1856–1863, 1865, 1866, 1900, 1905, 1910, 1933, 1949), and quantitative results (19,959 F₂ outcomes, 5,474:1,850 round/wrinkled, 6,022:2,001 yellow/green, 705:224 purple/white, 193:372 F₃ seed test, 1,237 red plus three white-eyed male F₁ and 3,470:782 F₂ Drosophila counts). No invented dialogue; garden scenes are illustrative reconstructions of documented methods.'
   access_limits: Mendel 1866, Punnett 1905, Stevens 1905, and Morgan 1910 examined via Biodiversity Heritage Library / open-access archives; Bhattacharyya et al. 1990, Yamamoto et al. 1990, and Sanghvi & Khanolkar 1949 verified via primary bibliometric records.
 
 model:mendel_punnett_simulator:
@@ -243,7 +276,7 @@ model:sex_linked_cross_lab:
   validation: tests/ch13_domain.mjs independent oracles and tests/qa_ch13.py final-book browser acceptance; results reported in gates/ch13-verification.md
 
 record:ch13-decisions:
-  preservation: tests/ch13-preserved.json captures all 316 pre-existing files under source/ (Chapters 0–12 + baselines/gates/runners). Only existing-file change is append-only three Chapter 13 enhancements in source/live/enhancements.js; exact original 91,898 bytes reconstructed and verified. Existing stories (p-ammal.md, p-ramachandran.md, franklin-khorana-codebreakers.md, meselson-flemming-gurdon-divisions.md) preserved byte-for-byte and linked naturally in Chapter 13.
+  preservation: tests/ch13-preserved.json captures all 316 pre-existing files under source/ (Chapters 0–12 + baselines/gates/runners). Only existing-file change is append-only three Chapter 13 enhancements in source/live/enhancements.js; the historical gate reconstructs exact original bytes; coordinated revisions can supply a fixed BIO_REVISION_BASELINE SHA-256 snapshot instead. Existing stories (p-ammal.md, p-ramachandran.md, franklin-khorana-codebreakers.md, meselson-flemming-gurdon-divisions.md) preserved byte-for-byte and linked naturally in Chapter 13.
   corrections: 'Covered full Cambridge Lower Secondary Science 0893 (7Bp.03, 8Bp.01, 9Bp.01, 9Bs.01–9Bs.03) and Cambridge IGCSE Biology 0610 Topic 17.4 Monohybrid inheritance (Core 1–12 & Supplement 13–20: definitions, Punnett squares, pedigree diagrams, 3:1 and 1:1 ratios, test crosses, codominance, ABO blood groups IA/IB/IO, sex-linked characteristics, red–green colour blindness and haemophilia) plus XX/XY sex determination; maintained strict syllabus partition by deferring continuous/discontinuous variation, mutation, natural selection, selective breeding, and antibiotic resistance to Chapter 14.'
   source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax access-for-free footer retained; original prose/art only.
   access_limits: Primary papers Mendel 1866, Punnett 1905, Stevens 1905, Morgan 1910, Bhattacharyya et al. 1990, Yamamoto et al. 1990, and Sanghvi & Khanolkar 1949 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { mendelCrossAccount, aboPhenotypeAccount } from '../live/atlas/biology/ch13-mendel-inheritance/model.js';
 import {
   MENDEL_CROSS_MODES,
   MENDEL_SEVEN_TRAITS,
@@ -164,9 +165,10 @@ for (let modeIndex = 0; modeIndex < MENDEL_CROSS_MODES.length; modeIndex += 1) {
           for (const cell of res.punnettCells) {
             check(Object.isFrozen(cell), 'Punnett cell frozen');
             checkEqual(cell.probabilityPct, 25, 'Each cell is 25%');
-            if (cell.canonical === 'RR') checkEqual(cell.enzymeDosePct, 100, 'RR enzyme dose 100%');
-            if (cell.canonical === 'Rr') checkEqual(cell.enzymeDosePct, 50, 'Rr enzyme dose 50%');
-            if (cell.canonical === 'rr') checkEqual(cell.enzymeDosePct, 0, 'rr enzyme dose 0%');
+            if (cell.canonical === 'RR') checkEqual(cell.workingAlleleCopies, 2, 'RR has two working dominant allele copies');
+            if (cell.canonical === 'Rr') checkEqual(cell.workingAlleleCopies, 1, 'Rr has one working dominant allele copy');
+            if (cell.canonical === 'rr') checkEqual(cell.workingAlleleCopies, 0, 'rr has no working dominant allele copy');
+            check(!('enzymeDosePct' in cell), 'Allele count does not assert an enzyme concentration');
           }
 
           const cap = captureMendelTrial(res);
@@ -178,15 +180,23 @@ for (let modeIndex = 0; modeIndex < MENDEL_CROSS_MODES.length; modeIndex += 1) {
   }
 }
 
-// Verify convergence across sample sizes for Rr x Rr
+// Compare explicitly labelled preset examples and historical measurements, not a guarantee for every random run.
 const mSmall = simulateMendelPunnett({ modeIndex: 0, traitStep: 1, sampleStep: 1 });
 const mMed = simulateMendelPunnett({ modeIndex: 0, traitStep: 1, sampleStep: 2 });
 const mLarge = simulateMendelPunnett({ modeIndex: 0, traitStep: 1, sampleStep: 3 });
 const mBrno = simulateMendelPunnett({ modeIndex: 0, traitStep: 1, sampleStep: 4 });
 check(
   Math.abs(mSmall.empirical.dominantPct - 75) > Math.abs(mLarge.empirical.dominantPct - 75),
-  'Larger sample N=400 converges closer to 75% than small sample N=16'
+  'The chosen illustrative N=400 example lies closer than the chosen N=16 example'
 );
+checkEqual(mSmall.empirical.sampleKind, 'illustrative', 'Small preset is labelled illustrative, not an observation');
+checkEqual(mBrno.empirical.sampleKind, 'historical', 'Brno counts are labelled historical');
+checkEqual(simulateMendelPunnett({modeIndex:1,sampleStep:4}).empirical.sampleKind, 'theoretical', 'Non-historical expected test-cross counts are labelled theoretical');
+check(MENDEL_SEVEN_TRAITS.find(t=>t.id==='stem_height').geneMechanism.includes('does not eliminate'), 'Dwarfing allele retains reduced activity');
+check(mendelCrossAccount('f1_self',64).stdError < mendelCrossAccount('f1_self',16).stdError, 'Larger independent samples reduce standard error, without forcing realised counts');
+check(!mendelCrossAccount('test_homo').ratioLabel.includes('verified'), 'Known-parent grid does not claim finite offspring prove genotype');
+checkEqual(aboPhenotypeAccount('IA','IB').antibodies, 'No anti-A or anti-B', 'AB antibody readout makes no reversed plasma-recipient claim');
+checkEqual(aboPhenotypeAccount('IA','i').genotype, 'I^A I^O', 'Atlas uses consistent ABO allele notation');
 checkEqual(mBrno.empirical.dominantCount, 5474, 'Seed shape Brno dominant = 5,474');
 checkEqual(mBrno.empirical.recessiveCount, 1850, 'Seed shape Brno recessive = 1,850');
 const mCmp = compareMendelTrials(mSmall, mBrno);

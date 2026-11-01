@@ -65,8 +65,8 @@ const MENDEL_SEVEN_TRAITS = Object.freeze([
     mendelDominantPct: 74.74,
     mendelRecessivePct: 25.26,
     enzymeName: 'Starch-branching enzyme I (SBEI)',
-    geneMechanism: 'R codes for functional SBEI that converts linear amylose into branched amylopectin starch; r carries a 0.8 kb transposon insertion (Bhattacharyya et al., 1990) that inactivates SBEI so sucrose accumulates, draws in water by osmosis, and wrinkles the drying seed.',
-    heterozygoteNote: 'One R copy (50% SBEI enzyme dose) synthesises enough branched starch to keep Rr seeds fully round (haplosufficiency).',
+    geneMechanism: 'R codes for functional SBEI that adds branches to growing glucose chains during amylopectin synthesis; r carries a 0.8 kb transposon insertion (Bhattacharyya et al., 1990) that inactivates SBEI so sucrose accumulates, draws in water by osmosis, and wrinkles the drying seed.',
+    heterozygoteNote: 'One working R copy synthesises enough branched starch to keep Rr seeds fully round (haplosufficiency).',
     f3ProgenyTested: 565,
     f3TrueBreedingDominant: 193,
     f3SegregatingHybrid: 372,
@@ -128,7 +128,7 @@ const MENDEL_SEVEN_TRAITS = Object.freeze([
     mendelDominantPct: 73.97,
     mendelRecessivePct: 26.03,
     enzymeName: 'Gibberellin 3β-hydroxylase (PsGA3ox1)',
-    geneMechanism: 'T codes for active gibberellin 3β-hydroxylase that converts inactive GA₂₀ into growth hormone GA₁; t carries an Ala229Thr active-site substitution (Lester et al., 1997) that cuts hormone output and shortens internodes.',
+    geneMechanism: 'T codes for active gibberellin 3β-hydroxylase that converts inactive GA₂₀ into growth hormone GA₁; t carries an Ala229Thr active-site substitution (Lester et al., 1997) that greatly reduces, but does not eliminate, enzyme activity and hormone output, shortening internodes.',
     heterozygoteNote: 'One T copy in Tt plants produces enough active GA₁ hormone for normal tall internode elongation.',
     f3ProgenyTested: 100,
     f3TrueBreedingDominant: 28,
@@ -219,7 +219,7 @@ const MENDEL_SAMPLE_STEPS = Object.freeze([
   Object.freeze({
     step: 1,
     id: 'pod_16',
-    label: '16 seeds (1 pod batch)',
+    label: '16 trials (illustrative sample)',
     shortLabel: 'N = 16',
     sampleSize: 16,
     note: 'Small sample (N = 16): random fertilisation sampling bounce makes individual families or pods deviate noticeably from the theoretical ratio.',
@@ -227,18 +227,18 @@ const MENDEL_SAMPLE_STEPS = Object.freeze([
   Object.freeze({
     step: 2,
     id: 'kitchen_64',
-    label: '64 trials (kitchen coin/bean run)',
+    label: '64 trials (illustrative sample)',
     shortLabel: 'N = 64',
     sampleSize: 64,
-    note: 'Moderate sample (N = 64): matches the two-coin or two-bean kitchen investigation; ratio narrows toward the theoretical expectation.',
+    note: 'Moderate sample (N = 64): matches the two-coin or two-bean kitchen investigation; larger samples have smaller typical percentage fluctuations, not guaranteed improvement on each run.',
   }),
   Object.freeze({
     step: 3,
     id: 'plot_400',
-    label: '400 seeds (garden plot)',
+    label: '400 trials (illustrative sample)',
     shortLabel: 'N = 400',
     sampleSize: 400,
-    note: 'Large plot sample (N = 400): random fluctuations average out and empirical percentages converge closely on the Punnett expectation.',
+    note: 'Large plot sample (N = 400): random fluctuations average out and typical percentage fluctuations shrink; these are preset examples, not freshly sampled counts.',
   }),
   Object.freeze({
     step: 4,
@@ -261,7 +261,7 @@ const ABO_GENOTYPES = Object.freeze([
     zygosity: 'Heterozygous Group A',
     surfaceAntigens: 'Antigen A only (GalNAc terminal sugar)',
     plasmaAntibodies: 'Anti-B antibodies',
-    enzymeState: '1 active GTA transferase copy + 1 non-functional Iᴼ copy (50% enzyme dose is sufficient to coat red blood cells with Antigen A)',
+    enzymeState: '1 active GTA transferase copy + 1 non-functional Iᴼ copy (one working copy supplies enough enzyme for Antigen A)',
     inheritancePattern: 'Simple dominance of Iᴬ over recessive Iᴼ',
   }),
   Object.freeze({
@@ -274,7 +274,7 @@ const ABO_GENOTYPES = Object.freeze([
     zygosity: 'Homozygous Group A',
     surfaceAntigens: 'Antigen A only (GalNAc terminal sugar)',
     plasmaAntibodies: 'Anti-B antibodies',
-    enzymeState: '2 active GTA transferase copies (100% enzyme dose coats red blood cells with Antigen A)',
+    enzymeState: '2 active GTA transferase copies (enzyme adds Antigen A)',
     inheritancePattern: 'Homozygous dominant for Antigen A',
   }),
   Object.freeze({
@@ -287,7 +287,7 @@ const ABO_GENOTYPES = Object.freeze([
     zygosity: 'Heterozygous Group B',
     surfaceAntigens: 'Antigen B only (D-Galactose terminal sugar)',
     plasmaAntibodies: 'Anti-A antibodies',
-    enzymeState: '1 active GTB transferase copy + 1 non-functional Iᴼ copy (50% enzyme dose is sufficient to coat red blood cells with Antigen B)',
+    enzymeState: '1 active GTB transferase copy + 1 non-functional Iᴼ copy (one working copy supplies enough enzyme for Antigen B)',
     inheritancePattern: 'Simple dominance of Iᴮ over recessive Iᴼ',
   }),
   Object.freeze({
@@ -300,7 +300,7 @@ const ABO_GENOTYPES = Object.freeze([
     zygosity: 'Homozygous Group B',
     surfaceAntigens: 'Antigen B only (D-Galactose terminal sugar)',
     plasmaAntibodies: 'Anti-A antibodies',
-    enzymeState: '2 active GTB transferase copies (100% enzyme dose coats red blood cells with Antigen B)',
+    enzymeState: '2 active GTB transferase copies (enzyme adds Antigen B)',
     inheritancePattern: 'Homozygous dominant for Antigen B',
   }),
   Object.freeze({
@@ -326,7 +326,7 @@ const ABO_GENOTYPES = Object.freeze([
     zygosity: 'Homozygous Recessive (Group O)',
     surfaceAntigens: 'Unmodified H-antigen stalks only (no A or B sugar added)',
     plasmaAntibodies: 'Both Anti-A and Anti-B antibodies',
-    enzymeState: '0 active copies (single-base deletion ΔG261 shifts reading frame in both Iᴼ alleles, producing truncated non-functional protein)',
+    enzymeState: '0 active copies in this common O-allele example (single-base deletion ΔG261 shifts reading frame in both Iᴼ alleles, producing truncated non-functional protein)',
     inheritancePattern: 'Homozygous recessive: Group O appears only when neither Iᴬ nor Iᴮ is present',
   }),
 ]);
@@ -366,7 +366,7 @@ const ABO_CROSS_MODES = Object.freeze([
     shortLabel: 'Pedigree Rules',
     defaultMaternalStep: 1,
     defaultPaternalStep: 1,
-    summary: 'Pedigree deduction rules: two unaffected carrier parents (Aa × Aa) having an affected child (aa, or Group O child from IᴬIᴼ × IᴬIᴼ) proves the hidden allele is recessive and both parents are heterozygotes.',
+    summary: 'Pedigree deduction rules: two unaffected carrier parents (Aa × Aa) having an affected child (aa, or Group O child from IᴬIᴼ × IᴬIᴼ) indicates recessive inheritance in our single-gene, fully expressed, no-new-mutation model.',
   }),
 ]);
 
@@ -374,18 +374,18 @@ const PEDIGREE_DETECTIVE_RULES = Object.freeze([
   Object.freeze({
     ruleNumber: 1,
     id: 'recessive_proof',
-    title: 'Rule 1 — Unaffected Parents → Affected Child Proves Recessive',
+    title: 'Rule 1 — Unaffected Parents → Affected Child (Recessive Model)',
     parentPattern: 'Two unaffected parents (Aa × Aa) produce an affected child (aa)',
-    deduction: 'The condition MUST be recessive, both parents MUST be heterozygous carriers (Aa), and the affected child is homozygous recessive (aa).',
+    deduction: 'Within our single-gene, fully expressed, no-new-mutation model, the condition is recessive and both parents are heterozygous carriers (Aa), and the affected child is homozygous recessive (aa).',
     whyOtherFails: 'If the condition were dominant, an affected child would require at least one dominant allele, which would have made at least one parent affected.',
     siblingProbabilities: 'Each subsequent pregnancy has a 25% (1/4) chance of being affected (aa), a 50% (2/4) chance of being an unaffected carrier (Aa), and a 25% (1/4) chance of being homozygous normal (AA). Among already-born unaffected siblings, 2/3 are carriers (Aa).',
   }),
   Object.freeze({
     ruleNumber: 2,
     id: 'dominant_proof',
-    title: 'Rule 2 — Affected Parents → Unaffected Child Proves Dominant',
+    title: 'Rule 2 — Affected Parents → Unaffected Child (Dominant Model)',
     parentPattern: 'Two affected parents (Aa × Aa) produce an unaffected child (aa)',
-    deduction: 'The condition MUST be dominant, both affected parents MUST be heterozygotes (Aa), and the unaffected child is homozygous recessive (aa).',
+    deduction: 'Within our single-gene, fully expressed, no-new-mutation model, the condition is dominant and both affected parents are heterozygotes (Aa), and the unaffected child is homozygous recessive (aa).',
     whyOtherFails: 'If the condition were recessive, two affected parents would both be homozygous recessive (aa × aa) and could pass only recessive alleles (100% affected children).',
     siblingProbabilities: 'Each pregnancy has a 75% (3/4) chance of being affected (1/4 AA + 2/4 Aa) and a 25% (1/4) chance of being unaffected (aa).',
   }),
@@ -430,7 +430,7 @@ const SEX_LINKED_MODES = Object.freeze([
     defaultMaternalStep: 1,
     defaultPaternalStep: 1,
     defaultTraitStep: 1,
-    summary: 'Every human ovum carries 22 autosomes + X; meiosis in the father produces 50% X-sperm (22 + X) and 50% Y-sperm (22 + Y), locking every pregnancy at an independent 1 : 1 (50% XX female : 50% XY male) ratio.',
+    summary: 'In the typical XX/XY model, an ovum carries 22 autosomes + X; meiosis in the father produces 50% X-sperm (22 + X) and 50% Y-sperm (22 + Y), giving expected independent 50% XX and 50% XY probabilities in this model; actual birth ratios need not equal 1 : 1.',
   }),
 ]);
 
@@ -459,9 +459,9 @@ const SEX_LINKED_TRAITS = Object.freeze([
     yAllele: 'Y',
     normalPhenotype: 'Normal blood clotting cascade',
     affectedPhenotype: 'Haemophilia (impaired fibrin clotting)',
-    carrierPhenotype: 'Normal blood clotting (carrier female)',
+    carrierPhenotype: 'Carrier female (may have bleeding symptoms)',
     chapterBridge: 'Chapters 8 & 10 (8.4 & 10.4): Plasma clotting enzyme cascade converts soluble fibrinogen into insoluble fibrin mesh threads to seal wounds.',
-    molecularMechanism: 'Xᴴ codes for functional clotting Factor VIII/IX enzyme; Xʰ produces non-functional clotting factor so soluble fibrinogen is not rapidly converted into a fibrin mesh, and Y carries no Factor VIII/IX gene.',
+    molecularMechanism: 'The notation represents either F8 or F9, separate genes on X. Factor VIII helps activated Factor IX in an upstream clotting step; thrombin converts fibrinogen to fibrin. Altered factor function impairs clotting. Some heterozygous women have bleeding symptoms because of X-inactivation; these grid percentages describe the simple recessive model.',
   }),
   Object.freeze({
     traitStep: 3,
@@ -499,7 +499,7 @@ function buildMendelGenotypeStep(step, domSymbol, recSymbol) {
       canonical: 'RR',
       alleles: Object.freeze([domSymbol, domSymbol]),
       zygosity: 'Homozygous dominant',
-      enzymeDosePct: 100,
+      workingAlleleCopies: 2,
       isDominantPhenotype: true,
     });
   }
@@ -510,7 +510,7 @@ function buildMendelGenotypeStep(step, domSymbol, recSymbol) {
       canonical: 'Rr',
       alleles: Object.freeze([domSymbol, recSymbol]),
       zygosity: 'Heterozygous',
-      enzymeDosePct: 50,
+      workingAlleleCopies: 1,
       isDominantPhenotype: true,
     });
   }
@@ -520,7 +520,7 @@ function buildMendelGenotypeStep(step, domSymbol, recSymbol) {
     canonical: 'rr',
     alleles: Object.freeze([recSymbol, recSymbol]),
     zygosity: 'Homozygous recessive',
-    enzymeDosePct: 0,
+    workingAlleleCopies: 0,
     isDominantPhenotype: false,
   });
 }
@@ -532,7 +532,7 @@ function combineMendelAlleles(a1, a2, domSymbol, recSymbol) {
       genotype: `${domSymbol}${domSymbol}`,
       canonical: 'RR',
       zygosity: 'Homozygous dominant',
-      enzymeDosePct: 100,
+      workingAlleleCopies: 2,
       isDominantPhenotype: true,
     });
   }
@@ -541,7 +541,7 @@ function combineMendelAlleles(a1, a2, domSymbol, recSymbol) {
       genotype: `${domSymbol}${recSymbol}`,
       canonical: 'Rr',
       zygosity: 'Heterozygous',
-      enzymeDosePct: 50,
+      workingAlleleCopies: 1,
       isDominantPhenotype: true,
     });
   }
@@ -549,7 +549,7 @@ function combineMendelAlleles(a1, a2, domSymbol, recSymbol) {
     genotype: `${recSymbol}${recSymbol}`,
     canonical: 'rr',
     zygosity: 'Homozygous recessive',
-    enzymeDosePct: 0,
+    workingAlleleCopies: 0,
     isDominantPhenotype: false,
   });
 }
@@ -608,7 +608,7 @@ function computeMendelSampleCounts(canonicalCounts, sampleStep, traitInfo, modeI
           : domCount > 0
             ? '100% dominant'
             : '100% recessive',
-      sourceLabel: 'Large-sample theoretical convergence (N = 1,000)',
+      sourceLabel: 'Expected counts, not observations (N = 1,000)',
     });
   }
 
@@ -644,7 +644,7 @@ function computeMendelSampleCounts(canonicalCounts, sampleStep, traitInfo, modeI
     });
   }
 
-  // Deterministic realistic sampling offset showing small-sample noise that shrinks as N grows
+  // Preset illustrative counts for comparison, not a random run or a guarantee of monotonic convergence
   const traitOffset = (traitInfo.traitStep % 2 === 1 ? -1 : 1);
   let delta = 0;
   if (sampleStep === 1) delta = traitOffset * 1; // e.g. 11:5 or 13:3 for N=16 (3:1), 7:9 or 9:7 for 1:1
@@ -717,7 +717,7 @@ export function simulateMendelPunnett(params = {}) {
           genotype: outcome.genotype,
           canonical: outcome.canonical,
           zygosity: outcome.zygosity,
-          enzymeDosePct: outcome.enzymeDosePct,
+          workingAlleleCopies: outcome.workingAlleleCopies,
           isDominantPhenotype: outcome.isDominantPhenotype,
           phenotype: outcome.isDominantPhenotype ? trait.dominantTrait : trait.recessiveTrait,
           probabilityPct: 25,
@@ -752,7 +752,12 @@ export function simulateMendelPunnett(params = {}) {
     theoreticalGenotypeRatio = `100% ${trait.recessiveSymbol}${trait.recessiveSymbol}`;
   }
 
-  const empirical = computeMendelSampleCounts(canonicalCounts, sampleStep, trait, modeIndex);
+  const historical = sampleStep === 4 && (modeIndex === 3 ||
+    (canonicalCounts.RR === 1 && canonicalCounts.Rr === 2 && canonicalCounts.rr === 1));
+  const empirical = Object.freeze({
+    ...computeMendelSampleCounts(canonicalCounts, sampleStep, trait, modeIndex),
+    sampleKind: historical ? 'historical' : sampleStep === 4 ? 'theoretical' : 'illustrative',
+  });
 
   return Object.freeze({
     modeIndex,
@@ -798,6 +803,7 @@ export function captureMendelTrial(state) {
     observedDominantPct: s.empirical.dominantPct,
     observedRecessivePct: s.empirical.recessivePct,
     sampleSize: s.empirical.sampleSize,
+    sampleKind: s.empirical.sampleKind,
   });
 }
 

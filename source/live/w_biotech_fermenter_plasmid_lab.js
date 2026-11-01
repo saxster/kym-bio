@@ -27,7 +27,7 @@ Live.register(
       api,
       640,
       360,
-      'Five-step recombinant plasmid human insulin pipeline, six controlled industrial fermenter variables, yeast and enzyme biotechnology, and GM crops vs CRISPR-Cas9'
+      'Five-step recombinant plasmid human insulin pipeline, industrial fermenter controls including waste handling, yeast and enzyme biotechnology, and GM crops vs CRISPR-Cas9'
     );
 
     const say = api.readout();
@@ -143,7 +143,7 @@ Live.register(
           );
           draw.text(
             ctx,
-            sim.sameRestrictionEnzyme
+            sim.endsCompatible
               ? 'Same restriction enzyme creates complementary sticky ends'
               : 'Mismatched cut ends: sticky ends cannot base-pair',
             194,
@@ -151,7 +151,7 @@ Live.register(
             {
               size: 8.0,
               weight: 600,
-              color: sim.sameRestrictionEnzyme ? c.green : c.proton,
+              color: sim.endsCompatible ? c.green : c.proton,
               align: 'center',
             }
           );
@@ -288,7 +288,7 @@ Live.register(
 
           draw.text(
             ctx,
-            `Residual ethanol in baked bread: ${sim.ethanolRemainingInBreadPct}% (evaporates in oven)`,
+            'Bread ethanol remaining: not predicted by this model',
             194,
             328,
             { size: 8.1, weight: 700, color: c.ink, align: 'center' }
@@ -380,7 +380,7 @@ Live.register(
           sim.mode === 'recombinant_insulin'
             ? [
                 ['Vector system', 'Bacterial Plasmid'],
-                ['Restriction cut', sim.sameRestrictionEnzyme ? 'SAME enzyme (EcoRI)' : 'Mismatched ends'],
+                ['Restriction cut', sim.endsCompatible ? 'SAME enzyme (EcoRI)' : 'Mismatched ends'],
                 ['Sticky-end pairing', `${sim.stickyEndAnnealingPct}%`],
                 ['DNA ligase yield', `${sim.recombinantPlasmidPct}% plasmid`],
                 ['Binary fission', `${sim.doublings} doublings`],
@@ -402,7 +402,7 @@ Live.register(
                 ['Pectinase juice', `${sim.pectinaseYieldMl} mL (${sim.juiceClarityPct}%)`],
                 ['Alginate lactase', `${sim.lactoseHydrolysedPct}% hydrolysed`],
                 ['Yeast dough CO₂', `${sim.yeastDoughCo2Cm3} cm³`],
-                ['Baked bread ethanol', `${sim.ethanolRemainingInBreadPct}%`],
+                ['Bread ethanol', 'Not inferred'],
               ]
             : [
                 ['Crop comparison', 'Bt vs Conventional'],

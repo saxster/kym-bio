@@ -188,15 +188,13 @@ Live.register(
 
           draw.text(
             ctx,
-            sim.topLevelViable
-              ? `Level ${sim.chainLength} viable (≥ 8 kJ m⁻² yr⁻¹) · Decomposers get ${sim.totalDecomposerInputKj} kJ`
-              : `Level ${sim.chainLength} starves (< 8 kJ m⁻² yr⁻¹): why chains rarely exceed 4–5 levels`,
+            `Energy density alone cannot determine population viability`,
             194,
             334,
             {
               size: 8.0,
               weight: 700,
-              color: sim.topLevelViable ? c.green : c.proton,
+              color: c.green,
               align: 'center',
             }
           );
@@ -277,18 +275,18 @@ Live.register(
           );
           draw.text(
             ctx,
-            'Direct crop diet (1 step) is 10× more efficient than livestock meat (2 steps)',
+            'Illustrative crop supply: one livestock conversion, before human digestion',
             194,
             46,
             { size: 8.0, weight: 600, color: c.green, align: 'center' }
           );
 
           const bars = [
-            { label: 'Total crop harvest per ha', val: `${sim.cropHarvestKj} kJ`, frac: 1.0, col: c.green },
+            { label: 'Same harvested crop supply', val: `${sim.cropHarvestKj} kJ`, frac: 1.0, col: c.green },
             { label: `Direct plant food (${sim.plantSharePct}%)`, val: `${sim.cropDirectKj} kJ`, frac: sim.plantSharePct / 100, col: c.green },
             { label: `Fed to livestock (${sim.meatSharePct}%)`, val: `${sim.cropToLivestockKj} kJ`, frac: sim.meatSharePct / 100, col: c.electron },
             { label: 'Lost in livestock heat/faeces/urea', val: `${sim.livestockLossKj} kJ`, frac: sim.livestockLossKj / 10000, col: c.proton },
-            { label: 'Assimilated by humans', val: `${sim.totalHumanAssimilatedKj} kJ`, frac: Math.min(1, sim.totalHumanAssimilatedKj / 2000), col: c.green },
+            { label: 'Food supplied to humans', val: `${sim.totalFoodSuppliedKj} kJ`, frac: Math.min(1, sim.totalFoodSuppliedKj / 10000), col: c.green },
           ];
 
           let y = 70;
@@ -308,7 +306,7 @@ Live.register(
 
           draw.text(
             ctx,
-            `Supports ${sim.relativePeopleSupported}× as many people per hectare as a 100% meat diet`,
+            `Food energy: ${sim.relativeFoodEnergy}× the all-livestock route in this model`,
             194,
             332,
             { size: 8.4, weight: 700, color: c.electron, align: 'center' }
@@ -410,7 +408,7 @@ Live.register(
           [
             'Primary metric',
             sim.mode === 'diet_efficiency'
-              ? `${sim.totalHumanAssimilatedKj} kJ`
+              ? `${sim.totalFoodSuppliedKj} kJ`
               : sim.mode === 'sigmoid_population'
               ? `K = ${sim.carryingCapacityK}`
               : `${sim.topLevelEnergyKj} kJ`,
@@ -418,7 +416,7 @@ Live.register(
           [
             'Secondary metric',
             sim.mode === 'diet_efficiency'
-              ? `${sim.relativePeopleSupported}× population`
+              ? `${sim.relativeFoodEnergy}× food energy`
               : sim.mode === 'banyan_pyramid'
               ? `${sim.levels[1].numbers} insects`
               : sim.mode === 'sigmoid_population'
@@ -426,7 +424,7 @@ Live.register(
               : `${sim.totalDecomposerInputKj} kJ decay`,
           ],
           [
-            'Syllabus law',
+            'Model assumption',
             sim.mode === 'banyan_pyramid'
               ? 'Numbers invert; E upright'
               : sim.mode === 'sigmoid_population'

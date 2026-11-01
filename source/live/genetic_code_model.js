@@ -387,7 +387,7 @@ export function simulateDnaDoubleHelix(modeIndex = 0, gcOrAdeninePct = 30, pairS
     let b2 = template12[i];
     let pairWidthNm = 2.0;
     let hBonds = b1 === 'G' || b1 === 'C' ? 3 : 2;
-    let geometryState = 'Complementary Watson–Crick rung (2.0 nm)';
+    let geometryState = 'Complementary pairing (whole helix ≈2 nm)';
     let isValid = true;
 
     if (m === 3 && i + 1 === focusPos) {
@@ -401,14 +401,14 @@ export function simulateDnaDoubleHelix(modeIndex = 0, gcOrAdeninePct = 30, pairS
         }
         pairWidthNm = 2.45;
         hBonds = 0;
-        geometryState = 'Purine–purine bulge (>2.0 nm: distorts sugar–phosphate backbone)';
+        geometryState = 'Purine–purine mismatch: too wide for regular pairing';
         isValid = false;
       } else if (adeninePct <= 22) {
         // Pyrimidine-Pyrimidine mismatch (T-C)
         b2 = 'C';
         pairWidthNm = 1.55;
         hBonds = 0;
-        geometryState = 'Pyrimidine–pyrimidine pinch (<2.0 nm: bases too far apart for H-bonds)';
+        geometryState = 'Pyrimidine–pyrimidine mismatch: too narrow for regular pairing';
         isValid = false;
       } else {
         // Non-complementary purine-pyrimidine (A-C wobble)
@@ -725,8 +725,8 @@ export function simulateTranscriptionTranslation(modeIndex = 0, activeCodonStep 
   let mutationType = 'Wild-type reference (no base substitution)';
   let mutatedCodonIndex = null;
   let baseChangeLabel = 'None (Reference sequence)';
-  let shapeOutcome = `Normal 3D fold: ${target.ramachandranFold}`;
-  let functionalStatus = '100% functional 3D protein machine';
+  let shapeOutcome = 'Reference beta-globin fold; other families illustrate applications, not this HBB sequence';
+  let functionalStatus = 'Reference protein function assumed';
   let matchesWildTypeProtein = true;
 
   if (m === 1) {
@@ -735,8 +735,8 @@ export function simulateTranscriptionTranslation(modeIndex = 0, activeCodonStep 
     mutationType = 'Silent (synonymous) single-base substitution';
     mutatedCodonIndex = 3;
     baseChangeLabel = 'Codon 3: DNA CTG → CTT (mRNA CUG → CUU, both code for Leucine Leu³)';
-    shapeOutcome = `Unchanged 3D fold: degenerate genetic code inserts the exact same Leucine (Leu³) and hydrophilic Glu⁶ (${target.ramachandranFold})`;
-    functionalStatus = '100% functional 3D protein machine (identical amino-acid chain)';
+    shapeOutcome = 'Same beta-globin amino-acid sequence; normal folding assumed in this example';
+    functionalStatus = 'Same amino-acid chain; function assumed unchanged in this model';
     matchesWildTypeProtein = true;
   } else if (m === 2) {
     // Child Y Missense substitution at Codon 6: GAG -> GTG (GAG -> GUG, Glu6 -> Val6)
@@ -747,7 +747,7 @@ export function simulateTranscriptionTranslation(modeIndex = 0, activeCodonStep 
     shapeOutcome =
       targetIdx === 1
         ? 'Altered 3D surface: hydrophobic Val⁶ creates a sticky patch on deoxygenated HbS that polymerises into rigid sickle fibres'
-        : `Altered 3D fold: replacing negatively charged Glu⁶ with hydrophobic Val⁶ distorts the ${target.machineClass.toLowerCase()} pocket`;
+        : `Analogy only: this HBB substitution does not predict the ${target.machineClass.toLowerCase()} sequence or function`;
     functionalStatus = 'Impaired 3D surface / binding pocket (missense substitution)';
     matchesWildTypeProtein = false;
   } else if (m === 3) {

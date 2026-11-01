@@ -239,7 +239,7 @@ def c11_photo51_double_helix() -> str:
                 (22, r_head, "t b"),
                 (46, r1, "t s"),
                 (64, r2, "t s"),
-                (80, "Span = 2.0 nm across helix", "t m"),
+                (80, "Whole helix ≈ 2.0 nm wide", "t m"),
             ],
             bcls,
             8.1,
@@ -253,8 +253,8 @@ def c11_photo51_double_helix() -> str:
         88,
         [
             (20, "Why Pairing Is Exact", "t b"),
-            (40, "Purine+Purine > 2.0 nm (bulge)", "t s"),
-            (58, "Pyrimidine+Pyrimidine < 2.0 nm", "t s"),
+            (40, "Purine+purine: too wide", "t s"),
+            (58, "Pyrimidine+pyrimidine: too narrow", "t s"),
             (76, "Strand 1 fixes Strand 2 order", "t b g"),
         ],
         "plate",
@@ -544,10 +544,10 @@ def c11_transcription_translation() -> str:
 
 @figure
 def c11_sequence_to_3d_machines() -> str:
-    f = Fig(640, 620, "How DNA base sequence controls cell function via Ramachandran 3D protein folding into enzymes, membrane carriers, neurotransmitter receptors, and antibodies")
+    f = Fig(640, 620, "How DNA base sequence controls cell function via sequence-dependent protein folding into enzymes, membrane carriers, neurotransmitter receptors, and antibodies")
     heading(
         f,
-        "11.3  How DNA Controls Cell Function: Sequence → Ramachandran Folding → 3D Machines",
+        "11.3  How DNA Controls Cell Function: Sequence → Folding → Protein Function",
         "Cambridge IGCSE 0610 17.1 Supplement 4: DNA controls cell function by controlling production of four protein families",
     )
 
@@ -845,8 +845,8 @@ def c11_mutation_outcomes_comparison() -> str:
             "(UUA, UUG, CUU, CUC, CUA, CUG).",
             "Val–His–Leu–Thr–Pro–Glu–Glu",
             "Exact same 146-AA sequence",
-            "and 3D Ramachandran fold.",
-            "100% Normal Soluble HbA",
+            "with normal function assumed.",
+            "Same sequence; function assumed",
             "wash-g",
             "t b g",
         ),
@@ -942,7 +942,7 @@ def c11_mutation_outcomes_comparison() -> str:
                 (28, "3D Protein Outcome", "t b"),
                 (62, verd, hcls),
                 (96, "Degeneracy buffers A;" if cx == 18 else ("Altered side-chain in B;" if cx == 226 else "Early release in C;"), "t m"),
-                (116, "zero shape change." if cx == 18 else ("fibres form at low O₂." if cx == 226 else "no working globin."), "t m"),
+                (116, "same sequence." if cx == 18 else ("fibres form at low O₂." if cx == 226 else "no working globin."), "t m"),
             ],
             "plate",
             8.2,
@@ -979,7 +979,7 @@ def c11_leucine_silent_case() -> str:
             "Template DNA:  3'- CAC · GTG · GAA · TGA · GGA · CTC · CTC -5'   [Template: GAC → GAA]",
             "mRNA Codons:   5'- GUG · CAC · CUU · ACU · CCU · GAG · GAG -3'   [mRNA: CUG → CUU]",
             "Amino Acids:   Val¹ – His² – Leu³ – Thr⁴ – Pro⁵ – Glu⁶ – Glu⁷   [UNCHANGED CHAIN]",
-            "Verdict: SILENT (SYNONYMOUS) — Both CUG and CUU code for Leucine (Leu³); Glu⁶ intact → 100% normal HbA.",
+            "Verdict: SILENT (SYNONYMOUS) — Both CUG and CUU code for Leucine (Leu³); Glu⁶ intact → same beta-globin sequence.",
             "wash-g",
             "t b g",
         ),

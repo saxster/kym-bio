@@ -77,7 +77,7 @@ Live.register(
       refresh();
     });
 
-    api.button('Mitosis Clones (2n=46)', () => {
+    api.button('Mitosis model (2n=46)', () => {
       modeIndex = 0;
       stage = 5;
       organismPreset = 1;
@@ -183,7 +183,7 @@ Live.register(
             const cy = 128;
             const col = i % 2 === 0 ? c.electron : c.proton;
             if (sim.chromatidsPerCell > sim.chromosomesPerCell) {
-              // Replicated sister chromatids joined at 1 centromere
+              // Replicated sister chromatids linked near paired centromeres
               ctx.fillStyle = col;
               draw.roundRect(ctx, cx - 10, cy - 26, 8, 52, 3);
               ctx.fill();
@@ -337,10 +337,10 @@ Live.register(
           [
             'Assortment (2ⁿ)',
             sim.divisionType === 'mitosis'
-              ? '1 (100% genetic clone)'
+              ? '1 model chromosome combination'
               : sim.meioticViable
               ? `2^${sim.homologousPairs} gamete ways`
-              : 'Sterile (11 odd triplets)',
+              : 'Unbalanced triploid products',
           ],
           ['If no meiosis (Gen 3)', `Doubles to ${sim.runawayWithoutMeiosisGen3} chr`],
         ];

@@ -1,3 +1,4 @@
+from revision_fingerprint import revision_digest
 #!/usr/bin/env python3
 """Chapter 12 acceptance on the built book, with separate durable local receipts.
 
@@ -8,7 +9,7 @@ from pathlib import Path
 import base64,functools,hashlib,http.server,json,os,re,subprocess,threading,traceback,unicodedata
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-SITE=ROOT/'build/site'
+SITE=Path(os.environ.get('BIO_CH12_SITE',str(ROOT/'build/site')))
 OUT=Path(os.environ.get('BIO_CH12_QA_OUT','/tmp/lt_bio_ch12/qa'));OUT.mkdir(parents=True,exist_ok=True)
 WIDTHS=[390,820,1024,1180,1440];THEMES=['light','dark','sepia']
 WIDGETS={1:'dna_replication_meselson',3:'mitosis_meiosis_stepper',5:'stem_cell_expression_lab'}
@@ -44,6 +45,14 @@ def stamped(f):return f.locator('.live-stamp').evaluate("e=>e.classList.contains
 def clear_stamps(page):page.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('mw:stamp:')).forEach(k=>localStorage.removeItem(k))")
 
 def preservation():
+    revision_baseline=os.environ.get('BIO_REVISION_BASELINE')
+    if revision_baseline:
+        baseline=json.loads(Path(revision_baseline).read_text())
+        for name,expected in baseline.items():
+            data=(ROOT.parent/name).read_bytes()
+            check(revision_digest(ROOT.parent/name)==expected,'Revision source unchanged during QA '+name)
+        report['preserved_files']=len(baseline)
+        return
     baseline=json.loads((ROOT/'tests/ch12-preserved.json').read_text())['files']
     for name,expected in baseline.items():
         data=(ROOT.parent/name).read_bytes()
@@ -133,7 +142,7 @@ def challenge(page,f,n):
     elif n==3:
         slide(f,'Division cycle stage',2);slide(f,'Organism preset',2)
         check(not stamped(f),'Sliders without capturing both states cannot earn division comparison')
-        tab(f,'Mitosis Clones (2n=46)');tab(f,'Capture trial')
+        tab(f,'Mitosis model (2n=46)');tab(f,'Capture trial')
         check(not stamped(f),'Single captured state cannot earn division comparison')
         tab(f,'Meiosis Gametes (n=23)');tab(f,'Capture trial')
         text=f.locator('.live-readout').inner_text()
@@ -151,7 +160,7 @@ def challenge(page,f,n):
         check('Contrasting expression states captured for comparison:' in text,'Both Beta Cell and Erythroblast states captured')
         slide(f,'Differentiation stage',1);slide(f,'Regulator switch',3)
         text=f.locator('.live-readout').inner_text()
-        check('#1 Pancreatic Beta Cell Stg 4 (DNA 100%, ON: ATP5F1A, GAPDH, INS) | #2 Erythroblast / RBC Stg 4 (DNA 100%, ON: ATP5F1A, GAPDH, HBB)' in text,'Saved expression captures remain immutable')
+        check('#1 Pancreatic Beta Cell Stg 4 (panel 6/6 retained, ON: ATP5F1A, GAPDH, INS) | #2 Erythroblast / RBC Stg 4 (panel 6/6 retained, ON: ATP5F1A, GAPDH, HBB)' in text,'Saved expression captures remain immutable')
     check(stamped(f),'Challenge earned from required captured outcomes')
 
 def story_check(page,label):

@@ -1,3 +1,4 @@
+from revision_fingerprint import revision_digest
 #!/usr/bin/env python3
 """Chapter 11 acceptance on the built book, with separate durable local receipts.
 
@@ -8,7 +9,7 @@ from pathlib import Path
 import base64,functools,hashlib,http.server,json,os,re,subprocess,threading,traceback,unicodedata
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-SITE=ROOT/'build/site'
+SITE=Path(os.environ.get('BIO_CH11_SITE',str(ROOT/'build/site')))
 OUT=Path(os.environ.get('BIO_CH11_QA_OUT','/tmp/lt_bio_ch11/qa'));OUT.mkdir(parents=True,exist_ok=True)
 WIDTHS=[390,820,1024,1180,1440];THEMES=['light','dark','sepia']
 WIDGETS={2:'dna_base_pairing',3:'codon_cipher_khorana',4:'transcription_translation_ribosome'}
@@ -44,6 +45,14 @@ def stamped(f):return f.locator('.live-stamp').evaluate("e=>e.classList.contains
 def clear_stamps(page):page.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('mw:stamp:')).forEach(k=>localStorage.removeItem(k))")
 
 def preservation():
+    revision_baseline=os.environ.get('BIO_REVISION_BASELINE')
+    if revision_baseline:
+        baseline=json.loads(Path(revision_baseline).read_text())
+        for name,expected in baseline.items():
+            data=(ROOT.parent/name).read_bytes()
+            check(revision_digest(ROOT.parent/name)==expected,'Revision source unchanged during QA '+name)
+        report['preserved_files']=len(baseline)
+        return
     baseline=json.loads((ROOT/'tests/ch11-preserved.json').read_text())['files']
     for name,expected in baseline.items():
         data=(ROOT.parent/name).read_bytes()

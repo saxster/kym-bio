@@ -73,7 +73,7 @@ Live.register(
     api.button('Height (Continuous)', () => applyPreset(0, 1, 2));
     api.button('ABO Blood (Discontinuous)', () => applyPreset(0, 3, 3));
     api.button('Replica Plate (1952)', () => applyPreset(1, 3, 3));
-    api.button('Ionising X-ray (50×)', () => applyPreset(2, 4, 4));
+    api.button('Illustrative X-ray (50×)', () => applyPreset(2, 4, 4));
 
     api.button('Capture trial', () => {
       const state = simulateVariationMutation({ modeIndex, traitStep, envStep });
@@ -246,7 +246,7 @@ Live.register(
 
             draw.text(
               ctx,
-              'Environment shift: 0% — nutrition never alters single-gene categories',
+              'Our ABO and pea model: nutrition does not alter inherited alleles',
               194,
               326,
               { size: 8.4, weight: 600, color: c.green, align: 'center' }
@@ -343,7 +343,7 @@ Live.register(
           });
           draw.text(
             ctx,
-            '100% coordinate match proves mutations pre-exist before antibiotic contact',
+            'Matching illustrative coordinates show resistance can pre-exist exposure',
             194,
             324,
             { size: 8.2, weight: 600, color: c.ink, align: 'center' }
@@ -392,7 +392,7 @@ Live.register(
             });
           });
 
-          draw.text(ctx, 'Mutagens raise glitch frequency across all loci, never direction.', 194, 326, {
+          draw.text(ctx, 'Chosen rate factors; mutation probabilities vary among sites.', 194, 326, {
             size: 8.4,
             weight: 600,
             color: c.ink,

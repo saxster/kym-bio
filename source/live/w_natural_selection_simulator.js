@@ -21,7 +21,7 @@ Live.register(
       api,
       640,
       360,
-      'Natural selection simulator: completed 7-day antibiotic course vs Day 3 relapse, Biston betularia industrial melanism and Clean Air recovery, and malaria HbS balancing selection'
+      'Natural selection simulator: illustrative continuous drug exposure vs drug removal after step 3, Biston betularia industrial melanism and Clean Air recovery, and malaria HbS balancing selection'
     );
 
     const say = api.readout();
@@ -46,7 +46,7 @@ Live.register(
       },
     });
 
-    const genSlider = api.slider('Generation or day step', {
+    const genSlider = api.slider('Generation or model step', {
       min: 0,
       max: 10,
       step: 1,
@@ -68,8 +68,8 @@ Live.register(
       refresh();
     }
 
-    api.button('Full 7-Day Course', () => applyPreset(0, 3, 10));
-    api.button('Stop on Day 3 (Relapse)', () => applyPreset(1, 3, 10));
+    api.button('Continuous exposure', () => applyPreset(0, 3, 10));
+    api.button('Remove after step 3', () => applyPreset(1, 3, 10));
     api.button('Sooty Bark Moths', () => applyPreset(2, 4, 8));
     api.button('Malaria Belt (HbS)', () => applyPreset(3, 4, 9));
 
@@ -99,7 +99,7 @@ Live.register(
           favouredPct: pt.resistantPct,
           wildPct: pt.susceptiblePct,
           loadPct: Math.round((pt.totalCount / 1000) * 100),
-          status: pt.infectionCleared ? 'Cleared (0 cells)' : pt.relapseOccurred ? 'Superbug relapse' : `${pt.totalCount} cells active`,
+          status: `Expected cells: ${pt.totalCount}`,
         };
       }
       if (pt.modeIndex === 2) {
@@ -151,8 +151,8 @@ Live.register(
         ctx.stroke();
 
         const titleMap = [
-          'Completed 7-Day Course: Bacterial Load & Resistant %',
-          'Stopped Early on Day 3: Resistant Relapse Trajectory',
+          'Illustrative Culture: Continuous Drug Exposure',
+          'Illustrative Culture: Drug Removed After Step 3',
           'Peppered Moth (Biston betularia): Dark vs Pale Morph %',
           'Balancing Selection: HbS Allele (q) & Carrier % (2pq)',
         ];
@@ -222,7 +222,7 @@ Live.register(
             ctx.lineTo(stopX, plotY + plotH);
             ctx.stroke();
             ctx.setLineDash([]);
-            draw.text(ctx, 'Stopped Day 3', stopX + 6, plotY + 14, {
+            draw.text(ctx, 'Drug removed', stopX + 6, plotY + 14, {
               size: 8.0,
               weight: 700,
               color: c.proton,
@@ -342,12 +342,12 @@ Live.register(
         });
 
         if (capturedTrials.length === 0) {
-          draw.text(ctx, 'Tap "Capture trial" on Full Course', 505, 294, {
+          draw.text(ctx, 'Capture continuous exposure', 505, 294, {
             size: 8.4,
             color: c.muted,
             align: 'center',
           });
-          draw.text(ctx, 'vs Day 3 Stop or Moths to compare.', 505, 312, {
+          draw.text(ctx, 'and drug removal to compare.', 505, 312, {
             size: 8.4,
             color: c.muted,
             align: 'center',
@@ -389,7 +389,7 @@ Live.register(
     return {};
   },
   {
-    label: 'Simulate antibiotic resistance (7-day course vs Day 3 stop), peppered moths & HbS malaria selection',
+    label: 'Explore illustrative culture selection (no clinical days), peppered moths & HbS malaria selection',
     three: false,
     static: true,
   }

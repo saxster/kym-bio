@@ -2,235 +2,465 @@
   ocw: []
   openstax:
   - book: Biology 2e
-    section: 45.1 Population Demography & 45.3 Environmental Limits to Population Growth & 46.1 Ecology of Ecosystems & 46.2 Energy Flow through Ecosystems
+    section: 45.1 Population Demography & 45.3 Environmental Limits to Population Growth & 46.1 Ecology of Ecosystems
+      & 46.2 Energy Flow through Ecosystems
     url: https://openstax.org/books/biology-2e/pages/46-2-energy-flow-through-ecosystems
-    took: Solar energy as principal input to biological systems, one-way non-cyclical energy flow vs cyclical nutrient flow, food chains and food webs, trophic levels, pyramids of numbers, dry biomass and energy, the ~10% trophic energy transfer efficiency, farmland plant vs livestock dietary efficiency, and 4-phase sigmoid (logistic/batch) population growth curves
+    took: Solar energy as principal input to biological systems, one-way non-cyclical energy flow vs cyclical nutrient
+      flow, food chains and food webs, trophic levels, pyramids of numbers, dry biomass and energy, the variable
+      trophic production efficiency (10% illustrative assumption), separate harvested-food supply comparison before
+      human digestion, and four-phase microbial batch population growth curves
   - book: Concepts of Biology
     section: 19.2 Population Growth and Regulation & 20.1 Energy Flow through Ecosystems
     url: https://openstax.org/books/concepts-of-biology/pages/20-1-energy-flow-through-ecosystems
-    took: Accessible explanation of trophic efficiency, energy losses in respiration/faeces/urine, and carrying capacity K
+    took: Accessible explanation of trophic efficiency, energy losses in respiration/faeces/urine, and carrying
+      capacity K
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 19.1 Energy flow (Core 19.1.1–19.1.2: Sun as principal source of energy input; energy flow through living organisms including light energy from the Sun and chemical energy in organisms, eventually transferred to the environment as heat), Topic 19.2 Food chains and food webs (Core 19.2.1–19.2.15 & Supplement 19.2.16–19.2.19: food chain, food web, producer, consumer, herbivore, carnivore, decomposer, trophic level; pyramids of numbers, biomass and energy; why energy transfer between trophic levels is inefficient, why food chains usually have fewer than 5 trophic levels, and why supplying humans with crop plants is more energy-efficient than feeding crops to livestock), and Topic 19.4 Populations (Core 19.4.1–19.4.4 & Supplement 19.4.5–19.4.6: population, community, ecosystem; factors affecting population growth rate; lag, exponential/log, stationary, and death phases of sigmoid population growth curves and limiting factors)'
+  - what: 'Core/Supplement placement independently checked: Topic 19.1 Energy flow (Core 19.1.1–19.1.2: Sun as principal
+      source of energy input; energy flow through living organisms including light energy from the Sun and chemical
+      energy in organisms, eventually transferred to the environment as heat), Topic 19.2 Food chains and food webs
+      (Core 19.2.1–19.2.15 & Supplement 19.2.16–19.2.19: food chain, food web, producer, consumer, herbivore, carnivore,
+      decomposer, trophic level; pyramids of numbers, biomass and energy; why energy transfer between trophic levels
+      is inefficient, why food chains usually have fewer than 5 trophic levels, and why supplying humans with crop
+      plants is more energy-efficient than feeding crops to livestock), and Topic 19.4 Populations (Core 19.4.1–19.4.4
+      & Supplement 19.4.5–19.4.6: population, community, ecosystem; factors affecting population growth rate; lag,
+      exponential/log, stationary, and death phases of sigmoid population growth curves and limiting factors)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
   - what: 'Word origin only, not mechanism evidence: trophic (from Greek trophe, nourishment), ecosystem, biomass'
     source: Wiktionary / etymological entries
     url: https://en.wiktionary.org/wiki/trophic
+  - what: Production transfer vs assimilation; food-supply denominator
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.fao.org/4/AA040E/AA040E08.htm
+  - what: Empirical variation in trophic transfer
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC13330895/
+  - what: Human growth rate is slowing
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.census.gov/library/stories/2023/11/world-population-estimated-eight-billion.html
   history:
-  - what: 'TRUE:Charles S. Elton (1927, Animal Ecology) defined food chains, food cycles (webs), ecological niches, and the pyramid of numbers; Raymond L. Lindeman (1942, Ecology 23(4):399–417, working with Eleanor Hall at Cedar Creek Bog, Minnesota) established the thermodynamic trophic-dynamic energy budget showing ~10% energy transfer between trophic levels and ~90% loss via respiration, heat, egestion, excretion, and unassimilated detritus'
-    source: 'Elton CS (1927) Animal Ecology, Sidgwick & Jackson, London; Lindeman RL (1942) The trophic-dynamic aspect of ecology, Ecology 23(4):399–417'
+  - what: TRUE:Charles S. Elton (1927, Animal Ecology) defined food chains, food cycles (webs), ecological niches,
+      and the pyramid of numbers; Raymond L. Lindeman (1942, Ecology 23(4):399–417, working with Eleanor Hall at
+      Cedar Creek Bog, Minnesota) established the thermodynamic trophic-dynamic energy budget drawing together trophic
+      production and respiration evidence; the manuscript uses 10% only as a stated illustrative assumption
+    source: Elton CS (1927) Animal Ecology, Sidgwick & Jackson, London; Lindeman RL (1942) The trophic-dynamic aspect
+      of ecology, Ecology 23(4):399–417
     url: https://doi.org/10.2307/1930126
   figures:
   - name: c15_food_webs_trophic_pyramids
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; Sanjay Gandhi National Park food web and comparison of pyramids of numbers, dry biomass, and energy for one giant banyan tree
+    limits: Not to scale; Sanjay Gandhi National Park food web and comparison of pyramids of numbers, dry biomass,
+      and energy for one giant banyan tree
   - name: c15_energy_budget_sigmoid_growth
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; 90% inter-level energy loss partition, crop vs livestock human diet efficiency per hectare, and 4-phase sigmoid population growth curve
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Trophic energy cascades (5–20% transfer efficiency across 3–5 levels), banyan tree pyramids of numbers (1 vs 8,000), dry biomass (4,500 vs 135 kg), and energy (45,000 vs 4,500 kJ m⁻² yr⁻¹), farmland human dietary energy efficiency (10x direct crop advantage at 10% transfer), and 48-hour 4-phase sigmoid population trajectories computed in source/live/biosphere_biotech_model.js and verified in tests/ch15_domain.mjs.'
-  scope: Bridges directly from Chapter 14's closing evolutionary prompt to ecosystem energy flow, food webs, ecological pyramids, dietary efficiency, and population regulation.
-
+    limits: Not to scale; chosen illustrative inter-level energy allocation, crop harvest food-supply routes before
+      human digestion, and 4-phase sigmoid population growth curve
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Illustrative production cascades at selected 5–20% efficiencies; loss ledger closes heat + detritus
+    + final production without double counting. Food-supply budget excludes human digestion: direct 10,000 kJ vs
+    livestock route 1,000 kJ at stated 10% conversion. Energy per area does not assert population viability. tests/ch15_domain.mjs
+    includes independent boundary regressions.'
+  scope: Bridges directly from Chapter 14's closing evolutionary prompt to ecosystem energy flow, food webs, ecological
+    pyramids, dietary efficiency, and population regulation.
 '15.2':
   ocw: []
   openstax:
   - book: Biology 2e
     section: 46.3 Biogeochemical Cycles & 31.2 The Soil & 31.3 Nutritional Adaptations of Plants
     url: https://openstax.org/books/biology-2e/pages/46-3-biogeochemical-cycles
-    took: The water cycle (evaporation, transpiration, condensation, precipitation), the carbon cycle (photosynthesis, respiration, feeding, decomposition, fossilisation, combustion), the nitrogen cycle (nitrogen fixation by Rhizobium, Azotobacter and lightning, root hair active transport of NO3-, assimilation, feeding, liver deamination to urea, ammonification, two-step aerobic nitrification NH4+ to NO2- to NO3-, and anaerobic denitrification NO3- to N2), and legume root nodule mutualism with leghaemoglobin
+    took: The water cycle (evaporation, transpiration, condensation, precipitation), the carbon cycle (photosynthesis,
+      respiration, feeding, decomposition, fossilisation, combustion), the nitrogen cycle (nitrogen fixation by
+      Rhizobium, Azotobacter and lightning, root hair active transport of NO3-, assimilation, feeding, liver deamination
+      to urea, ammonification, two-step aerobic nitrification NH4+ to NO2- to NO3-, and anaerobic denitrification
+      NO3- to N2), and legume root nodule mutualism with leghaemoglobin
   - book: Concepts of Biology
     section: 20.2 Biogeochemical Cycles
     url: https://openstax.org/books/concepts-of-biology/pages/20-2-biogeochemical-cycles
     took: Accessible overview of carbon, water, and nitrogen cycling between biotic and abiotic reservoirs
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 19.3 Nutrient cycles (Core 19.3.1: describe the carbon cycle limited to photosynthesis, respiration, feeding, decomposition, formation of fossil fuels and combustion; Core 19.3.2: describe the water cycle limited to evaporation, transpiration, condensation and precipitation; Supplement 19.3.3: describe the nitrogen cycle with reference to decomposition of plant and animal protein to ammonium ions, nitrification, nitrogen fixation by lightning and bacteria, absorption of nitrate ions by plants, production of amino acids and proteins, feeding and digestion of proteins, deamination, and denitrification; Supplement 19.3.4: state the roles of microorganisms in the nitrogen cycle limited to decomposition, nitrification, nitrogen fixation and denitrification)'
+  - what: 'Core/Supplement placement independently checked: Topic 19.3 Nutrient cycles (Core 19.3.1: describe the
+      carbon cycle limited to photosynthesis, respiration, feeding, decomposition, formation of fossil fuels and
+      combustion; Core 19.3.2: describe the water cycle limited to evaporation, transpiration, condensation and
+      precipitation; Supplement 19.3.3: describe the nitrogen cycle with reference to decomposition of plant and
+      animal protein to ammonium ions, nitrification, nitrogen fixation by lightning and bacteria, absorption of
+      nitrate ions by plants, production of amino acids and proteins, feeding and digestion of proteins, deamination,
+      and denitrification; Supplement 19.3.4: state the roles of microorganisms in the nitrogen cycle limited to
+      decomposition, nitrification, nitrogen fixation and denitrification)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
   - what: 'Word origin only, not mechanism evidence: legume, Rhizobium (from Greek rhiza, root + bios, life), nitrification'
     source: Wiktionary / etymological entries
     url: https://en.wiktionary.org/wiki/Rhizobium
+  - what: Carbonate rock forms by a separate route from fossil fuels
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://gml.noaa.gov/outreach/carbon_toolkit/
   history:
-  - what: 'TRUE:Martinus Willem Beijerinck (1888, Botanische Zeitung 46:725–804; 1901) isolated symbiotic root-nodule Rhizobium leguminosarum and free-living soil Azotobacter chroococcum; Sergei Nikolaievich Winogradsky (1890–1891, Annales de l''Institut Pasteur 4:213–231, 257–275, 760–771) discovered chemolithoautotrophy and isolated the two aerobic nitrifying bacterial guilds Nitrosomonas (NH4+ to NO2-) and Nitrobacter (NO2- to NO3-); Charles David Keeling (1958–1960, Tellus 12(2):200–203) established continuous infrared CO2 measurements at Mauna Loa Observatory, Hawaii'
-    source: 'Beijerinck MW (1888) Die Bakterien der Papilionaceenknöllchen, Bot Ztg 46:725–804; Winogradsky S (1890) Recherches sur les organismes de la nitrification, Ann Inst Pasteur 4:213–231; Keeling CD (1960) The concentration and isotopic abundances of carbon dioxide in the atmosphere, Tellus 12(2):200–203'
+  - what: TRUE:Martinus Willem Beijerinck (1888, Botanische Zeitung 46:725–804; 1901) isolated symbiotic root-nodule
+      Rhizobium leguminosarum and free-living soil Azotobacter chroococcum; Sergei Nikolaievich Winogradsky (1890–1891,
+      Annales de l'Institut Pasteur 4:213–231, 257–275, 760–771) discovered chemolithoautotrophy and isolated the
+      two aerobic nitrifying bacterial guilds Nitrosomonas (NH4+ to NO2-) and Nitrobacter (NO2- to NO3-); Charles
+      David Keeling (1958–1960, Tellus 12(2):200–203) established continuous infrared CO2 measurements at Mauna
+      Loa Observatory, Hawaii
+    source: Beijerinck MW (1888) Die Bakterien der Papilionaceenknöllchen, Bot Ztg 46:725–804; Winogradsky S (1890)
+      Recherches sur les organismes de la nitrification, Ann Inst Pasteur 4:213–231; Keeling CD (1960) The concentration
+      and isotopic abundances of carbon dioxide in the atmosphere, Tellus 12(2):200–203
     url: https://doi.org/10.3402/tellusa.v12i2.9366
   figures:
   - name: c15_carbon_water_cycles
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; coupled Mumbai-Western Ghats water cycle, global carbon cycle, and Mauna Loa Keeling CO2 curve (1958–2026)
+    limits: Not to scale; coupled Mumbai-Western Ghats water cycle, global carbon cycle, and Mauna Loa Keeling CO2
+      curve (1958–2026)
   - name: c15_nitrogen_cycle_legumes
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; complete 5-stage nitrogen cycle diagram with four bacterial guilds and legume root nodule mutualism
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Soil nitrogen guild fluxes (Rhizobium fixation 0–180 kg N/ha/yr, ammonification, aerobic nitrification, anaerobic denitrification in waterlogged soil, soil [NO3-] and plant protein yield) and global carbon fluxes / Keeling CO2 trajectory computed in source/live/biosphere_biotech_model.js and verified in tests/ch15_domain.mjs.'
-  scope: Explains closed biogeochemical matter loops (water, carbon, and nitrogen cycles) and the microbial engines that sustain soil fertility.
-
+    limits: Not to scale; complete 5-stage nitrogen cycle diagram with four bacterial guilds and legume root nodule
+      mutualism
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: Soil nitrogen guild fluxes (Rhizobium fixation 0–180 kg N/ha/yr, ammonification, aerobic nitrification,
+    anaerobic denitrification in waterlogged soil, soil [NO3-] and plant protein yield) and global carbon fluxes
+    / Keeling CO2 trajectory computed in source/live/biosphere_biotech_model.js and verified in tests/ch15_domain.mjs.
+  scope: Water/carbon/nitrogen matter transfers, distinct biological/lightning/industrial nitrogen fixation routes,
+    microbial roles, soil oxygen and qualified inference from plots. No claim that every mineral chemical form cycles
+    unchanged.
 '15.3':
   ocw: []
   openstax:
   - book: Biology 2e
-    section: 47.1 The Biodiversity Crisis & 47.2 The Importance of Biodiversity to Human Life & 47.3 Threats to Biodiversity & 47.4 Preserving Biodiversity
+    section: 47.1 The Biodiversity Crisis & 47.2 The Importance of Biodiversity to Human Life & 47.3 Threats to
+      Biodiversity & 47.4 Preserving Biodiversity
     url: https://openstax.org/books/biology-2e/pages/47-3-threats-to-biodiversity
-    took: Modern agricultural food supply technologies, monocultures and intensive livestock production trade-offs, habitat destruction and the four effects of deforestation, the 7-step eutrophication cascade and biochemical oxygen demand (BOD), non-biodegradable plastics and food-chain bioaccumulation/biomagnification, enhanced greenhouse effect (CO2 and CH4), sustainable forestry and fisheries, and endangered species conservation (habitat protection, education, captive breeding, seed banks at -20 °C, and AI/IVF)
+    took: Modern agricultural food supply technologies, monocultures and intensive livestock production trade-offs,
+      habitat destruction and the four effects of deforestation, the illustrative nutrient-enrichment and oxygen-depletion
+      pathway and biochemical oxygen demand (BOD), persistent plastics (ingestion/entanglement; particle/chemical
+      effects distinguished) and DDT/DDE bioaccumulation/biomagnification, enhanced greenhouse effect (CO2 and CH4),
+      sustainable forestry and fisheries, and endangered species conservation (ecosystem functions/resources, habitat
+      protection, education, captive breeding, suitable seeds at about -20 °C, and explained AI/IVF mechanisms)
   - book: Concepts of Biology
     section: 21.2 Threats to Biodiversity & 21.3 Preserving Biodiversity
     url: https://openstax.org/books/concepts-of-biology/pages/21-3-preserving-biodiversity
-    took: Accessible summary of habitat loss, climate change, overharvesting, invasive species, and conservation strategies
+    took: Accessible summary of habitat loss, climate change, overharvesting, invasive species, and conservation
+      strategies
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 20.1 Food supply (Core 20.1.1–20.1.3: agricultural machinery, chemical fertilisers, insecticides, herbicides, selective breeding; advantages and disadvantages of large-scale monocultures and intensive livestock production), Topic 20.2 Habitat destruction (Core 20.2.1–20.2.3: reasons for habitat destruction; food web disruption; undesirable effects of deforestation on biodiversity/extinction, soil erosion, flooding, and atmospheric CO2), Topic 20.3 Pollution (Core 20.3.1–20.3.3 & Supplement 20.3.4: effects of untreated sewage and excess fertiliser on aquatic ecosystems; effects of non-biodegradable plastics in aquatic and terrestrial ecosystems; sources and effects of methane and carbon dioxide in the enhanced greenhouse effect; 7-step eutrophication explanation), and Topic 20.4 Conservation (Core 20.4.1–20.4.3 & Supplement 20.4.4–20.4.7: sustainable resource definition; conserving forests and fish stocks; why organisms become endangered/extinct; conserving endangered species via monitoring/protection, education, captive breeding, seed banks; AI and IVF in captive breeding; genetic variation risks of small population size)'
+  - what: 'Core/Supplement placement independently checked: Topic 20.1 Food supply (Core 20.1.1–20.1.3: agricultural
+      machinery, chemical fertilisers, insecticides, herbicides, selective breeding; advantages and disadvantages
+      of large-scale monocultures and intensive livestock production), Topic 20.2 Habitat destruction (Core 20.2.1–20.2.4:
+      reasons for habitat destruction; food web disruption; undesirable effects of deforestation on biodiversity/extinction,
+      soil erosion, flooding, and atmospheric CO2), Topic 20.3 Pollution (Core 20.3.1–20.3.3 & Supplement 20.3.4:
+      effects of untreated sewage and excess fertiliser on aquatic ecosystems; effects of non-biodegradable plastics
+      in aquatic and terrestrial ecosystems; sources and effects of methane and carbon dioxide in the enhanced greenhouse
+      effect; nutrient enrichment, producer growth, decomposition, respiration and oxygen depletion, with alternative
+      routes acknowledged), and Topic 20.4 Conservation (Core 20.4.1–20.4.4 & Supplement 20.4.5–20.4.9: sustainable
+      resource definition; conserving forests and fish stocks; why organisms become endangered/extinct; conserving
+      endangered species via monitoring/protection, education, captive breeding, seed banks; AI and IVF in captive
+      breeding; genetic variation risks of small population size)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
   - what: 'Word origin only, not mechanism evidence: eutrophication (from Greek eutrophos, well-nourished), monoculture'
     source: Wiktionary / etymological entries
     url: https://en.wiktionary.org/wiki/eutrophication
+  - what: Oxygen balance, algal respiration and direct sewage effects
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.epa.gov/caddis/dissolved-oxygen
+  - what: DDT degradation and DDE persistence
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://wwwn.cdc.gov/TSP/ToxFAQs/ToxFAQsDetails.aspx?faqid=80&toxid=20
+  - what: Plastic particle/chemical effects and evidence gaps
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.epa.gov/system/files/documents/2021-12/tfw-report-on-priority-microplastics-research-needs_0.pdf
+  - what: Original park notification dated 15 November 1984
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://forest.kerala.gov.in/images/notifications/svnp/svnp_sanc.pdf
+  - what: Limits of conventional seed banking
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.kew.org/science/collections-and-resources/collections/seed-collection
+  - what: Mithi drains into Mahim Creek, not Thane Creek
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://mmrda.maharashtra.gov.in/en/divisions/town-country-planning/mithi-river-development-and-protection-authority/overview
   history:
-  - what: 'TRUE:Rachel Louise Carson (1962, Silent Spring) documented food-chain bioaccumulation and biomagnification of persistent synthetic insecticides (DDT); E. K. Janaki Ammal, Salim Ali, and Madhav Gadgil (1970s–1983) conducted botanical, ornithological, and ecological surveys that led to the protection of Silent Valley National Park in Kerala'
-    source: 'Carson RL (1962) Silent Spring, Houghton Mifflin, Boston; Gadgil M, Guha R (1992) This Fissured Land: An Ecological History of India, Oxford University Press'
+  - what: TRUE:Rachel Louise Carson (1962, Silent Spring) documented food-chain bioaccumulation and biomagnification
+      of persistent synthetic insecticides (DDT); E. K. Janaki Ammal, Salim Ali, and Madhav Gadgil (1970s–1983)
+      conducted botanical, ornithological, and ecological surveys that led to the protection of Silent Valley National
+      Park in Kerala
+    source: 'Carson RL (1962) Silent Spring, Houghton Mifflin, Boston; Gadgil M, Guha R (1992) This Fissured Land:
+      An Ecological History of India, Oxford University Press'
     url: https://archive.org/details/silentspring00cars
   figures:
   - name: c15_eutrophication_greenhouse_impacts
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; 7-step eutrophication cascade, river dissolved oxygen (DO) and bacterial BOD sag curve, enhanced greenhouse effect (CO2 and CH4), and non-biodegradable plastic impacts
+    limits: Not to scale; illustrative nutrient-enrichment and oxygen-depletion pathway, river dissolved oxygen
+      (DO) and bacterial BOD sag curve, enhanced greenhouse effect (CO2 and CH4), and non-biodegradable plastic
+      impacts
   - name: c15_deforestation_conservation_sustainability
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; four syllabus effects of deforestation, monoculture vs intensive livestock trade-offs, sustainable forestry/fisheries, and 5-part species conservation toolkit
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Seven-step eutrophication cascade metrics ([NO3-], surface algal bloom, underwater light %, submerged plant survival %, detritus index, bacterial BOD, dissolved O2 mg/L, fish survival %) and 4-domain deforestation watershed impacts computed in source/live/biosphere_biotech_model.js and verified in tests/ch15_domain.mjs.'
-  scope: Examines human influences on ecosystems across agriculture, deforestation, eutrophication, plastic and greenhouse pollution, sustainable resource management, and species conservation.
-
+    limits: Not to scale; four syllabus effects of deforestation, monoculture vs intensive livestock trade-offs,
+      sustainable forestry/fisheries, and species conservation, explained AI/IVF, seed-storage limits and ecosystem
+      functions
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: Illustrative nutrient/oxygen and watershed response outputs; not measurements or calibrated Powai/Thane
+    predictions. Separate fictional capstone sites cannot prove temporal oxygen decline or restored conditions.
+  scope: Examines human influences on ecosystems across agriculture, deforestation, eutrophication, plastic and
+    greenhouse pollution, sustainable resource management, and species conservation.
 '15.4':
   ocw: []
   openstax:
   - book: Biology 2e
     section: 17.1 Biotechnology & 22.5 Beneficial Prokaryotes
     url: https://openstax.org/books/biology-2e/pages/17-1-biotechnology
-    took: Why bacteria are useful in biotechnology and genetic modification (rapid reproduction, complex molecules, few ethical concerns, plasmids), yeast anaerobic respiration in bread-making and biofuels, pectinase in fruit juice production, biological washing powders, immobilised lactase for lactose-free milk, 6-parameter industrial fermenter engineering, 5-step recombinant plasmid human insulin synthesis (restriction enzymes, sticky ends, DNA ligase), GM crops (Bt cotton/maize, herbicide-resistant soya, Golden Rice), selective breeding vs GM comparison, and CRISPR-Cas9 genome editing
+    took: Why bacteria are useful in biotechnology and genetic modification (rapid reproduction, complex molecules,
+      few ethical concerns, plasmids), yeast anaerobic respiration in bread-making and biofuels, pectinase in fruit
+      juice production, biological washing powders, immobilised lactase for lactose-free milk, illustrative fermenter
+      response with process-specific controls and waste handling engineering, prepared intron-free coding DNA, compatible-end
+      recombinant plasmid human insulin synthesis (restriction enzymes, sticky ends, DNA ligase), GM crops (Bt cotton/maize,
+      herbicide-resistant soya, Golden Rice), selective breeding vs GM comparison, and CRISPR-Cas9 genome editing
   - book: Concepts of Biology
     section: 10.1 Cloning and Genetic Engineering & 10.2 Biotechnology in Medicine and Agriculture
     url: https://openstax.org/books/concepts-of-biology/pages/10-1-cloning-and-genetic-engineering
-    took: Accessible explanation of restriction enzymes, sticky ends, DNA ligase, recombinant plasmids, and transgenic crops
+    took: Accessible explanation of restriction enzymes, sticky ends, DNA ligase, recombinant plasmids, and transgenic
+      crops
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 21.1 Use of bacteria in biotechnology and genetic modification (Core 21.1.1 & Supplement 21.1.2: rapid reproduction rate, ability to make complex molecules, few ethical concerns over manipulation and growth, presence of plasmids), Topic 21.2 Biotechnology (Core 21.2.1–21.2.4 & Supplement 21.2.5–21.2.6: yeast in biofuel and bread-making; pectinase in fruit juice production; biological washing powders; lactase for lactose-free milk; industrial fermenters for penicillin, mycoprotein and insulin controlling temperature, pH, oxygen, nutrient supply and waste products), and Topic 21.3 Genetic modification (Core 21.3.1–21.3.2 & Supplement 21.3.3–21.3.4: genetic modification definition; examples in crop plants including insect resistance, herbicide resistance and Vitamin A Golden Rice; 5-step human insulin production using restriction enzymes, sticky ends, bacterial plasmids, DNA ligase, host bacteria and fermenters; advantages and disadvantages of GM crops)'
+  - what: 'Core/Supplement placement independently checked: Topic 21.1 Use of bacteria in biotechnology and genetic
+      modification (Core 21.1.1 & Supplement 21.1.2: rapid reproduction rate, ability to make complex molecules,
+      few ethical concerns over manipulation and growth, presence of plasmids), Topic 21.2 Biotechnology (Core 21.2.1–21.2.4
+      & Supplement 21.2.5–21.2.6: yeast in biofuel and bread-making; pectinase in fruit juice production; biological
+      washing powders; lactase for lactose-free milk; industrial fermenters for penicillin, mycoprotein and insulin
+      controlling temperature, pH, oxygen, nutrient supply and waste products), and Topic 21.3 Genetic modification
+      (Core 21.3.1–21.3.2 & Supplement 21.3.3–21.3.4: genetic modification definition; examples in crop plants including
+      insect resistance, herbicide resistance and Vitamin A Golden Rice; 5-step human insulin production using restriction
+      enzymes, sticky ends, bacterial plasmids, DNA ligase, host bacteria and fermenters; advantages and disadvantages
+      of GM crops)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
-  - what: 'Word origin only, not mechanism evidence: plasmid, fermenter, recombinant, CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats)'
+  - what: 'Word origin only, not mechanism evidence: plasmid, fermenter, recombinant, CRISPR (Clustered Regularly
+      Interspaced Short Palindromic Repeats)'
     source: Wiktionary / etymological entries
     url: https://en.wiktionary.org/wiki/plasmid
+  - what: Original synthetic DNA instructions for separate insulin A/B chains
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://pubmed.ncbi.nlm.nih.gov/282602/
+  - what: First-person recombinant insulin development and processing account
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8152450/
+  - what: Different enzymes can make compatible cohesive ends
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.neb.com/en-gb/tools-and-resources/selection-charts/compatible-cohesive-ends-and-generation-of-new-restriction-sites
+  - what: Primary measurements of residual ethanol in bread
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://pubmed.ncbi.nlm.nih.gov/27405361/
+  - what: Golden Rice humanitarian royalty-free access and seed reuse
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://news.irri.org/2015/04/golden-rice-to-receive-2015.html?m=1
+  - what: HAL commissioning 1955–56
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://pharma-dept.gov.in/en/hindustan-antibiotics-limited
+  - what: SubbaRow died 1948
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://pmml.nic.in/downloadIndividual/113
+  - what: Peoria and industry scale-up
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.ars.usda.gov/midwest-area/peoria-il/national-center-for-agricultural-utilization-research/docs/penicillin-opening-the-era-of-antibiotics/
+  - what: Bacterial controls and intron-free DNA do not follow merely from shared code
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8152450/
+  - what: Approved sickle-cell editing raises fetal haemoglobin
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://www.fda.gov/media/175179/download
+  - what: Biocon insulin uses Pichia, not the hypothetical E. coli vignette
+    source: Primary paper, original record or authoritative source inspected during 1 November 2026 revision
+    url: https://archive.biocon.com/biocon_manufacture_humaninsulin.asp
   history:
-  - what: 'TRUE:Ernst Boris Chain, Howard Walter Florey, and Norman George Heatley (1940, Lancet 236(6104):226–228) purified penicillin from Penicillium chrysogenum and pioneered deep-tank aerated industrial fermentation; Hindustan Antibiotics Limited at Pimpri near Pune was established in 1954 with WHO/UNICEF support and technical guidance associated with Yellapragada SubbaRow'
-    source: 'Chain E, Florey HW et al. (1940) Penicillin as a chemotherapeutic agent, The Lancet 236(6104):226–228'
+  - what: TRUE:Ernst Boris Chain, Howard Walter Florey, and Norman George Heatley (1940, Lancet 236(6104):226–228)
+      developed penicillin as a treatment; subsequent Peoria research and industrial engineering enabled deep-tank
+      mass production; Hindustan Antibiotics was incorporated at Pimpri in 1954 and its plant commissioned in 1955–56;
+      SubbaRow died in 1948 and did not launch the plant
+    source: Chain E, Florey HW et al. (1940) Penicillin as a chemotherapeutic agent, The Lancet 236(6104):226–228
     url: https://doi.org/10.1016/S0140-6736(01)08728-1
-  - what: 'TRUE:Stanley N. Cohen, Annie C. Y. Chang, Herbert W. Boyer, and Robert B. Helling (1973, PNAS 70(11):3240–3244) constructed the first functional bacterial recombinant plasmids in vitro using EcoRI restriction endonuclease sticky ends and DNA ligase; David V. Goeddel et al. (1979, PNAS 76(1):106–110) expressed human insulin in E. coli; Martin Jinek, Krzysztof Chylinski, Ines Fonfara, Michael Hauer, Jennifer A. Doudna, and Emmanuelle Charpentier (2012, Science 337(6096):816–821) demonstrated programmable dual-RNA-guided CRISPR-Cas9 DNA cleavage'
-    source: 'Cohen SN, Chang ACY, Boyer HW, Helling RB (1973) PNAS 70(11):3240–3244; Goeddel DV et al. (1979) PNAS 76(1):106–110; Jinek M et al., Doudna JA, Charpentier E (2012) Science 337(6096):816–821'
+  - what: TRUE:Stanley N. Cohen, Annie C. Y. Chang, Herbert W. Boyer, and Robert B. Helling (1973, PNAS 70(11):3240–3244)
+      constructed the first functional bacterial recombinant plasmids in vitro using EcoRI restriction endonuclease
+      sticky ends and DNA ligase; David V. Goeddel et al. (1979, PNAS 76(1):106–110) expressed human insulin in
+      E. coli; Martin Jinek, Krzysztof Chylinski, Ines Fonfara, Michael Hauer, Jennifer A. Doudna, and Emmanuelle
+      Charpentier (2012, Science 337(6096):816–821) demonstrated programmable dual-RNA-guided CRISPR-Cas9 DNA cleavage
+    source: Cohen SN, Chang ACY, Boyer HW, Helling RB (1973) PNAS 70(11):3240–3244; Goeddel DV et al. (1979) PNAS
+      76(1):106–110; Jinek M et al., Doudna JA, Charpentier E (2012) Science 337(6096):816–821
     url: https://doi.org/10.1073/pnas.70.11.3240
   figures:
   - name: c15_yeast_enzymes_industrial_fermenter
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; four everyday yeast/enzyme biotechnologies and schematic cross-section of a 6-variable jacketed stainless-steel industrial fermenter
+    limits: Not to scale; four everyday yeast/enzyme biotechnologies and schematic cross-section of a 6-variable
+      jacketed stainless-steel industrial fermenter
   - name: c15_recombinant_plasmid_insulin_crispr
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; 5-step recombinant plasmid human insulin pipeline, GM crops pros/cons, selective breeding vs GM comparison, and CRISPR-Cas9 editing
+    limits: Not to scale; prepared intron-free coding DNA, compatible-end recombinant plasmid human insulin pipeline,
+      GM crops pros/cons, selective breeding vs GM comparison, and CRISPR-Cas9 editing
   - name: c15_mumbai_creek_insulin_case
     origin: ours; original semantic-theme schematic code in figs_ch15.py; no source illustrations or photographs
-    limits: Not to scale; three-station Mumbai watershed ecological audit paired with the Five Big Ideas capstone synthesis across Chapters 0–15
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Five-step recombinant plasmid human insulin yields, 6-parameter industrial fermenter temperature/pH/O2 kinetics and cooling-jacket heat removal, yeast/enzyme process curves, and GM crop vs conventional yields computed in source/live/biosphere_biotech_model.js and verified in tests/ch15_domain.mjs.'
-  scope: Explains microbial and enzyme biotechnology, industrial fermenter engineering, recombinant plasmid human insulin synthesis, GM crops, CRISPR-Cas9, and closes the 16-chapter book across all Five Big Ideas.
-
+    limits: Not to scale; three-station separate Mumbai environment comparison ecological audit paired with the
+      Five Big Ideas capstone synthesis across Chapters 0–15
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: Illustrative compatible-end assembly, expression and processed-product yield. Tests include different
+    compatible enzymes, intron-containing DNA, missing bacterial controls, missing downstream processing and no
+    residual-ethanol inference from temperature alone.
+  scope: Explains microbial and enzyme biotechnology, industrial fermenter engineering, recombinant plasmid human
+    insulin synthesis, GM crops, CRISPR-Cas9, and closes the 16-chapter book across all Five Big Ideas.
 fig:c15_food_webs_trophic_pyramids:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_energy_budget_sigmoid_growth:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_carbon_water_cycles:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_nitrogen_cycle_legumes:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_eutrophication_greenhouse_impacts:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_deforestation_conservation_sustainability:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_yeast_enzymes_industrial_fermenter:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_recombinant_plasmid_insulin_crispr:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c15_mumbai_creek_insulin_case:
   origin: ours
   source: figs_ch15.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch15.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
+  limits: Fictional values for three separate Mumbai-inspired environments, not one downstream transect or measured
+    restoration; generic bacterial insulin vignette, no brand/manufacturer attribution.
 story:lindeman-chain-boyer-doudna-biosphere-biotech:
   ocw: []
   openstax: []
   research: []
   history:
-  - what: 'TRUE:Charles Elton (1927, Animal Ecology) introduced food chains and the pyramid of numbers; Raymond Lindeman (1942, Ecology 23(4):399–417, working with Eleanor Hall at Cedar Creek Bog, Minnesota) measured annual trophic energy flow and proved the ~10% energy transfer rule; Sergei Winogradsky (1890) isolated Nitrosomonas and Nitrobacter in soil nitrification; Martinus Beijerinck (1888, 1901) isolated symbiotic Rhizobium and free-living Azotobacter; Charles David Keeling (1958–1960) established the Mauna Loa CO2 curve; Rachel Carson (1962, Silent Spring) documented food-chain biomagnification of DDT; E. K. Janaki Ammal, Salim Ali, and Madhav Gadgil helped protect Silent Valley National Park (1983)'
-    source: 'Elton CS (1927) Animal Ecology; Lindeman RL (1942) Ecology 23:399–417; Winogradsky S (1890) Ann Inst Pasteur 4:213–231; Beijerinck MW (1888) Bot Ztg 46:725–804; Keeling CD (1960) Tellus 12:200–203; Carson RL (1962) Silent Spring'
+  - what: TRUE:Charles Elton (1927, Animal Ecology) introduced food chains and the pyramid of numbers; Raymond Lindeman
+      (1942, Ecology 23(4):399–417, working with Eleanor Hall at Cedar Creek Bog, Minnesota) measured annual trophic
+      energy flow and helped establish trophic energy accounting; 10% is a model assumption, not a universal proven
+      rule; Sergei Winogradsky (1890) isolated Nitrosomonas and Nitrobacter in soil nitrification; Martinus Beijerinck
+      (1888, 1901) isolated symbiotic Rhizobium and free-living Azotobacter; Charles David Keeling (1958–1960) established
+      the Mauna Loa CO2 curve; Rachel Carson (1962, Silent Spring) documented food-chain biomagnification of DDT;
+      E. K. Janaki Ammal, Salim Ali, and Madhav Gadgil helped protect Silent Valley (dam abandoned 1983; formal
+      park notification 1984)
+    source: Elton CS (1927) Animal Ecology; Lindeman RL (1942) Ecology 23:399–417; Winogradsky S (1890) Ann Inst
+      Pasteur 4:213–231; Beijerinck MW (1888) Bot Ztg 46:725–804; Keeling CD (1960) Tellus 12:200–203; Carson RL
+      (1962) Silent Spring
     url: https://doi.org/10.2307/1930126
-  - what: 'TRUE:Ernst Chain, Howard Florey, and Norman Heatley (1940–1941) purified penicillin and spurred deep-tank aerated industrial fermentation, followed by Hindustan Antibiotics Limited at Pimpri near Pune (1954); Herbert Boyer and Stanley Cohen (1973, PNAS 70:3240–3244) created the first recombinant plasmids using EcoRI restriction enzyme sticky ends and DNA ligase, leading to recombinant human insulin in E. coli (1978–1982); Jennifer Doudna and Emmanuelle Charpentier (2012, Science 337:816–821) demonstrated programmable guide-RNA CRISPR-Cas9 DNA editing'
-    source: 'Chain E, Florey HW et al. (1940) Lancet 236:226–228; Cohen SN, Chang ACY, Boyer HW, Helling RB (1973) PNAS 70:3240–3244; Jinek M et al., Doudna JA, Charpentier E (2012) Science 337:816–821'
+  - what: TRUE:Ernst Chain, Howard Florey, and Norman Heatley (1940–1941) purified penicillin and spurred deep-tank
+      aerated industrial fermentation, followed by Hindustan Antibiotics Limited at Pimpri near Pune (1954); Herbert
+      Boyer and Stanley Cohen (1973, PNAS 70:3240–3244) created the first recombinant plasmids using EcoRI restriction
+      enzyme sticky ends and DNA ligase, leading to recombinant human insulin in E. coli (1978–1982); Jennifer Doudna
+      and Emmanuelle Charpentier (2012, Science 337:816–821) demonstrated programmable guide-RNA CRISPR-Cas9 DNA
+      editing
+    source: Chain E, Florey HW et al. (1940) Lancet 236:226–228; Cohen SN, Chang ACY, Boyer HW, Helling RB (1973)
+      PNAS 70:3240–3244; Jinek M et al., Doudna JA, Charpentier E (2012) Science 337:816–821
     url: https://doi.org/10.1126/science.1225829
   figures: []
-  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes or art copied.
-  truth_status: 'TRUE documented places (Cedar Creek Bog Minnesota, Yale University, Strasbourg and Zurich, Delft, Mauna Loa Observatory Hawaii, Silent Valley Kerala, Oxford, Pimpri near Pune, Waikiki Honolulu, UCSF and Stanford, Berkeley and Umea/Vienna), dates (1888, 1890, 1901, 1927, 1936–1942, 1940–1941, 1954, 1958, 1962, 1973, 1978, 1983, 2012), and quantitative metrics (~10% trophic transfer and ~90% loss, 315 ppm to >425 ppm Mauna Loa CO2, 6-base EcoRI palindrome GAATTC, 20-nt CRISPR guide RNA).'
-  access_limits: Primary papers Elton 1927, Lindeman 1942, Winogradsky 1890, Beijerinck 1888, Keeling 1960, Chain & Florey 1940, Cohen & Boyer 1973, Goeddel 1979, and Jinek, Doudna & Charpentier 2012 verified via open-access archives and primary bibliometric records.
-
+  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs,
+    quotes or art copied.
+  truth_status: 'Documented chronology distinguished from illustrative explanation: Lindeman 1942; Silent Valley
+    abandonment 1983/notification 1984; HAL incorporation 1954/commissioning 1955–56; SubbaRow death 1948; 1973
+    bacterial recombinant plasmids, 1978 synthetic insulin-chain work, 1982 approval, 2012 programmable Cas9 cleavage.
+    No invented dialogue.'
+  access_limits: Primary papers Elton 1927, Lindeman 1942, Winogradsky 1890, Beijerinck 1888, Keeling 1960, Chain
+    & Florey 1940, Cohen & Boyer 1973, Goeddel 1979, and Jinek, Doudna & Charpentier 2012 verified via open-access
+    archives and primary bibliometric records.
 model:ecosystem_trophic_lab:
   source: live/biosphere_biotech_model.js; live/w_ecosystem_trophic_lab.js; appended live/enhancements.js entry
   static_figure: c15_food_webs_trophic_pyramids
-  contract: grounding/ch15.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  contract: grounding/ch15.md Quantitative contracts; defined before coding. Static/manual states; explicit input
+    bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed
+    by tours.
   licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
-  validation: tests/ch15_domain.mjs independent oracles and tests/qa_ch15.py final-book browser acceptance; results reported in gates/ch15-verification.md
-
+  validation: tests/ch15_domain.mjs independent oracles and tests/qa_ch15.py final-book browser acceptance; results
+    reported in gates/ch15-verification.md
+  limits: Illustrative teaching functions, not calibrated empirical prediction. Assumptions and excluded processes
+    are displayed. See revised grounding/ch15.md and tests/ch15_domain.mjs.
 model:nutrient_cycles_eutrophication:
-  source: live/biosphere_biotech_model.js; live/w_nutrient_cycles_eutrophication.js; appended live/enhancements.js entry
+  source: live/biosphere_biotech_model.js; live/w_nutrient_cycles_eutrophication.js; appended live/enhancements.js
+    entry
   static_figure: c15_nitrogen_cycle_legumes
-  contract: grounding/ch15.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  contract: grounding/ch15.md Quantitative contracts; defined before coding. Static/manual states; explicit input
+    bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed
+    by tours.
   licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
-  validation: tests/ch15_domain.mjs independent oracles and tests/qa_ch15.py final-book browser acceptance; results reported in gates/ch15-verification.md
-
+  validation: tests/ch15_domain.mjs independent oracles and tests/qa_ch15.py final-book browser acceptance; results
+    reported in gates/ch15-verification.md
+  limits: Illustrative teaching functions, not calibrated empirical prediction. Assumptions and excluded processes
+    are displayed. See revised grounding/ch15.md and tests/ch15_domain.mjs.
 model:biotech_fermenter_plasmid_lab:
-  source: live/biosphere_biotech_model.js; live/w_biotech_fermenter_plasmid_lab.js; appended live/enhancements.js entry
+  source: live/biosphere_biotech_model.js; live/w_biotech_fermenter_plasmid_lab.js; appended live/enhancements.js
+    entry
   static_figure: c15_recombinant_plasmid_insulin_crispr
-  contract: grounding/ch15.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  contract: grounding/ch15.md Quantitative contracts; defined before coding. Static/manual states; explicit input
+    bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed
+    by tours.
   licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
-  validation: tests/ch15_domain.mjs independent oracles and tests/qa_ch15.py final-book browser acceptance; results reported in gates/ch15-verification.md
-
+  validation: tests/ch15_domain.mjs independent oracles and tests/qa_ch15.py final-book browser acceptance; results
+    reported in gates/ch15-verification.md
+  limits: Illustrative teaching functions, not calibrated empirical prediction. Assumptions and excluded processes
+    are displayed. See revised grounding/ch15.md and tests/ch15_domain.mjs.
 record:ch15-decisions:
-  preservation: tests/ch15-preserved.json captures all 350 pre-existing files under source/ (Chapters 0–14 + baselines/gates/runners). Only existing-file change is append-only three Chapter 15 enhancements in source/live/enhancements.js; exact original 114,778 bytes reconstructed and verified. Existing stories (p-ali.md, p-ammal.md, p-helmont.md, p-ingenhousz.md, p-pasteur.md, p-subbarow.md, banting-mahalanabis-lifelines.md, franklin-khorana-codebreakers.md, meselson-flemming-gurdon-divisions.md, mendel-morgan-sanghvi-inheritance.md, darwin-wallace-luria-sahni-selection.md) preserved byte-for-byte and linked naturally in Chapter 15.
-  corrections: 'Covered full Cambridge Lower Secondary Science 0893 (7Be.01–02, 8Be.01–02, 9Be.01–03) and Cambridge IGCSE Biology 0610 Topic 19 Organisms and their environment (19.1 Energy flow, 19.2 Food chains and food webs, 19.3 Nutrient cycles, 19.4 Populations), Topic 20 Human influences on ecosystems (20.1 Food supply, 20.2 Habitat destruction, 20.3 Pollution, 20.4 Conservation), and Topic 21 Biotechnology and genetic modification (21.1 Use of bacteria, 21.2 Biotechnology, 21.3 Genetic modification), completing the entire 16-chapter book (Chapters 0–15) across all Five Big Ideas.'
-  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax access-for-free footer retained; original prose/art only.
-  access_limits: Primary papers Elton 1927, Lindeman 1942, Winogradsky 1890, Beijerinck 1888, Keeling 1960, Chain & Florey 1940, Cohen & Boyer 1973, Goeddel 1979, and Jinek, Doudna & Charpentier 2012 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
-  physical_trials: Safe household observation of legume root nodules on market-fresh fenugreek (methi) or chickpea (hara chana) roots using a hand lens and white paper with handwashing; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
+  preservation: tests/ch15-preserved.json captures all 350 pre-existing files under source/ (Chapters 0–14 + baselines/gates/runners).
+    Only existing-file change is append-only three Chapter 15 enhancements in source/live/enhancements.js; exact
+    original 114,778 bytes reconstructed and verified. Existing stories (p-ali.md, p-ammal.md, p-helmont.md, p-ingenhousz.md,
+    p-pasteur.md, p-subbarow.md, banting-mahalanabis-lifelines.md, franklin-khorana-codebreakers.md, meselson-flemming-gurdon-divisions.md,
+    mendel-morgan-sanghvi-inheritance.md, darwin-wallace-luria-sahni-selection.md) preserved byte-for-byte and linked
+    naturally in Chapter 15.
+  corrections: Covered full Cambridge Lower Secondary Science 0893 (7Be.01–02, 8Be.01–02, 9Be.01–03) and Cambridge
+    IGCSE Biology 0610 Topic 19 Organisms and their environment (19.1 Energy flow, 19.2 Food chains and food webs,
+    19.3 Nutrient cycles, 19.4 Populations), Topic 20 Human influences on ecosystems (20.1 Food supply, 20.2 Habitat
+    destruction, 20.3 Pollution, 20.4 Conservation), and Topic 21 Biotechnology and genetic modification (21.1 Use
+    of bacteria, 21.2 Biotechnology, 21.3 Genetic modification), completing the entire 16-chapter book (Chapters
+    0–15) across all Five Big Ideas.
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax
+    access-for-free footer retained; original prose/art only.
+  access_limits: Primary papers Elton 1927, Lindeman 1942, Winogradsky 1890, Beijerinck 1888, Keeling 1960, Chain
+    & Florey 1940, Cohen & Boyer 1973, Goeddel 1979, and Jinek, Doudna & Charpentier 2012 verified via open-access
+    archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where
+    not directly inspected.
+  physical_trials: Safe household observation of legume root nodules on market-fresh fenugreek (methi) or chickpea
+    (hara chana) roots using a hand lens and white paper with handwashing; reviewed for safety and feasibility and
+    explicitly disclosed in text as not classroom-trialled for this edition.
   publication: No publication, deployment, commit, push, clone or remote repository operation.
+record:ch15-reader-revision:
+  source: Independent scientific and reader review, 1 November 2026
+  scope: Corrected manuscript, conceptual cards, figures, linked story, atlas, widgets, models and checks. Earlier
+    gate PASS records describe a superseded version.
+  licence: Original revisions CC BY-NC-SA 4.0; sources used for verified facts/ideas, no third-party prose or artwork
+    copied.

@@ -262,7 +262,7 @@ Live.register(
           color: c.muted,
           align: 'center',
         });
-        draw.text(ctx, '10 bp / turn', px, py + 104, {
+        draw.text(ctx, '≈10 bp / turn (fibre model)', px, py + 104, {
           size: 8.8,
           weight: 700,
           color: c.electron,
@@ -361,7 +361,7 @@ Live.register(
         .join(' | ');
 
       say(
-        `${p.modeName} (${p.adeninePct}% A, Rung ${p.focusPos}): Chargaff %A=${p.chargaff.A}% = %T=${p.chargaff.T}%, %G=${p.chargaff.G}% = %C=${p.chargaff.C}% (GC ${p.chargaff.gcPct}%) · Rung ${p.focusPos} pairs ${p.focusedRung.leftBase}–${p.focusedRung.rightBase} (${p.focusedRung.hBonds} H-bonds, width ${p.helixDiameterNm.toFixed(2)} nm, ${p.focusedRung.geometryState}) · 12-bp segment has ${p.totalHBonds} H-bonds (Tm ${p.meltingTempC} °C) · Photo 51 pitch 3.4 nm, step 0.34 nm (10 bp/turn). ${cmp.summary} Saved: ${history || 'none'}.`
+        `${p.modeName} (${p.adeninePct}% A, Rung ${p.focusPos}): Chargaff %A=${p.chargaff.A}% = %T=${p.chargaff.T}%, %G=${p.chargaff.G}% = %C=${p.chargaff.C}% (GC ${p.chargaff.gcPct}%) · Rung ${p.focusPos} pairs ${p.focusedRung.leftBase}–${p.focusedRung.rightBase} (${p.focusedRung.hBonds} H-bonds, schematic width ${p.helixDiameterNm.toFixed(2)} (normal helix ≈2 nm; mismatch widths exaggerated), ${p.focusedRung.geometryState}) · 12-bp segment has ${p.totalHBonds} H-bonds (Tm ${p.meltingTempC} °C) · Photo 51 pitch 3.4 nm, step 0.34 nm (≈10 bp/turn (fibre model)). ${cmp.summary} Saved: ${history || 'none'}.`
       );
     }
 

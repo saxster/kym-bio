@@ -373,8 +373,8 @@ Live.register(
         draw.text(
           ctx,
           pRule.ruleNumber === 1
-            ? 'Proves condition is RECESSIVE; both parents are Aa'
-            : 'Proves condition is DOMINANT; both parents are Aa',
+            ? 'In this model: RECESSIVE; both parents are Aa'
+            : 'In this model: DOMINANT; both parents are Aa',
           478,
           201,
           { size: 8.5, weight: 700, color: c.ink, align: 'center' }
@@ -439,7 +439,7 @@ Live.register(
         .join(' | ');
 
       say(
-        `${sim.mode.label} · ${sim.crossCode} (${sim.parentPhenotypes}): offspring blood groups are ${sim.phenotypeRatioSummary}. Maternal ${sim.maternal.code} has ${sim.maternal.surfaceAntigens} and ${sim.maternal.plasmaAntibodies}; paternal ${sim.paternal.code} has ${sim.paternal.surfaceAntigens} and ${sim.paternal.plasmaAntibodies}. ${sim.activePedigreeRule.title}: ${sim.activePedigreeRule.deduction} ${cmpText} Saved: ${history || 'none'}.`
+        `${sim.mode.label} · ${sim.crossCode} (${sim.parentPhenotypes}): standard ABO model predicts ${sim.phenotypeRatioSummary}. Rare variants or absent H-antigen can change blood typing; an ABO grid alone does not establish real identity. Maternal ${sim.maternal.code} has ${sim.maternal.surfaceAntigens} and ${sim.maternal.plasmaAntibodies}; paternal ${sim.paternal.code} has ${sim.paternal.surfaceAntigens} and ${sim.paternal.plasmaAntibodies}. ${sim.activePedigreeRule.title}: ${sim.activePedigreeRule.deduction} ${cmpText} Saved: ${history || 'none'}.`
       );
     }
 

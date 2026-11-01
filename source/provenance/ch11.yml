@@ -234,3 +234,15 @@ record:ch11-decisions:
   access_limits: Primary papers Avery et al. 1944 (PMC2135445), Griffith 1928 (PMC2167760), Hershey & Chase 1952 (PMC2147348), Nirenberg & Matthaei 1961 (PMC223178), Franklin & Gosling 1953, Watson & Crick 1953, Chargaff 1950, Crick et al. 1961, Khorana 1965/1968, and Ingram 1956/1957 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
   physical_trials: Safe kitchen demonstration spooling precipitated DNA threads from mashed banana using dishwashing detergent, table salt (NaCl) and chilled rubbing alcohol with adult supervision; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
   publication: No publication, deployment, commit, push, clone or remote repository operation.
+
+record:reader-revision-2026-11-01:
+  purpose: Correct scientific overstatements across text, figures, interactive models and answers while retaining historical investigations.
+  sources:
+    - https://www.genome.gov/genetics-glossary/Gene
+    - https://pubmed.ncbi.nlm.nih.gov/17185560/
+    - https://www.nobelprize.org/uploads/2018/06/anfinsen-lecture.pdf
+    - https://pubmed.ncbi.nlm.nih.gov/2996145/
+    - https://pmc.ncbi.nlm.nih.gov/articles/PMC4856271/
+    - https://www.nature.com/articles/s41467-022-30212-y
+  validation: Local domain tests, independent revision contracts, rendered chapter QA and offline smoke test; see gates/ch11-15-reader-revision.md for actual results.
+  supersedes: Earlier zero-findings gate verdicts and original-authoring preservation assumptions are historical records, not verification of this revision.

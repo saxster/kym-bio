@@ -20,7 +20,7 @@ Live.register(
       api,
       640,
       360,
-      'Xerophyte and hydrophyte adaptive features, 40-generation selective breeding trajectories, and vertebrate Cytochrome c and beta-globin molecular clock'
+      'Xerophyte and hydrophyte adaptive features, 40-generation selective breeding trajectories, and synthetic homologous DNA and protein comparisons'
     );
 
     const say = api.readout();
@@ -70,7 +70,7 @@ Live.register(
     api.button('Marram Grass (Arid)', () => applyPreset(0, 4, 1));
     api.button('Water Lily (Aquatic)', () => applyPreset(1, 3, 3));
     api.button('Gir Cattle (Gen 40)', () => applyPreset(2, 5, 1));
-    api.button('DNA Clock (Chimp vs Fish)', () => applyPreset(3, 4, 1));
+    api.button('Synthetic DNA examples', () => applyPreset(3, 4, 1));
 
     api.button('Capture trial', () => {
       const state = simulateAdaptiveSelective({
@@ -150,7 +150,7 @@ Live.register(
           );
 
           const featureCards = [
-            ['Waxy cuticle thickness', `${prof.cuticleThicknessUm} µm waterproof barrier`],
+            ['Illustrative cuticle', `${prof.cuticleThicknessUm} µm waterproof barrier`],
             ['Stomatal distribution', prof.stomataLocation],
             ['Leaf surface & trichomes', prof.leafHairs],
             ['Aerenchyma & xylem', `${prof.aerenchymaPct}% air spaces · ${prof.xylemSupport}`],
@@ -254,13 +254,13 @@ Live.register(
             { size: 8.4, weight: 700, color: c.proton, align: 'center' }
           );
         } else {
-          draw.text(ctx, 'Cytochrome c (104 aa) & HBB (146 aa) Molecular Clock', 194, 30, {
+          draw.text(ctx, 'Illustrative Homologous Sequence Comparisons', 194, 30, {
             size: 9.6,
             weight: 700,
             color: c.ink,
             align: 'center',
           });
-          draw.text(ctx, 'Fewer Sequence Differences = More Recent Ancestor', 194, 46, {
+          draw.text(ctx, 'Count differences; dates require calibrated rate models', 194, 46, {
             size: 8.4,
             color: c.electron,
             align: 'center',
@@ -277,13 +277,13 @@ Live.register(
             draw.roundRect(ctx, 28, by, 332, 43, 6);
             ctx.stroke();
 
-            draw.text(ctx, `Human vs ${tx.shortName}`, 38, by + 16, {
+            draw.text(ctx, `X vs ${tx.shortName}`, 38, by + 16, {
               size: 8.4,
               weight: 700,
               color: c.ink,
               align: 'left',
             });
-            draw.text(ctx, `DNA ${tx.codingDnaSimilarityPct}% | ~${tx.divergenceMa} Ma`, 350, by + 16, {
+            draw.text(ctx, `DNA ${tx.alignedDnaSimilarityPct}% | 200 bases`, 350, by + 16, {
               size: 8.0,
               weight: 700,
               color: c.electron,
@@ -298,7 +298,7 @@ Live.register(
             );
           });
 
-          draw.text(ctx, 'Birbal Sahni Gondwana fossils & Carl Woese 16S rRNA 3 domains', 194, 326, {
+          draw.text(ctx, 'Synthetic DNA/protein alignments; no measured species or dates', 194, 326, {
             size: 8.2,
             weight: 600,
             color: c.ink,
@@ -346,8 +346,8 @@ Live.register(
                 ['Taxon', state.taxon.shortName],
                 ['Cyt c diffs', `${state.taxon.cytochromeCDiffsOutOf104} / 104 aa`],
                 ['HBB diffs', `${state.taxon.betaGlobinDiffsOutOf146} / 146 aa`],
-                ['Coding DNA', `${state.taxon.codingDnaSimilarityPct}%`],
-                ['Split time', `~${state.taxon.divergenceMa} Ma`],
+                ['Aligned DNA', `${state.taxon.alignedDnaSimilarityPct}%`],
+                ['Dates', 'Not inferred'],
                 ['Sahni fossil', 'Pentoxyleae (Jur)'],
                 ['Woese 1977', '3 rRNA Domains'],
               ];

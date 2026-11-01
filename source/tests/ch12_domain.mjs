@@ -298,10 +298,14 @@ for (let m = 0; m < 4; m += 1) {
       });
       check(Object.isFrozen(sim), 'simulateStemCellExpressionLab frozen');
       check(Object.isFrozen(sim.geneStates), 'geneStates frozen');
-      checkEqual(sim.chromosomesInNucleus, 46, 'all nucleated cells keep 46 chromosomes');
-      checkEqual(sim.totalGenesInNucleus, 20000, 'all nucleated cells keep 20,000 genes');
-      checkEqual(sim.dnaGenesRetainedPct, 100, '100% of genes retained in DNA');
-      checkEqual(sim.panelGenesTotal, 6, '6 panel genes');
+      checkEqual(sim.chromosomesInNucleus, 46, 'chosen model nucleus has 46 chromosomes');
+      checkEqual(sim.totalGenesInNucleus, 20000, 'model background gene-count estimate retained');
+      checkEqual(sim.dnaGenesRetainedPct, 100, 'six displayed entries retained by assumption');
+      checkEqual(sim.panelGenesTotal, 6, '6 displayed panel entries');
+      check(sim.modelAssumptions?.illustrative === true, 'Expression panel explicitly exposes its model assumptions');
+      check(Object.isFrozen(sim.modelAssumptions), 'Expression model assumptions immutable');
+      checkEqual(sim.modelAssumptions?.retainedPanelEntries, 6, 'Retention applies to six displayed entries, not a complete genome');
+      check(!/SCN9A|100% of (?:the )?genome|all 46 chromosomes|exact same 46/i.test(JSON.stringify(sim)), 'Expression state avoids inappropriate motor gene and universal genome claims');
       checkEqual(sim.expressedPanelGenes + sim.silencedPanelGenes, 6, 'expressed + silenced = 6');
 
       // Every single gene in panel must have presentInDna === true
@@ -309,7 +313,7 @@ for (let m = 0; m < 4; m += 1) {
         check(Object.isFrozen(g), 'gene state frozen');
         checkEqual(g.presentInDna, true, `${g.symbol} present in DNA`);
         if (g.category === 'housekeeping') {
-          checkEqual(g.expressed, true, `housekeeping gene ${g.symbol} always expressed`);
+          checkEqual(g.expressed, true, `housekeeping example ${g.symbol} ON in this panel`);
           check(g.mrnaCopiesPerCell > 0, 'housekeeping mRNA > 0');
         }
         if (g.expressed === false) {
@@ -321,7 +325,7 @@ for (let m = 0; m < 4; m += 1) {
       if (d === 4 && tf === 1) {
         const ins = sim.geneStates.find((g) => g.symbol === 'INS');
         const hbb = sim.geneStates.find((g) => g.symbol === 'HBB');
-        const chat = sim.geneStates.find((g) => g.symbol === 'CHAT_SCN9A');
+        const chat = sim.geneStates.find((g) => g.symbol === 'CHAT');
         const oct = sim.geneStates.find((g) => g.symbol === 'OCT4_SOX2');
 
         if (m === 0) {
@@ -339,7 +343,7 @@ for (let m = 0; m < 4; m += 1) {
           // Spinal Motor Neurone
           checkEqual(ins.expressed, false, 'Motor neurone silences INS');
           checkEqual(hbb.expressed, false, 'Motor neurone silences HBB');
-          checkEqual(chat.expressed, true, 'Motor neurone expresses CHAT/SCN9A');
+          checkEqual(chat.expressed, true, 'Motor-neurone panel expresses CHAT for acetylcholine synthesis');
         } else if (m === 3) {
           // Gurdon / Yamanaka Reprogramming
           checkEqual(oct.expressed, true, 'Reprogrammed iPSC expresses OCT4/SOX2');
@@ -358,8 +362,14 @@ for (let m = 0; m < 4; m += 1) {
 for (let i = 1; i < expressionTrials.length; i += 1) {
   const cmp = compareExpressionTrials(expressionTrials[i - 1], expressionTrials[i]);
   check(Object.isFrozen(cmp), 'compareExpressionTrials frozen');
-  checkEqual(cmp.chromosomeDifference, 0, 'chromosomeDifference between any two nucleated cells is 0');
+  checkEqual(cmp.chromosomeDifference, 0, 'chosen comparison states retain the same model chromosome count');
   checkEqual(cmp.dnaRetainedDeltaPct, 0, 'dnaRetainedDeltaPct is 0');
 }
 
+check(GENE_PANEL.some(g=>g.category==='housekeeping'), 'Housekeeping examples retained');
+const motorExample=GENE_PANEL.find(g=>g.symbol==='CHAT');
+checkEqual(motorExample.chromosome,'Chromosome 10','CHAT example uses chromosome10');
+check(/acetylcholine/i.test(motorExample.proteinProduct),'CHAT product supports acetylcholine synthesis');
+check(!/channel/i.test(motorExample.proteinProduct),'CHAT is not a sodium channel');
+check(!JSON.stringify(GENE_PANEL).includes('SCN9A'), 'Motor example does not use sensory-neurone SCN9A');
 console.log(`ch12_domain.mjs: ${assertionCount} assertions passed with 0 failures.`);

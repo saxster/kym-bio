@@ -252,3 +252,15 @@ record:ch12-decisions:
   access_limits: Primary papers Meselson & Stahl 1958 (PMC528642), Flemming 1882, Gurdon 1962, Takahashi & Yamanaka 2006, and Janaki Ammal 1938/1945 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
   physical_trials: Safe kitchen botany observation rooting an onion bulb (Allium cepa) in a water tumbler and sprouting a potato eye bud (Solanum tuberosum) with explicit solanine safety warning; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
   publication: No publication, deployment, commit, push, clone or remote repository operation.
+
+record:reader-revision-2026-11-01:
+  purpose: Correct scientific overstatements across text, figures, interactive models and answers while retaining historical investigations.
+  sources:
+    - https://www.genome.gov/genetics-glossary/Gene
+    - https://pubmed.ncbi.nlm.nih.gov/17185560/
+    - https://www.nobelprize.org/uploads/2018/06/anfinsen-lecture.pdf
+    - https://pubmed.ncbi.nlm.nih.gov/2996145/
+    - https://pmc.ncbi.nlm.nih.gov/articles/PMC4856271/
+    - https://www.nature.com/articles/s41467-022-30212-y
+  validation: Local domain tests, independent revision contracts, rendered chapter QA and offline smoke test; see gates/ch11-15-reader-revision.md for actual results.
+  supersedes: Earlier zero-findings gate verdicts and original-authoring preservation assumptions are historical records, not verification of this revision.

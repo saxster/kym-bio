@@ -9,8 +9,8 @@ export const PAGES = [
   {
     tab: 'Mendel 3:1 board',
     fig: 'Figure 13.1 & 13.3 · Mendel’s 3D Punnett/Galton segregation board & 1:2:1 genotype bars',
-    title: 'Mendel’s Law of Segregation & Large Numbers',
-    alt: '3D Punnett segregation board and 1:2:1 genotypic (TT, Tt, tt) columns converging as pea sample size N increases.',
+    title: 'Mendel’s Segregation & Expected Ratios',
+    alt: '3D Punnett segregation board and 1:2:1 expected genotypic (TT, Tt, tt) columns and sampling uncertainty decreasing as N increases.',
     cam: { target: [0, 1.35, 0], az: 24, el: 22, dist: 7.4 },
     lit: 'genotype_bars',
     parts: ['genotype_bars', 'punnett_grid'],
@@ -28,7 +28,7 @@ export const PAGES = [
   },
   {
     tab: 'ABO codominance',
-    fig: 'Figure 13.5–13.6 · 3D ABO red blood cell surface glycoproteins (I^A, I^B, I^A I^B, ii)',
+    fig: 'Figure 13.5–13.6 · 3D ABO red blood cell surface glycoproteins (I^A, I^B, I^A I^B, I^O I^O)',
     title: 'Multiple Alleles & ABO Codominance',
     alt: '3D red blood cells displaying A-antigen spheres, B-antigen cones, both (Group AB codominance), or neither (Group O).',
     cam: { target: [28, 1.35, 0], az: 20, el: 20, dist: 7.4 },
@@ -60,10 +60,10 @@ export const PLATES = {
     text: 'Aligned gene loci along maternal and paternal homologous chromosomes: homozygous (TT or tt) carries identical alleles; heterozygous (Tt) carries two different alleles at the same locus.',
   },
   pedigree_tree: {
-    text: 'Pedigree & test-cross detective rules: if two unaffected parents have an affected child, the trait is recessive and both parents are heterozygous carriers (Aa × Aa → ¼ aa).',
+    text: 'Assume one autosomal gene, complete expression and no new mutation: if two unaffected parents have an affected child, the trait is recessive and both parents are heterozygous carriers (Aa × Aa → ¼ aa).',
   },
   a_b_rbcs: {
-    text: 'Group A (I^A I^A or I^A i), Group B (I^B I^B or I^B i), and Group O (ii): i is a recessive null frameshift allele that adds no terminal sugar to the H-antigen stalk.',
+    text: 'Group A (I^A I^A or I^A I^O), Group B (I^B I^B or I^B I^O), and Group O (I^O I^O): a common O allele has a frameshift and adds no terminal sugar to the H-antigen stalk.',
   },
   ab_rbc: {
     text: 'True codominance in Group AB (I^A I^B): both glycosyltransferase enzymes are active on the same red blood cell, decorating the membrane with both A and B carbohydrate antigens (not an intermediate blend).',
@@ -94,7 +94,12 @@ export const CHAPTER = {
   lessons: {
     'ch13-punnett-3d': { page: 0, params: { crossMode: 0, sampleN: 800 } },
     'ch13-locus-3d': { page: 1, params: { crossMode: 1 } },
+    'ch13-punnett-3d-testcross': { page: 0, params: { crossMode: 1 } },
+    'ch13-pedigree-3d-rules': { page: 1, params: { crossMode: 0 } },
     'ch13-abo-3d': { page: 2, params: { aboChoice: 2 } },
+    'ch13-abo-3d-compare': { page: 2, params: { aboChoice: 0 } },
+    'ch13-abo-3d-maternity': { page: 2, params: { aboChoice: 2 } },
+    'ch13-pedigree-3d-xy': { page: 3 },
     'ch13-pedigree-3d': { page: 3 },
   },
   sonify(ctx, s, page) {
@@ -116,10 +121,10 @@ export const CHAPTER = {
       return `<b>${s.mc.ratioLabel} (N = ${s.sampleN} peas)</b> · TT = ${(s.mc.genoTT * 100).toFixed(0)}% · Tt = ${(s.mc.genoTt * 100).toFixed(0)}% · tt = ${(s.mc.genott * 100).toFixed(0)}% · Sampling noise SE = ±${(s.mc.stdError * 100).toFixed(1)}%.`;
     }
     if (pageIdx === 1) {
-      return `<b>Homologous Loci & Pedigree Detective</b> · Recessive test cross (T? × tt) reveals whether a tall plant is homozygous TT (100% tall) or heterozygous Tt (1:1 tall:dwarf).`;
+      return `<b>Homologous Loci & Pedigree Detective</b> · Recessive test cross (T? × tt): a dwarf offspring establishes Tt; an all-tall sample supports TT but does not prove it.`;
     }
     if (pageIdx === 2) {
-      return `<b>Genotype ${s.abo.genotype} → Blood Group ${s.abo.bloodGroup}</b> · Surface antigens: <b>${s.abo.antigens}</b> · Plasma antibodies: ${s.abo.antibodies}.`;
+      return `<b>Genotype ${s.abo.genotype} → Blood Group ${s.abo.bloodGroup}</b> · Surface antigens: <b>${s.abo.antigens}</b> · Plasma antibodies: ${s.abo.antibodies}. Standard ABO model; rare variants can alter typing.`;
     }
     return `<b>X-Linked Recessive Cross (Carrier Mother X^R X^r × Father X^R Y)</b> · Sons affected: <b>50%</b> · Daughters carrier: <b>50%</b> · Daughters affected: <b>0%</b> (father never passes X to sons).`;
   },
@@ -174,7 +179,7 @@ export const CHAPTER = {
     const aboOtherAsm = asm('a_b_rbcs', root, { title: 'Group A, B & O red blood cells', sub: 'Single or null surface antigens' });
     aboOtherAsm.position.set(27.0, 1.35, 0);
     part(aboOtherAsm, rbcGeo(0.58, 0), { pal: 'red', tone: 'hi', pos: [-0.45, 0.35, 0], rot: [0.4, 0, 0], ex: [-0.35, 0.3, 0], name: 'Group A / B RBC' });
-    part(aboOtherAsm, rbcGeo(0.58, 0), { pal: 'red', tone: 'mid', pos: [0.45, -0.35, 0], rot: [0.4, 0, 0], ex: [0.35, -0.3, 0], name: 'Group O RBC (ii)' });
+    part(aboOtherAsm, rbcGeo(0.58, 0), { pal: 'red', tone: 'mid', pos: [0.45, -0.35, 0], rot: [0.4, 0, 0], ex: [0.35, -0.3, 0], name: 'Group O RBC (I^O I^O)' });
 
     const abAsm = asm('ab_rbc', root, { title: 'Codominant Group AB red blood cell', sub: 'Expresses both A (spheres) & B (cones) antigens' });
     abAsm.position.set(29.0, 1.35, 0);

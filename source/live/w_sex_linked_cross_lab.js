@@ -251,7 +251,7 @@ Live.register(
               cell.isAffected
                 ? 'Affected'
                 : cell.isCarrier
-                  ? 'Unaffected carrier'
+                  ? 'Carrier (see model note)'
                   : 'Unaffected normal',
               cx + 48,
               gy + 52,
@@ -274,7 +274,7 @@ Live.register(
 
         draw.text(
           ctx,
-          `Sex ratio: 50% XX Daughters : 50% XY Sons (1 : 1)`,
+          `Model: 50% XX : 50% XY (expected 1 : 1)`,
           34,
           250,
           {
@@ -495,7 +495,7 @@ Live.register(
         .join(' | ');
 
       say(
-        `${sim.mode.label} · ${sim.trait.name} (${sim.crossCode}): among daughters (XX), ${sim.amongDaughters.homozygousNormalPct}% are homozygous normal, ${sim.amongDaughters.carrierPct}% are carriers, and ${sim.amongDaughters.affectedPct}% are affected; among sons (XY), ${sim.amongSons.normalPct}% are normal and ${sim.amongSons.affectedPct}% are affected (${sim.amongAllChildren.totalAffectedChildrenPct}% of all children). ${sim.trait.molecularMechanism} ${cmpText} Saved: ${history || 'none'}.`
+        `${sim.mode.label} · ${sim.trait.name} (${sim.crossCode}), simple recessive model: among daughters (XX), ${sim.amongDaughters.homozygousNormalPct}% are homozygous normal, ${sim.amongDaughters.carrierPct}% are carriers, and ${sim.amongDaughters.affectedPct}% are affected; among sons (XY), ${sim.amongSons.normalPct}% are normal and ${sim.amongSons.affectedPct}% are affected (${sim.amongAllChildren.totalAffectedChildrenPct}% of all children). ${sim.trait.molecularMechanism} ${cmpText} Saved: ${history || 'none'}.`
       );
     }
 

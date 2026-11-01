@@ -84,13 +84,13 @@ for (const mode of TROPHIC_MODES) {
         check(sim.levels[0].biomassKg > sim.levels[1].biomassKg, 'banyan dry mass > herbivore dry mass');
         check(sim.levels[0].energyKj > sim.levels[1].energyKj, 'banyan energy > herbivore energy');
       } else if (mode === 'diet_efficiency') {
-        check(sim.totalHumanAssimilatedKj > 0, 'positive human assimilated energy');
-        check(sim.relativePeopleSupported >= 1.0, 'relative people supported >= 1.0x meat baseline');
+        check(sim.totalFoodSuppliedKj > 0, 'positive food energy supplied');
+        check(sim.relativeFoodEnergy >= 1.0, 'relative food energy >= 1.0x meat baseline');
         if (sec === 100 && eff === 10) {
-          checkEqual(sim.relativePeopleSupported, 10, '100% plant diet supports 10x population vs 100% meat at 10% transfer');
+          checkEqual(sim.relativeFoodEnergy, 10, 'stated 10% feed conversion gives 10x food energy before human digestion');
         }
         if (sec === 0) {
-          checkEqual(sim.relativePeopleSupported, 1, '0% plant diet equals 1x meat baseline');
+          checkEqual(sim.relativeFoodEnergy, 1, '0% plant diet equals 1x meat baseline');
         }
       } else if (mode === 'sigmoid_population') {
         check(sim.timePoints.length === 25, '25 time points across 0-48 h');
@@ -196,10 +196,10 @@ for (const mode of BIOTECH_MODES) {
       if (mode === 'recombinant_insulin') {
         checkEqual(sim.pipelineSteps.length, 5, 'all 5 recombinant insulin pipeline steps present');
         if (p1 < 25) {
-          checkEqual(sim.sameRestrictionEnzyme, false, 'mismatched restriction enzyme blocked');
+          checkEqual(sim.endsCompatible, false, 'mismatched restriction enzyme blocked');
           checkEqual(sim.humanInsulinYieldMgL, 0, 'zero insulin without matching sticky ends');
         } else {
-          checkEqual(sim.sameRestrictionEnzyme, true, 'matching restriction enzyme active');
+          checkEqual(sim.endsCompatible, true, 'matching restriction enzyme active');
           check(sim.humanInsulinYieldMgL > 0, 'positive insulin yield with matching sticky ends and ligase');
         }
       } else if (mode === 'industrial_fermenter') {
@@ -230,4 +230,59 @@ const cmpBio = compareBiotechTrials(
 );
 check(cmpBio.deltaHeadline < 0, 'overheating reduces fermenter yield');
 
+
+
+// Scientific boundary regressions: expectations come from the energy ledger and cloning requirements.
+const directFood = simulateTrophicEcosystem({mode:'diet_efficiency', transferEffPct:10, secondaryParam:100});
+const animalFood = simulateTrophicEcosystem({mode:'diet_efficiency', transferEffPct:10, secondaryParam:0});
+checkEqual(directFood.totalFoodSuppliedKj, 10000, 'direct food supply has no invented 90% human digestion loss');
+checkEqual(animalFood.totalFoodSuppliedKj, 1000, 'only the stated livestock conversion reduces food supply');
+const budget = simulateTrophicEcosystem({mode:'sgnp_web',transferEffPct:10,secondaryParam:50});
+const respiratoryHeat = budget.levels.slice(1,budget.chainLength).reduce((sum,l)=>sum+l.respHeatKj,0);
+check(Math.abs(respiratoryHeat + budget.totalDecomposerInputKj + budget.topLevelEnergyKj - budget.producerEnergyKj)<0.2,'heat, detritus and final production close the energy budget without double counting');
+check(!('topLevelViable' in budget), 'energy density alone makes no population viability verdict');
+const compatibleDifferent = simulateBiotechFermenterPlasmid({mode:'recombinant_insulin',primaryParam:90,insertEnzyme:'BamHI',vectorEnzyme:'BglII'});
+check(compatibleDifferent.endsCompatible && compatibleDifferent.humanInsulinYieldMgL>0,'different enzymes with compatible ends support the model construct');
+for (const unavailable of ['intronFree','bacterialControls','productProcessed']) {
+  const missing = simulateBiotechFermenterPlasmid({mode:'recombinant_insulin',primaryParam:90,[unavailable]:false});
+  checkEqual(missing.humanInsulinYieldMgL,0,`${unavailable} required for a finished model insulin product`);
+}
+for(const primaryParam of [0,50,100]) checkEqual(simulateBiotechFermenterPlasmid({mode:'yeast_enzyme_biotech',primaryParam}).ethanolRemainingInBreadPct,null,'temperature alone does not predict residual baked-bread ethanol');
+
+
+
+// Construct the actual Three.js scene: pure scalar models cannot catch invalid primitive calls.
+const { CHAPTER: atlas15 } = await import('../live/atlas/biology/ch15-ecology-biotech/chapter.js');
+const { THREE } = await import('../live/atlas/engine/bio_kit.js');
+const scene15 = new THREE.Scene();
+const assemblyIds15 = [];
+const world15 = atlas15.buildWorld({
+  scene: scene15,
+  asm(id, parent) {
+    const group = new THREE.Group();
+    group.name = id;
+    parent.add(group);
+    assemblyIds15.push(id);
+    return group;
+  },
+});
+checkEqual(assemblyIds15.length, 9, 'all nine Chapter15 scene assemblies construct with real primitives');
+let geometryCount15 = 0;
+for (const trophicEtaPct of [5, 10, 20]) for (const fermTempC of [20, 37, 60]) for (const runoffLoad of [0, 60, 100]) {
+  atlas15.params = { trophicEtaPct, fermTempC, runoffLoad };
+  world15.update(atlas15.state(2, false));
+  scene15.updateMatrixWorld(true);
+  scene15.traverse(object => {
+    check(object.matrixWorld.elements.every(Number.isFinite), 'Chapter15 world transform remains finite at control extremes');
+    if (!object.geometry) return;
+    geometryCount15++;
+    for (const attr of Object.values(object.geometry.attributes)) {
+      check(attr.array.every(Number.isFinite), 'actual Chapter15 geometry attribute contains only finite coordinates');
+    }
+    object.geometry.computeBoundingSphere();
+    check(Number.isFinite(object.geometry.boundingSphere.radius), 'actual Chapter15 geometry has a finite bounding sphere');
+  });
+}
+check(geometryCount15 > 0, 'scene regression traverses actual geometry rather than a scalar substitute');
+delete atlas15.params;
 console.log(`ch15_domain.mjs: ${passed} assertions passed (0 failures)`);

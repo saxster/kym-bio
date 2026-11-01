@@ -131,7 +131,7 @@ Live.register(
         captures.length >= 2
           ? 'Contrasting expression states captured for comparison: ' +
             compareExpressionTrials(captures[captures.length - 2], captures[captures.length - 1]).summary
-          : 'Tap "Capture trial" on two different cell types or stages to verify that 100% of DNA is retained while expressed genes change.';
+          : 'Tap "Capture trial" on two different cell types or stages to compare expression while retaining the six displayed entries in this illustrative model.';
 
       view.draw((ctx, c) => {
         const { draw } = api;
@@ -169,19 +169,19 @@ Live.register(
         draw.roundRect(ctx, 24, 58, 212, 68, 8);
         ctx.stroke();
 
-        draw.text(ctx, 'Nuclear DNA Archive: 2n = 46', 130, 76, {
+        draw.text(ctx, 'Chosen diploid nucleus: 46 chr', 130, 76, {
           size: 9.6,
           weight: 700,
           color: c.green,
           align: 'center',
         });
-        draw.text(ctx, '100% of ~20,000 genes present', 130, 94, {
+        draw.text(ctx, '6/6 displayed entries retained', 130, 94, {
           size: 9.0,
           weight: 600,
           color: c.ink,
           align: 'center',
         });
-        draw.text(ctx, 'Zero genes deleted in differentiation', 130, 112, {
+        draw.text(ctx, 'Model panel, not a whole-genome assay', 130, 112, {
           size: 8.4,
           color: c.muted,
           align: 'center',
@@ -318,7 +318,7 @@ Live.register(
             align: 'left',
           });
 
-          draw.text(ctx, 'YES (100%)', 360, ry + 24, {
+          draw.text(ctx, 'Present', 360, ry + 24, {
             size: 8.4,
             weight: 700,
             color: c.green,
@@ -347,7 +347,7 @@ Live.register(
           draw.text(
             ctx,
             g.expressed
-              ? g.proteinMade.split(' (')[0].replace('Acetylcholine enzyme & voltage-gated', 'ACh enzyme &')
+              ? g.proteinMade.split(' (')[0]
               : 'Closed heterochromatin',
             458,
             ry + 33,
@@ -372,12 +372,12 @@ Live.register(
       const history = captures
         .map(
           (cap) =>
-            `#${cap.trialNumber} ${cap.shortModeLabel} Stg ${cap.differentiationStage} (DNA ${cap.dnaGenesRetainedPct}%, ON: ${cap.activeSymbols})`
+            `#${cap.trialNumber} ${cap.shortModeLabel} Stg ${cap.differentiationStage} (panel 6/6 retained, ON: ${cap.activeSymbols})`
         )
         .join(' | ');
 
       say(
-        `${sim.modeLabel} · ${sim.stageLabel} (${sim.activeRegulator}): Nucleus retains ${sim.chromosomesInNucleus} chromosomes (${sim.dnaGenesRetainedPct}% of ${sim.totalGenesInNucleus.toLocaleString()} genes present in DNA). Expressed genes (${sim.expressedPanelGenes}/6 ON): [${activeList}] · Silenced genes (${sim.silencedPanelGenes}/6 OFF): [${silentList || 'none'}]. ${sim.igcseRuleExplanation} ${cmpText} Saved: ${history || 'none'}.`
+        `${sim.modeLabel} · ${sim.stageLabel} (${sim.activeRegulator}): Illustrative nucleus: ${sim.chromosomesInNucleus} chromosomes; all six displayed entries retained by assumption. Panel entries (${sim.expressedPanelGenes}/6 ON): [${activeList}] · Panel entries (${sim.silencedPanelGenes}/6 OFF): [${silentList || 'none'}]. ${sim.igcseRuleExplanation} ${sim.modelAssumptions.limits} ${cmpText} Saved: ${history || 'none'}.`
       );
     }
 

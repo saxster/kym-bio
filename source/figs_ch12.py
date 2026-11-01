@@ -215,7 +215,7 @@ def c12_chromosome_chromatid_ledger() -> str:
     heading(
         f,
         "12.1  Bookkeeping the Archive: Chromosomes, Centromeres & Sister Chromatids",
-        "Count chromosomes by functional centromeres; count DNA molecules by individual chromatids before and after mitosis",
+        "Count chromosomes by linked chromosome units; count DNA molecules by individual chromatids before and after mitosis",
     )
 
     stages = [
@@ -235,7 +235,7 @@ def c12_chromosome_chromatid_ledger() -> str:
             224,
             "2. After S-Phase Copy (G₂)",
             "1 chromosome = 2 sister chromatids",
-            "Still 1 shared centromere",
+            "Sisters linked near centromeres",
             "2 identical DNA helices tethered",
             "Human cell entering mitosis:",
             "Still 46 chromosomes (2n = 46)",
@@ -270,7 +270,7 @@ def c12_chromosome_chromatid_ledger() -> str:
                 (82, l2, "t s"),
                 (108, l3, "t m"),
                 (148, "Centromere rule:", "t m"),
-                (172, "1 centromere = 1 chromosome", "t b"),
+                (172, "1 linked unit = 1 chromosome", "t b"),
                 (216, h_hdr, "t m"),
                 (244, h1, tcls),
                 (272, h2, "t b"),
@@ -304,7 +304,7 @@ def c12_chromosome_chromatid_ledger() -> str:
         f,
         320,
         474,
-        "S-phase replication duplicates each chromosome into 2 identical sister chromatids joined at 1 centromere (46 chromosomes, 92 chromatids).",
+        "S phase copies each chromosome: 46 linked sister pairs, 92 DNA molecules.",
         "t s",
         8.5,
     )
@@ -523,7 +523,7 @@ def c12_asexual_vs_sexual_crops() -> str:
         104,
         [
             (22, "Mechanism & Examples", "t b e"),
-            (46, "Meiosis makes haploid gametes (n); fertilisation", "t s"),
+            (46, "Meiosis halves chromosome sets (n); fertilisation", "t s"),
             (70, "fuses nuclei into a diploid zygote (2n)", "t s"),
             (90, "Seeded wild bananas, rice, wheat, mammals", "t b"),
         ],
@@ -668,7 +668,7 @@ def c12_stem_cells_gene_expression() -> str:
     rows = [
         (
             310,
-            ("Pancreatic Beta Cell", "Islets of Langerhans", "2n = 46 (100% genes)", "wash-e", "t b e"),
+            ("Pancreatic Beta Cell", "Islets of Langerhans", "2n = 46; panel present", "wash-e", "t b e"),
             ("SWITCHED ON", "ATP synthase mRNA", "Powers cell ATP", "wash-g", "t b g"),
             ("SWITCHED ON", "INS mRNA transcribed", "Prints insulin hormone", "wash-e", "t b e"),
             ("SILENCED (OFF)", "Gene present in DNA", "0 HBB mRNA made", "plate", "t m"),
@@ -684,7 +684,7 @@ def c12_stem_cells_gene_expression() -> str:
         ),
         (
             494,
-            ("Spinal Motor Neurone", "Ventral horn → muscle", "2n = 46 (100% genes)", "wash-g", "t b g"),
+            ("Spinal Motor Neurone", "Ventral horn → muscle", "2n = 46; panel present", "wash-g", "t b g"),
             ("SWITCHED ON", "ATP synthase mRNA", "Powers Na⁺/K⁺ pumps", "wash-g", "t b g"),
             ("SILENCED (OFF)", "Gene present in DNA", "0 INS mRNA made", "plate", "t m"),
             ("SILENCED (OFF)", "Gene present in DNA", "0 HBB mRNA made", "plate", "t m"),
@@ -776,7 +776,7 @@ def c12_gurdon_yamanaka_proof() -> str:
             (22, "Step C: Normal Tadpole & Fertile Frog", "t b g"),
             (46, "Reprogrammed egg divides by mitosis to build", "t s"),
             (68, "functional eyes, brain, heart, muscle, and blood:", "t s"),
-            (92, "proving 100% of genes were kept in the gut cell", "t b g"),
+            (92, "gut nucleus retains developmental genes", "t b g"),
         ],
         "wash-g",
         8.2,
@@ -1046,7 +1046,7 @@ def c12_mitosis_vs_meiosis_ledger() -> str:
             306,
             ("4. Daughter cells", "Count per parent"),
             ("2 daughter cells produced", "per dividing parent cell"),
-            ("4 daughter cells (gametes) produced", "per dividing germ-line cell"),
+            ("4 haploid products in sperm model", "per dividing germ-line cell"),
         ),
         (
             374,
@@ -1114,11 +1114,11 @@ def c12_triploid_banana_case() -> str:
             "Triploid cultivar (3n = 33, AAA)",
             "11 homologous triplets (3 × 11)",
             "Odd triplets split 2-vs-1 at random",
-            "Meiotic traffic jam → gametes abort",
-            "Sterile, seedless yellow fruit",
+            "Meiotic traffic jam → most products unbalanced",
+            "Poor fertility + parthenocarpy",
             "Propagated only by MITOSIS (rhizome",
             "suckers & meristem tissue culture):",
-            "100% genetic clones vulnerable to TR4",
+            "Low-diversity clones vulnerable to TR4",
             "wash-p",
             "t b p",
         ),
@@ -1178,7 +1178,7 @@ def c12_triploid_banana_case() -> str:
         f,
         320,
         516,
-        "12.1 Semi-conservative replication copies all 33 chromosomes → 12.2 Mitosis clones suckers with 0 genetic variation →",
+        "12.1 Semi-conservative replication copies all 33 chromosomes → 12.2 Mitosis clones suckers with low variation →",
         "t s",
         8.4,
     )

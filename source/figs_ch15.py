@@ -84,7 +84,7 @@ def c15_food_webs_trophic_pyramids() -> str:
         46,
         [
             (18, "Level 4: Tertiary / Apex Consumer", "t b p"),
-            (35, "Indian leopard / Crested serpent eagle", "t"),
+            (35, "Snakes / bird-eating raptors", "t"),
         ],
         "plate",
         8.2,
@@ -99,7 +99,7 @@ def c15_food_webs_trophic_pyramids() -> str:
         46,
         [
             (18, "Level 3: Secondary", "t b e"),
-            (35, "Mantids & frogs", "t"),
+            (35, "Frogs & lizards", "t"),
         ],
         "plate",
         8.0,
@@ -111,8 +111,8 @@ def c15_food_webs_trophic_pyramids() -> str:
         128,
         46,
         [
-            (18, "Level 3: Omnivore", "t b e"),
-            (35, "Treepie & barn owl", "t"),
+            (18, "Level 3: Secondary", "t b e"),
+            (35, "Insect-eating birds", "t"),
         ],
         "plate",
         8.0,
@@ -127,7 +127,7 @@ def c15_food_webs_trophic_pyramids() -> str:
         46,
         [
             (18, "Level 2: Herbivore", "t b g"),
-            (35, "Caterpillars & wasps", "t"),
+            (35, "Caterpillars & plant bugs", "t"),
         ],
         "plate",
         8.0,
@@ -140,7 +140,7 @@ def c15_food_webs_trophic_pyramids() -> str:
         46,
         [
             (18, "Level 2: Herbivore", "t b g"),
-            (35, "Spotted deer & bats", "t"),
+            (35, "Grasshoppers & beetles", "t"),
         ],
         "plate",
         8.0,
@@ -218,17 +218,17 @@ def c15_food_webs_trophic_pyramids() -> str:
     # RIGHT PANEL: Three Ecological Pyramids for One Giant Banyan Tree
     f.rect(328, 54, 296, 470, "wash-e", rx=10)
     txt(f, 476, 74, "2. One Giant Banyan Tree: Three Pyramids", "t b e", 9.3)
-    txt(f, 476, 90, "Comparing Numbers, Dry Biomass, and Annual Energy", "t m", 8.0)
+    txt(f, 476, 90, "Illustrative counts, dry biomass and annual production", "t m", 8.0)
 
     # Sub-card 1: Pyramid of Numbers (Inverted at base)
     f.rect(340, 102, 272, 128, "plate", rx=8)
     txt(f, 476, 118, "A. Pyramid of Numbers (Inverted at Base)", "t b p", 8.4)
     f.rect(462, 128, 28, 16, "wash-p", rx=2)
-    txt(f, 476, 139, "L4: 6 eagles", "t", 7.6)
+    txt(f, 476, 139, "L4: 6 bird-eating predators", "t", 7.6)
     f.rect(436, 148, 80, 16, "wash-e", rx=2)
-    txt(f, 476, 159, "L3: 350 mantids", "t", 7.6)
+    txt(f, 476, 159, "L3: 350 insect-eating birds", "t", 7.6)
     f.rect(366, 168, 220, 16, "wash-g", rx=2)
-    txt(f, 476, 179, "L2: 8,000 bats & caterpillars", "t b", 7.6)
+    txt(f, 476, 179, "L2: 8,000 caterpillars", "t b", 7.6)
     f.rect(466, 188, 20, 16, "wash-g", rx=2)
     txt(f, 476, 218, "L1: 1 giant banyan tree (1 individual < 8,000 insects)", "t b g", 7.6)
 
@@ -247,7 +247,7 @@ def c15_food_webs_trophic_pyramids() -> str:
 
     # Sub-card 3: Pyramid of Energy (Always upright without exception)
     f.rect(340, 378, 272, 136, "plate", rx=8)
-    txt(f, 476, 394, "C. Pyramid of Energy (kJ m⁻² yr⁻¹: ALWAYS Upright)", "t b e", 8.4)
+    txt(f, 476, 394, "C. Energy: Same Area, Period and Food-Source Boundary", "t b e", 8.4)
     f.rect(466, 404, 20, 16, "wash-p", rx=2)
     txt(f, 476, 415, "L4: 45 kJ m⁻² yr⁻¹", "t", 7.6)
     f.rect(446, 424, 60, 16, "wash-e", rx=2)
@@ -256,7 +256,7 @@ def c15_food_webs_trophic_pyramids() -> str:
     txt(f, 476, 455, "L2: 4,500 kJ m⁻² yr⁻¹", "t", 7.6)
     f.rect(354, 464, 244, 18, "wash-g", rx=2)
     txt(f, 476, 476, "L1: 45,000 kJ m⁻² yr⁻¹ captured by photosynthesis", "t b g", 7.6)
-    txt(f, 476, 498, "Only ~10% transfers per step; ~90% lost as heat & waste", "t b p", 7.6)
+    txt(f, 476, 498, "10% production transfer assumed; efficiencies vary", "t b p", 7.6)
 
     return f.svg()
 
@@ -273,14 +273,14 @@ def c15_energy_budget_sigmoid_growth() -> str:
     )
     heading(
         f,
-        "15.2  The 90% Trophic Energy Tax, Crop vs Livestock Diets & Sigmoid Growth",
+        "15.2  Energy Budgets, Crop Food Routes & Batch Growth",
         "Why food chains rarely exceed 4–5 levels and how environmental limiting factors create S-shaped population curves",
     )
 
     # LEFT PANEL: 90% Energy Loss Partition & Crop vs Livestock Diet Efficiency
     f.rect(16, 54, 296, 470, "wash-p", rx=10)
-    txt(f, 164, 74, "1. Where 90% of Energy Goes Between Trophic Levels", "t b p", 9.1)
-    txt(f, 164, 90, "Partition of 1,000 kJ ingested by a primary consumer", "t m", 8.0)
+    txt(f, 164, 74, "1. Example: 10% New-Biomass Transfer", "t b p", 9.1)
+    txt(f, 164, 90, "Start: 1,000 kJ production in the lower feeding level", "t m", 8.0)
 
     box(
         f,
@@ -289,20 +289,20 @@ def c15_energy_budget_sigmoid_growth() -> str:
         272,
         154,
         [
-            (20, "Four Pathways of Energy Loss (~900 kJ of 1,000 kJ)", "t b p"),
-            (42, "1. Aerobic respiration & heat loss (~540 kJ, 54%):", "t b"),
+            (20, "Illustrative shares: not a universal measured partition", "t b p"),
+            (42, "1. Respiration transfers energy as heat (~540 kJ).", "t b"),
             (58, "   Movement, active transport & body temperature", "t m"),
-            (78, "2. Indigestible egested faeces (~220 kJ, 22%):", "t b"),
+            (78, "2. Egested faeces retain chemical energy (~220 kJ).", "t b"),
             (94, "   Cellulose cell walls, lignin, bone & fur (Ch 7)", "t m"),
-            (114, "3. Excreted metabolic waste (~70 kJ): urea in urine", "t b"),
-            (132, "4. Uneaten parts (~70 kJ): roots, bark, bones → decay", "t b"),
+            (114, "3. Excreted waste retains chemical energy (~70 kJ).", "t b"),
+            (132, "4. Uneaten parts (~70 kJ) can feed decomposers.", "t b"),
             (148, "Result: Only ~100 kJ (10%) becomes new biomass", "t b g"),
         ],
         "plate",
         7.9,
     )
 
-    txt(f, 164, 276, "2. Human Diet Efficiency per Hectare (0610 19.2)", "t b g", 9.1)
+    txt(f, 164, 276, "2. Same Crop Harvest, Two Food-Supply Routes", "t b g", 9.1)
 
     box(
         f,
@@ -311,11 +311,11 @@ def c15_energy_budget_sigmoid_growth() -> str:
         272,
         106,
         [
-            (20, "Direct Crop Plant Diet (1 Trophic Step = 10% Retained)", "t b g"),
-            (40, "Crop Plants (10,000 kJ) → Humans (1,000 kJ)", "t b"),
+            (20, "Direct Route: Food Supplied Before Human Digestion", "t b g"),
+            (40, "Edible crops (10,000 kJ) → Food supply (10,000 kJ)", "t b"),
             (60, "• Eliminates intermediate livestock trophic step", "t"),
-            (78, "• Delivers 10× more food energy per hectare of land", "t b g"),
-            (95, "• Reduces land clearing and methane emissions", "t m"),
+            (78, "• No livestock feed-conversion loss in this route", "t b g"),
+            (95, "• Actual land needs depend on the farming system", "t m"),
         ],
         "plate",
         8.0,
@@ -328,11 +328,11 @@ def c15_energy_budget_sigmoid_growth() -> str:
         272,
         108,
         [
-            (20, "Livestock Meat Diet (2 Trophic Steps = 1% Retained)", "t b p"),
-            (40, "Crops (10,000 kJ) → Livestock (1,000 kJ) → Human (100 kJ)", "t b"),
-            (60, "• Livestock lose ~90% in respiration, heat, faeces & urea", "t"),
-            (78, "• Same reason food chains rarely exceed 4 or 5 levels:", "t b p"),
-            (95, "  too little energy remains to support a 6th predator", "t m"),
+            (20, "Livestock Route: Assume 10% Feed-to-Edible Food", "t b p"),
+            (40, "Crops (10,000 kJ) → Animal food (1,000 kJ)", "t b"),
+            (60, "• Remaining energy: maintenance, heat, waste, other tissue", "t"),
+            (78, "• This example has 10× less food energy supplied.", "t b p"),
+            (95, "  It is not a universal people-per-hectare estimate.", "t m"),
         ],
         "plate",
         8.0,
@@ -389,7 +389,7 @@ def c15_energy_budget_sigmoid_growth() -> str:
             (42, "1. Lag phase (birth rate low, N small):", "t b"),
             (58, "   Few individuals present; cells inducing enzymes.", "t m"),
             (78, "2. Exponential (log) phase (birth rate ≫ death rate):", "t b g"),
-            (94, "   Abundant food & space; zero limiting factors.", "t m"),
+            (94, "   Resource limitation is initially weak.", "t m"),
             (114, "3. Stationary phase (birth rate = death rate at K):", "t b"),
             (130, "   Limiting factors (food scarcity, competition,", "t m"),
             (145, "   predators, disease, toxins) cap population at K.", "t m"),
@@ -416,12 +416,12 @@ def c15_carbon_water_cycles() -> str:
     heading(
         f,
         "15.3  Atoms on Loan: The Water Cycle, Carbon Cycle & Keeling's CO₂ Record",
-        "Photosynthesis is the single biological process removing atmospheric CO₂; respiration, decay & combustion return it",
+        "Photosynthesis fixes carbon in sunlit ecosystems; respiration, decomposition and combustion return CO₂",
     )
 
     # LEFT PANEL: Water Cycle (Mumbai Arabian Sea to SGNP Hills)
     f.rect(16, 54, 296, 470, "wash-e", rx=10)
-    txt(f, 164, 74, "1. The Water Cycle (0610 19.3)", "t b e", 9.3)
+    txt(f, 164, 74, "1. The Water Cycle (Linked Model)", "t b e", 9.3)
     txt(f, 164, 90, "Arabian Sea evaporation to Western Ghats monsoon rain", "t m", 8.0)
 
     box(
@@ -910,7 +910,7 @@ def c15_eutrophication_greenhouse_impacts() -> str:
         7.8,
     )
 
-    txt(f, 478, 298, "3. Non-Biodegradable Plastics & Bioaccumulation", "t b g", 9.1)
+    txt(f, 478, 298, "3. Persistent Plastics & Food-Web Pollutants", "t b g", 9.1)
 
     box(
         f,
@@ -919,17 +919,17 @@ def c15_eutrophication_greenhouse_impacts() -> str:
         268,
         202,
         [
-            (20, "Plastic Pollution & Food-Chain Biomagnification", "t b g"),
-            (42, "• Non-biodegradable: Bacterial and fungal decomposers", "t"),
-            (58, "  lack enzymes to hydrolyse synthetic plastic polymers.", "t m"),
+            (20, "Plastic Harm and Persistent Chemicals", "t b g"),
+            (42, "• Many common plastics resist breakdown under", "t"),
+            (58, "  ordinary environmental conditions; polymers differ.", "t m"),
             (78, "• Marine & terrestrial harm (Carter Road / creeks):", "t b"),
             (94, "  1. Ingestion: Turtles mistake bags for jellyfish; stomachs", "t"),
             (110, "     fill with indigestible plastic, causing starvation.", "t m"),
             (128, "  2. Entanglement: Ghost nets trap marine mammals/birds,", "t"),
             (144, "     causing drowning, suffocation, or lacerations.", "t m"),
-            (164, "  3. Bioaccumulation (0893 8Be.02): Microplastics &", "t b p"),
-            (180, "     persistent toxins (DDT, mercury) magnify up food", "t"),
-            (194, "     chains to reach lethal doses in apex predators.", "t m"),
+            (164, "  3. Microplastic ingestion/transfer need not mean", "t b p"),
+            (180, "     biomagnification. DDT/DDE provide a clearer", "t"),
+            (194, "     example of concentration increasing up a food chain.", "t m"),
         ],
         "plate",
         7.8,
@@ -1073,10 +1073,10 @@ def c15_deforestation_conservation_sustainability() -> str:
             (56, "   Silent Valley), anti-poaching patrols, CITES treaties.", "t m"),
             (74, "2. Education: Community awareness & ethical consumption.", "t"),
             (92, "3. Captive breeding programmes: Zoo studbooks & DNA", "t"),
-            (108, "   profiles prevent inbreeding prior to wild reintroduction.", "t m"),
-            (126, "4. Seed banks: Drying & storing seeds at -20 °C to safeguard", "t b g"),
-            (142, "   plant genetic diversity against extinction or disease.", "t m"),
-            (160, "5. Assisted reproduction (AI & IVF): Artificial insemination", "t b e"),
+            (108, "   profiles help choose donors; habitat still matters.", "t m"),
+            (126, "4. Seed banks: Suitable seeds tolerate drying/freezing;", "t b g"),
+            (142, "   other species need specialised storage methods.", "t m"),
+            (160, "5. AI: sperm into female; IVF: fertilisation outside body.", "t b e"),
         ],
         "plate",
         7.8,
@@ -1098,7 +1098,7 @@ def c15_yeast_enzymes_industrial_fermenter() -> str:
     heading(
         f,
         "15.7  Microbial & Enzyme Biotechnology and Inside an Industrial Fermenter",
-        "Bread, bioethanol, pectinase, biological washing powders, immobilised lactase & six controlled fermenter conditions",
+        "Bread, bioethanol, pectinase, biological washing powders, immobilised lactase & fermenter controls and waste handling",
     )
 
     # LEFT PANEL: Four Core Microbial & Enzyme Applications
@@ -1115,7 +1115,7 @@ def c15_yeast_enzymes_industrial_fermenter() -> str:
         [
             (19, "A. Yeast Anaerobic Respiration (Glucose → Ethanol + CO₂)", "t b p"),
             (39, "• Bread-making: CO₂ gas bubbles trapped in elastic gluten", "t"),
-            (55, "  make dough rise; baking heat evaporates all ethanol.", "t m"),
+            (55, "  raise dough; baking removes much, not all, ethanol.", "t m"),
             (73, "• Biofuels: Yeast ferments maize/sugarcane sugars into", "t"),
             (89, "  renewable bioethanol fuel blended with petrol.", "t m"),
         ],
@@ -1230,7 +1230,7 @@ def c15_yeast_enzymes_industrial_fermenter() -> str:
         272,
         176,
         [
-            (19, "Six Controlled Fermenter Conditions & Reasons", "t b g"),
+            (19, "Fermenter Controls, Mixing and Waste Handling", "t b g"),
             (39, "1. Aseptic steam sterilization: Kills foreign bacteria/fungi", "t"),
             (54, "   so they do not compete for nutrients or taint product.", "t m"),
             (72, "2. Nutrients: Glucose (respiration) + NH₄⁺/amino acids (protein).", "t"),
@@ -1239,7 +1239,7 @@ def c15_yeast_enzymes_industrial_fermenter() -> str:
             (123, "4. Optimum pH (probes + acid/alkali): Prevents active-site", "t"),
             (138, "   denaturation as metabolic CO₂/organic acids form.", "t m"),
             (156, "5. Oxygenation (sterile sparger): Supplies O₂ for aerobic ATP.", "t"),
-            (170, "6. Agitation (paddles): Mixes O₂, nutrients & temperature.", "t"),
+            (170, "6. Mix broth; exhaust CO₂ and control waste build-up.", "t"),
         ],
         "plate",
         7.6,
@@ -1261,13 +1261,13 @@ def c15_recombinant_plasmid_insulin_crispr() -> str:
     heading(
         f,
         "15.8  Genetic Modification: Recombinant Human Insulin, GM Crops & CRISPR",
-        "Cutting human DNA and bacterial plasmid with the SAME restriction enzyme creates complementary sticky ends sealed by DNA ligase",
+        "Prepared intron-free coding DNA and bacterial controls; compatible ends joined by ligase; process and purify the product",
     )
 
     # LEFT PANEL: 5-Step Recombinant Human Insulin Pipeline
     f.rect(16, 54, 304, 470, "wash-e", rx=10)
     txt(f, 168, 74, "1. Five-Step Recombinant Insulin Pipeline (0610 21.3)", "t b e", 9.0)
-    txt(f, 168, 90, "How E. coli bacteria synthesize pure human insulin", "t m", 7.9)
+    txt(f, 168, 90, "Intron-free DNA + expression controls + product processing", "t m", 7.9)
 
     box(
         f,
@@ -1276,10 +1276,10 @@ def c15_recombinant_plasmid_insulin_crispr() -> str:
         134,
         74,
         [
-            (18, "Step 1: Human DNA", "t b e"),
-            (36, "Cut human insulin gene", "t"),
-            (50, "with Restriction Enzyme", "t b e"),
-            (65, "→ Sticky ends (-AATT-)", "t m"),
+            (18, "Step 1: Prepared DNA", "t b e"),
+            (36, "Intron-free insulin code", "t"),
+            (50, "plus bacterial controls", "t b e"),
+            (65, "Cut to compatible ends", "t m"),
         ],
         "plate",
         7.6,
@@ -1293,8 +1293,8 @@ def c15_recombinant_plasmid_insulin_crispr() -> str:
         [
             (18, "Step 2: Plasmid Vector", "t b p"),
             (36, "Cut bacterial plasmid", "t"),
-            (50, "with SAME Enzyme", "t b p"),
-            (65, "→ Sticky ends (-TTAA-)", "t m"),
+            (50, "same enzyme here", "t b p"),
+            (65, "→ Compatible ends", "t m"),
         ],
         "plate",
         7.6,
@@ -1340,11 +1340,11 @@ def c15_recombinant_plasmid_insulin_crispr() -> str:
         [
             (20, "Step 5: Clone in Fermenter & Express Human Insulin", "t b p"),
             (40, "• Transformed bacteria multiply in an industrial fermenter", "t"),
-            (56, "  by binary fission every 20 min, cloning the plasmid.", "t m"),
-            (76, "• Bacteria transcribe & translate the human gene (universal", "t b g"),
-            (92, "  genetic code, Ch 11) into pure human insulin protein.", "t m"),
+            (56, "  (20-min doubling only an ideal E. coli example).", "t m"),
+            (76, "• Express coding sequence, then recover, process, fold", "t b g"),
+            (92, "  and purify. Mature insulin has two chains (21 + 30 aa).", "t m"),
             (112, "• Why better than pig/cattle pancreas insulin (Ch 10):", "t b"),
-            (126, "  Identical human sequence (no allergy), unlimited & ethical.", "t m"),
+            (126, "  Human sequence; reduced reliance on animal pancreases.", "t m"),
         ],
         "plate",
         7.7,
@@ -1371,10 +1371,10 @@ def c15_recombinant_plasmid_insulin_crispr() -> str:
             (39, "• Bt Cotton & Maize (Insect-resistant): Bacterial gene makes", "t"),
             (54, "  toxin fatal to bollworm caterpillars → higher yield, less spray.", "t m"),
             (72, "• Golden Rice (Vitamin A): Beta-carotene genes in rice grain", "t"),
-            (87, "  prevent childhood Vitamin A deficiency blindness (Ch 7).", "t m"),
+            (87, "  can help reduce deficiency; access and diet matter.", "t m"),
             (105, "• Herbicide-resistant Soya: Spray kills competing weeds only.", "t"),
             (123, "• Risks & Concerns: Pollen gene transfer to wild weeds", "t b p"),
-            (139, "  ('superweeds'), resistant insect evolution, seed patent cost.", "t m"),
+            (139, "  resistant pests; commercial seed terms vary by product.", "t m"),
         ],
         "plate",
         7.6,
@@ -1391,9 +1391,9 @@ def c15_recombinant_plasmid_insulin_crispr() -> str:
             (39, "1. Gene source: Selective breeding is restricted to alleles", "t"),
             (54, "   within the same species; GM transfers genes across kingdoms.", "t m"),
             (72, "2. Precision: Selective breeding shuffles thousands of alleles;", "t"),
-            (87, "   GM inserts one single isolated target gene precisely.", "t m"),
+            (87, "   GM makes chosen insertions/deletions/edits; test outcomes.", "t m"),
             (105, "3. Timescale: Selective breeding takes many generations;", "t b"),
-            (116, "   GM engineers a transgenic line in a single generation.", "t m"),
+            (116, "   GM crop development also needs selection and testing.", "t m"),
         ],
         "plate",
         7.6,
@@ -1408,10 +1408,10 @@ def c15_recombinant_plasmid_insulin_crispr() -> str:
         [
             (19, "Modern Extension: CRISPR-Cas9 Editing (Doudna 2012)", "t b p"),
             (39, "• Adapted from a natural bacterial anti-phage immune defence.", "t"),
-            (57, "• A synthetic 20-base guide RNA (gRNA) base-pairs with the", "t"),
-            (73, "  exact target DNA sequence next to a PAM motif and directs", "t m"),
-            (89, "  the Cas9 endonuclease to cut and rewrite a single mutated", "t b g"),
-            (105, "  gene (e.g. correcting the sickle-cell HbS allele in stem cells).", "t m"),
+            (57, "• A guide RNA has a 20-base target-matching region near", "t"),
+            (73, "  a suitable PAM. It directs Cas9 to make a DNA cut;", "t m"),
+            (89, "  cell repair makes the change. Check intended and", "t b g"),
+            (105, "  unintended outcomes; a cut is not itself a correction.", "t m"),
         ],
         "plate",
         7.6,
@@ -1432,13 +1432,13 @@ def c15_mumbai_creek_insulin_case() -> str:
     )
     heading(
         f,
-        "15.9  The Living World Case File: Mumbai Watershed & The Five Big Ideas",
+        "15.9  Mumbai Environments & The Five Big Ideas",
         "From SGNP forest energy webs and Powai Lake eutrophication to Thane Creek mangroves and recombinant insulin",
     )
 
     # TOP PANEL: Mumbai Watershed Three-Station Audit
     f.rect(16, 54, 608, 222, "wash-e", rx=10)
-    txt(f, 320, 74, "1. Mumbai Watershed Transect: Forest Headwaters → Eutrophic Outfall → Mangrove Estuary", "t b e", 9.2)
+    txt(f, 320, 74, "1. Fictional Teaching Data: Three Separate Mumbai Environments (Not a Downstream Transect)", "t b e", 9.2)
 
     box(
         f,
@@ -1450,7 +1450,7 @@ def c15_mumbai_creek_insulin_case() -> str:
             (20, "Station 1: SGNP Forest", "t b g"),
             (38, "(Borivali Headwaters)", "t m"),
             (58, "• Producers fix solar light;", "t"),
-            (74, "  10% transfers per trophic step.", "t m"),
+            (74, "  assume 10% production transfer.", "t m"),
             (94, "• Wild legumes + Rhizobium &", "t"),
             (110, "  aerated nitrifiers make NO₃⁻.", "t m"),
             (130, "• Canopy transpiration & roots", "t"),
@@ -1490,21 +1490,20 @@ def c15_mumbai_creek_insulin_case() -> str:
         174,
         [
             (20, "Station 3: Thane Creek", "t b e"),
-            (38, "(Mangrove Bioremediation)", "t m"),
-            (58, "• Sewage treatment + wetland", "t"),
-            (74, "  reed beds strip excess NO₃⁻.", "t m"),
-            (94, "• Booms trap non-biodegradable", "t"),
-            (110, "  plastics before sea entry.", "t m"),
+            (38, "(Separate Estuarine Site)", "t m"),
+            (58, "• Compare nutrients, oxygen", "t"),
+            (74, "  and communities over time.", "t m"),
+            (94, "• Do not infer treatment from", "t"),
+            (110, "  one illustrative snapshot.", "t m"),
             (130, "• Avicennia marina roots host", "t"),
             (146, "  crabs, fish & flamingos.", "t m"),
-            (164, "Estuary DO: 6.8 mg L⁻¹ (Restored)", "t b e"),
+            (164, "Example DO: 6.8 mg L⁻¹", "t b e"),
         ],
         "plate",
         7.7,
     )
 
-    arr(f, 214, 175, 226, 175, "p")
-    arr(f, 414, 175, 426, 175, "g")
+    # Separate sites: no downstream arrows between the illustrative panels.
 
     # BOTTOM PANEL: Capstone Synthesis of All Five Big Ideas (Ch 0 to Ch 15)
     f.rect(16, 288, 608, 236, "wash-g", rx=10)
@@ -1536,7 +1535,7 @@ def c15_mumbai_creek_insulin_case() -> str:
             (18, "2. Chemistry on a Budget", "t b p"),
             (36, "Enzymes (Ch 4), photosynthesis", "t"),
             (51, "& respiration (Ch 5–6), one-way", "t m"),
-            (66, "10% energy flow vs closed C,", "t m"),
+            (66, "Energy transfer vs reused C,", "t m"),
             (81, "H₂O & N₂ cycles (Ch 15).", "t b"),
         ],
         "plate",

@@ -16,7 +16,7 @@ Provenance: <--provenance>/chNN.yml, one per chapter, plus optional stories*.yml
 The build fails if a numbered section of a built chapter has no provenance entry (--allow-missing-provenance warns instead).
 """
 from __future__ import annotations
-import base64, glob, hashlib, html, importlib, io, json, os, re, shutil, subprocess, sys
+import base64, glob, hashlib, html, importlib, io, json, os, re, shutil, subprocess, sys, tempfile
 import markdown
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -905,8 +905,9 @@ def build_chunks(site_dir, widget_names):
     os.makedirs(live_out)
     entries = {f'w_{n}': os.path.join(ROOT, 'live', f'w_{n}.js') for n in widget_names}
     entries.update({os.path.splitext(os.path.basename(p))[0]: p for p in sorted(glob.glob(os.path.join(ROOT, 'app', 'x_*.js')))})
-    tmp = os.path.join(ROOT, 'build', '.chunks')
-    os.makedirs(tmp, exist_ok=True)
+    # Keep concurrent isolated verification builds from replacing each other's config.
+    os.makedirs(os.path.join(ROOT, 'build'), exist_ok=True)
+    tmp = tempfile.mkdtemp(prefix='.chunks-', dir=os.path.join(ROOT, 'build'))
     if any(imports_three(p) for p in entries.values()):
         # one shared three.js chunk, whichever widgets use it, loaded only when a 3D figure or explorer opens
         three_entry = os.path.join(tmp, 'three.js')

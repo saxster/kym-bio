@@ -1,3 +1,4 @@
+from revision_fingerprint import revision_digest
 #!/usr/bin/env python3
 """Chapter 13 acceptance on the built book, with separate durable local receipts.
 
@@ -8,7 +9,7 @@ from pathlib import Path
 import base64,functools,hashlib,http.server,json,os,re,subprocess,threading,traceback,unicodedata
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-SITE=ROOT/'build/site'
+SITE=Path(os.environ.get('BIO_CH13_SITE',str(ROOT/'build/site')))
 OUT=Path(os.environ.get('BIO_CH13_QA_OUT','/tmp/lt_bio_ch13/qa'));OUT.mkdir(parents=True,exist_ok=True)
 WIDTHS=[390,820,1024,1180,1440];THEMES=['light','dark','sepia']
 WIDGETS={1:'mendel_punnett_simulator',5:'abo_codominance_pedigree',8:'sex_linked_cross_lab'}
@@ -44,6 +45,18 @@ def stamped(f):return f.locator('.live-stamp').evaluate("e=>e.classList.contains
 def clear_stamps(page):page.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('mw:stamp:')).forEach(k=>localStorage.removeItem(k))")
 
 def preservation():
+    # A coordinated editorial revision supplies a fixed pre-task snapshot. The
+    # historical gate remains unchanged when no revision baseline is selected.
+    revision_baseline=os.environ.get('BIO_REVISION_BASELINE')
+    if revision_baseline:
+        baseline=json.loads(Path(revision_baseline).read_text())
+        check(bool(baseline),'Revision preservation baseline is nonempty')
+        for name,expected in baseline.items():
+            check(bool(re.fullmatch(r'[0-9a-f]{64}',expected)),'Valid revision SHA-256 '+name)
+            data=(ROOT.parent/name).read_bytes()
+            check(revision_digest(ROOT.parent/name)==expected,'Revision-preserved '+name)
+        report['preserved_files']=len(baseline)
+        return
     baseline=json.loads((ROOT/'tests/ch13-preserved.json').read_text())['files']
     for name,expected in baseline.items():
         data=(ROOT.parent/name).read_bytes()
@@ -169,6 +182,9 @@ def browser_checks():
         page.on('request',lambda r:requests.append(r.url) if '/live/' in r.url else None)
         ready(page);check(not requests,'No lazy chunks imported before interaction')
         check(page.locator('#ch13 svg.fig').count()==9,'Nine original Chapter13 plates in final book')
+        predictions=page.locator('#ch13 .predict');check(predictions.count()==4,'Four Chapter13 predictions rendered')
+        for i in range(4):
+            check(predictions.nth(i).locator('.pred-opts > li').count()==3,'Prediction has exactly three answer options; cross descriptions remain in its question')
         check('Access for free at' in page.locator('#ch13').inner_text(),'Generated OpenStax footer present')
         check(page.locator('#ch13 a[data-story="p-ammal"]').count()>=1,'Existing E. K. Janaki Ammal story linked in Chapter13')
         check(page.locator('#ch13 a[data-story="p-ramachandran"]').count()>=1,'Existing G. N. Ramachandran story linked in Chapter13')

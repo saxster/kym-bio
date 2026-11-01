@@ -27,7 +27,7 @@ export const VARIATION_MODES = Object.freeze([
     label: 'Continuous vs Discontinuous',
     shortLabel: 'Continuous vs Discontinuous',
     summary:
-      'Continuous variation (both genes and environment) produces a range of phenotypes between two extremes (touching histogram bars), whereas discontinuous variation (genes alone) produces distinct categories with no intermediates (separated bars).',
+      'Continuous and discontinuous describe observed patterns. Our height example reflects genes and environment; our ABO example uses inherited categories. These causes are example-specific, not universal.',
   }),
   Object.freeze({
     index: 1,
@@ -35,7 +35,7 @@ export const VARIATION_MODES = Object.freeze([
     label: 'Replica Plate Proof',
     shortLabel: 'Replica Plate Proof',
     summary:
-      'Joshua and Esther Lederberg (1952) stamped bacterial colonies from a drug-free master plate onto antibiotic agar using sterile velveteen: resistant colonies appeared at identical compass positions on all replicates, proving mutations arise randomly before antibiotic exposure.',
+      'Joshua and Esther Lederberg (1952) stamped bacterial colonies from a drug-free master plate onto antibiotic agar using sterile velveteen: resistant colonies appeared at identical compass positions on all replicates, showing that resistance can already exist before antibiotic exposure; the illustrated coordinates are invented.',
   }),
   Object.freeze({
     index: 2,
@@ -43,7 +43,7 @@ export const VARIATION_MODES = Object.freeze([
     label: 'Mutagen Dose',
     shortLabel: 'Mutagen Dose',
     summary:
-      'A gene mutation is a random change in the base sequence of DNA ( the only way new alleles are formed). Ionising radiation (X-rays, gamma rays, UV) and mutagenic chemicals increase the rate of mutation above the ~10⁻⁹/bp baseline, but mutations remain blind to usefulness.',
+      'A gene mutation is a random change in the base sequence of DNA ( the only way new alleles are formed). Ionising radiation (X-rays, gamma rays) and non-ionising UV and mutagenic chemicals increase the rate of mutation above the ~10⁻⁹/bp baseline, but mutations remain blind to usefulness.',
   }),
   Object.freeze({
     index: 3,
@@ -115,7 +115,7 @@ export const VARIATION_TRAITS = Object.freeze([
     graphType: 'bar_chart_separated_bars',
     causedBy: 'Genes alone',
     geneticBasis: 'Single gene locus on Chromosome 9 (alleles Iᴬ, Iᴮ, Iᴼ)',
-    environmentalEffect: 'Diet, altitude, and climate never change your ABO blood group (0% shift)',
+    environmentalEffect: 'Nutrition does not change the inherited ABO alleles in this model',
     hasIntermediates: false,
     unit: 'group',
     baseMean: null,
@@ -154,7 +154,7 @@ export const MUTAGEN_ENVIRONMENT_STEPS = Object.freeze([
   Object.freeze({
     step: 1,
     id: 'baseline_1x',
-    label: 'Baseline (1× spontaneous, ~10⁻⁹/bp)',
+    label: 'Illustrative baseline (1×, 10⁻⁹/bp)',
     shortLabel: 'Baseline 1×',
     mutagenMultiplier: 1,
     mutationRatePerBp: 1e-9,
@@ -166,7 +166,7 @@ export const MUTAGEN_ENVIRONMENT_STEPS = Object.freeze([
   Object.freeze({
     step: 2,
     id: 'chemical_5x',
-    label: 'Chemical mutagen / Mod. env (5×)',
+    label: 'Illustrative chemical dose (5×)',
     shortLabel: 'Chemical 5×',
     mutagenMultiplier: 5,
     mutationRatePerBp: 5e-9,
@@ -178,7 +178,7 @@ export const MUTAGEN_ENVIRONMENT_STEPS = Object.freeze([
   Object.freeze({
     step: 3,
     id: 'uv_radiation_20x',
-    label: 'UV / Radiation (20×)',
+    label: 'Illustrative UV dose (20×)',
     shortLabel: 'UV / Rad 20×',
     mutagenMultiplier: 20,
     mutationRatePerBp: 2e-8,
@@ -190,7 +190,7 @@ export const MUTAGEN_ENVIRONMENT_STEPS = Object.freeze([
   Object.freeze({
     step: 4,
     id: 'ionising_xray_50x',
-    label: 'Ionising X-ray / Gamma (50×)',
+    label: 'Illustrative ionising dose (50×)',
     shortLabel: 'X-ray 50×',
     mutagenMultiplier: 50,
     mutationRatePerBp: 5e-8,
@@ -329,12 +329,12 @@ export function simulateVariationMutation(params = {}) {
         ? `${trait.name}: ${trait.variationType} variation (${
             isContinuous
               ? `histogram with touching bars, mean = ${computedMean} ${trait.unit}, range between extremes, caused by both genes and environment`
-              : `bar chart with separated bars, ${rawBins.map((b) => `${b.code || b.label} ${b.pct}%`).join(' · ')}, zero intermediates, caused by genes alone`
+              : `bar chart with separated bars, ${rawBins.map((b) => `${b.code || b.label} ${b.pct}%`).join(' · ')}, zero intermediates, controlled by the inherited locus in this example`
           }).`
         : modeIndex === 1
         ? `Lederberg 1952 replica-plating proof: Master plate (drug-free) holds ${LEDERBERG_REPLICA_COLONIES.length} colonies; stamping with sterile velvet onto Streptomycin Replicates A, B, and C reveals the exact same ${resistantColonies.length} resistant colonies (#3, #7, #11), proving resistance mutations existed before antibiotic contact.`
         : modeIndex === 2
-        ? `${env.label}: mutation rate = ${env.mutagenMultiplier}× baseline (${env.mutationRatePerBp.toExponential(0)} per base pair; ~${env.newMutantsPer10MCells} mutant cells per 10⁷ divisions via ${env.mutagenAgent}). Mutations remain 100% random—never directed by what the organism needs.`
+        ? `${env.label}: illustrative mutation rate = ${env.mutagenMultiplier}× baseline (${env.mutationRatePerBp.toExponential(0)} per base pair; ~${env.newMutantsPer10MCells} mutant cells per 10⁷ divisions via ${env.mutagenAgent}). Mutation probabilities vary among sites; changes are not specified by what the organism needs. The dose multipliers and effect fractions are invented teaching assumptions.`
         : `Four sources of genetic variation (0610 18.1.10): ONLY mutation creates brand-new alleles; meiosis (crossing over + 2²³ = 8,388,608 independent assortments), random mating, and random fertilisation reshuffle existing alleles.`,
   });
 }
@@ -353,7 +353,7 @@ export function captureVariationTrial(sim) {
     mutagenMultiplier: s.env.mutagenMultiplier,
     computedMean: s.computedMean,
     summaryTag: `${s.trait.shortName} (${s.trait.variationType}, ${
-      s.isContinuous ? `mean ${s.computedMean} ${s.trait.unit}` : '0% env shift'
+      s.isContinuous ? `mean ${s.computedMean} ${s.trait.unit}` : 'no model nutrition shift'
     }, ${s.env.shortLabel})`,
   });
 }
@@ -365,7 +365,7 @@ export function compareVariationTrials(a, b) {
       summary: 'Capture two trials to compare continuous vs discontinuous variation or mutagen rates.',
     });
   }
-  const summary = `#1 ${a.summaryTag} | #2 ${b.summaryTag} — Continuous traits (height, mass) form touching histogram bars shifted by both genes and environment, whereas discontinuous traits (ABO blood groups, pea shape) form separated bars controlled by genes alone, and new alleles arise only by random mutation.`;
+  const summary = `#1 ${a.summaryTag} | #2 ${b.summaryTag} — Continuous traits (height, mass) form touching histogram bars shifted by both genes and environment, whereas discontinuous traits (ABO blood groups, pea shape) form separated bars; these particular examples use inherited loci, and new DNA variation can arise by mutation.`;
   return Object.freeze({
     contrasting:
       a.traitId !== b.traitId ||
@@ -382,19 +382,19 @@ export function compareVariationTrials(a, b) {
 export const SELECTION_MODES = Object.freeze([
   Object.freeze({
     index: 0,
-    id: 'antibiotic_full_course',
-    label: 'Antibiotic Course',
-    shortLabel: 'Antibiotic Course',
+    id: 'culture_continuous_exposure',
+    label: 'Drug selection',
+    shortLabel: 'Drug selection',
     summary:
-      'Completing a full 7-day antibiotic course maintains lethal drug selection pressure long enough—together with host phagocytes and antibodies—to eliminate both susceptible and moderately resistant bacteria (0 surviving superbugs by Day 7).',
+      'Illustrative laboratory culture under continuous exposure: differential survival can raise the resistant fraction. No patient or treatment duration is represented.',
   }),
   Object.freeze({
     index: 1,
-    id: 'antibiotic_stopped_day3',
-    label: 'Stopped Day 3',
-    shortLabel: 'Stopped Day 3',
+    id: 'culture_drug_removed',
+    label: 'Drug removed',
+    shortLabel: 'Drug removed',
     summary:
-      'Stopping an antibiotic course early on Day 3 kills the susceptible majority (removing competition for food and space) while leaving pre-existing resistant bacteria alive to divide every 20 minutes and pass their resistance allele to a superbug relapse.',
+      'The same illustrative culture with drug removed after step 3; without drug, reproductive costs and density affect the variants. This does not predict relapse.',
   }),
   Object.freeze({
     index: 2,
@@ -464,7 +464,7 @@ export const SIX_STEPS_NATURAL_SELECTION = Object.freeze([
   Object.freeze({
     step: 4,
     title: '4. Greater chance of survival & reproduction',
-    igcseClause: 'Individuals with advantageous inherited adaptive features are better adapted to the environment and are more likely to survive and reproduce.',
+    igcseClause: 'Inherited variants can increase reproductive contribution through survival, mating success or fertility; survival alone is not the endpoint.',
   }),
   Object.freeze({
     step: 5,
@@ -473,8 +473,8 @@ export const SIX_STEPS_NATURAL_SELECTION = Object.freeze([
   }),
   Object.freeze({
     step: 6,
-    title: '6. Adaptation over many generations',
-    igcseClause: 'Over many generations, the frequency of the advantageous allele increases so the population becomes more suited to its environment (adaptation).',
+    title: '6. Change in inherited variant frequencies',
+    igcseClause: 'A variant causing greater reproductive contribution can increase in frequency. Drift and migration can also change populations; selection does not guarantee perfection.',
   }),
 ]);
 
@@ -535,34 +535,40 @@ export const ALLISON_MALARIA_DATA = Object.freeze({
   }),
 });
 
-// Deterministic trajectories across steps 0..10
-const FULL_COURSE_TRAJECTORY = Object.freeze([
-  Object.freeze({ step: 0, day: 0, susceptibleCount: 990, resistantCount: 10, totalCount: 1000, resistantPct: 1.0 }),
-  Object.freeze({ step: 1, day: 1, susceptibleCount: 420, resistantCount: 12, totalCount: 432, resistantPct: 2.8 }),
-  Object.freeze({ step: 2, day: 2, susceptibleCount: 120, resistantCount: 11, totalCount: 131, resistantPct: 8.4 }),
-  Object.freeze({ step: 3, day: 3, susceptibleCount: 25, resistantCount: 9, totalCount: 34, resistantPct: 26.5 }),
-  Object.freeze({ step: 4, day: 4, susceptibleCount: 5, resistantCount: 6, totalCount: 11, resistantPct: 54.5 }),
-  Object.freeze({ step: 5, day: 5, susceptibleCount: 1, resistantCount: 3, totalCount: 4, resistantPct: 75.0 }),
-  Object.freeze({ step: 6, day: 6, susceptibleCount: 0, resistantCount: 1, totalCount: 1, resistantPct: 100.0 }),
-  Object.freeze({ step: 7, day: 7, susceptibleCount: 0, resistantCount: 0, totalCount: 0, resistantPct: 0.0 }),
-  Object.freeze({ step: 8, day: 8, susceptibleCount: 0, resistantCount: 0, totalCount: 0, resistantPct: 0.0 }),
-  Object.freeze({ step: 9, day: 9, susceptibleCount: 0, resistantCount: 0, totalCount: 0, resistantPct: 0.0 }),
-  Object.freeze({ step: 10, day: 10, susceptibleCount: 0, resistantCount: 0, totalCount: 0, resistantPct: 0.0 }),
-]);
+// Illustrative culture model: counts are expected values, not patient measurements.
+// Each step applies differential drug survival, then density-limited reproduction.
+// Resistance has a modest reproductive cost without drug; no immune system is modelled.
+export function cultureSelectionAccount({ steps = 0, pressure = 0.8, removeAfter = Infinity } = {}) {
+  const n = clampInt(steps, 0, 1000, 0);
+  const dose = Number.isFinite(Number(pressure)) ? Math.max(0, Math.min(1, Number(pressure))) : 0;
+  let susceptible = 990, resistant = 10;
+  for (let step = 1; step <= n; step += 1) {
+    const exposure = step <= removeAfter ? dose : 0;
+    susceptible *= 1 - 0.9 * exposure;
+    resistant *= 1 - 0.1 * exposure;
+    const total = susceptible + resistant;
+    const space = Math.max(0, 1 - total / 1000);
+    susceptible *= 1 + space;
+    resistant *= 1 + 0.9 * space;
+  }
+  const total = susceptible + resistant;
+  return Object.freeze({ susceptible, resistant, total, resistantPct: 100 * resistant / total, modelOnly: true });
+}
 
-const STOPPED_DAY3_TRAJECTORY = Object.freeze([
-  Object.freeze({ step: 0, day: 0, susceptibleCount: 990, resistantCount: 10, totalCount: 1000, resistantPct: 1.0 }),
-  Object.freeze({ step: 1, day: 1, susceptibleCount: 420, resistantCount: 14, totalCount: 434, resistantPct: 3.2 }),
-  Object.freeze({ step: 2, day: 2, susceptibleCount: 120, resistantCount: 22, totalCount: 142, resistantPct: 15.5 }),
-  Object.freeze({ step: 3, day: 3, susceptibleCount: 25, resistantCount: 38, totalCount: 63, resistantPct: 60.3 }),
-  Object.freeze({ step: 4, day: 4, susceptibleCount: 30, resistantCount: 140, totalCount: 170, resistantPct: 82.4 }),
-  Object.freeze({ step: 5, day: 5, susceptibleCount: 28, resistantCount: 360, totalCount: 388, resistantPct: 92.8 }),
-  Object.freeze({ step: 6, day: 6, susceptibleCount: 22, resistantCount: 640, totalCount: 662, resistantPct: 96.7 }),
-  Object.freeze({ step: 7, day: 7, susceptibleCount: 15, resistantCount: 865, totalCount: 880, resistantPct: 98.3 }),
-  Object.freeze({ step: 8, day: 8, susceptibleCount: 12, resistantCount: 948, totalCount: 960, resistantPct: 98.8 }),
-  Object.freeze({ step: 9, day: 9, susceptibleCount: 10, resistantCount: 980, totalCount: 990, resistantPct: 99.0 }),
-  Object.freeze({ step: 10, day: 10, susceptibleCount: 8, resistantCount: 992, totalCount: 1000, resistantPct: 99.2 }),
-]);
+// Random mating, large population, no migration/mutation; genotype fitness is
+// relative reproductive contribution. Genotype fractions refer to offspring BEFORE selection.
+export function sickleSelectionAccount(qInitial = 0.158, generations = 0, malariaDisadvantage = 0.15) {
+  let q = Math.max(0, Math.min(1, Number(qInitial) || 0));
+  const n = clampInt(generations, 0, 1000, 0);
+  const s = Math.max(0, Math.min(1, Number(malariaDisadvantage) || 0));
+  for (let g = 0; g < n; g += 1) {
+    const p = 1 - q;
+    const mean = p*p*(1-s) + 2*p*q + 0.2*q*q;
+    if (mean > 0) q = (p*q + 0.2*q*q) / mean;
+  }
+  return Object.freeze({ q, p: 1-q, carrier: 2*q*(1-q), affected: q*q,
+    equilibrium: s / (s + 0.8), modelOnly: true });
+}
 
 export function simulateNaturalSelection(params = {}) {
   const modeIndex = clampInt(params.modeIndex, 0, SELECTION_MODES.length - 1, 0);
@@ -573,40 +579,18 @@ export function simulateNaturalSelection(params = {}) {
   const pressure = SELECTION_PRESSURE_STEPS[pressureStep - 1];
 
   if (modeIndex === 0 || modeIndex === 1) {
-    const baseTable = modeIndex === 0 ? FULL_COURSE_TRAJECTORY : STOPPED_DAY3_TRAJECTORY;
-    const row = baseTable[generationStep];
-    // If pressureStep === 1 (0% antibiotic / untreated), bacteria stay ~99% susceptible and ~1% resistant
-    const isUntreated = pressureStep === 1;
-    const susceptibleCount = isUntreated ? 990 : row.susceptibleCount;
-    const resistantCount = isUntreated ? 10 : row.resistantCount;
-    const totalCount = susceptibleCount + resistantCount;
-    const resistantPct = totalCount === 0 ? 0.0 : roundTo((resistantCount / totalCount) * 100, 1);
-    const susceptiblePct = totalCount === 0 ? 0.0 : roundTo(100 - resistantPct, 1);
-
-    return Object.freeze({
-      modeIndex,
-      mode,
-      pressureStep,
-      pressure,
-      generationStep,
-      timeLabel: `Day ${row.day}`,
-      susceptibleCount,
-      resistantCount,
-      totalCount,
-      susceptiblePct,
-      resistantPct,
-      infectionCleared: totalCount === 0,
-      relapseOccurred: modeIndex === 1 && !isUntreated && generationStep >= 4,
+    const account = cultureSelectionAccount({ steps: generationStep,
+      pressure: pressure.intensityPct / 100, removeAfter: modeIndex === 1 ? 3 : Infinity });
+    const susceptibleCount = roundTo(account.susceptible, 1);
+    const resistantCount = roundTo(account.resistant, 1);
+    const totalCount = roundTo(susceptibleCount + resistantCount, 1);
+    const resistantPct = roundTo(account.resistantPct, 1);
+    const susceptiblePct = roundTo(100 - resistantPct, 1);
+    return Object.freeze({ modeIndex, mode, pressureStep, pressure, generationStep,
+      timeLabel: `Step ${generationStep}`, susceptibleCount, resistantCount, totalCount,
+      susceptiblePct, resistantPct, modelOnly: true, infectionCleared: false, relapseOccurred: false,
       sixSteps: SIX_STEPS_NATURAL_SELECTION,
-      readout: isUntreated
-        ? `Day ${row.day} (0% antibiotic pressure): Without the antibiotic, susceptible bacteria (${susceptiblePct}%) outcompete the rare pre-existing resistant mutant (${resistantPct}%).`
-        : modeIndex === 0
-        ? `Full 7-day antibiotic course · Day ${row.day}: ${
-            totalCount === 0
-              ? 'Infection 100% cleared (0 susceptible, 0 resistant bacteria left).'
-              : `${susceptibleCount} susceptible and ${resistantCount} resistant bacteria remain (${resistantPct}% resistant); continuing the full course clears the survivors.`
-          }`
-        : `Stopped antibiotic on Day 3 · Day ${row.day}: Susceptible competitors were killed on Days 1–3, freeing nutrients so pre-existing resistant bacteria divide every 20 min and surge to ${resistantCount} cells (${resistantPct}% resistant superbug relapse).`,
+      readout: `Illustrative culture · ${mode.label} · Step ${generationStep}: ${susceptibleCount} susceptible and ${resistantCount} resistant expected cells (${resistantPct}% resistant). Each exposed step removes 0.9 × pressure of susceptible and 0.1 × pressure of resistant cells, then survivors reproduce toward capacity 1000. ${modeIndex === 1 ? 'Drug is removed after step 3; resistance has a small reproductive cost without exposure.' : 'Drug exposure continues at the chosen pressure.'} These steps are not clinical days or treatment advice.`,
     });
   }
 
@@ -640,30 +624,19 @@ export function simulateNaturalSelection(params = {}) {
       sixSteps: SIX_STEPS_NATURAL_SELECTION,
       readout:
         pressureStep === 1
-          ? `Peppered moths (*Biston betularia*) · Clean lichen bark · Gen ${generations}: Birds spot dark carbonaria moths easily (Kettlewell Dorset recapture 15.8% pale vs 7.4% dark); pale typica (dd) rises to ${paleTypicaPct}% and dark carbonaria falls to ${darkCarbonariaPct}%.`
-          : `Peppered moths (*Biston betularia*) · Soot-darkened bark (${pressure.shortLabel}) · Gen ${generations}: Birds eat conspicuous pale moths while camouflaged dark carbonaria (D_) survive at 2× the rate (Birmingham 27.5% vs 13.1%), shifting dark frequency from 5.0% to ${darkCarbonariaPct}%.`,
+          ? `Peppered moths (*Biston betularia*) · Clean lichen bark · Gen ${generations}: Birds spot dark carbonaria moths easily (Kettlewell Dorset recapture 15.8% pale vs 7.4% dark); illustrative trajectory: pale typica (dd) rises to ${paleTypicaPct}% and dark carbonaria falls to ${darkCarbonariaPct}%.`
+          : `Peppered moths (*Biston betularia*) · Soot-darkened bark (${pressure.shortLabel}) · Gen ${generations}: Birds eat conspicuous pale moths while camouflaged dark carbonaria (D_) survive at 2× the rate (Birmingham 27.5% vs 13.1%), in this illustrative curve, shifting dark frequency from 5.0% to ${darkCarbonariaPct}%.`,
     });
   }
 
   // modeIndex === 3: Malaria & Sickle-Cell Allele (HbA vs HbS)
   const generations = generationStep * 2;
-  let hbsAllelePct;
-  if (pressureStep === 1) {
-    // Malaria-free environment: directional selection against HbS/HbS reduces HbS allele frequency from 14.0% down to 4.2%
-    hbsAllelePct = roundTo(14.0 / (1 + 0.233 * generationStep), 1);
-  } else if (pressureStep === 2) {
-    // Moderate malaria endemicity: stabilises around 9.5%
-    hbsAllelePct = roundTo(14.0 - 4.5 * (1 - Math.exp(-0.3 * generationStep)), 1);
-  } else {
-    // High/Intense P. falciparum malaria belt (Central India / East & West Africa): balancing selection stabilises q at 14.0%–15.6%
-    const eq = pressureStep === 4 ? 15.6 : 14.2;
-    hbsAllelePct = roundTo(14.0 + (eq - 14.0) * (1 - Math.exp(-0.35 * generationStep)), 1);
-  }
-  const q = hbsAllelePct / 100;
-  const p = 1 - q;
-  const carrierHbASPct = roundTo(2 * p * q * 100, 1);
-  const normalHbAAPct = roundTo(p * p * 100, 1);
-  const affectedHbSSPct = roundTo(q * q * 100, 1);
+  const malariaDisadvantage = [0, 0.08, 0.15, 0.20][pressureStep - 1];
+  const account = sickleSelectionAccount(0.158, generations, malariaDisadvantage);
+  const hbsAllelePct = roundTo(account.q * 100, 2);
+  const carrierHbASPct = roundTo(account.carrier * 100, 2);
+  const normalHbAAPct = roundTo(account.p * account.p * 100, 2);
+  const affectedHbSSPct = roundTo(account.affected * 100, 2);
 
   return Object.freeze({
     modeIndex,
@@ -678,11 +651,11 @@ export function simulateNaturalSelection(params = {}) {
     normalHbAAPct,
     affectedHbSSPct,
     allisonData: ALLISON_MALARIA_DATA,
+    modelOnly: true,
+    equilibriumAllelePct: 100 * account.equilibrium,
+    malariaDisadvantage,
     sixSteps: SIX_STEPS_NATURAL_SELECTION,
-    readout:
-      pressureStep === 1
-        ? `Malaria-free environment · Gen ${generations}: Without *Plasmodium falciparum* malaria, HbᴬHbˢ carries no survival advantage while HbˢHbˢ is selected against; Hbˢ allele frequency drops from 14.0% to ${hbsAllelePct}% (carriers ${carrierHbASPct}%).`
-        : `Malaria-endemic belt (${pressure.shortLabel}) · Gen ${generations}: Heterozygotes (HbᴬHbˢ, ${carrierHbASPct}% of population) resist severe malaria (Allison 1954: 27.9% vs 45.7% parasitaemia) and avoid sickle-cell anaemia, stabilising Hbˢ allele frequency at ${hbsAllelePct}%.`,
+    readout: `Illustrative random-mating model · Gen ${generations}: wAA=${roundTo(1-malariaDisadvantage,2)}, wAS=1, wSS=0.20; HbS ${hbsAllelePct}%, newborn carriers ${carrierHbASPct}%. ${pressureStep === 1 ? 'Malaria advantage removed: recessive HbS declines slowly because heterozygotes retain copies.' : `Heterozygote advantage gives equilibrium q*=${roundTo(account.equilibrium*100,2)}%.`} Constant fitness, no migration or mutation; not a forecast for patients or a district.`,
   });
 }
 
@@ -744,7 +717,7 @@ export const ADAPTATION_MODES = Object.freeze([
     label: 'Hydrophyte (Aquatic)',
     shortLabel: 'Hydrophyte (Aquatic)',
     summary:
-      'Hydrophytes (floating water lily Nymphaea, submerged Hydrilla) thrive in water via large aerenchyma air spaces (buoyancy + internal O₂ diffusion to roots in anoxic mud), stomata only on the upper epidermis (or absent if submerged), thin/absent cuticle, and reduced xylem/roots.',
+      'Floating Nymphaea leaves have upper stomata, surface wax and internal gas spaces; submerged Hydrilla leaves have no stomata and thin barriers for dissolved-gas exchange. Numerical dimensions and performance are invented.',
   }),
   Object.freeze({
     index: 2,
@@ -799,11 +772,11 @@ export const PLANT_ADAPTATION_PROFILES = Object.freeze([
     name: 'Floating water lily (Nymphaea, hydrophyte)',
     shortName: 'Water lily (hydrophyte)',
     category: 'hydrophyte',
-    cuticleThicknessUm: 0.8,
-    stomataLocation: 'Upper epidermis only (~450/mm², permanently open to air)',
+    cuticleThicknessUm: 3.0,
+    stomataLocation: 'Upper epidermis faces air; stomata need not remain permanently open',
     leafHairs: 'None; wide flat floating pad captures sunlight',
     aerenchymaPct: 58.0,
-    xylemSupport: 'Minimal xylem & reduced roots (water buoyancy supports leaf)',
+    xylemSupport: 'Buoyancy supports the floating leaf; roots anchor it and obtain nutrients',
     waterSavingEfficiency: 0.08,
     anoxicRootO2Pct: 94.0,
   }),
@@ -815,7 +788,7 @@ export const PLANT_ADAPTATION_PROFILES = Object.freeze([
     category: 'hydrophyte_submerged',
     cuticleThicknessUm: 0.0,
     stomataLocation: 'Zero stomata on submerged leaves (direct gas diffusion)',
-    leafHairs: 'Thin finely divided leaves (high SA:V for dissolved CO₂)',
+    leafHairs: 'Thin simple submerged leaves exchange dissolved gases',
     aerenchymaPct: 64.0,
     xylemSupport: 'Almost no xylem; flexible stems bend with water currents',
     waterSavingEfficiency: 0.02,
@@ -849,7 +822,7 @@ export const SELECTIVE_BREEDING_LINEAGES = Object.freeze([
   Object.freeze({
     step: 3,
     id: 'coimbatore_sugarcane',
-    name: 'E. K. Janaki Ammal Coimbatore sugarcane (sucrose %)',
+    name: 'Illustrative sugarcane breeding programme (sucrose %)',
     shortName: 'Coimbatore sugarcane',
     ancestor: 'Saccharum officinarum × wild Indian S. spontaneum hybrids',
     selectedFeature: 'High stem sucrose content & monsoon cold/drought hardiness',
@@ -883,83 +856,28 @@ export const NATURAL_VS_ARTIFICIAL_TABLE = Object.freeze([
   }),
   Object.freeze({
     aspect: 'Speed of change',
-    naturalSelection: 'Usually slower over many natural generations (except in bacteria)',
-    artificialSelection: 'Much faster because humans allow only chosen parents to breed',
+    naturalSelection: 'Rate depends on selection strength, variation and generation time',
+    artificialSelection: 'Rate depends on selection strength, variation and generation time',
   }),
   Object.freeze({
     aspect: 'Genetic diversity',
     naturalSelection: 'Maintains adaptation to wild conditions; can preserve balanced polymorphism',
-    artificialSelection: 'Reduces genetic variation (inbreeding increases homozygous recessive defects)',
+    artificialSelection: 'Small breeding pools can reduce diversity; related mating can expose harmful recessives',
   }),
 ]);
 
-export const MOLECULAR_CLOCK_TAXA = Object.freeze([
-  Object.freeze({
-    step: 1,
-    id: 'chimpanzee',
-    species: 'Chimpanzee (Pan troglodytes)',
-    shortName: 'Chimpanzee (~6.5 Ma)',
-    divergenceMa: 6.5,
-    codingDnaSimilarityPct: 98.8,
-    betaGlobinDiffsOutOf146: 0,
-    betaGlobinIdentityPct: 100.0,
-    cytochromeCDiffsOutOf104: 0,
-    cytochromeCIdentityPct: 100.0,
-    ancestorNote: 'Most recent common ancestor with humans (~6–7 Ma); identical 146-aa beta-globin and 104-aa cytochrome c.',
-  }),
-  Object.freeze({
-    step: 2,
-    id: 'rhesus_macaque',
-    species: 'Rhesus macaque (Macaca mulatta)',
-    shortName: 'Rhesus monkey (~27 Ma)',
-    divergenceMa: 27.0,
-    codingDnaSimilarityPct: 93.5,
-    betaGlobinDiffsOutOf146: 8,
-    betaGlobinIdentityPct: 94.5,
-    cytochromeCDiffsOutOf104: 1,
-    cytochromeCIdentityPct: 99.0,
-    ancestorNote: 'Old World primate ancestor (~25–29 Ma); 1 amino-acid difference in cytochrome c and 8 in beta-globin.',
-  }),
-  Object.freeze({
-    step: 3,
-    id: 'dog',
-    species: 'Domestic dog (Canis lupus familiaris)',
-    shortName: 'Dog (~92 Ma)',
-    divergenceMa: 92.0,
-    codingDnaSimilarityPct: 84.0,
-    betaGlobinDiffsOutOf146: 15,
-    betaGlobinIdentityPct: 89.7,
-    cytochromeCDiffsOutOf104: 11,
-    cytochromeCIdentityPct: 89.4,
-    ancestorNote: 'Placental mammal ancestor (~90–95 Ma); shares pentadactyl forelimb bones and 84% coding DNA similarity.',
-  }),
-  Object.freeze({
-    step: 4,
-    id: 'chicken',
-    species: 'Chicken (Gallus gallus)',
-    shortName: 'Chicken (~310 Ma)',
-    divergenceMa: 310.0,
-    codingDnaSimilarityPct: 75.0,
-    betaGlobinDiffsOutOf146: 45,
-    betaGlobinIdentityPct: 69.2,
-    cytochromeCDiffsOutOf104: 13,
-    cytochromeCIdentityPct: 87.5,
-    ancestorNote: 'Amniote tetrapod ancestor (~310 Ma); more distant ancestor yields more accumulated DNA base differences.',
-  }),
-  Object.freeze({
-    step: 5,
-    id: 'tuna_fish',
-    species: 'Tuna (Thunnus, bony fish)',
-    shortName: 'Tuna fish (~430 Ma)',
-    divergenceMa: 430.0,
-    codingDnaSimilarityPct: 68.0,
-    betaGlobinDiffsOutOf146: 68,
-    betaGlobinIdentityPct: 53.4,
-    cytochromeCDiffsOutOf104: 21,
-    cytochromeCIdentityPct: 79.8,
-    ancestorNote: 'Early jawed vertebrate ancestor (~430 Ma); 21 cytochrome c differences and 68 beta-globin differences.',
-  }),
-]);
+// Synthetic aligned DNA/protein examples; never presented as measured taxa or dates.
+export const MOLECULAR_CLOCK_TAXA = Object.freeze([7, 18, 36, 43, 60].map((diffs, i) => {
+  const referenceSequence = 'ACGT'.repeat(50);
+  const sequence = [...referenceSequence].map((base, pos) => pos < diffs ? ({A:'C', C:'G', G:'T', T:'A'})[base] : base).join('');
+  const aaDiffs = [0, 1, 3, 5, 8][i];
+  return Object.freeze({ step: i+1, id: `example_${i+1}`, species: `Illustrative species ${['P','R','Q','S','T'][i]}`,
+    shortName: `Species ${['P','R','Q','S','T'][i]}`, referenceSequence, sequence, alignedBaseCount: 200,
+    alignedDnaSimilarityPct: 100*(200-diffs)/200, betaGlobinDiffsOutOf146: aaDiffs,
+    betaGlobinIdentityPct: roundTo(100*(146-aaDiffs)/146,1), cytochromeCDiffsOutOf104: aaDiffs,
+    cytochromeCIdentityPct: roundTo(100*(104-aaDiffs)/104,1), modelOnly: true,
+    ancestorNote: 'Invented homologous alignments illustrate counting differences. No dates or tree root can be inferred from these percentages alone.' });
+}));
 
 export function simulateAdaptiveSelective(params = {}) {
   const modeIndex = clampInt(params.modeIndex, 0, ADAPTATION_MODES.length - 1, 0);
@@ -1004,8 +922,8 @@ export function simulateAdaptiveSelective(params = {}) {
       mesophyteRootO2Pct,
       readout:
         modeIndex === 0
-          ? `Xerophyte analysis · ${profile.name} at Aridity Step ${stressOrGenStep}/5: Cuticle (${profile.cuticleThicknessUm} µm) + ${profile.stomataLocation.toLowerCase()} cut transpiration to ${plantTranspirationRate} mg/(dm²·h) vs ${mesophyteTranspirationRate} in a mesophyte (${waterSavedPct}% water saved; turgor ${leafTurgorPct}%).`
-          : `Hydrophyte analysis · ${profile.name} at Submergence Step ${stressOrGenStep}/5: Aerenchyma air spaces (${profile.aerenchymaPct}% volume) provide buoyancy and deliver ${rootO2InMudPct}% O₂ saturation to roots in anoxic mud (vs ${mesophyteRootO2Pct}% in a waterlogged mesophyte); stomata: ${profile.stomataLocation}.`,
+          ? `Illustrative plant model (invented dimensions and performance) · Xerophyte analysis · ${profile.name} at Aridity Step ${stressOrGenStep}/5: Cuticle (${profile.cuticleThicknessUm} µm) + ${profile.stomataLocation.toLowerCase()} cut transpiration to ${plantTranspirationRate} mg/(dm²·h) vs ${mesophyteTranspirationRate} in a mesophyte (${waterSavedPct}% water saved; turgor ${leafTurgorPct}%).`
+          : `Illustrative plant model (invented dimensions and performance) · Hydrophyte analysis · ${profile.name} at Submergence Step ${stressOrGenStep}/5: Aerenchyma air spaces (${profile.aerenchymaPct}% volume) provide buoyancy and deliver ${rootO2InMudPct}% O₂ saturation to roots in anoxic mud (vs ${mesophyteRootO2Pct}% in a waterlogged mesophyte); stomata: ${profile.stomataLocation}.`,
     });
   }
 
@@ -1031,7 +949,7 @@ export function simulateAdaptiveSelective(params = {}) {
       pctGain,
       heterozygosity,
       comparisonTable: NATURAL_VS_ARTIFICIAL_TABLE,
-      readout: `Selective breeding (0610 18.3.2–18.3.3) · ${lineage.name} at ${currentGenLabel}: Selecting parents with desirable features, crossing them, and selecting the best offspring raises the trait from ${baselineValue} to ${currentValue} ${lineage.unit} (+${pctGain}%), while heterozygosity drops from ${lineage.heterozygosityValues[0]} to ${heterozygosity}.`,
+      readout: `Illustrative breeding trajectory, not historical measurements (0610 18.3.2–18.3.3) · ${lineage.name} at ${currentGenLabel}: Selecting parents with desirable features, crossing them, and selecting the best offspring raises the trait from ${baselineValue} to ${currentValue} ${lineage.unit} (+${pctGain}%), while heterozygosity drops from ${lineage.heterozygosityValues[0]} to ${heterozygosity}.`,
     });
   }
 
@@ -1044,7 +962,7 @@ export function simulateAdaptiveSelective(params = {}) {
     profileStep,
     taxon,
     allTaxa: MOLECULAR_CLOCK_TAXA,
-    readout: `Molecular classification (0610 1.2.5–1.2.6) · Human vs ${taxon.species} (diverged ~${taxon.divergenceMa} Ma): ${taxon.codingDnaSimilarityPct}% coding DNA similarity, ${taxon.betaGlobinDiffsOutOf146}/146 beta-globin amino-acid differences (${taxon.betaGlobinIdentityPct}% identity), and ${taxon.cytochromeCDiffsOutOf104}/104 cytochrome c differences (${taxon.cytochromeCIdentityPct}% identity).`,
+    readout: `Molecular classification · X vs ${taxon.species}: ${taxon.alignedDnaSimilarityPct}% identity across ${taxon.alignedBaseCount} invented aligned DNA bases. Protein difference counts are also synthetic. Similarity supports relationship under suitable assumptions; dates require calibration and models of variable rates.`,
   });
 }
 
@@ -1058,7 +976,7 @@ export function captureAdaptationTrial(sim) {
   } else if (s.modeIndex === 2) {
     detail = `${s.lineage.shortName} @ ${s.currentGenLabel}: ${s.currentValue} ${s.lineage.unit} (+${s.pctGain}%, H=${s.heterozygosity})`;
   } else {
-    detail = `Human vs ${s.taxon.shortName}: ${s.taxon.codingDnaSimilarityPct}% DNA, ${s.taxon.cytochromeCDiffsOutOf104} Cyt-c diffs`;
+    detail = `X vs ${s.taxon.shortName}: ${s.taxon.alignedDnaSimilarityPct}% DNA, ${s.taxon.cytochromeCDiffsOutOf104} Cyt-c diffs`;
   }
   return Object.freeze({
     modeId: s.mode.id,

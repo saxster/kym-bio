@@ -83,7 +83,7 @@ def c13_mendel_peas_ratios() -> str:
         [
             (20, "Parental (P): Pure-Breeding Lines", "t b p"),
             (40, "Pure Round (RR)  ×  Pure Wrinkled (rr)", "t mono"),
-            (59, "Gametes: 100% R ovules  ×  100% r pollen", "t m"),
+            (59, "Gametes: 100% R eggs  ×  100% r sperm", "t m"),
         ],
         "wash-p",
         8.2,
@@ -215,7 +215,7 @@ def c13_homologous_loci_alleles() -> str:
     heading(
         f,
         "13.1  Genes, Loci & Alleles on Homologous Chromosomes (Diploid 2n)",
-        "Why one functional allele copy (50% enzyme dose) suffices for a dominant phenotype while recessive requires 0% active copies",
+        "One working R copy supplies enough SBEI for round seeds; allele counts do not measure enzyme percentages",
     )
 
     # TOP PANEL: Homologous Chromosome Pair with 3 Loci
@@ -289,8 +289,8 @@ def c13_homologous_loci_alleles() -> str:
         [
             (22, "Homozygous Dominant", "t b g"),
             (42, "Genotype: RR (2 functional copies)", "t mono"),
-            (64, "SBEI Enzyme: 100% dose", "t b e"),
-            (86, "Amylose → Branched amylopectin", "t"),
+            (64, "Two working R copies", "t b e"),
+            (86, "Builds branched starch", "t"),
             (108, "Low free sucrose; normal osmosis", "t m"),
             (132, "Phenotype: ROUND SEED", "t b g"),
             (152, "Breeds true on self-pollination", "t m"),
@@ -308,8 +308,8 @@ def c13_homologous_loci_alleles() -> str:
         [
             (22, "Heterozygous Hybrid", "t b e"),
             (42, "Genotype: Rr (1 R + 1 mutant r)", "t mono"),
-            (64, "SBEI Enzyme: 50% dose", "t b e"),
-            (86, "50% catalyst is haplosufficient", "t"),
+            (64, "One working R copy", "t b e"),
+            (86, "Enough enzyme for round seeds", "t"),
             (108, "Still builds full amylopectin starch", "t m"),
             (132, "Phenotype: ROUND SEED", "t b g"),
             (152, "Carries hidden r allele to 50% gametes", "t m"),
@@ -327,8 +327,8 @@ def c13_homologous_loci_alleles() -> str:
         [
             (22, "Homozygous Recessive", "t b p"),
             (42, "Genotype: rr (0.8 kb insertion)", "t mono"),
-            (64, "SBEI Enzyme: 0% active dose", "t b p"),
-            (86, "Unbranched sucrose accumulates", "t"),
+            (64, "No functional SBEI", "t b p"),
+            (86, "Soluble sucrose accumulates", "t"),
             (108, "Osmotic water influx → shrinks dry", "t m"),
             (132, "Phenotype: WRINKLED SEED", "t b p"),
             (152, "Appears only when R is absent", "t m"),
@@ -392,7 +392,7 @@ def c13_punnett_test_cross_ledger() -> str:
         52,
         [
             (19, "Meiosis separates homologous alleles (2n → n)", "t b e"),
-            (38, "Ovules: (B) 50%, (b) 50%   |   Pollen: (B) 50%, (b) 50%", "t mono"),
+            (38, "Eggs: (B) 50%, (b) 50%   |   Sperm: (B) 50%, (b) 50%", "t mono"),
         ],
         "plate",
         8.0,
@@ -633,8 +633,8 @@ def c13_pedigree_detective_rules() -> str:
     )
     heading(
         f,
-        "13.2  Reading Family Trees: The Two Ironclad Pedigree Detective Rules",
-        "How clinical geneticists deduce whether an allele is recessive or dominant and identify heterozygous carriers",
+        "13.2  Reading Family Trees: Two Powerful Pedigree Clues",
+        "Model assumptions: one autosomal gene, complete expression, no new mutation",
     )
 
     # TOP BAR: Standard Pedigree Key
@@ -729,7 +729,7 @@ def c13_pedigree_detective_rules() -> str:
         272,
         158,
         [
-            (22, "Forensic Deduction (Recessive Proof)", "t b e"),
+            (22, "Recessive Deduction in This Model", "t b e"),
             (44, "1. Child II-2 is affected (aa), so II-2 inherited", "t"),
             (62, "   one a allele from I-1 and one a allele from I-2.", "t"),
             (84, "2. Because parents I-1 and I-2 are unaffected,", "t"),
@@ -810,7 +810,7 @@ def c13_pedigree_detective_rules() -> str:
         276,
         158,
         [
-            (22, "Forensic Deduction (Dominant Proof)", "t b g"),
+            (22, "Dominant Deduction in This Model", "t b g"),
             (44, "1. If the condition were recessive, both affected", "t"),
             (62, "   parents would be aa × aa → 100% affected children.", "t"),
             (84, "2. Having an unaffected child (II-2, aa) proves", "t"),
@@ -1101,9 +1101,9 @@ def c13_dominance_vs_codominance() -> str:
         92,
         [
             (22, "Phenotype Collapse (RR and Rr Merge)", "t b g"),
-            (44, "RR (100% enzyme) → Round seed (25%)", "t"),
-            (64, "Rr (50% enzyme)  → Round seed (50%)", "t"),
-            (82, "rr (0% enzyme)   → Wrinkled seed (25%)", "t b p"),
+            (44, "RR (two R copies) → Round seed (25%)", "t"),
+            (64, "Rr (one R copy) → Round seed (50%)", "t"),
+            (82, "rr (no SBEI) → Wrinkled seed (25%)", "t b p"),
         ],
         "wash-g",
         8.1,
@@ -1368,12 +1368,12 @@ def c13_xx_xy_sex_determination() -> str:
         276,
         148,
         [
-            (22, "Offspring Ratio: 2 XX : 2 XY = 1 : 1 (50% : 50%)", "t b g"),
+            (22, "Expected: 50% XX : 50% XY in this model", "t b g"),
             (46, "1. Sperm chromosome (X vs Y) sets the zygote sex.", "t b e"),
             (68, "2. Mother gives an X chromosome to EVERY child.", "t"),
             (90, "3. Father gives his X to EVERY daughter (XX)", "t"),
             (110, "   and his Y to EVERY son (XY).", "t"),
-            (132, "4. Even after 3 daughters, Child #4 is still 50% : 50%.", "t b p"),
+            (132, "4. Earlier children do not change the model probability.", "t b p"),
         ],
         "plate",
         8.0,
@@ -1613,7 +1613,7 @@ def c13_x_linked_inheritance() -> str:
             (84, "2. Father gives his Xᵇ chromosome to EVERY daughter,", "t"),
             (102, "   so 100% of daughters become XᴮXᵇ carriers.", "t b p"),
             (124, "3. How can a female be affected (XᵇXᵇ)? Only if", "t"),
-            (144, "   Mother is carrier/affected AND Father is XᵇY.", "t m"),
+            (144, "   Two-copy model: both parents supply Xᵇ.", "t m"),
         ],
         "plate",
         8.0,
@@ -1630,7 +1630,7 @@ def c13_x_linked_inheritance() -> str:
             (22, "Why XY Males Cannot Be Carriers of an X-Linked Recessive Trait:", "t b"),
             (
                 44,
-                "A carrier has a recessive allele masked by a dominant allele on the second homologous chromosome (like XᴮXᵇ in females).",
+                "These grids use a simple recessive model; some women with one altered haemophilia allele have bleeding symptoms.",
                 "t",
             ),
             (
@@ -1677,7 +1677,7 @@ def c13_mumbai_maternity_case() -> str:
             (40, "Parental genotypes:  IᴬIᴮ  ×  IᴼIᴼ", "t mono"),
             (60, "Mother passes Iᴬ or Iᴮ; Father passes only Iᴼ", "t"),
             (80, "Possible children: 50% IᴬIᴼ (Group A), 50% IᴮIᴼ (Group B)", "t b e"),
-            (98, "IMPOSSIBLE for Couple 1: Group O (0%) & Group AB (0%)", "t b p"),
+            (98, "Standard model excludes Group O & Group AB for Couple 1", "t b p"),
         ],
         "plate",
         8.0,
@@ -1786,7 +1786,7 @@ def c13_mumbai_maternity_case() -> str:
             (22, "Four Inheritance Patterns Compared Across Chapter 13:", "t b"),
             (
                 44,
-                "1. Autosomal Dominant (A_): 3:1 in Aa×Aa; never skips generations  |  2. Autosomal Recessive (aa): 3:1 in Aa×Aa; skips in Aa carriers",
+                "1. Dominant model: Aa×Aa → 3 affected : 1 unaffected  |  2. Recessive model: Aa×Aa → 1 affected : 3 unaffected",
                 "t",
             ),
             (
