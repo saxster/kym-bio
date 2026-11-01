@@ -134,7 +134,7 @@ def c6_mass():
     f.text(367,272,'Water','t',size=16); f.text(589,284,'1.0884 kg','t b','end',19)
     f.text(320,332,'Both sides ≈ 3.9023 kg · round only after adding','t g b','middle',16)
     f.line(28,352,612,352,'ln')
-    f.text(320,381,'A DIFFERENT QUESTION: where is the ORIGINAL kilogram assigned?','t b','middle',14)
+    f.text(320,381,'GO DEEPER: original fuel only (excludes incoming O₂)','t b','middle',14)
     # A true 84.186% / 15.814% allocation bar, not a product-ratio bar.
     f.rect(35,401,480*.841860465,31,'wash-p',0)
     f.rect(35+480*.841860465,401,480*.158139535,31,'wash-e',0)

@@ -242,12 +242,12 @@ Live.register(
           color: c.ink,
           align: 'center',
         });
-        draw.text(ctx, 'Vesicles ONLY on presynaptic side; receptor', 176, 309, {
+        draw.text(ctx, 'This excitatory relay releases transmitter', 176, 309, {
           size: 10.6,
           color: c.muted,
           align: 'center',
         });
-        draw.text(ctx, 'proteins ONLY on postsynaptic membrane.', 176, 324, {
+        draw.text(ctx, 'then receives it on the postsynaptic side.', 176, 324, {
           size: 10.6,
           color: c.muted,
           align: 'center',

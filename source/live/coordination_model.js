@@ -19,9 +19,9 @@ export const REFLEX_MODES = Object.freeze([
   Object.freeze({
     idx: 0,
     id: 'myelinated-reflex',
-    label: 'Myelinated reflex arc',
+    label: 'Illustrative myelinated pathway',
     pathway: 'Receptor → sensory → spinal relay → motor → biceps',
-    synapseCount: 2,
+    synapseCount: 3,
     pathLengthM: 1.3,
     brainDelayMs: 0,
   }),
@@ -30,7 +30,7 @@ export const REFLEX_MODES = Object.freeze([
     id: 'unmyelinated-pathway',
     label: 'Unmyelinated axon loop',
     pathway: 'Continuous membrane wave (no myelin sheath)',
-    synapseCount: 2,
+    synapseCount: 3,
     pathLengthM: 1.3,
     brainDelayMs: 0,
   }),
@@ -83,11 +83,12 @@ export function reflexActionAccount(modeIdx = 0, diameterUm = 12, tempC = 25) {
   // Action potential voltages (mV)
   const restingMv = -70;
   const thresholdMv = -55;
-  const peakMv = paraBlocked ? -70 : paraPartial ? -5 : 30;
+  const peakMv = paraBlocked ? -70 : 30;
   const undershootMv = paraBlocked ? -70 : -75;
   const naConductancePct = paraBlocked ? 0 : paraPartial ? 35 : 100;
 
-  // Latency budget (ms) across the pathway
+  // Chosen mathematical latency budget, not measured thermal withdrawal or fly physiology.
+  // Three junctions in the drawn withdrawal example: two central + neuromuscular.
   const axonalMs = paraBlocked ? Infinity : round((spec.pathLengthM / velocityMS) * 1000, 1);
   const synapticMs = paraBlocked ? Infinity : round(spec.synapseCount * 0.9, 1);
   const muscleActivationMs = paraBlocked ? Infinity : 16.0;
@@ -227,7 +228,7 @@ export function synapseAccount(modeIdx = 0, stimFreqHz = 40, cleftWidthNm = 20) 
   const postImpulseFired = postPotentialMv >= -55;
   const synapseResetState =
     mode === 3
-      ? 'Uncleared (continuous depolarisation / spasm)'
+      ? 'Prolonged activation; normal signalling impaired'
       : mode === 1
         ? 'Blocked (no vesicles on postsynaptic side)'
         : postImpulseFired
@@ -251,7 +252,7 @@ export function synapseAccount(modeIdx = 0, stimFreqHz = 40, cleftWidthNm = 20) 
     postImpulseFired,
     synapseResetState,
     oneWayReason:
-      'Vesicles are present ONLY in the presynaptic knob; receptor proteins are ONLY on the postsynaptic membrane.',
+      'This excitatory relay releases transmitter presynaptically and receives it postsynaptically; other receptors can regulate release.',
   };
 }
 
@@ -317,9 +318,9 @@ export function eyeTropismAccount(modeIdx = 0, objectDistCm = 35, lightIntensity
   const lightPct = Math.round(clamp(lightIntensityPct, 5, 100, 75));
 
   // 1. Eye Accommodation mechanics (0610 14.2.6 & Book 2 Ch 10 thin-lens optics)
-  // Retinal image distance d_i = 2.0 cm (0.020 m). Required optical power P = 1/d_o + 1/d_i = 1/(distCm/100) + 50 D
-  const totalPowerDioptres = round(50.0 + 100.0 / distCm, 2);
-  const corneaPowerDioptres = 38.0; // Fixed ~2/3 of total refraction at air-cornea interface
+  // Chosen reduced-eye model: retina 17 mm from effective principal plane. P = 1/d_o + 1/0.017 m. Components are schematic equivalents, not separated thick-lens powers.
+  const totalPowerDioptres = round(1000 / 17 + 100.0 / distCm, 2);
+  const corneaPowerDioptres = 40.0; // Fixed ~2/3 of total refraction at air-cornea interface
   const lensPowerDioptres = round(totalPowerDioptres - corneaPowerDioptres, 2);
 
   // Near factor: 1.0 at 25 cm (maximum accommodation), ~0.0 at 600 cm (distant rest)

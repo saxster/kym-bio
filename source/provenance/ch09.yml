@@ -392,3 +392,12 @@ record:ch09-decisions:
   physical_trials: Ruler-drop reaction-time activity and blind-spot card / partner pupil-light check reviewed for safety
     and feasibility; not physically trialled.
   publication: No publication, deployment, commit, push, clone or remote repository operation.
+
+"reader-revision-2026-11-01":
+  research:
+    - {what: "Presynaptic receptors constrain the scope of the excitatory chemical relay", source: "Rowell 1995", url: "https://pubmed.ncbi.nlm.nih.gov/7624037/"}
+    - {what: "Withdrawal timing depends on stimulation and pathway; no universal hot-pan latency", source: "Thorell et al. 2024", url: "https://pubmed.ncbi.nlm.nih.gov/39150939/"}
+    - {what: "Local endplate response differs from propagated muscle response under TTX", source: "Furukawa et al. 1959", url: "https://www.jstage.jst.go.jp/article/jjphysiol1950/9/2/9_2_143/_article"}
+    - {what: "Explicit reduced-eye modelling, with17mm chosen effective image distance", source: "Blaker 1980", url: "https://opg.optica.org/josa/abstract.cfm?uri=josa-70-2-220"}
+    - {what: "Pancreatic insulin portal first pass", source: "Meier et al. 2005", url: "https://pubmed.ncbi.nlm.nih.gov/15919785/"}
+  licence: "CC BY-NC-SA 4.0"

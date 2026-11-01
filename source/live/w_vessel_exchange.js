@@ -53,15 +53,15 @@ Live.register('vessel_exchange', (stage, params, api) => {
       ctx.fillRect(322, 76, 294, 222); ctx.strokeRect(322, 76, 294, 222);
       t('CAPILLARY EXCHANGE & BLOOD ROLES', 469, 98, 13.2, c.ink, 600);
 
-      t(`Arterial end: CHP ${q.chpArterialMmHg} > BCOP ${q.bcopMmHg} (+${q.nfpArterialMmHg} mmHg out)`, 469, 124, 12, c.proton, 600);
-      t(`Venous end: CHP ${q.chpVenousMmHg} < BCOP ${q.bcopMmHg} (${q.nfpVenousMmHg} mmHg in)`, 469, 146, 12, c.electron, 600);
-      t(`Filtered: ${q.filtrationLDay} L/d → ${q.reabsorptionLDay} L/d osmosis + ${q.lymphReturnLDay} L/d lymph`, 469, 170, 11.8, c.green, 600);
+      t('Fluid filtration: pressure + barrier', 469, 124, 11.8, c.proton, 600);
+      t('O₂ and CO₂: diffuse down their own gradients', 469, 146, 11.8, c.electron, 600);
+      t('Lymph returns filtered fluid and proteins', 469, 170, 11.5, c.green, 600);
 
       t('• Plasma: cells, ions, nutrients, urea, hormones, CO₂', 469, 200, 11.5, c.ink);
       t('• RBCs: biconcave, no nucleus, haemoglobin binds O₂', 469, 222, 11.5, c.ink);
-      t('• Phagocytes engulf; lymphocytes make antibodies', 469, 244, 11.5, c.ink);
+      t('• Phagocytes engulf; B cells can make antibodies', 469, 244, 11.5, c.ink);
       t('• Platelets: fibrinogen → insoluble fibrin mesh', 469, 266, 11.5, c.ink);
-      t('RBCs & large plasma proteins stay inside capillaries', 469, 288, 11.2, c.muted);
+      t('RBCs retained; small protein leaks return in lymph', 469, 288, 11.2, c.muted);
 
       // Lower explanation lines & capture status
       q.lines.forEach((lineStr, idx) => {
@@ -80,7 +80,7 @@ Live.register('vessel_exchange', (stage, params, api) => {
     const history = trials.map((tr, i) =>
       `${i + 1}: ${tr.segmentName}, A_total ${tr.totalAreaCm2} cm², P ${tr.meanPMmHg} mmHg, v ${tr.velocityMmSec} mm/s`
     ).join(' | ');
-    say(`Focus ${focusMode}: ${q.modeName}; segment ${q.segIdx}: ${q.segmentName} (${q.segmentKind}); cardiac output ${q.coLMin.toFixed(1)} L/min. Diameter ${q.diameterMm} mm; wall ${q.wallMm} mm; total cross-sectional area ${q.totalAreaCm2} cm²; mean pressure ${q.meanPMmHg} mmHg; velocity ${q.velocityMmSec} mm/s; valves: ${q.valves}. Capillary exchange: arterial NFP +${q.nfpArterialMmHg} mmHg, venous NFP ${q.nfpVenousMmHg} mmHg; filtration ${q.filtrationLDay} L/day, reabsorption ${q.reabsorptionLDay} L/day, lymph return ${q.lymphReturnLDay} L/day. ${q.lines.join(' ')} ${trials.length} captured states. ${hasAortaAndCapillary ? 'Aorta and Capillary bed states captured for comparison.' : ''} Saved: ${history || 'none'}.`);
+    say(`Focus ${focusMode}: ${q.modeName}; segment ${q.segIdx}: ${q.segmentName} (${q.segmentKind}); cardiac output ${q.coLMin.toFixed(1)} L/min. Diameter ${q.diameterMm} mm; wall ${q.wallMm} mm; total cross-sectional area ${q.totalAreaCm2} cm²; mean pressure ${q.meanPMmHg} mmHg; velocity ${q.velocityMmSec} mm/s; valves: ${q.valves}. Capillary exchange: ${q.exchangeModel}. ${q.fluidRoutes.filtration}; ${q.fluidRoutes.lymph}; ${q.fluidRoutes.diffusion}. ${q.lines.join(' ')} ${trials.length} captured states. ${hasAortaAndCapillary ? 'Aorta and Capillary bed states captured for comparison.' : ''} Saved: ${history || 'none'}.`);
   }
 
   refresh();

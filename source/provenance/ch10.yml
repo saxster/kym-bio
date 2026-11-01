@@ -4,248 +4,384 @@
   - book: Biology 2e
     section: 33.3 Homeostasis
     url: https://openstax.org/books/biology-2e/pages/33-3-homeostasis
-    took: Homeostatic control loops around a set point, receptor-coordinator-effector architecture, and negative feedback versus positive feedback
+    took: Homeostatic control loops around a set point, receptor-coordinator-effector architecture, and negative
+      feedback versus positive feedback
   - book: Biology 2e
     section: 37.3 Regulation of Body Processes
     url: https://openstax.org/books/biology-2e/pages/37-3-regulation-of-body-processes
-    took: Pancreatic beta-cell insulin and alpha-cell glucagon regulation of blood glucose concentration and hepatic glycogen storage/breakdown
+    took: Pancreatic beta-cell insulin and alpha-cell glucagon regulation of blood glucose concentration and hepatic
+      glycogen storage/breakdown
   - book: Concepts of Biology
     section: 16.1 Homeostasis and Osmoregulation; 16.4 Endocrine System
     url: https://openstax.org/books/concepts-of-biology/pages/16-1-homeostasis-and-osmoregulation
     took: Accessible framing of blood glucose regulation, negative feedback, and Type 1 diabetes
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 14.4 Homeostasis (14.4.1–14.4.5: homeostasis definition, insulin decreasing blood glucose, negative feedback around a set point, liver/insulin/glucagon blood glucose control, and Type 1 diabetes treatment)'
+  - what: 'Core/Supplement placement independently checked: Topic 14.4 Homeostasis (14.4.1–14.4.5: homeostasis definition,
+      insulin decreasing blood glucose, negative feedback around a set point, liver/insulin/glucagon blood glucose
+      control, and Type 1 diabetes treatment)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
-  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective codes asserted
+  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective
+      codes asserted
     source: Cambridge official Lower Secondary Science 0893 overview
     url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
   - what: 'Word origin only, not mechanism evidence: homeostasis, insulin, glucagon, glycogen'
     source: Wiktionary / etymological entries
     url: https://en.wiktionary.org/wiki/homeostasis
+  - source: FDA insulin history
+    url: https://www.fda.gov/about-fda/fda-history-exhibits/100-years-insulin
+    what: Banting/Best beganMay1921; Collip joinedDecember1921.
   history:
-  - what: TRUE:Claude Bernard (1859/1865) formulation of the internal environment (milieu intérieur) and hepatic glycogen storage; Walter B. Cannon (1926/1929) coinage of homeostasis from Greek homoios ('similar, allowing narrow physiological variation') and stasis ('condition')
-    source: Bernard C (1865) Introduction à l'étude de la médecine expérimentale; Cannon WB (1929) Organization for physiological homeostasis, Physiological Reviews 9(3):399–431
+  - what: TRUE:Claude Bernard (1859/1865) formulation of the internal environment (milieu intérieur) and hepatic
+      glycogen storage; Walter B. Cannon (1926/1929) coinage of homeostasis from Greek homoios ('similar, allowing
+      narrow physiological variation') and stasis ('condition')
+    source: Bernard C (1865) Introduction à l'étude de la médecine expérimentale; Cannon WB (1929) Organization
+      for physiological homeostasis, Physiological Reviews 9(3):399–431
     url: https://doi.org/10.1152/physrev.1929.9.3.399
-  - what: TRUE:1921–1922 Toronto extraction of pancreatic islet insulin by Frederick Banting and Charles Best in J. J. R. Macleod's laboratory, fractional alcohol purification by James Collip, and January 1922 clinical rescue of 14-year-old Leonard Thompson at Toronto General Hospital (blood glucose falling from 520 mg/dL to 120 mg/dL and glycosuria dropping to near zero)
-    source: Banting FG, Best CH, Collip JB, Campbell WR, Fletcher AA (1922) Pancreatic extracts in the treatment of diabetes mellitus, Canadian Medical Association Journal 12(3):141–146, PMC1524425; primary paper examined
+  - what: TRUE:1921–1922 Toronto extraction of pancreatic islet insulin by Frederick Banting and Charles Best in
+      J. J. R. Macleod's laboratory, fractional alcohol purification by James Collip, and January 1922 clinical
+      rescue of 14-year-old Leonard Thompson at Toronto General Hospital (blood glucose falling from 520 mg/dL to
+      120 mg/dL and glycosuria dropping to near zero)
+    source: Banting FG, Best CH, Collip JB, Campbell WR, Fletcher AA (1922) Pancreatic extracts in the treatment
+      of diabetes mellitus, Canadian Medical Association Journal 12(3):141–146, PMC1524425; primary paper examined
     url: https://pmc.ncbi.nlm.nih.gov/articles/PMC1524425/
   figures:
   - name: c10_negative_feedback_glucose
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; schematic figure-of-eight negative-feedback loop around the 5.0 mmol/L (4.0–5.5 mmol/L) plasma glucose set point above a 6-hour post-meal glucose trace and Type 1 diabetes comparison
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Two-hormone blood glucose feedback model in homeostasis_model.js: around the 5.0 mmol/L set point, post-meal load raises beta-cell insulin and hepatic glycogen synthesis (+g/h), fasting raises alpha-cell glucagon and glycogenolysis (−g/h), and untreated Type 1 diabetes (0 insulin) drives plasma glucose >14 mmol/L above renal T_m (10.5 mmol/L). Verified in tests/ch10_domain.mjs.'
+    limits: Not to scale; schematic figure-of-eight negative-feedback loop around the 5.0 mmol/L (4.0–5.5 mmol/L)
+      plasma glucose set point above a 6-hour post-meal glucose trace and Type 1 diabetes comparison
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: Illustrative glucose feedback around 5 mmol/L. Insulin-sensitive muscle uptake, storage and suppression
+    of hepatic glucose output are distinguished from glucagon action. Fixed scenario values are not clinical predictions.
   scope: Covers 0610 Topic 14.4.1–14.4.5 and links companion story banting-mahalanabis-lifelines.
-
 '10.2':
   ocw: []
   openstax:
   - book: Biology 2e
     section: 33.3 Homeostasis
     url: https://openstax.org/books/biology-2e/pages/33-3-homeostasis
-    took: Endotherm thermoregulation, hypothalamic temperature control, vasodilation, vasoconstriction, sweating, shivering and insulation
+    took: Endotherm thermoregulation, hypothalamic temperature control, vasodilation, vasoconstriction, sweating,
+      shivering and insulation
   - book: Concepts of Biology
     section: 16.1 Homeostasis and Osmoregulation
     url: https://openstax.org/books/concepts-of-biology/pages/16-1-homeostasis-and-osmoregulation
     took: Mammalian skin structures and thermoregulatory effectors
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 14.4 Homeostasis (14.4.6–14.4.8: skin structures—hairs, hair erector muscles, sweat glands, receptors, sensory neurones, blood vessels, fatty tissue; maintenance of constant internal body temperature by insulation, sweating, shivering and brain; Supplement vasodilation and vasoconstriction of arterioles supplying skin surface capillaries)'
+  - what: 'Core/Supplement placement independently checked: Topic 14.4 Homeostasis (14.4.6–14.4.8: skin structures—hairs,
+      hair erector muscles, sweat glands, receptors, sensory neurones, blood vessels, fatty tissue; maintenance
+      of constant internal body temperature by insulation, sweating, shivering and brain; Supplement vasodilation
+      and vasoconstriction of arterioles supplying skin surface capillaries)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
-  - what: Cross-book thermal physics grounding (internal energy vs heat, conduction, convection, radiation, evaporative cooling, latent heat of vaporisation ~2,420 J/g at 37 °C, relative humidity, and wet-bulb temperature limits in Mumbai May vs July vs dry inland air)
-    source: The Moving World (Book 2 of Kym's science series), source/src/ch08.md inspected directly; Stull R (2011) Journal of Applied Meteorology and Climatology 50(11):2267–2269
+  - what: Cross-book thermal physics grounding (internal energy vs heat, conduction, convection, radiation, evaporative
+      cooling, latent heat of vaporisation ~2,420 J/g at 37 °C, relative humidity, and wet-bulb temperature limits
+      in Mumbai May vs July vs dry inland air)
+    source: The Moving World (Book 2 of Kym's science series), source/src/ch08.md inspected directly; Stull R (2011)
+      Journal of Applied Meteorology and Climatology 50(11):2267–2269
     url: https://doi.org/10.1175/JAMC-D-11-0143.1
-  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective codes asserted
+  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective
+      codes asserted
     source: Cambridge official Lower Secondary Science 0893 overview
     url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - source: Vecellio et al.2022
+    url: https://doi.org/10.1152/japplphysiol.00738.2021
+    what: Measured heat stress limits vary and can occur below35C wetbulb.
   history: []
   figures:
   - name: c10_skin_thermoregulation
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; schematic side-by-side mammalian skin cross-sections at 38 °C vs 15 °C showing fixed surface capillary loops and muscular arteriole vasodilation/vasoconstriction
+    limits: Not to scale; schematic side-by-side mammalian skin cross-sections at 38 °C vs 15 °C showing fixed surface
+      capillary loops and muscular arteriole vasodilation/vasoconstriction
   - name: c10_mumbai_heat_balance
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Idealised steady-state thermal power ledger (180 W walking metabolic heat across 22 °C room, 38 °C 20% RH dry inland, and 38 °C 80% RH humid coast) above the Chapter 4 enzyme denaturation curve
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Skin thermal balance in homeostasis_model.js: latent heat of sweat evaporation L_v = 2,420 J/g (335 g/h evaporated = 225 W cooling); at 38 °C and 80% RH, vapour-pressure deficit limits evaporation so excess sweat drips off with 0 J cooling. Verified in tests/ch10_domain.mjs.'
-  activity: Safe home comparison of two identical steel tumblers wrapped in damp versus dry cotton handkerchiefs in front of a fan; reviewed for safety and feasibility, explicitly disclosed as not classroom-trialled for this edition.
-  scope: Emphasises the 0610 examiner distinction that arterioles vasodilate or vasoconstrict while surface capillaries remain fixed in position and lack muscle walls.
-
+    limits: Idealised steady-state thermal power ledger (180 W walking metabolic heat across 22 °C room, 38 °C 20%
+      RH dry inland, and 38 °C 80% RH humid coast) with illustrative heat stress rather than a universal enzyme-denaturation
+      threshold
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Skin thermal balance in homeostasis_model.js: latent heat of sweat evaporation L_v = 2,420 J/g (335
+    g/h evaporated = 225 W cooling); at 38 °C and 80% RH, vapour-pressure deficit limits evaporation so excess sweat
+    drips off with 0 J cooling. Verified in tests/ch10_domain.mjs.'
+  activity: Safe home comparison of two identical steel tumblers wrapped in damp versus dry cotton handkerchiefs
+    in front of a fan; reviewed for safety and feasibility, explicitly disclosed as not classroom-trialled for this
+    edition.
+  scope: Emphasises the 0610 examiner distinction that arterioles vasodilate or vasoconstrict while surface capillaries
+    remain fixed in position and lack muscle walls.
 '10.3':
   ocw: []
   openstax:
   - book: Biology 2e
     section: 41.2 The Kidneys and Osmoregulatory Organs; 41.3 Excretion Systems; 41.4 Nitrogenous Wastes
     url: https://openstax.org/books/biology-2e/pages/41-2-the-kidneys-and-osmoregulatory-organs
-    took: Hepatic deamination of excess amino acids to ammonia and urea, kidney cortex and medulla anatomy, and nephron glomerular filtration, selective tubular reabsorption and urine formation
+    took: Hepatic deamination of excess amino acids to ammonia and urea, kidney cortex and medulla anatomy, and
+      nephron glomerular filtration, selective tubular reabsorption and urine formation
   - book: Concepts of Biology
     section: 16.2 Digestive and Excretory Systems
     url: https://openstax.org/books/concepts-of-biology/pages/16-2-digestive-system
     took: Urinary system gross anatomy (kidneys, ureters, urinary bladder, urethra) and two-stage nephron overview
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 13.1 Excretion in humans (13.1.1–13.1.9: CO₂ via lungs; urea, excess water and excess ions via kidneys; kidneys, ureters, bladder, urethra; cortex and medulla; nephron glomerulus filtration, tubule reabsorption of all glucose, some ions and most water, collecting duct urine formation; liver assimilation of amino acids and deamination of excess amino acids; toxicity of urea)'
+  - what: 'Core/Supplement placement independently checked: Topic 13.1 Excretion in humans (13.1.1–13.1.9: CO₂ via
+      lungs; urea, excess water and excess ions via kidneys; kidneys, ureters, bladder, urethra; cortex and medulla;
+      nephron glomerulus filtration, tubule reabsorption of all glucose, some ions and most water, collecting duct
+      urine formation; liver assimilation of amino acids and deamination of excess amino acids; toxicity of urea)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
-  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective codes asserted
+  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective
+      codes asserted
     source: Cambridge official Lower Secondary Science 0893 overview
     url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - source: Al-Jobori et al.2017
+    url: https://pubmed.ncbi.nlm.nih.gov/28428225/
+    what: Renal glucose maximal transport rate and plasma threshold are distinct.
+  - source: NIDDK urine albumin and GFR
+    url: https://www.niddk.nih.gov/health-information/professionals/advanced-search/quick-reference-uacr-gfr
+    what: Negative routineprotein test does not establish perfect kidneyhealth.
   history:
-  - what: TRUE:Carl Ludwig (1844) physical glomerular filtration proposal and Joseph T. Wearn & Alfred Newton Richards (1924) quartz micropipette puncture of living frog Bowman's capsules proving directly that glomerular filtrate is protein-free and contains plasma-level glucose, whereas bladder urine from the same kidney contains zero glucose
-    source: Ludwig C (1844) Handwörterbuch der Physiologie Vol. 2:628–640; Wearn JT, Richards AN (1924) Observations on the composition of glomerular urine, with particular reference to the problem of reabsorption in the renal tubules, American Journal of Physiology 71(1):209–227
+  - what: TRUE:Carl Ludwig (1844) physical glomerular filtration proposal and Joseph T. Wearn & Alfred Newton Richards
+      (1924) quartz micropipette puncture of living frog Bowman's capsules proving directly that glomerular filtrate
+      is strongly depleted of protein and containing glucose, while the tested final urine was negative for glucose
+    source: Ludwig C (1844) Handwörterbuch der Physiologie Vol. 2:628–640; Wearn JT, Richards AN (1924) Observations
+      on the composition of glomerular urine, with particular reference to the problem of reabsorption in the renal
+      tubules, American Journal of Physiology 71(1):209–227
     url: https://doi.org/10.1152/ajplegacy.1924.71.1.209
-  - what: TRUE:Peter Agre, Gregory Preston, William Guggino and John Parker (1991–1992) identification and frog-oocyte functional proof of aquaporin water channels enabling rapid osmotic water reabsorption in renal tubules and collecting ducts
-    source: Preston GM, Carroll TP, Guggino WB, Agre P (1992) Appearance of water channels in Xenopus oocytes expressing red cell CHIP28 protein, Science 256(5055):385–387 (existing story p-agre reused without modification)
+  - what: TRUE:Peter Agre, Gregory Preston, William Guggino and John Parker (1991–1992) identification and frog-oocyte
+      functional proof of aquaporin water channels enabling rapid osmotic water reabsorption in renal tubules and
+      collecting ducts
+    source: Preston GM, Carroll TP, Guggino WB, Agre P (1992) Appearance of water channels in Xenopus oocytes expressing
+      red cell CHIP28 protein, Science 256(5055):385–387 (existing story p-agre reused without modification)
     url: https://doi.org/10.1126/science.256.5055.385
   figures:
   - name: c10_liver_excretion_urea
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; schematic of hepatic amino acid assimilation vs deamination (left) and human urinary tract with kidney cortex/medulla (right) above an Excretion vs Egestion ledger
+    limits: Not to scale; schematic of hepatic amino acid assimilation vs deamination (left) and human urinary tract
+      with kidney cortex/medulla (right) above an Excretion vs Egestion ledger
   - name: c10_kidney_nephron_ledger
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; schematic nephron across cortex and medulla above a 5-row quantitative concentration and daily mass-balance table (180 L/day filtrate to 1.5 L/day urine)
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Two-kidney nephron mass balance in homeostasis_model.js: GFR 125 mL/min = 180.0 L/day filtrate; plasma protein 8.0 g/100mL -> 0.0 in filtrate and urine; below T_m = 10.5 mmol/L, 100% of filtered glucose is reabsorbed; at 16.0 mmol/L plasma glucose, 5.5 mmol/L spills into urine and increases urine output to 3.81 L/day by osmotic diuresis. Verified in tests/ch10_domain.mjs.'
-  activity: Safe kitchen strainer/coffee-filter sieve comparison using kidney beans (rajma), dissolved sugar and table salt in water; reviewed for safety and feasibility, explicitly disclosed as not classroom-trialled for this edition.
-  scope: Distinguishes excretion from egestion, and liver urea production (deamination) from kidney urea excretion; links existing story p-agre without modifying p-agre.md.
-
+    limits: Not to scale; schematic nephron across cortex and medulla above a 5-row quantitative concentration and
+      daily mass-balance table (180 L/day filtrate to 1.5 L/day urine)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 125 mL/min × 1440 = 180 L/day; 5 mmol/L glucose ×180 g/mol =0.09 g/100mL; filtered glucose162 g/day.
+    At16 mmol/L, filtered360 mg/min minus illustrative330 mg/min maximum recovery leaves30 mg/min=43.2g/day=240mmol/day.
+    Urine concentration depends on final urine volume. 178.5L reabsorbed/180L=99.17%; filtered54g urea versus urinary30g
+    accounts for24g net reabsorption.
+  activity: Safe kitchen strainer/coffee-filter sieve comparison using kidney beans (rajma), dissolved sugar and
+    table salt in water; reviewed for safety and feasibility, explicitly disclosed as not classroom-trialled for
+    this edition.
+  scope: Distinguishes excretion from egestion, and liver urea production (deamination) from kidney urea excretion;
+    links existing story p-agre without modifying p-agre.md.
 '10.4':
   ocw: []
   openstax:
   - book: Biology 2e
     section: 42.1 Innate Immune Response; 42.2 Adaptive Immune Response; 42.3 Antibodies
     url: https://openstax.org/books/biology-2e/pages/42-1-innate-immune-response
-    took: Mechanical and chemical body barriers, phagocytosis by phagocytes, lymphocyte antigen recognition, complementary antibody production, memory cells, vaccination, and active versus passive immunity
+    took: Mechanical and chemical body barriers, phagocytosis by phagocytes, lymphocyte antigen recognition, complementary
+      antibody production, memory cells, vaccination, and active versus passive immunity
   - book: Microbiology
-    section: 16 Disease and Epidemiology; 17 Innate Nonspecific Host Defenses; 18 Adaptive Specific Host Defenses; 24.3 Bacterial Infections of the Gastrointestinal Tract
+    section: 16 Disease and Epidemiology; 17 Innate Nonspecific Host Defenses; 18 Adaptive Specific Host Defenses;
+      24.3 Bacterial Infections of the Gastrointestinal Tract
     url: https://openstax.org/books/microbiology/pages/24-3-bacterial-infections-of-the-gastrointestinal-tract
-    took: Direct and indirect transmission routes, hygiene controls, Vibrio cholerae enterotoxin Cl⁻ secretion and osmotic water movement into the small intestine, and oral rehydration therapy
+    took: Direct and indirect transmission routes, hygiene controls, Vibrio cholerae enterotoxin Cl⁻ secretion and
+      osmotic water movement into the small intestine, and oral rehydration therapy
   research:
-  - what: 'Core/Supplement placement independently checked: Topic 10.1 Diseases and immunity (10.1.1–10.1.17: pathogen and transmissible disease definitions, direct/indirect transmission, mechanical/chemical/cellular barriers, five community hygiene controls, active vs passive immunity, antigen-antibody complementary specificity, vaccination and memory cells, placenta/breast milk passive immunity with zero memory cells, and cholera toxin Cl⁻ secretion / osmotic diarrhoea)'
+  - what: 'Core/Supplement placement independently checked: Topic 10.1 Diseases and immunity (10.1.1–10.1.17: pathogen
+      and transmissible disease definitions, direct/indirect transmission, mechanical/chemical/cellular barriers,
+      five community hygiene controls, active vs passive immunity, antigen-antibody complementary specificity, vaccination
+      and memory cells, placenta/breast milk passive immunity without the transferred antibody itself creating recipient
+      antigen-specific memory, and cholera toxin Cl⁻ secretion / osmotic diarrhoea)'
     source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
     url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
-  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective codes asserted
+  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective
+      codes asserted
     source: Cambridge official Lower Secondary Science 0893 overview
     url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - source: CDC principles of vaccination
+    url: https://www.cdc.gov/pinkbook/hcp/table-of-contents/chapter-1-principles-of-vaccination.html
+    what: Protection and duration vary; liveattenuated organisms canreplicate; distinguish B/Tfunctions.
+  - source: Mahalanabis et al.1973
+    url: https://pubmed.ncbi.nlm.nih.gov/4698667/
+    what: Bongaon3703 admissions mixedseverity/mixedtreatment; overall3.6%casefatality, not controlled30to3.6reduction.
+  - source: CDC cholera treatment
+    url: https://www.cdc.gov/cholera/treatment/
+    what: StandardpackagedORS and clinicalrehydration; not an unmeasuredmixingrecipe.
   history:
-  - what: TRUE:1959 Calcutta (Nilratan Sircar Medical College) rabbit ligated ileal-loop proof by Sambhu Nath De that cell-free Vibrio cholerae culture filtrate causes massive fluid outpouring across an intact intestinal epithelium; 1971 Bongaon refugee-camp oral rehydration therapy demonstration by Dilip Mahalanabis and colleagues treating 3,703 severe cholera patients with oral glucose-salt solution and reducing case fatality from ~30% to 3.6%
-    source: De SN (1959) Enterotoxicity of bacteria-free culture-filtrate of Vibrio cholerae, Nature 183(4674):1533–1534; Mahalanabis D, Choudhuri AB, Bagchi NG, Bhattacharya AK, Simpson TW (1973) Oral fluid therapy of cholera among Bangladesh refugees, Johns Hopkins Medical Journal 132(4):197–205
+  - what: TRUE:1959 Calcutta (Nilratan Sircar Medical College) rabbit ligated ileal-loop proof by Sambhu Nath De
+      that cell-free Vibrio cholerae culture filtrate causes massive fluid outpouring across an intact intestinal
+      epithelium; 1971 Bongaon refugee-camp oral rehydration therapy demonstration by Dilip Mahalanabis and colleagues
+      treating 3,703 patients of mixed severity with oral glucose-salt solution and reporting 3.6% overall case
+      fatality among 3,703 admissions of mixed severity and treatments; no controlled before/after mortality claim
+    source: De SN (1959) Enterotoxicity of bacteria-free culture-filtrate of Vibrio cholerae, Nature 183(4674):1533–1534;
+      Mahalanabis D, Choudhuri AB, Bagchi NG, Bhattacharya AK, Simpson TW (1973) Oral fluid therapy of cholera among
+      Bangladesh refugees, Johns Hopkins Medical Journal 132(4):197–205
     url: https://doi.org/10.1038/1831533a0
-  - what: TRUE:Louis Pasteur (1859–1885) germ theory and attenuated vaccines; Kamal Ranadive and C. V. Bapat (1958) at the Indian Cancer Research Centre in Parel, Mumbai isolating and culturing the ICRC bacillus for leprosy antigen vaccine research; Gagandeep Kang and colleagues (2011–2014) at Christian Medical College, Vellore demonstrating natural and Rotavac oral rotavirus vaccine protection in Indian infants
-    source: Bapat CV, Ranadive KJ, Khanolkar VR (1958) International Journal of Leprosy 26(4):353–360; Bhandari N, Rongsen-Chandola T, Bavdekar A, John J, Antony K, Taneja S, Zaki S, Kawade A, Kang G et al. (2014) The Lancet 383(9935):2136–2143 (existing story p-pasteur linked without modification)
+  - what: TRUE:Louis Pasteur (1859–1885) germ theory and attenuated vaccines; Kamal Ranadive and C. V. Bapat (1958)
+      at the Indian Cancer Research Centre in Parel, Mumbai isolating and culturing the ICRC bacillus for leprosy
+      antigen vaccine research; Gagandeep Kang and colleagues (2011–2014) at Christian Medical College, Vellore
+      demonstrating natural and Rotavac oral rotavirus vaccine protection in Indian infants
+    source: Bapat CV, Ranadive KJ, Khanolkar VR (1958) International Journal of Leprosy 26(4):353–360; Bhandari
+      N, Rongsen-Chandola T, Bavdekar A, John J, Antony K, Taneja S, Zaki S, Kawade A, Kang G et al. (2014) The
+      Lancet 383(9935):2136–2143 (existing story p-pasteur linked without modification)
     url: https://doi.org/10.1016/S0140-6736(13)62630-6
   figures:
   - name: c10_pathogens_barriers_cholera
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; five-part schematic of transmission routes, five hygiene defences, mechanical/chemical barriers, and cholera toxin Cl⁻ secretion vs ORS Na⁺–glucose cotransport
+    limits: Not to scale; five-part schematic of transmission routes, five hygiene defences, mechanical/chemical
+      barriers, and cholera toxin Cl⁻ secretion vs ORS Na⁺–glucose cotransport
   - name: c10_immune_response_vaccines
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; schematic of phagocytes vs lymphocytes, complementary antigen-antibody fit (Pathogen A vs B), and primary vs memory-driven secondary antibody response curve
+    limits: Not to scale; schematic of phagocytes vs lymphocytes, complementary antigen-antibody fit (Pathogen A
+      vs B), and primary vs memory-driven secondary antibody response curve
   - name: c10_active_vs_passive_immunity
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; four-pathway comparison and plasma antibody persistence curve (passive t₁/₂ ≈ 21 days decay vs active memory persistence)
+    limits: Not to scale; four-pathway comparison and plasma antibody persistence curve (passive t₁/₂ ≈ 21 days
+      decay vs active memory persistence)
   - name: c10_diabetes_renal_case
     origin: ours; original semantic-theme schematic code in figs_ch10.py; no source illustrations or photographs
-    limits: Not to scale; chapter-end diagnostic synthesis comparing a healthy nephron (5.0 mmol/L glucose) with an untreated Type 1 diabetes nephron (16.0 mmol/L glucose exceeding proximal tubule T_m ≈ 10.5 mmol/L with intact glomerular protein barrier)
-  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
-  computed: 'Immunity and ORS model in homeostasis_model.js: naive primary peak 28 AU at Day 14 vs post-vaccine secondary peak 221.6 AU at Day 7 (90% memory); mismatched antigen B gives 0% binding; passive antibody decays with t₁/₂ = 21.0 days and 0 memory cells; 80% ORS dose gives +124 mL/h net intestinal water rescue. Verified in tests/ch10_domain.mjs.'
-  scope: 'Completes Volume III (The Human Orchestra) and bridges to Volume IV (Chapter 11: DNA, RNA and protein synthesis); links existing story p-pasteur without modifying p-pasteur.md.'
-
+    limits: 'Corrected rate account: Tm is an illustrative 330 mg/min transport capacity, distinct from a concentration
+      threshold. Filtered glucose rate = plasma glucose × GFR; at 16 mmol/L and 125 mL/min, 360 mg/min filters,
+      330 mg/min is recovered, and 30 mg/min = 43.2 g/day = 240 mmol/day remains in this hard-cap teaching model.
+      Urine volume is a separate chosen scenario or observed case quantity. Rounded model protein zeros are not
+      clinical proof of an intact barrier.'
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party
+    research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: Primary and later antibody response curves use illustrative arbitrary units. No cross-recognition in
+    an A/B comparison is an explicit model assumption, not a universal 0% binding law. A21-day decay is an IgG-like
+    model, not a law for all maternal or transferred antibodies. ORS illustrates uptake remaining available during
+    secretion; it does not remove pathogen or toxin.
+  scope: 'Completes Volume III (The Human Orchestra) and bridges to Volume IV (Chapter 11: DNA, RNA and protein
+    synthesis); links existing story p-pasteur without modifying p-pasteur.md.'
 fig:c10_negative_feedback_glucose:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_skin_thermoregulation:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_mumbai_heat_balance:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_liver_excretion_urea:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_kidney_nephron_ledger:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_pathogens_barriers_cholera:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_immune_response_vaccines:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_active_vs_passive_immunity:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 fig:c10_diabetes_renal_case:
   origin: ours
   source: figs_ch10.py
   licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
-  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
-
+  model_limits: See grounding/ch10.md and the per-figure alt text, scale/model note and caption; semantic theme
+    classes and labelled arrow kinds.
 story:banting-mahalanabis-lifelines:
   ocw: []
   openstax: []
-  research: []
+  research:
+  - source: CDC cholera treatment and original Mahalanabis1973 report
+    url: https://pubmed.ncbi.nlm.nih.gov/4698667/
+    what: Corrected mixedseverity/mixedtreatment3703 patients and3.6%overallfatality; removed casual recipe and
+      unsupported controlled mortalityeffect.
   history:
-  - what: TRUE:1921–1922 University of Toronto extraction of pancreatic islet insulin by Frederick Banting and Charles Best in J. J. R. Macleod's laboratory, fractional alcohol purification by James Collip, and 11 & 23 January 1922 injections rescuing 14-year-old Leonard Thompson at Toronto General Hospital
-    source: Banting FG, Best CH, Collip JB, Campbell WR, Fletcher AA (1922) Pancreatic extracts in the treatment of diabetes mellitus, Canadian Medical Association Journal 12(3):141–146, PMC1524425; primary paper examined
+  - what: TRUE:1921–1922 University of Toronto extraction of pancreatic islet insulin by Frederick Banting and Charles
+      Best in J. J. R. Macleod's laboratory, fractional alcohol purification by James Collip, and 11 & 23 January
+      1922 injections rescuing 14-year-old Leonard Thompson at Toronto General Hospital
+    source: Banting FG, Best CH, Collip JB, Campbell WR, Fletcher AA (1922) Pancreatic extracts in the treatment
+      of diabetes mellitus, Canadian Medical Association Journal 12(3):141–146, PMC1524425; primary paper examined
     url: https://pmc.ncbi.nlm.nih.gov/articles/PMC1524425/
-  - what: TRUE:1959 Nilratan Sircar Medical College (Calcutta / Kolkata) rabbit ligated ileal-loop proof by Sambhu Nath De that sterile bacteria-free Vibrio cholerae culture filtrate causes massive fluid secretion across an intact intestinal epithelium; 1971 Bongaon refugee-camp oral rehydration therapy demonstration by Dilip Mahalanabis and colleagues treating 3,703 severe cholera patients with oral glucose-salt solution and reducing mortality from ~30% to 3.6%
-    source: De SN (1959) Enterotoxicity of bacteria-free culture-filtrate of Vibrio cholerae, Nature 183(4674):1533–1534; Mahalanabis D, Choudhuri AB, Bagchi NG, Bhattacharya AK, Simpson TW (1973) Oral fluid therapy of cholera among Bangladesh refugees, Johns Hopkins Medical Journal 132(4):197–205
+  - what: TRUE:1959 Nilratan Sircar Medical College (Calcutta / Kolkata) rabbit ligated ileal-loop proof by Sambhu
+      Nath De that sterile bacteria-free Vibrio cholerae culture filtrate causes massive fluid secretion across
+      an intact intestinal epithelium; 1971 Bongaon refugee-camp oral rehydration therapy demonstration by Dilip
+      Mahalanabis and colleagues treating 3,703 patients of mixed severity with oral glucose-salt solution and reporting
+      an overall 3.6% case-fatality ratio across mixed severity and treatments
+    source: De SN (1959) Enterotoxicity of bacteria-free culture-filtrate of Vibrio cholerae, Nature 183(4674):1533–1534;
+      Mahalanabis D, Choudhuri AB, Bagchi NG, Bhattacharya AK, Simpson TW (1973) Oral fluid therapy of cholera among
+      Bangladesh refugees, Johns Hopkins Medical Journal 132(4):197–205
     url: https://doi.org/10.1038/1831533a0
   figures: []
-  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes or art copied.
-  truth_status: 'TRUE documented places (Toronto, Kolkata / Nilratan Sircar Medical College, Bongaon on the West Bengal border), dates (1920, 1921, 11 and 23 January 1922, 1959, 1968, 1971), experimental designs, and clinical numbers (Leonard Thompson 65 lb / 29.5 kg, blood glucose 520 mg/dL to 120 mg/dL; Bongaon 3,703 patients, fatality ~30% to 3.6%). No invented dialogue or scenes.'
-  access_limits: Banting et al. 1922 (PMC1524425) examined directly; De 1959 and Mahalanabis et al. 1973 verified via published abstracts, WHO historical bulletin reprints and primary bibliometric records.
-
+  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs,
+    quotes or art copied.
+  truth_status: TRUE documented places (Toronto, Kolkata / Nilratan Sircar Medical College, Bongaon on the West
+    Bengal border), dates (1920, 1921, 11 and 23 January 1922, 1959, 1968, 1971), experimental designs, and clinical
+    numbers (Leonard Thompson 65 lb / 29.5 kg, blood glucose 520 mg/dL to 120 mg/dL; Bongaon 3,703 patients, overall
+    case fatality 3.6%). No invented dialogue or scenes.
+  access_limits: Banting et al. 1922 (PMC1524425) examined directly; De 1959 and Mahalanabis et al. 1973 verified
+    via published abstracts, WHO historical bulletin reprints and primary bibliometric records.
 model:glucose_thermoregulation:
   source: live/homeostasis_model.js; live/w_glucose_thermoregulation.js; appended live/enhancements.js entry
   static_figure: c10_skin_thermoregulation
-  contract: grounding/ch10.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  contract: Revised grounding/ch10.md scientific contracts supersede the original model. Static/manual illustrative
+    states; explicit input bounds; captured outcomes immutable; all tour controls explicit; tours do not capture
+    outcomes. Values are teaching scenarios, not individual clinical predictions.
   licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
-  validation: tests/ch10_domain.mjs independent oracles and tests/qa_ch10.py final-book browser acceptance; results reported in gates/ch10-verification.md
-
+  validation: Historical acceptance applies to the earlier build. Reader-revision model verification is recorded
+    separately by the coordinator; no new PASS is inferred from old receipts.
 model:nephron_filtration:
   source: live/homeostasis_model.js; live/w_nephron_filtration.js; appended live/enhancements.js entry
   static_figure: c10_kidney_nephron_ledger
-  contract: grounding/ch10.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  contract: Revised grounding/ch10.md scientific contracts supersede the original model. Static/manual illustrative
+    states; explicit input bounds; captured outcomes immutable; all tour controls explicit; tours do not capture
+    outcomes. Values are teaching scenarios, not individual clinical predictions.
   licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
-  validation: tests/ch10_domain.mjs independent oracles and tests/qa_ch10.py final-book browser acceptance; results reported in gates/ch10-verification.md
-
+  validation: Historical acceptance applies to the earlier build. Reader-revision model verification is recorded
+    separately by the coordinator; no new PASS is inferred from old receipts.
 model:immunity_vaccine_memory:
   source: live/homeostasis_model.js; live/w_immunity_vaccine_memory.js; appended live/enhancements.js entry
   static_figure: c10_immune_response_vaccines
-  contract: grounding/ch10.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  contract: Revised grounding/ch10.md scientific contracts supersede the original model. Static/manual illustrative
+    states; explicit input bounds; captured outcomes immutable; all tour controls explicit; tours do not capture
+    outcomes. Values are teaching scenarios, not individual clinical predictions.
   licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
-  validation: tests/ch10_domain.mjs independent oracles and tests/qa_ch10.py final-book browser acceptance; results reported in gates/ch10-verification.md
-
+  validation: Historical acceptance applies to the earlier build. Reader-revision model verification is recorded
+    separately by the coordinator; no new PASS is inferred from old receipts.
 record:ch10-decisions:
-  preservation: tests/ch10-preserved.json captures all 265 pre-existing files (Chapters 0–9 + baselines/gates/runners). Only existing-file change is append-only three Chapter 10 enhancements in source/live/enhancements.js; exact original 62,628 bytes reconstructed and verified. Existing stories p-agre.md and p-pasteur.md linked in Sections 10.3 and 10.4 without modifying either file.
-  corrections: 'Covered full Cambridge IGCSE 0610 Topics 14.4 (Homeostasis), 13.1 (Excretion in humans) and 10.1 (Diseases and immunity); enforced strict distinction between arteriole vasodilation/vasoconstriction and fixed-position surface capillaries; separated excretion from egestion and hepatic deamination from renal filtration; unified pancreatic insulin deficiency and renal proximal tubular transport maximum (T_m) saturation in the end-of-chapter case.'
-  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax access-for-free footer retained; original prose/art only.
-  access_limits: Primary papers Banting et al. 1922 (PMC1524425), Cannon 1929, Wearn & Richards 1924, Preston & Agre 1992, De 1959, Mahalanabis et al. 1973, Bapat & Ranadive 1958, and Bhandari & Kang et al. 2014 verified via open-access archives and PubMed/WHO records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
-  physical_trials: Two safe home comparisons (damp vs dry handkerchief on steel tumblers in fan breeze, and rajma/sugar/salt kitchen strainer sieve) reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
+  preservation: Historical creation used tests/ch10-preserved.json and append-only enhancements. This authorised
+    reader revision changes chapter text, figures, models and supporting material together. The immutable old baseline
+    is not regenerated to legitimise changed scientific premises; revised local evidence is recorded separately.
+  corrections: Reader revision 2026-11-01 supersedes historical contracts. Use corrected grounding/ch10.md for renal
+    rate units, physiological zeros, heat and immunity limits; source-wide verification pending coordinator.
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax
+    access-for-free footer retained; original prose/art only.
+  access_limits: Primary papers Banting et al. 1922 (PMC1524425), Cannon 1929, Wearn & Richards 1924, Preston &
+    Agre 1992, De 1959, Mahalanabis et al. 1973, Bapat & Ranadive 1958, and Bhandari & Kang et al. 2014 verified
+    via open-access archives and PubMed/WHO records; exact 0893 framework unavailable; MIT OCW courses not cited
+    where not directly inspected.
+  physical_trials: No new physical household or learner trial is claimed. Activities remain proposed and require
+    real-use observation.
   publication: No publication, deployment, commit, push, clone or remote repository operation.

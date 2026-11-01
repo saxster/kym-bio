@@ -67,8 +67,8 @@ Live.register('double_pump', (stage, params, api) => {
       t(`Modern: ${q.hr} bpm × ${q.sv} mL = ${q.coLMin.toFixed(2)} L/min`, 472, 126, 13.5, c.green, 600);
       t(`Per hour: ${q.coLHour.toFixed(1)} L/h (whole body blood ~5 L)`, 472, 148, 12, c.ink);
       t(`Harvey 1628 (1,000 beats / 30 min):`, 472, 176, 12.5, c.neutron, 600);
-      t(`1 drachm/beat → ${q.harvey1Drachm.troyLabel} (~${q.harvey1Drachm.approxLitresHalfHour} L)`, 472, 196, 12, c.ink);
-      t(`½ oz (4 drachms) → ${q.harveyHalfOz.troyLabel} (~${q.harveyHalfOz.approxLitresHalfHour} L)`, 472, 216, 12, c.ink);
+      t(`1 drachm/beat → ${q.harvey1Drachm.troyLabel} (~${q.harvey1Drachm.approxKgHalfHour} kg)`, 472, 196, 12, c.ink);
+      t(`½ oz (4 drachms) → ${q.harveyHalfOz.troyLabel} (~${q.harveyHalfOz.approxKgHalfHour} kg)`, 472, 216, 12, c.ink);
 
       t(`Pulmonary flow Qp = ${q.qpLMin.toFixed(2)} L/min`, 472, 246, 13, c.electron, 600);
       t(`Systemic flow Qs = ${q.qsLMin.toFixed(2)} L/min (Qp/Qs = ${q.qpQsRatio.toFixed(2)})`, 472, 268, 12.8, c.proton, 600);

@@ -59,7 +59,7 @@ const h1 = harveyAccount(1, 1000);
 assert.equal(h1.totalDrachms, 1000);
 assert.equal(h1.totalOunces, 125);
 assert.equal(h1.troyLabel, '10 lb 5 oz');
-near(h1.approxLitresHalfHour, 3.89, 1e-2);
+near(h1.approxKgHalfHour, 3.89, 1e-2);
 
 const h2 = harveyAccount(2, 1000);
 assert.equal(h2.troyLabel, '20 lb 10 oz');
@@ -101,9 +101,11 @@ for (let focus = 0; focus < 4; focus++) {
       const expectedVCmS = ((co * 1000) / 60) / vesselSegments[segIdx].totalAreaCm2;
       near(q.velocityCmSec, expectedVCmS, 1e-3);
       near(q.velocityMmSec, expectedVCmS * 10, 1e-2);
-      assert.equal(q.nfpArterialMmHg, 10);
-      assert.equal(q.nfpVenousMmHg, -7);
-      near(q.filtrationLDay, q.reabsorptionLDay + q.lymphReturnLDay, 1e-5);
+      assert.equal(q.fluidRoutes.filtration, 'Blood → tissue fluid');
+      assert.equal(q.fluidRoutes.lymph, 'Tissue fluid → lymph → veins');
+      assert.equal(q.nfpVenousMmHg, undefined, 'No universal venous-end suction calculation');
+      assert.equal(q.reabsorptionLDay, undefined, 'No invented 85% venous reabsorption');
+      assert.equal(q.lymphReturnLDay, undefined, 'Cardiac output alone does not determine lymph return');
       const cap = captureVessel(q);
       assert.ok(Object.isFrozen(cap));
       count++;
@@ -160,3 +162,14 @@ for (const [name, sliders, tabs] of [
 }
 
 console.log(`${count} independent Chapter 8 ventilation, Harvey, double-pump, VSD, vessel-continuity and tour cases passed`);
+
+// Clinical meaning differs from a right-to-left shunt; the atlas must preserve that distinction.
+const atlas = await import('../live/atlas/biology/ch08-breath-double-pump/model.js');
+for (const shunt of [0, 10, 30, 60]) {
+ const q = atlas.doublePumpAccount(72, 70, shunt);
+ assert.equal(q.systemicO2SatPct, 98);
+ near(q.pulmonaryFlowLPerMin, 5.04 * (1 + shunt / 100));
+}
+for (const phase of [0, Math.PI / 2, Math.PI, Math.PI * 1.5]) {
+ assert.ok(Math.abs(atlas.thoracicBoyleAccount(phase).pAlveolarMmHg) <= 1);
+}

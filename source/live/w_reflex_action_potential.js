@@ -20,7 +20,7 @@ Live.register(
       api,
       640,
       360,
-      'Interactive spinal reflex arc, action potential waveform and Siddiqi para temperature-sensitive Na+ channel investigator'
+      'Illustrative timing model, not a measured hot-pan reflex; action potential waveform and Siddiqi para temperature-sensitive Na+ channel investigator'
     );
 
     const say = api.readout();
@@ -170,7 +170,7 @@ Live.register(
         ctx.fillStyle = c.plate;
         draw.roundRect(ctx, 28, by, 276, 138, 8);
         ctx.fill();
-        draw.text(ctx, 'Pathway latency breakdown', 166, by + 20, {
+        draw.text(ctx, 'Chosen pathway timing model', 166, by + 20, {
           size: 12,
           weight: 700,
           color: c.ink,
@@ -328,7 +328,7 @@ Live.register(
         )
         .join(' | ');
       say(
-        `${q.modeLabel} (${q.diameterUm} µm, ${q.tempC} °C): conduction speed ${q.velocityMS.toFixed(1)} m/s · peak ${q.peakMv > 0 ? '+' : ''}${q.peakMv} mV · total latency ${latTxt}${rulerTxt}. ${captures.length} captured trials. ${cmp.reason} Saved: ${history || 'none'}.`
+        `${q.modeLabel} (${q.diameterUm} µm, ${q.tempC} °C): conduction speed ${q.velocityMS.toFixed(1)} m/s · peak ${q.peakMv > 0 ? '+' : ''}${q.peakMv} mV · illustrative total ${latTxt}${rulerTxt}. ${captures.length} captured trials. ${cmp.reason} Saved: ${history || 'none'}.`
       );
     }
 

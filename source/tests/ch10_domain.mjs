@@ -31,7 +31,7 @@ check(Object.isFrozen(IMMUNITY_MODES) && IMMUNITY_MODES.length === 4, 'IMMUNITY_
 check(HOMEOSTASIS_CONSTANTS.coreTempSetPointC === 37.0, 'Set point 37.0 °C');
 check(HOMEOSTASIS_CONSTANTS.latentHeatSweatJPerG === 2420, 'Sweat latent heat 2420 J/g');
 check(HOMEOSTASIS_CONSTANTS.bloodGlucoseSetPointMmolL === 5.0, 'Glucose set point 5.0 mmol/L');
-check(HOMEOSTASIS_CONSTANTS.renalGlucoseTmMmolL === 10.5, 'Renal glucose T_m 10.5 mmol/L');
+check(HOMEOSTASIS_CONSTANTS.renalGlucoseTmMgMin === 330, 'Renal glucose T_m 330 mg/min');
 check(HOMEOSTASIS_CONSTANTS.plasmaProteinGPer100Ml === 8.0, 'Plasma protein 8.0 g/100mL');
 check(HOMEOSTASIS_CONSTANTS.passiveHalfLifeDays === 21.0, 'Passive half-life 21 days');
 
@@ -73,8 +73,8 @@ check(mealState.liverGlycogenRateGH > 0 && fastState.liverGlycogenRateGH < 0, 'L
 
 const t1dUntreated = thermoGlucoseAccount(3, 30, 30);
 const t1dRescued = thermoGlucoseAccount(3, 30, 75);
-check(t1dUntreated.insulinUnitsMl === 0 && t1dUntreated.urineGlucoseSpillMmolL > 0, 'Untreated Type 1 diabetes spills glucose in urine');
-check(t1dRescued.insulinUnitsMl > 0 && t1dRescued.urineGlucoseSpillMmolL === 0, 'Injected insulin rescues glucose below renal T_m');
+check(t1dUntreated.insulinUnitsMl === 0 && t1dUntreated.urineGlucoseSpillMgMin > 0, 'Untreated Type 1 diabetes spills glucose in urine');
+check(t1dRescued.insulinUnitsMl > 0 && t1dRescued.urineGlucoseSpillMgMin === 0, 'Injected insulin rescues glucose below renal T_m');
 
 // Immutability & comparison checks for thermoGlucose
 const tg0 = compareThermoGlucoseTrials([]);
@@ -90,13 +90,13 @@ for (let m = 0; m < 4; m += 1) {
     for (const gfr of [85, 105, 125, 140]) {
       const n = nephronFiltrationAccount(m, gluc, gfr);
       check(Object.isFrozen(n), `nephronFiltrationAccount frozen (${m},${gluc},${gfr})`);
-      check(n.filtrateProteinG100Ml === 0 && n.urineProteinG100Ml === 0, 'Glomerular barrier retains all plasma protein');
+      check(n.filtrateProteinG100Ml === 0 && n.urineProteinG100Ml === 0, 'Rounded protein zeros in the stipulated intact-barrier model');
       check(n.glomerularBarrierIntact === true, 'Glomerular barrier intact');
       check(Math.abs(n.reabsorbedWaterLPerDay + n.urineLPerDay - n.filtrateLPerDay) < 0.05, 'Nephron water volume balance');
-      if (n.plasmaGlucoseMmolL <= 10) {
-        check(n.glucoseReabsorbedPct === 100 && n.spilledGlucoseMmolL === 0 && n.urineGlucoseGPerDay === 0, '100% glucose reabsorbed below T_m');
+      if (n.filteredGlucoseMgMin <= HOMEOSTASIS_CONSTANTS.renalGlucoseTmMgMin) {
+        check(n.glucoseReabsorbedPct === 100 && n.excretedGlucoseMgMin === 0 && n.urineGlucoseGPerDay === 0, '100% glucose reabsorbed below T_m');
       } else {
-        check(n.glucoseReabsorbedPct < 100 && n.spilledGlucoseMmolL > 0 && n.urineGlucoseGPerDay > 0, 'Glucose spills into urine above T_m');
+        check(n.glucoseReabsorbedPct < 100 && n.excretedGlucoseMgMin > 0 && n.urineGlucoseGPerDay > 0, 'Glucose spills into urine above T_m');
       }
       check(n.ureaConcentrationRatio > 10, 'Urea concentrated strongly in urine relative to plasma');
     }
@@ -168,4 +168,17 @@ for (const key of ['glucose_thermoregulation', 'nephron_filtration', 'immunity_v
   }
 }
 
+
+
+// Independent worked ledger and dimensional regression: concentration is not a transport rate.
+const rateCase = nephronFiltrationAccount(3, 16, 125);
+check(Math.abs(rateCase.filteredGlucoseMgMin - 360) < 1e-9, '2.88 mg/mL ×125mL/min =360mg/min');
+check(rateCase.reabsorbedGlucoseMgMin ===330 && rateCase.excretedGlucoseMgMin===30, '330mg/min capacity leaves30mg/min');
+check(rateCase.urineGlucoseGPerDay===43.2, '30mg/min ×1440min/day =43.2g/day');
+const lowerFlow = nephronFiltrationAccount(0,16,85);
+check(lowerFlow.excretedGlucoseMgMin===0,'Same plasma concentration at lower GFR need not exceed rate capacity');
+check(normNeph.filteredGlucoseGPerDay===162,'5mmol/L at180L/day filters162g/day');
+check(Math.abs(rateCase.urineGlucoseG100Ml *rateCase.urineLPerDay*10-rateCase.urineGlucoseGPerDay)<0.2,'Urine concentration and daily loss agree within rounding');
+
+check(!immunityVaccineAccount(0,0,0).memoryCellsPresent, 'First exposure at Day0 has no pre-existing memory');
 console.log(`ch10_domain: ${count} assertions passed`);

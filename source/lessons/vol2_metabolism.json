@@ -183,13 +183,15 @@
   {
     "id": "ch06-glycolysis-3d",
     "widget": "atlas_ch06",
-    "title": "3D Atlas: Glycolytic Carbon Splitting & Controlled Oxidation Staircase",
+    "title": "3D Atlas: Compartments for Cellular Fuel Processing",
     "chapter": 6,
     "figure": "c6_routes",
-    "question": "Why must glycolysis invest 2 ATP at the top of the staircase before harvesting 4 ATP and 2 NADH from splitting a 6-carbon glucose into two 3-carbon pyruvates?",
-    "explanation": "Following the 6-carbon chain in 3D shows phosphorylation priming and destabilising the hexose ring so aldolase can cleave it cleanly into two triose phosphates that yield a net gain of 2 ATP and 2 NADH.",
-    "limits": "Ten enzymatic steps condensed into the key 6C → 2 × 3C cleavage geometry.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "How do mitochondrial compartments help separate fuel-carbon processing from membrane energy transfer?",
+    "explanation": "The structural cutaway locates matrix and inner membrane. Glycolysis occurs outside the mitochondrion; its two net ATP and reusable carrier connect to the later carbon and electron routes. The 3D shape does not itself show every glycolytic reaction.",
+    "limits": "Manual structural and causal schematic; no calibrated oxygen-dose response, biochemical clock, total ATP yield or fixed aerobic-to-fermentation ratio.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch06-mitochondrion-3d",
@@ -199,8 +201,10 @@
     "figure": "c6_respiration",
     "question": "How do the folded inner cristae and central matrix of the mitochondrion divide the work of the Krebs cycle and oxidative phosphorylation?",
     "explanation": "Using Section cutaway mode on the 3D mitochondrion exposes the central matrix—where the 8-step Krebs cycle oxidises acetyl-CoA to CO₂ while loading NADH and FADH₂—surrounded by deeply folded cristae packed with electron-transport complexes.",
-    "limits": "Idealised lamellar cristae folds for clear cross-sectional viewing.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "limits": "Manual structural and causal schematic; no calibrated oxygen-dose response, biochemical clock, total ATP yield or fixed aerobic-to-fermentation ratio.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch06-synthase-3d",
@@ -208,21 +212,25 @@
     "title": "3D Atlas: Rotary F₀F₁-ATP Synthase Molecular Turbine",
     "chapter": 6,
     "figure": "c6_membrane",
-    "question": "How does a transmembrane proton gradient physically turn a protein rotor to forge ~26–28 ATP per glucose molecule?",
-    "explanation": "Exploding the 3D F₀F₁-ATP synthase reveals protons flowing down Δp (~180 mV) through the membrane c-ring rotor, spinning the asymmetric γ-shaft in 120° steps inside the catalytic α₃β₃ hexamer to press ADP + P_i into ATP.",
-    "limits": "10-subunit c-ring stoichiometry (~3.3 H⁺ per ATP).",
-    "sources": ["https://www.nobelprize.org/prizes/chemistry/1997/summary/"]
+    "question": "How does controlled H⁺ return couple a membrane gradient to ATP formation?",
+    "explanation": "Inspect rotor, shaft and catalytic head. Proton return drives motion linked to shape changes supporting ATP formation. Motion is schematic; no fixed rotation speed, coupling ratio or ATP yield is measured.",
+    "limits": "Manual structural and causal schematic; no calibrated oxygen-dose response, biochemical clock, total ATP yield or fixed aerobic-to-fermentation ratio.",
+    "sources": [
+      "https://www.nobelprize.org/prizes/chemistry/1997/summary/"
+    ]
   },
   {
     "id": "ch06-mitochondrion-3d-mass",
     "widget": "atlas_ch06",
-    "title": "3D Atlas: Where Exhaled Carbon Mass Exits in the Krebs Cycle",
+    "title": "3D Atlas: Carbon Processing and Gas Measurements",
     "chapter": 6,
     "figure": "c6_mass",
-    "question": "When you lose body mass during exercise, how do the carbon and oxygen atoms actually leave your body?",
-    "explanation": "Inspecting the 3D pyruvate dehydrogenase and Krebs cycle decarboxylation steps in the mitochondrial matrix shows all 6 carbons of glucose exiting as exhaled CO₂ gas while O₂ accepts electrons at Complex IV to form metabolic H₂O.",
-    "limits": "Stoichiometric C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O balance.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "Why does an oxidation ledger have to include incoming oxygen?",
+    "explanation": "Use the main chapter mass ledger to balance fuel plus oxygen against total products. The 3D view locates carbon processing and controlled gas-measurement apparatus; it does not measure body-mass change or trace individual oxygen origins.",
+    "limits": "Manual structural and causal schematic; no calibrated oxygen-dose response, biochemical clock, total ATP yield or fixed aerobic-to-fermentation ratio.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch06-fermentation-3d",
@@ -230,10 +238,12 @@
     "title": "3D Atlas: Lactic & Alcoholic Fermentation NAD⁺ Rescue Fork",
     "chapter": 6,
     "figure": "c6_fermentation",
-    "question": "Why does a cell deprived of oxygen get stuck at just 2 ATP per glucose and convert pyruvate into lactate or ethanol?",
-    "explanation": "Lowering O₂ partial pressure in the 3D fermentation fork shows Complex IV stalling; to keep cytosolic NAD⁺ from running out—which would halt glycolysis—pyruvate accepts electrons from NADH to form lactate or ethanol + CO₂.",
-    "limits": "Pasteur-effect switch modelled as a smooth Hill function of pO₂.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "How can carrier recycling support glycolysis, and why can waterlogged roots still lack oxygen?",
+    "explanation": "Compare the oxygen-linked relay with sustained oxygen absence. Fermentation restores NAD⁺; yeast and lactate routes have different products, and lactate can form with oxygen present. Rice internal gas spaces improve oxygen delivery to submerged tissues; they do not remove respiratory requirements.",
+    "limits": "Manual structural and causal schematic; no calibrated oxygen-dose response, biochemical clock, total ATP yield or fixed aerobic-to-fermentation ratio.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch06-fermentation-3d-roots",
@@ -241,9 +251,11 @@
     "title": "3D Atlas: Waterlogged Root Hypoxia & ATP Starvation",
     "chapter": 6,
     "figure": "c6_roots",
-    "question": "Why do over-watered pot plants wilt and yellow even though their roots are submerged in water?",
-    "explanation": "Dialing down O₂ in the 3D respiration and ATP synthase stations shows root mitochondria stalling from 30 ATP to 2 ATP per glucose in anoxic soil, starving the root-hair proton pumps needed for mineral and water uptake.",
-    "limits": "Steady-state normoxic vs hypoxic ATP yield comparison.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "How can carrier recycling support glycolysis, and why can waterlogged roots still lack oxygen?",
+    "explanation": "Compare the oxygen-linked relay with sustained oxygen absence. Fermentation restores NAD⁺; yeast and lactate routes have different products, and lactate can form with oxygen present. Rice internal gas spaces improve oxygen delivery to submerged tissues; they do not remove respiratory requirements.",
+    "limits": "Manual structural and causal schematic; no calibrated oxygen-dose response, biochemical clock, total ATP yield or fixed aerobic-to-fermentation ratio.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   }
 ]

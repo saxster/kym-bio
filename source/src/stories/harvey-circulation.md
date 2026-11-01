@@ -31,7 +31,7 @@ Instead of claiming an exact universal stroke volume, he deliberately chose numb
 
 In half an hour the heart beats more than a thousand times (and in some people two, three or four thousand times). Multiply even the tiniest assumed ejection—one drachm per beat—by 1,000 beats: that is 1,000 drachms, or **10 pounds 5 ounces** Troy (~3.9 kilograms) of blood pumped out of the left ventricle in thirty minutes. If the heart ejects half an ounce (4 drachms) per beat over 1,000 beats, the half-hour total is **41 pounds 8 ounces** Troy (~15.5 kilograms).
 
-That conservative lower bound was already larger than the entire quantity of blood contained in the body, and far more than any meal or drink could supply in half an hour. Arithmetic alone could not show how arteries and veins connect, nor could it prove that flow is steady. What it **ruled out** was one-way production and complete tissue consumption: unless the vessels burst, the same blood had to return to the heart and be pumped around again.
+The larger estimate exceeds a modern adult’s roughly five-litre total blood volume. The smallest estimate, about 3.9 kg, does not. Repeated replacement at even that lower rate would still demand far more material than ordinary food and drink could supply. Arithmetic alone could not show how arteries and veins connect, nor could it prove that flow is steady. What it **ruled out** was one-way production and complete tissue consumption: unless the vessels burst, the same blood had to return to the heart and be pumped around again.
 
 #### Step 3: Test direction with ligatures and a finger on a forearm vein
 

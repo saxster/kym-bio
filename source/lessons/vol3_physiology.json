@@ -8,8 +8,12 @@
     "question": "How did William Beaumont prove through Alexis St Martin’s gastric fistula that digestion is driven by coordinated muscular churning and chemical catalysis?",
     "explanation": "Slicing the 3D muscular tube reveals inner circular muscle contracting behind the food bolus while outer longitudinal muscle shortens ahead of it, propelling chyme through pH-zoned compartments.",
     "limits": "Travelling sinusoidal peristaltic wave along a cylindrical gut segment.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1317093/"],
-    "stories": ["beaumont-st-martin"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1317093/"
+    ],
+    "stories": [
+      "beaumont-st-martin"
+    ]
   },
   {
     "id": "ch07-villus-3d-boundary",
@@ -18,9 +22,11 @@
     "chapter": 7,
     "figure": "c7_boundary",
     "question": "Why is food in the intestinal lumen topology-wise still ‘outside’ the body’s internal cellular environment until it crosses the villus epithelium?",
-    "explanation": "Inspecting the 3D peristaltic tube and single-cell villus epithelium shows that only small, hydrolysed monomers can cross the brush-border membrane to enter blood capillaries or lacteals.",
+    "explanation": "Trace the meal along the lumen, then across the epithelial barrier. Glucose and amino acids use selective transport before entering capillaries; long-chain lipid products are rebuilt into chylomicrons before entering lymph. Water, ions and some other nutrients need no prior digestion.",
     "limits": "Topological lumen-to-capillary boundary view.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch07-peristalsis-3d-bolus",
@@ -31,7 +37,9 @@
     "question": "Why can you swallow water even while hanging upside down?",
     "explanation": "Exploding the 3D oesophageal wall shows that swallowing is not passive gravity fall: a reflex wave of circular-muscle constriction behind the bolus and relaxation ahead of it pushes food inexorably toward the stomach.",
     "limits": "Single-bolus travelling constriction wave.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch07-hepatic-3d-proteases",
@@ -39,10 +47,12 @@
     "title": "3D Atlas: Regional pH Compartments for Amylase, Pepsin & Trypsin",
     "chapter": 7,
     "figure": "c7_chemistry",
-    "question": "Why does the human gut switch from neutral saliva (pH 6.8) to fiercely acidic gastric juice (pH 1.8) and back to alkaline duodenal juice (pH 8.0)?",
-    "explanation": "Tuning compartment pH in the 3D digestive stage shows how gastric HCl unfolds dietary proteins and activates pepsin (optimum pH ~1.8), before pancreatic NaHCO₃ neutralises chyme to ~pH 8.0 for trypsin and lipase.",
-    "limits": "Bell-shaped pH activity profiles for the three protease/amylase regimes.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "question": "Why do digestive enzymes work under different conditions in different gut compartments?",
+    "explanation": "Compare illustrative activity curves as pH changes. Acid supports stomach pepsin activity; pancreatic bicarbonate is a major contributor to the different intestinal conditions. The curves are teaching shapes, not measured universal enzyme profiles.",
+    "limits": "Illustrative pH curves; values vary with enzyme and conditions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch07-peristalsis-3d-mucus",
@@ -51,9 +61,11 @@
     "chapter": 7,
     "figure": "c7_protection",
     "question": "Why doesn’t the stomach’s own HCl (pH 1.8) and pepsin digest the living stomach wall itself?",
-    "explanation": "Slicing the 3D mucosa in Section mode highlights how chief cells secrete inactive pepsinogen while goblet cells coat the epithelium in an alkaline mucus gel that neutralises H⁺ before it reaches the cell membranes.",
+    "explanation": "Inspect the protective mucus and bicarbonate layer, alongside the chapter explanation of epithelial joins, repair and inactive protease precursors. Surface mucus cells protect the stomach lining; no single layer guarantees complete protection.",
     "limits": "Cross-sectional mucosal wall protection layer.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch07-micelle-3d",
@@ -61,21 +73,25 @@
     "title": "3D Atlas: Amphipathic Bile Salts & 64-Droplet Lipid Emulsification",
     "chapter": 7,
     "figure": "c7_emulsion",
-    "question": "How does bile accelerate pancreatic lipase 4× without itself being an enzyme?",
-    "explanation": "Raising bile salt concentration in 3D subdivides one large hydrophobic fat globule into 64 amphipathic-coated micro-droplets; at constant total lipid volume, total surface area scales as N^(1/3) = 4×, quadrupling interfacial lipase binding sites.",
+    "question": "How can smaller fat droplets provide four times the interface without proving a fourfold digestion rate?",
+    "explanation": "Choose a geometric division into 64 equal droplets of the same total volume. Their combined interface is four times larger. This is a droplet-geometry model, not a calibrated bile-concentration or enzyme-rate experiment; lipase supply and interfacial conditions still matter.",
     "limits": "Equal-radius spherical subdivision model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch07-micelle-3d-lipase",
     "widget": "atlas_ch07",
-    "title": "3D Atlas: Interfacial Pancreatic Lipase Catalysis on Emulsified Micelles",
+    "title": "3D Atlas: Lipase at the Fat-Droplet Interface",
     "chapter": 7,
     "figure": "c7_lipase",
     "question": "Why does water-soluble pancreatic lipase act only at the oil–water surface of lipid droplets?",
     "explanation": "Inspecting the green pancreatic lipase enzymes docked around the 3D emulsified droplets shows how bile-salt emulsification multiplies accessible ester bonds for hydrolysis into fatty acids and monoglycerides.",
-    "limits": "Surface-area-proportional interfacial catalysis model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "limits": "Structural interface schematic; no calculated hydrolysis rate.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch07-villus-3d",
@@ -86,7 +102,9 @@
     "question": "Why do absorbed glucose and amino acids enter the villus blood capillaries while long-chain fats enter the central lymphatic lacteal?",
     "explanation": "Switching the 3D intestinal villus to X-ray or Section cutaway view reveals water-soluble sugars and amino acids crossing the single-cell brush-border epithelium into the capillary mesh, while bulky chylomicrons enter the porous central lacteal.",
     "limits": "Single finger-like villus column with representative microvillus amplification.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch07-hepatic-3d",
@@ -95,9 +113,11 @@
     "chapter": 7,
     "figure": "c7_absorption",
     "question": "Why does venous blood from the small intestine detour through a second capillary bed in the liver before reaching the heart?",
-    "explanation": "Following the 3D hepatic portal vessel from intestinal villi into liver sinusoids shows hepatocytes buffering post-meal glucose spikes into glycogen, deaminating excess amino acids into urea, and detoxifying xenobiotics before systemic circulation.",
-    "limits": "Lumped sinusoidal first-pass clearance model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK22436/"]
+    "explanation": "The villus view identifies the capillary route. Blood leaving intestinal capillaries subsequently reaches the liver through the hepatic portal vein; that later organ route is explained in the chapter, rather than represented by a complete liver model here.",
+    "limits": "Villus and onward-route explanation; no modelled liver clearance or sinusoidal flow.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK22436/"
+    ]
   },
   {
     "id": "ch08-thorax-3d-airway",
@@ -108,7 +128,9 @@
     "question": "Why is the trachea reinforced with incomplete C-shaped cartilage rings rather than rigid solid cylinders or soft muscle alone?",
     "explanation": "Inspecting the 3D trachea and bronchi above the expanding lungs shows how C-rings prevent airway collapse during negative-pressure inspiration while letting the oesophagus bulge forward during swallowing.",
     "limits": "Upper bronchial tree and thoracic bellows model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch08-thorax-3d",
@@ -116,10 +138,12 @@
     "title": "3D Atlas: Rib Bucket-Handle Kinematics, Diaphragm Dome & Boyle’s Law",
     "chapter": 8,
     "figure": "c8_thorax_pressure_cycle",
-    "question": "Does incoming air inflate the lungs, or does expanding the thoracic cage suck air in?",
-    "explanation": "Animating the 3D ribcage and muscular diaphragm dome demonstrates Boyle’s law (P₁V₁ = P₂V₂): flattening the diaphragm and swinging the ribs upward expands thoracic volume, dropping intrapulmonary pressure ~1.5 mmHg below atmospheric so air flows in.",
-    "limits": "Isothermal ideal-gas pressure–volume cycle.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "question": "How does chest expansion create the pressure difference that drives air into the lungs?",
+    "explanation": "The expanding ribcage and flattening diaphragm expand the lungs through pleural coupling. Alveolar pressure briefly falls below outside pressure, driving inward airflow. The displayed pressure swing is a chosen small schematic cycle.",
+    "limits": "Open-air breathing schematic; the pressure swing is not a closed-gas Boyle calculation.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch08-alveolus-3d",
@@ -130,7 +154,9 @@
     "question": "How does a 0.5 µm alveolar–capillary barrier transfer 250 mL of O₂ per minute at rest and up to 4,000 mL min⁻¹ during exercise?",
     "explanation": "Exploding the 3D alveolar sac and its wrapping capillary basket shows red blood cells squeezing single-file past squamous Type I pneumocytes, maximising surface area A (~70 m²) and minimising barrier thickness Δx (~0.5 µm) in Fick’s law.",
     "limits": "Steady-state alveolar–arterial partial pressure gradient.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch08-vessels-3d-harvey",
@@ -141,8 +167,12 @@
     "question": "How did William Harvey use simple multiplication of stroke volume by heart rate—plus forearm vein valves—to refute Galen’s tidal blood theory?",
     "explanation": "Inspecting the 3D semilunar venous valve leaflets and cardiac output readout (Q = HR × SV ≈ 5 L min⁻¹) shows why blood must circulate in a closed one-way loop.",
     "limits": "Coupled cardiac output and venous valve geometry.",
-    "sources": ["https://www.britannica.com/biography/William-Harvey"],
-    "stories": ["harvey-circulation"]
+    "sources": [
+      "https://www.britannica.com/biography/William-Harvey"
+    ],
+    "stories": [
+      "harvey-circulation"
+    ]
   },
   {
     "id": "ch08-heart-3d",
@@ -153,7 +183,9 @@
     "question": "Why do mammals and birds route blood through the heart twice on every complete circuit of the body?",
     "explanation": "Tracing the blue pulmonary loop and red systemic loop in 3D shows why a double pump is essential: after blood loses pressure crossing the delicate pulmonary capillaries, the thick left ventricle re-pressurises oxygenated blood to 120 mmHg for systemic delivery.",
     "limits": "Simplified figure-of-eight vascular loop coupled to the four-chamber heart.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch08-heart-3d-valves",
@@ -164,7 +196,9 @@
     "question": "Why is the muscular wall of the left ventricle three times thicker than the right ventricle, and what makes the ‘lub-dub’ heart sounds?",
     "explanation": "Slicing the 3D heart in Section mode reveals the 12 mm left ventricular myocardium versus the 4 mm right wall, plus the atrioventricular (‘lub’) and semilunar (‘dub’) valves snapping shut under reverse pressure gradients.",
     "limits": "Synchronised cardiac cycle driven by heart-rate slider.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch08-vessels-3d",
@@ -175,7 +209,9 @@
     "question": "How do the wall layers and lumen diameters of arteries, veins, and capillaries match their local blood pressures and flow velocities?",
     "explanation": "Comparing the three 3D vessel cylinders side-by-side shows thick elastic/smooth-muscle tunica media in high-pressure arteries, wide lumens with pocket valves in low-pressure veins, and a single-cell endothelium in exchange capillaries.",
     "limits": "Cross-sectional segments normalized for direct wall-thickness comparison.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch08-vessels-3d-blood",
@@ -184,9 +220,11 @@
     "chapter": 8,
     "figure": "c8_capillary_bed_blood",
     "question": "Why does a human red blood cell eject its nucleus and squeeze single-file through a 7 µm capillary lumen?",
-    "explanation": "Inspecting the 3D biconcave erythrocytes inside the capillary lumen shows how losing the nucleus increases surface-to-volume ratio by ~30% and minimizes diffusion distance to the capillary endothelium.",
+    "explanation": "Biconcave red cells have a short diffusion distance and flex through narrow capillaries. Loss of the nucleus leaves room for haemoglobin. Oxygen diffusion and net fluid filtration are separate processes; lymphatics return net filtered fluid.",
     "limits": "Focuses on erythrocytes and plasma flow inside the vessel trio.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch08-heart-3d-septal",
@@ -196,8 +234,10 @@
     "figure": "c8_septal_defect_case",
     "question": "Why does a hole in the muscular interventricular septum (VSD) force oxygenated blood from the left ventricle into the right ventricle rather than the reverse?",
     "explanation": "Slicing the 3D heart to inspect the interventricular septum shows that left ventricular systolic pressure (120 mmHg) is nearly five times right ventricular pressure (25 mmHg), driving a left-to-right shunt that overloads pulmonary capillaries.",
-    "limits": "Sectioned 3D four-chamber pressure comparison.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "limits": "Assumed uncomplicated postnatal left-to-right shunt; pulmonary flow increases without an assumed fall in systemic oxygen saturation.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch09-synapse-3d-endocrine",
@@ -206,9 +246,11 @@
     "chapter": 9,
     "figure": "c9_nerves_vs_hormones",
     "question": "How does a 0.5 ms neurotransmitter pulse across a 20 nm synaptic cleft compare with blood-borne hormone signalling?",
-    "explanation": "Comparing the 3D synaptic cleft with axonal saltatory conduction illustrates why wired neural circuits achieve millisecond precision while bloodstream hormone diffusion provides sustained whole-body coordination.",
-    "limits": "Focused on the 20 nm cleft geometry and receptor specificity.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"]
+    "explanation": "Compare signals routed through neural connections with blood-borne hormones acting on cells with suitable receptors. Neural and hormonal onset and duration vary, and both systems can work together.",
+    "limits": "Focused on the 20 nm cleft geometry and receptor specificity. The relay is an excitatory chemical example; presynaptic regulation and inhibitory synapses also exist.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ]
   },
   {
     "id": "ch09-neurone-3d-reflex",
@@ -218,8 +260,10 @@
     "figure": "c9_neurone_types_reflex",
     "question": "How does a spinal reflex arc trigger muscle withdrawal before the conscious cortex even registers pain?",
     "explanation": "Inspecting the 3D myelinated neurone and synaptic relay shows how routing a nociceptive spike directly from sensory neurone → spinal relay interneurone → motor neurone cuts conduction path length and synaptic delay.",
-    "limits": "3D myelinated motor neurone and synaptic junction.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"]
+    "limits": "3D myelinated motor neurone and synaptic junction. Waveforms are schematic, not an integration of Hodgkin–Huxley equations.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ]
   },
   {
     "id": "ch09-neurone-3d",
@@ -229,9 +273,13 @@
     "figure": "c9_action_potential_wave",
     "question": "How does wrapping an axon in insulating Schwann-cell myelin speed action potentials from 2 m s⁻¹ up to 90 m s⁻¹ while saving metabolic energy?",
     "explanation": "Exploding the 3D motor neurone shows Schwann myelin sheaths preventing transmembrane current leak across internodes so the depolarising wave leaps node-to-node across voltage-gated Na⁺ channels studied by Obaid Siddiqi.",
-    "limits": "Hodgkin–Huxley style travelling wave along discrete nodal segments.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"],
-    "stories": ["siddiqi-para-channels"]
+    "limits": "Hodgkin–Huxley style travelling wave along discrete nodal segments. Waveforms are schematic, not an integration of Hodgkin–Huxley equations.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ],
+    "stories": [
+      "siddiqi-para-channels"
+    ]
   },
   {
     "id": "ch09-synapse-3d",
@@ -240,9 +288,11 @@
     "chapter": 9,
     "figure": "c9_synapse_relay",
     "question": "Why can nerve impulses cross a chemical synapse in only one direction, and how is the electrical signal converted to chemical and back?",
-    "explanation": "Inspecting the 3D synaptic cleft shows presynaptic Ca²⁺ channels triggering neurotransmitter vesicle fusion only on the terminal bouton side, while ligand-gated receptor ion channels sit exclusively on the postsynaptic spine.",
-    "limits": "Quantal vesicle release scaled to stimulus threshold.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"]
+    "explanation": "Inspect presynaptic release and postsynaptic reception in this excitatory chemical relay. Presynaptic regulatory receptors and inhibitory synapses also exist; this drawing isolates one forward route.",
+    "limits": "Quantal vesicle release scaled to stimulus threshold. The relay is an excitatory chemical example; presynaptic regulation and inhibitory synapses also exist.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ]
   },
   {
     "id": "ch09-neurone-3d-latency",
@@ -250,10 +300,12 @@
     "title": "3D Atlas: Axonal Conduction Velocity vs Synaptic Delay Budget",
     "chapter": 9,
     "figure": "c9_pathway_latency_budget",
-    "question": "What fraction of a reflex reaction time is spent flying along myelinated axons versus crossing 20 nm chemical synapses?",
-    "explanation": "Toggling myelin insulation on and off in the 3D axon station and inspecting vesicle exocytosis in the 3D synapse shows how saltatory conduction trims axonal transit to ~15 ms while each synapse adds ~0.5–1.0 ms.",
-    "limits": "Coupled axonal velocity and synaptic cleft diffusion model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"]
+    "question": "Which stages contribute delay between a receptor signal and muscle activation?",
+    "explanation": "Trace axonal propagation separately from chemical release, diffusion and postsynaptic responses. The drawn withdrawal circuit has two central junctions plus a neuromuscular junction. A chosen time budget does not measure hot-pan withdrawal.",
+    "limits": "Illustrative timing depends on chosen inputs; no universal reflex latency.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ]
   },
   {
     "id": "ch09-eye-3d-anatomy",
@@ -264,7 +316,9 @@
     "question": "Why is colour acuity sharpest dead-centre on the fovea while the optic disc creates a complete blind spot?",
     "explanation": "Slicing the 3D eyeball in Section cutaway mode reveals the cornea, iris, crystalline lens, and posterior retina with the high-cone-density foveal pit and axon-packed optic nerve head.",
     "limits": "Thin-lens optical ray bundle to the fovea.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ]
   },
   {
     "id": "ch09-eye-3d",
@@ -273,9 +327,11 @@
     "chapter": 9,
     "figure": "c9_pupil_and_accommodation",
     "question": "Why does contracting the ciliary muscle make the suspensory ligaments go slack and the crystalline lens bulge thicker for near reading?",
-    "explanation": "Viewing the 3D sectioned eyeball while dragging object distance from 6 m down to 0.25 m shows the circular ciliary sphincter narrowing its ring diameter, releasing radial zonular tension so the elastic lens rounds up to ~64 D.",
+    "explanation": "At near viewing distance the ciliary muscle contracts, ligament tension falls and the lens becomes more convex. At 25 cm the chosen 17 mm reduced-eye model needs about 62.82 D total eye power; this is not the lens power alone.",
     "limits": "Thin-lens vergence model (1/f = 1/u + 1/v) with 17 mm retinal distance.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ]
   },
   {
     "id": "ch09-auxin-3d",
@@ -286,7 +342,9 @@
     "question": "How does a plant coleoptile bend toward unilateral blue light without a single muscle or neurone?",
     "explanation": "Shining directional light on the 3D coleoptile tip redistributes indole-3-acetic acid (IAA) to the shaded flank; proton pumps acidify the shaded cell walls, activating expansins so turgor elongates the shaded side faster and bends the shoot toward the light.",
     "limits": "Cholodny–Went differential elongation beam model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"]
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ]
   },
   {
     "id": "ch09-neurone-3d-ttx",
@@ -295,10 +353,14 @@
     "chapter": 9,
     "figure": "c9_tetrodotoxin_case",
     "question": "How does pufferfish tetrodotoxin (TTX) or Siddiqi’s para mutation silence nerve conduction without altering resting K⁺ leak?",
-    "explanation": "Dropping stimulus efficacy below threshold at the 3D Nodes of Ranvier demonstrates how plugging voltage-gated Na⁺ channels prevents the regenerative +40 mV upstroke while leaving the −70 mV resting potential intact.",
-    "limits": "Threshold-gated nodal Na⁺ current model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26910/"],
-    "stories": ["siddiqi-para-channels"]
+    "explanation": "Dropping stimulus efficacy below threshold at the 3D Nodes of Ranvier demonstrates how plugging voltage-gated Na⁺ channels prevents the regenerative depolarising upstroke while leaving the −70 mV resting potential intact.",
+    "limits": "Threshold-gated nodal Na⁺ current model. Waveforms are schematic, not an integration of Hodgkin–Huxley equations.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26910/"
+    ],
+    "stories": [
+      "siddiqi-para-channels"
+    ]
   },
   {
     "id": "ch10-islet-3d",
@@ -308,9 +370,13 @@
     "figure": "c10_negative_feedback_glucose",
     "question": "How does insulin secreted by pancreatic β-cells open the glucose door on muscle and liver membranes after a carbohydrate meal?",
     "explanation": "Raising blood glucose above 90 mg dL⁻¹ in the 3D islet station triggers β-cell insulin exocytosis; insulin binding to its tyrosine-kinase receptor translocates intracellular GLUT4 vesicles into the plasma membrane, accelerating glucose uptake and glycogen synthesis.",
-    "limits": "Steady-state insulin/glucagon ratio and GLUT4 membrane insertion fraction.",
-    "sources": ["https://www.nobelprize.org/prizes/medicine/1923/summary/"],
-    "stories": ["banting-mahalanabis-lifelines"]
+    "limits": "Steady-state insulin/glucagon ratio and GLUT4 membrane insertion fraction. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.nobelprize.org/prizes/medicine/1923/summary/"
+    ],
+    "stories": [
+      "banting-mahalanabis-lifelines"
+    ]
   },
   {
     "id": "ch10-skin-3d",
@@ -320,8 +386,10 @@
     "figure": "c10_skin_thermoregulation",
     "question": "How does a 2 mm layer of human skin switch between a heat radiator in summer and a thermal insulator in winter?",
     "explanation": "Slicing the 3D dermis while sweeping ambient temperature shows hypothalamic sympathetic control dilating superficial arteriolar loops and activating coiled eccrine sweat glands in heat, or constricting arterioles and contracting arrector pili muscles in cold.",
-    "limits": "Coupled radiative/convective and evaporative dermal heat flux model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "limits": "Coupled radiative/convective and evaporative dermal heat flux model. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch10-skin-3d-mumbai",
@@ -331,8 +399,10 @@
     "figure": "c10_mumbai_heat_balance",
     "question": "Why is a 38 °C day when dry heat evaporates sweat instantly far safer than a humid coastal afternoon when sweat drips off unevaporated?",
     "explanation": "Driving ambient temperature above 37 °C in the 3D skin block shows radiative heat transfer reversing inward, leaving latent heat of sweat evaporation (2,420 kJ L⁻¹) from eccrine ducts as the body’s sole cooling channel.",
-    "limits": "Dermal heat balance model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "limits": "Dermal heat balance model. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch10-nephron-3d-urea",
@@ -342,8 +412,10 @@
     "figure": "c10_liver_excretion_urea",
     "question": "Why must excess amino acids be deaminated in the liver and converted into urea before the kidneys filter them out?",
     "explanation": "Following urea through the 3D glomerulus and nephron tubule shows how the liver converts toxic ammonia (NH₃) into neutral, highly water-soluble urea that passes freely through Bowman’s capsule for urinary excretion.",
-    "limits": "Glomerular and tubular urea clearance view.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "limits": "Glomerular and tubular urea clearance view. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch10-nephron-3d",
@@ -352,9 +424,11 @@
     "chapter": 10,
     "figure": "c10_kidney_nephron_ledger",
     "question": "Why do human kidneys filter 180 L of plasma every day only to reabsorb 99% of it along the nephron tubule?",
-    "explanation": "Following the 3D nephron from Bowman’s capsule through the proximal tubule, countercurrent Loop of Henle (300 → 1,200 mOsm L⁻¹), and ADH-regulated collecting duct shows how high filtration plus selective reabsorption purges urea while conserving 100% of glucose and ~99% of water.",
-    "limits": "Steady-state GFR (125 mL min⁻¹) and ADH-dependent collecting-duct water reabsorption.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "explanation": "Following the 3D nephron from Bowman’s capsule through the proximal tubule, countercurrent Loop of Henle (300 → 1,200 mOsm L⁻¹), and ADH-regulated collecting duct shows how high filtration plus selective reabsorption purges urea while normally recovering nearly all glucose and ~99% of water.",
+    "limits": "Steady-state GFR (125 mL min⁻¹) and ADH-dependent collecting-duct water reabsorption. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   },
   {
     "id": "ch10-nephron-3d-ors",
@@ -364,9 +438,13 @@
     "figure": "c10_pathogens_barriers_cholera",
     "question": "Why does adding equimolar glucose to salt water allow a cholera-stricken gut to absorb water when plain saline fails?",
     "explanation": "Inspecting the 3D tubular cotransport and antibody defence stages shows how SGLT1 Na⁺–glucose symporters remain intact during cholera toxin secretion, pulling Na⁺, glucose, and osmotic water back into the bloodstream.",
-    "limits": "Represented via tubular Na⁺/glucose cotransport and mucosal immunity.",
-    "sources": ["https://www.who.int/publications/i/item/WHO-FCH-CAH-06.1"],
-    "stories": ["banting-mahalanabis-lifelines"]
+    "limits": "Represented via tubular Na⁺/glucose cotransport and mucosal immunity. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.who.int/publications/i/item/WHO-FCH-CAH-06.1"
+    ],
+    "stories": [
+      "banting-mahalanabis-lifelines"
+    ]
   },
   {
     "id": "ch10-antibody-3d",
@@ -376,8 +454,10 @@
     "figure": "c10_immune_response_vaccines",
     "question": "How can one class of Y-shaped IgG protein both lock onto millions of distinct pathogen epitopes and flag them for macrophages?",
     "explanation": "Exploding the 3D IgG heterotetramer reveals two heavy and two light chains linked by disulphide bridges: hypervariable Fab tips clamp complementary pathogen epitopes while the conserved Fc stem recruits phagocytes and complement.",
-    "limits": "Flexible hinge angle shown locking onto a spherical viral capsid.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26884/"]
+    "limits": "Flexible hinge angle shown locking onto a spherical viral capsid. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26884/"
+    ]
   },
   {
     "id": "ch10-antibody-3d-passive",
@@ -387,8 +467,10 @@
     "figure": "c10_active_vs_passive_immunity",
     "question": "Why does a snakebite victim need immediate passive IgG antivenom infusion rather than an active vaccine?",
     "explanation": "Inspecting the 3D IgG Fab–antigen lock shows that passive immunity supplies pre-made antibodies immediately (0-day lag) to neutralise circulating toxin, though without generating memory B cells.",
-    "limits": "Direct 3D IgG neutralisation complex.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26884/"]
+    "limits": "Direct 3D IgG neutralisation complex. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26884/"
+    ]
   },
   {
     "id": "ch10-islet-3d-renal",
@@ -398,7 +480,9 @@
     "figure": "c10_diabetes_renal_case",
     "question": "Why does untreated diabetes mellitus (>180 mg dL⁻¹ blood glucose) cause glucose to spill into urine (glycosuria) and pull excess water with it?",
     "explanation": "Sliding blood glucose up to 240 mg dL⁻¹ in the 3D Islet and Nephron stations saturates the proximal convoluted tubule’s SGLT symporters, leaving un-reabsorbed glucose in the filtrate where it opposes osmotic water reabsorption in the collecting duct.",
-    "limits": "Coupled islet GLUT4 and nephron tubular transport threshold model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK541079/"]
+    "limits": "Coupled islet GLUT4 and nephron tubular transport threshold model. Illustrative assumptions; rates and volumes are not individual clinical predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK541079/"
+    ]
   }
 ]

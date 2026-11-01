@@ -24,12 +24,12 @@ export const IMMUNITY_MODES = Object.freeze([
 
 export const HOMEOSTASIS_CONSTANTS = Object.freeze({
   coreTempSetPointC: 37.0,
-  enzymeDenatureOnsetC: 40.5,
+  illustrativeHeatStressC: 40.5,
   latentHeatSweatJPerG: 2420,
   bloodGlucoseSetPointMmolL: 5.0,
   bloodGlucoseNormalMinMmolL: 4.0,
   bloodGlucoseNormalMaxMmolL: 5.5,
-  renalGlucoseTmMmolL: 10.5,
+  renalGlucoseTmMgMin: 330,
   normalGfrMlMin: 125,
   plasmaProteinGPer100Ml: 8.0,
   normalPlasmaUreaGPer100Ml: 0.03,
@@ -60,7 +60,7 @@ export function thermoGlucoseAccount(modeIndex = 0, ambientTempC = 38, humidityO
   // Thermoregulation variables (used primarily in modes 0 and 1, and always computed consistently)
   const rh = pct;
   // Stull-like simplified wet-bulb approximation valid across 10..42 °C and 10..90% RH
-  const wetBulbC = round(tAmb - ((100 - rh) * (0.14 + 0.0022 * tAmb)), 2);
+  const wetBulbC = round(tAmb * Math.atan(0.151977 * Math.sqrt(rh + 8.313659)) + Math.atan(tAmb + rh) - Math.atan(rh - 1.676331) + 0.00391838 * rh ** 1.5 * Math.atan(0.023101 * rh) - 4.686035, 2);
 
   // Arteriole smooth-muscle vasomotor state (note: capillaries stay fixed in depth!)
   let arterioleState = 'Normotonic (balanced)';
@@ -99,6 +99,7 @@ export function thermoGlucoseAccount(modeIndex = 0, ambientTempC = 38, humidityO
   const sweatDrippedGH = round(Math.max(0, sweatSecretedGH - sweatEvaporatedGH), 1);
   const evaporativeCoolingW = round((sweatEvaporatedGH * HOMEOSTASIS_CONSTANTS.latentHeatSweatJPerG) / 3600, 1);
 
+  // Illustrative dry exchange assumes surrounding radiative surfaces follow air temperature.
   // Dry heat loss (positive = heat shed to cooler air; negative = heat gained from hotter >35 °C air)
   const skinSurfaceTempC = round(tAmb >= 32 ? 35.6 : tAmb <= 18 ? 29.5 : 33.2, 1);
   const dryTransferCoeff = tAmb < 25 ? 11.5 : 4.8;
@@ -121,7 +122,7 @@ export function thermoGlucoseAccount(modeIndex = 0, ambientTempC = 38, humidityO
   let liverAction = 'Balanced glycogen turnover';
   let liverGlycogenRateGH = 0;
   let regulatedGlucoseMmolL = 5.0;
-  let urineGlucoseSpillMmolL = 0;
+  let urineGlucoseSpillMgMin = 0;
 
   if (m === 3) {
     // Mode 3: Type 1 diabetes — slider pct >= 55 represents injected insulin rescue; pct < 55 represents untreated
@@ -129,17 +130,17 @@ export function thermoGlucoseAccount(modeIndex = 0, ambientTempC = 38, humidityO
     if (!insulinInjected) {
       insulinUnitsMl = 0;
       glucagonPgMl = 95;
-      liverAction = 'No insulin signal: glucose stays locked in blood';
+      liverAction = 'Low insulin: muscle uptake and liver glucose output disrupted';
       liverGlycogenRateGH = -6.5;
       regulatedGlucoseMmolL = round(14.2 + (tAmb - 10) * 0.11, 2);
-      urineGlucoseSpillMmolL = round(Math.max(0, regulatedGlucoseMmolL - HOMEOSTASIS_CONSTANTS.renalGlucoseTmMmolL), 2);
+      urineGlucoseSpillMgMin = round(Math.max(0, regulatedGlucoseMmolL * 0.18 * 125 - HOMEOSTASIS_CONSTANTS.renalGlucoseTmMgMin), 2);
     } else {
       insulinUnitsMl = round(28 + (pct - 55) * 0.8, 1);
       glucagonPgMl = 45;
       liverAction = 'Injected insulin restores glucose → glycogen storage';
       liverGlycogenRateGH = round(8.0 + (pct - 55) * 0.2, 1);
       regulatedGlucoseMmolL = round(5.2 - (pct - 55) * 0.015, 2);
-      urineGlucoseSpillMmolL = 0;
+      urineGlucoseSpillMgMin = 0;
     }
   } else if (uncompensatedGlucoseMmolL > 5.5) {
     insulinUnitsMl = round(15 + (uncompensatedGlucoseMmolL - 5.0) * 14, 1);
@@ -187,7 +188,7 @@ export function thermoGlucoseAccount(modeIndex = 0, ambientTempC = 38, humidityO
     glucagonPgMl,
     liverAction,
     liverGlycogenRateGH,
-    urineGlucoseSpillMmolL,
+    urineGlucoseSpillMgMin,
   });
 }
 
@@ -253,10 +254,11 @@ export function nephronFiltrationAccount(modeIndex = 0, plasmaGlucoseMmolL = 5, 
   // Glucose: 1 mmol/L ≈ 0.018 g/100 mL
   const plasmaGlucoseG100Ml = round(pGluc * 0.018, 3);
   const filtrateGlucoseMmolL = pGluc;
-  const tm = HOMEOSTASIS_CONSTANTS.renalGlucoseTmMmolL;
-  const reabsorbedGlucoseMmolL = round(Math.min(filtrateGlucoseMmolL, tm), 2);
-  const spilledGlucoseMmolL = round(Math.max(0, filtrateGlucoseMmolL - tm), 2);
-  const glucoseReabsorbedPct = round((reabsorbedGlucoseMmolL / filtrateGlucoseMmolL) * 100, 1);
+  // Chosen sharp-capacity teaching model; real nephrons have variable thresholds (splay).
+  const filteredGlucoseMgMin = pGluc * 0.18 * gfr;
+  const reabsorbedGlucoseMgMin = Math.min(filteredGlucoseMgMin, HOMEOSTASIS_CONSTANTS.renalGlucoseTmMgMin);
+  const excretedGlucoseMgMin = Math.max(0, filteredGlucoseMgMin - reabsorbedGlucoseMgMin);
+  const glucoseReabsorbedPct = round(100 * reabsorbedGlucoseMgMin / filteredGlucoseMgMin, 1);
 
   // Urea: mode 2 (high-protein meal / deamination) doubles liver urea production and plasma urea
   const plasmaUreaG100Ml = m === 2 ? 0.06 : 0.03;
@@ -273,7 +275,7 @@ export function nephronFiltrationAccount(modeIndex = 0, plasmaGlucoseMmolL = 5, 
   } else if (m === 2) {
     baseUrineLPerDay = 1.85; // High-protein urea load
   }
-  const osmoticExtraUrineLPerDay = round(spilledGlucoseMmolL * 0.42, 2);
+  const osmoticExtraUrineLPerDay = round(excretedGlucoseMgMin * (2.3 / 30), 2);
   const urineLPerDay = round(
      clamp(baseUrineLPerDay * (gfr / 125) + osmoticExtraUrineLPerDay, 0.5, 6.0),
     2,
@@ -284,8 +286,8 @@ export function nephronFiltrationAccount(modeIndex = 0, plasmaGlucoseMmolL = 5, 
   const urineUreaG100Ml = round(excretedUreaGPerDay / (urineLPerDay * 10), 2);
   const ureaConcentrationRatio = round(urineUreaG100Ml / plasmaUreaG100Ml, 1);
 
-  const filteredGlucoseGPerDay = round(filtrateLPerDay * 10 * plasmaGlucoseG100Ml, 1);
-  const reabsorbedGlucoseGPerDay = round(filteredGlucoseGPerDay * (glucoseReabsorbedPct / 100), 1);
+  const filteredGlucoseGPerDay = round(filteredGlucoseMgMin * 1.44, 1);
+  const reabsorbedGlucoseGPerDay = round(reabsorbedGlucoseMgMin * 1.44, 1);
   const urineGlucoseGPerDay = round(Math.max(0, filteredGlucoseGPerDay - reabsorbedGlucoseGPerDay), 1);
   const urineGlucoseG100Ml = round(urineGlucoseGPerDay / (urineLPerDay * 10), 2);
 
@@ -310,8 +312,10 @@ export function nephronFiltrationAccount(modeIndex = 0, plasmaGlucoseMmolL = 5, 
     glomerularBarrierIntact: true,
     plasmaGlucoseMmolL: pGluc,
     filtrateGlucoseMmolL,
-    reabsorbedGlucoseMmolL,
-    spilledGlucoseMmolL,
+    filteredGlucoseMgMin,
+    reabsorbedGlucoseMgMin,
+    excretedGlucoseMgMin,
+    modelScope: "Chosen 330 mg/min capacity; urine volumes illustrate scenarios, not clinical predictions. Protein zeros are rounded model values.",
     glucoseReabsorbedPct,
     filteredGlucoseGPerDay,
     reabsorbedGlucoseGPerDay,
@@ -399,9 +403,10 @@ export function immunityVaccineAccount(modeIndex = 0, daysPostExposure = 14, mem
 
   let activeAntibodyAU = m === 0 ? (level >= 40 ? secondaryAntibodyAU : primaryAntibodyAU) : primaryAntibodyAU;
   let antigenShapeMatchPct = 100;
-  let memoryCellsPresent = true;
+  // Day 7 is chosen display staging for newly developing memory, not a universal measured onset.
+  let memoryCellsPresent = m === 0 ? (level >= 40 || day >= 7) : true;
   let immunityClassification = 'Active immunity (lymphocytes + memory cells)';
-  let protectionStatus = 'Protected above threshold (≥40 AU)';
+  let protectionStatus = 'Illustrative antibody level (not a guarantee of protection)';
 
   if (m === 1) {
     // Tab 1: Antigen shape specificity check — testing Anti-A antibody against Pathogen B (level < 50) vs Pathogen A (level >= 50)
@@ -410,8 +415,8 @@ export function immunityVaccineAccount(modeIndex = 0, daysPostExposure = 14, mem
     activeAntibodyAU = matchingAntigen ? secondaryAntibodyAU : 0;
     memoryCellsPresent = matchingAntigen;
     immunityClassification = matchingAntigen
-      ? 'Complementary antigen–antibody lock-and-key fit (100% binding)'
-      : 'Non-complementary antigen B shape (0% binding by Anti-A antibody)';
+      ? 'Recognised model antigen (binary illustration)'
+      : 'Model B assumed unrecognised; real antigens can cross-react';
     protectionStatus = matchingAntigen
       ? 'Pathogen clumped and marked for phagocytes'
       : 'Anti-A antibodies cannot bind Pathogen B; new primary response required';
@@ -426,12 +431,12 @@ export function immunityVaccineAccount(modeIndex = 0, daysPostExposure = 14, mem
       protectionStatus =
         day <= 21
           ? 'Immediate protection at Day 0, decaying as protein breaks down'
-          : 'Borrowed antibodies decayed below protective threshold; 0 memory cells remain';
+          : 'Borrowed antibodies decline; no memory created by transfer alone';
     } else {
       activeAntibodyAU = secondaryAntibodyAU;
       memoryCellsPresent = true;
       immunityClassification = 'Active immunity (host lymphocytes make antibodies + memory cells)';
-      protectionStatus = 'Long-term memory cells sustain and boost defence on re-exposure';
+      protectionStatus = 'Memory can strengthen later defence; duration and protection vary';
     }
   }
 
@@ -439,9 +444,9 @@ export function immunityVaccineAccount(modeIndex = 0, daysPostExposure = 14, mem
   const choleraClSecretionMmolH = 95;
   const gutOsmoticWaterLossMlH = round(680 - level * 4.5, 0);
   const orsCotransportUptakeMlH = round(level * 6.8, 0);
-  const netIntestinalWaterBalanceMlH = round(orsCotransportUptakeMlH - 420, 0);
+  const netIntestinalWaterBalanceMlH = round(orsCotransportUptakeMlH - gutOsmoticWaterLossMlH, 0);
   const choleraStatus =
-    level >= 65
+    netIntestinalWaterBalanceMlH >= 0
       ? 'ORS Na⁺–glucose cotransport restores net water absorption into blood'
       : 'Cholera toxin Cl⁻ secretion lowers gut Ψ_w, driving osmotic water loss (diarrhoea)';
 

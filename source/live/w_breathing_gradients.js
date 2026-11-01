@@ -54,7 +54,7 @@ Live.register('breathing_gradients', (stage, params, api) => {
       t(`P_ip ${q.pIpMmHg}`, 225, 158, 12.2, c.electron, 600);
       t('mmHg', 225, 176, 11.5, c.electron);
       t(`Transpulmonary: +${q.transpulmonaryMmHg} mmHg`, 166, 254, 13, c.ink, 600);
-      t(q.pAlvMmHg < 0 ? 'Outside air pushes IN (nothing sucks)' : 'Recoil / muscle squeeze pushes air OUT', 166, 278, 12.2, c.muted);
+      t(q.pAlvMmHg < 0 ? 'Higher outside pressure drives air IN' : 'Recoil / muscle squeeze pushes air OUT', 166, 278, 12.2, c.muted);
 
       // Right box: Alveolar vs Dead-Space Ventilation & Gradients (x=326..616, y=76..296)
       ctx.fillStyle = c.sheet; ctx.strokeStyle = c.rule; ctx.lineWidth = 1.2;

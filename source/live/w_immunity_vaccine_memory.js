@@ -45,7 +45,7 @@ Live.register(
       },
     });
 
-    const levelSlider = api.slider('Memory or ORS dose', {
+    const levelSlider = api.slider('Memory or ORS support', {
       min: 0,
       max: 100,
       step: 10,
@@ -200,8 +200,8 @@ Live.register(
           const shortClass =
             p.modeIndex === 1
               ? p.antigenShapeMatchPct === 100
-                ? 'Complementary antigen–antibody fit (100%)'
-                : 'Non-complementary antigen B (0% binding)'
+                ? 'Recognised antigen in this model'
+                : 'B assumed unrecognised in this model'
               : p.memoryCellsPresent
               ? 'Active immunity (lymphocytes + memory)'
               : 'Passive immunity (borrowed Ab; no memory)';
@@ -356,7 +356,7 @@ Live.register(
           ['Active / current Ab', `${p.activeAntibodyAU} AU (thr 40 AU)`],
           ['Primary / Secondary Ab', `${p.primaryAntibodyAU} / ${p.secondaryAntibodyAU} AU`],
           ['Passive borrowed Ab', `${p.passiveAntibodyAU} AU (t₁/₂ = 21 d)`],
-          ['Antigen shape match', `${p.antigenShapeMatchPct}% complementary`],
+          ['Antigen shape match', `${p.antigenShapeMatchPct}% model recognition`],
           ['Memory cells present', p.memoryCellsPresent ? 'YES (active)' : 'NO (0 memory)'],
           ['Cholera Cl⁻ secretion', `${p.choleraClSecretionMmolH} mmol/h`],
           ['ORS cotransport uptake', `+${p.orsCotransportUptakeMlH} mL/h`],
@@ -419,7 +419,7 @@ Live.register(
     return {};
   },
   {
-    label: 'Investigate antigen–antibody specificity, vaccine memory & oral rehydration',
+    label: 'Illustrative curves: investigate antigen recognition, vaccine memory & oral rehydration',
     three: false,
     static: true,
   }

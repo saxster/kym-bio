@@ -8,7 +8,7 @@ from pathlib import Path
 import base64,functools,hashlib,http.server,json,os,re,subprocess,threading,traceback,unicodedata
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-SITE=ROOT/'build/site'
+SITE=Path(os.environ.get('BIO_QA_SITE', str(ROOT/'build/site')))
 OUT=Path(os.environ.get('BIO_CH07_QA_OUT','/tmp/lt_bio_ch07/qa'));OUT.mkdir(parents=True,exist_ok=True)
 WIDTHS=[390,820,1024,1180,1440];THEMES=['light','dark','sepia'];WIDGETS={4:'digestive_steps',6:'emulsification',9:'absorption_routes'}
 report={'checks':[],'errors':[],'screenshots':[],'matrix':[],'tour_states':[],'status':'running'}
@@ -45,6 +45,8 @@ def clear_stamps(page):page.evaluate("Object.keys(localStorage).filter(k=>k.star
 def preservation():
     baseline=json.loads((ROOT/'tests/ch07-preserved.json').read_text())['files']
     for name,expected in baseline.items():
+        from revision_preservation import revised_file
+        if revised_file(ROOT,name,check,report):continue
         data=(ROOT.parent/name).read_bytes()
         if name=='source/live/enhancements.js':
             marker=b'  digestive_steps: {'

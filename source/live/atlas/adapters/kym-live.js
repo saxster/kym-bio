@@ -322,6 +322,17 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   listen();
   build();
 
+  // The host owns paused drawing. Engine resize updates render targets, which
+  // clears the canvas; schedule still frames after layout or visibility changes.
+  // own() calls draw(dt, false), so this never advances the model clock.
+  const resizeObs = new ResizeObserver(kick);
+  resizeObs.observe(wrap);
+  const visibilityObs = new IntersectionObserver(entries => {
+    if (entries.some(entry => entry.isIntersecting)) kick();
+  });
+  visibilityObs.observe(wrap);
+  window.addEventListener('resize', kick, { passive: true });
+
   const themeObs = new MutationObserver(() => {
     build();
     draw(0, false);
@@ -626,6 +637,9 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
         try { sensorCleanup(); } catch (_) { /* ignore */ }
       }
       themeObs.disconnect();
+      resizeObs.disconnect();
+      visibilityObs.disconnect();
+      window.removeEventListener('resize', kick);
       if (S) S.destroy();
       wrap.remove();
     },

@@ -42,7 +42,7 @@ def c9_nerves_vs_hormones():
         '→ crosses synapse (20 nm cleft)',
         '→ contracts specific muscle fibres',
     ], 'wash-g', 12)
-    f.text(166, 362, 'Only the wired effector cell responds;', 't b', 'middle', 11.8)
+    f.text(166, 362, 'Connections route neural signals;', 't b', 'middle', 11.8)
     f.text(166, 380, 'neighbours without a synapse stay quiet.', 't m', 'middle', 11.5)
 
     # Right panel: Endocrine glands map & receptor specificity
@@ -60,7 +60,7 @@ def c9_nerves_vs_hormones():
     box(f, 346, 280, 256, 60, [
         'Hormone enters blood plasma (ductless)',
         '→ bathes every capillary bed in body',
-        '→ binds ONLY matching target receptors',
+        '→ acts through suitable target receptors',
     ], 'wash-p', 11.8)
     f.text(474, 362, 'Non-target cells lack complementary', 't b', 'middle', 11.8)
     f.text(474, 380, 'receptor proteins and ignore the signal.', 't m', 'middle', 11.5)
@@ -83,8 +83,8 @@ def c9_nerves_vs_hormones():
         ('Form of signal', 'Electrical impulse (+ synapse chemical)', 'Chemical hormone dissolved in plasma'),
         ('Transmission path', 'Along neurones (axons / dendrons)', 'Carried everywhere in the bloodstream'),
         ('Speed of action', 'Very fast (milliseconds: ~1–120 m/s)', 'Slower (seconds to minutes via blood)'),
-        ('Duration of effect', 'Short-lived (stops when impulse ends)', 'Longer-lasting (until broken down in liver)'),
-        ('Target area', 'Localised (one muscle or gland)', 'Widespread (any organ with receptors)'),
+        ('Duration of effect', 'Often brief; circuits can sustain activity', 'Often sustained; response varies'),
+        ('Target area', 'Routed by neural connections', 'Widespread (any organ with receptors)'),
     ]
     for idx, (feat, n_txt, h_txt) in enumerate(rows):
         ry = 506 + idx * 22
@@ -175,7 +175,7 @@ def c9_neurone_types_reflex():
     box(f, 24, 512, 176, 68, [
         '5. Effector → Response',
         'Biceps muscle contracts;',
-        'pulls hand away in ~35 ms',
+        'activates withdrawal muscles',
     ], 'wash-g', 11.6)
 
     # Middle: Sensory & Motor pathways (dorsal vs ventral root)
@@ -381,12 +381,12 @@ def c9_synapse_relay():
     f.text(320, 428, '2 · WHY SYNAPSES ARE STRICTLY ONE-WAY & HOW LOEWI PROVED IT (1921)', 't b', 'middle', 13.5)
 
     box(f, 24, 440, 284, 168, [
-        'Why impulses travel ONE WAY ONLY',
+        'Direction of this excitatory relay',
         '(Cambridge 0610 14.1.10):',
         '• Vesicles containing neurotransmitter',
-        '  are ONLY in the presynaptic knob.',
+        '  release from the presynaptic knob.',
         '• Complementary receptor proteins are',
-        '  ONLY on the postsynaptic membrane.',
+        '  receive this postsynaptic signal.',
         '• Diffusion goes high → low concentration',
         '  from presynaptic to postsynaptic side.',
     ], 'wash-e', 11.6)
@@ -402,7 +402,7 @@ def c9_synapse_relay():
         '  as well — proving a chemical courier.',
     ], 'wash-p', 11.6)
 
-    f.text(320, 628, 'A synapse converts an electrical impulse into a chemical courier across 20 nm, then back into an electrical impulse.', 't m', 'middle', 11.5)
+    f.text(320, 628, 'This excitatory relay: electrical arrival → chemical transmission → postsynaptic response.', 't m', 'middle', 11.5)
     return f.svg()
 
 
@@ -563,7 +563,7 @@ def c9_pupil_and_accommodation():
     # Left: Viewing a NEAR object
     f.rect(24, 344, 284, 266, 'wash-p', 10, extra='stroke="var(--proton)" stroke-width="1.8"')
     f.text(166, 368, 'NEAR OBJECT (e.g. book at 25 cm)', 't p b', 'middle', 13)
-    f.text(166, 386, 'Diverging rays need MORE refraction (~54 D)', 't m', 'middle', 11.2)
+    f.text(166, 386, 'Diverging rays need MORE refraction', 't m', 'middle', 11.2)
 
     # Front ring diagram at (92, 448) showing smaller contracted ciliary ring, slack ligaments, thick lens
     f.circle(92, 448, 38, 'plate', extra='stroke="var(--proton)" stroke-width="5"')
@@ -593,7 +593,7 @@ def c9_pupil_and_accommodation():
     # Right: Viewing a DISTANT object
     f.rect(332, 344, 284, 266, 'wash-e', 10, extra='stroke="var(--electron)" stroke-width="1.8"')
     f.text(474, 368, 'DISTANT OBJECT (e.g. > 6 m away)', 't e b', 'middle', 13)
-    f.text(474, 386, 'Parallel rays need LESS refraction (~50 D)', 't m', 'middle', 11.2)
+    f.text(474, 386, 'Parallel rays need LESS refraction', 't m', 'middle', 11.2)
 
     # Front ring diagram at (400, 448) showing wider relaxed ciliary ring, taut ligaments, thinner lens
     f.circle(400, 448, 46, 'plate', extra='stroke="var(--electron)" stroke-width="2.5"')
@@ -715,31 +715,29 @@ def c9_plant_tropisms_auxin():
 
 @figure
 def c9_pathway_latency_budget():
-    f = Fig(640, 585, 'Quantitative speed and latency budget across four biological coordination pathways: (1) spinal withdrawal reflex arc (~35 ms across 1.3 m via myelinated sensory and motor axons plus two synapses), (2) voluntary ruler-drop reaction (~190 ms via eye, optic nerve, visual and motor cortex, spinal cord and finger flexor muscles, corresponding to ~18 cm ruler drop under d = 0.5 g t^2), (3) endocrine adrenaline and insulin broadcast in blood (~5–30 seconds onset via heart and arteries, lasting minutes to hours), and (4) plant shoot auxin diffusion and cell elongation (~20–120 minutes).')
-    heading(f, 'Why a body needs both fast wires and slow couriers', 'Quantitative latency budget from millisecond spinal reflexes to hour-scale plant growth')
-
-    f.text(320, 84, 'FOUR BIOLOGICAL SIGNAL PATHWAYS COMPARED ACROSS TIME SCALES', 't b', 'middle', 13.5)
-
+    f = Fig(640, 585, 'Four coordination routes compared. A spinal circuit can respond without conscious choice; ruler distance supplies a voluntary reaction calculation. Hormonal and growth responses vary with the pathway and conditions. No universal hot-pan latency is assigned.')
+    heading(f, 'Different routes, different kinds of delay', 'Trace connections and mechanisms before comparing times')
+    f.text(320, 84, 'FOUR COORDINATION PATHWAYS', 't b', 'middle', 13.5)
     cards = [
-        (98, '1 · Spinal withdrawal reflex arc (hot tawa → biceps)', 'wash-g', [
-            'Path: Receptor → sensory neurone (80 m/s) → spinal relay neurone → motor neurone → muscle',
-            'Time budget: ~16 ms axonal conduction + ~2 ms across 2 synapses + ~17 ms muscle activation',
-            'Total latency: ~35 ms (automatic protective action begins before conscious pain in brain)',
+        (98, '1 · Spinal withdrawal circuit', 'wash-g', [
+            'Receptor → sensory → spinal relay → motor → muscle',
+            'Two central junctions plus the neuromuscular junction in this example.',
+            'Receptor activation, conduction and muscle movement each take time.',
         ]),
-        (212, '2 · Conscious voluntary reaction (catching a dropped 30 cm ruler)', 'wash-e', [
-            'Path: Retina → optic nerve → visual cortex → decision & motor cortex → spinal cord → hand',
-            'Time budget: Retinal & cortical multisynaptic processing adds ~130–160 ms over a reflex arc',
-            'Total latency: ~190 ms (ruler falls d = ½gt² ≈ 0.5 × 9.8 × 0.19² ≈ 0.18 m = 18 cm)',
+        (212, '2 · Voluntary ruler catch', 'wash-e', [
+            'Retina → visual and motor processing → spinal cord → finger muscles',
+            'Measure catch distance; calculate time using d = ½gt².',
+            'Example: 18 cm from rest gives about 192 ms; this is not spinal reflex time.',
         ]),
-        (326, '3 · Endocrine blood broadcast (adrenaline or insulin in plasma)', 'wash-p', [
-            'Path: Endocrine gland → capillary bed → veins → right & left heart → systemic arteries',
-            'Time budget: Limited by blood circulation speed (Chapter 8: ~20–40 cm/s in arteries)',
-            'Total latency: ~5–30 seconds to reach target organs; effect lasts minutes to hours',
+        (326, '3 · Blood-borne hormonal signal', 'wash-p', [
+            'Gland → circulating blood → cells with suitable receptors',
+            'Pancreatic blood reaches the liver through the portal route first.',
+            'Onset and duration depend on delivery, receptors and cellular responses.',
         ]),
-        (440, '4 · Plant shoot phototropism (auxin diffusion + cell elongation)', 'wash-n', [
-            'Path: Shoot tip synthesis → downward transport (~10 mm/h) → lateral shading redistribution',
-            'Time budget: Acidification & loosening of cellulose walls + osmotic water uptake (turgor)',
-            'Total latency: ~20–120 minutes for visible curvature (vs ~1 s in Mimosa turgor fold)',
+        (440, '4 · Shoot growth response', 'wash-n', [
+            'Tip signals → directed auxin transport → unequal cell elongation',
+            'Transport proteins and local diffusion contribute to signal distribution.',
+            'Visible bending develops with growth; conditions and species matter.',
         ]),
     ]
 
@@ -749,13 +747,13 @@ def c9_pathway_latency_budget():
         for idx, ln in enumerate(lines):
             f.text(40, y + 46 + idx * 20, ln, 't', 'start', 11.4)
 
-    f.text(320, 566, 'Ruler-drop distance d = ½gt² measures voluntary brain-mediated reaction time (~190 ms), never a simple spinal reflex.', 't m', 'middle', 10.5)
+    f.text(320, 566, 'A timing calculation needs a defined pathway and stated inputs; it does not establish a universal biological latency.', 't m', 'middle', 10.5)
     return f.svg()
 
 
 @figure
 def c9_tetrodotoxin_case():
-    f = Fig(640, 580, 'Chapter 9 detective case comparing normal action-potential propagation and synaptic release with tetrodotoxin (TTX) blocking voltage-gated Na+ channels (Narahashi, Moore & Scott 1964). Left column: normal motor axon where voltage-gated Na+ channels open at threshold (-55 mV), allowing Na+ influx (+30 mV spike), triggering neurotransmitter release at the neuromuscular synapse and skeletal muscle contraction. Right column: nanomolar tetrodotoxin (TTX) plugs the outer pore of voltage-gated Na+ channels while leaving resting K+ leak channels untouched; membrane stays at -70 mV, action potentials fail to propagate along the axon, and no neurotransmitter is released.')
+    f = Fig(640, 580, 'Chapter 9 detective case comparing normal action-potential propagation and synaptic release with tetrodotoxin (TTX) blocking voltage-gated Na+ channels (Narahashi, Moore & Scott 1964). Left column: normal motor axon where voltage-gated Na+ channels open at threshold (-55 mV), allowing Na+ influx (+30 mV spike), triggering neurotransmitter release at the neuromuscular synapse and skeletal muscle contraction. Right column: nanomolar tetrodotoxin (TTX) plugs the outer pore of voltage-gated Na+ channels while leaving resting K+ leak channels untouched; membrane stays at -70 mV, action potentials fail to propagate along the axon, and action-potential-evoked release fails.')
     heading(f, 'Case 9: The molecule that plugs the sodium gate', 'Normal voltage-gated Na⁺ conduction (left) versus tetrodotoxin outer-pore blockade (right, Narahashi 1964)')
 
     f.text(166, 88, '1 · NORMAL MOTOR AXON', 't g b', 'middle', 13.8)

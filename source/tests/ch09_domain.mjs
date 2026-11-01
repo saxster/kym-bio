@@ -111,7 +111,7 @@ for (let mode = 0; mode < 4; mode++) {
   for (const dist of [25, 40, 100, 250, 500]) {
     for (const light of [10, 30, 50, 80, 100]) {
       const q = eyeTropismAccount(mode, dist, light);
-      near(q.totalPowerDioptres, 50 + 100 / dist, 1e-2);
+      near(q.totalPowerDioptres, 1000 / 17 + 100 / dist, 1e-2);
       near(q.totalPowerDioptres, q.corneaPowerDioptres + q.lensPowerDioptres, 1e-2);
       assert.equal(q.shadedAuxinPct + q.litOrUpperAuxinPct, 100);
       if (mode === 3) {
@@ -184,3 +184,9 @@ for (const [name, sliders, tabs] of [
 }
 
 console.log(`${count} independent Chapter 9 reflex, para^ts, synapse, eye accommodation, tropism and tour cases passed`);
+
+// Revised model boundaries: count both central junctions and NMJ; keep physiology separate from chosen timing.
+assert.equal(REFLEX_MODES[0].synapseCount, 3);
+assert.equal(reflexActionAccount(0, 12, 25).synapticMs, 2.7);
+assert.ok(!synapseAccount().oneWayReason.includes("ONLY"));
+near(eyeTropismAccount(0,25).totalPowerDioptres, 1000/17+4, 1e-2);

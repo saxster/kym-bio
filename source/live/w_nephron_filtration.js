@@ -149,7 +149,7 @@ Live.register(
         });
         draw.text(
           ctx,
-          `Proteins retained in blood: ${p.plasmaProteinG100Ml.toFixed(1)} → ${p.filtrateProteinG100Ml.toFixed(1)} g/100mL`,
+          `Protein model (rounded): ${p.plasmaProteinG100Ml.toFixed(1)} → ${p.filtrateProteinG100Ml.toFixed(1)} g/100mL`,
           166,
           106,
           { size: 10.0, weight: 600, color: c.photon, align: 'center' }
@@ -177,26 +177,26 @@ Live.register(
         });
         draw.text(
           ctx,
-          `Glucose reabsorbed: ${p.reabsorbedGlucoseMmolL} mmol/L (${p.glucoseReabsorbedPct}%)`,
+          `Glucose reabsorbed: ${p.reabsorbedGlucoseMgMin.toFixed(1)} mg/min (${p.glucoseReabsorbedPct}%)`,
           166,
           188,
           {
             size: 10.2,
             weight: 700,
-            color: p.spilledGlucoseMmolL > 0 ? c.proton : c.electron,
+            color: p.excretedGlucoseMgMin > 0 ? c.proton : c.electron,
             align: 'center',
           }
         );
         draw.text(
           ctx,
-          p.spilledGlucoseMmolL > 0
-            ? `Carrier T_m (10.5) exceeded: ${p.spilledGlucoseMmolL} mmol/L spills to urine`
+          p.excretedGlucoseMgMin > 0
+            ? `Capacity 330; excreted ${p.excretedGlucoseMgMin.toFixed(1)} mg/min`
             : '100% of filtered glucose rescued via active transport',
           166,
           208,
           {
             size: 9.8,
-            color: p.spilledGlucoseMmolL > 0 ? c.proton : c.photon,
+            color: p.excretedGlucoseMgMin > 0 ? c.proton : c.photon,
             align: 'center',
           }
         );
@@ -267,7 +267,7 @@ Live.register(
           ['Filtrate / Urine vol', `${p.filtrateLPerDay} → ${p.urineLPerDay} L/d`],
           ['Water reabsorbed', `${p.waterReabsorbedPct}% (${p.reabsorbedWaterLPerDay} L/d)`],
           ['Proteins (g/100mL)', `${p.plasmaProteinG100Ml.toFixed(1)} → 0.0 → 0.0`],
-          ['Glucose (mmol/L)', `${p.plasmaGlucoseMmolL} → ${p.filtrateGlucoseMmolL} → ${p.spilledGlucoseMmolL}`],
+          ['Glucose (mg/min)', `${p.filteredGlucoseMgMin.toFixed(1)} in → ${p.reabsorbedGlucoseMgMin.toFixed(1)} back → ${p.excretedGlucoseMgMin.toFixed(1)} out`],
           ['Glucose reabsorbed', `${p.glucoseReabsorbedPct}% (${p.reabsorbedGlucoseGPerDay} g/d)`],
           ['Urea (g/100mL)', `${p.plasmaUreaG100Ml} → ${p.filtrateUreaG100Ml} → ${p.urineUreaG100Ml}`],
           ['Urea concentration', `${p.ureaConcentrationRatio}× (${p.excretedUreaGPerDay} g/d)`],
@@ -322,7 +322,7 @@ Live.register(
         )
         .join(' | ');
       say(
-        `${p.modeName} (plasma glucose ${p.plasmaGlucoseMmolL} mmol/L, GFR ${p.gfrMlMin} mL/min = ${p.filtrateLPerDay} L/day filtrate): glomerular protein barrier intact (${p.plasmaProteinG100Ml} → ${p.filtrateProteinG100Ml} g/100mL) · proximal tubule glucose reabsorbed ${p.glucoseReabsorbedPct}% (${p.reabsorbedGlucoseMmolL} mmol/L rescued, ${p.spilledGlucoseMmolL} mmol/L spilled into urine) · water reabsorbed ${p.waterReabsorbedPct}% → urine ${p.urineLPerDay} L/day · urea concentrated ${p.ureaConcentrationRatio}× (${p.plasmaUreaG100Ml} → ${p.urineUreaG100Ml} g/100mL, ${p.excretedUreaGPerDay} g/day excreted). ${cmp.summary} Saved: ${history || 'none'}.`
+        `${p.modeName} (plasma glucose ${p.plasmaGlucoseMmolL} mmol/L, GFR ${p.gfrMlMin} mL/min = ${p.filtrateLPerDay} L/day filtrate): stipulated barrier (rounded protein values: ${p.plasmaProteinG100Ml} → ${p.filtrateProteinG100Ml} g/100mL) · proximal tubule glucose reabsorbed ${p.glucoseReabsorbedPct}% (${p.reabsorbedGlucoseMgMin.toFixed(1)} mg/min rescued, ${p.excretedGlucoseMgMin.toFixed(1)} mg/min excreted) · water reabsorbed ${p.waterReabsorbedPct}% → urine ${p.urineLPerDay} L/day · urea concentrated ${p.ureaConcentrationRatio}× (${p.plasmaUreaG100Ml} → ${p.urineUreaG100Ml} g/100mL, ${p.excretedUreaGPerDay} g/day excreted). ${cmp.summary} Saved: ${history || 'none'}.`
       );
     }
 
@@ -330,7 +330,7 @@ Live.register(
     return {};
   },
   {
-    label: 'Investigate glomerular ultrafiltration, selective reabsorption & urea excretion',
+    label: 'Illustrative rate model: investigate glomerular ultrafiltration, selective reabsorption & urea excretion',
     three: false,
     static: true,
   }

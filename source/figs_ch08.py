@@ -247,7 +247,7 @@ def c8_alveolar_exchange():
         f.text(264, y + 20, exp, 't s', 'middle', 13)
         f.text(460, y + 20, reason, 't', 'middle', 11.8)
 
-    f.text(320, 602, 'Exercise raises muscle CO₂ output → raises blood CO₂ → detected by brain → faster, deeper breathing.', 't b', 'middle', 12)
+    f.text(320, 602, 'Exercise: movement and muscle signals + chemical regulation → faster, deeper breathing.', 't b', 'middle', 12)
     return f.svg()
 
 
@@ -267,7 +267,7 @@ def c8_harvey_evidence():
         '• 1 drachm/beat → 1,000 drachms = 10 lb 5 oz',
         '• 2 drachms/beat → 2,000 drachms = 20 lb 10 oz',
         '• ½ oz (4 drachms) → 500 oz = 41 lb 8 oz',
-        'Far exceeds total blood or food intake.',
+        'Repeated replacement exceeds food supply.',
     ], 'wash-n', 12.2)
 
     box(f, 332, 102, 280, 178, [
@@ -335,7 +335,7 @@ def c8_double_circulation():
     f.rect(280, 104, 336, 474, 'plate', 10)
 
     # Pulmonary loop top
-    box(f, 344, 118, 208, 48, ['Lungs (pulmonary capillaries)', 'Gentle low pressure (~25/10 mmHg)'], 'wash-g', 12.5)
+    box(f, 344, 118, 208, 48, ['Lungs (pulmonary capillaries)', 'Pressure falls along lung vessels'], 'wash-g', 12.5)
     f.arrow(396, 208, 396, 168, 'electron', width=2.5)
     f.text(390, 192, 'Pulmonary artery', 't e b', 'end', 11.8)
     f.arrow(500, 168, 500, 208, 'proton', width=2.5)
@@ -564,7 +564,7 @@ def c8_vessel_comparison():
 
 @figure
 def c8_capillary_bed_blood():
-    f = Fig(640, 635, 'Capillary bed filtration, tissue fluid and lymphatic return above four blood component identification cards (0610 9.4). At the arterial end of a capillary, hydrostatic pressure filters water, oxygen, glucose, amino acids and ions out into tissue fluid while red blood cells and large plasma proteins remain inside. Most fluid returns by osmosis at the venous end; excess enters blind-ended lymphatic capillaries as lymph. Below: red blood cells (biconcave, no nucleus, haemoglobin), phagocyte (lobed nucleus, phagocytosis), lymphocyte (large round nucleus, antibodies), and platelets + fibrin mesh clotting.')
+    f = Fig(640, 635, 'Capillary bed filtration, tissue fluid and lymphatic return above four blood component identification cards (0610 9.4). Pressure and barrier properties govern fluid filtration; oxygen diffuses down its own gradient. Red blood cells are retained; escaped proteins return through lymph. Net filtered fluid returns through lymphatics in ordinary steady tissue beds; gases diffuse separately. Below: red blood cells (biconcave, no nucleus, haemoglobin), phagocyte (lobed nucleus, phagocytosis), lymphocyte (large round nucleus, antibodies), and platelets + fibrin mesh clotting.')
     heading(f, 'Tissue fluid, lymphatic return and the jobs of blood', 'Capillary exchange above · photomicrograph and diagram key for blood components below (0610 9.4)')
 
     # Top panel: Capillary bed -> Tissue fluid -> Venous return + Lymphatic drainage
@@ -574,23 +574,23 @@ def c8_capillary_bed_blood():
     f.rect(40, 104, 560, 48, 'wash-p', 16, extra='stroke="var(--proton)" stroke-width="1.8" stroke-dasharray="8 3"')
     f.text(154, 123, 'Arterial end (high hydrostatic P)', 't p b', 'middle', 12.5)
     f.text(486, 123, 'Venous end (lower hydrostatic P)', 't e b', 'middle', 12.5)
-    f.text(320, 143, 'RBCs and large plasma proteins stay inside capillary (lower water potential)', 't b', 'middle', 11.8)
+    f.text(320, 143, 'RBCs retained; barrier and pressures govern fluid exchange', 't b', 'middle', 11.8)
 
-    # Outward pressure filtration on left; inward osmotic reabsorption on right
+    # Net outward fluid filtration in this ordinary steady tissue bed; gas diffusion is separate.
     f.arrow(140, 154, 140, 194, 'proton', width=2.5)
     f.text(140, 212, 'Pressure filters out:', 't p b', 'middle', 12)
-    f.text(140, 228, 'H₂O, O₂, glucose, ions', 't', 'middle', 11.8)
+    f.text(140, 228, 'Water and dissolved solutes', 't', 'middle', 11.8)
 
     box(f, 232, 176, 176, 56, ['Body cells in TISSUE FLUID', 'Take in O₂ and glucose;', 'release CO₂ and wastes'], 'wash-n', 12)
 
-    f.arrow(500, 194, 500, 154, 'electron', width=2.5)
-    f.text(500, 212, 'Osmosis reabsorbs (~85%):', 't e b', 'middle', 12)
-    f.text(500, 228, 'H₂O + CO₂ into venous blood', 't', 'middle', 11.8)
+    f.arrow(500, 154, 500, 194, 'electron', width=2.5)
+    f.text(500, 212, 'Small net filtration continues', 't e b', 'middle', 12)
+    f.text(500, 228, 'Gases diffuse independently', 't', 'middle', 11.8)
 
     # Blind-ended lymphatic vessel at bottom of top panel (wider box 48..592 so text fits cleanly inside!)
     f.rect(48, 248, 544, 36, 'wash-g', 14, extra='stroke="var(--green)" stroke-width="1.6"')
     f.arrow(320, 234, 320, 250, 'green', width=2)
-    f.text(320, 271, 'Blind-ended lymphatic capillary drains excess (~15%) as LYMPH → lymph nodes → veins', 't g b', 'middle', 11.8)
+    f.text(320, 271, 'Lymphatics return net filtered fluid and escaped proteins → nodes → veins', 't g b', 'middle', 11.8)
 
     f.line(28, 300, 612, 300, 'ln r')
 
@@ -617,8 +617,8 @@ def c8_capillary_bed_blood():
     f.circle(374, 392, 6, 'pt-e')
     f.path('M360,380 L372,375 L374,392', 'ln e', extra='stroke-width="3" fill="none"')
     f.lines(402, 364, [
-        'Phagocyte (white blood cell)',
-        '• Identified by lobed nucleus',
+        'Neutrophil (a phagocyte)',
+        '• This example has lobed nucleus',
         '• Flexible cell flows around,',
         '  engulfs and digests pathogens',
         '  by phagocytosis (0610 9.4.6).',
@@ -632,8 +632,8 @@ def c8_capillary_bed_blood():
         'Lymphocyte (white blood cell)',
         '• Identified by a large, round',
         '  nucleus filling most of cell',
-        '• Produces specific protein',
-        '  antibodies against pathogens.',
+        '• B cells can become plasma',
+        '  cells secreting antibodies.',
     ], 't', 'start', 11.8, lh=1.36)
 
     # Card 4 (bottom-right): Platelets and Fibrin Clotting (0610 9.4.3, 9.4.4, 9.4.7)

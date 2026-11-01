@@ -8,7 +8,7 @@ from pathlib import Path
 import base64,functools,hashlib,http.server,json,os,re,subprocess,threading,traceback,unicodedata
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-SITE=ROOT/'build/site'
+SITE=Path(os.environ.get('BIO_QA_SITE', str(ROOT/'build/site')))
 OUT=Path(os.environ.get('BIO_CH10_QA_OUT','/tmp/lt_bio_ch10/qa'));OUT.mkdir(parents=True,exist_ok=True)
 WIDTHS=[390,820,1024,1180,1440];THEMES=['light','dark','sepia']
 WIDGETS={2:'glucose_thermoregulation',5:'nephron_filtration',7:'immunity_vaccine_memory'}
@@ -46,6 +46,8 @@ def clear_stamps(page):page.evaluate("Object.keys(localStorage).filter(k=>k.star
 def preservation():
     baseline=json.loads((ROOT/'tests/ch10-preserved.json').read_text())['files']
     for name,expected in baseline.items():
+        from revision_preservation import revised_file
+        if revised_file(ROOT,name,check,report):continue
         data=(ROOT.parent/name).read_bytes()
         if name=='source/live/enhancements.js':
             marker=b'  glucose_thermoregulation: {'
@@ -111,7 +113,7 @@ def assert_tour(f,n,index):
         label=['Primary vs Vaccine Memory','Antigen shape specificity','Active vs Passive immunity','Cholera toxin vs ORS rescue'][m]
         check(f.get_by_role('button',name=label,exact=True).get_attribute('aria-pressed')=='true','Actual immunity tab '+label)
         check(int(f.get_by_label('Days post-exposure',exact=True).input_value())==day,'Actual days post-exposure')
-        check(int(f.get_by_label('Memory or ORS dose',exact=True).input_value())==level,'Actual vaccine memory / ORS dose')
+        check(int(f.get_by_label('Memory or ORS support',exact=True).input_value())==level,'Actual vaccine memory / ORS dose')
         check(f'{label} (Day {day}, slider {level}%):' in text,'Immunity tour readout agrees')
     check(f.locator('.live-cutaway-btn').get_attribute('aria-pressed')==str(cut).lower(),'Actual cutaway explicitly set')
     report['tour_states'].append({'figure':n,'shot':index+1,'state':list(expected)})
@@ -140,7 +142,7 @@ def challenge(page,f,n):
         check('Contrasting nephron filtration and reabsorption states captured for comparison:' in text,'Both normal and hyperglycaemic nephron states captured')
         slide(f,'Plasma glucose',10);slide(f,'GFR filtration rate',100)
         text=f.locator('.live-readout').inner_text()
-        check('#1 Normal hydration (gluc 5 mmol/L, GFR 125 → reabs 100%, urine 1.5 L/d) | #2 Untreated hyperglycaemia (16 mmol/L) (gluc 16 mmol/L, GFR 125 → reabs 65.6%, urine 3.81 L/d)' in text,'Saved nephron captures remain immutable')
+        check('#1 Normal hydration (gluc 5 mmol/L, GFR 125 → reabs 100%, urine 1.5 L/d) | #2 Untreated hyperglycaemia (16 mmol/L) (gluc 16 mmol/L, GFR 125 → reabs 91.7%, urine 3.8 L/d)' in text,'Saved nephron captures remain immutable')
     else:
         slide(f,'Days post-exposure',10)
         check(not stamped(f),'Moving day slider without capture cannot earn immunity comparison')
@@ -149,7 +151,7 @@ def challenge(page,f,n):
         tab(f,'Vaccinated Day 7 (90% mem)');tab(f,'Capture trial')
         text=f.locator('.live-readout').inner_text()
         check('Contrasting immunity or oral rehydration states captured for comparison:' in text,'Both primary and vaccinated secondary states captured')
-        slide(f,'Days post-exposure',20);slide(f,'Memory or ORS dose',50)
+        slide(f,'Days post-exposure',20);slide(f,'Memory or ORS support',50)
         text=f.locator('.live-readout').inner_text()
         check('#1 Primary vs Vaccine Memory (Day 14, 0% → 28 AU, memory=YES) | #2 Primary vs Vaccine Memory (Day 7, 90% → 220.2 AU, memory=YES)' in text,'Saved immunity captures remain immutable')
     check(stamped(f),'Challenge earned from required captured outcomes')
@@ -243,7 +245,7 @@ def browser_checks():
                     tab(f,name)
                     for d in [0,7,14,28]:
                         slide(f,'Days post-exposure',d)
-                        for lvl in [0,20,80,100]:slide(f,'Memory or ORS dose',lvl)
+                        for lvl in [0,20,80,100]:slide(f,'Memory or ORS support',lvl)
             f.locator('.live-close').click()
         # Resize/theme while open: repaint, preserve state/readouts/captures; keyboard slider actual focus.
         for n,label,val,step in [(2,'Ambient temperature',30,1),(5,'Plasma glucose',8,1),(7,'Days post-exposure',14,1)]:

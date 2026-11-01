@@ -266,15 +266,15 @@ Live.register(
           );
           draw.text(
             ctx,
-            p.urineGlucoseSpillMmolL > 0
-              ? `Above renal T_m (10.5): ${p.urineGlucoseSpillMmolL.toFixed(1)} mmol/L in urine`
-              : 'Below renal T_m (10.5 mmol/L): 0.0 mmol/L in urine',
+            p.urineGlucoseSpillMgMin > 0
+              ? `Model glucose excretion: ${p.urineGlucoseSpillMgMin.toFixed(1)} mg/min glucose loss`
+              : 'Model filtered load below recovery capacity',
             166,
             286,
             {
               size: 10.2,
               weight: 600,
-              color: p.urineGlucoseSpillMmolL > 0 ? c.proton : c.photon,
+              color: p.urineGlucoseSpillMgMin > 0 ? c.proton : c.photon,
               align: 'center',
             }
           );
@@ -310,7 +310,7 @@ Live.register(
           ['Net core heat storage', `${p.netHeatStorageW >= 0 ? '+' : ''}${p.netHeatStorageW} W`],
           ['Plasma glucose', `${p.regulatedGlucoseMmolL.toFixed(2)} mmol/L`],
           ['Insulin / Glucagon', `${p.insulinUnitsMl} µU / ${p.glucagonPgMl} pg`],
-          ['Urine glucose spill', `${p.urineGlucoseSpillMmolL.toFixed(1)} mmol/L`],
+          ['Urine glucose spill', `${p.urineGlucoseSpillMgMin.toFixed(1)} mmol/L`],
         ];
 
         rows.forEach(([k, v], i) => {

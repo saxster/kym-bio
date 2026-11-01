@@ -16,7 +16,7 @@ const breathingModeDetails = [
     'Pleural pressure stays negative (P_ip ≈ −4 mmHg) so lungs remain held against chest wall.',
   ],
   [
-    'Active muscles produce more CO₂; rising blood CO₂ is detected by the brain.',
+    'Movement signals and working-muscle feedback increase breathing alongside chemical regulation.',
     'Internal intercostal and abdominal muscles pull ribs down and in during forced exhalation.',
     'Both rate and depth of breathing increase, raising alveolar ventilation steeply.',
   ],
@@ -122,7 +122,7 @@ export function harveyAccount(drachmsPerBeat = 1, beatsHalfHour = 1000) {
   const totalOunces = totalDrachms / 8;
   const troyPounds = Math.floor(totalOunces / 12);
   const remOunces = +(totalOunces - troyPounds * 12).toFixed(2);
-  const approxLitresHalfHour = +(totalDrachms * 3.8879346 / 1000).toFixed(2);
+  const approxKgHalfHour = +(totalDrachms * 3.8879346 / 1000).toFixed(2);
   return {
     drachms,
     beats,
@@ -131,7 +131,7 @@ export function harveyAccount(drachmsPerBeat = 1, beatsHalfHour = 1000) {
     troyPounds,
     remOunces,
     troyLabel: `${troyPounds} lb ${remOunces} oz`,
-    approxLitresHalfHour,
+    approxKgHalfHour,
   };
 }
 
@@ -166,11 +166,11 @@ export function circulationAccount(mode = 0, heartRateBpm = 70, strokeVolumeMl =
   const modeLines = [
     [
       `Stage ${step}: ${cardiacStages[step]}.`,
-      'Right ventricle pumps at low pressure (~25 mmHg) to protect thin alveolar capillaries.',
+      'Right ventricular systolic pressure ~25 mmHg; pressure falls further along lung vessels.',
       'Left ventricle has a ~3× thicker muscular wall to pump the same flow at ~120 mmHg to the body.',
     ],
     [
-      'Harvey (Frankfurt, 1628) assumed 1,000 beats in 30 min ejecting 1 drachm → 10 lb 5 oz (~3.89 L).',
+      'Harvey (Frankfurt, 1628) assumed 1,000 beats in 30 min ejecting 1 drachm → 10 lb 5 oz (~3.89 kg).',
       `Chosen modern metric calculation: ${hr} bpm × ${sv} mL = ${coLMin.toFixed(2)} L/min (${coLHour.toFixed(1)} L/h).`,
       'Arithmetic rules out single-pass production; venous valves (Ch. XIII) prove one-way return.',
     ],
@@ -258,15 +258,10 @@ export function vesselAccount(focusMode = 0, segment = 0, cardiacOutputLMin = 4.
   const velocityCmSec = +(qCm3PerSec / seg.totalAreaCm2).toFixed(4);
   const velocityMmSec = +(velocityCmSec * 10).toFixed(3);
 
-  // Starling capillary exchange reference numbers (mmHg & L/day scaled with CO)
-  const chpArterialMmHg = 35;
-  const chpVenousMmHg = 18;
-  const bcopMmHg = 25;
-  const nfpArterialMmHg = chpArterialMmHg - bcopMmHg; // +10 mmHg outward filtration
-  const nfpVenousMmHg = chpVenousMmHg - bcopMmHg;     // -7 mmHg inward osmotic reabsorption
-  const filtrationLDay = +(24.0 * (coLMin / 4.9)).toFixed(1);
-  const reabsorptionLDay = +(filtrationLDay * 0.85).toFixed(1);
-  const lymphReturnLDay = +(filtrationLDay - reabsorptionLDay).toFixed(1);
+  // Revised Starling principle: no universal venous return percentage or CO-scaled lymph prediction.
+  // This explorer teaches routes, not a fitted microvascular fluid-flow model.
+  const exchangeModel = 'Net filtration with lymphatic return in ordinary steady tissue beds';
+  const fluidRoutes = Object.freeze({ filtration: 'Blood → tissue fluid', lymph: 'Tissue fluid → lymph → veins', diffusion: 'Each solute follows its own gradient' });
 
   const linesByMode = [
     [
@@ -279,14 +274,15 @@ export function vesselAccount(focusMode = 0, segment = 0, cardiacOutputLMin = 4.
           : 'Wide venous lumen lowers resistance; semilunar valves and skeletal muscles stop backflow.',
     ],
     [
-      `Arterial end of capillary: hydrostatic P (${chpArterialMmHg} mmHg) > osmotic pull (${bcopMmHg} mmHg) → filters tissue fluid.`,
-      'Red blood cells and large plasma proteins stay inside; water, O₂, glucose and ions bathe cells.',
-      `Venous end: osmosis reabsorbs ~85% (${reabsorptionLDay} L/day); blind-ended lymphatics drain ~15% (${lymphReturnLDay} L/day) as lymph.`,
+      'Pressure and barrier properties govern net fluid filtration from capillaries.',
+      'O₂ diffuses into tissues; fluid filtration is a separate process.',
+      'Lymphatics return net filtered fluid and escaped proteins.',
+
     ],
     [
       'Plasma (liquid): transports blood cells, ions, soluble nutrients, urea, hormones and CO₂.',
       'Red blood cells: biconcave discs with NO nucleus; haemoglobin binds O₂ reversibly.',
-      'White blood cells: phagocytes (lobed nucleus) engulf pathogens; lymphocytes (round nucleus) make antibodies.',
+      'Neutrophils are lobed-nucleus phagocytes; B lymphocytes can become antibody-secreting cells.',
     ],
     [
       'At a wound, platelets stick to exposed vessel fibres and release clotting signals.',
@@ -310,14 +306,8 @@ export function vesselAccount(focusMode = 0, segment = 0, cardiacOutputLMin = 4.
     qCm3PerSec,
     velocityCmSec,
     velocityMmSec,
-    chpArterialMmHg,
-    chpVenousMmHg,
-    bcopMmHg,
-    nfpArterialMmHg,
-    nfpVenousMmHg,
-    filtrationLDay,
-    reabsorptionLDay,
-    lymphReturnLDay,
+    exchangeModel,
+    fluidRoutes,
     lines: linesByMode,
   };
 }

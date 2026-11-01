@@ -8,7 +8,7 @@ from pathlib import Path
 import base64,functools,hashlib,http.server,json,os,re,subprocess,threading,traceback,unicodedata
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-SITE=ROOT/'build/site'
+SITE=Path(os.environ.get('BIO_QA_SITE', str(ROOT/'build/site')))
 OUT=Path(os.environ.get('BIO_CH09_QA_OUT','/tmp/lt_bio_ch09/qa'));OUT.mkdir(parents=True,exist_ok=True)
 WIDTHS=[390,820,1024,1180,1440];THEMES=['light','dark','sepia']
 WIDGETS={2:'reflex_action_potential',4:'synapse_transmission',7:'eye_accommodation_tropism'}
@@ -46,6 +46,8 @@ def clear_stamps(page):page.evaluate("Object.keys(localStorage).filter(k=>k.star
 def preservation():
     baseline=json.loads((ROOT/'tests/ch09-preserved.json').read_text())['files']
     for name,expected in baseline.items():
+        from revision_preservation import revised_file
+        if revised_file(ROOT,name,check,report):continue
         data=(ROOT.parent/name).read_bytes()
         if name=='source/live/enhancements.js':
             marker=b'  reflex_action_potential: {'
@@ -94,7 +96,7 @@ def assert_tour(f,n,index):
     text=f.locator('.live-readout').inner_text()
     if n==2:
         m,diam,temp,cut=expected
-        label=['Myelinated reflex arc','Unmyelinated axon loop','Voluntary ruler catch','Siddiqi para^ts Na⁺ mutant'][m]
+        label=['Illustrative myelinated pathway','Unmyelinated axon loop','Voluntary ruler catch','Siddiqi para^ts Na⁺ mutant'][m]
         check(f.get_by_role('button',name=label,exact=True).get_attribute('aria-pressed')=='true','Actual reflex tab '+label)
         check(int(f.get_by_label('Axon diameter',exact=True).input_value())==diam,'Actual axon diameter')
         check(int(f.get_by_label('Temperature',exact=True).input_value())==temp,'Actual temperature')
@@ -136,7 +138,7 @@ def challenge(page,f,n):
         check('Contrasting reflex/conduction pathways captured for comparison.' in text,'Contrasting reflex & para^ts states recorded')
         slide(f,'Axon diameter',6);slide(f,'Temperature',20)
         text=f.locator('.live-readout').inner_text()
-        check('#1 Myelinated reflex arc (12 µm, 25 °C → 35.9 ms) | #2 Siddiqi para^ts Na⁺ mutant (12 µm, 32 °C → Blocked)' in text,'Saved reflex trials remain immutable after slider changes')
+        check('#1 Illustrative myelinated pathway (12 µm, 25 °C → 36.8 ms) | #2 Siddiqi para^ts Na⁺ mutant (12 µm, 32 °C → Blocked)' in text,'Saved reflex trials remain immutable after slider changes')
     elif n==4:
         tab(f,'Reverse test (Post → Pre)');slide(f,'Stimulus frequency',60)
         check(not stamped(f),'Switching tabs without capturing both states cannot earn synapse comparison')
@@ -232,7 +234,7 @@ def browser_checks():
         for n in WIDGETS:
             f=opened(page,n)
             if n==2:
-                for name in ['Myelinated reflex arc','Unmyelinated axon loop','Voluntary ruler catch','Siddiqi para^ts Na⁺ mutant']:
+                for name in ['Illustrative myelinated pathway','Unmyelinated axon loop','Voluntary ruler catch','Siddiqi para^ts Na⁺ mutant']:
                     tab(f,name)
                     for d in [4,12,20]:
                         slide(f,'Axon diameter',d)

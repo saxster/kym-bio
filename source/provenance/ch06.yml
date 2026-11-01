@@ -3,7 +3,7 @@
     - course: "7.014 Introductory Biology, Spring 2005"
       where: "Lecture 7, Biochemistry VI, actual five-page transcript; carrier/energy/membrane sequence"
       url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/cdabed1e33ba29ceae967b1a2ebfc991_R3DI6W9iKtU.pdf"
-      took: "Fuel reactions versus ATP-supported work; chemical/concentration/electrical energy; original retelling, no fixed ATP yields"
+      took: "Reader revision 2026-11-01: causal sequence and intermediate retrieval; Fuel reactions versus ATP-supported work; chemical/concentration/electrical energy; original retelling, no fixed ATP yields"
   openstax:
     - book: "Biology 2e"
       section: "6.4 ATP: Adenosine Triphosphate"

@@ -165,7 +165,7 @@ def c10_negative_feedback_glucose() -> str:
 
     # Bottom panel: 24-hour oscillation trace vs Type 1 diabetes / Positive feedback contrast
     f.rect(20, 404, 385, 198, "plate", rx=8)
-    txt(f, 212, 424, "Why negative feedback oscillates gently around the set point", "t b", 9.8)
+    txt(f, 212, 424, "An illustrative recovery near the set point gently around the set point", "t b", 9.8)
     txt(f, 212, 441, "Blood glucose (mmol/L) over 6 hours after a mango meal", "t m", 8.5)
 
     # Plot axes inside left bottom panel
@@ -459,7 +459,7 @@ def c10_mumbai_heat_balance() -> str:
         8.6,
     )
 
-    # Bottom enzyme denaturation curve (linking Chapter 4 to Chapter 10)
+    # Bottom enzyme heat damage curve (linking Chapter 4 to Chapter 10)
     f.rect(20, 438, 600, 146, "plate", rx=8)
     txt(f, 320, 458, "Why a 3–5 °C rise in core temperature is a medical emergency (Chapter 4 Enzyme Link)", "t b", 9.8)
 
@@ -472,13 +472,13 @@ def c10_mumbai_heat_balance() -> str:
     txt(f, 102, 569, "25 °C", "t m", 8)
     txt(f, 306, 569, "43 °C", "t b p", 8)
     txt(f, 135, 514, "Fewer collisions", "t m", 8)
-    txt(f, 298, 505, "Denaturation", "t b p", 8)
+    txt(f, 298, 505, "Heat damage varies", "t b p", 8)
 
     # Right explanation inside bottom panel
     txt(f, 472, 484, "Below 37 °C: molecules have lower average", "t s", 8.6)
     txt(f, 472, 501, "kinetic energy, slowing metabolic reactions.", "t s", 8.6)
-    txt(f, 472, 524, "Above 40–42 °C: violent thermal vibration", "t b p", 8.6)
-    txt(f, 472, 541, "breaks hydrogen & ionic bonds in enzymes,", "t s", 8.6)
+    txt(f, 472, 524, "Above severe heat: violent thermal vibration", "t b p", 8.6)
+    txt(f, 472, 541, "cell damage depends on heat and duration,", "t s", 8.6)
     txt(f, 472, 558, "warping active sites so reactions fail.", "t s", 8.6)
 
     return f.svg()
@@ -662,7 +662,7 @@ def c10_kidney_nephron_ledger() -> str:
     heading(
         f,
         "10.5  Inside a single nephron: massive filtration followed by selective rescue",
-        "Two kidneys filter ~180 L/day in the cortex, then selectively reabsorb 100% of glucose and ~99% of water",
+        "Chosen adult model: 180 L/day filtered; nearly all glucose and ~99% of water recovered",
     )
 
     # Top anatomical schematic of one nephron across Cortex and Medulla
@@ -702,7 +702,7 @@ def c10_kidney_nephron_ledger() -> str:
             (20, "2. Renal Tubule (Cortex)", "t b g"),
             (39, "Selective reabsorption", "t b"),
             (56, "back into capillary blood:", "t s"),
-            (74, "• ALL (100%) of glucose", "t b g"),
+            (74, "• Nearly all glucose at usual loads", "t b g"),
             (90, "• MOST water (osmosis)", "t s"),
             (106, "• SOME needed ions", "t s"),
         ],
@@ -729,8 +729,8 @@ def c10_kidney_nephron_ledger() -> str:
             (166, "• Urea (~2.0 g/100 mL)", "t b p"),
             (184, "• Excess water", "t s"),
             (202, "• Excess ions", "t s"),
-            (224, "• 0% protein", "t b g"),
-            (242, "• 0% glucose", "t b g"),
+            (224, "• Very little protein", "t b g"),
+            (242, "• No detected glucose", "t b g"),
         ],
         "wash-p",
         8.4,
@@ -766,7 +766,7 @@ def c10_kidney_nephron_ledger() -> str:
             (20, "Wearn & Richards (1924)", "t b"),
             (38, "Quartz micropipette proved", "t s"),
             (54, "capsule fluid has glucose", "t s"),
-            (70, "and zero protein.", "t m"),
+            (70, "and little protein.", "t m"),
         ],
         "wash-n",
         8.2,
@@ -785,11 +785,11 @@ def c10_kidney_nephron_ledger() -> str:
     txt(f, 552, 432, "Urine (1.5 L/d)", "t b p", 8.6)
 
     rows = [
-        ("Proteins & RBCs", "8.00 g / 100 mL", "0.00 (unfiltered)", "Not filtered", "0.00 g / 100 mL", "t b"),
-        ("Glucose", "0.10 g / 100 mL", "0.10 (180 g/day)", "100% (all 180 g/d)", "0.00 g / 100 mL", "t b g"),
+        ("Proteins & RBCs", "8.00 g / 100 mL", "~0 (rounded)", "Not filtered", "~0 (rounded)", "t b"),
+        ("Glucose", "0.09 g / 100 mL", "0.09 (162 g/day)", "~all (162 g/day)", "~0 (rounded)", "t b g"),
         ("Water (volume)", "Plasma solvent", "180.0 L / day", "~99.2% (178.5 L/d)", "1.5 L / day", "t s"),
         ("Mineral ions (Na⁺, Cl⁻)", "0.72 g / 100 mL", "0.72 (1,296 g/d)", "Some (~98.3%)", "1.50 g / 100 mL", "t s"),
-        ("Urea (from liver)", "0.03 g / 100 mL", "0.03 (54 g/day)", "Little (~44%)", "2.00 g / 100 mL (×67)", "t b p"),
+        ("Urea (from liver)", "0.03 g / 100 mL", "0.03 (54 g/day)", "~44% returned", "2.00 g / 100 mL (×67)", "t b p"),
     ]
     y = 460
     for comp, pl, fil, reab, ur, ccls in rows:
@@ -805,7 +805,7 @@ def c10_kidney_nephron_ledger() -> str:
         f,
         320,
         598,
-        "Why urea is 67× more concentrated in urine: ~99% of filtered water is reabsorbed while most urea stays in the tubule.",
+        "Example: 54 g filtered, ~24 g returned, ~30 g excreted; water falls from 180 to 1.5 L/day.",
         "t m",
         8.4,
     )
@@ -974,7 +974,7 @@ def c10_immune_response_vaccines() -> str:
         236,
         [
             (20, "A. Cellular Division of Labour", "t b"),
-            (42, "1. Phagocyte (lobed nucleus):", "t b e"),
+            (42, "1. Neutrophil (a phagocyte):", "t b e"),
             (59, "Non-specific phagocytosis — engulfs", "t s"),
             (75, "pathogens into a vacuole and digests", "t s"),
             (91, "them with hydrolytic enzymes.", "t s"),
@@ -992,7 +992,7 @@ def c10_immune_response_vaccines() -> str:
     # TOP RIGHT: Antigen-Antibody Complementary Shape & Two Destruction Routes
     f.rect(328, 56, 292, 236, "wash-e", rx=8)
     txt(f, 474, 76, "B. Complementary Antigen–Antibody Fit", "t b e", 9.6)
-    txt(f, 474, 93, "Antibody binding site fits only its matching antigen", "t m", 8.2)
+    txt(f, 474, 93, "Recognition depends on antigen features; cross-reaction is possible", "t m", 8.2)
 
     # Schematic Y-shaped antibody and triangular antigen vs round non-matching antigen
     f.line(372, 165, 392, 165, "ln e")
@@ -1011,7 +1011,7 @@ def c10_immune_response_vaccines() -> str:
     f.circle(522, 178, 6, "pt-p")
     txt(f, 561, 160, "Pathogen B", "t b", 8)
     txt(f, 561, 176, "(Wrong shape)", "t m", 7.8)
-    txt(f, 558, 124, "No binding (0%)", "t p", 8)
+    txt(f, 558, 124, "Unrecognised here", "t p", 8)
 
     txt(f, 474, 214, "Once bound, antibodies act in two ways (0610 10.1.8):", "t b", 8.4)
     txt(f, 474, 232, "1. Direct destruction (clumping/neutralising/lysing)", "t s", 8.2)
@@ -1236,139 +1236,14 @@ def c10_active_vs_passive_immunity() -> str:
 
 @figure
 def c10_diabetes_renal_case() -> str:
-    f = Fig(640, 610, "Chapter 10 diagnostic case: why untreated Type 1 diabetes causes sweet urine while the glomerulus stays intact")
-    heading(
-        f,
-        "10.9  Case Synthesis: The Sweet Urine and the Innocent Glomerular Filter",
-        "Untreated Type 1 diabetes (16.0 mmol/L plasma glucose) saturates proximal tubule carriers above T_m (~10.5 mmol/L)",
-    )
-
-    # LEFT PANEL: Healthy Nephron (5.0 mmol/L plasma glucose)
-    f.rect(20, 56, 292, 348, "wash-g", rx=8)
-    txt(f, 166, 78, "A. Healthy Control (Insulin Present)", "t b g", 9.8)
-    txt(f, 166, 95, "Plasma glucose held at set point: 5.0 mmol/L", "t m", 8.4)
-
-    box(
-        f,
-        36,
-        110,
-        260,
-        72,
-        [
-            (20, "1. Glomerulus & Renal Capsule", "t b"),
-            (39, "• Plasma protein (8.0 g/100 mL) → 0.0 in filtrate", "t s"),
-            (57, "• Glucose (5.0 mmol/L) filters freely into capsule", "t g"),
-        ],
-        "plate",
-        8.3,
-    )
-    arr(f, 166, 182, 166, 202, "g")
-
-    box(
-        f,
-        36,
-        204,
-        260,
-        82,
-        [
-            (20, "2. Proximal Renal Tubule Carriers", "t b g"),
-            (39, "• Filtered load (5.0 mmol/L) is well below carrier", "t s"),
-            (55, "capacity (T_m ≈ 10.5 mmol/L).", "t s"),
-            (72, "• 100% of glucose is actively reabsorbed into blood.", "t b g"),
-        ],
-        "plate",
-        8.3,
-    )
-    arr(f, 166, 286, 166, 306, "g")
-
-    box(
-        f,
-        36,
-        308,
-        260,
-        82,
-        [
-            (20, "3. Collecting Duct & Final Urine", "t b"),
-            (39, "• Normal osmotic water reabsorption (~99.2%).", "t s"),
-            (56, "• Urine volume: 1.5 L/day · Urine protein: 0.0", "t s"),
-            (73, "• Urine glucose: 0.0 mmol/L (zero glycosuria).", "t b g"),
-        ],
-        "plate",
-        8.3,
-    )
-
-    # RIGHT PANEL: Untreated Type 1 Diabetes Nephron (16.0 mmol/L plasma glucose)
-    f.rect(328, 56, 292, 348, "wash-p", rx=8)
-    txt(f, 474, 78, "B. Untreated Type 1 Diabetes (No Insulin)", "t b p", 9.8)
-    txt(f, 474, 95, "Fasting plasma glucose elevated: 16.0 mmol/L", "t m", 8.4)
-
-    box(
-        f,
-        344,
-        110,
-        260,
-        72,
-        [
-            (20, "1. Glomerulus & Capsule (INTACT)", "t b"),
-            (39, "• Plasma protein (8.0 g/100 mL) → 0.0 in filtrate", "t b g"),
-            (57, "• Glucose (16.0 mmol/L) filters freely into capsule", "t p"),
-        ],
-        "plate",
-        8.3,
-    )
-    arr(f, 474, 182, 474, 202, "p")
-
-    box(
-        f,
-        344,
-        204,
-        260,
-        82,
-        [
-            (20, "2. Proximal Tubule Carrier Saturation", "t b e"),
-            (39, "• Healthy carriers pump at 100% maximum speed,", "t s"),
-            (55, "reabsorbing ~10.5 mmol/L back into blood.", "t s"),
-            (72, "• Excess ~5.5 mmol/L cannot fit saturated carriers.", "t b p"),
-        ],
-        "plate",
-        8.3,
-    )
-    arr(f, 474, 286, 474, 306, "p")
-
-    box(
-        f,
-        344,
-        308,
-        260,
-        82,
-        [
-            (20, "3. Osmotic Diuresis in Collecting Duct", "t b p"),
-            (39, "• Unreabsorbed glucose lowers tubular Ψ_w,", "t s"),
-            (55, "holding water in the lumen by osmosis.", "t s"),
-            (72, "• Urine: 3.8 L/day · High glucose · 0.0 protein.", "t b p"),
-        ],
-        "plate",
-        8.3,
-    )
-
-    # BOTTOM PANEL: Evaluating the Three Student Hypotheses
-    box(
-        f,
-        20,
-        418,
-        600,
-        176,
-        [
-            (22, "Evaluating Three Claims Against the Clinical Data", "t b"),
-            (46, "Claim 1: 'High blood pressure tore holes in the glomerulus filter.' → FALSIFIED", "t b p"),
-            (64, "Small glucose molecules always pass freely into the capsule; zero protein in urine proves the size barrier is intact.", "t s"),
-            (92, "Claim 2: 'The kidney's proximal tubule glucose carriers are broken.' → FALSIFIED", "t b e"),
-            (110, "The carriers are working at full capacity (~10.5 mmol/L), but pancreas beta-cell failure flooded them with 16.0 mmol/L.", "t s"),
-            (138, "Claim 3: 'Unreabsorbed glucose in the tubule pulls extra water into urine by osmosis.' → CONFIRMED", "t b g"),
-            (156, "Dissolved glucose lowers lumen water potential, opposing water reabsorption → polyuria (3.8 L/d) & intense thirst.", "t s"),
-        ],
-        "wash-n",
-        8.4,
-    )
-
+    f = Fig(640, 630, "Glucose rate ledger: filtration, finite recovery and excretion")
+    heading(f, "10.9  The sweet urine: follow rates, then explain water loss", "Chosen GFR 125 mL/min; recovery capacity 330 mg/min. Values illustrate a simplified case.")
+    for x, title, rows in [
+        (20, "Comparison: plasma 5 mmol/L", ["0.90 mg/mL × 125 mL/min", "= 112.5 mg/min filtered", "112.5 mg/min recovered", "0 mg/min excreted in this model"]),
+        (330, "High glucose: plasma 16 mmol/L", ["2.88 mg/mL × 125 mL/min", "= 360 mg/min filtered", "330 mg/min recovered", "30 mg/min excreted = 43.2 g/day"]),
+    ]:
+        box(f, x, 65, 290, 190, [(25, title, "t b")] + [(65+i*30, line, "t") for i,line in enumerate(rows)], size=10)
+    arr(f, 475, 260, 475, 285, "p")
+    box(f, 20, 290, 600, 125, [(25, "Glucose remaining in tubular fluid lowers its water potential.", "t b"), (55, "Less water recovery can increase urine output and thirst.", "t"), (85, "3.8 L/day is a supplied observation, not derived from glucose alone.", "t")], size=11)
+    box(f, 20, 435, 600, 165, [(25, "What do the clues establish?", "t b"), (58, "Glucose normally filters: a tear is unnecessary to explain its entry.", "t"), (88, "No excess protein detected does not prove perfect kidney health.", "t"), (118, "Independent recovery measurements establish the assumed carrier capacity.", "t"), (145, "Real kidneys show gradual spillage; this model uses a sharp capacity.", "t m")], size=10)
     return f.svg()

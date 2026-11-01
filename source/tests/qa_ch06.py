@@ -17,7 +17,7 @@ import traceback
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = ROOT / 'build/site'
+SITE = Path(os.environ.get('BIO_QA_SITE', str(ROOT / 'build/site')))
 OUT = Path(os.environ.get('BIO_CH06_QA_OUT', '/tmp/lt_bio_ch06/qa'))
 OUT.mkdir(parents=True, exist_ok=True)
 WIDGETS = [3, 4, 5]
@@ -174,6 +174,8 @@ console.log(count+' independent formula/balance/model cases; 15 explicit tour sh
 def preservation():
     entries = json.loads((ROOT / 'tests/ch06-preserved.json').read_text())['files']
     for name, expected in entries.items():
+        from revision_preservation import revised_file
+        if revised_file(ROOT,name,check,report):continue
         data = (ROOT.parent / name).read_bytes()
         if name == 'source/live/enhancements.js':
             marker = b'  respiration_relay: {'

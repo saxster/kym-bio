@@ -30,7 +30,7 @@ Live.register('oxidation_ledger', (stage, params, api) => {
         rule(386);
         t('Per representative reaction: C 55 = 55; H 104 = 104; O 162 = 162.', 320, 415, 15, c.ink, 'center');
         t('Total products include atoms from incoming oxygen.', 320, 448, 17, c.ink, 'center');
-        t('The original-fat contribution is a different account: select the other view.', 320, 481, 14, c.muted, 'center');
+        t('Optional deeper account: select Original-fat allocation.', 320, 481, 14, c.muted, 'center');
       } else {
         t(`Original sample only: ${fat.toFixed(1)} kg`, 320, 144, 20, c.ink, 'center', 600);
         // Fixed fraction, not a gas-volume bar; the selected mass changes the ledger values.
@@ -50,7 +50,7 @@ Live.register('oxidation_ledger', (stage, params, api) => {
       }
       t('Complete-oxidation sample model · not a diet, body-mass change or breathing target', 320, 535, 13, c.muted, 'center');
     });
-    say(`Account view ${view}; fat sample ${fat.toFixed(1)} kg. Total ledger: ${f(q.fat)} kg fat + ${f(q.oxygen)} kg O₂ = ${f(q.co2)} kg total CO₂ + ${f(q.water)} kg total H₂O. Input ${f(q.input)} kg = output ${f(q.output)} kg. Separately, assigned ORIGINAL-fat contribution: ${f(q.assignedCO2)} kg to CO₂ and ${f(q.assignedWater)} kg to water (724/860 and 136/860, approximately 84%/16%). At 1 kg this is about 842 g/158 g, customarily rounded 840 g/160 g. ${inspected.size === 2 && fat === 1 ? 'Both 1 kg accounts inspected.' : ''} Oxygen exchange with body water motivates the paper’s assignment; the balanced equation alone cannot determine atom origins. Water joins body water and may leave by several routes later. Nominal masses C12 H1 O16; displayed entries rounded separately, totals calculated before rounding. All fuel carbon reaches CO₂ in this complete-oxidation model; faster voluntary breathing does not force oxidation.`);
+    say(`Account view ${view}; fat sample ${fat.toFixed(1)} kg. Total ledger: ${f(q.fat)} kg fat + ${f(q.oxygen)} kg O₂ = ${f(q.co2)} kg total CO₂ + ${f(q.water)} kg total H₂O. Input ${f(q.input)} kg = output ${f(q.output)} kg. ${view ? `Separately, assigned ORIGINAL-fat contribution: ${f(q.assignedCO2)} kg to CO₂ and ${f(q.assignedWater)} kg to water (724/860 and 136/860, approximately 84%/16%). At 1 kg this is about 842 g/158 g, customarily rounded 840 g/160 g.` : 'Start with all inputs and products. The optional second tab asks about original-fuel allocation.'} ${inspected.size === 2 && fat === 1 ? 'Both 1 kg accounts inspected.' : ''} Oxygen exchange with body water motivates the paper’s assignment; the balanced equation alone cannot determine atom origins. Water joins body water and may leave by several routes later. Nominal masses C12 H1 O16; displayed entries rounded separately, totals calculated before rounding. All fuel carbon reaches CO₂ in this complete-oxidation model; faster voluntary breathing does not force oxidation.`);
   }
   refresh(); return {};
 }, { label: 'Balance both fat oxidation accounts', three: false, static: true });
