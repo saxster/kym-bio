@@ -114,6 +114,11 @@
   computed: 1963 publication distinct from December 1962 submission. Drawings are illustrative projections, not
     measured map/coordinates.
 '4.3':
+  revision_note: '1 November 2026: lactose hydrolysis illustrates the complete enzyme cycle; abstract widget is distinguished from lactase structure or kinetics.'
+  revision_sources:
+  - source: OpenStax Anatomy and Physiology 2e 23.7
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/23-7-chemical-digestion-and-absorption-a-closer-look
+    took: Lactase hydrolyses lactose into glucose and galactose.
   ocw:
   - course: 7.016 Introductory Biology, Fall 2018
     url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/resources/lecture-4-enzymes-and-metabolism/
@@ -308,3 +313,6 @@ verification_notes:
   source_access: Nature publisher gateway blocked direct1954/1955 text; original articles subsequently read in NMJI
     permission reprint. Practical Biology direct403; accessible SAPS and exam-board sources provide assay support.
     No unresolved factual gap filled with invention.
+ch04-atlas-consistency-2026-11-01:
+  correction: 'Pyranose ring composition and link-orientation wording; declared illustrative angle/rate/temperature models; relative activity distinguished from native-fold fraction; DCPIP added to schematic rack; laboratory control limits retained.'
+  source_basis: 'Existing Chapter 4 grounding for carbohydrates, enzyme kinetics, temperature and food tests; no new measured quantities.'

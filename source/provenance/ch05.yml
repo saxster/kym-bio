@@ -275,3 +275,12 @@ helmont-authorised-followup:
 
 helmont-followup-gate-correction:
   correction: "Unrecorded tree water content prevents interpreting whole gain as new dry wood; no categorical water-mass contribution inferred from absence of a reported drying procedure."
+
+ch05-reader-revision-2026-11-01:
+  correction: "Early photosynthesis orientation, recurring carbon route, smaller teaching stages and checkpoints, stronger prediction alternatives, and comparison of xylem and phloem. Existing section IDs, figures and model rules retained."
+  computed: "Invented amounts in a common interval: 12-5=7; 5-5=0; 15-8=7. Separate from explorer's respiratory baseline10."
+  sources: "Existing section entries and grounding O81–O83, O304/O305, M8; no new historical claim or measured biological quantity."
+
+ch05-atlas-reader-integration:
+  correction: "Atlas captions/readouts and lesson metadata now match the actual schematic stations: formal net equation, later glucose summary product, invented capacity/relative vascular models and positive net bubble markers. Removed unsupported historical apparatus identity and calibrated-speed claims."
+  implementation: "Corrected missing shadeMat import and actual molecule/particle/surface API signatures; added catalog station aliases. Qualitative science remains under existing section source entries."

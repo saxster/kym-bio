@@ -2,149 +2,183 @@
   {
     "id": "ch04-water-3d",
     "widget": "atlas_ch04",
-    "title": "3D Atlas: Tetrahedral Water H-Bond Lattice & Ice Cage",
+    "title": "3D Atlas: Glucose and peptide connections",
     "chapter": 4,
     "figure": "c4_water_carbon",
-    "question": "Why does solid ice float on liquid water, insulating ponds and oceans from freezing solid from the bottom up?",
-    "explanation": "Cooling the 3D water cluster below 4 °C locks bent H₂O dipoles (104.5°) into an open hexagonal crystal lattice with ~9% more empty volume than jostling liquid water.",
-    "limits": "Five-molecule tetrahedral unit cell representing the extended hydrogen-bond network.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26883/"]
+    "question": "How can molecular connections help explain different biological materials?",
+    "explanation": "Inspect schematic glucose and peptide models. Glucose has six carbons overall; its common six-membered ring includes one oxygen. Water interactions and carbon bonding are explained in the chapter.",
+    "limits": "Schematic teaching geometry; this scene does not show an ice lattice or simulate freezing.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26883/"
+    ]
   },
   {
     "id": "ch04-glucose-3d",
     "widget": "atlas_ch04",
-    "title": "3D Atlas: α-Amylose Coils vs β-Cellulose Microfibrils",
+    "title": "3D Atlas: Glucose-derived building units",
     "chapter": 4,
     "figure": "c4_building_units",
-    "question": "Why can humans digest starch (α-glucose) for energy while cellulose (β-glucose) forms rigid, indigestible plant cell walls?",
-    "explanation": "Toggling the C1 anomeric bond in 3D flips every alternate β-glucose monomer 180°, turning a helical α-amylose storage coil into a straight, hydrogen-bonded β-cellulose structural beam.",
-    "limits": "Three-ring oligomer segment illustrating polymer pitch and flipping.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26883/"]
+    "question": "Why can polymers built from glucose-derived units have different properties?",
+    "explanation": "Compare the glucose building unit with the chapter’s starch, glycogen and cellulose plate. Link orientation and branching matter; the monomer model alone cannot establish polymer properties.",
+    "limits": "Schematic monomer and peptide models, not an interactive alpha/beta polymer conversion.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26883/"
+    ]
   },
   {
     "id": "ch04-protein-3d",
     "widget": "atlas_ch04",
-    "title": "3D Atlas: Ramachandran (φ, ψ) Dihedrals & Protein Folding",
+    "title": "3D Atlas: Backbone restrictions and protein folding",
     "chapter": 4,
     "figure": "c4_folding",
-    "question": "How did G. N. Ramachandran predict the allowed 3D folds of every protein on Earth using hard-sphere atomic radii before high-resolution crystal structures existed?",
-    "explanation": "Rotating the backbone torsion angles φ and ψ in 3D shows that planar peptide bonds restrict polypeptides to two major clash-free islands: the right-handed α-helix (−60°, −45°) and the β-sheet (−120°, +120°).",
-    "limits": "Hard-sphere van der Waals steric exclusion model for an L-alanine dipeptide.",
-    "sources": ["https://www.CurrentScience.ac.in/Volumes/80/02/0122.pdf"],
-    "stories": ["p-ramachandran"]
+    "question": "Why can a protein sketch preserve the amino-acid sequence yet propose an impossible shape?",
+    "explanation": "Inspect a chosen two-basin backbone-angle surface and a schematic chain. Local crowding restricts arrangements; a local angle map does not predict every complete protein fold.",
+    "limits": "Invented illustrative surface, not measured atomic energies or the original Ramachandran map. Real maps vary with amino-acid type.",
+    "sources": [
+      "https://www.CurrentScience.ac.in/Volumes/80/02/0122.pdf"
+    ],
+    "stories": [
+      "p-ramachandran"
+    ]
   },
   {
     "id": "ch04-enzyme-3d",
     "widget": "atlas_ch04",
-    "title": "3D Atlas: Induced-Fit Enzyme Catalysis & E_a Lowering",
+    "title": "3D Atlas: Enzyme binding and a chosen rate model",
     "chapter": 4,
     "figure": "c4_barrier",
-    "question": "How does an enzyme’s active site lower the activation energy barrier (E_a) without changing the overall ΔG of the reaction?",
-    "explanation": "Watching the 3D catalytic cleft clamp around the substrate shows how transition-state stabilisation lowers the activation peak on the 3D free-energy surface, accelerating turnover k_cat.",
-    "limits": "Michaelis–Menten steady-state kinetics coupled with thermal denaturation above T_opt.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "Why does substrate binding alone not establish that a protein catalyses a reaction?",
+    "explanation": "Inspect an invented enzyme cleft and compare chosen Michaelis–Menten rate responses to substrate and inhibitor. The chapter explains the separate activation-barrier account.",
+    "limits": "Abstract shapes and chosen steady-state kinetics; no measured lactase rates, atomic docking or directly simulated transition state.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch04-enzyme-3d-denature",
     "widget": "atlas_ch04",
-    "title": "3D Atlas: Thermal & pH Denaturation of the Active Site",
+    "title": "3D Atlas: An illustrative temperature response",
     "chapter": 4,
     "figure": "c4_conditions",
-    "question": "Why does warming an enzyme past 42 °C cause reaction velocity to plummet irreversibly instead of continuing to speed up collisions?",
-    "explanation": "Sweeping the temperature slider past 40 °C in the 3D enzyme station unfolds the tertiary active-site cleft as hydrogen and ionic bonds break, destroying substrate complementarity.",
-    "limits": "Two-state native-to-denatured equilibrium model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "Why can warming first increase a reaction rate and later reduce it?",
+    "explanation": "Change the chosen temperature parameter and compare relative model activity. The picture changes shape at a declared model threshold; this is not a universal protein failure temperature.",
+    "limits": "No exposure-time history or pH slider here. Relative activity is not measured native-fold fraction; the model cannot establish irreversible damage or diagnose fever.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch04-glucose-3d-bench",
     "widget": "atlas_ch04",
-    "title": "3D Atlas: Molecular Basis of Starch, Sugar, Protein & Lipid Tests",
+    "title": "3D Atlas: Five food-test examples",
     "chapter": 4,
     "figure": "c4_food_tests",
-    "question": "Why does starch trap triiodide (I₃⁻) to turn blue-black while reducing sugars reduce Cu²⁺ in Benedict’s reagent?",
-    "explanation": "Inspecting the 3D α(1→4) helical coil of amylose shows the hollow interior channel where linear polyiodide ions slip inside to produce the intense charge-transfer blue-black complex.",
-    "limits": "3D pyranose ring oligomer view.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26883/"]
+    "question": "What comparisons make a food-test result interpretable?",
+    "explanation": "Inspect five schematic positive examples: iodine, Benedict’s, biuret, ethanol emulsion and DCPIP. Compare their targets with the chapter’s table and keep known positives, blanks and untreated samples in a real investigation.",
+    "limits": "Schematic rack, not actual chemical measurements or a control experiment. All reagent procedures belong in a supervised school laboratory.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26883/"
+    ]
   },
   {
     "id": "ch05-calvin-3d-willow",
     "widget": "atlas_ch05",
-    "title": "3D Atlas: Van Helmont’s Mass Ledger & Carbon Fixation",
+    "title": "3D Atlas: Photosynthetic material account",
     "chapter": 5,
     "figure": "c5_ledger",
-    "question": "Where does the dry carbon mass of a growing tree actually come from if the soil barely loses weight?",
-    "explanation": "Tracing CO₂ fixation in the 3D Calvin–Benson–Bassham cycle and Münch phloem pipe shows that gaseous CO₂ entering through stomata and H₂O split by light build nearly all plant biomass.",
-    "limits": "Steady-state RuBisCO carboxylation rate model.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26819/"],
-    "stories": ["p-helmont"]
+    "question": "How can atmospheric carbon become plant material?",
+    "explanation": "Compare the formal net-equation mass account with the chapter’s carbon journey from CO₂ to sugars and cell walls.",
+    "limits": "Formal net balance, not a dry-mass measurement of van Helmont’s tree or an atom-route simulation; water also supplies matter.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26819/"
+    ],
+    "stories": [
+      "p-helmont"
+    ]
   },
   {
     "id": "ch05-thylakoid-3d-gas",
     "widget": "atlas_ch05",
-    "title": "3D Atlas: Ingenhousz’s Oxygen Bubbles & Photolysis of Water",
+    "title": "3D Atlas: Aquatic plant gas observation",
     "chapter": 5,
     "figure": "c5_gas_evidence",
-    "question": "Why do submerged green leaves release O₂ bubbles only when illuminated, and does that oxygen come from CO₂ or H₂O?",
-    "explanation": "Inspecting Photosystem II in the 3D thylakoid membrane shows photons driving the manganese oxygen-evolving complex to split 2 H₂O → O₂ + 4 H⁺ + 4 e⁻.",
-    "limits": "Steady-state linear electron flow.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26819/"],
-    "stories": ["p-ingenhousz"]
+    "question": "Why does net oxygen release not measure gross photosynthesis?",
+    "explanation": "Inspect a modern schematic plant jar and chosen net-output markers. The chapter’s tracer evidence identifies water as the released oxygen source.",
+    "limits": "Not a reconstruction of Ingenhousz’s apparatus or calibrated bubbles; markers vanish at nonpositive chosen net output.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26819/"
+    ],
+    "stories": [
+      "p-ingenhousz"
+    ]
   },
   {
     "id": "ch05-thylakoid-3d",
     "widget": "atlas_ch05",
-    "title": "3D Atlas: Chloroplast Thylakoid Z-Scheme & Calvin Wheel",
+    "title": "3D Atlas: Chloroplast compartments",
     "chapter": 5,
     "figure": "c5_chloroplast",
-    "question": "How do the thylakoid membrane and stroma cooperate via ATP and NADPH to turn light and CO₂ into triose phosphate?",
-    "explanation": "Exploding the 3D thylakoid membrane shows PSII oxidising H₂O, cytochrome b₆f pumping protons into the lumen, PSI reducing NADP⁺ to NADPH, and CF₀CF₁ synthase spinning out ATP for the stromal Calvin cycle.",
-    "limits": "Linear electron flow represented at steady-state illumination.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26819/"]
+    "question": "How do light-supported reactions supply carbon-building reactions?",
+    "explanation": "Inspect thylakoid stacks and surrounding stroma. Light-supported machinery supplies ATP and NADPH; carbon fixation supplies small organic products.",
+    "limits": "The glucose model represents a later overall summary product, not the immediate product of the carbon-fixation cycle; no electron-transfer kinetics are simulated.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26819/"
+    ]
   },
   {
     "id": "ch05-calvin-3d",
     "widget": "atlas_ch05",
-    "title": "3D Atlas: Blackman’s Law of Limiting Factors & RuBisCO",
+    "title": "3D Atlas: Invented limiting-factor surface",
     "chapter": 5,
     "figure": "c5_limits",
-    "question": "Why does raising light intensity stop increasing photosynthesis once CO₂ or RuBisCO capacity becomes the bottleneck?",
-    "explanation": "Varying light intensity and ambient CO₂ simultaneously in the 3D Calvin wheel and leaf stage demonstrates Blackman’s law: overall carbon assimilation is capped by whichever stage runs slowest.",
-    "limits": "Farquhar-style minimum of light-limited and RuBisCO-limited rates.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26819/"]
+    "question": "Why can increasing one input sometimes leave the rate unchanged?",
+    "explanation": "Vary chosen light and CO₂ capacities and temperature to inspect a simple minimum-capacity model. Net output subtracts a chosen respiratory baseline 10.",
+    "limits": "Invented capacities and 25 °C peak, not a fitted Farquhar model, actual concentrations or universal plant optimum.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26819/"
+    ]
   },
   {
     "id": "ch05-leaf-3d",
     "widget": "atlas_ch05",
-    "title": "3D Atlas: Leaf Cross-Section, Palisade Guides & Stomatal Guard Cells",
+    "title": "3D Atlas: Representative leaf structure",
     "chapter": 5,
     "figure": "c5_leaf",
-    "question": "Why are tall cylindrical palisade mesophyll cells packed near the upper leaf epidermis while loose spongy mesophyll sits above the lower stomata?",
-    "explanation": "Slicing the 3D dicot leaf wedge reveals vertical palisade columns acting as optical light guides for Beer–Lambert photon absorption near the top, while interconnected spongy air spaces below allow rapid CO₂ diffusion from stomata.",
-    "limits": "Beer–Lambert exponential light attenuation through homogeneous chlorophyll layers.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26819/"]
+    "question": "How do leaf structures support light capture, gas exchange and water balance?",
+    "explanation": "Inspect palisade columns, a guard-cell pair and adjacent vascular tubes. Connect the schematic to the chapter’s full leaf cross-section.",
+    "limits": "Selected representative structures, not a complete anatomical specimen or measured light-attenuation model.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26819/"
+    ]
   },
   {
     "id": "ch05-stomata-3d",
     "widget": "atlas_ch05",
-    "title": "3D Atlas: Bose’s Transpiration Pull, Guard-Cell Turgor & Xylem Tension",
+    "title": "3D Atlas: Leaf water loss and xylem",
     "chapter": 5,
     "figure": "c5_xylem",
-    "question": "How does evaporation from mesophyll cell walls pull a continuous column of water up xylem vessels under negative tension?",
-    "explanation": "Inspecting the 3D guard-cell pair and leaf vascular bundle shows how radial cellulose hoops bow guard cells open under turgor so transpiration pulls cohesive xylem water columns upward.",
-    "limits": "Elastic beam-bending guard-cell aperture model.",
-    "sources": ["https://www.britannica.com/biography/Jagadish-Chandra-Bose"],
-    "stories": ["p-bose"]
+    "question": "How does leaf evaporation contribute to water flow through connected xylem?",
+    "explanation": "Inspect the guard-cell and vascular schematic, then trace the chapter’s evaporation, tension and replacement-water chain.",
+    "limits": "Chosen aperture and transport-activity values are illustrative, not measured speeds or a universal response to light.",
+    "sources": [
+      "https://www.britannica.com/biography/Jagadish-Chandra-Bose"
+    ],
+    "stories": [
+      "p-bose"
+    ]
   },
   {
     "id": "ch05-calvin-3d-phloem",
     "widget": "atlas_ch05",
-    "title": "3D Atlas: Münch Phloem Pressure-Flow from Source Leaf to Sink Root",
+    "title": "3D Atlas: Phloem source–sink flow",
     "chapter": 5,
     "figure": "c5_phloem",
-    "question": "How can phloem sieve tubes transport sucrose in either direction under positive hydrostatic pressure?",
-    "explanation": "In the 3D Münch translocation station, active loading of sucrose at the source leaf lowers Ψ_s and draws water in from xylem to build high turgor, driving bulk flow through sieve plates toward the root sink.",
-    "limits": "Poiseuille bulk flow between single source and sink compartments.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26819/"]
+    "question": "Why can phloem carry sugars upwards or downwards in different pathways?",
+    "explanation": "Compare the vascular tubes with the chapter’s loading, osmotic entry, pressure-driven flow and unloading account.",
+    "limits": "Tube schematic and invented relative activity; not a Poiseuille solver. Opposite bulk streams do not share one tube at the same moment; loading routes vary.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26819/"
+    ]
   },
   {
     "id": "ch06-glycolysis-3d",

@@ -2,13 +2,13 @@ import { Live } from './core.js';
 
 Live.register('monsoon_imbibition', (stage, params, api) => {
   const c = api.colors();
-  const k = api.canvas(640, 320, 'Interactive simulation of a dry moong seed hydrating from 10% water (glassy dormant cytoplasm) to 65% water (active fluid cytoplasm)');
+  const k = api.canvas(640, 320, 'Chosen hydration states from 10% to 65% water, with fixed dry material and qualitatively illustrated molecular mobility');
   const say = api.readout();
 
   let waterPct = 10; // 10% dry cupboard seed to 65% soaked seed
-  let viewTab = 0;   // 0 = Cytoplasm & Bean, 1 = Oxygen & Mass Curve
+  let viewTab = 0;   // 0 = Cytoplasm & Bean, 1 = Hydration & Mass Curve
 
-  api.tabs(['1. Seed & Cytoplasmic Loupe', '2. Hydration vs. O₂ Curve'], (idx) => {
+  api.tabs(['1. Seed & Cytoplasmic Loupe', '2. Hydration & Mass'], (idx) => {
     viewTab = idx;
     updateReadout();
   });
@@ -30,22 +30,16 @@ Live.register('monsoon_imbibition', (stage, params, api) => {
   }));
 
   function metrics(w) {
-    // Below 24% water, cytoplasm is vitrified glass; above 25%, mobility and O2 uptake climb sharply
+    // Illustrative mobility only; no measured transition or respiratory rate is inferred
     const mobility = w <= 22 ? 0.015 : Math.min(1, Math.pow((w - 20) / 45, 1.6));
-    const o2Rate = w <= 20 ? 0.04 : +(0.04 + 135 * Math.pow((w - 20) / 45, 2.1)).toFixed(1);
+
     const wetMass = +(50 * (0.90 / (1 - w / 100))).toFixed(1);
-    return { mobility, o2Rate, wetMass };
+    return { mobility, wetMass };
   }
 
   function updateReadout() {
-    const { o2Rate, wetMass } = metrics(waterPct);
-    if (waterPct <= 20) {
-      say(`At <b>${waterPct}% water</b> (dry May cupboard seed): Cytoplasm is locked in a solid sugar-glass. Enzymes cannot diffuse to meet fuel molecules. Mass of sample = <b>${wetMass} g</b>; O₂ uptake = <b>${o2Rate} µL/g·h</b>.`);
-    } else if (waterPct < 45) {
-      say(`At <b>${waterPct}% water</b> (imbibition underway): Water enters the micropyle, swelling the beans to <b>${wetMass} g</b> and melting the cytoplasmic glass. O₂ uptake rises to <b>${o2Rate} µL/g·h</b>.`);
-    } else {
-      say(`At <b>${waterPct}% water</b> (48 h after monsoon rain): Cytoplasm is fully fluid! Enzymes collide rapidly with glucose, recharging ATP at full speed (O₂ uptake = <b>${o2Rate} µL/g·h</b>, >2,000× dry rate) and pushing out the white radicle root.`);
-    }
+    const { wetMass } = metrics(waterPct);
+    say(`<b>Chosen hydration model:</b> ${waterPct}% water gives <b>${wetMass} g</b> total, holding 45 g of other material fixed. Greater hydration illustrates greater mobility. This is not a measured respiration curve or a soaking clock. The root is an illustrative symbol, not a predicted threshold.`);
   }
 
   api.loop((dt, t) => {
@@ -54,7 +48,7 @@ Live.register('monsoon_imbibition', (stage, params, api) => {
     ctx.fillStyle = c.paper;
     ctx.fillRect(0, 0, 640, 320);
 
-    const { mobility, o2Rate, wetMass } = metrics(waterPct);
+    const { mobility, wetMass } = metrics(waterPct);
 
     if (viewTab === 0) {
       // Left panel: Macroscopic Moong Seed swelling + radicle emergence
@@ -92,11 +86,11 @@ Live.register('monsoon_imbibition', (stage, params, api) => {
       }
       ctx.restore();
 
-      api.draw.text(ctx, `Sample mass: ${wetMass} g (from 50 g dry)`, 36, 224, { size: 12, weight: 600, color: c.ink });
-      api.draw.text(ctx, `O₂ respiration: ${o2Rate} µL / g·h`, 36, 246, {
+      api.draw.text(ctx, `Sample mass: ${wetMass} g (starts at 50 g)`, 36, 224, { size: 12, weight: 600, color: c.ink });
+      api.draw.text(ctx, `Fixed other material: 45 g`, 36, 246, {
         size: 12, weight: 700, color: waterPct > 35 ? c.proton : c.muted,
       });
-      api.draw.text(ctx, waterPct <= 22 ? 'State: Dormant cytoplasmic glass' : 'State: Active ATP metabolism!', 36, 268, {
+      api.draw.text(ctx, waterPct <= 22 ? 'State: Restricted model mobility' : 'State: Greater model mobility', 36, 268, {
         size: 12, weight: 600, color: waterPct <= 22 ? c.neutron : c.green,
       });
 
@@ -141,9 +135,9 @@ Live.register('monsoon_imbibition', (stage, params, api) => {
 
       api.draw.text(ctx, 'E = Enzyme (ochre) · Red = Glucose · Blue = H₂O', 466, 272, { size: 11.5, align: 'center', color: c.muted });
     } else {
-      // Tab 2: Quantitative Curve of Water % vs O2 Respiration Rate
+      // Tab 2: Mass balance at chosen water contents
       api.draw.roundRect(ctx, 25, 20, 590, 275, 8, c.plate, c.rule);
-      api.draw.text(ctx, 'Respiratory O₂ Uptake vs. Seed Hydration (% H₂O)', 320, 44, { size: 14, weight: 700, align: 'center', color: c.ink });
+      api.draw.text(ctx, 'Total mass at chosen water content', 320, 44, { size: 14, weight: 700, align: 'center', color: c.ink });
 
       const axX = 85, axY = 245, axW = 480, axH = 170;
       ctx.strokeStyle = c.ink;
@@ -154,41 +148,30 @@ Live.register('monsoon_imbibition', (stage, params, api) => {
       ctx.lineTo(axX + axW, axY);
       ctx.stroke();
 
-      // Glass transition threshold line at 22%
-      const glassX = axX + ((22 - 10) / 55) * axW;
-      ctx.strokeStyle = c.neutron;
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-      ctx.moveTo(glassX, axY - axH);
-      ctx.lineTo(glassX, axY);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      api.draw.text(ctx, 'Glass melts (~22% H₂O)', glassX + 6, axY - axH + 16, { size: 11.5, color: c.neutron });
-
       // Curve
       ctx.strokeStyle = c.proton;
       ctx.lineWidth = 2.6;
       ctx.beginPath();
       for (let w = 10; w <= 65; w += 1) {
         const px = axX + ((w - 10) / 55) * axW;
-        const py = axY - (metrics(w).o2Rate / 140) * axH;
+        const py = axY - ((metrics(w).wetMass - 50) / 85) * axH;
         if (w === 10) ctx.moveTo(px, py); else ctx.lineTo(px, py);
       }
       ctx.stroke();
 
       // Current marker
       const curX = axX + ((waterPct - 10) / 55) * axW;
-      const curY = axY - (o2Rate / 140) * axH;
+      const curY = axY - ((wetMass - 50) / 85) * axH;
       ctx.fillStyle = c.proton;
       ctx.beginPath();
       ctx.arc(curX, curY, 6, 0, Math.PI * 2);
       ctx.fill();
-      api.draw.text(ctx, `${waterPct}% H₂O → ${o2Rate} µL O₂/g·h`, Math.min(curX + 10, 420), Math.max(curY - 10, 80), {
+      api.draw.text(ctx, `${waterPct}% H₂O → ${wetMass} g`, Math.min(curX + 10, 420), Math.max(curY - 10, 80), {
         size: 12, weight: 700, color: c.proton,
       });
 
       api.draw.text(ctx, 'Seed hydration (% water by mass)', axX + axW / 2, axY + 32, { size: 12, align: 'center', color: c.muted });
-      api.draw.text(ctx, 'O₂ uptake (µL/g·h)', axX - 10, axY - axH - 8, { size: 12, align: 'start', color: c.muted });
+      api.draw.text(ctx, 'Mass above 50 g (g)', axX - 10, axY - axH - 8, { size: 12, align: 'start', color: c.muted });
     }
   });
 

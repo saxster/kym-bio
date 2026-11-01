@@ -94,3 +94,8 @@
     - {what: "Earlier proposals, supporting evidence and broader-claim limitations", source: "Biology 2e 23.1, original prose", url: "https://openstax.org/books/biology-2e/pages/23-1-eukaryotic-origins"}
     - {what: "Ris & Plaut 1962 primary observation", source: "J Cell Biol 13:383–391", url: "https://pubmed.ncbi.nlm.nih.gov/14492436/"}
   licence: "CC BY-NC-SA 4.0; historical papers factual ideas only"
+
+ch02-atlas-reader-integration:
+  correction: "Second3D layer now distinguishes DNA from bacterial-related ribosomes, selected typical cells from universal inventories, and a chosen5µm geometric surface layer from measured oxygen penetration. Unsupported universal specialist multipliers/starvation thresholds removed."
+  computed: "Inner-core edge fraction=max(0,(L-10)/L) for a chosen5µm layer on each opposing face; SA/V=6/L. Diffusion timescale uses an explicitly assumed2000µm²/s coefficient."
+  implementation: "Corrected shadeMat import and plot API, aligned visible folds with slider range1–10, and mapped catalog IDs to their intended stations."

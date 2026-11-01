@@ -1,91 +1,118 @@
-"1.1":
+'1.1':
   ocw:
-    - course: "7.014 Introductory Biology, Spring 2005"
-      where: "Lecture 2: Biochemistry I"
-      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/"
-      took: "role of liquid water as the solvent enabling cytoplasmic diffusion and enzyme activity"
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: 'Lecture 2: Biochemistry I'
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/
+    took: role of liquid water as the solvent enabling cytoplasmic diffusion and enzyme
+      activity
   openstax:
-    - book: "Biology 2e"
-      section: "1.1 The Science of Biology"
-      url: "https://openstax.org/books/biology-2e/pages/1-1-the-science-of-biology"
-      took: "properties of life; seed dormancy and germination upon hydration"
+  - book: Biology 2e
+    section: 1.1 The Science of Biology
+    url: https://openstax.org/books/biology-2e/pages/1-1-the-science-of-biology
+    took: properties of life; seed dormancy and germination upon hydration
   research:
-    - what: "Children's classification of dormant seeds vs fire/clouds as living or non-living"
-      source: "Driver, Squires, Rushworth & Wood-Robinson (1994), Making Sense of Secondary Science"
-      url: "https://www.routledge.com/Making-Sense-of-Secondary-Science-Research-into-Childrens-Ideas/Driver-Squires-Rushworth-Wood-Robinson/p/book/9780415097659"
+  - what: Children's classification of dormant seeds vs fire/clouds as living or non-living
+    source: Driver, Squires, Rushworth & Wood-Robinson (1994), Making Sense of Secondary
+      Science
+    url: https://www.routledge.com/Making-Sense-of-Secondary-Science-Research-into-Childrens-Ideas/Driver-Squires-Rushworth-Wood-Robinson/p/book/9780415097659
+  - what: Seed molecular mobility
+    source: Reader revision checked source
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6646689/
+  - what: Frog reproductive stages
+    source: Reader revision checked source
+    url: https://www.amnh.org/exhibitions/frogs-a-chorus-of-colors/reproduction/nests-and-nurseries
   figures:
-    - name: c1_monsoon_imbibition
-      origin: ours
-  licence: "CC BY-NC-SA 4.0"
-
-"1.2":
+  - name: c1_monsoon_imbibition
+    origin: ours
+  licence: CC BY-NC-SA 4.0
+'1.2':
   ocw:
-    - course: "7.014 Introductory Biology, Spring 2005"
-      where: "Lecture 4: Thermodynamics of Life"
-      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/"
-      took: "open thermodynamic systems; contrasting uncontrolled oxidation (combustion) with coupled cellular metabolism"
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: 'Lecture 4: Thermodynamics of Life'
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/
+    took: open thermodynamic systems; contrasting uncontrolled oxidation (combustion)
+      with coupled cellular metabolism
   openstax:
-    - book: "Biology 2e"
-      section: "6.1 Energy and Metabolism"
-      url: "https://openstax.org/books/biology-2e/pages/6-1-energy-and-metabolism"
-      took: "anabolic vs catabolic pathways; cellular order vs thermal disorder"
+  - book: Biology 2e
+    section: 6.1 Energy and Metabolism
+    url: https://openstax.org/books/biology-2e/pages/6-1-energy-and-metabolism
+    took: anabolic vs catabolic pathways; cellular order vs thermal disorder
   figures:
-    - name: c1_seed_vs_flame
-      origin: ours
-  licence: "CC BY-NC-SA 4.0"
-
-"1.3":
+  - name: c1_seed_vs_flame
+    origin: ours
+  licence: CC BY-NC-SA 4.0
+'1.3':
   ocw:
-    - course: "7.014 Introductory Biology, Spring 2005"
-      where: "Lecture 4-5: Free Energy and ATP Coupling"
-      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/"
-      took: "ATP hydrolysis coupling exergonic fuel breakdown to endergonic cellular work"
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: 'Lecture 4-5: Free Energy and ATP Coupling'
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/
+    took: ATP hydrolysis coupling exergonic fuel breakdown to endergonic cellular
+      work
   openstax:
-    - book: "Biology 2e"
-      section: "6.4 ATP: Adenosine Triphosphate"
-      url: "https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate"
-      took: "structure of ATP (adenine, ribose, three phosphate groups) and the ATP/ADP cycle"
+  - book: Biology 2e
+    section: '6.4 ATP: Adenosine Triphosphate'
+    url: https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate
+    took: structure of ATP (adenine, ribose, three phosphate groups) and the ATP/ADP
+      cycle
   history:
-    - what: "Yellapragada SubbaRow and Cyrus Fiske's 1929 discovery of ATP and phosphocreatine at Harvard"
-      source: "Indian Academy of Sciences, Resonance (2001): Yellapragada SubbaRow"
-      url: "https://www.ias.ac.in/article/fulltext/reso/006/01/0003-0010"
+  - what: Yellapragada SubbaRow and Cyrus Fiske's 1929 discovery of ATP and phosphocreatine
+      at Harvard
+    source: 'Indian Academy of Sciences, Resonance (2001): Yellapragada SubbaRow'
+    url: https://www.ias.ac.in/article/fulltext/reso/006/01/0003-0010
   figures:
-    - name: c1_atp_cycle
-      origin: ours
-  licence: "CC BY-NC-SA 4.0"
-
-"1.4":
-  ocw:
-    - course: "7.013 Introductory Biology, Spring 2018"
-      where: "Lecture 1: Properties of Living Systems"
-      url: "https://ocw.mit.edu/courses/7-013-introductory-biology-spring-2018/"
-      took: "functional requirements of a self-maintaining organism"
-  openstax:
-    - book: "Biology 2e"
-      section: "1.1 The Science of Biology"
-      url: "https://openstax.org/books/biology-2e/pages/1-1-the-science-of-biology"
-      took: "order, sensitivity, reproduction, growth, regulation, homeostasis, energy processing"
+  - name: c1_atp_cycle
+    origin: ours
+  licence: CC BY-NC-SA 4.0
   research:
-    - what: "Excretion vs egestion misconception and respiration vs breathing misconception"
-      source: "Driver et al. 1994 / Cambridge IGCSE 0610 Syllabus"
-      url: "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-biology-0610/"
-  figures:
-    - name: c1_mrs_gren_engine
-      origin: ours
-  licence: "CC BY-NC-SA 4.0"
-
-"1.5":
+  - what: ATP whole-reaction energetics and coupling
+    source: Reader revision checked source
+    url: https://www.ncbi.nlm.nih.gov/books/NBK9903/
+  - what: ATP discovery and later bioenergetics
+    source: Reader revision checked source
+    url: https://www.nobelprize.org/prizes/uncategorized/otto-meyerhof-and-the-physiology-institute-the-birth-of-modern-biochemistry/
+'1.4':
   ocw:
-    - course: "7.016 Introductory Biology, Fall 2018"
-      where: "Lecture 18: Viruses"
-      url: "https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/"
-      took: "viral capsid, nucleic acid genome, obligate intracellular parasitism"
+  - course: 7.013 Introductory Biology, Spring 2018
+    where: 'Lecture 1: Properties of Living Systems'
+    url: https://ocw.mit.edu/courses/7-013-introductory-biology-spring-2018/
+    took: functional requirements of a self-maintaining organism
   openstax:
-    - book: "Biology 2e"
-      section: "21.1 Viral Evolution, Morphology, and Classification"
-      url: "https://openstax.org/books/biology-2e/pages/21-1-viral-evolution-morphology-and-classification"
-      took: "why viruses sit outside the cellular domains of life; bacteriophage and enveloped virus structure"
+  - book: Biology 2e
+    section: 1.1 The Science of Biology
+    url: https://openstax.org/books/biology-2e/pages/1-1-the-science-of-biology
+    took: order, sensitivity, reproduction, growth, regulation, homeostasis, energy
+      processing
+  research:
+  - what: Excretion vs egestion misconception and respiration vs breathing misconception
+    source: Driver et al. 1994 / Cambridge IGCSE 0610 Syllabus
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-biology-0610/
   figures:
-    - name: c1_virus_border
-      origin: ours
-  licence: "CC BY-NC-SA 4.0"
+  - name: c1_mrs_gren_engine
+    origin: ours
+  licence: CC BY-NC-SA 4.0
+'1.5':
+  ocw:
+  - course: 7.016 Introductory Biology, Fall 2018
+    where: 'Lecture 18: Viruses'
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/
+    took: viral capsid, nucleic acid genome, obligate intracellular parasitism
+  openstax:
+  - book: Biology 2e
+    section: 21.1 Viral Evolution, Morphology, and Classification
+    url: https://openstax.org/books/biology-2e/pages/21-1-viral-evolution-morphology-and-classification
+    took: why viruses sit outside the cellular domains of life; bacteriophage and
+      enveloped virus structure
+  figures:
+  - name: c1_virus_border
+    origin: ours
+  licence: CC BY-NC-SA 4.0
+  research:
+  - what: Viral replication machinery
+    source: Reader revision checked source
+    url: https://www.ncbi.nlm.nih.gov/books/NBK26833/
+  - what: Viking uncertainty
+    source: Reader revision checked source
+    url: https://science.nasa.gov/mission/viking/
+  - what: Viking organic chemistry reassessment
+    source: Reader revision checked source
+    url: https://www.jpl.nasa.gov/news/missing-piece-inspires-new-look-at-mars-puzzle/

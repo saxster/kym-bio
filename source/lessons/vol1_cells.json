@@ -49,13 +49,15 @@
   {
     "id": "ch01-imbibition-3d",
     "widget": "atlas_ch01",
-    "title": "3D Atlas: Monsoon Seed Imbibition & Turgor",
+    "title": "3D Atlas: Seed Hydration and Development",
     "chapter": 1,
     "figure": "c1_monsoon_imbibition",
-    "question": "How does a dry moong seed generate several megapascals of swelling pressure before its first mitotic division?",
-    "explanation": "Slicing the 3D seed coat shows hydrophilic starch and protein colloids drawing water down a steep matric potential gradient (Ψ_m ≈ −3.6 MPa), swelling the cotyledons and splitting the testa so the radicle can emerge.",
-    "limits": "Isotropic volumetric swelling approximation.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "How does adding water change a viable seed, and what can a hydration model establish?",
+    "explanation": "Inspect a schematic chickpea cutaway. Chosen hydration parameters illustrate swelling and possible development; water enters permeable coat regions.",
+    "limits": "Illustrative rates and opening threshold, not measured seed data. Added-water percentage is relative to starting seed mass, unlike the chapter workbench water fraction.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch01-seed-flame-3d",
@@ -63,135 +65,169 @@
     "title": "3D Atlas: Candle Combustion vs Seed Metabolism",
     "chapter": 1,
     "figure": "c1_seed_vs_flame",
-    "question": "Why does burning glucose in a flame release 2,870 kJ mol⁻¹ entirely as heat, whereas a living seed captures ~39% in ATP at 28 °C?",
-    "explanation": "Comparing the chaotic 3D combustion plume on the left with the enzyme-guided 3D metabolic staircase on the right shows how activation barriers prevent a runaway thermal explosion and channel free energy into ATP synthesis.",
-    "limits": "Thermodynamic efficiency is modelled around standard cellular phosphorylation potentials.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "How do cellular pathways connect fuel reactions to ATP regeneration and construction?",
+    "explanation": "Compare a conceptual flame account with coupled cellular reactions. Both involve reaction networks; only the cell has the coordinated machinery for cellular maintenance and inheritance.",
+    "limits": "The standard-state ATP allocation is a chosen account, not measured cellular efficiency or heat. Drawn steps do not count reactions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch01-atp-coin-3d",
     "widget": "atlas_ch01",
-    "title": "3D Atlas: Subbarow’s ATP Triphosphate Spring",
+    "title": "3D Atlas: ATP Reactions and Cellular Work",
     "chapter": 1,
     "figure": "c1_atp_cycle",
-    "question": "What makes the terminal γ-phosphate bond of ATP a universal energy currency in every living cell?",
-    "explanation": "Exploding the 3D ATP molecule reveals three negatively charged phosphate oxygens crowded together; cleaving the terminal γ-phosphate relieves electrostatic repulsion and stabilises the products by resonance and hydration.",
-    "limits": "Ball-and-stick coordinates represent heavy-atom centres without explicit solvent shells.",
-    "sources": ["https://www.acs.org/education/whatischemistry/landmarks/subbarow.html"],
-    "stories": ["p-subbarow"]
+    "question": "How can an ATP reaction be coupled to movement or chemical construction?",
+    "explanation": "Inspect the ATP schematic and rotary synthase. ATP reactions can support work when enzymes connect them to other changes; bond breaking alone requires energy.",
+    "limits": "Symbolic molecular representation. Whole-reaction free energy depends on conditions; an isolated bond does not contain the reaction free-energy change.",
+    "sources": [
+      "https://www.acs.org/education/whatischemistry/landmarks/subbarow.html"
+    ],
+    "stories": [
+      "p-subbarow"
+    ]
   },
   {
     "id": "ch01-coupled-gears-3d",
     "widget": "atlas_ch01",
-    "title": "3D Atlas: Coupled MRS GREN Free-Energy Gears",
+    "title": "3D Atlas: ATP Supply and Cellular Work",
     "chapter": 1,
     "figure": "c1_mrs_gren_engine",
-    "question": "How do the seven MRS GREN life processes couple downhill respiration (ΔG < 0) to uphill growth, movement, and active transport?",
-    "explanation": "Meshing the downhill ATP hydrolysis drive gear (ΔG = −30.5 kJ mol⁻¹) with the uphill synthesis gear in 3D demonstrates that the combined cellular engine turns spontaneously whenever ΔG_net = ΔG_drive + ΔG_load < 0.",
-    "limits": "Mechanical torque analogy for chemical potential coupling on a shared enzyme active site.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"],
-    "stories": ["rotary-pointer"]
+    "question": "How does ATP connect energy transfers to cellular processes?",
+    "explanation": "Inspect the ATP carrier and rotary ATP synthase. Gradient-driven synthesis regenerates ATP; other enzyme systems couple ATP reactions to cellular work.",
+    "limits": "The rotor represents one ATP-synthesis mechanism, not all seven life processes or a literal gear connection between them.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ],
+    "stories": [
+      "rotary-pointer"
+    ]
   },
   {
     "id": "ch01-seed-flame-3d-virus",
     "widget": "atlas_ch01",
-    "title": "3D Atlas: Why Viruses Need a Host Cell’s ATP Engine",
+    "title": "3D Atlas: Why Viruses Require a Host",
     "chapter": 1,
     "figure": "c1_virus_border",
-    "question": "Why is an isolated virus crystal metabolically inert outside a host cell while a bacterium or seed cell is alive?",
-    "explanation": "Inspecting the 3D ATP triphosphate spring and coupled metabolic gears shows why a capsid lacking ribosomes and ATP synthesis must hijack a host cell’s free-energy engine to replicate.",
-    "limits": "Focuses on the ATP and coupled-gear machinery absent from virions.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26882/"]
+    "question": "What cellular machinery does a virus lack for independent replication?",
+    "explanation": "Compare the viral capsid and bacterial host. Host ribosomes make viral proteins; enzymes copy the genome, using resources of the infected cell.",
+    "limits": "One schematic phage-host interaction. Other viruses enter differently; the capsid geometry is chosen, and absence of independent metabolism does not mean all chemistry stops.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26882/"
+    ]
   },
   {
     "id": "ch02-plant-cell-3d",
     "widget": "atlas_ch02",
-    "title": "3D Atlas: Eukaryotic Cell Wall, Vacuole & Organelle Cutaway",
+    "title": "3D Atlas: Representative green plant cell",
     "chapter": 2,
     "figure": "c2_cell_inventory",
-    "question": "How do the cellulose cell wall, central tonoplast vacuole, chloroplasts, mitochondria, ER, and Golgi fit together in 3D space?",
-    "explanation": "Switching between Solid, X-ray, and Section cutaway views of the 3D cell lets you explode the cellulose wall, central vacuole, nucleus, rough ER, Golgi, mitochondria, and chloroplasts.",
-    "limits": "Representative organelle counts for clarity.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26851/"]
+    "question": "How do the wall, vacuole, nucleus, mitochondria and chloroplasts fit together?",
+    "explanation": "Inspect the selected plant-cell structures in solid, X-ray and section views. A white onion bulb cell lacks developed chloroplasts while retaining mitochondria.",
+    "limits": "Schematic selected structures and counts; not every real plant cell has this equipment.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26851/"
+    ]
   },
   {
     "id": "ch02-endosymbiosis-3d",
     "widget": "atlas_ch02",
-    "title": "3D Atlas: Margulis’s Endosymbiosis & Double-Membrane Clues",
+    "title": "3D Atlas: Organelle ancestry clues",
     "chapter": 2,
     "figure": "c2_stowaway_clues",
-    "question": "What 3D structural clues inside mitochondria and chloroplasts prove they were once free-living bacteria?",
-    "explanation": "Comparing the 3D prokaryote and sectioned eukaryote while exploding the mitochondrion and chloroplast reveals their double membranes, circular DNA genomes, and 70S ribosomes championed by Lynn Margulis.",
-    "limits": "Comparative prokaryote/eukaryote 3D cutaway.",
-    "sources": ["https://www.pnas.org/doi/10.1073/pnas.1120685109"],
-    "stories": ["p-margulis"]
+    "question": "Which observations support bacterial ancestry for mitochondria and chloroplasts?",
+    "explanation": "Compare membrane folds and stacks with inherited DNA and bacterial-related ribosomes described in the chapter. Gene comparisons supply evidence beyond appearance.",
+    "limits": "Shapes alone do not establish ancestry; fold-area gain is a chosen geometry model.",
+    "sources": [
+      "https://www.pnas.org/doi/10.1073/pnas.1120685109"
+    ],
+    "stories": [
+      "p-margulis"
+    ]
   },
   {
     "id": "ch02-sav-3d",
     "widget": "atlas_ch02",
-    "title": "3D Atlas: Surface-to-Volume Diffusion Limit Cube",
+    "title": "3D Atlas: Cell geometry and a chosen surface layer",
     "chapter": 2,
     "figure": "c2_geometry",
-    "question": "Why must metabolically active cells remain microscopic or fold their membranes as an organism grows?",
-    "explanation": "Growing the 3D cell cube from L = 10 µm to 100 µm while slicing it in Section mode reveals the unreached anoxic core: surface area scales as 6L² while metabolic volume scales as L³, dropping SA:V = 6/L.",
-    "limits": "Fickian diffusion depth modelled for cubic/spherical geometry without cytoplasmic streaming.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26851/"]
+    "question": "How does enlarging a cube change its surface area relative to volume?",
+    "explanation": "Change cube width and compare SA/V=6/L with the inner core remaining beneath a chosen 5 µm surface layer.",
+    "limits": "The coloured core is geometric, not measured oxygen penetration or a universal starvation limit. Assumed diffusion coefficient 2000 µm²/s; differs from chapter centimetre-block example.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26851/"
+    ]
   },
   {
     "id": "ch02-endomembrane-3d",
     "widget": "atlas_ch02",
-    "title": "3D Atlas: Endomembrane Postal Route & Specialised Secretory Cells",
+    "title": "3D Atlas: Specialised cell shapes",
     "chapter": 2,
     "figure": "c2_specialists",
-    "question": "How does tuning surface-to-volume ratio and endomembrane ER-to-Golgi vesicle traffic adapt specialised cells to their jobs?",
-    "explanation": "Tracking 3D transport vesicles from nuclear envelope and rough ER through cis-to-trans Golgi cisternae to the plasma membrane shows how specialised secretory and absorptive cells organise their internal machinery.",
-    "limits": "Unified vesicle carrier representation.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26841/"]
+    "question": "How do thin regions and extensions support different cell functions?",
+    "explanation": "Inspect a biconcave red blood cell, root hair and myelinated neurone. Relate their different shapes to exchange and communication.",
+    "limits": "Selected schematic shapes, not a vesicle-trafficking simulation or universal measured area gains.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26841/"
+    ]
   },
   {
     "id": "ch03-bilayer-3d",
     "widget": "atlas_ch03",
-    "title": "3D Atlas: Fluid-Mosaic Phospholipid Bilayer & Fickian Diffusion",
+    "title": "3D Atlas: Membrane diffusion and equilibrium",
     "chapter": 3,
     "figure": "c3_diffusion",
-    "question": "Why do amphipathic phospholipids self-assemble into a 4 nm bilayer that blocks ions while letting O₂ and CO₂ diffuse down their concentration gradients?",
-    "explanation": "Slicing the 3D phospholipid bilayer reveals polar phosphate heads facing water on both surfaces and a 3 nm non-polar hydrocarbon core that repels hydrated ions unless a protein channel spans the membrane.",
-    "limits": "Acyl tail thermal jitter is represented by harmonic oscillation.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26871/"]
+    "question": "Can opposing molecular crossings continue when net transfer is zero?",
+    "explanation": "Compare a lipid boundary and chosen equal-volume relaxation model; molecules continue moving near equilibrium.",
+    "limits": "Schematic particles and invented rate constant; not atomic dimensions or measured flux.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26871/"
+    ]
   },
   {
     "id": "ch03-aquaporin-3d",
     "widget": "atlas_ch03",
-    "title": "3D Atlas: Agre’s Aquaporin-1 Single-File Water Channel",
+    "title": "3D Atlas: Water-selective channel",
     "chapter": 3,
     "figure": "c3_water_gate",
-    "question": "How does an aquaporin channel pass 10⁹ water molecules per second while blocking smaller hydronium protons (H₃O⁺)?",
-    "explanation": "Exploding the 3D Aquaporin-1 hourglass pore exposes the central Asn-Pro-Ala (NPA) selectivity constriction, which flips each H₂O dipole halfway through and breaks the proton-wire hydrogen-bond chain.",
-    "limits": "Single monomer pore shown from the homotetrameric assembly.",
-    "sources": ["https://www.nobelprize.org/prizes/chemistry/2003/agre/lecture/"],
-    "stories": ["p-agre"]
+    "question": "How can a protein provide a faster water route without pumping it?",
+    "explanation": "Inspect a schematic hourglass channel and two-way exchange markers. Compare total water potentials for the direction of net transfer.",
+    "limits": "Not atomic coordinates, calibrated molecular throughput or a full map of selectivity chemistry.",
+    "sources": [
+      "https://www.nobelprize.org/prizes/chemistry/2003/agre/lecture/"
+    ],
+    "stories": [
+      "p-agre"
+    ]
   },
   {
     "id": "ch03-osmosis-3d",
     "widget": "atlas_ch03",
-    "title": "3D Atlas: Red Blood Cell vs Plant Cell in Osmotic Media",
+    "title": "3D Atlas: Animal and plant water relations",
     "chapter": 3,
     "figure": "c3_cells",
-    "question": "Why does pure water burst a human red blood cell (haemolysis) yet make a walled plant cell firm and turgid?",
-    "explanation": "Comparing the wall-less 3D biconcave erythrocyte against the walled plant cell side-by-side shows how the cellulose wall builds positive turgor pressure (+Ψ_p) to balance negative Ψ_s in hypotonic media.",
-    "limits": "Cell volume bounds clamped at haemolysis and plasmolysis thresholds.",
-    "sources": ["https://www.ncbi.nlm.nih.gov/books/NBK26871/"]
+    "question": "Why can a supporting wall change the outcome of water entry?",
+    "explanation": "Compare schematic red-blood-cell and walled-cell states as external solute conditions change. Pressure contributes to total water potential.",
+    "limits": "Chosen qualitative state thresholds and swelling scales, not universal cell-specific predictions.",
+    "sources": [
+      "https://www.ncbi.nlm.nih.gov/books/NBK26871/"
+    ]
   },
   {
     "id": "ch03-nak-pump-3d",
     "widget": "atlas_ch03",
-    "title": "3D Atlas: Skou’s Na⁺/K⁺-ATPase & Active Root Ion Uptake",
+    "title": "3D Atlas: Illustrative energy-coupled carrier",
     "chapter": 3,
     "figure": "c3_root_routes",
-    "question": "How do ATP-driven primary pumps and root-hair carrier proteins accumulate ions against steep electrochemical gradients?",
-    "explanation": "Animating Jens Christian Skou’s ATP-driven E1–E2 rocker-switch pump in 3D demonstrates how phosphorylation switches conformation and affinity to pump ions uphill across the plasma membrane.",
-    "limits": "Conformational tilt simplified to two rigid-body α-helical bundles.",
-    "sources": ["https://www.nobelprize.org/prizes/chemistry/1997/skou/lecture/"],
-    "stories": ["p-skou"]
+    "question": "How can an ATP-dependent carrier sustain transport that passive spreading would not?",
+    "explanation": "Inspect a generic carrier cycle and chosen ATP-response curve. The chapter separately explains root nitrate uptake through an ATP-built proton gradient and cotransporter.",
+    "limits": "Not Skou’s sodium–potassium pump or a real root nitrate pump. Chosen uncharged-solute ratio omits electrical forces; ATP loss need not instantly remove stored gradients.",
+    "sources": [
+      "https://www.nobelprize.org/prizes/chemistry/1997/skou/lecture/"
+    ],
+    "stories": [
+      "p-skou"
+    ]
   }
 ]

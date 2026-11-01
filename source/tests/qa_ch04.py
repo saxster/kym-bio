@@ -128,7 +128,7 @@ with sync_playwright() as p:
     before=mf.locator('.live-readout').inner_text();mp.wait_for_timeout(300);check(before==mf.locator('.live-readout').inner_text(),'No autoplay at normal motion preference')
     mf.locator('.live-watch-btn').click();check(mf.locator('.live-watch-btn').get_attribute('aria-pressed')=='true','Tour starts only on request')
     mp.locator('#s4-4').scroll_into_view_if_needed();mp.wait_for_timeout(200);check(mf.locator('.live-watch-btn').get_attribute('aria-pressed')=='false','Tour pauses off-screen')
-    mf.scroll_into_view_if_needed();mf.locator('.live-watch-btn').click();mp.emulate_media(reduced_motion='reduce');mp.wait_for_timeout(150);check(mf.locator('.live-watch-btn').get_attribute('aria-pressed')=='false','Open tour stops when reduced motion changes')
+    mf.scroll_into_view_if_needed();mf.locator('.live-watch-btn').click();mp.emulate_media(reduced_motion='reduce');mp.wait_for_function("document.querySelector('#fig-4-4 .live-watch-btn').getAttribute('aria-pressed')==='false'",timeout=2000);check(mf.locator('.live-watch-btn').get_attribute('aria-pressed')=='false','Open tour stops when reduced motion changes')
     mc.close()
     # Final-build service-worker cache: offline reload plus all Chapter 4 widgets reopening offline.
     pg.evaluate('navigator.serviceWorker.ready');pg.wait_for_timeout(2000)

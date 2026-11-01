@@ -5,11 +5,11 @@ from figs_core import Fig, figure
 
 @figure
 def c1_monsoon_imbibition():
-    f = Fig(640, 320, 'Comparison of a dry dormant moong seed (10% water, glassy cytoplasm, locked enzymes) and a hydrated germinating moong seed after monsoon rain (65% water, fluid cytoplasm, active enzymes, >2,000× oxygen uptake).')
+    f = Fig(640, 320, 'Chosen hydration states: 50 g at 10% water and 128.6 g at 65%, holding 45 g dry material fixed. Mobility and root development are qualitative illustrations.')
     # Left panel: Dry dormant seed
     f.rect(18, 20, 288, 265, 'plate', rx=8)
     f.text(162, 42, 'Dry cupboard moong bean (May)', 't b', 'middle', 14)
-    f.text(162, 60, '10% water · Vitreous sugar-glass state', 't m', 'middle', 12)
+    f.text(162, 60, 'Chosen dry state: 10% water', 't m', 'middle', 12)
     # Seed outline (small)
     f.path('M82,126 C82,92 145,92 145,126 C145,156 82,156 82,126 Z', 'wash-n')
     f.path('M82,126 C82,92 145,92 145,126 C145,156 82,156 82,126 Z', 'ln nn')
@@ -24,22 +24,22 @@ def c1_monsoon_imbibition():
         f.text(ex, ey + 4, 'E', 'pt-sign', 'middle', 10, 700)
     for gx, gy in ((222, 118), (190, 156), (262, 160)):
         f.circle(gx, gy, 4.5, 'pt-p')
-    f.text(229, 182, 'Enzymes locked still', 't m', 'middle', 11)
+    f.text(229, 182, 'Restricted mobility', 't m', 'middle', 11)
     # Readout bars at bottom
-    f.text(34, 216, 'O₂ uptake: < 0.05 µL / g·h (near zero)', 't m', 'start', 12)
-    f.text(34, 236, 'ATP turnover: paused (dormant)', 't m', 'start', 12)
-    f.text(34, 256, 'Survives years in a dry jar', 't nn', 'start', 12, 600)
+    f.text(34, 216, 'Chosen starting mass: 50 g', 't m', 'start', 12)
+    f.text(34, 236, 'Dry material held fixed: 45 g', 't m', 'start', 12)
+    f.text(34, 256, 'Viability depends on storage', 't nn', 'start', 12, 600)
 
     # Right panel: Hydrated monsoon seed
     f.rect(334, 20, 288, 265, 'plate', rx=8)
-    f.text(478, 42, 'Soaked moong bean (48 h after rain)', 't b', 'middle', 14)
-    f.text(478, 60, '65% water · Liquid cytoplasm awake', 't e', 'middle', 12)
+    f.text(478, 42, 'Hydrated model seed', 't b', 'middle', 14)
+    f.text(478, 60, 'Chosen state: 65% water', 't e', 'middle', 12)
     # Swollen seed + emerging white radicle root
     f.path('M366,126 C366,80 452,80 452,126 C452,166 366,166 366,126 Z', 'wash-g')
     f.path('M366,126 C366,80 452,80 452,126 C452,166 366,166 366,126 Z', 'ln g')
     f.path('M422,148 C438,162 446,182 438,194 C430,186 424,168 414,152', 'plate')
     f.path('M422,148 C438,162 446,182 438,194 C430,186 424,168 414,152', 'ln b')
-    f.text(398, 174, 'swollen 2.1× mass', 't g', 'middle', 11.5)
+    f.text(398, 174, '128.6 g total', 't g', 'middle', 11.5)
     f.text(445, 205, 'radicle root', 't b', 'middle', 11.5)
     # Magnifying loupe into liquid cytoplasm
     f.rect(484, 82, 124, 108, 'water', rx=6)
@@ -51,22 +51,22 @@ def c1_monsoon_imbibition():
     f.text(524, 132, 'E', 'pt-sign', 'middle', 10, 700)
     f.arrow(556, 128, 536, 128, 'proton')
     f.circle(562, 128, 5, 'pt-p')
-    f.text(546, 182, 'Rapid collisions & ATP!', 't e', 'middle', 11)
+    f.text(546, 182, 'Greater mobility', 't e', 'middle', 11)
     # Readout bars
-    f.text(350, 222, 'O₂ uptake: > 120 µL / g·h (> 2,000× spike!)', 't p', 'start', 12, 600)
-    f.text(350, 240, 'Releases CO₂ + metabolic warmth (+1.5 °C)', 't', 'start', 12)
-    f.text(350, 258, 'Builds new root cells in complete darkness', 't g', 'start', 12, 600)
-    f.text(320, 304, 'Water is the key that melts the cytoplasmic glass so enzymes and fuel molecules can move and collide.', 't', 'middle', 12.5)
+    f.text(350, 222, '65% water: 83.6 g of water', 't p', 'start', 12, 600)
+    f.text(350, 240, 'Total = 45 g ÷ 0.35 = 128.6 g', 't', 'start', 12)
+    f.text(350, 258, 'Root illustrates possible development', 't g', 'start', 12, 600)
+    f.text(320, 304, 'Chosen hydration states; no measured rate or germination time.', 't', 'middle', 12.5)
     return f.svg()
 
 
 @figure
 def c1_seed_vs_flame():
-    f = Fig(640, 340, 'Three-level comparison of a Candle Flame and a Living Seed: both oxidise carbon fuel using O₂ to release CO₂ and H₂O, but the flame scatters 100% of the energy as random thermal motion whereas the seed couples multi-step enzyme oxidation to ATP and DNA-guided construction.')
+    f = Fig(640, 340, 'Three-level comparison of a Candle Flame and a Living Seed: both oxidise carbon fuel using O₂ to release CO₂ and H₂O, but the flame releases heat and light whereas the seed couples enzyme-controlled reactions to ATP supply and cellular construction.')
     # Left column: The Candle Flame
     f.rect(18, 18, 290, 290, 'plate', rx=8)
     f.text(163, 40, 'The Candle Flame (Non-living)', 't p', 'middle', 14, 700)
-    f.text(163, 58, 'Uncontrolled 1-step combustion at ~1,000 °C', 't m', 'middle', 12)
+    f.text(163, 58, 'Combustion transfers heat and light', 't m', 'middle', 12)
     # Flame graphic + gas arrows
     f.rect(68, 126, 26, 48, 'block', rx=3)
     f.path('M81,126 C65,104 73,82 81,70 C89,82 97,104 81,126 Z', 'wash-p')
@@ -81,9 +81,9 @@ def c1_seed_vs_flame():
     f.line(160, 128, 195, 128, 'ln b')
     f.arrow(195, 128, 235, 186, 'proton')
     f.line(235, 186, 278, 186, 'ln b')
-    f.text(220, 158, '100% lost as', 't p', 'middle', 11.5, 600)
-    f.text(220, 172, 'random heat', 't p', 'middle', 11.5, 600)
-    f.text(34, 232, '• Destroys structure into scattered gas', 't', 'start', 12)
+    f.text(220, 158, 'Heat and light', 't p', 'middle', 11.5, 600)
+    f.text(220, 172, 'to surroundings', 't p', 'middle', 11.5, 600)
+    f.text(34, 232, '• Fuel becomes chemical products', 't', 'start', 12)
     f.text(34, 252, '• Zero cells, zero membranes, zero ATP', 't', 'start', 12)
     f.text(34, 272, '• Zero hereditary code (no DNA/RNA)', 't p', 'start', 12, 600)
 
@@ -108,19 +108,19 @@ def c1_seed_vs_flame():
     f.arrow(570, 134, 570, 172, 'green')
     f.text(570, 188, 'Builds polymers', 't g', 'middle', 11, 600)
     f.text(348, 232, '• Uses ATP to build ordered cell walls & proteins', 't', 'start', 12)
-    f.text(348, 252, '• Repairs damage and holds back entropy', 't', 'start', 12)
+    f.text(348, 252, '• Maintains cells; releases heat too', 't', 'start', 12)
     f.text(348, 272, '• Reads & copies a 4-letter DNA blueprint', 't g', 'start', 12, 600)
-    f.text(320, 326, 'Life is not a magic substance: it is ordinary chemistry coupled via ATP to self-repair and digital code.', 't', 'middle', 12.5)
+    f.text(320, 326, 'A cellular system couples chemistry to maintenance and inheritance.', 't', 'middle', 12.5)
     return f.svg()
 
 
 @figure
 def c1_atp_cycle():
-    f = Fig(640, 290, 'The structure of ATP (Adenine + Ribose + three negatively charged Phosphate groups) and the ATP/ADP recharge cycle discovered by Fiske and SubbaRow (1929).')
+    f = Fig(640, 290, 'The structure of ATP (Adenine + Ribose + three negatively charged Phosphate groups) and a common ATP/ADP reaction cycle; discovery and functional understanding were separate milestones.')
     # Left panel: ATP molecular schematic
     f.rect(18, 20, 300, 235, 'plate', rx=8)
     f.text(168, 42, 'Inside one ATP molecule', 't b', 'middle', 14)
-    f.text(168, 59, 'Three repelling negative charges act like a cocked spring', 't m', 'middle', 11.5)
+    f.text(168, 59, 'Charges contribute; consider the whole reaction', 't m', 'middle', 11.5)
     # Adenine base
     f.rect(34, 96, 58, 44, 'wash-e', rx=6)
     f.rect(34, 96, 58, 44, 'ln e', rx=6)
@@ -143,13 +143,13 @@ def c1_atp_cycle():
     # Repulsion arrows between the negative charges
     f.text(232, 74, '↔  ↔  mutual electric repulsion', 't p', 'middle', 11.5, 600)
     f.bracket_label(166, 298, 152, 'Triphosphate tail (3 phosphates)', 11.5, up=False)
-    f.text(168, 206, 'When water hydrolyses the 3rd phosphate (P),', 't', 'middle', 12)
-    f.text(168, 223, 'charge crowding drops → drives cellular machinery!', 't p', 'middle', 12, 600)
+    f.text(168, 206, 'ATP + water → ADP + phosphate;', 't', 'middle', 12)
+    f.text(168, 223, 'coupled reaction cycles can drive work.', 't p', 'middle', 12, 600)
 
     # Right panel: The Recharge Cycle
     f.rect(336, 20, 286, 235, 'plate', rx=8)
-    f.text(479, 42, 'The 800× daily recharge loop', 't b', 'middle', 14)
-    f.text(479, 59, '50 g pool in your body turns over ~40 kg/day', 't m', 'middle', 11.5)
+    f.text(479, 42, 'An illustrative turnover account', 't b', 'middle', 14)
+    f.text(479, 59, 'Assume 50 g pool; 40 kg/day turnover', 't m', 'middle', 11.5)
     # Top badge: ATP (charged)
     f.rect(424, 74, 110, 34, 'wash-p', rx=6)
     f.rect(424, 74, 110, 34, 'ln p', rx=6)
@@ -162,7 +162,7 @@ def c1_atp_cycle():
     f.curved_arrow(414, 204, 424, 92, bend=-48, kind='green')
     f.text(384, 142, 'Cellular', 't g', 'middle', 11.5, 600)
     f.text(384, 156, 'respiration', 't g', 'middle', 11.5, 600)
-    f.text(384, 170, '(glucose + O₂)', 't m', 'middle', 11)
+    f.text(384, 170, '(energy input)', 't m', 'middle', 11)
     # Right curve: Cellular work spends
     f.curved_arrow(534, 92, 544, 204, bend=-48, kind='proton')
     f.text(576, 138, 'Cellular work:', 't p', 'middle', 11.5, 600)
@@ -181,7 +181,7 @@ def c1_mrs_gren_engine():
     f.rect(225, 72, 190, 116, 'ln g', rx=10)
     f.text(320, 96, 'LIVING ORGANISM', 't g', 'middle', 13.5, 700)
     f.text(320, 116, '2. RESPIRATION', 't p', 'middle', 12.5, 700)
-    f.text(320, 132, '(Fuel → ATP in every cell)', 't m', 'middle', 11.5)
+    f.text(320, 132, '(Energy transfer via ATP)', 't m', 'middle', 11.5)
     f.text(320, 154, '6. GROWTH (+dry mass)', 't b', 'middle', 12)
     f.text(320, 172, '7. REPRODUCTION (DNA)', 't e', 'middle', 12)
 
@@ -216,13 +216,13 @@ def c1_mrs_gren_engine():
     f.text(534, 178, 'EGESTION (faeces)', 't m', 'middle', 12, 600)
     f.text(534, 195, 'Undigested fibre that', 't m', 'middle', 11)
     f.text(534, 209, 'never entered a cell!', 't m', 'middle', 11)
-    f.text(320, 266, 'Every MRS GREN process is a physical requirement to keep a cellular machine far from thermal equilibrium.', 't', 'middle', 12.5)
+    f.text(320, 266, 'Processes across a life cycle; not all occur visibly at once.', 't', 'middle', 12.5)
     return f.svg()
 
 
 @figure
 def c1_virus_border():
-    f = Fig(640, 300, 'Side-by-side comparison of a living Bacterial Cell (~2,000 nm) with its own membrane, cytoplasm, ribosomes, ATP generators and DNA chromosome versus two non-living Viruses (~100 nm, enlarged to show structure) consisting only of a protein coat (capsid) and nucleic acid.')
+    f = Fig(640, 300, 'Side-by-side comparison of a living Bacterial Cell (~2,000 nm) with its own membrane, cytoplasm, ribosomes, ATP generators and DNA chromosome versus two virus examples (enlarged independently to show structure) with genomes and protein coats, one also with a lipid envelope.')
     # Left panel: Bacterium (Alive)
     f.rect(18, 20, 300, 245, 'plate', rx=8)
     f.text(168, 42, 'Living Bacterium (Prokaryote)', 't g', 'middle', 14, 700)
@@ -248,8 +248,8 @@ def c1_virus_border():
 
     # Right panel: Viruses (Borderline / Non-living in IGCSE)
     f.rect(334, 20, 288, 245, 'plate', rx=8)
-    f.text(478, 42, 'Viruses (Biological Software)', 't p', 'middle', 14, 700)
-    f.text(478, 59, 'Actual width: ~80–120 nm (enlarged 10× here)', 't m', 'middle', 11.5)
+    f.text(478, 42, 'Viruses (Host-dependent)', 't p', 'middle', 14, 700)
+    f.text(478, 59, 'Examples enlarged; sizes vary', 't m', 'middle', 11.5)
     # Bacteriophage on left side of right panel
     px, py = 406, 110
     f.path(f'M{px},{py - 26} L{px + 20},{py - 12} L{px + 20},{py + 10} L{px},{py + 24} L{px - 20},{py + 10} L{px - 20},{py - 12} Z', 'wash-p')
@@ -270,9 +270,9 @@ def c1_virus_border():
         rad = math.radians(ang)
         f.line(vx + 28 * math.cos(rad), vy + 28 * math.sin(rad),
                vx + 36 * math.cos(rad), vy + 36 * math.sin(rad), 'ln p')
-    f.text(vx, 188, 'RNA virus (capsid + spikes)', 't m', 'middle', 11)
+    f.text(vx, 188, 'RNA virus with lipid envelope', 't m', 'middle', 11)
 
-    f.text(348, 208, '✗ No cytoplasm, no cell membrane, no ATP', 't p', 'start', 12, 600)
+    f.text(348, 208, '✗ No independent cellular metabolism', 't p', 'start', 12, 600)
     f.text(348, 226, '✗ Zero ribosomes (cannot print proteins)', 't', 'start', 12)
     f.text(348, 244, '✓ Protein coat + DNA or RNA (hijacks host)', 't e', 'start', 12, 600)
     f.text(320, 284, 'Because viruses lack cells, ribosomes and metabolism, IGCSE classifies them outside the Five Kingdoms.', 't', 'middle', 12.5)

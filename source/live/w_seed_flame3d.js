@@ -9,13 +9,13 @@ Live.register('seed_flame3d', (stage, params, api) => {
   let mode = 0; // 0 = Side-by-side 3D, 1 = Flame Combustion (Chaos), 2 = Seed Cell (ATP & Order)
   let rate = 1.0;
 
-  api.tabs(['1. Side-by-Side 3D', '2. Candle Flame (Chaos)', '3. Seed Cell (ATP & Order)'], (idx) => {
+  api.tabs(['1. Side-by-Side 3D', '2. Candle Flame (Heat & Light)', '3. Seed Cell (ATP & Order)'], (idx) => {
     mode = idx;
     updateVisibility();
     updateReadout();
   });
 
-  api.slider('Reaction speed', {
+  api.slider('Animation speed', {
     min: 0.2, max: 2.0, step: 0.2, value: rate,
     fmt: (v) => `${v.toFixed(1)}×`,
     onInput: (v) => { rate = v; updateReadout(); },
@@ -23,11 +23,11 @@ Live.register('seed_flame3d', (stage, params, api) => {
 
   function updateReadout() {
     if (mode === 0) {
-      say(`<b>3D Molecular Comparison</b>: On the left, candle combustion scatters carbon and oxygen atoms into random thermal chaos. On the right, the living seed cell uses glowing ochre <b>ATP</b> coins to assemble monomers into an ordered 3D living helix/microfibril.`);
+      say(`Flame: fuel reactions release heat and light. Cell: coupled reactions supply ATP and support cellular construction. Shapes and motion are conceptual, not atomic structures, reaction rates or an energy ledger.`);
     } else if (mode === 1) {
-      say(`<b>Candle Flame (Uncontrolled Combustion)</b>: Hydrocarbon fuel + O₂ breaks apart in one violent step (~1,000 °C). 100% of the chemical energy escapes as random kinetic motion of CO₂ and H₂O molecules.`);
+      say(`Combustion involves many reactions. Heat and light leave the flame; it lacks cellular maintenance and inheritance machinery.`);
     } else {
-      say(`<b>Living Seed Cell (Coupled ATP Metabolism)</b>: Stepwise oxidation at 28 °C recharges <b>ATP</b> (three repelling phosphate spheres), which docks at the assembly site and locks new carbon building blocks into ordered cellular structure.`);
+      say(`Enzyme-controlled pathways support ATP regeneration and coupled cellular work. The carrier icons and polymer are symbols, not structural formulas or a literal docking mechanism.`);
     }
   }
 
@@ -37,8 +37,8 @@ Live.register('seed_flame3d', (stage, params, api) => {
       const ctx = k.ctx;
       ctx.fillStyle = c.paper;
       ctx.fillRect(0, 0, 640, 300);
-      api.draw.text(ctx, 'Flame: Fuel + O₂ → scattered CO₂ + H₂O + heat (chaos)', 320, 120, { size: 14, weight: 700, align: 'center', color: c.proton });
-      api.draw.text(ctx, 'Seed Cell: Fuel + O₂ → ATP → ordered polymers & DNA copies', 320, 175, { size: 14, weight: 700, align: 'center', color: c.green });
+      api.draw.text(ctx, 'Flame: fuel reactions release heat and light', 320, 120, { size: 14, weight: 700, align: 'center', color: c.proton });
+      api.draw.text(ctx, 'Cell: fuel reactions support ATP supply and cellular work', 320, 175, { size: 14, weight: 700, align: 'center', color: c.green });
     });
     updateReadout();
     return { destroy() {} };

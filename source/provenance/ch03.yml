@@ -199,3 +199,7 @@ story:p-skou:
     source: grounding/ch03.md; research/history.md verification method
     url: https://www.nobelprize.org/prizes/chemistry/1997/skou/facts/
   licence: CC BY-NC-SA 4.0; original prose; historical facts only, no portraits
+
+ch03-atlas-reader-integration:
+  correction: "Second3D layer's carrier is an invented generic uncharged-solute model, not Skou's pump or the root nitrate cotransporter. Water markers illustrate two-way exchange, activity/state thresholds are chosen, and ATP loss need not instantly erase stored gradients."
+  implementation: "Corrected shadeMat import and actual plot/particle signatures; added catalog station aliases. Existing chapter sources support the qualitative distinctions."
