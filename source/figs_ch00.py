@@ -86,16 +86,16 @@ def cover_art():
         (3, 'Ψw', 'Salty sea', 1, 0),
         (4, 'Ea', 'Enzyme locks', 2, 0),
         (5, '6 CO₂', 'Green engine', 2, 1),
-        (6, '32 ATP', 'Respiration', 2, 0),
+        (6, 'ADP → ATP', 'Respiration', 2, 0),
         (7, 'pH 2', 'Digestion', 3, 0),
         (8, '2× pump', 'Breath & heart', 3, 0),
         (9, '100 m/s', 'Nerves & sense', 3, 0),
         (10, '37.0 °C', 'Homeostasis', 3, 0),
-        (11, 'A=T G≡C', 'Twisted ladder', 4, 1),
+        (11, 'A·T C·G', 'Twisted ladder', 4, 1),
         (12, '2n → n', 'Mitosis & meiosis', 4, 0),
         (13, '3 : 1', 'Mendel’s peas', 4, 0),
         (14, 'Δ allele', 'Selection', 4, 0),
-        (15, '10%', 'Web of life', 4, 0),
+        (15, 'Energy', 'Web of life', 4, 0),
     ]
     W, H = 640, 530
     cw, ch, gap = 146, 118, 10
@@ -119,7 +119,7 @@ def cover_art():
 
 @figure
 def c0_redi_jars():
-    f = Fig(640, 320, 'Francesco Redi’s three-jar controlled experiment in Florence (1668): Jar 1 open to air and flies grows maggots; Jar 2 sealed with wax blocks both flies and air; Jar 3 covered with fine gauze admits fresh air while stopping flies at the mesh.')
+    f = Fig(640, 338, 'Francesco Redi’s three-jar controlled experiment in Florence (1668): Jar 1 open to air and flies grows maggots; Jar 2 sealed with wax blocks both flies and air; Jar 3 covered with fine gauze admits fresh air while stopping flies at the mesh.')
     jars = [
         (45, '1. Open jar (Control)', 'Air enters · Flies enter', True, 'open'),
         (245, '2. Sealed jar', 'No flies · No fresh air', False, 'sealed'),
@@ -169,7 +169,8 @@ def c0_redi_jars():
             f.text(x0 + 75, 162, 'eggs trapped on gauze', 't m', 'middle', 12)
             f.text(x0 + 75, 262, 'Zero maggots on meat', 't g', 'middle', 12.5, 600)
             f.text(x0 + 75, 280, '(decisive control!)', 't g', 'middle', 11.5)
-    f.text(320, 308, 'Changing only one factor between Jar 1 and Jar 3 (access by flies, with air kept equal) proves flies are the cause.', 't', 'middle', 12.5)
+    f.text(320, 307, 'Both the open and gauze jars admit air.', 't', 'middle', 12.5)
+    f.text(320, 326, 'Only the open jar lets flies reach the meat.', 't', 'middle', 12.5)
     return f.svg()
 
 
@@ -261,7 +262,7 @@ def c0_swan_neck():
             for dx, dy in ((cx + 58, cy - 28), (cx + 65, cy - 25), (cx + 72, cy - 28)):
                 f.circle(dx, dy, 2.5, 'pt-p')
             f.text(x0 + 132, 172, 'dust & spores', 't p', 'middle', 11)
-            f.text(x0 + 132, 185, 'trapped here', 't p', 'middle', 11)
+            f.text(x0 + 132, 190, 'trapped here', 't p', 'middle', 11)
             f.text(x0 + 92, 232, 'Broth stays clear for years', 't g', 'middle', 12, 600)
         else:
             # Broth splashed into bend and cloudy bacteria in bulb
@@ -298,7 +299,7 @@ def c0_scale_ladder():
         f.circle(x, y_bar, 4, {'electron': 'pt-e', 'neutron': 'pt-n', 'proton': 'pt-p', 'green': 'fill-vol', 'ink': 'fill-ink'}[col])
         ty = y_bar + dy
         f.text(x, ty, name, 't b', 'middle', 12)
-        f.text(x, ty + (14 if dy > 0 else -14), sz, 't m', 'middle', 11)
+        f.text(x, ty + (18 if dy > 0 else -18), sz, 't m', 'middle', 11)
     # Bracket ranges at bottom
     f.bracket_label(48, 320, 212, 'Electron microscope (0.1 nm – 1 µm)', 11.5, up=False)
     f.bracket_label(252, 524, 52, 'Light microscope (200 nm – 1 mm)', 11.5, up=True)

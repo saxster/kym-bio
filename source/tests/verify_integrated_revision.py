@@ -2,7 +2,7 @@
 """Build and check the combined reader revisions locally; never publish or push.
 
 Chapter-specific acceptance suites remain available in their original runners.
-This integration gate checks the combined artifact, domain regressions, all 60
+This integration gate checks the combined artifact, domain regressions, all 64
 revised Atlas stations and whole-book offline use against stable source hashes.
 """
 from concurrent.futures import ThreadPoolExecutor
@@ -47,7 +47,7 @@ def run(name, args, extra=None):
 def browser(name):
     if name == 'offline':
         run(name, [sys.executable, 'livetest.py', str(SITE / 'index.html'), str(OUT / 'offline'), '--offline'])
-    elif name == 'atlas01-05':
+    elif name == 'atlas00-05':
         run(name, [sys.executable, 'tests/qa_reader_atlas.py', str(SITE / 'index.html')])
         shutil.copytree('/tmp/bio-reader-atlas-qa', OUT / name, dirs_exist_ok=True)
     elif name == 'atlas06-10':
@@ -66,10 +66,10 @@ def main():
         run(path.stem, ['node', str(path)])
     run('independent11-12', ['node', 'tests/ch11_12_revision.mjs'])
     with ThreadPoolExecutor(max_workers=3) as pool:
-        list(pool.map(browser, ['offline', 'atlas01-05', 'atlas06-10', 'atlas11-15']))
+        list(pool.map(browser, ['offline', 'atlas00-05', 'atlas06-10', 'atlas11-15']))
     assert source_hashes() == baseline, 'Sources changed during verification; run again'
     result = {'status': 'pass', 'site': str(SITE), 'source_hashes': str(OUT / 'source-hashes.json'),
-              'chapters': list(range(1, 16)), 'actual_webgl_stations': 60, 'offline': True}
+              'chapters': list(range(16)), 'actual_webgl_stations': 64, 'offline': True}
     (OUT / 'result.json').write_text(json.dumps(result, indent=2) + '\n')
     print('PASS combined reader revision:', OUT, flush=True)
 

@@ -55,7 +55,7 @@ def c5_chloroplast():
     f.arrow(475,231,475,252,'green')
     f.text(475,281,'Sugars, stores, cell walls','t','middle',15)
     f.arrow(295,183,342,183,'electron');f.text(320,168,'ATP','t e','middle',12)
-    f.arrow(295,240,342,240,'electron');f.text(320,219,'electron','t e','middle',12);f.text(320,233,'carrier','t e','middle',12)
+    f.arrow(295,240,342,240,'electron');f.text(320,214,'electron','t e','middle',12);f.text(320,233,'carrier','t e','middle',12)
     f.arrow(166,67,166,110,'neutron');f.text(210,87,'Light energy','t nn',size=14)
     f.text(320,365,'Fuller summary (light energy transferred; chlorophyll present)','t b','middle',14)
     f.text(320,397,'6CO₂ + 12H₂O → C₆H₁₂O₆ + 6O₂ + 6H₂O','t s','middle',21)

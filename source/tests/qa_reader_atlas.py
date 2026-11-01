@@ -12,14 +12,14 @@ from playwright.sync_api import sync_playwright
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('site', nargs='?', default='build/site/index.html')
-parser.add_argument('--chapters', default='1,2,3,4,5')
+parser.add_argument('--chapters', default='0,1,2,3,4,5')
 args = parser.parse_args()
 site = Path(args.site).resolve()
 if site.is_dir():
     site = site / 'index.html'
 assert site.is_file(), f'Build the site first: {site}'
 chapters = [int(n) for n in args.chapters.split(',')]
-assert chapters and all(1 <= n <= 5 for n in chapters)
+assert chapters and all(0 <= n <= 5 for n in chapters)
 out = Path('/tmp/bio-reader-atlas-qa')
 out.mkdir(exist_ok=True)
 

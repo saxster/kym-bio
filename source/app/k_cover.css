@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------ the cover's chapter tiles, made tappable */
-header.cover figure { position: relative; }
+header.cover { position: relative; }
 .cover-live g.el { cursor: pointer; outline: none; }
 .cover-live g.el > rect { transition: transform .15s ease, stroke-width .15s ease; transform-box: fill-box; transform-origin: center; }
 .cover-live g.el:hover > rect, .cover-live g.el:focus-visible > rect, .cover-live g.el.cv-sel > rect {
@@ -17,7 +17,7 @@ header.cover figure { position: relative; }
 .cv-card .cv-top { display: flex; align-items: center; gap: .7rem; margin-bottom: .6rem; padding-right: 1.6rem; }
 .cv-card .cv-sym { display: grid; place-items: center; min-width: 3.2rem; height: 2.8rem; padding: 0 .4rem; border-radius: 8px; background: var(--ink);
   color: var(--sheet); font: 600 1.05rem/1 var(--serif); }
-.cv-card .cv-name { display: flex; flex-direction: column; font: 400 1.2rem/1.15 var(--serif); }
+.cv-card .cv-name { min-width: 0; display: flex; flex-direction: column; font: 400 1.2rem/1.15 var(--serif); }
 .cv-card .cv-name small { font: 500 .76rem/1.3 var(--sans); color: var(--muted); }
 .cv-card .cv-in { color: var(--vol); font-weight: 600; font-size: .84rem; }
 .cv-card .cv-how { font-family: var(--serif); font-size: .98rem; }

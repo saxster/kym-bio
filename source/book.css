@@ -629,6 +629,7 @@ html.sd-open { overflow: hidden; }
   .volume { margin-left: -1rem; margin-right: -1rem; }
   .eq { font-size: 1.02em; }
   table { font-size: .82rem; }
+  th, td { overflow-wrap: anywhere; }
 }
 
 /* ------------------------------------------------------------------ print */
