@@ -42,6 +42,7 @@ profiles:
 .venv/bin/python source/tests/qa_published_site.py models --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py atlas --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py offline --out /tmp/bio-live
+.venv/bin/python source/tests/qa_published_site.py offline-webkit --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py webkit --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py cover --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py fallback --out /tmp/bio-live
@@ -73,7 +74,8 @@ new model, saved answer and self-rating offline. It fails if the new worker
 activates before the existing reader is finished. The Atlas browser checks also
 require one reused canvas across chapters and separate, unclipped visible labels.
 WebKit online checks block service-worker prefetch so they test rendering and
-interaction without a parallel whole-book download; offline coverage uses Chromium.
+interaction without a parallel whole-book download; offline coverage runs independently in touch-enabled Chromium and WebKit.
+Both offline checks first require an uncached network request to fail.
 
 The explorer lifecycle check opens the cell and DNA explorers twelve times in
 mobile WebKit, changes their selections, requires one shared canvas, and counts
@@ -82,3 +84,15 @@ GPU buffer/texture creation and deletion to check bounded resources after close.
 The two-edition fixture sends `Cache-Control: public, max-age=600`, matching the
 observed GitHub Pages freshness window. A new precache must bypass that HTTP
 cache so its HTML and lazy chunks belong to the same edition.
+
+The quantitative scene gate checks all three Mendelian crosses and energy
+transfer at 5%, 10% and 20%, including visible letters, readouts and label fit:
+
+```bash
+.venv/bin/python source/tests/qa_quantitative_scenes.py --offline --out /tmp/bio-quantitative-chromium
+.venv/bin/python source/tests/qa_quantitative_scenes.py --engine webkit --offline --out /tmp/bio-quantitative-webkit
+```
+
+The combined local integration command also checks actual 3D bar heights,
+baselines, Punnett cell colours/letters, clipping and trophic block areas against
+independent expected values in `atlas_quantitative_display_domain.mjs`.

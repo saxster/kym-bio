@@ -5,12 +5,14 @@ import {
 } from '../../engine/bio_kit.js';
 import * as M from './model.js';
 
+const energyText = kJ => kJ.toLocaleString('en-GB', { maximumFractionDigits: 2 });
+
 export const PAGES = [
   {
     tab: 'Energy Pyramid & LV',
-    fig: 'Figure 15.1–15.2 · Lindeman’s 3D illustrative 10% production pyramid & Lotka–Volterra invariant surface',
-    title: 'Trophic Energy Pyramids & Predator–Prey Orbits',
-    alt: '3D stepped trophic energy pyramid (10,000 -> 1,000 -> 100 -> 10 kJ) alongside the 3D Lotka-Volterra conserved invariant bowl V(R, F).',
+    fig: 'Figure 15.1–15.2 · Lindeman’s 3D production-energy pyramid with chosen transfer efficiency & Lotka–Volterra invariant surface',
+    title: 'Energy Transfer & a Predator–Prey Surface',
+    alt: 'A 3D energy pyramid whose horizontal block areas follow the selected energy proportions, alongside a Lotka–Volterra function surface sampled by a chosen path.',
     cam: { target: [0, 1.35, 0], az: 26, el: 22, dist: 7.6 },
     lit: 'trophic_pyramid',
     parts: ['trophic_pyramid', 'lv_bowl'],
@@ -50,11 +52,11 @@ export const PAGES = [
 
 export const PLATES = {
   trophic_pyramid: {
-    text: 'Raymond Illustrative production budget: the stated 10% transfer is an assumption, not a universal law. Energy outside the next consumer level includes respiratory heat and chemical energy in waste and detritus; chain length also depends on area and consumer requirements.',
-    facts: s => [['Producers', `${s.pyr.producerKj.toLocaleString()} kJ`], ['Herbivores', `${s.pyr.herbivoreKj.toFixed(0)} kJ`], ['Apex', `${s.pyr.apexCarnKj.toFixed(0)} kJ`]],
+    text: 'Illustrative production budget: the chosen transfer fraction is an assumption, not a universal law. All levels use the same chosen area and time interval. Horizontal block areas show relative energy; block heights are fixed for display. Energy outside the next consumer level includes respiratory heat and chemical energy in waste and detritus; chain length also depends on area and consumer requirements.',
+    facts: s => [['Transfer', `${s.trophicEtaPct}%`], ['Producers', `${energyText(s.pyr.producerKj)} kJ`], ['Herbivores', `${energyText(s.pyr.herbivoreKj)} kJ`], ['Primary carnivores', `${energyText(s.pyr.primaryCarnKj)} kJ`], ['Apex', `${energyText(s.pyr.apexCarnKj)} kJ`]],
   },
   lv_bowl: {
-    text: 'Lotka–Volterra conserved phase surface V(R, F) = δR − γ ln R + βF − α ln F: prey and predator populations trace closed orbits around the equilibrium point in this idealised two-population model (R*, F*).',
+    text: 'Lotka–Volterra conserved phase surface V(R, F) = δR − γ ln R + βF − α ln F: V stays constant along solutions of the idealised two-population equations. Here the moving point scans chosen example states to reveal the surface; it is not a solved population trajectory.',
   },
   root_nodule: {
     text: 'Beijerinck’s symbiotic *Rhizobium* bacteroids inside legume root nodules: pink leghaemoglobin buffers free O₂ so nitrogenase can reduce atmospheric N≡N into NH₃ for plant amino acids.',
@@ -122,7 +124,7 @@ export const CHAPTER = {
   },
   readout(s, page, pageIdx) {
     if (pageIdx === 0) {
-      return `<b>Trophic transfer η = ${s.trophicEtaPct}%</b> · Producers: 10,000 kJ → Herbivores: <b>${s.pyr.herbivoreKj.toFixed(0)} kJ</b> → Primary carnivores: <b>${s.pyr.primaryCarnKj.toFixed(0)} kJ</b> → Apex: <b>${s.pyr.apexCarnKj.toFixed(1)} kJ</b>.`;
+      return `<b>Trophic transfer η = ${s.trophicEtaPct}%</b> · Producers: 10,000 kJ → Herbivores: <b>${energyText(s.pyr.herbivoreKj)} kJ</b> → Primary carnivores: <b>${energyText(s.pyr.primaryCarnKj)} kJ</b> → Apex: <b>${energyText(s.pyr.apexCarnKj)} kJ</b>. Horizontal block areas show the energy ratios; heights are fixed for display.`;
     }
     if (pageIdx === 1) {
       const eutro = s.runoffLoad > 60 ? 'Illustrative high-runoff state: bloom and low-oxygen risk' : 'Illustrative lower-runoff state; oxygen also depends on mixing and respiration';
@@ -142,20 +144,21 @@ export const CHAPTER = {
     const label = (cls, html, at, opts = {}) => labels.push({ cls, html, at, ...opts });
 
     // Station 0 (x = 0): 3D Stepped Trophic Energy Pyramid + Lotka-Volterra Conserved Surface
-    const pyrAsm = asm('trophic_pyramid', root, { title: 'Lindeman 3D Trophic Energy Pyramid', sub: '10% production transfer assumed; remaining energy includes heat and detritus' });
+    const pyrAsm = asm('trophic_pyramid', root, { title: 'Lindeman 3D Trophic Energy Pyramid', sub: 'Chosen transfer fraction; energy outside the next level includes heat and detritus' });
     pyrAsm.position.set(-1.1, 0.1, 0);
     const tier1 = part(pyrAsm, box(1.55, 0.42, 1.55, 0.04), { pal: 'green', tone: 'lit', pos: [0, 0.21, 0], ex: [0, -0.2, 0], name: 'T1 Producers (10,000 kJ)' });
-    const tier2 = part(pyrAsm, box(1.05, 0.42, 1.05, 0.04), { pal: 'ochre', tone: 'hi', pos: [0, 0.65, 0], ex: [0, 0.15, 0], name: 'T2 Herbivores (1,000 kJ)' });
-    const tier3 = part(pyrAsm, box(0.62, 0.42, 0.62, 0.04), { pal: 'blue', tone: 'hi', pos: [0, 1.09, 0], ex: [0, 0.45, 0], name: 'T3 Carnivores (100 kJ)' });
-    const tier4 = part(pyrAsm, box(0.28, 0.42, 0.28, 0.04), { pal: 'red', tone: 'lit', pos: [0, 1.53, 0], ex: [0, 0.75, 0], name: 'T4 Apex predator (10 kJ)' });
+    const tier2 = part(pyrAsm, box(1.55, 0.42, 1.55, 0.04), { pal: 'ochre', tone: 'hi', pos: [0, 0.65, 0], ex: [0, 0.15, 0], name: 'T2 Herbivores (1,000 kJ)' });
+    const tier3 = part(pyrAsm, box(1.55, 0.42, 1.55, 0.04), { pal: 'blue', tone: 'hi', pos: [0, 1.09, 0], ex: [0, 0.45, 0], name: 'T3 Carnivores (100 kJ)' });
+    const tier4 = part(pyrAsm, box(1.55, 0.42, 1.55, 0.04), { pal: 'red', tone: 'lit', pos: [0, 1.53, 0], ex: [0, 0.75, 0], name: 'T4 Apex predator (10 kJ)' });
 
-    const lvAsm = asm('lv_bowl', root, { title: 'Lotka–Volterra phase bowl V(R, F)', sub: 'Closed predator–prey oscillation orbit' });
+    const lvAsm = asm('lv_bowl', root, { title: 'Lotka–Volterra phase bowl V(R, F)', sub: 'Chosen scan of example population states' });
     lvAsm.position.set(0.5, 0.25, -0.5);
     const axL = prims.axes(lvAsm, { x: [0.25, 2.4], y: [0.25, 2.4], z: [1.8, 3.4], size: [1.9, 1.6, 1.5] });
     prims.surface(lvAsm, (R, F) => Math.min(3.3, M.lotkaVolterraInvariant(R, F)), { axes: axL, n: 22, pal: 'blue' });
     const lvDot = part(lvAsm, sphere(0.085, 16), { pal: 'red', tone: 'lit', name: '(Prey R, Predator F) state' });
-    label('board', '10% Energy pyramid', () => V(-1.1, 2.15, 0));
-    label('board', 'V(R, F) orbit bowl', () => V(1.45, 2.05, -0.5));
+    let energyCaption = 'Energy tiers · η = 10%';
+    label('board', 'Energy tiers', () => V(-1.1, 2.15, 0), { text: () => energyCaption });
+    label('board', 'V(R, F) example states', () => V(1.45, 2.05, -0.5));
 
     // Station 1 (x = 14): 3D Root Nodule + Eutrophication Lake Column
     const nodAsm = asm('root_nodule', root, { title: 'Legume Rhizobium root nodule', sub: 'Leghaemoglobin O₂ buffer & nitrogenase' });
@@ -205,13 +208,18 @@ export const CHAPTER = {
     return {
       labels,
       update(s) {
-        // Scale trophic pyramid upper tiers by transfer efficiency
-        const sc = s.trophicEtaPct / 10;
-        tier2.scale.set(sc, 1, sc);
-        tier3.scale.set(sc * sc, 1, sc * sc);
-        tier4.scale.set(sc * sc * sc, 1, sc * sc * sc);
+        // Equal base geometries and square-root side scaling make horizontal
+        // block area proportional to the model energy at every chosen efficiency.
+        const energies = [s.pyr.producerKj, s.pyr.herbivoreKj, s.pyr.primaryCarnKj, s.pyr.apexCarnKj];
+        [tier1, tier2, tier3, tier4].forEach((tier, i) => {
+          const sideScale = Math.sqrt(energies[i] / energies[0]);
+          tier.scale.set(sideScale, 1, sideScale);
+          tier.userData.part = ['T1 Producers', 'T2 Herbivores', 'T3 Primary carnivores', 'T4 Apex consumers'][i] + ` (${energyText(energies[i])} kJ)`;
+        });
+        energyCaption = `Energy tiers · η = ${s.trophicEtaPct}%`;
+        pyrAsm.userData.sub = `Chosen transfer η = ${s.trophicEtaPct}%; equal display heights`;
 
-        // Orbit dot on Lotka-Volterra bowl
+        // A chosen scan of example states on the Lotka–Volterra surface.
         const ang = s.t * 1.2;
         const r = 1.0 + 0.42 * Math.cos(ang);
         const f = 1.0 + 0.42 * Math.sin(ang);

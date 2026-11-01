@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,json,re,time,traceback,ast
 from playwright.sync_api import sync_playwright
-ap=argparse.ArgumentParser();ap.add_argument('task',choices=['figures','models','atlas','offline','webkit','fallback','cover','map','atlas-mobile','explorers','explorers-offline','explorers-webkit']);ap.add_argument('--url',default='https://saxster.github.io/kym-bio/');ap.add_argument('--chapters', default='0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15');ap.add_argument('--out',default='/tmp/kym-bio-live-qa');args=ap.parse_args();CHAPTERS=[int(n) for n in args.chapters.split(',')]
+ap=argparse.ArgumentParser();ap.add_argument('task',choices=['offline-webkit','figures','models','atlas','offline','webkit','fallback','cover','map','atlas-mobile','explorers','explorers-offline','explorers-webkit']);ap.add_argument('--url',default='https://saxster.github.io/kym-bio/');ap.add_argument('--chapters', default='0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15');ap.add_argument('--out',default='/tmp/kym-bio-live-qa');args=ap.parse_args();CHAPTERS=[int(n) for n in args.chapters.split(',')]
 OUT=Path(args.out)/args.task;OUT.mkdir(parents=True,exist_ok=True)
 report={'url':args.url,'task':args.task,'checks':[],'issues':[],'screenshots':[],'errors':[]};start=time.time()
 def check(ok,what,**detail):
@@ -151,14 +151,14 @@ def map_check():
 SVG=r'''s=>{const v=s.viewBox.baseVal,root=s.getScreenCTM();if(!root)return ['no SVG transform'];const inv=root.inverse();function box(e){const b=e.getBBox(),m=inv.multiply(e.getScreenCTM()),ps=[[b.x,b.y],[b.x+b.width,b.y],[b.x,b.y+b.height],[b.x+b.width,b.y+b.height]].map(([x,y])=>new DOMPoint(x,y).matrixTransform(m));return{x:Math.min(...ps.map(p=>p.x)),y:Math.min(...ps.map(p=>p.y)),r:Math.max(...ps.map(p=>p.x)),b:Math.max(...ps.map(p=>p.y))}}let out=[];const texts=[...s.querySelectorAll('text')].filter(e=>!e.closest('defs')&&e.textContent.trim()).map(e=>({t:e.textContent,b:box(e)}));for(const q of texts)if(q.b.x<-.5||q.b.y<-.5||q.b.r>v.width+.5||q.b.b>v.height+.5)out.push('clip '+q.t);for(let i=0;i<texts.length;i++)for(let j=i+1;j<texts.length;j++){let a=texts[i],b=texts[j];if(Math.min(a.b.r,b.b.r)-Math.max(a.b.x,b.b.x)>1&&Math.min(a.b.b,b.b.b)-Math.max(a.b.y,b.b.y)>1)out.push('overlap '+a.t+' / '+b.t)}return out}'''
 try:
  with sync_playwright() as p:
-  engine=p.webkit if args.task in ['webkit','explorers-webkit'] else p.chromium
-  browser=engine.launch(**({} if args.task in ['webkit','explorers-webkit'] else {'args':['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']}))
-  mobile=args.task in ['offline','webkit','atlas-mobile','explorers-offline','explorers-webkit'];context=browser.new_context(viewport={'width':390 if mobile else 1440,'height':900},is_mobile=mobile,has_touch=mobile,service_workers='block' if args.task in ['webkit','explorers-webkit'] else 'allow',reduced_motion='reduce',device_scale_factor=2 if mobile else 1)
+  engine=p.webkit if args.task in ['webkit','explorers-webkit','offline-webkit'] else p.chromium
+  browser=engine.launch(**({} if args.task in ['webkit','explorers-webkit','offline-webkit'] else {'args':['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist']}))
+  mobile=args.task in ['offline','offline-webkit','webkit','atlas-mobile','explorers-offline','explorers-webkit'];context=browser.new_context(viewport={'width':390 if mobile else 1440,'height':900},is_mobile=mobile,has_touch=mobile,service_workers='block' if args.task in ['webkit','explorers-webkit'] else 'allow',reduced_motion='reduce',device_scale_factor=2 if mobile else 1)
   page=context.new_page();page.set_default_timeout(30000)
   context.add_init_script('''window.qaDraws=0;window.qaGLDraws=0;window.qaAtlasCanvases=new Set();for(const p of [WebGLRenderingContext.prototype,WebGL2RenderingContext.prototype])for(const k of ['drawElements','drawArrays','drawElementsInstanced','drawArraysInstanced']){const f=p[k];if(f)p[k]=function(...a){window.qaDraws++;window.qaGLDraws++;return f.apply(this,a)}}for(const k of ['fillRect','fillText','drawImage','stroke']){const f=CanvasRenderingContext2D.prototype[k];CanvasRenderingContext2D.prototype[k]=function(...a){window.qaDraws++;return f.apply(this,a)}}''')
   page.on('pageerror',lambda e:report['errors'].append(str(e)))
   page.on('console',lambda m:report['errors'].append(m.text) if m.type=='error' else None)
-  response=page.goto(args.url if args.task=='offline' else args.url+'#ch0',wait_until='domcontentloaded' if args.task=='offline' else 'load',timeout=180000);check(response.status==200,'live HTTP 200');page.evaluate('document.fonts.ready');page.locator('.lab-open').first.wait_for(state='attached',timeout=45000)
+  response=page.goto(args.url if args.task=='offline' else args.url+'#ch0',wait_until='domcontentloaded' if args.task in ['offline','offline-webkit'] else 'load',timeout=180000);check(response.status==200,'live HTTP 200');page.evaluate('document.fonts.ready');page.locator('.lab-open').first.wait_for(state='attached',timeout=45000)
   if args.task=='figures':
    for width in [360,390,768,1440]:
     page.set_viewport_size({'width':width,'height':390 if mobile and width>=800 else 844 if mobile else 900})
@@ -173,10 +173,18 @@ try:
   elif args.task=='models':models();map_check()
   elif args.task=='atlas':atlas(CHAPTERS)
   elif args.task=='atlas-mobile':atlas(CHAPTERS,(390,))
-  elif args.task=='offline':
+  elif args.task in ['offline','offline-webkit']:
    page.wait_for_function('navigator.serviceWorker.controller!==null',timeout=180000)
    cache=page.evaluate('async()=>{const ks=await caches.keys();return await Promise.all(ks.map(async k=>({key:k,count:(await(await caches.open(k)).keys()).length})))}');report['caches']=cache;check(any(c['count']>=90 for c in cache),'full precache installed',caches=cache)
-   context.set_offline(True);page.close();page=context.new_page();page.set_default_timeout(30000);page.on('pageerror',lambda e:report['errors'].append(str(e)));page.goto(args.url+'#ch0',wait_until='load',timeout=60000);page.evaluate('document.fonts.ready');check(page.title()=='The Living World','fresh offline tab loads book');models((390,),True);map_check();atlas(CHAPTERS,(390,),True)
+   context.set_offline(True);page.close();probe=context.new_page();probe.set_default_timeout(30000);report['expected_network_probe_errors']=[];probe.on('pageerror',lambda e:report['expected_network_probe_errors'].append(str(e)))
+   probe.goto(args.url+'#ch0',wait_until='load',timeout=60000)
+   online=probe.evaluate('async url=>{try{await fetch(url,{cache:"no-store"});return true}catch{return false}}',args.url+'README.md?offline-probe='+str(time.time_ns()))
+   report['uncached_network_probe_rejected']=not online;check(not online,'uncached network request really fails offline')
+   if online:raise RuntimeError('Browser offline emulation still permits uncached network requests')
+   probe.wait_for_timeout(100);probe.close()
+   page=context.new_page();page.set_default_timeout(30000);page.on('pageerror',lambda e:report['errors'].append(str(e)))
+   page.goto(args.url+'#ch0',wait_until='load',timeout=60000);page.evaluate('document.fonts.ready');check(page.title()=='The Living World','fresh offline tab loads book')
+   models((390,),True);map_check();atlas(CHAPTERS,(390,),True)
   elif args.task=='webkit':
    report['browser']=browser.version;models((390,844));map_check();atlas(CHAPTERS,(390,),require3d=True)
   elif args.task.startswith('explorers'):

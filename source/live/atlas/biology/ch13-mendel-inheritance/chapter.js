@@ -5,12 +5,15 @@ import {
 } from '../../engine/bio_kit.js';
 import * as M from './model.js';
 
+const PARENTS = { f1_self: ['Tt', 'Tt'], test_hetero: ['Tt', 'tt'], test_homo: ['TT', 'tt'] };
+const crossName = s => PARENTS[s.mc.crossType].join(' × ');
+
 export const PAGES = [
   {
-    tab: 'Mendel 3:1 board',
-    fig: 'Figure 13.1 & 13.3 · Mendel’s 3D Punnett/Galton segregation board & 1:2:1 genotype bars',
+    tab: 'Mendel crosses',
+    fig: 'Figure 13.1 & 13.3 · Mendel’s Punnett square and expected genotype proportions',
     title: 'Mendel’s Segregation & Expected Ratios',
-    alt: '3D Punnett segregation board and 1:2:1 expected genotypic (TT, Tt, tt) columns and sampling uncertainty decreasing as N increases.',
+    alt: 'Expected TT, Tt and tt proportions and a matching gamete square for the selected cross, with a sample-size uncertainty readout.',
     cam: { target: [0, 1.35, 0], az: 24, el: 22, dist: 7.4 },
     lit: 'genotype_bars',
     parts: ['genotype_bars', 'punnett_grid'],
@@ -50,11 +53,11 @@ export const PAGES = [
 
 export const PLATES = {
   genotype_bars: {
-    text: 'Gregor Mendel’s 1866 particulate model: crossing two F₁ heterozygotes (Tt × Tt) produces ¼ TT : ½ Tt : ¼ tt genotypes, which fold into a 3 : 1 dominant-to-recessive phenotypic ratio.',
-    facts: s => [['Ratio', s.mc.ratioLabel], ['Sampling SE', `±${(s.mc.stdError * 100).toFixed(1)}%`]],
+    text: 'Gregor Mendel’s 1866 particulate model: crossing two F₁ heterozygotes (Tt × Tt) gives genotype probabilities ¼ TT : ½ Tt : ¼ tt, hence an expected 3 : 1 dominant-to-recessive phenotypic ratio. The Cross control compares this with Tt × tt and TT × tt. The bars show expected proportions; sample size changes the uncertainty, not those expectations.',
+    facts: s => [['Ratio', s.mc.ratioLabel], ['SE of tall fraction', `${(s.mc.stdError * 100).toFixed(1)} percentage points`]],
   },
   punnett_grid: {
-    text: 'Reginald Punnett’s 2×2 gamete probability square: maternal (T or t) and paternal (T or t) haploid gametes combine independently at fertilisation.',
+    text: 'Reginald Punnett’s 2×2 gamete probability square: haploid gametes from the selected parents combine independently at fertilisation. Each tile represents one equally likely pairing; a homozygous parent repeats the same gamete in both positions.',
   },
   homologous_pair: {
     text: 'Aligned gene loci along maternal and paternal homologous chromosomes: homozygous (TT or tt) carries identical alleles; heterozygous (Tt) carries two different alleles at the same locus.',
@@ -118,7 +121,7 @@ export const CHAPTER = {
   },
   readout(s, page, pageIdx) {
     if (pageIdx === 0) {
-      return `<b>${s.mc.ratioLabel} (N = ${s.sampleN} peas)</b> · TT = ${(s.mc.genoTT * 100).toFixed(0)}% · Tt = ${(s.mc.genoTt * 100).toFixed(0)}% · tt = ${(s.mc.genott * 100).toFixed(0)}% · Sampling noise SE = ±${(s.mc.stdError * 100).toFixed(1)}%.`;
+      return `<b>${crossName(s)} · ${s.mc.ratioLabel} (N = ${s.sampleN} peas)</b> · TT = ${(s.mc.genoTT * 100).toFixed(0)}% · Tt = ${(s.mc.genoTt * 100).toFixed(0)}% · tt = ${(s.mc.genott * 100).toFixed(0)}% · SE of the tall fraction = ${(s.mc.stdError * 100).toFixed(1)} percentage points. Bars show expected proportions.`;
     }
     if (pageIdx === 1) {
       return `<b>Homologous Loci & Pedigree Detective</b> · Recessive test cross (T? × tt): a dwarf offspring establishes Tt; an all-tall sample supports TT but does not prove it.`;
@@ -137,21 +140,26 @@ export const CHAPTER = {
     const label = (cls, html, at, opts = {}) => labels.push({ cls, html, at, ...opts });
 
     // Station 0 (x = 0): 3D Genotype Bars (TT, Tt, tt) + 2x2 Punnett Grid
-    const barAsm = asm('genotype_bars', root, { title: '1 : 2 : 1 Genotypic columns (TT, Tt, tt)', sub: 'Folds into 3 : 1 phenotypic ratio' });
+    const barAsm = asm('genotype_bars', root, { title: 'Expected genotype proportions (TT, Tt, tt)', sub: 'Selected parental cross' });
     barAsm.position.set(-0.9, 0.1, 0);
-    const barTT = part(barAsm, box(0.45, 1.0, 0.45, 0.03), { pal: 'green', tone: 'lit', pos: [-0.6, 0.5, 0], ex: [-0.3, 0.3, 0], name: 'Homozygous dominant (TT)' });
-    const barTt = part(barAsm, box(0.45, 1.8, 0.45, 0.03), { pal: 'blue', tone: 'lit', pos: [0, 0.9, 0], ex: [0, 0.4, 0], name: 'Heterozygous carrier (2 Tt)' });
-    const bartt = part(barAsm, box(0.45, 1.0, 0.45, 0.03), { pal: 'ochre', tone: 'hi', pos: [0.6, 0.5, 0], ex: [0.3, 0.3, 0], name: 'Homozygous recessive (tt)' });
+    const barTT = part(barAsm, box(0.45, 1.0, 0.45, 0.03), { pal: 'green', tone: 'lit', pos: [-0.6, 0.5, 0], ex: [-0.3, 0, 0], name: 'Homozygous dominant (TT)' });
+    const barTt = part(barAsm, box(0.45, 1.0, 0.45, 0.03), { pal: 'blue', tone: 'lit', pos: [0, 0.5, 0], ex: [0, 0, 0], name: 'Heterozygous (Tt)' });
+    const bartt = part(barAsm, box(0.45, 1.0, 0.45, 0.03), { pal: 'ochre', tone: 'hi', pos: [0.6, 0.5, 0], ex: [0.3, 0, 0], name: 'Homozygous recessive (tt)' });
 
     const punAsm = asm('punnett_grid', root, { title: '3D Punnett gamete square', sub: '2×2 fertilisation matrix' });
     punAsm.position.set(1.15, 1.15, 0);
     const sqPals = ['green', 'blue', 'blue', 'ochre'];
+    const genotypeMaterials = { TT: barTT.material, Tt: barTt.material, tt: bartt.material };
+    const squares = [];
+    let selectedCross = 'Tt × Tt', maxBarHeight = 1.4;
     for (let i = 0; i < 4; i++) {
       const ix = (i % 2) - 0.5, iy = Math.floor(i / 2) - 0.5;
-      part(punAsm, box(0.55, 0.55, 0.18, 0.03), { pal: sqPals[i], tone: 'hi', pos: [ix * 0.65, iy * 0.65, 0], ex: [ix * 0.35, iy * 0.35, 0.3], name: `Punnett cell ${i + 1}` });
+      const tile = part(punAsm, box(0.55, 0.55, 0.18, 0.03), { mat: genotypeMaterials[['TT', 'Tt', 'Tt', 'tt'][i]].clone(), pal: sqPals[i], tone: 'hi', pos: [ix * 0.65, iy * 0.65, 0], ex: [ix * 0.35, iy * 0.35, 0.3], name: `Punnett cell ${i + 1}` });
+      squares.push(tile);
+      label('mark', '', () => tile.getWorldPosition(V()).add(V(0, 0, .12)), { text: () => `<span style="background:var(--sheet);color:var(--ink);padding:1px 3px;border-radius:3px;font:600 12px/1.2 ui-monospace,monospace">${tile.userData.genotype || ''}</span>` });
     }
-    label('board', 'TT : 2 Tt : tt', () => V(-0.9, 2.35, 0));
-    label('board', '2×2 Punnett grid', () => V(1.15, 2.25, 0));
+    label('board', 'TT · Tt · tt', () => V(-1.5, maxBarHeight + .55, 0));
+    label('board', 'Selected cross', () => V(1.15, 2.25, 0), { text: () => selectedCross + ' grid' });
 
     // Station 1 (x = 14): 3D Homologous Chromosome Pair with Loci + Pedigree Tree
     const homAsm = asm('homologous_pair', root, { title: 'Homologous chromosome loci', sub: 'Aligned maternal & paternal alleles' });
@@ -212,12 +220,23 @@ export const CHAPTER = {
     return {
       labels,
       update(s) {
-        const hTT = Math.max(0.08, s.mc.genoTT * 2.8);
-        const hTt = Math.max(0.08, s.mc.genoTt * 2.8);
-        const htt = Math.max(0.08, s.mc.genott * 2.8);
-        barTT.scale.y = hTT; barTT.position.y = hTT / 2;
-        barTt.scale.y = hTt; barTt.position.y = hTt / 2;
-        bartt.scale.y = htt; bartt.position.y = htt / 2;
+        const probabilities = [s.mc.genoTT, s.mc.genoTt, s.mc.genott];
+        [barTT, barTt, bartt].forEach((bar, i) => {
+          const height = probabilities[i] * 2.8;
+          bar.visible = height > 0;bar.scale.y = height;
+          bar.position.y = bar.userData.home.y = height / 2;
+        });
+        maxBarHeight = Math.max(...probabilities) * 2.8;
+        selectedCross = crossName(s);barAsm.userData.sub = selectedCross;
+        punAsm.userData.sub = selectedCross;
+        const [parentA, parentB] = PARENTS[s.mc.crossType];
+        const genotypes = [...parentB].flatMap(b => [...parentA].map(a => [a, b].sort().join('')));
+        squares.forEach((tile, i) => {
+          const genotype = genotypes[i];tile.userData.genotype = genotype;
+          tile.userData.part = `Punnett cell ${i + 1}: ${genotype}`;
+          for (const key of ['uTop', 'uLight', 'uDark']) tile.material.uniforms[key].value.copy(genotypeMaterials[genotype].uniforms[key].value);
+          tile.material.uniformsNeedUpdate = true;
+        });
 
         const showA = s.aboChoice === 0 || s.aboChoice === 2;
         const showB = s.aboChoice === 1 || s.aboChoice === 2;

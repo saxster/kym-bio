@@ -64,7 +64,7 @@ def main():
     run('build', [sys.executable, 'build.py', '--site', str(SITE)])
     for path in sorted((ROOT / 'tests').glob('ch*_domain.mjs')):
         run(path.stem, ['node', str(path)])
-    for name in ['atlas_framing_domain', 'atlas_particle_bounds_domain']:
+    for name in ['atlas_framing_domain', 'atlas_particle_bounds_domain', 'atlas_quantitative_display_domain']:
         run(name, ['node', 'tests/' + name + '.mjs'])
     run('independent11-12', ['node', 'tests/ch11_12_revision.mjs'])
     with ThreadPoolExecutor(max_workers=3) as pool:
