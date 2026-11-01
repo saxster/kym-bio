@@ -1031,7 +1031,7 @@ def report_sizes(index, sizes):
 SW_JS = '''// Offline support: precache the page and every lazy chunk, so the whole book works offline after the first visit.
 const CACHE = 'lw-__VER__';
 const FILES = __FILES__;
-self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES))); });
+self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES.map(url => new Request(url, { cache: 'reload' }))))); });
 // Wait for existing reader tabs to close before activation: they still need
 // their edition's lazy chunks. Only this book's old caches are then removed.
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('lw-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });

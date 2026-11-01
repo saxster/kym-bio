@@ -5,12 +5,12 @@ from functools import partial
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 from playwright.sync_api import sync_playwright
 p=argparse.ArgumentParser();p.add_argument('--previous-site',required=True);p.add_argument('--site',required=True);p.add_argument('--out',required=True);a=p.parse_args()
-old=Path(a.previous_site).resolve();new=Path(a.site).resolve();out=Path(a.out).resolve();out.mkdir(parents=True,exist_ok=True);current=[old];report={'checks':[]}
+old=Path(a.previous_site).resolve();new=Path(a.site).resolve();out=Path(a.out).resolve();out.mkdir(parents=True,exist_ok=True);current=[old];report={'checks':[],'http_cache_control':'public, max-age=600'}
 def check(ok,name):
  report['checks'].append({'check':name,'pass':bool(ok)});assert ok,name
 class Handler(SimpleHTTPRequestHandler):
  def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(current[0]),**kwargs)
- def end_headers(self):self.send_header('Cache-Control','no-store');super().end_headers()
+ def end_headers(self):self.send_header('Cache-Control','public, max-age=600');super().end_headers()
  def log_message(self,*args):pass
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler);thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start();url=f'http://127.0.0.1:{server.server_port}/'
 try:

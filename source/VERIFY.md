@@ -78,3 +78,7 @@ interaction without a parallel whole-book download; offline coverage uses Chromi
 The explorer lifecycle check opens the cell and DNA explorers twelve times in
 mobile WebKit, changes their selections, requires one shared canvas, and counts
 GPU buffer/texture creation and deletion to check bounded resources after close.
+
+The two-edition fixture sends `Cache-Control: public, max-age=600`, matching the
+observed GitHub Pages freshness window. A new precache must bypass that HTTP
+cache so its HTML and lazy chunks belong to the same edition.
