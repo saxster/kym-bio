@@ -80,7 +80,7 @@ struct BiologyBreathingStudioView: View {
 
                         VStack(spacing: 2) {
                             Image(systemName: "lungs.fill")
-                                .font(.title2)
+                                .font(.kymaiaTitle2)
                                 .foregroundStyle(Color.kymaiaPrimary)
                             Text(isRunning ? phase.title : "Ready")
                                 .font(.kymaiaCaption.weight(.semibold))

@@ -381,7 +381,7 @@ struct BiologyMindMapView: View {
                                                     .lineLimit(2)
                                             }
                                             Text(node.subtitle)
-                                                .font(.system(size: 11))
+                                                .font(.kymaiaCaption2)
                                                 .foregroundStyle(isSelected ? Color.white.opacity(0.88) : Color.kymaiaMutedInk)
                                                 .lineLimit(1)
                                         }

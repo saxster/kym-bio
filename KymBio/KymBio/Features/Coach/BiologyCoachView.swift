@@ -92,6 +92,7 @@ struct BiologyCoachView: View {
                         .foregroundStyle(Color.kymaiaSecondaryInk)
 
                     SecureField("Paste Gemini API key (optional)", text: $apiKeyDraft)
+                        .learnerTextInput(.reflection)
                         .textFieldStyle(.roundedBorder)
 
                     HStack {
@@ -529,18 +530,28 @@ struct BiologyCoachView: View {
                 let hay = "\(entry.topic) \(entry.details)".lowercased()
                 return queryTokens.contains(where: { hay.contains($0) })
             }) {
-                coreText = "Research brief on \(mis.topic):\n\(mis.details)\n\nHow would you explain the physical or chemical mechanism without using teleological ('in order to') wording?"
+                let closing = style == .explainDirectly
+                    ? "Direct takeaway: Always state the physical or chemical mechanism (diffusion gradient, enzyme active site, or natural selection) rather than teleological ('in order to') wording."
+                    : "How would you explain the physical or chemical mechanism without using teleological ('in order to') wording?"
+                coreText = "Research brief on \(mis.topic):\n\(mis.details)\n\n\(closing)"
                 tag = "Misconception Research Brief"
             } else if let matchedTopic = store.pack.schoolTextbook.units.flatMap(\.topics).first(where: { t in
                 let hay = "\(t.code) \(t.title) \(t.summary)".lowercased()
                 return queryTokens.contains(where: { hay.contains($0) })
             }) {
                 let watchout = matchedTopic.cambridgeWatchouts.first ?? "Use precise Cambridge scientific terminology."
-                coreText = "Topic \(matchedTopic.code) (\(matchedTopic.title), LB p. \(matchedTopic.learnersBookPage), WB p. \(matchedTopic.workbookPage)):\n\(matchedTopic.summary)\n\nCambridge watchout: \(watchout)\n\nTry stating the cause-and-effect chain in your own words."
+                let closing = style == .explainDirectly
+                    ? "Step-by-step summary: Identify the biological structure, state the physical/chemical gradient, and apply the Cambridge watchout above."
+                    : "Try stating the cause-and-effect chain in your own words."
+                coreText = "Topic \(matchedTopic.code) (\(matchedTopic.title), LB p. \(matchedTopic.learnersBookPage), WB p. \(matchedTopic.workbookPage)):\n\(matchedTopic.summary)\n\nCambridge watchout: \(watchout)\n\n\(closing)"
                 tag = "Topic \(matchedTopic.code)"
             } else {
                 let activeCh = store.pack.chapters.first(where: { $0.number == store.activeLivingWorldChapter })
-                coreText = "Let's connect your question to Chapter \(store.activeLivingWorldChapter) (\(activeCh?.title ?? "The Living World")) and Cambridge Science 8 Unit \(store.selectedUnitNumber). First, what is the main structure or variable involved, and what direction does the concentration, pressure, or energy gradient point?"
+                if style == .explainDirectly {
+                    coreText = "Direct explanation for Chapter \(store.activeLivingWorldChapter) (\(activeCh?.title ?? "The Living World")) and Cambridge Science 8 Unit \(store.selectedUnitNumber):\n1. Identify the primary biological structure (such as the partially permeable cell membrane, alveolus-capillary barrier, or antagonistic muscle pair).\n2. Trace the physical or chemical gradient (water potential, gas concentration, or lever moment).\n3. State the resulting biological process using exact Cambridge 0893 verbs (such as 'diffuses down a concentration gradient' or 'energy is released from glucose')."
+                } else {
+                    coreText = "Let's connect your question to Chapter \(store.activeLivingWorldChapter) (\(activeCh?.title ?? "The Living World")) and Cambridge Science 8 Unit \(store.selectedUnitNumber). First, what is the main structure or variable involved, and what direction does the concentration, pressure, or energy gradient point?"
+                }
                 tag = "Ch \(store.activeLivingWorldChapter) · \(selectedPersona.name)"
             }
         }

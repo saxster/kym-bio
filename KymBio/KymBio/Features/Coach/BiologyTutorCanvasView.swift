@@ -52,7 +52,7 @@ enum BiologyTutorCanvasCatalog {
                     learnerTaskPrompt: "Draw a bold arrow showing the NET movement of water molecules across the membrane.",
                     calloutLabels: [
                         TutorCanvasLabel(id: "l1", text: "Dilute Side (High Ψ)", normalizedX: 0.24, normalizedY: 0.22),
-                        TutorCanvasLabel(id: "l2", text: "NET H2O FLUX ➔", normalizedX: 0.50, normalizedY: 0.48),
+                        TutorCanvasLabel(id: "l2", text: "NET H2O FLUX →", normalizedX: 0.50, normalizedY: 0.48),
                         TutorCanvasLabel(id: "l3", text: "Sucrose molecules too large for pore", normalizedX: 0.77, normalizedY: 0.65)
                     ]
                 ),
@@ -82,7 +82,7 @@ enum BiologyTutorCanvasCatalog {
                     learnerTaskPrompt: "Label the Pivot (elbow joint) and the Load (weight held in your hand).",
                     calloutLabels: [
                         TutorCanvasLabel(id: "e1", text: "Humerus (Upper Arm)", normalizedX: 0.25, normalizedY: 0.30),
-                        TutorCanvasLabel(id: "e2", text: "Elbow Hinge Pivot ▲", normalizedX: 0.32, normalizedY: 0.68),
+                        TutorCanvasLabel(id: "e2", text: "Elbow Hinge Pivot (Fulcrum)", normalizedX: 0.32, normalizedY: 0.68),
                         TutorCanvasLabel(id: "e3", text: "Radius & Ulna Forearm Lever", normalizedX: 0.62, normalizedY: 0.68)
                     ]
                 ),
@@ -137,7 +137,7 @@ enum BiologyTutorCanvasCatalog {
                     calloutLabels: [
                         TutorCanvasLabel(id: "a1", text: "O2 Diffuses Down Gradient ↓ into RBC", normalizedX: 0.34, normalizedY: 0.48),
                         TutorCanvasLabel(id: "a2", text: "CO2 Diffuses Up ↑ out of Blood Plasma", normalizedX: 0.68, normalizedY: 0.48),
-                        TutorCanvasLabel(id: "a3", text: "Hb + 4 O2 ➔ Oxyhaemoglobin", normalizedX: 0.50, normalizedY: 0.84)
+                        TutorCanvasLabel(id: "a3", text: "Hb + 4 O2 → Oxyhaemoglobin", normalizedX: 0.50, normalizedY: 0.84)
                     ]
                 )
             ]

@@ -81,7 +81,7 @@ final class AppStore: ObservableObject {
 
     func shareJournalMuddiestPointWithCoach(_ note: String) {
         let trimmed = note.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
+        guard !trimmed.isEmpty, SafetyEscalationService().scan(trimmed) == nil else { return }
         sharedMuddiestPointContext = trimmed
         selectedRoom = .coach
     }

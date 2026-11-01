@@ -143,6 +143,9 @@ final class BioSpokenRecallService: ObservableObject {
     @Published var isRecording: Bool = false
     @Published var transcript: String = ""
     @Published var statusMessage: String?
+    @Published var safetySupportMessage: String? = nil
+
+    private let safetyMonitor = LiveMentorTranscriptSafetyMonitor()
 
     #if canImport(Speech)
     private var speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer(locale: Locale(identifier: "en-GB")) ?? SFSpeechRecognizer()
@@ -221,6 +224,12 @@ final class BioSpokenRecallService: ObservableObject {
                     guard let self else { return }
                     if let result {
                         let spoken = result.bestTranscription.formattedString
+                        if let safetyResolution = await self.safetyMonitor.evaluateLearnerTranscript(spoken, channel: "voice_dictation") {
+                            self.stopRecording()
+                            self.safetySupportMessage = safetyResolution.supportiveResponse
+                            self.statusMessage = "Paused for wellbeing support."
+                            return
+                        }
                         self.transcript = spoken
                         onTranscriptUpdate(spoken)
                     }
@@ -266,6 +275,7 @@ struct VoiceDictationButton: View {
         )
         .accessibilityLabel(speechService.isRecording ? "Stop voice dictation" : label)
         .accessibilityIdentifier("voice-dictation.button")
+        .sessionJournalSafetyAlert(message: $speechService.safetySupportMessage)
     }
 }
 
@@ -333,8 +343,12 @@ final class KymBioLiveAIClient: ObservableObject {
         conversationMode: ConversationMode = .openChat,
         sharedMuddiestPoint: String? = nil
     ) async -> String? {
-        // Never send crisis text to an external AI provider
-        if SafetyEscalationService().scan(studentPrompt) != nil {
+        // Never send crisis text (in either studentPrompt or sharedMuddiestPoint) to an external AI provider
+        let safety = SafetyEscalationService()
+        if safety.scan(studentPrompt) != nil {
+            return nil
+        }
+        if let muddy = sharedMuddiestPoint, safety.scan(muddy) != nil {
             return nil
         }
 

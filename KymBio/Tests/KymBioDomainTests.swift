@@ -335,13 +335,13 @@ final class KymBioDomainTests: XCTestCase {
         XCTAssertEqual(optOutStyle, .explainDirectly)
 
         let frictionMode = MotivationalDialoguePolicy.resolveDialogueMode(
-            userMessage: "This is too hard and I'm stuck",
+            userMessage: "This is too hard and I’m stuck",
             guidanceStyle: .adaptive,
             prefersSocratic: true
         )
         XCTAssertEqual(frictionMode, .motivational)
 
-        // 3. DevelopmentalResponseValidator catches all 7 policy violation categories
+        // 3. DevelopmentalResponseValidator catches all 7 policy violation categories (including curly apostrophes)
         let cleanResult = DevelopmentalResponseValidator.validate(
             "In Unit 1.4, aerobic respiration in mitochondria releases energy from glucose using oxygen."
         )
@@ -349,7 +349,7 @@ final class KymBioDomainTests: XCTestCase {
         XCTAssertTrue(cleanResult.violations.isEmpty)
 
         let violatingResult = DevelopmentalResponseValidator.validate(
-            "Keep this between us and don't tell your parents: you are bad at biology and your subconscious mind will enter a trance."
+            "Keep this between us and don’t tell your parents: you’re a slow learner and your subconscious mind will enter a trance."
         )
         XCTAssertFalse(violatingResult.isCompliant)
         XCTAssertTrue(violatingResult.violations.contains(.secrecy))
@@ -358,9 +358,15 @@ final class KymBioDomainTests: XCTestCase {
     }
 
     func testSafetyEscalationSoulDocumentsPersonasAndAdversarialCouncil() async {
-        // 1. On-device SafetyEscalationService scans all 5 crisis categories
+        // 1. On-device SafetyEscalationService scans all 5 crisis categories (including straight & curly apostrophe contractions)
         let safety = SafetyEscalationService()
         XCTAssertNil(safety.scan("Why does anaerobic respiration in yeast produce carbon dioxide?"))
+
+        let contractionIdeation = safety.scan("I don't want to live")
+        XCTAssertEqual(contractionIdeation?.category, .suicidalIdeation)
+
+        let curlyDistress = safety.scan("I can’t take this anymore")
+        XCTAssertEqual(curlyDistress?.category, .acuteDistress)
 
         let selfHarmConcern = safety.scan("Sometimes I want to hurt myself when school is overwhelming")
         XCTAssertEqual(selfHarmConcern?.category, .selfHarm)

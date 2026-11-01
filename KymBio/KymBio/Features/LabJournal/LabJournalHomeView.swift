@@ -41,6 +41,7 @@ struct LabJournalHomeView: View {
     @State private var entryStrokes: [[CGPoint]] = []
     @State private var activeStroke: [CGPoint] = []
     @State private var safetySupportMessage: String? = nil
+    @State private var escalatedSafetyKeys: Set<String> = []
 
     private var selectedEntry: LabJournalEntryRecord? {
         store.activeJournalEntry ?? store.journalEntries.first
@@ -77,9 +78,12 @@ struct LabJournalHomeView: View {
         store.saveJournalEntry(entry)
         let safetyService = SafetyEscalationService()
         if let concern = safetyService.scan(latestFieldText) {
-            safetySupportMessage = safetyService.supportiveResponse(for: concern)
-            Task {
-                await safetyService.escalate(concern, channel: "lab_journal")
+            let dedupeKey = "\(entry.id)::\(concern.category.rawValue)::\(concern.matchedPhrase)"
+            if escalatedSafetyKeys.insert(dedupeKey).inserted {
+                safetySupportMessage = safetyService.supportiveResponse(for: concern)
+                Task {
+                    await safetyService.escalate(concern, channel: "lab_journal")
+                }
             }
         }
     }
@@ -167,8 +171,7 @@ struct LabJournalHomeView: View {
                                 set: { newTitle in
                                     var updated = entry
                                     updated.title = newTitle
-                                    store.activeJournalEntry = updated
-                                    store.saveJournalEntry(updated)
+                                    saveAndScanJournalEntry(updated, latestFieldText: newTitle)
                                 }
                             )
                         )
@@ -179,7 +182,16 @@ struct LabJournalHomeView: View {
 
                         Button {
                             let muddy = entry.summaryText.isEmpty ? entry.bodyNotesText : entry.summaryText
-                            store.shareJournalMuddiestPointWithCoach("\(entry.title): \(muddy)")
+                            let candidate = "\(entry.title): \(muddy)"
+                            let safetyService = SafetyEscalationService()
+                            if let concern = safetyService.scan(candidate) {
+                                safetySupportMessage = safetyService.supportiveResponse(for: concern)
+                                Task {
+                                    await safetyService.escalate(concern, channel: "lab_journal_share")
+                                }
+                            } else {
+                                store.shareJournalMuddiestPointWithCoach(candidate)
+                            }
                         } label: {
                             Label("Share muddiest point with Coach", systemImage: "bubble.left.and.text.bubble.right.fill")
                         }
@@ -316,7 +328,7 @@ struct LabJournalHomeView: View {
                                     Text("Hypothesis:").font(.kymaiaCaption.weight(.semibold))
                                     TextField("What do you predict and why?", text: Binding(
                                         get: { entry.hypothesisText },
-                                        set: { v in var u = entry; u.hypothesisText = v; store.activeJournalEntry = u; store.saveJournalEntry(u) }
+                                        set: { v in var u = entry; u.hypothesisText = v; saveAndScanJournalEntry(u, latestFieldText: v) }
                                     ))
                                     .learnerTextInput(.reflection)
                                     .textFieldStyle(.roundedBorder)
@@ -325,7 +337,7 @@ struct LabJournalHomeView: View {
                                     Text("Independent var:").font(.kymaiaCaption.weight(.semibold))
                                     TextField("Variable you change", text: Binding(
                                         get: { entry.independentVarText },
-                                        set: { v in var u = entry; u.independentVarText = v; store.activeJournalEntry = u; store.saveJournalEntry(u) }
+                                        set: { v in var u = entry; u.independentVarText = v; saveAndScanJournalEntry(u, latestFieldText: v) }
                                     ))
                                     .learnerTextInput(.reflection)
                                     .textFieldStyle(.roundedBorder)
@@ -334,7 +346,7 @@ struct LabJournalHomeView: View {
                                     Text("Dependent var:").font(.kymaiaCaption.weight(.semibold))
                                     TextField("Variable you measure (with units)", text: Binding(
                                         get: { entry.dependentVarText },
-                                        set: { v in var u = entry; u.dependentVarText = v; store.activeJournalEntry = u; store.saveJournalEntry(u) }
+                                        set: { v in var u = entry; u.dependentVarText = v; saveAndScanJournalEntry(u, latestFieldText: v) }
                                     ))
                                     .learnerTextInput(.reflection)
                                     .textFieldStyle(.roundedBorder)
@@ -343,7 +355,7 @@ struct LabJournalHomeView: View {
                                     Text("Control vars:").font(.kymaiaCaption.weight(.semibold))
                                     TextField("Variables kept constant for a fair test", text: Binding(
                                         get: { entry.controlVarsText },
-                                        set: { v in var u = entry; u.controlVarsText = v; store.activeJournalEntry = u; store.saveJournalEntry(u) }
+                                        set: { v in var u = entry; u.controlVarsText = v; saveAndScanJournalEntry(u, latestFieldText: v) }
                                     ))
                                     .learnerTextInput(.reflection)
                                     .textFieldStyle(.roundedBorder)
@@ -396,8 +408,7 @@ struct LabJournalHomeView: View {
                                         } else {
                                             u.bodyNotesText += "\n" + recognized
                                         }
-                                        store.activeJournalEntry = u
-                                        store.saveJournalEntry(u)
+                                        saveAndScanJournalEntry(u, latestFieldText: recognized)
                                     }
                                 )
                                 .frame(minHeight: 220)

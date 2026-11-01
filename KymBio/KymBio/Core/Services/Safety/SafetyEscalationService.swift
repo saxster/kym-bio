@@ -172,7 +172,9 @@ struct SafetyEscalationService: Sendable {
     }
 
     private static func normalize(_ text: String) -> String {
-        let lowered = text.lowercased()
+        let lowered = text
+            .lowercased()
+            .replacingOccurrences(of: "['’‘ʼ]", with: "", options: .regularExpression)
         let stripped = lowered.unicodeScalars.map { scalar -> Character in
             if CharacterSet.alphanumerics.contains(scalar) || CharacterSet.whitespacesAndNewlines.contains(scalar) {
                 return Character(scalar)

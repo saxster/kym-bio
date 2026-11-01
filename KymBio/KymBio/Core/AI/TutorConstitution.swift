@@ -308,7 +308,9 @@ enum MotivationalDialoguePolicy {
         preferred: TutorGuidanceStyle,
         userMessage: String
     ) -> TutorGuidanceStyle {
-        let lower = userMessage.lowercased()
+        let lower = userMessage
+            .lowercased()
+            .replacingOccurrences(of: "[’‘ʼ]", with: "'", options: .regularExpression)
         if directExplanationOptOutPhrases.contains(where: { lower.contains($0) }) {
             return .explainDirectly
         }
@@ -325,7 +327,9 @@ enum MotivationalDialoguePolicy {
             return .directExplanation
         }
 
-        let lower = userMessage.lowercased()
+        let lower = userMessage
+            .lowercased()
+            .replacingOccurrences(of: "[’‘ʼ]", with: "'", options: .regularExpression)
         if frictionPhrases.contains(where: { lower.contains($0) }) {
             return .motivational
         }
@@ -460,6 +464,7 @@ enum DevelopmentalResponseValidator {
     static func validate(_ text: String) -> DevelopmentalValidationResult {
         let normalized = text
             .lowercased()
+            .replacingOccurrences(of: "[’‘ʼ]", with: "'", options: .regularExpression)
             .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
 
         var found: [DevelopmentalPolicyViolation] = []
