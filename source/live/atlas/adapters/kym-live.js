@@ -164,22 +164,44 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
         chapter.drawFallback2D(ctx, w, h, state, page, { bg, ink, muted, accent, warm, cutMode });
       } else {
         // Generic schematic 2D orthographic fallback with parts & live state
+        const writeLines = (text, x, y, width, maxLines, lineHeight) => {
+          if (maxLines < 1 || width <= 0) return 0;
+          const rows = [];let line = '';
+          for (const word of String(text).trim().split(/\s+/)) {
+            const joined = line ? line + ' ' + word : word;
+            if (ctx.measureText(joined).width <= width) { line = joined;continue; }
+            if (line) { rows.push(line);line = ''; }
+            for (const letter of word) {
+              if (line && ctx.measureText(line + letter).width > width) { rows.push(line);line = letter; }
+              else line += letter;
+            }
+          }
+          if (line) rows.push(line);
+          if (rows.length > maxLines) {
+            rows.length = maxLines;let last = rows[maxLines - 1];
+            while (last && ctx.measureText(last + '…').width > width) last = [...last].slice(0, -1).join('');
+            rows[maxLines - 1] = last.trimEnd() + '…';
+          }
+          rows.forEach((row, index) => ctx.fillText(row, x, y + index * lineHeight));
+          return rows.length;
+        };
         ctx.strokeStyle = muted;
         ctx.lineWidth = 1;
         ctx.strokeRect(16, 16, w - 32, h - 32);
         ctx.fillStyle = ink;
         ctx.font = 'bold 15px system-ui, sans-serif';
-        ctx.fillText(P.title || P.fig || 'Atlas 3D View (2D Schematic Fallback)', 28, 44);
+        writeLines(P.title || P.fig || 'Interactive schematic', 28, 50, w - 56, 2, 17);
         ctx.fillStyle = muted;
         ctx.font = '13px Georgia, serif';
         const bodyTxt = (P.body?.[0] || '').replace(/<[^>]+>/g, '');
-        ctx.fillText(bodyTxt.slice(0, 88) + (bodyTxt.length > 88 ? '…' : ''), 28, 68);
+        writeLines(bodyTxt, 28, 86, w - 56, 1, 15);
         const parts = P.parts || (P.lit ? [P.lit] : Object.keys(chapter.PLATES || {}).slice(0, 4));
+        const rows = Math.ceil(parts.length / 2), startY = 104, footerY = h - 60;
+        const bh = Math.min(100, (footerY - 18 - startY - Math.max(0, rows - 1) * 10) / Math.max(1, rows));
         parts.forEach((pk, idx) => {
           const bx = 28 + (idx % 2) * ((w - 72) / 2);
-          const by = 92 + Math.floor(idx / 2) * 86;
+          const by = startY + Math.floor(idx / 2) * (bh + 10);
           const bw = (w - 84) / 2;
-          const bh = 72;
           const active = S?.selected === pk;
           ctx.fillStyle = active ? accent + '22' : bg;
           ctx.strokeStyle = active ? warm : accent;
@@ -190,17 +212,18 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
           ctx.stroke();
           ctx.fillStyle = ink;
           ctx.font = 'bold 13px system-ui, sans-serif';
-          ctx.fillText(pk.replace(/_/g, ' ').toUpperCase(), bx + 12, by + 24);
+          const headingY = Math.min(20, bh - 8), headingLines = writeLines(pk.replace(/_/g, ' ').toUpperCase(), bx + 12, by + headingY, bw - 24, Math.max(1, Math.min(2, Math.floor((bh - 10) / 14))), 14);
           const pText = (chapter.PLATES?.[pk]?.text || '').replace(/<[^>]+>/g, '');
           ctx.fillStyle = muted;
           ctx.font = '12px system-ui, sans-serif';
-          ctx.fillText(pText.slice(0, 46) + (pText.length > 46 ? '…' : ''), bx + 12, by + 46);
+          const descriptionY = headingY + headingLines * 14 + 6;
+          writeLines(pText, bx + 12, by + descriptionY, bw - 24, Math.min(4, Math.max(0, Math.floor((bh - 9 - descriptionY) / 13) + 1)), 13);
         });
         // Live state bar at bottom
-        const readPlain = (chapter.readout ? chapter.readout(state, P) : '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        const readPlain = (opts.readout ? opts.readout(state, P, page) : chapter.readout(state, P, page)).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
         ctx.fillStyle = accent;
         ctx.font = '12px ui-monospace, monospace';
-        ctx.fillText(readPlain.slice(0, 96), 28, h - 30);
+        writeLines(readPlain, 28, footerY, w - 56, 3, 14);
       }
       ctx.restore();
     }

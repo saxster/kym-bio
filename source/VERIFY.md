@@ -96,3 +96,7 @@ transfer at 5%, 10% and 20%, including visible letters, readouts and label fit:
 The combined local integration command also checks actual 3D bar heights,
 baselines, Punnett cell colours/letters, clipping and trophic block areas against
 independent expected values in `atlas_quantitative_display_domain.mjs`.
+
+The forced no-WebGL check runs all 64 schematic stations at 360 px. It measures
+actual canvas text ink bounds, card containment and overlapping text, and requires
+each canvas footer to agree with the current station’s full HTML readout.
