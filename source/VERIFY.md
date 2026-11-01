@@ -45,6 +45,10 @@ profiles:
 .venv/bin/python source/tests/qa_published_site.py webkit --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py cover --out /tmp/bio-live
 .venv/bin/python source/tests/qa_published_site.py fallback --out /tmp/bio-live
+.venv/bin/python source/tests/qa_published_site.py map --out /tmp/bio-live
+.venv/bin/python source/tests/qa_published_site.py explorers --out /tmp/bio-live
+.venv/bin/python source/tests/qa_published_site.py explorers-offline --out /tmp/bio-live
+.venv/bin/python source/tests/qa_published_site.py explorers-webkit --out /tmp/bio-live
 ```
 
 The URL defaults to the published Biology book. Both scripts accept `--url` and
@@ -54,3 +58,18 @@ browser context, then opens a fresh tab before testing the models and explorers.
 WebKit and touch-enabled Chromium emulate mobile browsers; these checks do not
 claim testing on physical phones. The WebKit run requires its browser binary
 (`.venv/bin/python -m playwright install webkit`). All commands run locally.
+
+For an edition-upgrade regression, keep the previous served files before
+publishing the new build. This uses a local two-edition server and isolated browser:
+
+```bash
+.venv/bin/python source/tests/qa_offline_upgrade.py --previous-site /path/to/previous/fetched --site /path/to/new/build --out /tmp/bio-upgrade
+```
+
+It waits for the complete new precache, keeps the old tab open and loads its
+original Atlas offline, then closes that tab and verifies the exact new HTML,
+new model, saved answer and self-rating offline. It fails if the new worker
+activates before the existing reader is finished. The Atlas browser checks also
+require one reused canvas across chapters and separate, unclipped visible labels.
+WebKit online checks block service-worker prefetch so they test rendering and
+interaction without a parallel whole-book download; offline coverage uses Chromium.

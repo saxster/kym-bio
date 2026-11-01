@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { THREE } from '../live/atlas/engine/bio_kit.js';
+import { particles } from '../live/atlas/engine/prims.js';
+const parent = new THREE.Group(), cloud = particles(parent, 2, { radius: .1 });
+cloud.set(0, [0, 0, 0]);cloud.set(1, [1, 0, 0]);
+assert.ok(new THREE.Box3().expandByObject(cloud.object).max.x < 2);
+cloud.set(1, [100, 0, 0]);
+assert.ok(new THREE.Box3().expandByObject(cloud.object).max.x > 100, 'moving an instance invalidates cached bounds');
+cloud.show(1);
+assert.ok(new THREE.Box3().expandByObject(cloud.object).max.x < 1, 'hiding instances invalidates cached bounds');
+console.log('PASS: particle bounds follow position and count changes');

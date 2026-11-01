@@ -37,6 +37,8 @@ const CSS = `
 .atlas-parts, .atlas-cuts, .atlas-pages { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; max-width: 100%; }
 `;
 let styled = false;
+// Reuse one canvas/context: WebKit can retain explicitly lost contexts until GC.
+let idleCanvas = null;
 const style = () => {
   if (styled) return;
   styled = true;
@@ -77,7 +79,10 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   };
   updateAria();
 
-  let canvas = document.createElement('canvas');
+  const cachedCanvas = idleCanvas;idleCanvas = null;
+  const cachedContext = cachedCanvas?.getContext('webgl2');
+  let canvas = cachedContext && !cachedContext.isContextLost() ? cachedCanvas : document.createElement('canvas');
+  canvas.classList.remove('pointing', 'draggable-hover', 'dragging');
   canvas.dataset.logicalWidth = '680';
   canvas.style.aspectRatio = '680 / 420';
   const labels = document.createElement('div');
@@ -86,7 +91,7 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   labels.className = 'atlas-labels';
   title.className = 'atlas-title';
   badge.className = 'atlas-badge';
-  title.textContent = P.fig;
+  title.textContent = P.tab || P.fig;
   badge.textContent = '3D Atlas · Drag to orbit · Click part to explode';
   wrap.append(canvas, labels, title, badge);
   stage.appendChild(wrap);
@@ -105,6 +110,8 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   let sonifyOn = false;
   let lastSonifyAt = 0;
   let sensorCleanup = null;
+  let destroyed = false;
+  const canvasWakes = [];
   let sliderInputs = new Map();
 
   const describe = k => {
@@ -212,15 +219,10 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   }
 
   function build() {
+    if (destroyed) return;
     if (S && !fallback2D) {
       clock = S.clock;
       S.destroy();
-      const fresh = document.createElement('canvas');
-      fresh.dataset.logicalWidth = '680';
-      fresh.style.aspectRatio = '680 / 420';
-      canvas.replaceWith(fresh);
-      canvas = fresh;
-      listen();
     }
     try {
       S = createStage(canvas, labels, chapter, {
@@ -228,6 +230,8 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
         touch: matchMedia('(pointer: coarse)').matches,
         theme: readTheme(stage),
         dprCap: 2,
+        frameParts: true,
+        retainContext: true,
       });
       S.clock = clock;
       S.hooks.onPointerDown = kick;
@@ -251,6 +255,7 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   }
 
   function draw(dt, running) {
+    if (destroyed) return;
     if (fallback2D) {
       drawFallback(dt, running);
       return;
@@ -298,11 +303,13 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
 
   // Our own frames for a moment after a touch, page switch, slider change, or cutaway change when the book is paused
   function kick() {
+    if (destroyed) return;
     kickUntil = performance.now() + 1600;
     if (!raf) raf = requestAnimationFrame(own);
   }
   let ownLast = 0;
   function own(ts) {
+    if (destroyed) return;
     raf = 0;
     const dt = ownLast ? Math.min((ts - ownLast) / 1000, 0.05) : 1 / 60;
     ownLast = ts;
@@ -316,7 +323,9 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
 
   function listen() {
     for (const ev of ['pointermove', 'wheel']) {
-      canvas.addEventListener(ev, e => { if (e.buttons || ev === 'wheel') kick(); }, { passive: true });
+      const target = canvas, wake = e => { if (e.buttons || ev === 'wheel') kick(); };
+      target.addEventListener(ev, wake, { passive: true });
+      canvasWakes.push(() => target.removeEventListener(ev, wake));
     }
   }
   listen();
@@ -363,7 +372,7 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   function setPage(idx) {
     page = Math.min(Math.max(idx | 0, 0), chapter.PAGES.length - 1);
     P = chapter.PAGES[page];
-    title.textContent = P.fig;
+    title.textContent = P.tab || P.fig;
     updateAria();
     pageButtons.forEach((b, i) => b.setAttribute('aria-pressed', String(i === page)));
     if (S && S.selected) S.select(null);
@@ -632,7 +641,9 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
   draw(0, false);
   return {
     destroy() {
+      if (destroyed) return;destroyed = true;
       cancelAnimationFrame(raf);
+      canvasWakes.forEach(remove => remove());
       if (sensorCleanup) {
         try { sensorCleanup(); } catch (_) { /* ignore */ }
       }
@@ -641,6 +652,13 @@ export function mountAtlas(stage, params, api, chapter, defaults = {}) {
       visibilityObs.disconnect();
       window.removeEventListener('resize', kick);
       if (S) S.destroy();
+      if (!fallback2D) {
+        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+        if (gl && !gl.isContextLost()) {
+          if (!idleCanvas) idleCanvas = canvas;
+          else gl.getExtension('WEBGL_lose_context')?.loseContext();
+        }
+      }
       wrap.remove();
     },
   };
