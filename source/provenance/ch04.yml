@@ -1,0 +1,310 @@
+'4.1':
+  ocw:
+  - course: 7.012 Introductory Biology, Fall 2004
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-2-biochemistry-1/
+    where: Robert Weinberg Lecture 2 transcript pp1–4
+    took: Polarity and interactions only; reject hydrogen-exchange wording and generic bond-energy numbers.
+  - course: 7.016 Introductory Biology, Fall 2018
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/resources/lecture-3-structures-of-amino-acids-peptides-and-proteins/
+    where: Barbara Imperiali Lecture 3 transcript pp1–9
+    took: Lipid architecture, amino acids, sequence and peptide linkage.
+  openstax:
+  - book: Biology 2e
+    section: 2 2 water
+    url: https://openstax.org/books/biology-2e/pages/2-2-water
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 2 3 carbon
+    url: https://openstax.org/books/biology-2e/pages/2-3-carbon
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 3 1 synthesis of biological macromolecules
+    url: https://openstax.org/books/biology-2e/pages/3-1-synthesis-of-biological-macromolecules
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 3 2 carbohydrates
+    url: https://openstax.org/books/biology-2e/pages/3-2-carbohydrates
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 3 3 lipids
+    url: https://openstax.org/books/biology-2e/pages/3-3-lipids
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 3 4 proteins
+    url: https://openstax.org/books/biology-2e/pages/3-4-proteins
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  research:
+  - &id001
+    what: Purposeful molecule / enzymes die / used-up enzyme leads only; no unverified prevalence percentages or
+      promised outcomes
+    source: research/misconceptions.md §4; Coley & Tanner (2012), ideas only
+    url: https://www.lifescied.org/doi/10.1187/cbe.12-06-0074
+  - what: 4.1 biological molecules; Core/Supplement distinguished; DNA Supplement deferred to Chapter 11
+    source: Cambridge 0610 2026–2028 version 3, printed pp16–17; no assessment items copied
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Polymer, one/many-part naming
+    source: Merriam-Webster word history
+    url: https://www.merriam-webster.com/dictionary/polymer
+  - what: Protein word history, amino-acid chemistry
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/protein
+  history:
+  - what: Modern explanatory comparison; no dated discovery invented
+    source: grounding/ch04.md; research/history.md TRUE/HEDGE/LEGEND discipline
+    url: https://openstax.org/books/biology-2e/pages/2-2-water
+  figures:
+  - name: c4_water_carbon
+    origin: ours; original SVG, no source artwork or actual molecular coordinates
+  - name: c4_building_units
+    origin: ours; original SVG, no source artwork or actual molecular coordinates
+  licence: CC BY-NC-SA 4.0 for original prose, art and code; historical, dictionary, Cambridge and assay facts re-taught,
+    no restricted artwork or assessment items adapted. See source-specific notices and grounding/ch04.md.
+'4.2':
+  ocw: &id002
+  - course: 7.012 Introductory Biology, Fall 2004
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-4-biochemistry-3/
+    where: Weinberg Lecture 4 transcript pp1–3
+    took: Alternative structure depictions, chemical environment, proteolysis distinction; no food-test or kinetics
+      attribution.
+  - course: 7.016 Introductory Biology, Fall 2018
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/resources/lecture-3-structures-of-amino-acids-peptides-and-proteins/
+    where: Imperiali Lecture 3 transcript pp8–17
+    took: Backbone restrictions, folding interactions, levels of structure and collagen; no dated prediction claims.
+  openstax:
+  - book: Biology 2e
+    section: 3 4 proteins
+    url: https://openstax.org/books/biology-2e/pages/3-4-proteins
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  research:
+  - *id001
+  - what: 5.1 enzymes; Core/Supplement distinguished; DNA Supplement deferred to Chapter 11
+    source: Cambridge 0610 2026–2028 version 3, printed pp16–17; no assessment items copied
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history: &id003
+  - what: 'TRUE: collagen proposal, Ramachandran and Gopinath Kartha, 7 August 1954; distinguish later refinements'
+    source: Ramachandran & Kartha, Nature 174:269–270; original bibliographic record
+    url: https://pubmed.ncbi.nlm.nih.gov/13185286/
+  - what: 'TRUE: two local turns, contact criteria, comparison with known structures, Madras affiliation; received
+      December 1962, published 1963; three authors'
+    source: Ramachandran, C. Ramakrishnan & V. Sasisekharan, J Mol Biol 7:95–99 (1963); primary paper pp95–99
+    url: https://williams.chemistry.gatech.edu/course_Information/2024_3521_Spring/papers/ramachandran_1963.pdf
+  - what: 'TRUE: Ernakulam 1922, Raman/IISc, Cambridge, Madras head 1952, death Chennai 2001; no invented dialogue/private
+      scene'
+    source: N. Yathindra, IUCr obituary (2001)
+    url: https://journals.iucr.org/a/issues/2001/05/00/es0305/index.html
+  - what: Distinguish 1954 proposal from later helical refinements
+    source: Ramachandran, Structure of Collagen, Nature 177:710–711 (1956), indexed abstract
+    url: https://www.nature.com/articles/177710b0
+  - what: 'TRUE: 1954 three-chain parallel-axis assembly; 1955 coiled-coil revision; original papers read in permission
+      reprint, header1995 typo not used'
+    source: Ramachandran & Kartha, Nature174:269–270 (1954),176:593–595 (1955), reprinted NMJI2006
+    url: https://nmji.in/nmji/archives/Volume_19_6_Nov_Dec_2006/classics/Class1.htm
+  figures:
+  - name: c4_folding
+    origin: ours; original SVG, no source artwork or actual molecular coordinates
+  licence: CC BY-NC-SA 4.0 for original prose, art and code; historical, dictionary, Cambridge and assay facts re-taught,
+    no restricted artwork or assessment items adapted. See source-specific notices and grounding/ch04.md.
+  computed: 1963 publication distinct from December 1962 submission. Drawings are illustrative projections, not
+    measured map/coordinates.
+'4.3':
+  ocw:
+  - course: 7.016 Introductory Biology, Fall 2018
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/resources/lecture-4-enzymes-and-metabolism/
+    where: Imperiali Lecture 4 transcript pp10–14
+    took: Catalysis, barrier versus endpoints, orientation/strain/charge stabilisation and regeneration. Reject
+      p14 endergonic transcript slip.
+  openstax:
+  - book: Biology 2e
+    section: 6 2 potential kinetic free and activation energy
+    url: https://openstax.org/books/biology-2e/pages/6-2-potential-kinetic-free-and-activation-energy
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 6 5 enzymes
+    url: https://openstax.org/books/biology-2e/pages/6-5-enzymes
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  research:
+  - *id001
+  - what: 5.1 enzymes; Core/Supplement distinguished; DNA Supplement deferred to Chapter 11
+    source: Cambridge 0610 2026–2028 version 3, printed pp16–17; no assessment items copied
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Enzyme word history
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/enzyme
+  - what: Catalytic RNA qualification; concepts only, no problem items reused
+    source: MIT 7.016 Recitation 3 summary, p1
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/f458ce9257e331de81c902069595cc8f_MIT7_016F18rec3.pdf
+  history:
+  - what: 'TRUE: cell-free fermentation after cell-retaining filtration; substrate comparisons; not one isolated
+      purified enzyme'
+    source: Buchner 1897 preliminary communication, English translation excerpt hosted by Le Moyne College
+    url: https://web.lemoyne.edu/~giunta/buchner.html
+  figures:
+  - name: c4_barrier
+    origin: ours; original SVG, no source artwork or actual molecular coordinates
+  licence: CC BY-NC-SA 4.0 for original prose, art and code; historical, dictionary, Cambridge and assay facts re-taught,
+    no restricted artwork or assessment items adapted. See source-specific notices and grounding/ch04.md.
+  computed: 'Chosen start20,end10,uncatalysed peak90,lowered peak55: forward70/35,reverse80/45,net−10,both lowered35.
+    Slider lowering0–45, clamped. Arbitrary units, no real rate/speed-up. Title nickname not numerical measurement.'
+'4.4':
+  ocw:
+  - course: 7.016 Introductory Biology, Fall 2018
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/resources/lecture-4-enzymes-and-metabolism/
+    where: Imperiali Lecture 4 transcript pp1–2
+    took: Heat, pH, charge, reversible changes versus aggregation; no universal solvent threshold.
+  - course: 7.012 Introductory Biology, Fall 2004
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-4-biochemistry-3/
+    where: Weinberg Lecture 4 transcript pp1–3
+    took: Protein shape/context and proteolysis distinction only.
+  openstax:
+  - book: Biology 2e
+    section: 3 4 proteins
+    url: https://openstax.org/books/biology-2e/pages/3-4-proteins
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 6 5 enzymes
+    url: https://openstax.org/books/biology-2e/pages/6-5-enzymes
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  research:
+  - *id001
+  - what: 5.1 enzymes; Core/Supplement distinguished; DNA Supplement deferred to Chapter 11
+    source: Cambridge 0610 2026–2028 version 3, printed pp16–17; no assessment items copied
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Denature word meaning
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/denature
+  history:
+  - what: Modern explanatory comparison; no dated discovery invented
+    source: grounding/ch04.md; research/history.md TRUE/HEDGE/LEGEND discipline
+    url: https://openstax.org/books/biology-2e/pages/3-4-proteins
+  figures:
+  - name: c4_conditions
+    origin: ours; original SVG, no source artwork or actual molecular coordinates
+  licence: CC BY-NC-SA 4.0 for original prose, art and code; historical, dictionary, Cambridge and assay facts re-taught,
+    no restricted artwork or assessment items adapted. See source-specific notices and grounding/ch04.md.
+  computed: Invented E=2^((T−20)/20); F=1/(1+exp((T−50)/4)); H=exp(−((pH−7)/2)^2); R=E×F×H×survival. Chosen survival1
+    or0.15. Python optimum42.69°C at pH7, R1.891278; no named enzyme, measured data, recovery or fever inference.
+    Each setting new sample.
+'4.5':
+  ocw:
+  - course: 7.016 Introductory Biology, Fall 2018
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/resources/lecture-3-structures-of-amino-acids-peptides-and-proteins/
+    where: Imperiali Lecture 3 transcript pp1–9
+    took: Molecular identities informing test targets only; NO food-test procedure attributed to MIT.
+  openstax:
+  - book: Biology 2e
+    section: 3 2 carbohydrates
+    url: https://openstax.org/books/biology-2e/pages/3-2-carbohydrates
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 3 3 lipids
+    url: https://openstax.org/books/biology-2e/pages/3-3-lipids
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  - book: Biology 2e
+    section: 3 4 proteins
+    url: https://openstax.org/books/biology-2e/pages/3-4-proteins
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  research:
+  - *id001
+  - what: 4.1 biological molecules; Core/Supplement distinguished; DNA Supplement deferred to Chapter 11
+    source: Cambridge 0610 2026–2028 version 3, printed pp16–17; no assessment items copied
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Qualitative assay target/observations and controls; no source figures or worksheets reused
+    source: CCEA Food Tests factfile pp1–3
+    url: https://ccea.org.uk/downloads/docs/Support/Factfile/2019/GCSE%20Biology%20Factfile%20Unit%201.3%20Food%20Tests.pdf
+  - what: 'Assay methods: separate aliquots, water bath and ethanol-to-water order, independently phrased'
+    source: WJEC/Eduqas A level lab book food tests pp13–14
+    url: https://resource.download.wjec.co.uk/vtc/2021-22/ebl21-22_9-1/Downloads/eduqas-a-level-biology-lab-book-food-tests.pdf
+  - what: Publisher food-test practical and school precautions, ideas only
+    source: Pearson SB1f Testing foods
+    url: https://www.pearson.com/content/dam/one-dot-com/one-dot-com/uk/documents/subjects/science/GCSE-core-practical-sheets/cp3-testing-food.pdf
+  - what: DCPIP/vitamin C, acid pink/magenta, extract colour and calibrated-method distinction; numerical example
+      not reused
+    source: Science & Plants for Schools assay
+    url: https://www.saps.org.uk/teaching-resources/resources/191/measuring-changes-in-ascorbic-acid-vitamin-c-concentration-in-ripening-fruit-and-vegetables/
+  history:
+  - what: Modern explanatory comparison; no dated discovery invented
+    source: grounding/ch04.md; research/history.md TRUE/HEDGE/LEGEND discipline
+    url: https://openstax.org/books/biology-2e/pages/3-2-carbohydrates
+  figures:
+  - name: c4_food_tests
+    origin: ours; original SVG, no source artwork or actual molecular coordinates
+  licence: CC BY-NC-SA 4.0 for original prose, art and code; historical, dictionary, Cambridge and assay facts re-taught,
+    no restricted artwork or assessment items adapted. See source-specific notices and grounding/ch04.md.
+  computed: 'Invented unknown U: starch/protein/oil detectable; reducing sugar/vitamin C not detected. Valid blank/positive
+    required; no concentration inferred. Changing selected test/control clears unrun state.'
+fig:c4_water_carbon:
+  figures:
+  - name: c4_water_carbon
+    origin: ours; original theme-aware SVG; grounding/ch04.md
+  licence: CC BY-NC-SA 4.0
+  research: []
+fig:c4_building_units:
+  figures:
+  - name: c4_building_units
+    origin: ours; original theme-aware SVG; grounding/ch04.md
+  licence: CC BY-NC-SA 4.0
+  research: []
+fig:c4_folding:
+  figures:
+  - name: c4_folding
+    origin: ours; original theme-aware SVG; grounding/ch04.md
+  licence: CC BY-NC-SA 4.0
+  research: []
+fig:c4_barrier:
+  figures:
+  - name: c4_barrier
+    origin: ours; original theme-aware SVG; grounding/ch04.md
+  licence: CC BY-NC-SA 4.0
+  research: []
+fig:c4_conditions:
+  figures:
+  - name: c4_conditions
+    origin: ours; original theme-aware SVG; grounding/ch04.md
+  licence: CC BY-NC-SA 4.0
+  research: []
+fig:c4_food_tests:
+  figures:
+  - name: c4_food_tests
+    origin: ours; original theme-aware SVG; grounding/ch04.md
+  licence: CC BY-NC-SA 4.0
+  research: []
+story:p-ramachandran:
+  ocw: *id002
+  openstax:
+  - book: Biology 2e
+    section: 3 4 proteins
+    url: https://openstax.org/books/biology-2e/pages/3-4-proteins
+    took: Concepts checked against grounding/ch04.md; original explanation and art; source simplification traps
+      corrected.
+  history: *id003
+  research:
+  - what: Only verified public events; no quotations/emotions/lab furniture invented; named-term ownership checked
+      before creating
+    source: grounding/ch04.md; research/history.md audit discipline
+    url: https://journals.iucr.org/a/issues/2001/05/00/es0305/index.html
+  figures: []
+  licence: CC BY-NC-SA 4.0 for original prose, art and code; historical, dictionary, Cambridge and assay facts re-taught,
+    no restricted artwork or assessment items adapted. See source-specific notices and grounding/ch04.md.
+verification_notes:
+  corrections: 'Gate B: sugar oxygen/O–H contact mechanism added; cooked egg comparison clarified as explanation,
+    no activity. Gate A: report active share including surviving fraction, preserve separate thermal factor. Static
+    energy levels use consistent linear height mapping. Collagen1954 proposal separated from1955 common-axis revision
+    in prose/story/modern plate. Final Canvas bounds check shortened a stage2 display sentence that exceeded the
+    edge by1.65logicalpixels; mechanism/model unchanged.'
+  source_access: Nature publisher gateway blocked direct1954/1955 text; original articles subsequently read in NMJI
+    permission reprint. Practical Biology direct403; accessible SAPS and exam-board sources provide assay support.
+    No unresolved factual gap filled with invention.

@@ -1,0 +1,335 @@
+'8.1':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 39.1 Systems of Gas Exchange
+    url: https://openstax.org/books/biology-2e/pages/39-1-systems-of-gas-exchange
+    took: Conducting airway route from nasal cavity through pharynx, larynx, trachea, bronchi and bronchioles to alveoli;
+      mucus/cilia escalator; qualify alveolar number and surface area as variable adult two-lung estimates
+  - book: Biology 2e
+    section: 39.2 Gas Exchange across Respiratory Surfaces
+    url: https://openstax.org/books/biology-2e/pages/39-2-gas-exchange-across-respiratory-surfaces
+    took: Partial pressures and opposite-direction O2 and CO2 diffusion across the thin alveolar-capillary barrier;
+      dead space versus alveolar ventilation
+  - book: Biology 2e
+    section: 39.3 Breathing
+    url: https://openstax.org/books/biology-2e/pages/39-3-breathing
+    took: Thoracic volume changes, Boyle's-law pressure gradients, diaphragm and intercostal muscle actions in quiet
+      and forced breathing, and medulla CO2/pH respiratory control
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 11 Gas exchange in humans (11.1), printed pp 25–26'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Three pressures (atmospheric, alveolar, intrapleural), pleural fluid coupling, surfactant, quiet passive recoil
+      versus forced expiration, and alveolar/capillary partial pressures
+    source: OpenStax Anatomy and Physiology 2e (J. Gordon Betts et al.), §§22.1–22.4; corroborating physiological facts,
+      no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing
+  - what: Adult two-lung alveolar stereology mean 480 million (range 274–790 million, n=6 adult human lungs) and correlation
+      with lung volume; do not apply as a universal fixed constant or to a 12-year-old
+    source: Ochs et al. 2004, The number of alveoli in the human lung, Am J Respir Crit Care Med 169(1):120–124, PMID
+      14512270; PubMed abstract and stereological table examined
+    url: https://pubmed.ncbi.nlm.nih.gov/14512270/
+  - what: Cross-book reference to atmospheric pressure pushing liquid up a coconut straw and Boyle's law (Chapter 6,
+      Section 6.2 & 6.4)
+    source: The Moving World (Book 1 of Kym's science series), source/src/ch06.md inspected directly
+    url: https://openstax.org/books/physics/pages/1-introduction
+  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective
+      codes asserted
+    source: Cambridge official Lower Secondary Science 0893 overview
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: ventilation, trachea, bronchus, alveolus, diaphragm, thorax, pleura'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/ventilation
+  history: []
+  figures:
+  - name: c8_airway_mucociliary
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; conducting tree and mucociliary escalator drawn at separate enlargements
+  - name: c8_thorax_pressure_cycle
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; gauge pressures relative to sea-level P_atm; bell-jar comparison highlights four explicit
+      misrepresentations
+  - name: c8_alveolar_exchange
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; representative partial pressures and syllabus gas percentages
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded
+    series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research,
+    dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Minute ventilation V_E = V_T × f; alveolar ventilation V_A = max(0, V_T − V_D) × f with V_D = 150 mL.
+    At 500 mL × 12/min vs 250 mL × 24/min, both give V_E = 6.0 L/min while V_A is 4.2 vs 2.4 L/min. Recomputed in
+    Python and verified in tests/ch08_domain.mjs.'
+  activity: One seated resting breath-counting and dead-space calculation activity using a watch, paper and pencil;
+    no breath-holding, hyperventilation or strenuous exercise; reviewed for feasibility, not physically trialled.
+  scope: Adult two-lung alveolar counts (~300–500M, Ochs mean 480M) and ~70 m² area qualified as adult two-lung estimates,
+    not applied to Kym. Bell-jar misrepresentations explicitly taught.
+'8.2':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 40.1 Overview of the Circulatory System
+    url: https://openstax.org/books/biology-2e/pages/40-1-overview-of-the-circulatory-system
+    took: Closed circulatory architecture and cardiac throughput framing
+  - book: Biology 2e
+    section: 40.3 Mammalian Heart and Blood Vessels
+    url: https://openstax.org/books/biology-2e/pages/40-3-mammalian-heart-and-blood-vessels
+    took: Cardiac output as heart rate multiplied by stroke volume and one-way valve enforcement
+  research:
+  - what: Cardiac output formula CO = HR × SV, stroke volume determinants and resting/exercise ranges
+    source: OpenStax Anatomy and Physiology 2e (J. Gordon Betts et al.), §19.4 Cardiac Physiology; corroborating facts
+      only
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/19-4-cardiac-physiology
+  - what: 'Word origin only, not mechanism evidence: circulation, artery, vein'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/circulation
+  history:
+  - what: TRUE:1628 Frankfurt publication by William Fitzer; London lectures from 1616; Padua training under Fabricius;
+      Ch IX conservative lower-bound calculation (1, 3 or 4 drachms over 1,000 beats in 30 min = 10 lb 5 oz to 41 lb
+      8 oz Troy); Ch X–XI snake-vessel and arm-ligature tests; Ch XIII forearm vein-valve experiment (nodes O and H)
+    source: William Harvey, Exercitatio Anatomica de Motu Cordis et Sanguinis in Animalibus (Frankfurt:William Fitzer,
+      1628), Robert Willis English translation (Sydenham Society, 1847), Chapters VIII–XIV examined verbatim
+    url: https://en.wikisource.org/wiki/On_ the_Motion_of_the_Heart_and_Blood_in_Animals
+  - what: TRUE:Ibn al-Nafis (c. 1242) rejection of septal pores and description of pulmonary transit; Realdo Colombo
+      (1559) pulmonary transit; Hieronymus Fabricius (1603) venous valves (ostiola); Marcello Malpighi (1661) microscopic
+      observation of frog lung capillaries in De Pulmonibus
+    source: West 2008 (PMID 18567862 / PMC2598497) and Ribatti 2009 (PMID 19660509); peer-reviewed historical scholarship
+      examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2598497/
+  figures:
+  - name: c8_harvey_evidence
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; separates Harvey's 1628 Troy/apothecaries' lower-bound arithmetic from modern metric CO =
+      HR × SV and shows schematic forearm vein nodes O and H
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. Historical 1628/1847 primary text in public domain; modern
+    historical scholarship cited for facts only; no copied artwork or quotes.
+  computed: 'Harvey Ch IX Troy/apothecaries’ conversion: 1 drachm = 3.8879346 g; 1,000 drachms = 125 oz Troy = 10 lb
+    5 oz Troy (~3.89 kg); 4,000 drachms = 500 oz Troy = 41 lb 8 oz Troy (~15.55 kg). Modern example: 70 bpm × 60 mL
+    = 4.20 L/min (252 L/h); 70 bpm × 70 mL = 4.90 L/min (294 L/h); athlete check 140 bpm × 90 mL = 12.6 L/min.'
+  scope: Does not attribute 70 bpm × 60 mL to Harvey; does not claim Galen taught hourly body-weight blood production;
+    credits Ibn al-Nafis, Colombo, Fabricius and Malpighi alongside Harvey.
+'8.3':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 40.1 Overview of the Circulatory System
+    url: https://openstax.org/books/biology-2e/pages/40-1-overview-of-the-circulatory-system
+    took: Single circulation in fish (heart -> gill capillaries -> systemic capillaries -> heart) versus mammalian
+      double circulation
+  - book: Biology 2e
+    section: 40.3 Mammalian Heart and Blood Vessels
+    url: https://openstax.org/books/biology-2e/pages/40-3-mammalian-heart-and-blood-vessels
+    took: Four chambers, septum, tricuspid/bicuspid atrioventricular and semilunar valves, pulmonary and systemic
+      routes, coronary circulation, and cardiac cycle
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 9.1 Circulatory systems & 9.2 Heart, printed pp 22–23'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Chamber wall thicknesses (LV ~3x thicker than RV; ventricles thicker than atria), RV ~25 mmHg vs LV ~120 mmHg
+      systolic pressures, myogenic SAN pacemaker vs autonomic nerves and adrenaline, heart sounds ("lub-dub" from valve
+      closure), ECG, pulse, and coronary heart disease risk factors
+    source: OpenStax Anatomy and Physiology 2e (J. Gordon Betts et al.), §§19.1–19.4; corroborating physiological facts,
+      no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy
+  - what: 'Uncomplicated post-natal ventricular septal defect (VSD) physiology: higher LV systolic pressure (~115–120
+      mmHg) than RV (~25–35 mmHg) drives a left-to-right shunt across the defect, raising pulmonary blood flow above
+      systemic flow (Qp > Qs) and causing a holosystolic murmur and exertional breathlessness'
+    source: Spicer et al. 2014 (Lancet, PMID 24703800) and Penny & Vick 2011 (Circulation, PMID 21606399); clinical
+      physiology examined
+    url: https://pubmed.ncbi.nlm.nih.gov/21606399/
+  - what: 'Word origin only, not mechanism evidence: atrium, ventricle, septum, systole, diastole, coronary'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/ventricle
+  history: []
+  figures:
+  - name: c8_double_circulation
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; schematic connection diagram of pulmonary, systemic, renal and hepatic portal vessels plus
+      fish single-circulation inset
+  - name: c8_heart_cutaway
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; anterior anatomical cutaway with patient right on viewer left, showing chambers, valves,
+      septum and coronary arteries
+  - name: c8_septal_defect_case
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; compares intact septum (Qp = Qs) with uncomplicated post-natal VSD left-to-right shunt (Qp
+      > Qs)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded
+    series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research,
+    dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'In intact series double circulation, steady-state Q_p = Q_s = CO (e.g. 4.20 L/min). In uncomplicated post-natal
+    VSD with chosen 50% L->R shunt fraction, Q_p = 1.5 × Q_s (e.g. 6.30 vs 4.20 L/min, Q_p/Q_s = 1.50). Verified in
+    tests/ch08_domain.mjs.'
+  scope: Distinguishes anatomical right/left from viewer right/left; separates oxygenation in lungs from pumping pressure
+    in heart; presents fish single circulation in its aquatic context rather than as a defective mammal; VSD case is
+    fictional reasoning, not personal medical advice.
+'8.4':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 40.2 Components of the Blood
+    url: https://openstax.org/books/biology-2e/pages/40-2-components-of-the-blood
+    took: Plasma transport roles, biconcave enucleate red blood cells and reversible haemoglobin-O2 binding, phagocytes
+      versus lymphocytes, platelets and fibrinogen-to-fibrin clotting
+  - book: Biology 2e
+    section: 40.3 Mammalian Heart and Blood Vessels
+    url: https://openstax.org/books/biology-2e/pages/40-3-mammalian-heart-and-blood-vessels
+    took: Artery, arteriole, capillary, venule and vein structure and function; total cross-sectional area and velocity
+      continuity
+  - book: Biology 2e
+    section: 40.4 Blood Flow and Blood Pressure Regulation
+    url: https://openstax.org/books/biology-2e/pages/40-4-blood-flow-and-blood-pressure-regulation
+    took: Hydrostatic filtration at arterial capillary end, osmotic reabsorption at venous end, tissue fluid and lymphatic
+      return
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 9.3 Blood vessels & 9.4 Blood, printed pp 23–24'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Continuity velocity v = Q / A_total across aorta (~4.5 cm²) versus systemic capillary beds (~4,500 cm²),
+      Starling capillary filtration (~20 L/day) versus reabsorption (~17 L/day) and lymphatic return (~3 L/day) through
+      lymph nodes to subclavian veins, and fibrin clot formation
+    source: OpenStax Anatomy and Physiology 2e (J. Gordon Betts et al.), §§18.1–18.5, §§20.1–20.3, §21.1; corroborating
+      physiological facts, no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/20-3-capillary-exchange
+  - what: 'Word origin only, not mechanism evidence: capillary, plasma, haemoglobin, erythrocyte, leukocyte, phagocyte,
+      lymphocyte, fibrin'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/capillary
+  history: []
+  figures:
+  - name: c8_vessel_comparison
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Vessel cross-sections drawn at separate stated enlargements; bottom profiles use representative adult
+      vascular tree values
+  - name: c8_capillary_bed_blood
+    origin: ours; original semantic-theme schematic code in figs_ch08.py; no source illustrations or photographs
+    limits: Not to scale; capillary exchange and blood cell types drawn at schematic enlargements
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded
+    series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research,
+    dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Continuity v = Q / A_total: at Q = 4.9 L/min (81.667 cm³/s), aorta (4.5 cm²) v = 181.481 mm/s; capillaries
+    (4,500 cm²) v = 0.181 mm/s (~1,000× slower); vena cava (18 cm²) v = 45.370 mm/s. Starling net filtration pressure
+    +10 mmHg arterial end, −7 mmHg venous end. Verified in tests/ch08_domain.mjs.'
+  scope: Distinguishes plasma, tissue fluid and lymph (RBCs and large plasma proteins remain inside intact capillaries);
+    contrasts lobed-nucleus phagocytes with large-round-nucleus lymphocytes; includes fibrinogen-to-fibrin clotting
+    cascade.
+fig:c8_airway_mucociliary:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_thorax_pressure_cycle:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_alveolar_exchange:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_harvey_evidence:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_double_circulation:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_heart_cutaway:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_vessel_comparison:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_capillary_bed_blood:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c8_septal_defect_case:
+  origin: ours
+  source: figs_ch08.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch08.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+story:harvey-circulation:
+  ocw: []
+  openstax: []
+  research: []
+  history:
+  - what: TRUE:1628 Frankfurt publication by William Fitzer; London lectures from 1616; Padua training under Fabricius;
+      Ch IX conservative lower-bound calculation (1, 3 or 4 drachms over 1,000 beats in 30 min = 10 lb 5 oz to 41 lb
+      8 oz Troy); Ch X–XI snake-vessel and arm-ligature tests; Ch XIII forearm vein-valve experiment (nodes O and H)
+    source: William Harvey, Exercitatio Anatomica de Motu Cordis et Sanguinis in Animalibus (Frankfurt:William Fitzer,
+      1628), Robert Willis English translation (Sydenham Society, 1847), Chapters VIII–XIV examined verbatim
+    url: https://en.wikisource.org/wiki/On_the_Motion_of_the_Heart_and_Blood_in_Animals
+  - what: TRUE:Ibn al-Nafis (c. 1242) rejection of septal pores and description of pulmonary transit; Realdo Colombo
+      (1559) pulmonary transit; Hieronymus Fabricius (1603) venous valves (ostiola); Marcello Malpighi (1661) microscopic
+      observation of frog lung capillaries in De Pulmonibus
+    source: West 2008 (PMID 18567862 / PMC2598497) and Ribatti 2009 (PMID 19660509); peer-reviewed historical scholarship
+      examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2598497/
+  figures: []
+  licence: Original prose CC BY-NC-SA 4.0; historical 1628 primary text / 1847 translation in public domain; modern
+    historical scholarship cited for facts only; no photographs, quotes or art copied.
+  truth_status: TRUE documented places, dates, predecessors, conservative Ch IX Troy/apothecaries' lower-bound arithmetic,
+    Ch X–XI ligatures, Ch XIII forearm vein-valve experiment, and 1661 Malpighi capillary observation. No invented
+    Galen hourly-body-weight myth, no London 1628 publication error, no invented thoughts or dialogue.
+  access_limits: Primary text read via full 1847 Robert Willis English translation of the 1628 Frankfurt Latin edition;
+    Ibn al-Nafis, Colombo, Fabricius and Malpighi details verified via peer-reviewed historical reviews (West 2008;
+    Ribatti 2009).
+model:breathing_gradients:
+  source: live/circulation_model.js; live/w_breathing_gradients.js; appended live/enhancements.js entry
+  static_figure: c8_thorax_pressure_cycle
+  contract: grounding/ch08.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch08_domain.mjs independent oracles and tests/qa_ch08.py final-book browser acceptance; results
+    reported in gates/ch08-verification.md
+model:double_pump:
+  source: live/circulation_model.js; live/w_double_pump.js; appended live/enhancements.js entry
+  static_figure: c8_heart_cutaway
+  contract: grounding/ch08.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch08_domain.mjs independent oracles and tests/qa_ch08.py final-book browser acceptance; results
+    reported in gates/ch08-verification.md
+model:vessel_exchange:
+  source: live/circulation_model.js; live/w_vessel_exchange.js; appended live/enhancements.js entry
+  static_figure: c8_vessel_comparison
+  contract: grounding/ch08.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch08_domain.mjs independent oracles and tests/qa_ch08.py final-book browser acceptance; results
+    reported in gates/ch08-verification.md
+record:ch08-decisions:
+  preservation: tests/ch08-preserved.json captures all 231 pre-existing files (Chapters 0–7 + baselines/gates/runners).
+    Only existing-file change is append-only three Chapter 8 enhancements in source/live/enhancements.js; exact original
+    bytes reconstructed and verified.
+  corrections: Replaced inherited BOOKPLAN opening fish-collapse claim with dual-pressure and diffusion-distance puzzle;
+    distinguished Harvey's 1628 Frankfurt Troy/apothecaries' lower bound from modern 70 bpm × 60 mL metric example;
+    rejected Galen hourly-body-weight straw man; qualified adult two-lung alveolar stereology (Ochs et al. 2004).
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax
+    access-for-free footer retained; original prose/art only.
+  access_limits: Ochs et al. 2004 abstract and stereological summary read (full subscription PDF not required beyond
+    reported n=6 mean 480M and range 274–790M); exact 0893 framework unavailable; MIT OCW introductory biology courses
+    not cited for human cardiorespiratory anatomy where not inspected.
+  physical_trials: Seated resting breath-counting activity reviewed for safety and feasibility; not physically trialled.
+  publication: No publication, deployment, commit, push, clone or remote repository operation.

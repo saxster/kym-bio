@@ -1,0 +1,23 @@
+ocw:
+  "7.012 Introductory Biology, Fall 2004":
+    faculty: "Eric Lander, Robert Weinberg, Claudette Gardel"
+    url: "https://ocw.mit.edu/courses/7-012-introductory-biology-fall-2004/"
+  "7.013 Introductory Biology, Spring 2018":
+    faculty: "Hazel Sive, Sinisa Hrvatin"
+    url: "https://ocw.mit.edu/courses/7-013-introductory-biology-spring-2018/"
+  "7.014 Introductory Biology, Spring 2005":
+    faculty: "Penny Chisholm, Graham Walker, Julia Khodor, Michelle Mischke"
+    url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/"
+  "7.016 Introductory Biology, Fall 2018":
+    faculty: "Barbara Imperiali, Adam Martin"
+    url: "https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/"
+openstax:
+  "Biology 2e":
+    authors: "Mary Ann Clark, Matthew Douglas, Jung Choi"
+    url: "https://openstax.org/books/biology-2e/pages/1-introduction"
+  "Concepts of Biology":
+    authors: "Samantha Fowler, Rebecca Roush, James Wise"
+    url: "https://openstax.org/books/concepts-of-biology/pages/1-introduction"
+  "Microbiology":
+    authors: "Nina Parker, Mark Schneegurt, Anh-Hue Thi Tu, Philip Lister, Brian M. Forster"
+    url: "https://openstax.org/books/microbiology/pages/1-1-what-our-ancestors-knew"

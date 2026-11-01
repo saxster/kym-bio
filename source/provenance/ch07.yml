@@ -1,0 +1,386 @@
+'7.1':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 34.1 Digestive Systems
+    url: https://openstax.org/books/biology-2e/pages/34-1-digestive-systems
+    took: Human canal and accessory connections; reject universal lengths, pH, misleading orientation and broad
+      ulcer wording
+  - book: Biology 2e
+    section: 34.3 Digestive System Processes
+    url: https://openstax.org/books/biology-2e/pages/34-3-digestive-system-processes
+    took: Ingestion, digestion, absorption and elimination separated; re-teach with epithelial-barrier distinction
+  research:
+  - what: Human canal, peristalsis, ducts, secretions, nutrition roles and both intestines absorbing water
+    source: 'NIDDK: Your Digestive System & How It Works; relevant organ/movement/use paragraphs examined'
+    url: https://www.niddk.nih.gov/health-information/digestive-diseases/digestive-system-how-it-works
+  - what: 'Core/Supplement placement independently checked: printed pp19–21, Topics7.1–7.5; not complete diet/deficiency
+      coverage'
+    source: Cambridge IGCSE Biology0610 syllabus2026–2028 v3; official programme also lists2029, which is not silently
+      substituted
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Word origin only, not mechanism evidence: digestion'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/digestion
+  - what: 'Word origin only, not mechanism evidence: absorption'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/absorption
+  - what: 'Word origin only, not mechanism evidence: assimilation'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/assimilation
+  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective
+      codes asserted
+    source: Cambridge official Lower Secondary Science0893 overview
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  history: []
+  figures:
+  - name: c7_canal
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  - name: c7_boundary
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  licence: CC BY-NC-SA4.0 original prose, SVG and code. MIT/OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim permission/waiver. Third-party
+    research, dictionary, archive and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  scope: No MIT human anatomy attribution. Nutrition/diet chapter objectives not all claimed; faeces contain shed
+    cells/microbes/excreted material too.
+'7.2':
+  ocw:
+  - course: 7.016 Introductory Biology, Fall 2018
+    where: Barbara Imperiali, Lecture 4 Enzymes and Metabolism; actual transcript latter half pp11–16
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/f531ebe6a60d74b7f6b7c10732a4f130_QTdJiG7mV40.pdf
+    took: Peptide hydrolysis, enzyme catalysis, reaction barrier versus endpoint free energy; no digestive anatomy
+      or historical attribution
+  openstax:
+  - book: Biology 2e
+    section: 34.1 Digestive Systems
+    url: https://openstax.org/books/biology-2e/pages/34-1-digestive-systems
+    took: Peristalsis, stomach and enzyme/protection roles with qualifications
+  - book: Biology 2e
+    section: 34.3 Digestive System Processes
+    url: https://openstax.org/books/biology-2e/pages/34-3-digestive-system-processes
+    took: Carbohydrate/protein intermediate products and sites; no fixed peptide lengths
+  - book: Biology 2e
+    section: 3.1 Synthesis of Biological Macromolecules
+    url: https://openstax.org/books/biology-2e/pages/3-1-synthesis-of-biological-macromolecules
+    took: Water included in hydrolysis; reject isolated-bond energy shorthand
+  research:
+  - what: Human canal, peristalsis, ducts, secretions, nutrition roles and both intestines absorbing water
+    source: 'NIDDK: Your Digestive System & How It Works; relevant organ/movement/use paragraphs examined'
+    url: https://www.niddk.nih.gov/health-information/digestive-diseases/digestive-system-how-it-works
+  - what: 'Core/Supplement placement independently checked: printed pp19–21, Topics7.1–7.5; not complete diet/deficiency
+      coverage'
+    source: Cambridge IGCSE Biology0610 syllabus2026–2028 v3; official programme also lists2029, which is not silently
+      substituted
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Mucus/bicarbonate, epithelial joins, renewal, pepsinogen/acid; no universal pH
+    source: OpenStax Anatomy and Physiology2e (J.Gordon Betts et al.), §23.4; corroborating physiological facts,
+      no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach
+  - what: 'Word origin only, not mechanism evidence: peristaltic'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/peristaltic
+  - what: 'Word origin only, not mechanism evidence: hydrolysis'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/hydrolysis
+  - what: Tooth types/functions, enamel/dentine, pulp nerves/vessels, root cementum, gum/bone/periodontal support;
+      directly inspected to resolve GateA source-trace finding
+    source: OpenStax Anatomy and Physiology2e (J.Gordon Betts et al.), §23.3 Types of Teeth and Anatomy of a Tooth;
+      corroborating facts only, no copied art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus
+  history:
+  - what: TRUE:1822 injury; gastric experiments May1825; publication1833; First Series Exp1 interpretation/confounds
+      and discomfort, Exp2–3 collected juice comparison
+    source: William Beaumont, Experiments and observations on the gastric juice, and the physiology of digestion
+      (Plattsburgh:F.P.Allen,1833), introduction pp9–19 and First Series pp125–130; digitised NLM edition/OCR examined
+    url: https://upload.wikimedia.org/wikipedia/commons/d/de/Experiments_and_observations_on_the_gastric_juice,_and_the_physiology_of_digestion_(IA_2543009R.nlm.nih.gov).pdf
+  - what: TRUE:four articles of agreement1832–1833; catalogue read, linked manuscript download403; not claimed as
+      fully inspected manuscript
+    source: Bernard Becker Medical Library Archives, William Beaumont Papers, PC001-S01-B03-F23
+    url: https://digitalcommons.wustl.edu/beaumont_1828_1832/6/
+  - what: TRUE:1832 contract terms and doctor/employer dependence; source imbalance and ethical interpretation;
+      no invented thoughts/quotes
+    source: 'The William Beaumont Papers: A Life in Letters,2014, archive-based scholarship, contract caption/correspondence
+      passages'
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6172101/
+  figures:
+  - name: c7_movement
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  - name: c7_chemistry
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  - name: c7_protection
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  licence: CC BY-NC-SA4.0 original prose, SVG and code. MIT/OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim permission/waiver. Third-party
+    research, dictionary, archive and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Maltose+water→2glucose: C12 H24 O12; chosen nominal C12/H1/O16,342+18=360. Python recompute executed;
+    new persistent acceptance recomputes independently. No meal mass, transit time, reaction half-life or stomach
+    pH constant.'
+'7.3':
+  ocw:
+  - course: 7.016 Introductory Biology, Fall 2018
+    where: Barbara Imperiali, Lecture 4 Enzymes and Metabolism; actual transcript latter half pp11–16
+    url: https://ocw.mit.edu/courses/7-016-introductory-biology-fall-2018/f531ebe6a60d74b7f6b7c10732a4f130_QTdJiG7mV40.pdf
+    took: Peptide hydrolysis, enzyme catalysis, reaction barrier versus endpoint free energy; no digestive anatomy
+      or historical attribution
+  openstax:
+  - book: Biology 2e
+    section: 34.3 Digestive System Processes
+    url: https://openstax.org/books/biology-2e/pages/34-3-digestive-system-processes
+    took: Lipid interface, bile/amphipathic components, lipase hydrolysis and products; no fixed multiplier
+  research:
+  - what: Major pancreatic lipase products2-MAG+fatty acids, colipase, micelles, epithelial uptake/rebuilding/chylomicron
+      export; cited facts, no adapted artwork
+    source: Iqbal and Hussain2009, Intestinal lipid absorption, DOI10.1152/ajpendo.90899.2008; relevant full-text
+      overview/TAG/assembly sections read
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2692399/
+  - what: 'Core/Supplement placement independently checked: printed pp19–21, Topics7.1–7.5; not complete diet/deficiency
+      coverage'
+    source: Cambridge IGCSE Biology0610 syllabus2026–2028 v3; official programme also lists2029, which is not silently
+      substituted
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Liver production, gallbladder storage/concentration, bile-duct topology and pancreatic bicarbonate; facts
+      corroboration
+    source: OpenStax Anatomy and Physiology2e (J.Gordon Betts et al.), §23.6; corroborating physiological facts,
+      no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder
+  - what: 'Word origin only, not mechanism evidence: emulsion'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/emulsion
+  - what: 'Word origin only, not mechanism evidence: lipase'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/lipase
+  history: []
+  figures:
+  - name: c7_emulsion
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  - name: c7_lipase
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  licence: CC BY-NC-SA4.0 original prose, SVG and code. MIT/OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim permission/waiver. Third-party
+    research, dictionary, archive and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Chosen equal-sphere model: R0–3mm,k1–6,N=k³,r=R/k,V=4πR³/3,A=4πR²k. At R3,k2:N8,r1.5,V36πmm³,A72πmm².
+    Zero has no droplets and undefined area ratio. Triolein+2water→monoolein+2oleic acid conserves C57 H108 O8;
+    nominal masses884+36=356+564=920. No conversion of area ratio into digestion-rate data.'
+  activity: One dough/clay model activity; amount fixed, eight approximate spheres, no tasting, no knives/heat/chemicals,
+    handwash/cleanup, no exact measured surface claim. Reviewed only; not physically trialled.
+'7.4':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 34.1 Digestive Systems
+    url: https://openstax.org/books/biology-2e/pages/34-1-digestive-systems
+    took: Villi/microvilli, epithelium and portal route; distinguish tissue villus from cell projection
+  - book: Biology 2e
+    section: 34.3 Digestive System Processes
+    url: https://openstax.org/books/biology-2e/pages/34-3-digestive-system-processes
+    took: Micelles/products, epithelial packaging, lymph, water/assimilation; qualified routes
+  research:
+  - what: Glucose sodium cotransport and ATPase-maintained gradient, fructose, amino-acid/peptide and lipid/water
+      transport; avoid unqualified medium-chain triglyceride bypass wording
+    source: Kiela and Ghishan2016, Physiology of Intestinal Absorption and Secretion, DOI10.1016/j.bpg.2016.02.007;
+      relevant full-text sections read
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4956471/
+  - what: Major pancreatic lipase products2-MAG+fatty acids, colipase, micelles, epithelial uptake/rebuilding/chylomicron
+      export; cited facts, no adapted artwork
+    source: Iqbal and Hussain2009, Intestinal lipid absorption, DOI10.1152/ajpendo.90899.2008; relevant full-text
+      overview/TAG/assembly sections read
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2692399/
+  - what: 'Core/Supplement placement independently checked: printed pp19–21, Topics7.1–7.5; not complete diet/deficiency
+      coverage'
+    source: Cambridge IGCSE Biology0610 syllabus2026–2028 v3; official programme also lists2029, which is not silently
+      substituted
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Table23.10, carbohydrate/lipid/water absorption facts corroborated
+    source: OpenStax Anatomy and Physiology2e (J.Gordon Betts et al.), §23.7; corroborating physiological facts,
+      no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/23-7-chemical-digestion-and-absorption-a-closer-look
+  - what: Adult estimated area32m² total/about2m²large intestine, roughly30m²difference; methods and variation;
+      reject260–300m²tennis-court claim
+    source: Helander and Fändriks2014, Surface area of the digestive tract—revisited, DOI10.3109/00365521.2014.898326;
+      PubMed abstract/metadata only, full subscription paper not read
+    url: https://pubmed.ncbi.nlm.nih.gov/24694282/
+  - what: Gallbladder removal changes storage/concentration/delivery, not liver production; remaining ducts carry
+      bile to duodenum; fictional case, no diagnosis/prescription
+    source: NIDDK Treatment for Gallstones, surgery/after-removal paragraphs read
+    url: https://www.niddk.nih.gov/health-information/digestive-diseases/gallstones/treatment
+  - what: 'Word origin only, not mechanism evidence: villus'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/villus
+  - what: 'Word origin only, not mechanism evidence: portal'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/portal
+  - what: 'Word origin only, not mechanism evidence: chyle'
+    source: Online Etymology Dictionary, entry examined
+    url: https://www.etymonline.com/word/chyle
+  - what: Chylomicron etymology:chyle+micron/Greek small; name not a transport mechanism
+    source: Merriam-Webster dictionary entry, word-history section inspected
+    url: https://www.merriam-webster.com/dictionary/chylomicron
+  history: []
+  figures:
+  - name: c7_villus
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  - name: c7_absorption
+    origin: ours; original semantic-theme schematic code in figs_ch07.py; no source illustrations or photographs
+    limits: Not to scale unless explicit mathematical geometry; see per-figure alt text and caption
+  licence: CC BY-NC-SA4.0 original prose, SVG and code. MIT/OpenStax teaching spine re-taught with attribution under
+    recorded series source-use decision; AI-ingestion restriction acknowledged, no claim permission/waiver. Third-party
+    research, dictionary, archive and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 32−2≈30m² subtracts approximate adult estimates, not a measurement of Kym. Abstract portions0–6 conserved
+    across five selected compartments; not molecules or physiological efficiency.
+  scope: No MIT absorption anatomy coverage invented. One-cell-thick epithelium, not whole wall; glucose uptake
+    ATP-supported indirectly; lipid/micelle/chylomicron distinct; shorter-chain exceptions; small and large intestine
+    water uptake; gallbladder case fictional.
+fig:c7_canal:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_boundary:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_movement:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_chemistry:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_protection:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_emulsion:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_lipase:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_villus:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+fig:c7_absorption:
+  origin: ours
+  source: figs_ch07.py
+  licence: CC BY-NC-SA4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch07.md and the meaningful per-figure alt text, scale/model note and caption; semantic
+    theme classes and labelled arrow kinds.
+story:beaumont-st-martin:
+  ocw: []
+  openstax: []
+  research: []
+  history:
+  - what: TRUE:1822 injury; gastric experiments May1825; publication1833; First Series Exp1 interpretation/confounds
+      and discomfort, Exp2–3 collected juice comparison
+    source: William Beaumont, Experiments and observations on the gastric juice, and the physiology of digestion
+      (Plattsburgh:F.P.Allen,1833), introduction pp9–19 and First Series pp125–130; digitised NLM edition/OCR examined
+    url: https://upload.wikimedia.org/wikipedia/commons/d/de/Experiments_and_observations_on_the_gastric_juice,_and_the_physiology_of_digestion_(IA_2543009R.nlm.nih.gov).pdf
+  - what: TRUE:four articles of agreement1832–1833; catalogue read, linked manuscript download403; not claimed as
+      fully inspected manuscript
+    source: Bernard Becker Medical Library Archives, William Beaumont Papers, PC001-S01-B03-F23
+    url: https://digitalcommons.wustl.edu/beaumont_1828_1832/6/
+  - what: TRUE:1832 contract terms and doctor/employer dependence; source imbalance and ethical interpretation;
+      no invented thoughts/quotes
+    source: 'The William Beaumont Papers: A Life in Letters,2014, archive-based scholarship, contract caption/correspondence
+      passages'
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6172101/
+  figures: []
+  licence: Original prose CC BY-NC-SA4.0; historical1833 primary edition public-domain evidence; modern archival
+    scholarship cited for facts only; no photographs/quotes/art copied.
+  truth_status: TRUE documented events, apparatus, observations, confounds, discomfort and roles; ethical interpretation
+    explicitly grounded in dependency/contract. No disputed birth age, invented thoughts, scenery, dialogue or retrospective
+    modern-consent guarantee.
+  access_limits: Primary relevant printed pages and OCR read. Archive catalogue accessible; linked contract manuscript403,
+    so contract contents attributed through published archive scholarship, not falsely claimed as direct manuscript
+    reading. Original1833 PDF later retrieved via Internet Archive; author directly inspected rendered PDFpages129/132
+    (printed125/128), confirming string/vial apparatus; no modern manuscript access is implied.
+model:digestive_steps:
+  source: live/digestion_model.js; live/w_digestive_steps.js; appended live/enhancements.js entry
+  static_figure: c7_chemistry
+  contract: grounding/ch07.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours; stamps do not assess explanations.
+  licence: CC BY-NC-SA4.0 original models/code, no external coordinates
+  validation: tests/ch07_domain.mjs independent oracles and tests/qa_ch07.py final-book browser acceptance; results
+    reported in gates/ch07-verification.md
+model:emulsification:
+  source: live/digestion_model.js; live/w_emulsification.js; appended live/enhancements.js entry
+  static_figure: c7_emulsion
+  contract: grounding/ch07.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours; stamps do not assess explanations.
+  licence: CC BY-NC-SA4.0 original models/code, no external coordinates
+  validation: tests/ch07_domain.mjs independent oracles and tests/qa_ch07.py final-book browser acceptance; results
+    reported in gates/ch07-verification.md
+model:absorption_routes:
+  source: live/digestion_model.js; live/w_absorption_routes.js; appended live/enhancements.js entry
+  static_figure: c7_absorption
+  contract: grounding/ch07.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours; stamps do not assess explanations.
+  licence: CC BY-NC-SA4.0 original models/code, no external coordinates
+  validation: tests/ch07_domain.mjs independent oracles and tests/qa_ch07.py final-book browser acceptance; results
+    reported in gates/ch07-verification.md
+record:ch07-decisions:
+  preservation: tests/ch07-preserved.json captures current214files. Only existing-file change is append-only three
+    enhancements; reconstruct exact original bytes to verify. All old baselines/gates/runners retained.
+  corrections: 'Before prose: corrected a duct endpoint and attached villi to folds in original drawings; normalised
+    fat material colour across widget projections. Rejected inherited fixed9m,pH2,1,000×andtennis-court claims.
+    No earlier chapters changed.'
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax
+    access-for-free footer retained; original prose/art only.
+  access_limits: HF14 full paper not read; contract manuscript download403, catalogue and scholarly transcription
+    read; exact0893 framework unavailable; MIT chemistry not human anatomy.
+  physical_trials: No home activity physically trialled.
+  publication: No publication, deployment, commit, push, clone or remote repository operation.
+  gate_corrections: 'GateA tooth-anatomy source added after direct reading. GateB required explicit saved product
+    identities and structure-before-lipase order; implemented. Both optional suggestions adopted: chosen3cm activity
+    ball and explicit omitted head-group atom disclosure in cartoon. Full formula account unchanged. See grounding/ch07.md
+    and final independent confirmations.'
+  mobile_correction: Initial final-book acceptance found real390px overflow in the absorption supply slider. Shortened
+    label to Marked portions and updated matching explicit tour control names; retained abstract-unit disclosure.
+    No shared CSS/engine or model mathematics changed. Full rebuilt acceptance and independent reconfirmation required.
+  dark_visual_correction: Direct dark-theme image inspection found weak washed-shape contrast. Added theme-token
+    outlines to new spheres/tooth layers/folds/epithelial cells, without changing geometry/arrows/text or shared
+    CSS. Rebuild, visual and PDF checks and independent reconfirmation required.
+  pdf_test_correction: Exploratory browser checks passed, then PDF-caption locator failed because layout extraction
+    interleaved margin-note text and used typographic apostrophes/wrapped hyphens. Added raw reading-order extraction,
+    retained layout text and strengthened assertion to entire-caption unique matching with typography-only normalisation.
+    No product defect or weakened assertion; rerun full suite on final outlined build.
+  pdf_geometry_correction: Native PDF inspection found c7_protection cell-row loop generated a ninth rectangle past
+    the viewBox edge. Limited it to eight complete illustrative cells; no biological count, mechanism or text changed.
+    Added actual browser SVG shape-bounds assertions (rect/circle/ellipse/path/line/polygon/polyline) and required
+    rebuilt verification/review. Also corrected PDF renderer subprocess argument1500 from integer to string; that
+    was a harness error, not a product change.
+  multi_open_print_check: 'Supplementary pre-pagination visibility and unnormalised raw-title probes initially suggested
+    a print defect. This was a setup error: actual first PDF contains every complete caption and all three drawing
+    titles after typography/spacing normalisation, and pagination restores originals. Temporary candidate print
+    stylesheet removed; no shared engine change. QA now exports with all three widgets open and checks actual originals/captions
+    afterwards.'

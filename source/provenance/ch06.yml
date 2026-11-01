@@ -1,0 +1,250 @@
+"6.1":
+  ocw:
+    - course: "7.014 Introductory Biology, Spring 2005"
+      where: "Lecture 7, Biochemistry VI, actual five-page transcript; carrier/energy/membrane sequence"
+      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/cdabed1e33ba29ceae967b1a2ebfc991_R3DI6W9iKtU.pdf"
+      took: "Fuel reactions versus ATP-supported work; chemical/concentration/electrical energy; original retelling, no fixed ATP yields"
+  openstax:
+    - book: "Biology 2e"
+      section: "6.4 ATP: Adenosine Triphosphate"
+      url: "https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate"
+      took: "ATP/ADP cycling, hydrolysis as a whole reaction, cellular uses; no inherited whole-body ATP estimates"
+    - book: "Biology 2e"
+      section: "7.1 Energy in Living Systems"
+      url: "https://openstax.org/books/biology-2e/pages/7-1-energy-in-living-systems"
+      took: "Respiration transfers energy; fuels, carriers and ATP; ventilation distinguished from cellular reactions"
+    - book: "Biology 2e"
+      section: "7.2 Glycolysis"
+      url: "https://openstax.org/books/biology-2e/pages/7-2-glycolysis"
+      took: "Cytoplasmic pathway and mature mammalian red-cell exception to universal mitochondrial claims"
+  research:
+    - what: "0610 uses of energy; respiration definition; actual 2026–2028 version3, printed pp28–29"
+      source: "Cambridge International Education"
+      url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"
+    - what: "Respiration word origin; not used as mechanism evidence"
+      source: "Online Etymology Dictionary"
+      url: "https://www.etymonline.com/word/respiration"
+  history:
+    - what: "Buchner1897 cell-free fermentation; separated chemical activity versus intact yeast, not a single purified enzyme"
+      source: "Buchner1897 preliminary communication, English translation excerpt hosted by Le Moyne College; primary source reopened independently for Chapter6, paragraphs11–15 and23"
+      url: "https://web.lemoyne.edu/~giunta/buchner.html"
+  figures:
+    - name: "c6_routes"
+      origin: "ours; original schematic art"
+      took: "Ventilation, gas exchange/transport and cell chemistry separated; scale and exceptions explicit"
+  licence: "CC BY-NC-SA 4.0 original prose and art; MIT/OpenStax teaching ideas re-taught with attribution; historical and dictionary facts cited only"
+
+"6.2":
+  ocw:
+    - course: "7.014 Introductory Biology, Spring 2005"
+      where: "Lecture7 Biochemistry VI; present gallery title differs from inherited Energy II label"
+      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/cdabed1e33ba29ceae967b1a2ebfc991_R3DI6W9iKtU.pdf"
+      took: "Carrier recycling, oxidation, oxygen, concentration/electrical energy and Mitchell membrane coupling; simplified historical and fixed-yield statements rejected"
+    - course: "7.012 Introductory Biology, Fall 2004"
+      where: "Robert Weinberg, Lecture5 Biochemistry4, transcript pp8–16"
+      url: "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/5bd5a7f2b56af556085346a5536ea42b_V3XHn35BLfo.pdf"
+      took: "Investment/payoff, carbon processing, mitochondrial compartments and proton relay; exact existing course grouping retained despite incorrect inherited introductory URL slug"
+  openstax:
+    - book: "Biology 2e"
+      section: "7.2 Glycolysis"
+      url: "https://openstax.org/books/biology-2e/pages/7-2-glycolysis"
+      took: "Glucose to two pyruvates in cytoplasm; ATP investment2, formation4, net2; NAD+/NADH"
+    - book: "Biology 2e"
+      section: "7.3 Oxidation of Pyruvate and the Citric Acid Cycle"
+      url: "https://openstax.org/books/biology-2e/pages/7-3-oxidation-of-pyruvate-and-the-citric-acid-cycle"
+      took: "Matrix carbon processing, one CO2 per pyruvate entry and two-carbon unit entering cycle; eventual complete carbon account, no first-turn labelled-carbon claim"
+    - book: "Biology 2e"
+      section: "7.4 Oxidative Phosphorylation"
+      url: "https://openstax.org/books/biology-2e/pages/7-4-oxidative-phosphorylation"
+      took: "Electron recipients, O2 reduced to water; H+ pumping matrix to intermembrane space; return through synthase, rotation and shape changes; no universal stoichiometric yield"
+    - book: "Biology 2e"
+      section: "6.4 ATP: Adenosine Triphosphate"
+      url: "https://openstax.org/books/biology-2e/pages/6-4-atp-adenosine-triphosphate"
+      took: "Whole hydrolysis free-energy account and ATP/ADP coupling; isolated bond breaking requires energy"
+  research:
+    - what: "0610 aerobic word/balanced equations; Core/Supplement checked in original syllabus"
+      source: "Cambridge International Education,2026–2028 v3, printed p28"
+      url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"
+    - what: "Glycolysis name, sugar-related component plus loosening/splitting; dictionary evidence only"
+      source: "Online Etymology Dictionary"
+      url: "https://www.etymonline.com/word/glycolysis"
+  history:
+    - what: "TRUE: Mitchell1961 indirect coupling proposal; concentration and electrical components; Chemistry Nobel1978"
+      source: "Nobel Committee1978 press release; full official HTML fetched locally after web403"
+      url: "https://www.nobelprize.org/prizes/chemistry/1978/press-release/"
+    - what: "TRUE: four named authors, fluorescent actin attached to gamma shaft, supplied-ATP hydrolysis direction, not whole-mitochondrion synthesis movie"
+      source: "Noji,Yasuda,Yoshida,Kinosita1997 Nature386:299–302; primary abstract/metadata inspected, subscription full paper not read"
+      url: "https://www.nature.com/articles/386299a0"
+    - what: "Boyer binding-change mechanism, Walker structure and complementary evidence"
+      source: "Nobel Committee1997 press release; full official HTML read locally"
+      url: "https://www.nobelprize.org/prizes/chemistry/1997/press-release/"
+  figures:
+    - name: "c6_respiration"
+      origin: "ours; original carbon/electron pathway schematic"
+    - name: "c6_membrane"
+      origin: "ours; original membrane/gradient/catalytic-head schematic; not PDB coordinates or copied art"
+  licence: "CC BY-NC-SA 4.0 original retelling and figures; MIT/OpenStax teaching spines attributed; Nobel/Nature facts cited only, no source prose, diagrams or photographs copied"
+  computed: "Writer independently ran nominal C12,H1,O16 account:180+192=264+108=372; C6,H12,O18 both sides; ATP4−2=2. No ATP/glucose total, rpm, proton/ATP ratio or efficiency asserted."
+
+"6.3":
+  ocw:
+    - course: "7.014 Introductory Biology, Spring 2005"
+      where: "Lecture7 Biochemistry VI"
+      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/cdabed1e33ba29ceae967b1a2ebfc991_R3DI6W9iKtU.pdf"
+      took: "Oxidation and energy-transfer sequence only; fat formula and84/16 allocation are not credited to MIT"
+  openstax:
+    - book: "Biology 2e"
+      section: "7.6 Connections of Carbohydrate, Protein, and Lipid Metabolic Pathways"
+      url: "https://openstax.org/books/biology-2e/pages/7-6-connections-of-carbohydrate-protein-and-lipid-metabolic-pathways"
+      took: "Fats as additional fuels and essential biological material; interconnected pathways"
+    - book: "Biology 2e"
+      section: "7.3 Oxidation of Pyruvate and the Citric Acid Cycle"
+      url: "https://openstax.org/books/biology-2e/pages/7-3-oxidation-of-pyruvate-and-the-citric-acid-cycle"
+      took: "Carbon dioxide as oxidation product; separate material and energy accounts"
+  research:
+    - what: "Representative C55H104O6 complete-oxidation equation and distinct approximate original-fat84/16 allocation; oxygen-exchange4/2 assignment explicitly additional to equation"
+      source: "Meerman and Brown2014, BMJ349:g7257, DOI10.1136/bmj.g7257; original three-page publisher-formatted article read through teaching mirror after publisher403"
+      url: "https://www.bmj.com/content/349/bmj.g7257"
+      accessed_copy: "https://yosemitefoothills.com/Science-1A/Handouts/Week-10/CalculationOfMassLoss-bmj.g7257.full.pdf"
+      took: "Ideas and independently recomputed stoichiometry only; no illustration, diet advice, participant-body estimates or prose adapted"
+    - what: "Author/institutional cross-check of2014 publication and total product amounts"
+      source: "UNSW,17 December2014"
+      url: "https://www.unsw.edu.au/newsroom/news/2014/12/when-we-lose-weight--where-does-the-fat-go--"
+    - what: "School balanced material account"
+      source: "Cambridge0610,2026–2028 v3, p28"
+      url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"
+  history: []
+  figures:
+    - name: "c6_mass"
+      origin: "ours; original two-ledger schematic, no BMJ figure copied"
+  licence: "CC BY-NC-SA 4.0 original prose/art/computation; BMJ article CC BY-NC4.0 noted, used for facts and ideas only with attribution; no source illustration adapted"
+  computed: "Nominal C12,H1,O16: fuel860,O2input2496,CO2output2420,H2Ooutput936;3356in=3356out;atoms C55/H104/O162. Per1kg:O2=2496/860=2.90232558kg,CO2=2420/860=2.81395349kg,H2O=936/860=1.08837209kg. Original-fuel assignments724/860=84.1860465%,136/860=15.8139535%; about842g/158g, customary rounding840g/160g. Totals calculated before individual display rounding."
+  source_caution: "Rendered original BMJ page1 has inconsistent intermediate average-fatty-acid/average-triglyceride arithmetic; not reproduced or used as derivation. C55H104O6 is explicitly one representative chosen model, not every mixture of named fatty acids. Four/two oxygen allocation is approximate and requires exchange assumptions. Lifson1949 cited through BMJ, not independently read."
+
+"6.4":
+  ocw:
+    - course: "7.014 Introductory Biology, Spring 2005"
+      where: "Lecture6/7 transcripts, carrier recycling before oxygen-dependent processing"
+      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/cdabed1e33ba29ceae967b1a2ebfc991_R3DI6W9iKtU.pdf"
+      took: "Carrier supply as bottleneck; fermentation restores reusable carrier; original reasoning questions, no copied assessment"
+    - course: "7.012 Introductory Biology, Fall 2004"
+      where: "Lecture5 Biochemistry4, pp8–16"
+      url: "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/5bd5a7f2b56af556085346a5536ea42b_V3XHn35BLfo.pdf"
+      took: "Glycolytic investment/payoff and need to recycle electron carrier; no fixed aerobic total or misleading old exercise account"
+  openstax:
+    - book: "Biology 2e"
+      section: "7.2 Glycolysis"
+      url: "https://openstax.org/books/biology-2e/pages/7-2-glycolysis"
+      took: "NAD+ to NADH, two pyruvates, two netATP, shared starting pathway"
+    - book: "Biology 2e"
+      section: "7.5 Metabolism without Oxygen"
+      url: "https://openstax.org/books/biology-2e/pages/7-5-metabolism-without-oxygen"
+      took: "Fermentation regenerates NAD+; yeast/lactate products differ; anaerobic electron-chain respiration distinct. Lactate/exercise oversimplification corrected by cited human evidence and modern reviews."
+  research:
+    - what: "Primary idli community/gas/souring evidence; L.mesenteroides principal organism in studied samples, not universal kitchen species claim"
+      source: "Mukherjee,Albury,Pederson,VanVeen,Steinkraus1965 Applied Microbiology13:227–231; abstract plus locally retrieved PMC article examined"
+      url: "https://pubmed.ncbi.nlm.nih.gov/14325884/"
+      accessed_copy: "https://pmc.ncbi.nlm.nih.gov/articles/PMC1058226/?pdf=1"
+      limitations: "Erratum notice inspected, correction contents not inspected; no paper numerical detail reused"
+    - what: "Different bacteria and yeast in controlled starter study; supports variable mixed communities"
+      source: "Selection of starter cultures for idli batter fermentation and their effect on quality of idlis,2010; full text inspected locally"
+      url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551100/"
+    - what: "Labelled lactate carbon traced to expired CO2 during rest/exercise; primary experimental evidence lactate can be oxidised"
+      source: "Mazzeo et al.1986, J.Appl.Physiol.60:232–241; primary abstract read, full paper not read"
+      url: "https://pubmed.ncbi.nlm.nih.gov/3080398/"
+    - what: "Modern synthesis: lactate formation under aerobic conditions, transport and reuse; not sole explanation of recovery oxygen use"
+      source: "Brooks2018 review abstract"
+      url: "https://pubmed.ncbi.nlm.nih.gov/29617642/"
+    - what: "Lactate correction cross-check, review abstract only"
+      source: "Brooks2020"
+      url: "https://pubmed.ncbi.nlm.nih.gov/32113910/"
+    - what: "School yeast-temperature investigation; yeast/muscle wording and oxygen debt, Core/Supplement checked in printed pp28–29"
+      source: "Cambridge0610,2026–2028 v3"
+      url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"
+    - what: "Fermentation word origin; leavening/rising does not imply every pathway produces gas"
+      source: "Online Etymology Dictionary"
+      url: "https://www.etymonline.com/word/fermentation"
+    - what: "Waterlogged-root case; rice internal aeration and barrier adaptations; no universal tolerance or survival time"
+      source: "Colmer2003 Annals of Botany91:301–309; primary abstract and publisher-indexed PDF text inspected, localPDF403"
+      url: "https://academic.oup.com/aob/article-abstract/91/2/301/131033"
+      took: "Water-filled paths restrict oxygen diffusion relative to air paths; root/microbial consumption continues; internal gas spaces aid rice aeration. No diffusion multiplier or survival time used."
+  history: []
+  figures:
+    - name: "c6_fermentation"
+      origin: "ours; carrier-regeneration schematic; no proton-balanced NAD chemistry or kinetic claim"
+    - name: "c6_roots"
+      origin: "ours; representative waterlogged root and rice internal aeration schematic"
+  licence: "CC BY-NC-SA 4.0 original explanations/art; OpenStax/MIT teaching ideas attributed; primary research, Cambridge and dictionaries cited only, no protected prose or artwork copied"
+  computed: "Glycolysis4−2=2netATP; fermentation recycling0additionalATP in taught routes. Yeast carbon6=2×2+2;H12=2×6;O6=2×1+2×2. Carrier and membrane focus stages are conceptual, not seconds."
+  safety: "One adult-managed observational home task; separate observation portion never consumed, loose cover, no sealed fermentation, no tasting/sniffing/culturing; stop on concerning appearance. No promised rise/time; not physically trialled. School yeast-temperature design teacher-led, fresh portions/matched controls/repeats, safe temperatures, vented collection, no pressure/flames/reagents. Roots case explicitly fictional reasoning, no plant flooding requested."
+
+"fig:c6_routes":
+  figures: [{name: "c6_routes", origin: "ours"}]
+  source_section: "6.1"
+  licence: "CC BY-NC-SA 4.0"
+  limits: "Original enlarged schematic; ventilation, exchange/transport and chemistry distinguished; not all cells assigned mitochondria"
+"fig:c6_respiration":
+  figures: [{name: "c6_respiration", origin: "ours"}]
+  source_section: "6.2"
+  licence: "CC BY-NC-SA 4.0"
+  limits: "Carbon and electron routes separate; net equation not literal single-step mechanism or oxygen-origin tracing"
+"fig:c6_membrane":
+  figures: [{name: "c6_membrane", origin: "ours"}]
+  source_section: "6.2"
+  licence: "CC BY-NC-SA 4.0"
+  limits: "Matrix/intermembrane orientation, pumping out/return in, stationary matrix-facing head and rotary linkage; no speed, scale, coupling ratio or yield"
+"fig:c6_mass":
+  figures: [{name: "c6_mass", origin: "ours"}]
+  source_section: "6.3"
+  licence: "CC BY-NC-SA 4.0"
+  limits: "Total products versus approximate original-fuel allocation separate; representative model, nominal masses, no body target, timescale or tagged oxygen path"
+"fig:c6_fermentation":
+  figures: [{name: "c6_fermentation", origin: "ours"}]
+  source_section: "6.4"
+  licence: "CC BY-NC-SA 4.0"
+  limits: "Carrier-regeneration schematic;2netATP belong to glycolysis; fermentation recycling adds none; yeast/lactate outcomes distinct"
+"fig:c6_roots":
+  figures: [{name: "c6_roots", origin: "ours"}]
+  source_section: "6.4 and waterlogged-root case"
+  licence: "CC BY-NC-SA 4.0"
+  limits: "Representative oxygen-delivery problem and rice gas-space adaptation; no universal anatomy or survival prediction"
+
+"story:rotary-pointer":
+  history:
+    - what: "TRUE: four authors,20March1997 publication, Yokohama affiliations, gamma-shaft fluorescent actin pointer and ATP-driven isolatedF1 rotation"
+      source: "Noji,Yasuda,Yoshida,Kinosita1997 Nature386:299–302,DOI10.1038/386299a0; abstract/metadata only, full subscription paper not read"
+      url: "https://www.nature.com/articles/386299a0"
+    - what: "TRUE: Boyer mechanism, Walker structure; half1997ChemistryPrize jointlyBoyer/Walker, otherhalfSkou for different ion-transporting enzyme"
+      source: "Nobel Committee1997 press release; actual full official HTML read locally after web403"
+      url: "https://www.nobelprize.org/prizes/chemistry/1997/press-release/"
+    - what: "TRUE: Mitchell1961 indirect membrane coupling;1978recognition"
+      source: "Nobel Committee1978 press release; actual full official HTML read locally"
+      url: "https://www.nobelprize.org/prizes/chemistry/1978/press-release/"
+  licence: "CC BY-NC-SA 4.0 original prose; Nature/Nobel historical and scientific facts citation-only, no quotations, source diagrams or photographs"
+  discipline: "No invented scene furnishings, speech, emotions, exact first-observation date, numeric speed or lone-discoverer claim. Explicit ATP-breakdown experimental direction and synthesis-direction distinction."
+  term_ownership: "Only rotation experiment, fluorescent pointer; energy topic group. Existing ATP, respiration and people-story terms retained unchanged."
+
+"ch06-models":
+  figures:
+    - {name: "respiration_relay", origin: "ours"}
+    - {name: "oxidation_ledger", origin: "ours"}
+    - {name: "carrier_routes", origin: "ours"}
+  licence: "CC BY-NC-SA 4.0"
+  model_contract: "grounding/ch06.md fixed before implementation; three manually controlled2Dstatic lessons, lesson:true; no clock, biological rate, rpm or universal ATP yield"
+  computed: "Oxidation slider mathematical sample0–10kg:O2=m×2496/860,CO2=m×2420/860,H2O=m×936/860,input=output; allocationsm×724/860 andm×136/860 sumtom. Relays/carrier stages0–4 are explanatory focus, processes overlap. No-O2 comparison means sustained absence after residual gradient dissipates."
+  limits: "NAD schematic omits full proton balance; token counts do not imply proton/ATP stoichiometry; idli mixed community outside quantitative route comparison. Total entries independently rounded; totals calculated before rounding."
+
+"ch06-source-decisions":
+  source_use: "Existing noncommercial series source-use decision in research/sources.md retained. OpenStax AI-ingestion restriction acknowledged in grounding, not claimed waived. MIT/OpenStax attribution and generated Access-for-free chapter footer required."
+  access_limits: "OpenStax pages and actual MIT transcripts examined. Nobel officialHTML fetched/read locally after web403. NatureNoji abstract+metadata only; no fullpaper claim. BMJ original publisher-formatted3-pagePDF read through mirror after publisher403; paper not replaced with secondary-news arithmetic. Idli primary/fulltext access and erratum limit above. Mazzeo abstract only; Brooks review abstracts. Rice abstract+indexedPDFtext, not localfullPDF. OfficialCambridge2026–2028PDFv3pp28–29. No independently verified IB syllabus wording."
+  correction_record: "Before prose, original-plate inspection rerouted carrier arrow away from title and moved proton/soil labels off structures; roots caption qualified. Relay return arrowhead moved above shaft overpainting. No scientific model changed. Shared enhancement changes append only three Chapter6 entries; earlier prefix preserved."
+  preservation: "Chapter0–5 sources, corrected p-helmont and all other earlier material remain unchanged; tests/ch06-preserved.json199-file baseline owned by coordinator. No publication, remote push or hosted verification."
+
+"ch06-inherited-discrepancies":
+  status: "Separately recorded for later authorised work; no earlier chapter edited"
+  limitations: "Chapter1 contains whole-body ATP quantities/turnover and an ATP-discovery arrest/rescue account not verified by Chapter6 sources. Chapter6 does not repeat those assertions or use them as evidence. Earlier absolute claims about all cells/mitochondria/oxygen are not inherited; Chapter6 states the appropriate exceptions."
+
+"ch06-gate-decisions":
+  correction: "Gate B optional B1 adopted: school CO2 collection alone cannot establish fermentation as the sole pathway or oxygen absence. This strengthens the grounded distinction between gas output and pathway identification. Gate A has no required findings."
+  editorial: "Gate B optional B2 not adopted: pointer-story ending retains the deliberate return to energy direction and evidence limits. No required finding is left unresolved."
+  confirmation: "Final independent confirmations are recorded in gates/ch06-A.md and gates/ch06-B.md; final execution receipts belong to gates/ch06-verification.md."

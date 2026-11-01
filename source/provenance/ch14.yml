@@ -1,0 +1,248 @@
+'14.1':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 14.6 DNA Repair & 19.1 Population Evolution & 19.2 Population Genetics
+    url: https://openstax.org/books/biology-2e/pages/14-6-dna-repair
+    took: Spontaneous DNA replication error rates, single-base substitution mutations (HBB codon 6 GAG to GTG), physical and chemical mutagens (ionising radiation, UV-B, chemical mutagens), continuous polygenic variation versus discontinuous single-gene variation, and the four sources of genetic and phenotypic variation
+  - book: Concepts of Biology
+    section: 9.4 Translation & 11.1 Discovering How Populations Change
+    url: https://openstax.org/books/concepts-of-biology/pages/11-1-discovering-how-populations-change
+    took: Accessible distinction between heritable genetic variation in gametes and non-heritable environmental variation in somatic tissues
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 18.1 Variation (Core 18.1.1–18.1.7: variation as differences between individuals of the same species; continuous variation resulting in a range of phenotypes between two extremes, e.g. body length and body mass; discontinuous variation resulting in a limited number of phenotypes with no intermediates, e.g. ABO blood groups, seed shape in peas and seed colour in peas; discontinuous caused by genes only and continuous by both genes and environment; mutation as genetic change; ionising radiation and some chemicals increase rate of mutation; Supplement 18.1.8–18.1.10: gene mutation as a random change in the base sequence of DNA; mutation as the way in which new alleles are formed; mutation, meiosis, random mating and random fertilisation as sources of genetic variation in populations)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Lower Secondary Science 0893 alignment: genetic and environmental causes of variation between individuals within a species (8Bp.03, 9Bp.03)'
+    source: Cambridge official Lower Secondary Science 0893 overview and source/research/school-wording.md
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: mutation (from Latin mutare, to change), mutagen, continuous, discontinuous'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/mutation
+  history:
+  - what: 'TRUE:Salvador E. Luria and Max Delbrück (1943) demonstrated mathematically and experimentally via the fluctuation test in Escherichia coli exposed to bacteriophage T1 (virus alpha) that phage-resistant bacterial mutants arise by random spontaneous mutation prior to exposure rather than directed adaptation'
+    source: 'Luria SE, Delbrück M (1943) Mutations of bacteria from virus sensitivity to virus resistance, Genetics 28(6):491–511'
+    url: https://doi.org/10.1093/genetics/28.6.491
+  - what: 'TRUE:Joshua Lederberg and Esther M. Lederberg (1952) invented sterile velveteen replica plating at the University of Wisconsin, transferring bacterial colonies from an antibiotic-free master agar plate onto streptomycin/penicillin agar plates at identical spatial coordinates (e.g. C3, C7, C11) and isolating pure resistant cultures directly from the antibiotic-free master plate'
+    source: 'Lederberg J, Lederberg EM (1952) Replica plating and indirect selection of bacterial mutants, Journal of Bacteriology 63(3):399–406'
+    url: https://doi.org/10.1128/jb.63.3.399-406.1952
+  figures:
+  - name: c14_mutation_variation_spectra
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; student height histogram + normal curve (continuous variation) contrasted with ABO blood group category bars (discontinuous variation) and the four sources of variation
+  - name: c14_mutagens_dna_glitches
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; HBB codon 6 base substitution (GAG to GTG), mutagen rate multipliers (1× to 50×), and Lederberg (1952) velveteen replica-plating workflow
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Continuous height distribution (140–185 cm, mean 162.5 cm, SD 7.2 cm, environmental shift +0.0 to +4.2 cm), discontinuous ABO blood group frequencies (38% O, 32% B, 22% A, 8% AB, 0% environmental shift), Lederberg 12-colony master/replica coordinates (C3, C7, C11), and mutagen rate multipliers (1×, 8×, 20×, 50×) computed in source/live/selection_model.js and verified in tests/ch14_domain.mjs.'
+  scope: Opens Chapter 14 by answering Question 1 of Chapter 13's closing bridge (how continuous vs discontinuous variation arises and how mutation and meiosis generate heritable variation).
+
+'14.2':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 18.1 Understanding Evolution & 19.3 Adaptive Evolution & 22.4 Bacterial Diseases in Humans
+    url: https://openstax.org/books/biology-2e/pages/18-1-understanding-evolution
+    took: Darwin and Wallace's independent formulation of natural selection, the six-step mechanism from variation and overproduction to differential survival and allele frequency shift, industrial melanism in Biston betularia, and evolution of antibiotic resistance in bacteria (MRSA)
+  - book: Concepts of Biology
+    section: 11.1 Discovering How Populations Change & 11.2 Mechanisms of Evolution
+    url: https://openstax.org/books/concepts-of-biology/pages/11-2-mechanisms-of-evolution
+    took: Clear step-by-step causal sequence of natural selection and why individuals do not evolve during their lifetime
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 18.3 Selection (Core 18.3.1: describe natural selection with reference to genetic variation within populations, production of many offspring, struggle for survival including competition for resources, greater chance of reproduction by individuals better adapted to the environment than others, and passing on their alleles to the next generation; Supplement 18.3.3: describe adaptation as the process, resulting from natural selection, by which populations become more suited to their environment over many generations; Supplement 18.3.4: describe the development of strains of antibiotic-resistant bacteria such as MRSA as an example of evolution by natural selection)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Lower Secondary Science 0893 alignment: natural selection and how advantageous heritable variations become more common over generations (9Bp.04)'
+    source: Cambridge official Lower Secondary Science 0893 overview and source/research/school-wording.md
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: evolution (from Latin evolutio, unrolling of a scroll), selection, antibiotic'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/evolution
+  history:
+  - what: 'TRUE:Charles Robert Darwin (1835 Galápagos voyage on HMS Beagle; March 1837 finch classification by John Gould and locality reconstruction from FitzRoy and Covington specimens; July 1837 Notebook B tree sketch; 1859 On the Origin of Species) and Alfred Russel Wallace (February 1858 Ternate essay written during malarial fever; 1 July 1858 joint Linnean Society of London reading arranged by Charles Lyell and Joseph Dalton Hooker)'
+    source: 'Darwin CR, Wallace AR (1858) On the Tendency of Species to form Varieties; and on the Perpetuation of Varieties and Species by Natural Means of Selection, Journal of the Proceedings of the Linnean Society of London (Zoology) 3(9):45–62; Sulloway FJ (1982) Journal of the History of Biology 15:1–53'
+    url: https://www.biodiversitylibrary.org/page/2351477
+  - what: 'TRUE:Henry Bernard Davis Kettlewell (1953–1955) performed mark-release-recapture experiments on Biston betularia in soot-polluted Birmingham woods (recapturing 27.5% pale typica vs 53.1% dark carbonaria) and unpolluted Dorset woods (recapturing 13.7% pale vs 4.7% dark), filming bird predation with Niko Tinbergen; HEDGE:critics noted daytime trunk placement, and Michael E. N. Majerus (2001–2007, published 2012) validated differential bird predation across 4,864 moths resting naturally on high canopy branches'
+    source: 'Kettlewell HBD (1955) Selection experiments on industrial melanism in the Lepidoptera, Heredity 9:323–342; Cook LM, Grant BS, Saccheri IJ, Mallet J (2012) Biology Letters 8(4):609–612'
+    url: https://doi.org/10.1038/hdy.1955.36
+  figures:
+  - name: c14_natural_selection_six_steps
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; six-step Cambridge natural selection causal chain paired with Biston betularia across pre-1848 rural woods, 1895–1955 industrial soot, and post-1956 Clean Air recovery
+  - name: c14_antibiotic_resistance_selection
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; four-stage bacterial antibiotic selection schematic and clinical comparison of a completed 7-day antibiotic course (0% cleared) versus stopping early on Day 3 (98% resistant relapse)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Ten-step bacterial load and resistance trajectories for completed 7-day antibiotic course (100% to 0% load) vs stopping on Day 3 (rebound to 98% load, 99.4% resistant), Biston betularia morph trajectories across pollution and Clean Air recovery, and Kettlewell recapture counts computed in source/live/selection_model.js and verified in tests/ch14_domain.mjs.'
+  scope: Answers Question 2 of Chapter 13's closing bridge (how natural selection filters variation across generations and drives peppered moth melanism and antibiotic resistance).
+
+'14.3':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 30.4 Leaves & 30.5 Transport of Water and Solutes in Plants & 33.3 Homeostasis
+    url: https://openstax.org/books/biology-2e/pages/30-4-leaves
+    took: 'Structural and physiological adaptations of xerophytes (marram grass Ammophila arenaria and cacti Opuntia: thick cuticle, sunken stomata in rolled grooves with trichomes, spines, succulent stems, deep roots) and hydrophytes (water lily Nymphaea and Elodea: large aerenchyma air spaces, upper-epidermis stomata, thin cuticle, reduced roots and xylem), plus desert camel and polar bear adaptations'
+  - book: Concepts of Biology
+    section: 16.2 Digestive, Excretory, and Thermoregulatory Systems
+    url: https://openstax.org/books/concepts-of-biology/pages/16-1-homeostasis-and-osmoregulation
+    took: Osmoregulatory and thermal adaptations of desert and polar mammals
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 18.2 Adaptive features (Core 18.2.1: describe an adaptive feature as an inherited feature that helps an organism to survive and reproduce in its environment; Core 18.2.2: interpret images or other information about a species to describe its adaptive features; Supplement 18.2.3: define fitness as the probability of an organism surviving and reproducing in the environment in which it is found; Supplement 18.2.4: explain the adaptive features of hydrophytes and xerophytes to their environments)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Word origin only, not mechanism evidence: xerophyte (from Greek xeros, dry + phyton, plant), hydrophyte (from Greek hydor, water + phyton, plant), aerenchyma'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/xerophyte
+  history:
+  - what: 'TRUE:Eugen Warming (1895, Plantesamfund / Oecology of Plants) established the ecological classification of plants into xerophytes, mesophytes, and hydrophytes based on anatomical and physiological adaptations to water availability; Knut Schmidt-Nielsen (1956–1964) measured the renal water conservation and 34–41 °C adaptive heterothermy of the dromedary camel (Camelus dromedarius)'
+    source: 'Warming E (1895/1909) Oecology of Plants, Clarendon Press, Oxford; Schmidt-Nielsen K (1964) Desert Animals: Physiological Problems of Heat and Water, Oxford University Press'
+    url: https://www.biodiversitylibrary.org/page/28895164
+  figures:
+  - name: c14_xerophyte_hydrophyte_adaptations
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; comparative leaf and root anatomy of xerophytes (marram grass / cactus) versus hydrophytes (floating water lily) with quantitative comparison table
+  - name: c14_animal_plant_adaptive_features
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; Thar Desert camel and Arctic polar bear adaptive suites paired with Cambridge 0610 definitions of adaptive feature and fitness
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Xerophyte (8.5 µm cuticle, 12% air space, 0/45 stomata per mm², 3.2 m roots, 0.6–1.8 mg/cm²/h transpiration loss, 92% conserved) vs hydrophyte (0.4 µm cuticle, 58% aerenchyma, 280/0 stomata per mm², 0.25 m roots) leaf metrics computed in source/live/selection_model.js and verified in tests/ch14_domain.mjs.'
+  scope: Explains how natural selection builds inherited structural, physiological, and behavioural adaptive features in xerophytes, hydrophytes, and animals to maximise fitness.
+
+'14.4':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 18.1 Understanding Evolution & 19.3 Adaptive Evolution & 20.1 Organizing Life on Earth & 20.2 Determining Evolutionary Relationships
+    url: https://openstax.org/books/biology-2e/pages/20-2-determining-evolutionary-relationships
+    took: Selective breeding (artificial selection) across generations, comparison of natural and artificial selection, inbreeding depression and genetic diversity loss, fossil stratigraphy, molecular clocks (Cytochrome c and beta-globin), and Carl Woese's 16S rRNA three domains of life
+  - book: Concepts of Biology
+    section: 12.1 Organizing Life on Earth & 12.2 Determining Evolutionary Relationships
+    url: https://openstax.org/books/concepts-of-biology/pages/12-2-determining-evolutionary-relationships
+    took: Cladogram interpretation and why DNA base sequence similarity reflects recency of common ancestry
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 18.3 Selection (Core 18.3.2: describe selective breeding with reference to selection by humans of individuals with desirable features, crossing these individuals to produce the next generation, selection of offspring showing the desirable features, and repetition over many generations; Supplement 18.3.5: outline how selective breeding by artificial selection is carried out over many generations to improve crop plants and domesticated animals and apply this to given contexts; outline the differences between natural and artificial selection) and Topic 1.2 Concept and uses of classification systems (Supplement 1.2.5: state that sequences of bases in DNA and of amino acids in proteins are used as a more accurate means of classification; Supplement 1.2.6: explain that organisms which share a more recent ancestor are more closely related and have base sequences in DNA that are more similar than those that share only a distant ancestor)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Word origin only, not mechanism evidence: fossil (from Latin fossilis, dug up), cladogram (from Greek klados, branch)'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/fossil
+  history:
+  - what: 'TRUE:E. K. Janaki Ammal (1930s Imperial Sugarcane Breeding Station, Coimbatore) crossed sweet tropical Saccharum officinarum with hardy wild Indian Saccharum spontaneum and analysed polyploid chromosome hybrids to breed high-sucrose, frost-tolerant Indian sugarcane varieties; Birbal Sahni FRS (1946 founder of the Institute of Palaeobotany, Lucknow; 1948 Botanical Gazette) described the extinct Jurassic gymnosperm order Pentoxyleae from the Rajmahal Hills of Bihar and Permian Glossopteris Gondwana floras'
+    source: 'Janaki Ammal EK (1941) Intergeneric hybrids of Saccharum, Journal of Genetics 41:217–253; Sahni B (1948) The Pentoxyleae: a new group of Jurassic gymnosperms from the Rajmahal Hills of India, Botanical Gazette 110(1):47–80'
+    url: https://doi.org/10.1086/335517
+  - what: 'TRUE:J. B. S. Haldane (1949) proposed the infectious-disease selection hypothesis for human red-cell variants; Anthony C. Allison (1954) demonstrated in 290 Ganda children near Lake Victoria and across 35 East African tribes that heterozygous HbAHbS sickle-cell carriers are protected against severe Plasmodium falciparum malaria (27.9% vs 45.7% parasite rate); L. D. Sanghvi mapped HbS carrier frequencies across western and central Indian populations; Carl R. Woese and George E. Fox (1977) used 16S rRNA oligonucleotide sequences to establish the Three Domains (Bacteria, Archaea, Eukarya)'
+    source: 'Haldane JBS (1949) La Ricerca Scientifica Suppl 19:68–76; Allison AC (1954) Protection afforded by sickle-cell trait against subtertian malarial infection, British Medical Journal 1(4857):290–294; Woese CR, Fox GE (1977) PNAS 74(11):5088–5090'
+    url: https://doi.org/10.1136/bmj.1.4857.290
+  figures:
+  - name: c14_selective_breeding_vs_natural
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; five-step selective breeding loop, Coimbatore sugarcane and Gir cattle trajectories, and six-point comparison with natural selection
+  - name: c14_sahni_fossils_dna_clocks
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; Birbal Sahni Gondwana fossil strata, Cytochrome c (104 aa) and beta-globin (146 aa) molecular clock, and Carl Woese (1977) three-domain tree of life
+  - name: c14_sickle_cell_malaria_case
+    origin: ours; original semantic-theme schematic code in figs_ch14.py; no source illustrations or photographs
+    limits: Not to scale; balancing selection of HbS in Plasmodium falciparum malaria belts (Allison 1954 & Sanghvi), uniting Chapters 11–14
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Forty-generation selective breeding trajectories and diversity trade-offs for Coimbatore sugarcane (8.2% to 16.4% sucrose), rust-resistant wheat (2.1 to 5.4 t/ha), and Gir dairy cattle (1,350 to 3,650 L/lactation; diversity 100% to 59%), Cytochrome c / beta-globin molecular clock differences across 5 taxa, and Allison/Sanghvi HbS balancing selection trajectories computed in source/live/selection_model.js and verified in tests/ch14_domain.mjs.'
+  scope: Answers Question 3 of Chapter 13's closing bridge (selective breeding, DNA sequence classification, and balancing selection of the sickle-cell allele in malaria belts) and bridges to Chapter 15 (Ecology, Nutrient Cycles & Biotechnology).
+
+fig:c14_mutation_variation_spectra:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_mutagens_dna_glitches:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_natural_selection_six_steps:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_antibiotic_resistance_selection:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_xerophyte_hydrophyte_adaptations:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_animal_plant_adaptive_features:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_selective_breeding_vs_natural:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_sahni_fossils_dna_clocks:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c14_sickle_cell_malaria_case:
+  origin: ours
+  source: figs_ch14.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch14.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+story:darwin-wallace-luria-sahni-selection:
+  ocw: []
+  openstax: []
+  research: []
+  history:
+  - what: 'TRUE:Charles Robert Darwin (September–October 1835 Galápagos visit on HMS Beagle; March 1837 ornithological analysis by John Gould identifying 13 endemic ground-finch species and locality reconstruction from Captain Robert FitzRoy, Syms Covington, and Harry Fuller; July 1837 Notebook B page 36 tree sketch; November 1859 On the Origin of Species) and Alfred Russel Wallace (February 1858 Ternate malarial fever insight inspired by Malthus; 1 July 1858 joint Linnean Society reading arranged by Lyell and Hooker while Darwin mourned his infant son Charles Waring Darwin)'
+    source: 'Darwin CR, Wallace AR (1858) J Proc Linn Soc Lond (Zool) 3(9):45–62; Sulloway FJ (1982) Darwin and his finches: the legend of theinian voyage, J Hist Biol 15:1–53'
+    url: https://www.biodiversitylibrary.org/page/2351477
+  - what: 'TRUE:Salvador Luria and Max Delbrück (1943) E. coli fluctuation test; Joshua Lederberg and Esther Lederberg (1952) sterile velveteen replica-plating proof of pre-existing bacterial resistance mutations at Wisconsin; Bernard Kettlewell (1953–1955) Biston betularia mark-release-recapture in Birmingham (53.1% dark vs 27.5% pale) and Dorset (13.7% pale vs 4.7% dark) and Michael Majerus (2001–2007) 4,864-moth canopy confirmation; J. B. S. Haldane (1949) and Anthony Allison (1954) East African HbAHbS malaria protection proof; Birbal Sahni (1948) Rajmahal Hills Jurassic Pentoxyleae; Carl Woese (1977) 16S rRNA three domains'
+    source: 'Luria SE, Delbrück M (1943) Genetics 28:491–511; Lederberg J, Lederberg EM (1952) J Bacteriol 63:399–406; Kettlewell HBD (1955) Heredity 9:323–342; Allison AC (1954) BMJ 1:290–294; Sahni B (1948) Bot Gaz 110:47–80; Woese CR, Fox GE (1977) PNAS 74:5088–5090'
+    url: https://doi.org/10.1128/jb.63.3.399-406.1952
+  figures: []
+  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes or art copied.
+  truth_status: 'TRUE documented places (Galápagos Islands, Zoological Society of London, Down House Kent, Ternate Maluku, Linnean Society of London, Bloomington Indiana, University of Wisconsin Madison, Birmingham and Dorset woods, Lake Victoria Uganda, Institute of Palaeobotany Lucknow, University of Illinois Urbana), dates (1835, 1837, 1858, 1859, 1943, 1948, 1949, 1952, 1953–1955, 1977, 2001–2007), and quantitative results (13 finch species, 53.1% vs 27.5% and 13.7% vs 4.7% Kettlewell recapture rates, 4,864 moths in Majerus replication, 290 Ganda children with 27.9% vs 45.7% parasite rates). Explicitly debunks the Darwin finch beach-eureka legend and notes the methodological critique and Majerus confirmation of Kettlewell.'
+  access_limits: Darwin & Wallace 1858, Luria & Delbrück 1943, Lederberg & Lederberg 1952, Kettlewell 1955, Allison 1954, Sahni 1948, and Woese & Fox 1977 verified via open-access archives and primary bibliometric records.
+
+model:variation_mutation_lab:
+  source: live/selection_model.js; live/w_variation_mutation_lab.js; appended live/enhancements.js entry
+  static_figure: c14_mutation_variation_spectra
+  contract: grounding/ch14.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch14_domain.mjs independent oracles and tests/qa_ch14.py final-book browser acceptance; results reported in gates/ch14-verification.md
+
+model:natural_selection_simulator:
+  source: live/selection_model.js; live/w_natural_selection_simulator.js; appended live/enhancements.js entry
+  static_figure: c14_antibiotic_resistance_selection
+  contract: grounding/ch14.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch14_domain.mjs independent oracles and tests/qa_ch14.py final-book browser acceptance; results reported in gates/ch14-verification.md
+
+model:adaptive_features_selective_breeding:
+  source: live/selection_model.js; live/w_adaptive_features_selective_breeding.js; appended live/enhancements.js entry
+  static_figure: c14_xerophyte_hydrophyte_adaptations
+  contract: grounding/ch14.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch14_domain.mjs independent oracles and tests/qa_ch14.py final-book browser acceptance; results reported in gates/ch14-verification.md
+
+record:ch14-decisions:
+  preservation: tests/ch14-preserved.json captures all 333 pre-existing files under source/ (Chapters 0–13 + baselines/gates/runners). Only existing-file change is append-only three Chapter 14 enhancements in source/live/enhancements.js; exact original 102,985 bytes reconstructed and verified. Existing stories (p-ammal.md, p-margulis.md, p-pasteur.md, p-ramachandran.md, franklin-khorana-codebreakers.md, meselson-flemming-gurdon-divisions.md, mendel-morgan-sanghvi-inheritance.md) preserved byte-for-byte and linked naturally in Chapter 14.
+  corrections: 'Covered full Cambridge Lower Secondary Science 0893 (8Bp.03, 9Bp.03, 9Bp.04) and Cambridge IGCSE Biology 0610 Topic 18 Variation and selection (18.1 Variation Core 1–7 & Supplement 8–10; 18.2 Adaptive features Core 1–2 & Supplement 3–4; 18.3 Selection Core 1–2 & Supplement 3–5) plus Topic 1.2 Concept and uses of classification systems (Supplement 1.2.5–1.2.6: DNA base sequences and protein amino acid sequences); maintained strict syllabus partition by deferring Topics 19, 20, and 21 (ecology, food webs, nutrient cycles, human ecosystem impacts, biotechnology, and genetic modification) to Chapter 15.'
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax access-for-free footer retained; original prose/art only.
+  access_limits: Primary papers Darwin & Wallace 1858, Luria & Delbrück 1943, Lederberg & Lederberg 1952, Kettlewell 1955, Allison 1954, Sahni 1948, and Woese & Fox 1977 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
+  physical_trials: Safe household and classroom camouflage investigation using a newspaper sheet, a hole punch (30 white paper dots + 30 newspaper dots), and blunt forceps across 3 generations of 15-second visual predation; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
+  publication: No publication, deployment, commit, push, clone or remote repository operation.

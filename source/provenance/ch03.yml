@@ -1,0 +1,201 @@
+'3.1':
+  ocw:
+  - course: 7.012 Introductory Biology, Fall 2004
+    where: Robert Weinberg Lecture 2; transcript pp9–11; thermal energy p1
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-2-biochemistry-1/
+    took: Membrane, gradient, pump and channel spine only; transport histories and plant detail separately sourced.
+      Original explanation; no artwork or speculative energy percentages reused.
+  openstax:
+  - book: Biology 2e
+    section: 5 2 passive transport
+    url: https://openstax.org/books/biology-2e/pages/5-2-passive-transport
+    took: Mechanisms checked against grounding/ch03.md; original explanations and diagrams; pressure and dynamic-equilibrium
+      qualifications retained.
+  research:
+  - what: Purposeful particles, stopped equilibrium, salt suction; no unverified prevalence or promised potato endpoints
+    source: research/misconceptions.md §3; Coley & Tanner, ideas only
+    url: https://www.lifescied.org/doi/10.1187/cbe.12-06-0074
+  - what: 0610 Core + Supplement Topic 3.1; research/school-wording.md Ch3; no assessment items copied
+    source: Cambridge 2026–2028 pp15–16
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Exact Boltzmann constant; chosen thermal scale at 300 K
+    source: NIST SI definition
+    url: https://www.nist.gov/pml/special-publication-330/sp-330-section-2
+  - what: Diffusion word history
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/diffusion
+  history:
+  - what: Modern repeatable dye comparison; original model is a test of rules, not historical evidence
+    source: grounding/ch03.md 3.1; research/history.md audit rules
+    url: https://openstax.org/books/biology-2e/pages/5-2-passive-transport
+  figures:
+  - name: c3_diffusion
+    origin: ours; original engraved SVG and corresponding Canvas/Three.js model, no source art
+  licence: CC BY-NC-SA 4.0; Cambridge, dictionary and historical facts ideas only, no third-party images adapted
+  computed: 'kBT=4.141947e-21 J at 300 K. Chosen 0.1 crossing chance: 80×0.1=8, 20×0.1=2, net 6; equal 50×0.1=5
+    each. Check: 17−11=6, 80−6=74, 20+6=26. Widget conserves 100 tokens, uncalibrated steps.'
+'3.2':
+  ocw: &id001
+  - course: 7.012 Introductory Biology, Fall 2004
+    where: Robert Weinberg Lecture 2; transcript pp9–11; thermal energy p1
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-2-biochemistry-1/
+    took: Membrane, gradient, pump and channel spine only; transport histories and plant detail separately sourced.
+      Original explanation; no artwork or speculative energy percentages reused.
+  openstax: &id002
+  - book: Biology 2e
+    section: 5 2 passive transport
+    url: https://openstax.org/books/biology-2e/pages/5-2-passive-transport
+    took: Mechanisms checked against grounding/ch03.md; original explanations and diagrams; pressure and dynamic-equilibrium
+      qualifications retained.
+  - book: Biology 2e
+    section: 30 5 transport of water and solutes in plants
+    url: https://openstax.org/books/biology-2e/pages/30-5-transport-of-water-and-solutes-in-plants
+    took: Mechanisms checked against grounding/ch03.md; original explanations and diagrams; pressure and dynamic-equilibrium
+      qualifications retained.
+  research:
+  - what: Purposeful particles, stopped equilibrium, salt suction; no unverified prevalence or promised potato endpoints
+    source: research/misconceptions.md §3; Coley & Tanner, ideas only
+    url: https://www.lifescied.org/doi/10.1187/cbe.12-06-0074
+  - what: 0610 Core + Supplement Topic 3.2; research/school-wording.md Ch3; no assessment items copied
+    source: Cambridge 2026–2028 pp15–16
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Osmosis Greek word history; no suction mechanism implied
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/osmosis
+  history: &id003
+  - what: 'TRUE: 1991 first test; 1992 paper; Preston, Agre, Guggino and colleagues'
+    source: Agre first-person Nobel biography
+    url: https://www.nobelprize.org/prizes/chemistry/2003/agre/biographical/
+  - what: Original 1992 oocyte expression paper
+    source: Preston et al. Science 256:385–387
+    url: https://doi.org/10.1126/science.256.5055.385
+  figures:
+  - name: c3_water_gate
+    origin: ours; original engraved SVG and corresponding Canvas/Three.js model, no source art
+  licence: CC BY-NC-SA 4.0; Cambridge, dictionary and historical facts ideas only, no third-party images adapted
+  computed: 'Chosen pressure account in MPa: −0.80+0.50=−0.30 equals outside. No measured sap or evolving volume
+    implied.'
+'3.3':
+  ocw:
+  - course: 7.012 Introductory Biology, Fall 2004
+    where: Robert Weinberg Lecture 2; transcript pp9–11; thermal energy p1
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-2-biochemistry-1/
+    took: Membrane, gradient, pump and channel spine only; transport histories and plant detail separately sourced.
+      Original explanation; no artwork or speculative energy percentages reused.
+  openstax:
+  - book: Biology 2e
+    section: 5 2 passive transport
+    url: https://openstax.org/books/biology-2e/pages/5-2-passive-transport
+    took: Mechanisms checked against grounding/ch03.md; original explanations and diagrams; pressure and dynamic-equilibrium
+      qualifications retained.
+  - book: Biology 2e
+    section: 30 5 transport of water and solutes in plants
+    url: https://openstax.org/books/biology-2e/pages/30-5-transport-of-water-and-solutes-in-plants
+    took: Mechanisms checked against grounding/ch03.md; original explanations and diagrams; pressure and dynamic-equilibrium
+      qualifications retained.
+  research:
+  - what: Purposeful particles, stopped equilibrium, salt suction; no unverified prevalence or promised potato endpoints
+    source: research/misconceptions.md §3; Coley & Tanner, ideas only
+    url: https://www.lifescied.org/doi/10.1187/cbe.12-06-0074
+  - what: 0610 Core + Supplement Topic 3.2; research/school-wording.md Ch3; no assessment items copied
+    source: Cambridge 2026–2028 pp15–16
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history:
+  - what: Modern repeatable plasmolysis microscopy; no invented date
+    source: grounding/ch03.md 3.3; research/history.md audit rules
+    url: https://openstax.org/books/biology-2e/pages/5-2-passive-transport
+  figures:
+  - name: c3_cells
+    origin: ours; original engraved SVG and corresponding Canvas/Three.js model, no source art
+  licence: CC BY-NC-SA 4.0; Cambridge, dictionary and historical facts ideas only, no third-party images adapted
+  computed: 5 g per final 100 mL=5% mass/volume; 6 strips, 3 per condition, 60×5×5 mm, 30–60 min are protocol choices.
+    Percentage change=100(final−initial)/initial; no predicted endpoints or calibrated widget time/volume.
+'3.4':
+  ocw: &id004
+  - course: 7.012 Introductory Biology, Fall 2004
+    where: Robert Weinberg Lecture 2; transcript pp9–11; thermal energy p1
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-2-biochemistry-1/
+    took: Membrane, gradient, pump and channel spine only; transport histories and plant detail separately sourced.
+      Original explanation; no artwork or speculative energy percentages reused.
+  openstax: &id005
+  - book: Biology 2e
+    section: 5 3 active transport
+    url: https://openstax.org/books/biology-2e/pages/5-3-active-transport
+    took: Mechanisms checked against grounding/ch03.md; original explanations and diagrams; pressure and dynamic-equilibrium
+      qualifications retained.
+  - book: Biology 2e
+    section: 30 5 transport of water and solutes in plants
+    url: https://openstax.org/books/biology-2e/pages/30-5-transport-of-water-and-solutes-in-plants
+    took: Mechanisms checked against grounding/ch03.md; original explanations and diagrams; pressure and dynamic-equilibrium
+      qualifications retained.
+  research:
+  - what: Purposeful particles, stopped equilibrium, salt suction; no unverified prevalence or promised potato endpoints
+    source: research/misconceptions.md §3; Coley & Tanner, ideas only
+    url: https://www.lifescied.org/doi/10.1187/cbe.12-06-0074
+  - what: 0610 Core + Supplement Topic 3.3; research/school-wording.md Ch3; no assessment items copied
+    source: Cambridge 2026–2028 pp15–16
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Mangrove salt exclusion, compartmentalisation, lower tissue water potential and Avicennia salt glands
+    source: Reef & Lovelock 2015, Regulation of water balance in mangroves
+    url: https://doi.org/10.1093/aob/mcu174
+  - what: Avicennia marina in coastal Maharashtra, no measured Carter Road salinity
+    source: Maharashtra Mangrove Cell
+    url: https://mangroves.maharashtra.gov.in/Site/1086/Mangrove-Diversity
+  - what: 'Case: seawater salt excretion can cause net water loss; distinguish cell osmosis from whole-body balance'
+    source: NOAA Ocean Service
+    url: https://oceanservice.noaa.gov/facts/drinksw.html
+  - what: Primary nitrate and proton root-flux evidence for the energy relay, no fixed stoichiometry reused
+    source: McClure, Kochian, Spanswick & Shaff (1990), Plant Physiology 93:290–294
+    url: https://pubmed.ncbi.nlm.nih.gov/16667449/
+  history: &id006
+  - what: 'TRUE: Skou 1918–2018; 1957 crab nerve membrane ATPase'
+    source: Nobel facts; research/history.md verification method
+    url: https://www.nobelprize.org/prizes/chemistry/1997/skou/facts/
+  - what: First-person lecture; chemical assay distinguished from complete transport mechanism
+    source: Skou Nobel Lecture (publisher abstract)
+    url: https://doi.org/10.1002/(SICI)1521-3773(19980918)37:17<2320::AID-ANIE2320>3.0.CO;2-2
+  - what: Original 1957 nerve-membrane ATPase study; university-hosted original, no source graph copied
+    source: Skou (1957), Biochimica et Biophysica Acta
+    url: https://www.au.dk/fileadmin/www.au.dk/forskning/nobelprisen_i_kemi_1997/biografi/artikel_01.pdf
+  figures:
+  - name: c3_root_routes
+    origin: ours; original engraved SVG and corresponding Canvas/Three.js model, no source art
+  licence: CC BY-NC-SA 4.0; Cambridge, dictionary and historical facts ideas only, no third-party images adapted
+fig:c3_diffusion:
+  figures:
+  - name: c3_diffusion
+    origin: ours; SVG fallback; grounding/ch03.md
+  licence: CC BY-NC-SA 4.0
+fig:c3_water_gate:
+  figures:
+  - name: c3_water_gate
+    origin: ours; SVG fallback; grounding/ch03.md
+  licence: CC BY-NC-SA 4.0
+fig:c3_cells:
+  figures:
+  - name: c3_cells
+    origin: ours; SVG fallback; grounding/ch03.md
+  licence: CC BY-NC-SA 4.0
+fig:c3_root_routes:
+  figures:
+  - name: c3_root_routes
+    origin: ours; SVG fallback; grounding/ch03.md
+  licence: CC BY-NC-SA 4.0
+story:p-agre:
+  ocw: *id001
+  openstax: *id002
+  history: *id003
+  research:
+  - what: Grounded factual history, no invented quotes or emotions
+    source: grounding/ch03.md; research/history.md verification method
+    url: https://www.nobelprize.org/prizes/chemistry/2003/agre/biographical/
+  licence: CC BY-NC-SA 4.0; original prose; historical facts only, no portraits
+story:p-skou:
+  ocw: *id004
+  openstax: *id005
+  history: *id006
+  research:
+  - what: Grounded factual history, no invented quotes or emotions
+    source: grounding/ch03.md; research/history.md verification method
+    url: https://www.nobelprize.org/prizes/chemistry/1997/skou/facts/
+  licence: CC BY-NC-SA 4.0; original prose; historical facts only, no portraits

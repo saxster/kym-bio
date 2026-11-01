@@ -1,0 +1,394 @@
+'9.1':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 35.1 Neurons and Glial Cells
+    url: https://openstax.org/books/biology-2e/pages/35-1-neurons-and-glial-cells
+    took: Neurone cellular architecture and electrical impulse framing across central and peripheral divisions
+  - book: Biology 2e
+    section: 35.3 The Central Nervous System
+    url: https://openstax.org/books/biology-2e/pages/35-3-the-central-nervous-system
+    took: Brain and spinal cord as the central nervous system (CNS)
+  - book: Biology 2e
+    section: 35.4 The Peripheral Nervous System
+    url: https://openstax.org/books/biology-2e/pages/35-4-the-peripheral-nervous-system
+    took: Nerves outside the brain and spinal cord as the peripheral nervous system (PNS)
+  - book: Biology 2e
+    section: 37.1 Types of Hormones
+    url: https://openstax.org/books/biology-2e/pages/37-1-types-of-hormones
+    took: Endocrine ductless secretion into blood plasma and receptor-mediated target-organ specificity
+  - book: Biology 2e
+    section: 37.2 How Hormones Work
+    url: https://openstax.org/books/biology-2e/pages/37-2-how-hormones-work
+    took: Complementary target-cell receptors and nervous versus endocrine comparison in speed and duration
+  - book: Biology 2e
+    section: 37.5 Endocrine Glands
+    url: https://openstax.org/books/biology-2e/pages/37-5-endocrine-glands
+    took: Adrenal glands (adrenaline), pancreas (insulin and glucagon), testes (testosterone) and ovaries (oestrogen)
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 14.1 Coordination and response (14.1.1–14.1.3) and Topic
+      14.3 Hormones (14.3.1–14.3.6), printed pp 30–32'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Nervous versus endocrine coordination speed, duration, pathway and target specificity; adrenal fight-or-flight
+      effects (heart rate, breathing rate, pupil dilation, hepatic glycogenolysis to glucose)
+    source: OpenStax Anatomy and Physiology 2e (J. Gordon Betts et al.), §§12.1, 17.1–17.2, 17.6; corroborating physiological
+      facts, no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/17-1-an-overview-of- the-endocrine-system
+  - what: 0893 biology/scientific thinking level fit only; full framework not publicly inspected, no exact objective
+      codes asserted
+    source: Cambridge official Lower Secondary Science 0893 overview
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: stimulus, hormone, endocrine, adrenaline, insulin, glucagon'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/hormone
+  history:
+  - what: TRUE:1902 experiment on an anaesthetised dog jejunal loop with severed mesenteric nerves; dilute HCl placed in
+      the lumen still triggered pancreatic juice secretion; intravenous injection of an acid-mucosal extract (secretin)
+      reproduced the response, establishing blood-borne chemical coordination; Starling (1905 Croonian Lectures) coined
+      hormone from Greek horman ('to set in motion / arouse')
+    source: Bayliss WM, Starling EH (1902), The mechanism of pancreatic secretion, Journal of Physiology 28(5):325–353,
+      PMID 16992627 / PMC1540572; primary paper examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC1540572/
+  figures:
+  - name: c9_nerves_vs_hormones
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; schematic side-by-side comparison of point-to-point neural wiring (CNS/PNS) with bloodstream
+      hormone broadcast and complementary target-organ receptors, plus major endocrine gland locator
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded
+    series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research,
+    dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Pathway latency budget: spinal reflex ~43 ms vs voluntary visual catch ~185 ms vs bloodstream adrenaline ~15,000
+    ms. Free-fall ruler drop d = 1/2 g t^2 with g = 980 cm/s^2: at t = 0.1853 s, d = 16.8 cm (~17 cm); at d = 18 cm, t =
+    sqrt(2 × 0.18 / 9.8) = 0.192 s (192 ms); at d = 20 cm, t = 202 ms. Verified in tests/ch09_domain.mjs.'
+  activity: One seated or standing ruler-drop reaction-time activity with a partner using a 30 cm ruler, paper and pencil;
+    safe classroom/home activity reviewed for feasibility, not physically trialled.
+  scope: Introduces insulin, glucagon, adrenaline, testosterone and oestrogen at Topic 14.3 scope; reserves negative-feedback
+    blood-glucose homeostasis, Type 1 diabetes and skin thermoregulation for Chapter 10 (Topic 14.4).
+'9.2':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 35.1 Neurons and Glial Cells
+    url: https://openstax.org/books/biology-2e/pages/35-1-neurons-and-glial-cells
+    took: Sensory, relay (interneurone) and motor neurone morphology, dendrites, cell body, axon, myelin sheath and nodes
+      of Ranvier
+  - book: Biology 2e
+    section: 35.2 How Neurons Communicate
+    url: https://openstax.org/books/biology-2e/pages/35-2-how-neurons-communicate
+    took: Resting membrane potential (-70 mV), threshold (-55 mV), voltage-gated Na+ depolarisation (+30 mV), voltage-gated
+      K+ repolarisation, refractory period, saltatory conduction, and chemical synaptic transmission across the synaptic
+      cleft
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 14.1 Coordination and response (14.1.4–14.1.11: sensory,
+      relay and motor neurones, reflex arc, reflex action, synapse structure, neurotransmitter diffusion across synaptic
+      cleft, receptor binding, impulse stimulation and one-way transmission), printed pp 30–31'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Action potential ion fluxes, myelinated vs unmyelinated conduction speeds, cholinergic neuromuscular/autonomic
+      synaptic steps, and acetylcholinesterase termination vs organophosphate/carbamate inhibition
+    source: OpenStax Anatomy and Physiology 2e (J. Gordon Betts et al.), §§12.2–12.5; corroborating physiological facts,
+      no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/12-4-the-action-potential
+  - what: Cross-book reference to electron drift (~0.1 mm/s) versus electric field establishment (~2 × 10^8 m/s) in a copper
+      wire (Chapter 12, Section 12.2)
+    source: The Moving World (Book 2 of Kym's science series), source/src/ch12.md inspected directly
+    url: https://openstax.org/books/physics/pages/1-introduction
+  - what: 'Tetrodotoxin (TTX) mechanism: selective extracellular pore blockade of voltage-gated Na+ channels in lobster
+      giant axons without altering resting potential or K+ conductance; clinical progression from perioral paraesthesia
+      to diaphragmatic/intercostal respiratory paralysis and survival by mechanical ventilation'
+    source: Narahashi T, Moore JW, Scott WR (1964), Tetrodotoxin blockage of sodium conductance increase in lobster giant
+      axons, Journal of General Physiology 47(5):965–974, PMID 14155438 / PMC2195365; primary paper examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2195365/
+  - what: 'Word origin only, not mechanism evidence: neurone, dendrite, axon, myelin, reflex, synapse'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/synapse
+  history:
+  - what: TRUE:1939 Plymouth intracelluar microelectrode recording in Loligo forbesii giant axon showing action potential
+      overshoot above 0 mV; 1952 voltage-clamp separation of inward Na+ current and outward K+ current and quantitative
+      reconstruction of the action potential
+    source: Hodgkin AL, Huxley AF (1939) Nature 144:710–711; Hodgkin AL, Huxley AF (1952) Journal of Physiology 117(4):500–544,
+      PMID 12991237 / PMC1392413; primary papers examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC1392413/
+  - what: TRUE:1971 isolation of temperature-sensitive paralytic (para^ts) Drosophila mutant by Suzuki, Grigliatti & Williamson;
+      1976 electrophysiological dissection by Obaid Siddiqi (founder of the Molecular Biology Unit at TIFR Colaba, Mumbai
+      in 1962) and Seymour Benzer showing reversible loss of axonal action potentials in para above ~30 °C while direct
+      muscle excitability persisted and shi/com blocked synaptic transmission; 1989 cloning of the para locus as the
+      structural voltage-gated Na+ channel alpha-subunit gene by Loughney, Kreber & Ganetzky
+    source: Suzuki DT, Grigliatti T, Williamson R (1971) PNAS 68(5):890–893 (PMID 5280526); Siddiqi O, Benzer S (1976)
+      PNAS 73(9):3253–3257 (PMID 184469 / PMC431023); Loughney K, Kreber R, Ganetzky B (1989) Cell 58(6):1143–1154 (PMID
+      2550145); primary papers examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC431023/
+  - what: TRUE:1921 isolated two-frog-heart Ringer perfusion experiment in Graz demonstrating chemical vagal inhibition
+      (Vagusstoff, acetylcholine) by Otto Loewi; 1950s–1970s vesicular quantal release and presynaptic Ca2+ requirement
+      by Bernard Katz and colleagues
+    source: Loewi O (1921) Pflügers Archiv 189:239–242; Katz B (1969) The Release of Neural Transmitter Substances; historical
+      and physiological literature examined
+    url: https://www.nobelprize.org/prizes/medicine/1936/loewi/lecture/
+  figures:
+  - name: c9_neurone_types_reflex
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; compares sensory, relay and motor neurone geometries above a transverse spinal-cord withdrawal
+      reflex arc
+  - name: c9_action_potential_wave
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; contrasts copper-wire electron conduction with transmembrane Na+/K+ action-potential propagation
+      and shows Siddiqi & Benzer's 1976 para^ts recordings at 22 °C versus 32 °C
+  - name: c9_synapse_relay
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; schematic 20 nm chemical synaptic cleft showing vesicles, neurotransmitter diffusion, postsynaptic
+      receptors, one-way structural asymmetry and enzymatic clearance
+  - name: c9_pathway_latency_budget
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; compares total latency across spinal withdrawal reflex (~35 ms), voluntary ruler catch (~190
+      ms), endocrine blood broadcast (~5–30 s) and plant auxin bending (~20–120 min)
+  - name: c9_tetrodotoxin_case
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; compares open voltage-gated Na+ pore (+30 mV spike) with extracellular TTX guanidinium plug (flatline
+      at -70 mV) and clinical progression to phrenic/intercostal motor block
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded
+    series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research,
+    dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Axon conduction latency t = L / v: at L = 0.75 m, myelinated v = 60 m/s -> 12.5 ms; unmyelinated v = 2 m/s
+    -> 375 ms. Synaptic diffusion time across x = 20 nm at D = 500 µm²/s: t ≈ x²/(2D) = 0.0004 ms (plus vesicle release
+    and binding -> ~0.5 ms total). Verified in tests/ch09_domain.mjs.'
+  scope: Explicitly distinguishes sideways transmembrane Na+/K+ ion movement during an action potential from electron drift
+    in a copper wire; teaches the 4-stage action potential and Siddiqi's TIFR/Caltech para^ts bridge without mathematical
+    differential equations; TTX case is diagnostic reasoning, not personal medical advice.
+'9.3':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 36.1 Sensory Processes
+    url: https://openstax.org/books/biology-2e/pages/36-1-sensory-processes
+    took: Receptor transduction and sense organs as organs containing groups of receptor cells responding to specific stimuli
+  - book: Biology 2e
+    section: 36.5 Vision
+    url: https://openstax.org/books/biology-2e/pages/36-5-vision
+    took: Cornea, iris, pupil, lens, ciliary muscle, suspensory ligaments, retina, fovea, optic nerve, blind spot, rods
+      versus cones, pupil reflex and accommodation
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 14.2 Sense organs (14.2.1–14.2.10: sense organs, eye structures
+      and functions, pupil reflex with antagonistic circular and radial iris muscles, accommodation with ciliary muscles
+      and suspensory ligaments, rods and three kinds of cones, fovea), printed pp 31–32'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Corneal air-tissue interface (~43 D, ~2/3 of total eye refractive power) versus adjustable crystalline lens (~19–33
+      D), inverted real retinal image, photopic cone distribution peaking at fovea versus scotopic rod distribution in
+      periphery, and absence of photoreceptors at optic disc (blind spot)
+    source: OpenStax Anatomy and Physiology 2e (J. Gordon Betts et al.), §14.1 Sensory Perception & §15.5 Vision; corroborating
+      physiological facts, no copied prose or source art
+    url: https://openstax.org/books/anatomy-and-physiology-2e/pages/15-5-vision
+  - what: Cross-book reference to refraction across an interface, converging lens real inverted images, and cornea + adjustable
+      eye lens optics (Chapter 10, Sections 10.2–10.4)
+    source: The Moving World (Book 2 of Kym's science series), source/src/ch10.md inspected directly
+    url: https://openstax.org/books/physics/pages/1-introduction
+  - what: 'Word origin only, not mechanism evidence: cornea, iris, pupil, retina, fovea, accommodation'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/retina
+  history: []
+  figures:
+  - name: c9_eye_anatomy_receptors
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; horizontal cross-section of the human eye paired with schematic retinal photoreceptor distributions
+      across eccentricity
+  - name: c9_pupil_and_accommodation
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; compares antagonistic iris circular/radial muscles in bright versus dim light (top) and ciliary
+      ring/suspensory-ligament tension in distant versus near accommodation (bottom)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded
+    series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research,
+    dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Optics and accommodation in coordination_model.js: distant object (6.0 m) -> ciliary ring relaxed, suspensory
+    ligaments taut, thin less convex lens (~19 D); near object (0.25 m) -> ciliary ring contracted, suspensory ligaments
+    slack, thick more convex lens (~33 D). Verified in tests/ch09_domain.mjs.'
+  activity: One seated blind-spot card test (plus symbol and dot 8 cm apart on paper) and partner room-light pupil check;
+    explicitly warns never to look at the Sun or shine a torch/laser into an eye; reviewed for safety and feasibility,
+    not physically trialled.
+  scope: Explains the ring-sphincter geometry of the ciliary muscle so students see why ciliary contraction slackens suspensory
+    ligaments rather than pulling the lens flat; separates cornea bulk refraction from lens fine adjustment.
+'9.4':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 30.6 Plant Sensory Systems and Responses
+    url: https://openstax.org/books/biology-2e/pages/30-6-plant-sensory-systems-and-responses
+    took: Phototropism, gravitropism, coleoptile tip perception, auxin redistribution to the shaded/lower side, differential
+      cell elongation in shoots versus inhibition in roots
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 14.5 Tropic responses (14.5.1–14.5.5: gravitropism, phototropism,
+      positive and negative tropic responses in shoots and roots, and the chemical control of plant growth by auxin: made
+      in shoot tip, diffuses through plant, unequally distributed in response to light and gravity, stimulates cell elongation
+      in shoots), printed p 33'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Opposite auxin sensitivity in roots versus shoots (higher auxin concentration on the lower side of a horizontal
+      root inhibits cell elongation so the upper side elongates faster and the root bends downward)
+    source: Taiz L et al., Plant Physiology and Development, and OpenStax Biology 2e §30.6; corroborating plant-physiology
+      facts, no copied prose or source art
+    url: https://openstax.org/books/biology-2e/pages/30-6-plant-sensory-systems-and-responses
+  - what: 'Word origin only, not mechanism evidence: tropism, phototropism, gravitropism, auxin, coleoptile'
+    source: Wiktionary / etymological entries examined via MediaWiki API
+    url: https://en.wiktionary.org/wiki/auxin
+  history:
+  - what: TRUE:1880 coleoptile experiments showing that excising or covering the shoot tip with an opaque cap prevents
+      phototropic bending in the elongation zone below; 1913 Boysen-Jensen demonstration that the signal crosses a water-permeable
+      gelatin block on the shaded side but is blocked by an impermeable mica sheet on the shaded side; 1926 Frits Warmolt
+      Went agar-block bioassay in Utrecht isolating the diffusible chemical growth messenger (auxin) and showing asymmetric
+      coleoptile curvature in darkness when an auxin-loaded agar block is placed off-centre
+    source: Darwin C, Darwin F (1880) The Power of Movement in Plants (London:John Murray); Boysen-Jensen P (1913) Berichte
+      der Deutschen Botanischen Gesellschaft 31:559–566; Went FW (1926) Proceedings of the Koninklijke Nederlandse Akademie
+      van Wetenschappen 30:10–19; historical primary literature examined
+    url: https://en.wikisource.org/wiki/The_Power_of_Movement_in_Plants
+  - what: TRUE:Jagadish Chandra Bose (Presidency College, Calcutta; Bose Institute 1917) high-magnification crescograph
+      and electrical recordings in Mimosa pudica and Desmodium gyrans showing rapid action-potential-like electrical waves
+      along plant vascular bundles alongside slower growth responses
+    source: Bose JC (1906) Plant Response as a Means of Physiological Investigation; Bose JC (1926) The Nervous Mechanism
+      of Plants; existing preserved story source/src/stories/p-bose.md
+    url: https://en.wikipedia.org/wiki/Jagadish_Chandra_Bose
+  figures:
+  - name: c9_plant_tropisms_auxin
+    origin: ours; original semantic-theme schematic code in figs_ch09.py; no source illustrations or photographs
+    limits: Not to scale; summarizes Darwin/Boysen-Jensen/Went coleoptile experiments (top), shaded-side auxin accumulation
+      and cell elongation in shoot positive phototropism (bottom left), and lower-side auxin accumulation in horizontal
+      seedlings producing negative gravitropism in shoots and positive gravitropism in roots (bottom right)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded
+    series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research,
+    dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Coleoptile elongation model in coordination_model.js: unilateral light (45°) shifts auxin to 32% illuminated
+    / 68% shaded, producing 1.19× vs 1.71× elongation and +26° curvature toward light; mica on shaded side blocks transport
+    (0° bend); Went off-centre agar block in darkness gives +18° bend away from block side; horizontal root lower side
+    (68% auxin) elongates 0.72× vs upper side 1.38×, bending +24° downward. Verified in tests/ch09_domain.mjs.'
+  scope: Rejects the misconception that light destroys auxin on the lit side (Went's lateral redistribution shows total
+    auxin yield is conserved); links existing story p-bose without altering p-bose.md.
+fig:c9_nerves_vs_hormones:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_neurone_types_reflex:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_action_potential_wave:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_synapse_relay:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_eye_anatomy_receptors:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_pupil_and_accommodation:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_plant_tropisms_auxin:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_pathway_latency_budget:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+fig:c9_tetrodotoxin_case:
+  origin: ours
+  source: figs_ch09.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch09.md and the per-figure alt text, scale/model note and caption; semantic theme classes
+    and labelled arrow kinds.
+story:siddiqi-para-channels:
+  ocw: []
+  openstax: []
+  research: []
+  history:
+  - what: TRUE:1921 Graz two-frog-heart Ringer perfusion experiment by Otto Loewi demonstrating chemical vagal inhibition
+      (Vagusstoff / acetylcholine)
+    source: Loewi O (1921) Über humorale Übertragbarkeit der Herznervenwirkung, Pflügers Archiv 189:239–242; Nobel Lecture
+      1936 examined
+    url: https://www.nobelprize.org/prizes/medicine/1936/loewi/lecture/
+  - what: TRUE:1939 Plymouth Marine Biological Laboratory intracellular recording in Loligo forbesii giant axon and 1952
+      quantitative voltage-clamp separation of Na+ and K+ currents by Alan Hodgkin and Andrew Huxley
+    source: Hodgkin AL, Huxley AF (1939) Nature 144:710–711; Hodgkin AL, Huxley AF (1952) Journal of Physiology 117(4):500–544,
+      PMID 12991237 / PMC1392413; primary papers examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC1392413/
+  - what: TRUE:Obaid Siddiqi (born 1932 Basti district, UP; Aligarh Muslim University; Glasgow PhD with Guido Pontecorvo;
+      founded Molecular Biology Unit at TIFR Colaba, Mumbai in 1962 on Homi Bhabha's invitation; later National Centre
+      for Biological Sciences, Bengaluru); 1971 isolation of para^ts by David Suzuki, Thomas Grigliatti and Roderick Williamson;
+      1976 electrophysiological dissection of para, shi and com mutants in Drosophila by Obaid Siddiqi and Seymour Benzer
+      (*PNAS* 73:3253–3257); 1989 molecular cloning of the para locus as the voltage-gated Na+ channel alpha-subunit gene
+      by Loughney, Kreber & Ganetzky
+    source: Suzuki DT et al. (1971) PNAS 68(5):890–893 (PMID 5280526); Siddiqi O, Benzer S (1976) PNAS 73(9):3253–3257
+      (PMID 184469 / PMC431023); Loughney K, Kreber R, Ganetzky B (1989) Cell 58(6):1143–1154 (PMID 2550145); Vijayaraghavan
+      K (2013) Current Science / Science obituary of Obaid Siddiqi examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC431023/
+  figures: []
+  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes
+    or art copied.
+  truth_status: TRUE documented places (Graz, Plymouth, TIFR Colaba in Mumbai, Caltech in Pasadena), dates (1921, 1939,
+    1952, 1962, 1971, 1976, 1989), experimental apparatus and physiological findings. No invented dialogue, thoughts or
+    scenes; properly distinguishes Suzuki's 1971 mutant isolation, Siddiqi & Benzer's 1976 electrophysiological dissection,
+    and Loughney et al.'s 1989 molecular cloning.
+  access_limits: Primary papers Hodgkin & Huxley 1952 (PMC1392413) and Siddiqi & Benzer 1976 (PMC431023) examined in full;
+    Loewi 1921, Suzuki 1971 and Loughney 1989 verified via PubMed abstracts and Nobel/biographical records.
+model:reflex_action_potential:
+  source: live/coordination_model.js; live/w_reflex_action_potential.js; appended live/enhancements.js entry
+  static_figure: c9_neurone_types_reflex
+  contract: grounding/ch09.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch09_domain.mjs independent oracles and tests/qa_ch09.py final-book browser acceptance; results
+    reported in gates/ch09-verification.md
+model:synapse_transmission:
+  source: live/coordination_model.js; live/w_synapse_transmission.js; appended live/enhancements.js entry
+  static_figure: c9_synapse_relay
+  contract: grounding/ch09.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch09_domain.mjs independent oracles and tests/qa_ch09.py final-book browser acceptance; results
+    reported in gates/ch09-verification.md
+model:eye_accommodation_tropism:
+  source: live/coordination_model.js; live/w_eye_accommodation_tropism.js; appended live/enhancements.js entry
+  static_figure: c9_pupil_and_accommodation
+  contract: grounding/ch09.md Numerical and widget contracts; defined before coding. Static/manual states; explicit
+    input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not
+    performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch09_domain.mjs independent oracles and tests/qa_ch09.py final-book browser acceptance; results
+    reported in gates/ch09-verification.md
+record:ch09-decisions:
+  preservation: tests/ch09-preserved.json captures all 248 pre-existing files (Chapters 0–8 + baselines/gates/runners).
+    Only existing-file change is append-only three Chapter 9 enhancements in source/live/enhancements.js; exact original
+    bytes reconstructed and verified. Existing story p-bose.md linked in Section 9.4 without modifying p-bose.md.
+  corrections: Kept clean boundary between Chapter 9 (0610 Topics 14.1, 14.2, 14.3, 14.5) and Chapter 10 (0610 Topic 14.4
+    homeostasis, negative feedback, Type 1 diabetes, skin thermoregulation); taught sideways transmembrane ion flux vs
+    copper-wire electron drift; explained circular ciliary sphincter geometry for lens accommodation; distinguished lateral
+    auxin redistribution from the photodegradation misconception.
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax
+    access-for-free footer retained; original prose/art only.
+  access_limits: Primary papers Bayliss & Starling 1902 (PMC1540572), Hodgkin & Huxley 1952 (PMC1392413), Narahashi et al.
+    1964 (PMC2195365), and Siddiqi & Benzer 1976 (PMC431023) examined directly; exact 0893 framework unavailable; MIT
+    OCW introductory biology courses not cited where not inspected.
+  physical_trials: Ruler-drop reaction-time activity and blind-spot card / partner pupil-light check reviewed for safety
+    and feasibility; not physically trialled.
+  publication: No publication, deployment, commit, push, clone or remote repository operation.

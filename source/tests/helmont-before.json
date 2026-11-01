@@ -1,0 +1,9 @@
+{
+  "src/stories/p-helmont.md": "2629e56f84f16341dca5f12f8570854112e7498832a0db954ada7093ba657841",
+  "src/ch05.md": "833cec61118ca4e9f6b8145034175e5efdcb939c7bb21d4c987dd4ec6aef0a52",
+  "provenance/stories.yml": "3274af9c20b68d4d4d5bc164ca1bfdfd194faf10eeba6f2203b4771e83904f81",
+  "provenance/ch05.yml": "a193aacdf7dda54d753609bc247aa6bcb8599ec56f538374b57b9797de815437",
+  "grounding/ch05.md": "f88c2b66b34d82f68417bdb72facd92019805fd3debb4addfe282b7000d263b9",
+  "tests/qa_ch05.py": "dce361ff393ec41f32d137fb78ae2ce6d2692c61859395852177b18b0049d193",
+  "gates/ch05-verification.md": "c54c146c7b9692aa2b1f8227695c3eff25305baefee4a525b065999062944bae"
+}

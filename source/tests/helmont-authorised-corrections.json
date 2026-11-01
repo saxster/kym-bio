@@ -1,0 +1,14 @@
+{
+  "authorisation": "User30October2026: Fix the errors in the older Helmont story too, then rebuild and rerun relevant verification checks.",
+  "scope": "Correct older story and only its provenance record. Original preservation baseline retained.",
+  "files": {
+    "source/src/stories/p-helmont.md": {
+      "before": "2629e56f84f16341dca5f12f8570854112e7498832a0db954ada7093ba657841",
+      "after": "32fb4ba3d783ce401476da9794213367d61470f9b9efa38aabf97b08e78d1624"
+    },
+    "source/provenance/stories.yml": {
+      "before": "3274af9c20b68d4d4d5bc164ca1bfdfd194faf10eeba6f2203b4771e83904f81",
+      "after": "8e399f5354a311062a4fa24ecf3bce91d644e05193c12d7482c717388b0350e7"
+    }
+  }
+}

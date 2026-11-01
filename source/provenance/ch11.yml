@@ -1,0 +1,236 @@
+'11.1':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 14.1 Historical Basis of Modern Understanding
+    url: https://openstax.org/books/biology-2e/pages/14-1-historical-basis-of-modern-understanding
+    took: Frederick Griffith (1928) bacterial transformation, Oswald Avery, Colin MacLeod and Maclyn McCarty (1944) protease/RNase/DNase elimination proof, and Alfred Hershey and Martha Chase (1952) bacteriophage ³⁵S/³²P confirmation that DNA carries hereditary information
+  - book: Concepts of Biology
+    section: 9.1 The Structure of DNA
+    url: https://openstax.org/books/concepts-of-biology/pages/9-1-the-structure-of-dna
+    took: Accessible organisation of eukaryotic DNA into chromosomes inside the nucleus and definition of a gene
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.1 Chromosomes, genes and proteins (Core 1–2: chromosomes are made of DNA, which contains genetic information in the form of genes; define a gene as a length of DNA that codes for a protein)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Lower Secondary Science 0893 alignment: chromosomes found in the nucleus and made of DNA (9Bs.01); genes located on chromosomes and help to determine characteristics alongside other genes and the environment (9Bs.02)'
+    source: Cambridge official Lower Secondary Science 0893 overview and source/research/school-wording.md
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: chromosome, gene, deoxyribonucleic acid'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/chromosome
+  history:
+  - what: TRUE:Frederick Griffith (1928) demonstration that heat-killed virulent Smooth (S) Streptococcus pneumoniae (then Diplococcus pneumoniae) transforms living non-virulent Rough (R) bacteria into heritable Smooth (S) bacteria
+    source: Griffith F (1928) The significance of pneumococcal types, Journal of Hygiene 27(2):113–159, PMC2167760
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2167760/
+  - what: TRUE:Oswald T. Avery, Colin M. MacLeod, and Maclyn McCarty (1944) biochemical purification and enzymatic elimination proof showing that crystalline trypsin, chymotrypsin and ribonuclease (RNase) leave the pneumococcal transforming substance active whereas deoxyribonuclease (DNase) abolishes transforming activity
+    source: Avery OT, MacLeod CM, McCarty M (1944) Studies on the chemical nature of the substance inducing transformation of pneumococcal types, Journal of Experimental Medicine 79(2):137–158, PMC2135445; primary paper examined
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2135445/
+  - what: TRUE:Alfred D. Hershey and Martha Chase (1952) independent confirmation in bacteriophage T2 using radioactive sulfur (³⁵S in protein coat) and radioactive phosphorus (³²P in DNA core)
+    source: Hershey AD, Chase M (1952) Independent functions of viral protein and nucleic acid in growth of bacteriophage, Journal of General Physiology 36(1):39–56, PMC2147348
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2147348/
+  figures:
+  - name: c11_avery_dna_genes
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; three-panel schematic combining Avery–MacLeod–McCarty (1944) protease/RNase/DNase elimination, the five-level scale hierarchy (Cell → Nucleus → Chromosome → Gene → DNA double helix), and the 4-step kitchen banana DNA extraction mechanism
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Scale hierarchy and DNA composition verified in source/live/genetic_code_model.js and tests/ch11_domain.mjs.'
+  activity: Safe home demonstration spooling precipitated white DNA threads from mashed banana using dishwashing detergent, table salt (NaCl) and chilled rubbing alcohol with adult supervision; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
+  scope: Establishes 0893 (9Bs.01, 9Bs.02) and 0610 Topic 17.1 Core 1–2 hierarchy (Cell → Nucleus → Chromosome → Gene → DNA) and links existing stories p-ramachandran and siddiqi-para-channels without modifying them.
+
+'11.2':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 14.2 DNA Structure and Sequencing
+    url: https://openstax.org/books/biology-2e/pages/14-2-dna-structure-and-sequencing
+    took: Deoxyribonucleotide structure (deoxyribose sugar, phosphate group, nitrogenous bases A, T, C, G), Chargaff's rules (%A=%T, %G=%C), Rosalind Franklin's X-ray diffraction evidence, and Watson–Crick antiparallel double-helix model with complementary A=T and C≡G base pairing
+  - book: Concepts of Biology
+    section: 9.1 The Structure of DNA
+    url: https://openstax.org/books/concepts-of-biology/pages/9-1-the-structure-of-dna
+    took: Double-helix twisted-ladder geometry and complementary base pairing
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 4.1 Biological molecules — DNA structure (two strands coiled together to form a double helix; each strand contains chemicals called bases; bonds between pairs of bases hold the strands together; the bases always pair up in the same way: A with T, and C with G; full names adenine, thymine, cytosine, guanine taught in prose while noting Core does not require recalling full names)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history:
+  - what: TRUE:Erwin Chargaff (1950) paper chromatography and UV spectrophotometric determinations across species showing %A ≈ %T (A/T ≈ 1.0) and %G ≈ %C (G/C ≈ 1.0) while (A+T)/(G+C) varies between species, refuting Phoebus Levene's repetitive tetranucleotide hypothesis
+    source: Chargaff E (1950) Chemical specificity of nucleic acids and mechanism of their enzymatic degradation, Experientia 6(6):201–209
+    url: https://doi.org/10.1007/BF02173653
+  - what: 'TRUE:Rosalind E. Franklin and Raymond G. Gosling (May 1952 / April 1953) hydrated B-form DNA X-ray fibre diffraction (Photo 51) at King''s College London demonstrating a helical X-cross, 3.4 nm (34 Å) pitch, 0.34 nm (3.4 Å) meridional base-pair spacing (10 bp/turn), missing 4th layer line from offset backbones, and exterior phosphate groups on a 2.0 nm (20 Å) cylinder; James D. Watson and Francis H. C. Crick (April 1953) complementary purine–pyrimidine base-pairing model (A=T with 2 H-bonds, C≡G with 3 H-bonds) aided by Jerry Donohue''s keto tautomer correction'
+    source: 'Franklin RE, Gosling RG (1953) Molecular configuration in sodium thymonucleate, Nature 171(4356):740–741; Watson JD, Crick FHC (1953) Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid, Nature 171(4356):737–738'
+    url: https://doi.org/10.1038/171740a0
+  figures:
+  - name: c11_photo51_double_helix
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; three-panel schematic showing Photo 51 B-DNA X-diffraction geometry (3.4 nm turn, 0.34 nm step, 10 bp/turn, 2.0 nm width), Chargaff's species base-ratio ledger, and antiparallel A=T (2 H-bonds) and C≡G (3 H-bonds) rungs
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'DNA double-helix geometry, Chargaff solver (%A=%T, %G=%C), hydrogen-bond counts (2×AT + 3×GC), and purine-purine bulge (>2.0 nm) vs pyrimidine-pyrimidine pinch (<2.0 nm) modelled in source/live/genetic_code_model.js and verified in tests/ch11_domain.mjs.'
+  scope: Covers 0610 Topic 4.1 DNA molecular structure in full, links front-matter 3D explorer (#explore-code) without modifying source/app/x_code.js, and embeds companion story franklin-khorana-codebreakers.
+
+'11.3':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 15.1 The Genetic Code; 15.2 Prokaryotic Transcription; 15.3 Eukaryotic Transcription; 15.4 RNA Processing in Eukaryotes; 15.5 Ribosomes and Protein Synthesis
+    url: https://openstax.org/books/biology-2e/pages/15-1-the-genetic-code
+    took: Combinatorial triplet code (4³ = 64 codons, degeneracy, start and stop codons), Crick–Brenner frameshift proof, Nirenberg and Khorana cell-free deciphering of the genetic code, transcription of mRNA in the nucleus, and translation by ribosomes and tRNA in the cytoplasm
+  - book: Concepts of Biology
+    section: 9.3 Transcription; 9.4 Translation
+    url: https://openstax.org/books/concepts-of-biology/pages/9-3-transcription
+    took: Stepwise pathway from nuclear DNA gene to mRNA copy to cytoplasmic ribosome assembly of amino acids
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.1 Chromosomes, genes and proteins (Core 3: sequence of bases in a gene is the genetic code for putting together amino acids in the correct order to make a specific protein; Supplement 4: DNA controls cell function by controlling the production of proteins, including enzymes, membrane carriers and receptors for neurotransmitters; Supplement 5: how a protein is made—gene remains in nucleus, mRNA is a copy of a gene, mRNA made in nucleus and moves to cytoplasm, mRNA passes through ribosomes, ribosome assembles amino acids into protein molecules, specific sequence of amino acids determined by sequence of bases in mRNA)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history:
+  - what: TRUE:Francis H. C. Crick, Sydney Brenner, Leslie Barnett, and R. J. Watts-Tobin (1961) bacteriophage T4 rII acridine frameshift experiments proving that the genetic code is read in non-overlapping triplets from a fixed starting point (+1 and +2 scramble downstream reading frame; +3 or −3 restores the reading frame)
+    source: Crick FHC, Barnett L, Brenner S, Watts-Tobin RJ (1961) General nature of the genetic code for proteins, Nature 192(4809):1227–1232
+    url: https://doi.org/10.1038/1921227a0
+  - what: 'TRUE:Marshall W. Nirenberg and J. Heinrich Matthaei (1961) cell-free E. coli ribosome translation of synthetic polyuridylic acid (poly-U) into polyphenylalanine (UUU = Phe); Har Gobind Khorana and colleagues (1964–1968) chemical and enzymatic synthesis of defined repeating polyribonucleotides ((UC)ₙ → Ser–Leu, (UG)ₙ → Cys–Val, (AG)ₙ → Arg–Glu, (AC)ₙ → Thr–His, and (UAG)ₙ amber stop codons) completing the 64-codon genetic dictionary'
+    source: 'Nirenberg MW, Matthaei JH (1961) The dependence of cell-free protein synthesis in E. coli upon naturally occurring or synthetic polyribonucleotides, PNAS 47(10):1588–1602, PMC223178; Nishimura S, Jones DS, Khorana HG (1965) Studies on polynucleotides. XLVIII. The in vitro synthesis of a co-polypeptide containing two amino acids in alternating sequence dependent upon a DNA-like polymer containing two nucleotides in alternating sequence, Journal of Molecular Biology 13(1):302–324'
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC223178/
+  figures:
+  - name: c11_triplet_code_khorana
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; three-panel schematic of combinatorial capacity (4¹=4, 4²=16, 4³=64), Crick–Brenner (+1/+2/+3) reading-frame restoration, and Nirenberg/Khorana synthetic mRNA copolymer bench
+  - name: c11_transcription_translation
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; six-step schematic of nuclear transcription, nuclear-pore export, and cytoplasmic ribosome translation matching Cambridge 0610 17.1 Supplement 5
+  - name: c11_sequence_to_3d_machines
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; causal spine from DNA base sequence to Ramachandran 3D protein folding and four functional classes (enzymes, membrane carriers, neurotransmitter receptors, antibodies)
+  - name: c11_dna_vs_mrna_ledger
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; six-row structural and functional comparison ledger contrasting double-stranded nuclear DNA with single-stranded cytoplasmic mRNA
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Full 64-codon genetic table, Nirenberg homopolymers, Khorana repeating copolymers ((UC)ₙ, (UG)ₙ, (AG)ₙ, (AC)ₙ, (UUC)ₙ, (UAG)ₙ), Crick–Brenner +1/+2/+3 frameshifts, and 6-step transcription-translation modelled in source/live/genetic_code_model.js and verified in tests/ch11_domain.mjs.'
+  scope: Covers 0610 Topic 17.1 Core 3 and Supplement 4–5; links existing story p-agre without modifying p-agre.md.
+
+'11.4':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 15.1 The Genetic Code; 3.4 Proteins
+    url: https://openstax.org/books/biology-2e/pages/3-4-proteins
+    took: Molecular basis of sickle-cell haemoglobin (HbS) at beta-globin residue 6 (Glu → Val) and comparison of silent (synonymous), missense, and nonsense point substitutions
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 4.1 & Topic 17.1 (connecting sequence of bases in DNA and mRNA to sequence of amino acids and 3D shape/function of proteins; previewing molecular gene mutation while keeping Mendelian allele inheritance for Chapter 13 and malaria natural selection for Chapter 14)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history:
+  - what: 'TRUE:Linus Pauling, Harvey A. Itano, S. J. Singer, and Ibert C. Wells (1949) electrophoretic demonstration that sickle-cell haemoglobin (HbS) differs in charge from normal adult haemoglobin (HbA); Vernon M. Ingram (1956–1957) trypsin peptide fingerprinting and amino-acid sequencing at the Cavendish Laboratory proving that HbS differs from HbA by a single amino-acid substitution at position 6 of the 146-residue beta-globin chain, replacing negatively charged hydrophilic glutamic acid (Glu⁶, coded by GAG) with neutral hydrophobic valine (Val⁶, coded by GTG / mRNA GUG)'
+    source: 'Pauling L, Itano HA, Singer SJ, Wells IC (1949) Sickle cell anemia, a molecular disease, Science 110(2865):543–548; Ingram VM (1956) A specific chemical difference between the globins of normal human and sickle-cell anaemia haemoglobin, Nature 178(4537):792–794; Ingram VM (1957) Gene mutations in human haemoglobin: the chemical difference between normal and sickle cell haemoglobin, Nature 180(4581):326–328'
+    url: https://doi.org/10.1038/180326a0
+  figures:
+  - name: c11_beta_globin_mutation
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; codon-by-codon comparison of human HBB codons 1–7 in normal HbA (Codon 6 GAG → Glu⁶) vs sickle-cell HbS (Codon 6 GTG / mRNA GUG → Val⁶)
+  - name: c11_mutation_outcomes_comparison
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; three-column comparison of silent/synonymous (Codon 3 CTG → CTT, both Leu³), missense (Codon 6 GAG → GTG, Glu⁶ → Val⁶), and nonsense (Codon 39 CAG → TAG, Gln³⁹ → UAG Stop) substitutions
+  - name: c11_leucine_silent_case
+    origin: ours; original semantic-theme schematic code in figs_ch11.py; no source illustrations or photographs
+    limits: Not to scale; end-of-chapter diagnostic synthesis comparing Reference HbA, Child X (silent Codon 3 CTG → CTT, mRNA CUG → CUU = Leu³), and Child Y (missense Codon 6 GAG → GTG, mRNA GAG → GUG = Val⁶)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Beta-globin codons 1–7 (GTG CAC CTG ACT CCT GAG GAG) and Child X Silent (Codon 3 CTG→CTT), Child Y Missense (Codon 6 GAG→GTG), and Nonsense Stop (Codon 6 GAG→TAG) modelled in source/live/genetic_code_model.js and verified in tests/ch11_domain.mjs.'
+  scope: Completes Chapter 11 (opening Volume IV) and bridges directly to Chapter 12 (DNA replication, mitosis, stem cell specialisation/selective gene expression, and meiosis).
+
+fig:c11_avery_dna_genes:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_photo51_double_helix:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_triplet_code_khorana:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_transcription_translation:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_sequence_to_3d_machines:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_dna_vs_mrna_ledger:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_beta_globin_mutation:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_mutation_outcomes_comparison:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c11_leucine_silent_case:
+  origin: ours
+  source: figs_ch11.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch11.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+story:franklin-khorana-codebreakers:
+  ocw: []
+  openstax: []
+  research: []
+  history:
+  - what: TRUE:Erwin Chargaff (1950) paper chromatography and UV spectrophotometry proving %A ≈ %T and %G ≈ %C across double-stranded cellular DNA while species differ in (A+T)/(G+C); Rosalind Franklin and Raymond Gosling (May 1952 / April 1953) hydrated B-form DNA X-ray diffraction (Photo 51) at King's College London showing a helical X-cross, 3.4 nm turn, 0.34 nm base spacing (10 bp/turn), missing 4th layer line, and outside phosphates on a 2.0 nm cylinder; James Watson and Francis Crick (April 1953) antiparallel double-helix model with complementary A=T and C≡G base pairing aided by Jerry Donohue's keto tautomer insight
+    source: Chargaff E (1950) Experientia 6(6):201–209; Franklin RE, Gosling RG (1953) Nature 171(4356):740–741; Watson JD, Crick FHC (1953) Nature 171(4356):737–738
+    url: https://doi.org/10.1038/171740a0
+  - what: TRUE:Francis Crick, Sydney Brenner, Leslie Barnett, and R. J. Watts-Tobin (1961) phage T4 rII frameshift proof (+1/+2/+3); Marshall Nirenberg and Heinrich Matthaei (May 1961) cell-free poly-U translation into polyphenylalanine (UUU = Phe); Har Gobind Khorana (born 1922 in Raipur, Punjab; educated at D.A.V. High School Multan, Punjab University Lahore under Mahan Singh, Liverpool, Zurich, and Cambridge) chemical and enzymatic synthesis of repeating copolymers ((UC)ₙ → Ser–Leu, (UG)ₙ → Cys–Val, (AG)ₙ → Arg–Glu, (AC)ₙ → Thr–His, and (UAG)ₙ nonsense stop codons) at the University of Wisconsin–Madison completing the 64-codon genetic code
+    source: Crick FHC et al. (1961) Nature 192:1227–1232; Nirenberg MW, Matthaei JH (1961) PNAS 47:1588–1602, PMC223178; Nishimura S, Jones DS, Khorana HG (1965) Journal of Molecular Biology 13(1):302–324; Khorana HG (1968) Nucleic acid synthesis in the study of the genetic code, Nobel Lecture, 12 December 1968
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC223178/
+  figures: []
+  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes or art copied.
+  truth_status: 'TRUE documented places (Columbia University New York, King''s College London, Cavendish Laboratory Cambridge, Raipur in Punjab, Multan, Punjab University Lahore, NIH Bethesda, University of Wisconsin–Madison), dates (1944, 1950, May 1952, 25 April 1953, April 1958, May and December 1961, 1964–1968), crystallographic dimensions (3.4 nm pitch, 0.34 nm step, 10 bp/turn, 2.0 nm width, 92% relative humidity), and synthetic copolymer sequences ((UC)ₙ → Ser–Leu, (UG)ₙ → Cys–Val, (AG)ₙ → Arg–Glu, (AC)ₙ → Thr–His). No invented dialogue or scenes.'
+  access_limits: Avery et al. 1944 (PMC2135445) and Nirenberg & Matthaei 1961 (PMC223178) examined via open-access archives; Franklin & Gosling 1953, Watson & Crick 1953, Chargaff 1950, Crick et al. 1961, and Khorana 1965/1968 verified via primary bibliometric records and published Nobel Lecture archives.
+
+model:dna_base_pairing:
+  source: live/genetic_code_model.js; live/w_dna_base_pairing.js; appended live/enhancements.js entry
+  static_figure: c11_photo51_double_helix
+  contract: grounding/ch11.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch11_domain.mjs independent oracles and tests/qa_ch11.py final-book browser acceptance; results reported in gates/ch11-verification.md
+
+model:codon_cipher_khorana:
+  source: live/genetic_code_model.js; live/w_codon_cipher_khorana.js; appended live/enhancements.js entry
+  static_figure: c11_triplet_code_khorana
+  contract: grounding/ch11.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch11_domain.mjs independent oracles and tests/qa_ch11.py final-book browser acceptance; results reported in gates/ch11-verification.md
+
+model:transcription_translation_ribosome:
+  source: live/genetic_code_model.js; live/w_transcription_translation_ribosome.js; appended live/enhancements.js entry
+  static_figure: c11_transcription_translation
+  contract: grounding/ch11.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch11_domain.mjs independent oracles and tests/qa_ch11.py final-book browser acceptance; results reported in gates/ch11-verification.md
+
+record:ch11-decisions:
+  preservation: tests/ch11-preserved.json captures all 282 pre-existing files (Chapters 0–10 + baselines/gates/runners). Only existing-file change is append-only three Chapter 11 enhancements in source/live/enhancements.js; exact original 72,327 bytes reconstructed and verified. Existing stories p-ramachandran.md, siddiqi-para-channels.md and p-agre.md linked in Chapter 11 without modifying any existing file, and front-matter 3D explorer (#explore-code) linked from Section 11.2 without modifying source/app/x_code.js.
+  corrections: 'Covered full Cambridge Lower Secondary Science 0893 (9Bs.01, 9Bs.02) and Cambridge IGCSE Biology 0610 Topic 4.1 (DNA structure) and Topic 17.1 (Chromosomes, genes and proteins Core 1–3 & Supplement 4–5); maintained strict syllabus partition by keeping DNA replication, mitosis, haploid/diploid nuclei, stem cells/gene expression and meiosis for Chapter 12, Mendelian alleles/crosses for Chapter 13, and natural selection/malaria heterozygote advantage for Chapter 14.'
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax access-for-free footer retained; original prose/art only.
+  access_limits: Primary papers Avery et al. 1944 (PMC2135445), Griffith 1928 (PMC2167760), Hershey & Chase 1952 (PMC2147348), Nirenberg & Matthaei 1961 (PMC223178), Franklin & Gosling 1953, Watson & Crick 1953, Chargaff 1950, Crick et al. 1961, Khorana 1965/1968, and Ingram 1956/1957 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
+  physical_trials: Safe kitchen demonstration spooling precipitated DNA threads from mashed banana using dishwashing detergent, table salt (NaCl) and chilled rubbing alcohol with adult supervision; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
+  publication: No publication, deployment, commit, push, clone or remote repository operation.

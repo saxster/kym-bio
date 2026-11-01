@@ -1,0 +1,96 @@
+"2.1":
+  ocw:
+    - course: "7.012 Introductory Biology, Fall 2004"
+      where: "Robert Weinberg, Lecture 1: prokaryotes, eukaryotes, nucleus, membrane and mitochondria"
+      url: "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-1-introduction/"
+      took: "architecture sequence; distinction between structures and artists' reconstructions; original explanation"
+  openstax:
+    - {book: "Biology 2e", section: "4.1 Studying Cells", url: "https://openstax.org/books/biology-2e/pages/4-1-studying-cells", took: "Hooke's cork; microscopy limits; magnification versus resolution"}
+    - {book: "Biology 2e", section: "4.2 Prokaryotic Cells", url: "https://openstax.org/books/biology-2e/pages/4-2-prokaryotic-cells", took: "shared structures, bacterial DNA and ribosomes"}
+    - {book: "Biology 2e", section: "4.3 Eukaryotic Cells", url: "https://openstax.org/books/biology-2e/pages/4-3-eukaryotic-cells", took: "compartments and functions; linked Cell Explorer corrections, scale disclosure and manual controls; all prose and plates newly authored"}
+  research:
+    - {what: "Flat-cell and plant-respiration misconceptions; no prevalence percentages reused", source: "research/misconceptions.md §2; school-wording.md Ch 2; AAAS ideas only", url: "https://assessment.aaas.org/"}
+    - {what: "Adult reference estimate about 30 trillion human cells, not a count of Kym", source: "Sender, Fuchs & Milo (2016)", url: "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002533"}
+    - {what: "0610 2.1 structures/functions, 2.2 magnification and supplementary unit conversion; own wording", source: "Cambridge 2026–2028 p14; research/school-wording.md", url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"}
+    - {what: "Paired card word origins: nucleus, ribosome, mitochondrion, chloroplast; names separated from mechanisms", source: "Merriam-Webster; Steitz & Moore (2017) expert commentary; Etymonline; Oxford", url: "https://www.merriam-webster.com/dictionary/nucleus"}
+    - {what: "Ribosome means ribose-containing body", source: "Steitz & Moore, Perspectives on the ribosome (2017)", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5311932/"}
+    - {what: "Mitochondrion word history", source: "Etymonline dictionary", url: "https://www.etymonline.com/word/mitochondrion"}
+    - {what: "Chloroplast word history", source: "Oxford Advanced Learner's Dictionary", url: "https://www.oxfordlearnersdictionaries.com/us/definition/english/chloroplast"}
+  history:
+    - {what: "TRUE: Hooke's cork cells in Micrographia 1665, remains of dead cells", source: "research/history.md Hooke; Biology 2e 4.1", url: "https://openstax.org/books/biology-2e/pages/4-1-studying-cells"}
+  figures:
+    - {name: c2_cell_inventory, origin: "ours; SVG and Canvas cell_inventory; different enlargements disclosed"}
+  computed: "50 µm = 0.050 mm; imagined 40 mm image / 0.050 mm actual = 800×; no responsive-SVG magnification claimed"
+  licence: "CC BY-NC-SA 4.0; Cambridge/AAAS facts and vocabulary only, no copied assessment items or artwork"
+
+"2.2":
+  ocw:
+    - course: "7.012 Introductory Biology, Fall 2004"
+      where: "Robert Weinberg, Lecture 1: mitochondrial DNA and bacterial descent"
+      url: "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-1-introduction/"
+      took: "bacterial ancestry and metabolic dependence; dated evolutionary estimates omitted"
+  openstax:
+    - {book: "Biology 2e", section: "23.1 Eukaryotic Origins", url: "https://openstax.org/books/biology-2e/pages/23-1-eukaryotic-origins", took: "combined DNA, ribosome, membrane, division and gene evidence; gene transfer and host dependence"}
+  research:
+    - {what: "Replace intentional-partnership language with mechanism", source: "research/misconceptions.md; Coley & Tanner (2012), ideas only", url: "https://www.lifescied.org/doi/10.1187/cbe.12-06-0074"}
+    - {what: "Precise organelle functions for school bridge", source: "Cambridge 0610 2.1; research/school-wording.md", url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"}
+  history:
+    - {what: "TRUE: 1967 paper under Lynn Sagan; synthesis rather than one decisive proof", source: "research/history.md Margulis lead; primary bibliographic record", url: "https://pubmed.ncbi.nlm.nih.gov/11541392/"}
+    - {what: "Ris & Plaut (1962) chloroplast DNA cytochemistry and electron microscopy", source: "J Cell Biol 13:383–391; primary record, ideas only", url: "https://pubmed.ncbi.nlm.nih.gov/14492436/"}
+    - {what: "DNA staining and DNase-sensitive fibres", source: "Publisher historical account; ideas only", url: "https://rupress.org/jcb/article-abstract/168/6/853/51523/There-s-DNA-in-those-organelles"}
+  figures:
+    - {name: c2_stowaway_clues, origin: "ours; original SVG and Canvas organelle_clues; no source micrograph adapted"}
+  licence: "CC BY-NC-SA 4.0; historical papers factual ideas only"
+
+"2.3":
+  ocw:
+    - course: "7.012 Introductory Biology, Fall 2004"
+      where: "Robert Weinberg, Lecture 1: cellular and multicellular organisation"
+      url: "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-1-introduction/"
+      took: "cellular framing only; cube derivation from OpenStax and our arithmetic, not this lecture"
+  openstax:
+    - {book: "Biology 2e", section: "4.2 Prokaryotic Cells, Cell Size", url: "https://openstax.org/books/biology-2e/pages/4-2-prokaryotic-cells", took: "area/volume scaling and exchange constraint"}
+    - {book: "Biology 2e", section: "33.1 Animal Form and Function", url: "https://openstax.org/books/biology-2e/pages/33-1-animal-form-and-function", took: "shape, exchange distance and transport"}
+  research:
+    - {what: "Dye trial suggestion corrected: no promised 2 mm in 15 minutes; report real results", source: "research/misconceptions.md §2; original activity design", url: "https://assessment.aaas.org/"}
+    - {what: "0610 3.1.5 diffusion factors: surface area and distance", source: "Cambridge syllabus; research/school-wording.md", url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"}
+  history:
+    - {what: "TRUE: Thiomargarita namibiensis, 1997 collection, 1999 report, up to 750 µm, coastal shelf sediment; chapter-end case", source: "WHOI research-team release, 16 April 1999; own prose", url: "https://www.whoi.edu/press-room/news-release/giant-sulfur-bacteria-discovered-off-african-coast/"}
+    - {what: "Large vacuole leaves thin peripheral cytoplasm", source: "BioNumbers primary-paper pointer: Schulz et al. 1999 Science 284:493–495", url: "https://bionumbers.hms.harvard.edu/bionumber.aspx?id=110079&s=n&v=1"}
+  figures:
+    - {name: c2_geometry, origin: "ours; shared-scale engraved cubes; Three.js sav_cubes3d and Canvas use exact cubeAccount formula"}
+  computed: "Sides 1/2/10 cm: area 6/24/600 cm², volume 1/8/1000 cm³, ratio 6/3/0.6 cm⁻¹. Chosen depth 0.2 cm: reached 78.4/48.8/11.5264 percent; model, not dye data. Eight 1 cm cubes: 48 cm² and 8 cm³, twice exposed area of 2 cm cube. Activity sizes and 15-minute first inspection are protocol choices."
+  licence: "CC BY-NC-SA 4.0; original art; WHOI/BioNumbers factual ideas only"
+
+"2.4":
+  ocw:
+    - course: "7.012 Introductory Biology, Fall 2004"
+      where: "Robert Weinberg, Lecture 1: complex cells and multicellular organisation"
+      url: "https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-1-introduction/"
+      took: "organisation spine; specialised detail from OpenStax and Cambridge"
+  openstax:
+    - {book: "Biology 2e", section: "33.2 Animal Primary Tissues", url: "https://openstax.org/books/biology-2e/pages/33-2-animal-primary-tissues", took: "ciliated epithelium moves mucus; neuronal structure and tissues"}
+    - {book: "Biology 2e", section: "40.2 Components of the Blood", url: "https://openstax.org/books/biology-2e/pages/40-2-components-of-the-blood", took: "mature human RBC, haemoglobin, biconcavity and ATP without mitochondria; erroneous camel aside omitted"}
+    - {book: "Biology 2e", section: "30.3 Roots", url: "https://openstax.org/books/biology-2e/pages/30-3-roots", took: "root hair area and absorption"}
+    - {book: "Biology 2e", section: "30.4 Leaves", url: "https://openstax.org/books/biology-2e/pages/30-4-leaves", took: "palisade chloroplasts and arrangement"}
+    - {book: "Biology 2e", section: "30.1 The Plant Body", url: "https://openstax.org/books/biology-2e/pages/30-1-the-plant-body", took: "leaf tissues and root/shoot organisation"}
+  research:
+    - {what: "Correct larger-animal/larger-cell intuition; no unverified percentages", source: "research/misconceptions.md §2, AAAS ideas only", url: "https://assessment.aaas.org/"}
+    - {what: "0610 2.1.6–7 specialised functions including gametes; hierarchy; research/school-wording.md", source: "Cambridge IGCSE Biology 0610", url: "https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf"}
+  history:
+    - {what: "Modern repeatable observations, not invented historical events; contrast Hooke's dead cork", source: "Biology 2e 4.1; research/history.md Hooke", url: "https://openstax.org/books/biology-2e/pages/4-1-studying-cells"}
+  figures:
+    - {name: c2_specialists, origin: "ours; five-cell schematic, different enlargements disclosed, plant hierarchy"}
+  licence: "CC BY-NC-SA 4.0; Cambridge factual ideas/vocabulary only"
+
+"story:p-hooke":
+  history:
+    - {what: "TRUE: Hooke 1635–1703; Micrographia 1665; dead cork compartments; no invented quotes", source: "research/history.md; OpenStax Biology 2e 4.1", url: "https://openstax.org/books/biology-2e/pages/4-1-studying-cells"}
+  licence: "CC BY-NC-SA 4.0; original prose, no source artwork"
+
+"story:p-margulis":
+  history:
+    - {what: "TRUE: Margulis 1938–2011; 1967 Sagan paper, no rejection count", source: "research/history.md; primary record", url: "https://pubmed.ncbi.nlm.nih.gov/11541392/"}
+    - {what: "Earlier proposals, supporting evidence and broader-claim limitations", source: "Biology 2e 23.1, original prose", url: "https://openstax.org/books/biology-2e/pages/23-1-eukaryotic-origins"}
+    - {what: "Ris & Plaut 1962 primary observation", source: "J Cell Biol 13:383–391", url: "https://pubmed.ncbi.nlm.nih.gov/14492436/"}
+  licence: "CC BY-NC-SA 4.0; historical papers factual ideas only"

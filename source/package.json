@@ -1,0 +1,23 @@
+{
+  "name": "the-moving-world",
+  "version": "1.0.0",
+  "description": "Build tools for The Moving World, a physics book (python3 build.py)",
+  "scripts": {
+    "build": "python3 build.py",
+    "site": "python3 build.py --site build/site",
+    "fixture": "python3 build.py --src tests/fixture/src --provenance tests/fixture/provenance --site build/fixture-site"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.25.10",
+    "three": "^0.180.0"
+  },
+  "dependencies": {
+    "d3-geo": "^3.1.1",
+    "topojson-client": "^3.1.0",
+    "world-atlas": "^2.0.2"
+  },
+  "private": true
+}

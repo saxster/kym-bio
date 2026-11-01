@@ -1,0 +1,68 @@
+"story:p-leeuwenhoek":
+  history:
+    - what: "Leeuwenhoek's single-lens microscopes and 1674/1683 letters to the Royal Society"
+      source: "UCMP Berkeley: Antony van Leeuwenhoek"
+      url: "https://ucmp.berkeley.edu/history/leeuwenhoek.html"
+  licence: "CC BY-NC-SA 4.0"
+
+"story:p-subbarow":
+  history:
+    - what: "Yellapragada SubbaRow's 1929 discovery of ATP and phosphocreatine with Cyrus Fiske"
+      source: "Indian Academy of Sciences, Resonance (2001): Yellapragada SubbaRow"
+      url: "https://www.ias.ac.in/article/fulltext/reso/006/01/0003-0010"
+  licence: "CC BY-NC-SA 4.0"
+
+"story:p-redi":
+  history:
+    - what: "Francesco Redi's 1668 Esperienze intorno alla generazione degl'insetti"
+      source: "Encyclopaedia Britannica: Francesco Redi"
+      url: "https://www.britannica.com/biography/Francesco-Redi"
+  licence: "CC BY-NC-SA 4.0"
+
+"story:p-pasteur":
+  history:
+    - what: "Louis Pasteur's crystallography, fermentation, and 1859 swan-neck flask experiment"
+      source: "Institut Pasteur: Louis Pasteur"
+      url: "https://www.pasteur.fr/en/institut-pasteur/louis-pasteur"
+  licence: "CC BY-NC-SA 4.0"
+
+"story:p-bose":
+  history:
+    - what: "Jagadish Chandra Bose's crescograph and plant electrical response experiments in Calcutta"
+      source: "Encyclopaedia Britannica: Jagadish Chandra Bose"
+      url: "https://www.britannica.com/biography/Jagadish-Chandra-Bose"
+  licence: "CC BY-NC-SA 4.0"
+
+"story:p-ammal":
+  history:
+    - what: "E. K. Janaki Ammal's polyploid sugarcane breeding in Coimbatore and Chromosome Atlas"
+      source: "Smithsonian Magazine: E. K. Janaki Ammal"
+      url: "https://www.smithsonianmag.com/science-nature/pioneering-female-botanist-sweetened-nation-and-saved-valley-180972765/"
+  licence: "CC BY-NC-SA 4.0"
+
+"story:p-ali":
+  history:
+    - what: "Salim Ali's 1906 yellow-throated sparrow at BNHS Bombay and 1930 Kihim baya weaver study"
+      source: "Bombay Natural History Society (BNHS)"
+      url: "https://www.bnhs.org/about-us"
+  licence: "CC BY-NC-SA 4.0"
+
+"story:p-helmont":
+  history:
+    - what: "Reported quantities, lid, water supply, omitted fallen leaves, water-only inference and posthumous1648 publication; no inferred metric or dry-tree masses"
+      source: "S. G. Saupe, CSB/SJU; attributed translation of van Helmont via Howe1965"
+      url: "https://faculty.csbsju.edu/SSAUPE/biol115/van_helmont.htm"
+    - what: "Gas naming,1644death, Franciscus Mercurius and1648 Ortus medicinae publication; not rounded tree weights"
+      source: "William B. Ashworth Jr., Linda Hall Library"
+      url: "https://www.lindahall.org/about/news/scientist-of-the-day/joan-baptista-van-helmont/"
+    - what: "Existing born1580 uses modern-year convention; first-page birth-register footnote distinguishes1579Old Style/1580New Style; indexed excerpt, directPDF403"
+      source: "J. R. Partington1936, Joan Baptista van Helmont, Annals of Science1:359–384"
+      url: "https://doi.org/10.1080/00033793600200291"
+  openstax:
+    - book: "Biology 2e"
+      section: "8.1 Overview of Photosynthesis"
+      url: "https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis"
+      took: "Modern carbon/material account; original prose, no copied art or assessment"
+  licence: "CC BY-NC-SA4.0 original prose; third-party historical facts cited, no images or quotations reproduced"
+  discipline: "TRUE: reported observations and publication chronology. No invented experiment date, laboratory setting or private thoughts. Historical unit standard unresolved; original units retained."
+  correction: "User-authorised30October2026 follow-up: supersedes old exact metric conversions and proof/dry-wood overclaims. See grounding/ch05.md and gates/helmont-verification.md."

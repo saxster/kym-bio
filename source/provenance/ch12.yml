@@ -1,0 +1,254 @@
+'12.1':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 14.2 DNA Structure and Sequencing & 14.3 Basics of DNA Replication
+    url: https://openstax.org/books/biology-2e/pages/14-3-basics-of-dna-replication
+    took: Semi-conservative versus conservative and dispersive DNA replication models, Matthew Meselson and Franklin Stahl (1958) ¹⁵N/¹⁴N CsCl density-gradient centrifugation proof, DNA helicase unzipping at replication forks, and DNA polymerase synthesis and proofreading
+  - book: Concepts of Biology
+    section: 9.2 DNA Replication
+    url: https://openstax.org/books/concepts-of-biology/pages/9-2-dna-replication
+    took: Accessible explanation of complementary template copying, sister chromatids, and eukaryotic replication origins
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.2.3 Mitosis (Supplement — state that the exact replication of chromosomes occurs before mitosis) and Topic 4.1 complementary base pairing (A with T, C with G)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Lower Secondary Science 0893 alignment: chromosomes found in the nucleus and made of DNA (9Bs.01–9Bs.03)'
+    source: Cambridge official Lower Secondary Science 0893 overview and source/research/school-wording.md
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: chromatid, centromere, semi-conservative'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/chromatid
+  history:
+  - what: 'TRUE:James D. Watson and Francis H. C. Crick (25 April 1953) prediction in Nature that specific complementary base pairing immediately suggests a copying mechanism for the genetic material'
+    source: 'Watson JD, Crick FHC (1953) Molecular structure of nucleic acids: a structure for deoxyribose nucleic acid, Nature 171(4356):737–738'
+    url: https://doi.org/10.1038/171737a0
+  - what: 'TRUE:Matthew Meselson and Franklin W. Stahl (1958) demonstration at Caltech that Escherichia coli grown for 14 generations in heavy ¹⁵NH₄Cl (buoyant density 1.724 g/cm³ in CsCl at ~140,000 × g) and shifted to light ¹⁴NH₄Cl (1.710 g/cm³) produces 100% intermediate hybrid ¹⁵N/¹⁴N DNA (1.717 g/cm³) at Generation 1 (falsifying conservative replication) and 50% hybrid + 50% light DNA at Generation 2 (falsifying Max Delbrück''s dispersive model)'
+    source: 'Meselson M, Stahl FW (1958) The replication of DNA in Escherichia coli, Proceedings of the National Academy of Sciences of the USA 44(7):671–682, PMC528642; primary paper examined'
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC528642/
+  - what: 'TRUE:Arthur Kornberg (1956) isolation of DNA polymerase I from E. coli and characterization of template-directed deoxynucleotide polymerisation and proofreading exonuclease fidelity'
+    source: 'Bessman MJ, Lehman IR, Simms ES, Kornberg A (1958) Enzymatic synthesis of deoxyribonucleic acid, Journal of Biological Chemistry 233(1):171–177'
+    url: https://doi.org/10.1016/S0021-9258(19)68049-X
+  figures:
+  - name: c12_meselson_stahl_replication
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; schematic of a replication fork unzipped by DNA helicase, DNA polymerase proofreading (~10⁻⁹ errors/base), and Meselson-Stahl CsCl density bands (1.724, 1.717, 1.710 g/cm³) across Generations 0–3
+  - name: c12_chromosome_chromatid_ledger
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; three-stage bookkeeping comparison of centromere-based chromosome count (46) versus DNA double-helix / sister chromatid count (46 → 92 → 46) across G₁, G₂, and mitotic separation
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Meselson-Stahl ¹⁵N/¹⁴N buoyant densities (1.724, 1.717, 1.710 g/cm³), generation-by-generation hybrid fractions (2 / 2^g = 1 / 2^(g-1)), and 4-stage polymerase proofreading fidelity (10⁻⁴ to 10⁻⁹) computed in source/live/cell_division_model.js and verified in tests/ch12_domain.mjs.'
+  scope: Opens Chapter 12 by answering Question 1 of Chapter 11's bridge (how a cell unzips and copies two metres of DNA before division).
+
+'12.2':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 10.2 The Cell Cycle & 24.1 Reproduction Methods
+    url: https://openstax.org/books/biology-2e/pages/10-2-the-cell-cycle
+    took: Mitotic chromosome condensation, equatorial spindle alignment, separation of sister chromatids into genetically identical diploid nuclei, and asexual vegetative reproduction
+  - book: Concepts of Biology
+    section: 6.2 The Cell Cycle & 13.1 How Animals Reproduce
+    url: https://openstax.org/books/concepts-of-biology/pages/6-2-the-cell-cycle
+    took: Roles of mitosis in multicellular growth, tissue repair, cell replacement, and asexual cloning
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.2 Mitosis (Core 17.2.1: nuclear division giving rise to genetically identical cells, details of stages not required; Core 17.2.2: role of mitosis in growth, repair of damaged tissues, replacement of cells and asexual reproduction; Supplement 17.2.3–17.2.4: exact replication before mitosis and separation of copies maintaining chromosome number) and Topic 16.1 Asexual reproduction (Core 16.1.1 & Supplement 16.1.2: advantages and disadvantages in the wild and to crop production)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Word origin only, not mechanism evidence: mitosis (Greek mitos, warp thread), chromatin (Greek khroma, colour), clone'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/mitosis
+  history:
+  - what: 'TRUE:Walther Flemming (1879–1882) at the University of Kiel used aniline dyes on fire salamander larvae (Salamandra maculosa) to identify chromatin, trace the longitudinal splitting of chromosomes into identical twin halves during nuclear division, coin the term mitosis (1882), and formulate omnis nucleus e nucleo'
+    source: Flemming W (1879) Archiv für mikroskopische Anatomie 16:302–436; Flemming W (1882) Zellsubstanz, Kern und Zelltheilung, F. C. W. Vogel, Leipzig
+    url: https://doi.org/10.5962/bhl.title.168645
+  figures:
+  - name: c12_mitosis_cycle_roles
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; 4-step mitotic chromosome separation diagram (2n = 46 maintained) and 4-card summary of IGCSE 0610 17.2.2 biological roles (growth, tissue repair, cell replacement, asexual reproduction)
+  - name: c12_asexual_vs_sexual_crops
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; comparative ledger of asexual reproduction by mitosis (0610 16.1) versus sexual reproduction by meiosis and gamete fusion (0610 16.2) in wild populations and crop production
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Mitotic chromosome and sister chromatid bookkeeping (46 chr / 46 helices in G₁ → 46 chr / 92 chromatids in G₂ → 2 × 46 chr in daughter cells) modelled in source/live/cell_division_model.js and verified in tests/ch12_domain.mjs.'
+  scope: Connects S-phase DNA replication (12.1) to mitotic nuclear division, tissue renewal, and asexual cloning, setting up the specialisation question in 12.3.
+
+'12.3':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 16.1 Regulation of Gene Expression & 16.4 Eukaryotic Epigenetic/Transcriptional Gene Regulation
+    url: https://openstax.org/books/biology-2e/pages/16-1-regulation-of-gene-expression
+    took: Genomic equivalence across somatic cells, differential gene expression (housekeeping vs tissue-specific genes), transcription factors, and embryonic versus adult stem cells
+  - book: Concepts of Biology
+    section: 9.4 Translation & 11.5 Common Misconceptions about Evolution and Development
+    url: https://openstax.org/books/concepts-of-biology/pages/9-4-translation
+    took: How selective transcription of mRNA controls which proteins a differentiated cell synthesises
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.1.6 (Supplement — explain that most body cells in an organism contain the same genes, but many genes in a particular cell are not expressed because the cell only makes the specific proteins it needs) and Topic 17.2.5 (Supplement — describe stem cells as unspecialised cells that divide by mitosis to produce daughter cells that can become specialised for specific functions)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Word origin only, not mechanism evidence: stem cell, pluripotent, multipotent, meristem'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/pluripotent
+  history:
+  - what: 'TRUE:John B. Gurdon (1962) at the University of Oxford transplanted diploid nuclei from differentiated intestinal epithelial cells of feeding Xenopus laevis tadpoles into UV-enucleated frog eggs, producing normal swimming tadpoles and fertile adult frogs and proving that cell differentiation does not involve irreversible loss or deletion of genes'
+    source: Gurdon JB (1962) The developmental capacity of nuclei taken from intestinal epithelium cells of feeding tadpoles, Journal of Embryology and Experimental Morphology 10(4):622–640
+    url: https://doi.org/10.1242/dev.10.4.622
+  - what: 'TRUE:Kazutoshi Takahashi and Shinya Yamanaka (2006) at Kyoto University reprogrammed differentiated embryonic and adult fibroblasts into induced pluripotent stem cells (iPSCs) by introducing four transcription-factor genes (Oct3/4, Sox2, Klf4, c-Myc)'
+    source: Takahashi K, Yamanaka S (2006) Induction of pluripotent stem cells from mouse embryonic and adult fibroblast cultures by defined factors, Cell 126(4):663–676
+    url: https://doi.org/10.1016/j.cell.2006.07.024
+  - what: 'TRUE:Kamal Ranadive (1917–2001) established India''s first mammalian tissue-culture research laboratory at the Indian Cancer Research Centre (ICRC) in Parel, Mumbai, studying mitotic regulation and cell differentiation in cancer and leprosy'
+    source: Bhisey AN (2001) Kamal Jayasing Ranadive (1917–2001), Current Science 80(12):1596
+    url: https://www.currentscience.ac.in/
+  figures:
+  - name: c12_stem_cells_gene_expression
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; stem cell potency/self-renewal summary (0610 17.2.5) and 4-gene selective expression switchboard (ATP5F1A, INS, HBB, CHAT; 0610 17.1.6) across pancreatic beta cells, bone-marrow erythroblasts, and spinal motor neurones
+  - name: c12_gurdon_yamanaka_proof
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; comparative experimental flowchart of John Gurdon's 1962 Xenopus nuclear transfer and Shinya Yamanaka's 2006 4-factor iPSC reprogramming
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: '6-gene expression matrix (ATP5F1A, GAPDH, OCT4/SOX2, INS, HBB, CHAT/SCN9A) across 4 lineages, 4 differentiation stages, and 4 transcription-factor switches modelled in source/live/cell_division_model.js and verified in tests/ch12_domain.mjs.'
+  scope: Answers Question 2 of Chapter 11's bridge (stem cells, differentiation, and why cells with identical chromosomes express only needed genes).
+
+'12.4':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 11.1 The Process of Meiosis & 11.2 Sexual Reproduction
+    url: https://openstax.org/books/biology-2e/pages/11-1-the-process-of-meiosis
+    took: Diploid (2n) versus haploid (n) chromosome numbers, homologous chromosomes, Meiosis I reduction division and crossing over, Meiosis II chromatid separation, independent assortment (2^n), and restoration of diploidy at fertilisation
+  - book: Concepts of Biology
+    section: 7.1 Sexual Reproduction & 7.2 Meiosis
+    url: https://openstax.org/books/concepts-of-biology/pages/7-2-meiosis
+    took: Side-by-side comparison of mitosis and meiosis and evolutionary advantages of sexual variation
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.1 (haploid and diploid nuclei, 23 homologous pairs = 46 chromosomes in humans), Topic 17.3 Meiosis (Core 17.3.1: involved in production of gametes; Supplement 17.3.2: reduction division in which chromosome number is halved from diploid to haploid resulting in genetically different cells, details of stages not required), and Topic 16.2 Sexual reproduction (Core 16.2.1–16.2.2: fusion of nuclei of two gametes to form a zygote and genetically different offspring; Supplement 16.2.3–16.2.4: gametes are haploid and zygote is diploid; advantages and disadvantages in the wild and to crop production)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Lower Secondary Science 0893 alignment: gametes contain half the chromosomes of body cells and fuse at fertilisation to form a zygote with a full set of chromosomes from both parents (7Bp.03, 9Bs.03)'
+    source: Cambridge official Lower Secondary Science 0893 overview and source/research/school-wording.md
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: meiosis (Greek meiosis, lessening), haploid, diploid, homologous, gamete, zygote'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/meiosis
+  history:
+  - what: 'TRUE:Oscar Hertwig (1876) observation in sea-urchin eggs that fertilisation is the fusion of one sperm nucleus and one egg nucleus; Edouard van Beneden (1883) demonstration in Ascaris megalocephala (2n = 4) that gamete nuclei carry half the chromosome number (n = 2) and fertilisation restores 2n = 4; August Weismann (1887) theoretical prediction of reduction division'
+    source: Hertwig O (1876) Morphologisches Jahrbuch 1:347–434; van Beneden E (1883) Archives de Biologie 4:265–640
+    url: https://doi.org/10.5962/bhl.title.11205
+  - what: 'TRUE:E. K. Janaki Ammal (1934–1939, 1945) meiotic chromosome counts and polyploid hybridisation of noble sugarcane (Saccharum officinarum, 2n = 80) with wild Indian kans grass (Saccharum spontaneum, 2n = 48–128) and related genera at the Imperial Sugarcane Breeding Institute in Coimbatore, and co-authorship of the Chromosome Atlas of Cultivated Plants (1945, documenting diploid Musa acuminata 2n = 22 vs sterile seedless triploid banana cultivars 3n = 33)'
+    source: Janaki Ammal EK (1938) Chromosome numbers in sugarcane × bamboo hybrids, Nature 141:925; Darlington CD, Janaki Ammal EK (1945) Chromosome Atlas of Cultivated Plants, George Allen & Unwin, London
+    url: https://doi.org/10.1038/141925a0
+  figures:
+  - name: c12_diploid_haploid_meiosis
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; 4-step human sexual chromosome cycle (2n = 46 → Meiosis I & II → n = 23 gametes → fertilisation → 2n = 46 zygote) and Weismann's runaway doubling proof (46 → 92 → 184)
+  - name: c12_mitosis_vs_meiosis_ledger
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; 7-row master comparison ledger of mitosis versus meiosis for Cambridge IGCSE 0610 Topics 17.2 & 17.3
+  - name: c12_triploid_banana_case
+    origin: ours; original semantic-theme schematic code in figs_ch12.py; no source illustrations or photographs
+    limits: Not to scale; Case 12 synthesis comparing wild diploid seeded banana (2n = 22), sterile seedless triploid Cavendish banana (3n = 33) vulnerable to Panama disease TR4, and E. K. Janaki Ammal's Coimbatore sugarcane crosses
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Diploid/haploid reduction division (2n = 46 → n = 23), independent assortment (2²³ = 8,388,608 gametes, 2⁴⁶ ≈ 70 trillion zygotes), triploid Cavendish (3n = 33) meiotic triplet jam, and sugarcane octoploidy (2n = 80) modelled in source/live/cell_division_model.js and verified in tests/ch12_domain.mjs.'
+  scope: Completes Chapter 12 (answering Question 3 of Chapter 11's bridge and uniting all four sections in Case 12) and bridges directly to Chapter 13 (Mendelian alleles, Punnett squares, codominance, and sex-linked inheritance).
+
+fig:c12_meselson_stahl_replication:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_chromosome_chromatid_ledger:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_mitosis_cycle_roles:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_asexual_vs_sexual_crops:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_stem_cells_gene_expression:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_gurdon_yamanaka_proof:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_diploid_haploid_meiosis:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_mitosis_vs_meiosis_ledger:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c12_triploid_banana_case:
+  origin: ours
+  source: figs_ch12.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch12.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+story:meselson-flemming-gurdon-divisions:
+  ocw: []
+  openstax: []
+  research: []
+  history:
+  - what: 'TRUE:Walther Flemming (1879–1882) aniline-dye staining of fire salamander larvae (Salamandra maculosa) at the University of Kiel revealing chromatin and longitudinal chromosome splitting in mitosis; Matthew Meselson and Franklin W. Stahl (1954 Woods Hole meeting; 1957–1958 Caltech PNAS 44:671–682) ¹⁵N/¹⁴N CsCl density-gradient ultracentrifugation at ~140,000 × g proving semi-conservative DNA replication (1.724, 1.717, 1.710 g/cm³)'
+    source: Flemming W (1882) Zellsubstanz, Kern und Zelltheilung; Meselson M, Stahl FW (1958) PNAS 44(7):671–682, PMC528642
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC528642/
+  - what: 'TRUE:John B. Gurdon (1962) Xenopus laevis tadpole intestinal epithelial nuclear transfer at the University of Oxford proving genomic equivalence in differentiated cells; Kamal Ranadive (1950s–1960s) mammalian tissue-culture laboratory at the Indian Cancer Research Centre in Parel, Mumbai; Kazutoshi Takahashi and Shinya Yamanaka (2006) reprogramming of adult fibroblasts into induced pluripotent stem cells (iPSCs) with Oct4, Sox2, Klf4, and c-Myc at Kyoto University'
+    source: Gurdon JB (1962) Journal of Embryology and Experimental Morphology 10(4):622–640; Takahashi K, Yamanaka S (2006) Cell 126(4):663–676
+    url: https://doi.org/10.1016/j.cell.2006.07.024
+  figures: []
+  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes or art copied.
+  truth_status: 'TRUE documented places (University of Kiel, Marine Biological Laboratory Woods Hole, Caltech Pasadena, University of Oxford, Indian Cancer Research Centre Parel Mumbai, Kyoto University), dates (1879, 1882, April 1953, summer 1954, July 1958, 1962, 2006, 2012), experimental parameters (14 generations in ¹⁵NH₄Cl at 36 °C, CsCl centrifugation at 44,770 rpm / ~140,000 × g, buoyant densities 1.724, 1.717, and 1.710 g/cm³), and reprogramming transcription factors (Oct4, Sox2, Klf4, c-Myc). No invented dialogue or scenes.'
+  access_limits: Meselson & Stahl 1958 (PMC528642) and Flemming 1882 examined via open-access archives; Gurdon 1962, Takahashi & Yamanaka 2006, and Janaki Ammal 1938/1945 verified via primary bibliometric records and Nobel Lecture archives.
+
+model:dna_replication_meselson:
+  source: live/cell_division_model.js; live/w_dna_replication_meselson.js; appended live/enhancements.js entry
+  static_figure: c12_meselson_stahl_replication
+  contract: grounding/ch12.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch12_domain.mjs independent oracles and tests/qa_ch12.py final-book browser acceptance; results reported in gates/ch12-verification.md
+
+model:mitosis_meiosis_stepper:
+  source: live/cell_division_model.js; live/w_mitosis_meiosis_stepper.js; appended live/enhancements.js entry
+  static_figure: c12_mitosis_cycle_roles
+  contract: grounding/ch12.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch12_domain.mjs independent oracles and tests/qa_ch12.py final-book browser acceptance; results reported in gates/ch12-verification.md
+
+model:stem_cell_expression_lab:
+  source: live/cell_division_model.js; live/w_stem_cell_expression_lab.js; appended live/enhancements.js entry
+  static_figure: c12_stem_cells_gene_expression
+  contract: grounding/ch12.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch12_domain.mjs independent oracles and tests/qa_ch12.py final-book browser acceptance; results reported in gates/ch12-verification.md
+
+record:ch12-decisions:
+  preservation: tests/ch12-preserved.json captures all 299 pre-existing files under source/ (Chapters 0–11 + baselines/gates/runners). Only existing-file change is append-only three Chapter 12 enhancements in source/live/enhancements.js; exact original 81,763 bytes reconstructed and verified. Existing story p-ammal.md (SHA-256 fd23010d4b6b854414d1b6872bfb402c862390f541806f2f0df45c99f9395096) preserved byte-for-byte and linked naturally in Section 12.4 and Case 12.
+  corrections: 'Covered full Cambridge Lower Secondary Science 0893 (7Bp.03, 9Bs.03) and Cambridge IGCSE Biology 0610 Topic 17.1 (haploid/diploid nuclei, 23 homologous pairs, Supplement 17.1.6 selective gene expression), Topic 17.2 (Mitosis Core 1–2 & Supplement 3–5 including stem cells), Topic 17.3 (Meiosis Core 1 & Supplement 2), Topic 16.1 (Asexual reproduction Core 1 & Supplement 2), and Topic 16.2 (Sexual reproduction & fertilisation Core 1–2 & Supplement 3–4); maintained strict syllabus partition by deferring Mendelian inheritance/Punnett squares/sex linkage to Chapter 13, variation/selection to Chapter 14, and genetic modification/biotechnology to Chapter 15.'
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax access-for-free footer retained; original prose/art only.
+  access_limits: Primary papers Meselson & Stahl 1958 (PMC528642), Flemming 1882, Gurdon 1962, Takahashi & Yamanaka 2006, and Janaki Ammal 1938/1945 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
+  physical_trials: Safe kitchen botany observation rooting an onion bulb (Allium cepa) in a water tumbler and sprouting a potato eye bud (Solanum tuberosum) with explicit solanine safety warning; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
+  publication: No publication, deployment, commit, push, clone or remote repository operation.

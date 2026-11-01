@@ -1,0 +1,83 @@
+"0.1":
+  ocw:
+    - course: "7.012 Introductory Biology, Fall 2004"
+      where: "Lecture 1: Introduction to Biology"
+      url: "https://ocw.mit.edu/courses/7-012-introductory-biology-fall-2004/"
+      took: "controlled experimental design; testing hypotheses"
+  openstax:
+    - book: "Microbiology"
+      section: "3.1 Spontaneous Generation"
+      url: "https://openstax.org/books/microbiology/pages/3-1-spontaneous-generation"
+      took: "Redi's 1668 open, sealed, and gauze-covered jar experiment"
+    - book: "Biology 2e"
+      section: "1.2 The Process of Science"
+      url: "https://openstax.org/books/biology-2e/pages/1-2-the-process-of-science"
+      took: "independent, dependent, and controlled variables"
+  history:
+    - what: "Francesco Redi's 1668 Esperienze intorno alla generazione degl'insetti in Florence"
+      source: "Encyclopaedia Britannica: Francesco Redi"
+      url: "https://www.britannica.com/biography/Francesco-Redi"
+  figures:
+    - name: c0_redi_jars
+      origin: ours
+  licence: "CC BY-NC-SA 4.0"
+
+"0.2":
+  ocw:
+    - course: "7.013 Introductory Biology, Spring 2018"
+      where: "Lecture 1-2: Cells and Microscopy"
+      url: "https://ocw.mit.edu/courses/7-013-introductory-biology-spring-2018/"
+      took: "discovery of cells and microorganisms"
+  openstax:
+    - book: "Biology 2e"
+      section: "4.1 Studying Cells"
+      url: "https://openstax.org/books/biology-2e/pages/4-1-studying-cells"
+      took: "Hooke's 1665 cork cells and Leeuwenhoek's single-lens microscopes"
+  history:
+    - what: "Antonie van Leeuwenhoek's 1674 Berkelse Mere and 1683 dental plaque letters to the Royal Society"
+      source: "UCMP Berkeley: Antony van Leeuwenhoek"
+      url: "https://ucmp.berkeley.edu/history/leeuwenhoek.html"
+  figures:
+    - name: c0_leeuwenhoek_lens
+      origin: ours
+  licence: "CC BY-NC-SA 4.0"
+
+"0.3":
+  ocw:
+    - course: "7.014 Introductory Biology, Spring 2005"
+      where: "Lecture 1: Introduction"
+      url: "https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/"
+      took: "biogenesis; cells arise only from pre-existing cells"
+  openstax:
+    - book: "Microbiology"
+      section: "3.1 Spontaneous Generation"
+      url: "https://openstax.org/books/microbiology/pages/3-1-spontaneous-generation"
+      took: "Pasteur's 1859 swan-neck flask experiment"
+  history:
+    - what: "Louis Pasteur's 1859 swan-neck flask prize experiment for the French Academy of Sciences"
+      source: "Institut Pasteur: Louis Pasteur biography"
+      url: "https://www.pasteur.fr/en/institut-pasteur/louis-pasteur"
+  figures:
+    - name: c0_swan_neck
+      origin: ours
+  licence: "CC BY-NC-SA 4.0"
+
+"0.4":
+  ocw:
+    - course: "7.013 Introductory Biology, Spring 2018"
+      where: "Lecture 2: Scales of Life"
+      url: "https://ocw.mit.edu/courses/7-013-introductory-biology-spring-2018/"
+      took: "logarithmic biological scales from nm to m"
+  openstax:
+    - book: "Biology 2e"
+      section: "4.1 Studying Cells"
+      url: "https://openstax.org/books/biology-2e/pages/4-1-studying-cells"
+      took: "relative sizes of biomolecules, viruses, bacteria, organelles, and eukaryotic cells"
+  research:
+    - what: "Student misconceptions on microscopic and nanoscale size benchmarks"
+      source: "Tretter et al. 2006 (JRST) / AAAS Project 2061"
+      url: "https://www.physics.purdue.edu/psas/docs/How%20Small%20is%20Nano%20Lesson.pdf"
+  figures:
+    - name: c0_scale_ladder
+      origin: ours
+  licence: "CC BY-NC-SA 4.0"

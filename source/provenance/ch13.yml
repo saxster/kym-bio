@@ -1,0 +1,251 @@
+'13.1':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 12.1 Mendel's Experiments and the Laws of Probability & 12.2 Characteristics and Traits
+    url: https://openstax.org/books/biology-2e/pages/12-1-mendels-experiments-and-the-laws-of-probability
+    took: Johann Gregor Mendel's controlled garden-pea (Pisum sativum) hybridisation design, contrast between blending and particulate inheritance, F₁ uniformity, F₂ 3:1 phenotypic segregation across seven traits, F₃ 1:2:1 genotypic confirmation, and definitions of gene, locus, allele, dominant, recessive, genotype, phenotype, homozygous, and heterozygous
+  - book: Concepts of Biology
+    section: 8.1 Mendel's Experiments & 8.2 Laws of Inheritance
+    url: https://openstax.org/books/concepts-of-biology/pages/8-1-mendels-experiments
+    took: Accessible explanation of homologous chromosome allele pairs in diploid cells and how enzyme sufficiency explains complete dominance
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.4 Monohybrid inheritance (Core 17.4.1–17.4.9: inheritance as transmission of genetic information from generation to generation; dominant allele expressed if present in genotype; recessive allele only expressed when no dominant allele is present; genotype as genetic make-up in terms of alleles present; phenotype as observable features; homozygous as two identical alleles and pure-breeding; heterozygous as two different alleles and not pure-breeding) and Topic 17.1.2–17.1.3 (gene as length of DNA coding for a protein; allele as alternative form of a gene)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Lower Secondary Science 0893 alignment: chromosomes, genes, and DNA in heredity from parents to offspring (7Bp.03, 8Bp.01, 9Bs.01–9Bs.03)'
+    source: Cambridge official Lower Secondary Science 0893 overview and source/research/school-wording.md
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: allele (from Greek allelon, of one another), homozygous, heterozygous, genotype, phenotype, locus'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/allele
+  history:
+  - what: 'TRUE:Johann Gregor Mendel (1856–1863 experiments in St Thomas''s Abbey, Brno; read 8 February and 8 March 1865; published 1866) cultivated ~28,000 Pisum sativum plants across 7 characters and scored 19,959 F₂ outcomes (5,474:1,850 round/wrinkled = 2.96:1; 6,022:2,001 yellow/green = 3.01:1; 705:224 purple/white = 3.15:1; 882:299 inflated/constricted = 2.95:1; 428:152 green/yellow pod = 2.82:1; 651:207 axial/terminal = 3.14:1; 787:277 tall/dwarf = 2.84:1; combined 14,949:5,010 = 2.98:1) plus F₃ progeny testing (193 pure RR : 372 segregating Rr out of 565 round F₂ seeds)'
+    source: 'Mendel JG (1866) Versuche über Pflanzen-Hybriden, Verhandlungen des naturforschenden Vereines in Brünn 4:3–47'
+    url: https://www.biodiversitylibrary.org/page/40056925
+  - what: 'TRUE:Madan K. Bhattacharyya, Alison M. Smith, T. H. Noel Ellis, Cathie Martin et al. (1990) demonstrated that Mendel''s rugosus (R/r) seed-shape locus encodes starch-branching enzyme isoform I (SBEI) and that the recessive r allele contains an 0.8 kb transposon-like insertion inactivating SBEI; Hellens et al. (2010) identified the flower-colour bHLH gene; Lester et al. (1997) identified the stem-height gibberellin 3β-hydroxylase gene (PsGA3ox1)'
+    source: 'Bhattacharyya MK et al. (1990) The wrinkled-seed character of pea described by Mendel is caused by a transposon-like insertion in a gene encoding starch-branching enzyme, Cell 60(1):115–122'
+    url: https://doi.org/10.1016/0092-8674(90)90721-P
+  figures:
+  - name: c13_mendel_peas_ratios
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: 'Not to scale; P, F₁, F₂, and F₃ breeding flowchart paired with Mendel''s complete 7-trait 1866 Brno ledger (19,959 outcomes, 2.98 : 1)'
+  - name: c13_homologous_loci_alleles
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; maternal and paternal homologous chromosomes showing matching gene loci (RR, Bb, tt) and the SBEI enzyme dosage mechanism (100% RR, 50% haplosufficient Rr, 0% rr)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'Mendel 1866 7-trait counts (14,949 : 5,010 = 2.98 : 1), F₃ progeny test ratios (193 : 372 = 1 : 1.93), SBEI enzyme dosage (100%, 50%, 0%), and sample-size convergence from N = 16 to 19,959 computed in source/live/inheritance_model.js and verified in tests/ch13_domain.mjs.'
+  scope: Opens Chapter 13 by answering Question 1 of Chapter 12's bridge (how two alleles on homologous chromosomes interact and why discrete alleles do not blend).
+
+'13.2':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 12.2 Characteristics and Traits & 12.3 Laws of Inheritance
+    url: https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits
+    took: Law of segregation, construction of 2×2 Punnett squares, 1:2:1 genotypic and 3:1 phenotypic ratios, diagnostic test crosses (Aa × aa → 1:1 vs AA × aa → 100% Aa), and autosomal recessive versus dominant pedigree analysis
+  - book: Concepts of Biology
+    section: 8.2 Laws of Inheritance
+    url: https://openstax.org/books/concepts-of-biology/pages/8-2-laws-of-inheritance
+    took: Step-by-step monohybrid genetic diagrams, probability rules, and carrier deductions in human family trees
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.4 Monohybrid inheritance (Core 17.4.10: construct and interpret genetic diagrams including Punnett squares for monohybrid crosses; Core 17.4.11: use and interpret pedigree diagrams; Core 17.4.12: calculate phenotypic ratios 1:1 and 3:1 and probabilities; Supplement 17.4.13–17.4.14: identify an unknown genotype by a test cross with a homozygous recessive individual)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Word origin only, not mechanism evidence: Punnett square, pedigree (from Anglo-Norman pe de gru, crane''s foot), monohybrid'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/pedigree
+  history:
+  - what: 'TRUE:William Bateson (1902, 1905) coined the terms genetics, allele (allelomorph), homozygote, and heterozygote after the 1900 rediscovery of Mendel''s paper by Hugo de Vries, Carl Correns, and Erich von Tschermak; Reginald Crundall Punnett (1905, Mendelism) introduced the 2×2 Punnett square gamete matrix at Cambridge'
+    source: 'Bateson W, Saunders ER (1902) Reports to the Evolution Committee of the Royal Society I; Punnett RC (1905) Mendelism, Macmillan & Bowes, Cambridge'
+    url: https://doi.org/10.5962/bhl.title.168646
+  - what: 'TRUE:Labhshanker Dalichand (L. D.) Sanghvi (1920–1985) founded the Human Variation Unit at the Indian Cancer Research Centre (now ACTREC, Tata Memorial Centre) in Parel, Mumbai, mapping blood-group allele frequencies, consanguinity, and autosomal recessive/X-linked pedigrees across Indian communities'
+    source: 'Sanghvi LD, Khanolkar VR (1949) Data relating to seven genetical characters in six endogamous groups in Bombay, Annals of Eugenics 15(1):52–76'
+    url: https://doi.org/10.1111/j.1469-1809.1949.tb02422.x
+  figures:
+  - name: c13_punnett_test_cross_ledger
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; side-by-side six-line Cambridge genetic diagrams for Bb × Bb (3:1 phenotype, 1:2:1 genotype) and the diagnostic test cross Bb × bb (1:1) versus BB × bb (100% Bb)
+  - name: c13_pedigree_detective_rules
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; pedigree chart symbol key and side-by-side proofs for Rule 1 (Unaffected × Unaffected → Affected proves recessive) and Rule 2 (Affected × Affected → Unaffected proves dominant)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'All 9 (3×3) parental monohybrid crosses, test-cross ratios, small-to-large sample convergence (N = 16, 64, 400, 7,324), and pedigree carrier probabilities (1/4 affected, 1/2 carrier before birth, 2/3 carrier among unaffected offspring) modelled in source/live/inheritance_model.js and verified in tests/ch13_domain.mjs.'
+  scope: Answers Question 2 of Chapter 12's bridge for autosomal dominant and recessive alleles across Punnett squares, test crosses, and family pedigrees.
+
+'13.3':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 12.2 Characteristics and Traits (Multiple Alleles & Codominance)
+    url: https://openstax.org/books/biology-2e/pages/12-2-characteristics-and-traits
+    took: Codominance versus simple dominance, multiple-allele inheritance of human ABO blood groups (IA, IB, IO), 1:2:1 phenotypic ratios in codominant crosses, and red blood cell surface antigen expression
+  - book: Concepts of Biology
+    section: 8.3 Extensions of the Laws of Inheritance
+    url: https://openstax.org/books/concepts-of-biology/pages/8-3-extensions-of-the-laws-of-inheritance
+    took: ABO blood group genotypes and why codominant heterozygotes express both alleles simultaneously without blending
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.4 Monohybrid inheritance (Supplement 17.4.15: describe codominance as a situation in which both alleles in heterozygous organisms contribute to the phenotype; Supplement 17.4.17: explain the inheritance of ABO blood groups with phenotypes A, B, AB and O and alleles IA, IB and IO; Supplement 17.4.18: construct and interpret genetic diagrams involving codominance and calculate phenotypic ratios and probabilities)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Word origin only, not mechanism evidence: codominance, isoagglutinogen (I superscript base letter)'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/codominance
+  history:
+  - what: 'TRUE:Karl Landsteiner (1900–1901) at the University of Vienna discovered the human ABO blood groups by cross-testing washed erythrocytes and blood sera; Felix Bernstein (1924) proved mathematically from family studies that A, B, and O are inherited as three multiple alleles at a single genetic locus'
+    source: 'Landsteiner K (1901) Über Agglutinationserscheinungen normalen menschlichen Blutes, Wiener klinische Wochenschrift 14:1132–1134; Bernstein F (1924) Klinische Wochenschrift 3:1495–1497'
+    url: https://doi.org/10.1007/BF01736255
+  - what: 'TRUE:Fumi-ichiro Yamamoto, Henrik Clausen, T. White, J. Marken, and Sen-itiroh Hakomori (1990) cloned and sequenced the human ABO locus on Chromosome 9 (9q34.2), showing that IA encodes α-1,3-N-acetylgalactosaminyltransferase (GTA), IB differs by 4 amino-acid substitutions to encode α-1,3-galactosyltransferase (GTB), and IO carries a single-base deletion (ΔG261) frameshift inactivating the enzyme'
+    source: 'Yamamoto F et al. (1990) Molecular genetic basis of the histo-blood group ABO system, Nature 345(6272):229–233'
+    url: https://doi.org/10.1038/345229a0
+  figures:
+  - name: c13_codominance_abo_blood
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; Chromosome 9 ABO glycosyltransferase mechanism (GTA, GTB, ΔG261), 6-genotype to 4-phenotype table with Landsteiner antibodies, and the IAIO × IBIO 4-group Punnett cross
+  - name: c13_dominance_vs_codominance
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; side-by-side comparison of Simple Dominance (3:1 F₂ phenotype ratio) versus Codominance (1:2:1 F₂ phenotype ratio in IAIB × IAIB and roan cattle CRCW)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'All 36 (6×6) diploid parental ABO crosses (IAIA, IAIO, IBIB, IBIO, IAIB, IOIO), offspring blood group percentages (A, B, AB, O), and excluded blood groups computed in source/live/inheritance_model.js and verified in tests/ch13_domain.mjs.'
+  scope: Extends Chapter 13 from simple two-allele dominance to multiple alleles and codominance, linking back to Chapters 8 & 10 (blood antigens/antibodies) and Chapter 11 (HbA/HbS).
+
+'13.4':
+  ocw: []
+  openstax:
+  - book: Biology 2e
+    section: 12.2 Characteristics and Traits (Sex-Linked Traits) & 13.1 Chromosomal Theory and Genetic Linkage
+    url: https://openstax.org/books/biology-2e/pages/13-1-chromosomal-theory-and-genetic-linkage
+    took: XX/XY sex determination, 1:1 sex ratio at fertilisation, Thomas Hunt Morgan's 1910 Drosophila white-eye X-linked crosses, hemizygosity in XY males, and X-linked recessive inheritance of red–green colour vision deficiency and haemophilia
+  - book: Concepts of Biology
+    section: 8.3 Extensions of the Laws of Inheritance
+    url: https://openstax.org/books/concepts-of-biology/pages/8-3-extensions-of-the-laws-of-inheritance
+    took: Why X-linked recessive traits are more frequent in males than females and why carrier mothers transmit X-linked traits to 50% of their sons
+  research:
+  - what: 'Core/Supplement placement independently checked: Topic 17.1 & 17.4 (XX in females, XY in males, 1:1 sex determination Punnett square; Supplement 17.4.16: describe a sex-linked characteristic as a characteristic in which the gene responsible is located on a sex chromosome and that this makes it more common in one sex than in the other; Supplement 17.4.19: describe red–green colour blindness as an example of sex linkage; Supplement 17.4.20: use genetic diagrams to predict the results of monohybrid crosses involving sex linkage and calculate phenotypic ratios and probabilities)'
+    source: Cambridge IGCSE Biology 0610 syllabus 2026–2028 v3 and 2029 syllabus; directly inspected
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: 'Lower Secondary Science 0893 alignment: XX and XY sex chromosomes determine genetic sex at fertilisation (8Bp.01, 9Bp.01)'
+    source: Cambridge official Lower Secondary Science 0893 overview and source/research/school-wording.md
+    url: https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-lower-secondary/curriculum/science/
+  - what: 'Word origin only, not mechanism evidence: autosome, hemizygous, haemophilia (from Greek haima blood + philia affinity/tendency to bleed)'
+    source: Wiktionary / etymological entries
+    url: https://en.wiktionary.org/wiki/hemizygous
+  history:
+  - what: 'TRUE:Nettie Maria Stevens (1905) at Bryn Mawr College demonstrated in Tenebrio molitor (yellow mealworm beetle) that females carry two large X chromosomes (XX, producing uniform X ova) while males carry one large X and one small Y chromosome (XY, producing 50% X sperm and 50% Y sperm), establishing chromosomal sex determination'
+    source: 'Stevens NM (1905) Studies in spermatogenesis with especial reference to the "accessory chromosome", Carnegie Institution of Washington Publication 36:1–32'
+    url: https://doi.org/10.5962/bhl.title.56515
+  - what: 'TRUE:Thomas Hunt Morgan (1910) at Columbia University bred a white-eyed male Drosophila melanogaster with red-eyed females (1,237 red F₁; 3,470 red : 782 white F₂, all white-eyed F₂ flies being male XwY) and performed reciprocal/test crosses proving that the eye-colour gene is located physically on the X chromosome'
+    source: 'Morgan TH (1910) Sex limited inheritance in Drosophila, Science 32(812):120–122'
+    url: https://doi.org/10.1126/science.32.812.120
+  figures:
+  - name: c13_xx_xy_sex_determination
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; comparison of human X (~156 Mb, ~850–900 genes) and Y (~57 Mb, <100 genes including SRY) chromosomes with the 2×2 XX × XY Punnett square (1:1 ratio)
+  - name: c13_x_linked_inheritance
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; side-by-side X-linked recessive Punnett squares for Carrier Mother × Normal Father (XBXb × XBY) and Homozygous Normal Mother × Affected Father (XBXB × XbY)
+  - name: c13_mumbai_maternity_case
+    origin: ours; original semantic-theme schematic code in figs_ch13.py; no source illustrations or photographs
+    limits: Not to scale; Case 13 synthesis resolving the Mumbai maternity ward ABO bracelet swap (IAIB × IOIO vs IAIO × IBIO) and the X-linked clinic pedigree (XBXb × XBY)
+  licence: CC BY-NC-SA 4.0 original prose, SVG and code. OpenStax teaching spine re-taught with attribution under recorded series source-use decision; AI-ingestion restriction acknowledged, no claim of permission/waiver. Third-party research, dictionary and Cambridge facts citation-only; no copied artwork, assessment items or quotes.
+  computed: 'All 6 (3×2) maternal XX × paternal XY genotypes across 3 X-linked loci (colour vision XB/Xb, haemophilia XH/Xh, Drosophila eye colour X+/Xw), with separate probabilities among daughters, among sons, and among all children computed in source/live/inheritance_model.js and verified in tests/ch13_domain.mjs.'
+  scope: Completes Chapter 13 (answering Question 3 of Chapter 12's bridge and uniting all four sections in Case 13) and bridges directly to Chapter 14 (variation, mutation, natural selection, and evolution).
+
+fig:c13_mendel_peas_ratios:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_homologous_loci_alleles:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_punnett_test_cross_ledger:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_pedigree_detective_rules:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_codominance_abo_blood:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_dominance_vs_codominance:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_xx_xy_sex_determination:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_x_linked_inheritance:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+fig:c13_mumbai_maternity_case:
+  origin: ours
+  source: figs_ch13.py
+  licence: CC BY-NC-SA 4.0 original code-generated SVG; no adapted source art
+  model_limits: See grounding/ch13.md and the per-figure alt text, scale/model note and caption; semantic theme classes and labelled arrow kinds.
+
+story:mendel-morgan-sanghvi-inheritance:
+  ocw: []
+  openstax: []
+  research: []
+  history:
+  - what: 'TRUE:Johann Gregor Mendel (1851–1853 University of Vienna studies under Christian Doppler and Andreas von Ettingshausen; 1856–1863 Brno abbey garden experiments on Pisum sativum; 1866 paper reporting 19,959 F₂ outcomes across 7 characters at 2.98:1 and F₃ 193:372 progeny tests); 1900 rediscovery by de Vries, Correns, and Tschermak; William Bateson and Reginald Punnett (1902–1905) at Cambridge coining genetics, allele, homozygote, heterozygote, and the 2×2 Punnett square'
+    source: 'Mendel JG (1866) Verhandlungen des naturforschenden Vereines in Brünn 4:3–47; Punnett RC (1905) Mendelism, Cambridge'
+    url: https://www.biodiversitylibrary.org/page/40056925
+  - what: 'TRUE:Nettie Stevens (1905) mealworm beetle (Tenebrio molitor) XX/XY karyotype discovery at Bryn Mawr College; Thomas Hunt Morgan (1910) white-eyed male Drosophila melanogaster sex-linked inheritance proof in the Columbia University Fly Room; L. D. Sanghvi (1949–1970s) human genetics surveys of ABO/Rh blood groups, X-linked colour vision and G6PD deficiency, and haemoglobinopathies at the Indian Cancer Research Centre in Parel, Mumbai'
+    source: 'Stevens NM (1905) Carnegie Inst Wash Publ 36:1–32; Morgan TH (1910) Science 32:120–122; Sanghvi LD, Khanolkar VR (1949) Annals of Eugenics 15(1):52–76'
+    url: https://doi.org/10.1126/science.32.812.120
+  figures: []
+  licence: Original prose CC BY-NC-SA 4.0; historical primary papers cited for documented facts only; no photographs, quotes or art copied.
+  truth_status: 'TRUE documented places (St Thomas''s Abbey Brno, University of Vienna, University of Cambridge, Bryn Mawr College, Schermerhorn Hall Columbia University New York, Indian Cancer Research Centre Parel Mumbai), dates (1851–1853, 1856–1863, 1865, 1866, 1900, 1905, 1910, 1933, 1949), and quantitative results (19,959 F₂ outcomes, 5,474:1,850 round/wrinkled, 6,022:2,001 yellow/green, 705:224 purple/white, 193:372 F₃ seed test, 1,237 F₁ and 3,470:782 F₂ Drosophila counts). No invented dialogue or scenes.'
+  access_limits: Mendel 1866, Punnett 1905, Stevens 1905, and Morgan 1910 examined via Biodiversity Heritage Library / open-access archives; Bhattacharyya et al. 1990, Yamamoto et al. 1990, and Sanghvi & Khanolkar 1949 verified via primary bibliometric records.
+
+model:mendel_punnett_simulator:
+  source: live/inheritance_model.js; live/w_mendel_punnett_simulator.js; appended live/enhancements.js entry
+  static_figure: c13_mendel_peas_ratios
+  contract: grounding/ch13.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch13_domain.mjs independent oracles and tests/qa_ch13.py final-book browser acceptance; results reported in gates/ch13-verification.md
+
+model:abo_codominance_pedigree:
+  source: live/inheritance_model.js; live/w_abo_codominance_pedigree.js; appended live/enhancements.js entry
+  static_figure: c13_codominance_abo_blood
+  contract: grounding/ch13.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch13_domain.mjs independent oracles and tests/qa_ch13.py final-book browser acceptance; results reported in gates/ch13-verification.md
+
+model:sex_linked_cross_lab:
+  source: live/inheritance_model.js; live/w_sex_linked_cross_lab.js; appended live/enhancements.js entry
+  static_figure: c13_x_linked_inheritance
+  contract: grounding/ch13.md Quantitative contracts; defined before coding. Static/manual states; explicit input bounds/nonfinite defaults; captured outcomes immutable; all tour controls/cutaway explicit; captures not performed by tours.
+  licence: CC BY-NC-SA 4.0 original models/code, no external coordinates
+  validation: tests/ch13_domain.mjs independent oracles and tests/qa_ch13.py final-book browser acceptance; results reported in gates/ch13-verification.md
+
+record:ch13-decisions:
+  preservation: tests/ch13-preserved.json captures all 316 pre-existing files under source/ (Chapters 0–12 + baselines/gates/runners). Only existing-file change is append-only three Chapter 13 enhancements in source/live/enhancements.js; exact original 91,898 bytes reconstructed and verified. Existing stories (p-ammal.md, p-ramachandran.md, franklin-khorana-codebreakers.md, meselson-flemming-gurdon-divisions.md) preserved byte-for-byte and linked naturally in Chapter 13.
+  corrections: 'Covered full Cambridge Lower Secondary Science 0893 (7Bp.03, 8Bp.01, 9Bp.01, 9Bs.01–9Bs.03) and Cambridge IGCSE Biology 0610 Topic 17.4 Monohybrid inheritance (Core 1–12 & Supplement 13–20: definitions, Punnett squares, pedigree diagrams, 3:1 and 1:1 ratios, test crosses, codominance, ABO blood groups IA/IB/IO, sex-linked characteristics, red–green colour blindness and haemophilia) plus XX/XY sex determination; maintained strict syllabus partition by deferring continuous/discontinuous variation, mutation, natural selection, selective breeding, and antibiotic resistance to Chapter 14.'
+  source_terms: Recorded source-use decision is not a source licence waiver or evidence of written permission. OpenStax access-for-free footer retained; original prose/art only.
+  access_limits: Primary papers Mendel 1866, Punnett 1905, Stevens 1905, Morgan 1910, Bhattacharyya et al. 1990, Yamamoto et al. 1990, and Sanghvi & Khanolkar 1949 verified via open-access archives and primary bibliometric records; exact 0893 framework unavailable; MIT OCW courses not cited where not directly inspected.
+  physical_trials: Safe household probability investigation using two Indian coins (or kabuli chana and kala chana beans) to model Rr × Rr (N = 16 vs N = 64) and Rr × rr test crosses; reviewed for safety and feasibility and explicitly disclosed in text as not classroom-trialled for this edition.
+  publication: No publication, deployment, commit, push, clone or remote repository operation.

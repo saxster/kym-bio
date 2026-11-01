@@ -1,0 +1,277 @@
+'5.1':
+  ocw:
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: Lecture 8, transcript pp2–5 (excluding attribution cover)
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/3fbe99b92e196ff4bfd90f6cba6a169f_7_0142005L08.pdf
+    took: Material versus energy source only; no willow history claimed from MIT
+  openstax:
+  - book: Biology 2e
+    section: 8 1 overview of photosynthesis
+    url: https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  research:
+  - what: School bridge:0610 2026–2028 v3, printed pp17–18/22–23; not a claim full practical syllabus covered
+    source: Cambridge International Education
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history:
+  - what: Willow reported weights, limits and posthumous 1648 publication
+    source: https://faculty.csbsju.edu/SSAUPE/biol115/van_helmont.htm
+    url: https://faculty.csbsju.edu/SSAUPE/biol115/van_helmont.htm
+  figures:
+  - name: c5_ledger
+    origin: ours
+    took: Original theme-aware schematic; scale and limits stated in alt text/caption
+  licence: CC BY-NC-SA 4.0; original prose/art, attributed conceptual sources; third-party facts cited, no artwork reproduced
+'5.2':
+  ocw:
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: Lecture 8, transcript pp2–5 (excluding attribution cover)
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/3fbe99b92e196ff4bfd90f6cba6a169f_7_0142005L08.pdf
+    took: Oxygenic photochemistry only; historical experiments from separate primary/authoritative sources
+  openstax:
+  - book: Biology 2e
+    section: 8 1 overview of photosynthesis
+    url: https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  research:
+  - what: School bridge:0610 2026–2028 v3, printed pp17–18/22–23; not a claim full practical syllabus covered
+    source: Cambridge International Education
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history:
+  - what: Priestley 1771 comparison; primary second edition 1775 pp51–54
+    source: https://www.gutenberg.org/files/29734/29734-h/29734-h.htm
+    url: https://www.gutenberg.org/files/29734/29734-h/29734-h.htm
+  - what: Ingenhousz 1779, printed pp14–17,203–217,238ff; original OCR examined
+    source: https://archive.org/details/b30516638_0001
+    url: https://archive.org/details/b30516638_0001
+  - what: de Saussure1804 gas/material accounting, scholarly historical analysis; not whole French book
+    source: https://comptes-rendus.academie-sciences.fr/geoscience/articles/en/10.1016/j.crte.2012.10.006/
+    url: https://comptes-rendus.academie-sciences.fr/geoscience/articles/en/10.1016/j.crte.2012.10.006/
+  figures:
+  - name: c5_gas_evidence
+    origin: ours
+    took: Original theme-aware schematic; scale and limits stated in alt text/caption
+  licence: CC BY-NC-SA 4.0; original prose/art, attributed conceptual sources; third-party facts cited, no artwork reproduced
+'5.3':
+  ocw:
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: Lecture 8, transcript pp2–5 (excluding attribution cover)
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/3fbe99b92e196ff4bfd90f6cba6a169f_7_0142005L08.pdf
+    took: 'Lecture8 pp2–5: absorption, water oxidation, carriers, compartments; Lecture5 ATP and catalysts only'
+  - course: 7.012 Introductory Biology, Fall 2004
+    where: Lecture5 Biochemistry4, ATP and activation-barrier passages
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-5-biochemistry-4/
+    took: 'Recall: ATP energy transfer and enzyme barrier lowering; no photosynthesis experiment credited'
+  openstax:
+  - book: Biology 2e
+    section: 8 1 overview of photosynthesis
+    url: https://openstax.org/books/biology-2e/pages/8-1-overview-of-photosynthesis
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  - book: Biology 2e
+    section: 8 2 the light dependent reactions of photosynthesis
+    url: https://openstax.org/books/biology-2e/pages/8-2-the-light-dependent-reactions-of-photosynthesis
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  - book: Biology 2e
+    section: 8 3 using light energy to make organic molecules
+    url: https://openstax.org/books/biology-2e/pages/8-3-using-light-energy-to-make-organic-molecules
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  research:
+  - what: School bridge:0610 2026–2028 v3, printed pp17–18/22–23; not a claim full practical syllabus covered
+    source: Cambridge International Education
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history:
+  - what: Ruben, Randall, Kamen and Hyde1941; metadata/preview, original issue indexed text; no claim full publisher
+      access
+    source: https://pubs.acs.org/doi/10.1021/ja01848a512
+    url: https://pubs.acs.org/doi/10.1021/ja01848a512
+  figures:
+  - name: c5_chloroplast
+    origin: ours
+    took: Original theme-aware schematic; scale and limits stated in alt text/caption
+  - name: c5_limits
+    origin: ours
+    took: Original theme-aware schematic; scale and limits stated in alt text/caption
+  licence: CC BY-NC-SA 4.0; original prose/art, attributed conceptual sources; third-party facts cited, no artwork reproduced
+'5.4':
+  ocw:
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: Lecture 8, transcript pp2–5 (excluding attribution cover)
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/3fbe99b92e196ff4bfd90f6cba6a169f_7_0142005L08.pdf
+    took: Chloroplast membranes/stroma only; leaf anatomy and guard-cell water relations from OpenStax
+  openstax:
+  - book: Biology 2e
+    section: 30 4 leaves
+    url: https://openstax.org/books/biology-2e/pages/30-4-leaves
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  - book: Biology 2e
+    section: 30 5 transport of water and solutes in plants
+    url: https://openstax.org/books/biology-2e/pages/30-5-transport-of-water-and-solutes-in-plants
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  research:
+  - what: School bridge:0610 2026–2028 v3, printed pp17–18/22–23; not a claim full practical syllabus covered
+    source: Cambridge International Education
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  history: []
+  figures:
+  - name: c5_leaf
+    origin: ours
+    took: Original theme-aware schematic; scale and limits stated in alt text/caption
+  licence: CC BY-NC-SA 4.0; original prose/art, attributed conceptual sources; third-party facts cited, no artwork reproduced
+'5.5':
+  ocw:
+  - course: 7.014 Introductory Biology, Spring 2005
+    where: Lecture 8, transcript pp2–5 (excluding attribution cover)
+    url: https://ocw.mit.edu/courses/7-014-introductory-biology-spring-2005/3fbe99b92e196ff4bfd90f6cba6a169f_7_0142005L08.pdf
+    took: Energy/material distinction only, not a source for sap ascent; Lecture5 ATP role supports loading recall
+  - course: 7.012 Introductory Biology, Fall 2004
+    where: Lecture5 Biochemistry4, ATP and activation-barrier passages
+    url: https://ocw.mit.edu/courses/7-012-introduction-to-biology-fall-2004/resources/lecture-5-biochemistry-4/
+    took: 'Recall: ATP energy transfer and enzyme barrier lowering; no photosynthesis experiment credited'
+  openstax:
+  - book: Biology 2e
+    section: 30 5 transport of water and solutes in plants
+    url: https://openstax.org/books/biology-2e/pages/30-5-transport-of-water-and-solutes-in-plants
+    took: Mechanism and coverage; re-taught in original prose; no copied artwork or assessment items
+  research:
+  - what: School bridge:0610 2026–2028 v3, printed pp17–18/22–23; not a claim full practical syllabus covered
+    source: Cambridge International Education
+    url: https://www.cambridgeinternational.org/Images/697203-2026-2028-syllabus.pdf
+  - what: Species-dependent active and passive phloem loading
+    source: Rennie and Turgeon2009, primary research
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2729037/
+  history: []
+  figures:
+  - name: c5_xylem
+    origin: ours
+    took: Original theme-aware schematic; scale and limits stated in alt text/caption
+  - name: c5_phloem
+    origin: ours
+    took: Original theme-aware schematic; scale and limits stated in alt text/caption
+  licence: CC BY-NC-SA 4.0; original prose/art, attributed conceptual sources; third-party facts cited, no artwork reproduced
+fig:c5_ledger:
+  figures:
+  - name: c5_ledger
+    origin: ours
+  source_section: '5.1'
+  licence: CC BY-NC-SA 4.0
+  limits: Original schematic art, not a copy or measured dataset; see chapter caption and grounding/ch05.md
+fig:c5_gas_evidence:
+  figures:
+  - name: c5_gas_evidence
+    origin: ours
+  source_section: '5.2'
+  licence: CC BY-NC-SA 4.0
+  limits: Original schematic art, not a copy or measured dataset; see chapter caption and grounding/ch05.md
+fig:c5_chloroplast:
+  figures:
+  - name: c5_chloroplast
+    origin: ours
+  source_section: '5.3'
+  licence: CC BY-NC-SA 4.0
+  limits: Original schematic art, not a copy or measured dataset; see chapter caption and grounding/ch05.md
+fig:c5_limits:
+  figures:
+  - name: c5_limits
+    origin: ours
+  source_section: '5.3'
+  licence: CC BY-NC-SA 4.0
+  limits: Original schematic art, not a copy or measured dataset; see chapter caption and grounding/ch05.md
+fig:c5_leaf:
+  figures:
+  - name: c5_leaf
+    origin: ours
+  source_section: '5.4'
+  licence: CC BY-NC-SA 4.0
+  limits: Original schematic art, not a copy or measured dataset; see chapter caption and grounding/ch05.md
+fig:c5_xylem:
+  figures:
+  - name: c5_xylem
+    origin: ours
+  source_section: '5.5'
+  licence: CC BY-NC-SA 4.0
+  limits: Original schematic art, not a copy or measured dataset; see chapter caption and grounding/ch05.md
+fig:c5_phloem:
+  figures:
+  - name: c5_phloem
+    origin: ours
+  source_section: '5.5'
+  licence: CC BY-NC-SA 4.0
+  limits: Original schematic art, not a copy or measured dataset; see chapter caption and grounding/ch05.md
+story:p-ingenhousz:
+  history:
+  - what: Original1779 book, printed pp14–17,203–217,238ff
+    source: Ingenhousz, Experiments upon Vegetables
+    url: https://archive.org/details/b30516638_0001
+  - what: Priestley original comparison and chronology
+    source: Priestley1775 second edition pp51–54
+    url: https://www.gutenberg.org/files/29734/29734-h/29734-h.htm
+  - what: 1730–1799, Dutch physician/natural philosopher, Breda
+    source: Science Museum Group
+    url: https://collection.sciencemuseumgroup.org.uk/people/cp37466/jan-ingenhousz
+  licence: CC BY-NC-SA 4.0 original prose; historical facts from public-domain work and museum metadata; no photographs
+  discipline: 'TRUE: bibliographic facts and experiments. No invented speech, thoughts, room or exact discovery moment.'
+ch05-models:
+  figures:
+  - name: carbon_account
+    origin: ours
+  - name: limiting_lab
+    origin: ours
+  - name: sap_routes
+    origin: ours
+  computed: See grounding/ch05.md numerical receipt; model formulas defined before implementation. Atom/mass conservation,
+    caps, net=gross−10; all relative parameters invented. No biological recovery predicted.
+  licence: CC BY-NC-SA 4.0
+ch05-source-decisions:
+  research:
+  - what: Word origins, not mechanisms
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/photosynthesis
+  - what: Word origins, not mechanisms
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/stoma
+  - what: Word origins, not mechanisms
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/xylem
+  - what: Word origins, not mechanisms
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/phloem
+  - what: Word origins, not mechanisms
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/cohesion
+  - what: Word origins, not mechanisms
+    source: Merriam-Webster
+    url: https://www.merriam-webster.com/dictionary/transpiration
+  limitations: 'Historical mass unit standard unresolved: original units retained, no metric conversion in chapter. BHL
+    direct403; original Wellcome scan OCR examined. de Saussure via scholarly analysis, not full French original. ACS
+    publisher metadata/preview; original issue indexed text. Fictional terrarium avoids unsupported dates. The initially retained p-helmont account has since been corrected under explicit user authorisation; original units and measurement limits now agree with Chapter5.'
+  source_use: Retain research/sources.md recorded noncommercial source-use decision. It does not waive source terms.
+    MIT and OpenStax attribution retained; OpenStax AI clause acknowledged in grounding. No copied third-party artwork.
+
+ch05-review-corrections:
+  research:
+    - what: "Gate A correction: vessel-element end walls have perforation plates, not universally absent end walls"
+      source: "OpenStax Biology 2e 30.2 Stems, Vascular Tissue"
+      url: "https://openstax.org/books/biology-2e/pages/30-2-stems"
+  correction: "Chapter and grounding now distinguish school continuous-tube shorthand from perforated end walls."
+
+ch05-chronology-correction:
+  correction: "Scene distinguishes Priestley experiment1771 from public paper1772 and examined book edition1775; Ingenhousz book1779."
+
+ch05-final-review-followup:
+  correction: "Gate B B1 adopted: explicit gradient-energy relay; B2 partly adopted: oxygen-source question replaces editorial caution. Mobile temperature control shortened; model unchanged. Static limiting graph breakpoints aligned exactly with x=70+5.2L."
+  research:
+    - what: "Original 1941 issue text examined for isotope experiments; publisher full text not purchased"
+      source: "Ruben, Randall, Kamen, Hyde1941 JACS63:877–879"
+      url: "https://electronicsandbooks.com/edt/manual/Magazine/J/Journal%20of%20the%20American%20Chemical%20Society%20US/1941%20%20%28vol%20063%29/03%20%20%28637-888%29/867-882.pdf"
+
+ch05-print-correction:
+  correction: "PDF inspection exposed inherited dark-screen colours on white print paper. book.css appends a print-only semantic palette/background reset; screen styles and earlier chapter sources untouched."
+  verification: "Print ink/paper from all three themes; representative original plate pages visually inspected; preservation hashes original stylesheet prefix."
+
+helmont-authorised-followup:
+  correction: "Older p-helmont story corrected with explicit user authorisation; unsupported conversions, dry-wood/proof claims and experiment date/setting removed. Publication1648 remains distinct from experiment dates. Chapter5 normal term link restored."
+  sources: "Detailed story sources and access caveats in provenance/stories.yml story:p-helmont and grounding/ch05.md."
+  preservation: "Original ch05-preserved.json unchanged; tests/helmont-authorised-corrections.json records before/after hashes for the two explicitly amended pre-existing files. Other completed chapter sources remain protected."
+
+helmont-followup-gate-correction:
+  correction: "Unrecorded tree water content prevents interpreting whole gain as new dry wood; no categorical water-mass contribution inferred from absence of a reported drying procedure."
