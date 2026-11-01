@@ -1,0 +1,5 @@
+Markdown==3.11.2
+playwright==1.64.1
+PyYAML==6.0.3
+fonttools==4.58.4
+Brotli==1.1.0

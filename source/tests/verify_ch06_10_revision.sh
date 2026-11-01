@@ -2,7 +2,7 @@
 # Local verification only; no source push or publication.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-PYTHON_BIN="${BIO_PYTHON_INTERPRETER:-/Users/amarsukhi/src/MyCode/kym_physics/.venv/bin/python}"
+PYTHON_BIN="${BIO_PYTHON_INTERPRETER:-python3}"
 if [ -n "${BIO_READER_VERIFY_OUT:-}" ]; then
   RECEIPTS="$BIO_READER_VERIFY_OUT"
 else
