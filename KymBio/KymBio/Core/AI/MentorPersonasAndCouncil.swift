@@ -546,8 +546,8 @@ enum ChatSafetyDirectives {
         let context = AIRequestContext(
             feature: "chat.mentor",
             audience: .learner,
-            interaction: .tutoring,
-            dialogueMode: dialogueMode
+            interaction: .tutoringDialogue,
+            dialogueSupportMode: dialogueMode
         )
 
         var lines: [String] = [
@@ -976,7 +976,7 @@ enum QualityGateService {
     /// Evaluates a tutor response against constitutional and pedagogical quality gates (1-10 scale).
     static func evaluateResponse(_ text: String, expectedTerms: [String] = []) -> QualityScore {
         let devValidation = DevelopmentalResponseValidator.validate(text)
-        guard devValidation.isCompliant else {
+        guard devValidation.isValid else {
             return QualityScore(
                 accuracy: 1.0,
                 clarity: 1.0,
@@ -1064,7 +1064,7 @@ enum AdversarialCouncil {
         let lower = content.lowercased()
 
         // 1. SME Vote
-        let smeApproved = quality.accuracy >= 6.5 && devResult.isCompliant
+        let smeApproved = quality.accuracy >= 6.5 && devResult.isValid
         let smeVote = CouncilVerdict.AgentVote(
             agentId: "sme-001",
             agentRole: "Subject Matter Expert",
@@ -1077,7 +1077,7 @@ enum AdversarialCouncil {
         )
 
         // 2. Pedagogist Vote
-        let pedApproved = quality.clarity >= 6.5 && quality.completeness >= 6.5 && devResult.isCompliant
+        let pedApproved = quality.clarity >= 6.5 && quality.completeness >= 6.5 && devResult.isValid
         let pedVote = CouncilVerdict.AgentVote(
             agentId: "ped-001",
             agentRole: "Pedagogist",
@@ -1091,7 +1091,7 @@ enum AdversarialCouncil {
 
         // 3. Logic Critic Vote
         let hasTeleologyTrap = lower.contains("in order to wants") || lower.contains("decides to mutate")
-        let logicApproved = !hasTeleologyTrap && devResult.isCompliant
+        let logicApproved = !hasTeleologyTrap && devResult.isValid
         let logicVote = CouncilVerdict.AgentVote(
             agentId: "logic-001",
             agentRole: "Logic Critic",
@@ -1104,7 +1104,7 @@ enum AdversarialCouncil {
         )
 
         // 4. Student Advocate Vote
-        let advApproved = devResult.isCompliant && quality.ageAppropriate >= 7.0
+        let advApproved = devResult.isValid && quality.ageAppropriate >= 7.0
         let advVote = CouncilVerdict.AgentVote(
             agentId: "adv-001",
             agentRole: "Student Advocate",
@@ -1126,7 +1126,7 @@ enum AdversarialCouncil {
         return CouncilVerdict(
             artifactType: artifactType,
             artifactId: artifactId,
-            approved: approvalRatio > majorityThreshold && devResult.isCompliant,
+            approved: approvalRatio > majorityThreshold && devResult.isValid,
             votes: votes,
             consensusScore: approvalRatio,
             dissent: dissent,

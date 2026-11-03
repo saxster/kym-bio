@@ -359,14 +359,14 @@ final class KymBioLiveAIClient: ObservableObject {
             return nil
         }
 
-        let effectiveGuidance = MotivationalDialoguePolicy.resolveGuidanceStyle(
-            preferred: guidanceStyle,
-            userMessage: studentPrompt
+        let effectiveGuidance = MotivationalDialoguePolicy.resolvedStyle(
+            requested: guidanceStyle,
+            learnerText: studentPrompt
         )
         let soul = BundledAgentSoulCatalog.soulDocument(for: persona)
-        let dialogueMode = MotivationalDialoguePolicy.resolveDialogueMode(
-            userMessage: studentPrompt,
-            guidanceStyle: effectiveGuidance,
+        let dialogueMode = MotivationalDialoguePolicy.supportMode(
+            for: effectiveGuidance,
+            learnerText: studentPrompt,
             prefersSocratic: soul.decisionParameters.preferSocratic
         )
 
@@ -432,7 +432,7 @@ final class KymBioLiveAIClient: ObservableObject {
 
             let rawTrimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
             let validation = DevelopmentalResponseValidator.validate(rawTrimmed)
-            let safeText = validation.isCompliant ? rawTrimmed : DevelopmentalResponseValidator.safeFallback
+            let safeText = validation.isValid ? rawTrimmed : DevelopmentalResponseValidator.safeFallback
 
             return ChatResponseComposer.enforceStructuredLessonIfNeeded(
                 rawResponse: safeText,

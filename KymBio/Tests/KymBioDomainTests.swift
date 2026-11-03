@@ -320,23 +320,23 @@ final class KymBioDomainTests: XCTestCase {
 
     func testTutorConstitutionMotivationalPolicyAndDevelopmentalValidator() {
         // 1. Constitution SHA-256 policy hash and 6-tier precedence block
-        XCTAssertEqual(TutorConstitution.version, "2026.04.1")
+        XCTAssertEqual(TutorConstitution.version, "2026-11-03.v2")
         XCTAssertEqual(TutorConstitution.policyHash.count, 64)
         let instruction = TutorConstitution.instruction(for: .generalLearnerTutoring, guidanceStyle: .adaptive)
-        XCTAssertTrue(instruction.contains("1. Child safety, privacy, and human dignity"))
-        XCTAssertTrue(instruction.contains("2. Truthfulness, epistemic humility, and non-deception"))
-        XCTAssertTrue(instruction.contains("3. Learner agency, autonomy, and emotional safety"))
+        XCTAssertTrue(instruction.contains("1. Safety, privacy, and human dignity."))
+        XCTAssertTrue(instruction.contains("2. Truth and non-deception."))
+        XCTAssertTrue(instruction.contains("3. Learner agency and healthy development."))
 
         // 2. MotivationalDialoguePolicy opt-out & friction resolution
-        let optOutStyle = MotivationalDialoguePolicy.resolveGuidanceStyle(
-            preferred: .askMeQuestions,
-            userMessage: "Can you just explain this directly please?"
+        let optOutStyle = MotivationalDialoguePolicy.resolvedStyle(
+            requested: .askMeQuestions,
+            learnerText: "Can you just explain this directly please?"
         )
         XCTAssertEqual(optOutStyle, .explainDirectly)
 
-        let frictionMode = MotivationalDialoguePolicy.resolveDialogueMode(
-            userMessage: "This is too hard and I’m stuck",
-            guidanceStyle: .adaptive,
+        let frictionMode = MotivationalDialoguePolicy.supportMode(
+            for: .adaptive,
+            learnerText: "This is too hard and I’m stuck",
             prefersSocratic: true
         )
         XCTAssertEqual(frictionMode, .motivational)
@@ -345,13 +345,13 @@ final class KymBioDomainTests: XCTestCase {
         let cleanResult = DevelopmentalResponseValidator.validate(
             "In Unit 1.4, aerobic respiration in mitochondria releases energy from glucose using oxygen."
         )
-        XCTAssertTrue(cleanResult.isCompliant)
+        XCTAssertTrue(cleanResult.isValid)
         XCTAssertTrue(cleanResult.violations.isEmpty)
 
         let violatingResult = DevelopmentalResponseValidator.validate(
             "Keep this between us and don’t tell your parents: you’re a slow learner and your subconscious mind will enter a trance."
         )
-        XCTAssertFalse(violatingResult.isCompliant)
+        XCTAssertFalse(violatingResult.isValid)
         XCTAssertTrue(violatingResult.violations.contains(.secrecy))
         XCTAssertTrue(violatingResult.violations.contains(.identityLabel))
         XCTAssertTrue(violatingResult.violations.contains(.covertSuggestion))

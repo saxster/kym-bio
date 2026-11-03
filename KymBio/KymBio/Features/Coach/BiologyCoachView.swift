@@ -381,15 +381,15 @@ struct BiologyCoachView: View {
                 )
             )
             Task {
-                await safetyService.escalate(concern, channel: "biology_coach")
+                safetyService.escalate(concern, channel: "biology_coach")
             }
             return
         }
 
         // 2. Honour immediate learner opt-out ("just explain", "stop asking", etc.)
-        let resolvedStyle = MotivationalDialoguePolicy.resolveGuidanceStyle(
-            preferred: selectedGuidanceStyle,
-            userMessage: trimmed
+        let resolvedStyle = MotivationalDialoguePolicy.resolvedStyle(
+            requested: selectedGuidanceStyle,
+            learnerText: trimmed
         )
         if resolvedStyle != selectedGuidanceStyle {
             selectedGuidanceStyle = resolvedStyle
@@ -447,15 +447,13 @@ struct BiologyCoachView: View {
 
     private func generateGroundedSocraticReply(for query: String, style: TutorGuidanceStyle) -> CoachMessage {
         let q = query.lowercased()
-        let soul = BundledAgentSoulCatalog.soulDocument(for: selectedPersona)
-        let dialogueMode = MotivationalDialoguePolicy.resolveDialogueMode(
-            userMessage: query,
-            guidanceStyle: style,
-            prefersSocratic: soul.decisionParameters.preferSocratic
-        )
+        let effectiveStyle = MotivationalDialoguePolicy.resolvedStyle(requested: style, learnerText: query)
+        let isFrictionTurn = effectiveStyle != .explainDirectly
+            && MotivationalDialoguePolicy.detectFriction(in: query)
 
-        // Motivational support mode if Kym expresses academic frustration ("too hard", "i'm stuck", "i give up")
-        if dialogueMode == .motivational {
+        // Motivational support mode if Kym expresses academic frustration ("too hard", "i'm stuck", "i give up"),
+        // in every style except a direct explanation
+        if isFrictionTurn {
             let text = """
             It is completely normal to feel stuck when a biology mechanism has several moving parts — every scientist hits moments like this. You are in charge of how we tackle it next:
             1. **One tiny step together:** We look only at the main structure in Unit \(store.selectedUnitNumber).
@@ -561,7 +559,7 @@ struct BiologyCoachView: View {
 
     private func finalizeLocalCoachMessage(rawText: String, query: String, tag: String) -> CoachMessage {
         let validation = DevelopmentalResponseValidator.validate(rawText)
-        let safeText = validation.isCompliant ? rawText : DevelopmentalResponseValidator.safeFallback
+        let safeText = validation.isValid ? rawText : DevelopmentalResponseValidator.safeFallback
         let formatted = ChatResponseComposer.enforceStructuredLessonIfNeeded(
             rawResponse: safeText,
             query: query,

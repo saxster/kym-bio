@@ -45,6 +45,8 @@ targets:
         product: KymDesign
       - package: TeachingKit
         product: KymLearning
+      - package: TeachingKit
+        product: KymTutorAI
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio
@@ -87,6 +89,8 @@ targets:
         product: KymDesign
       - package: TeachingKit
         product: KymLearning
+      - package: TeachingKit
+        product: KymTutorAI
       - target: KymBioWidgets
         embed: true
       - target: KymBioShareExtension

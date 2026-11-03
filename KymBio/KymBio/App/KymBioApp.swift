@@ -7,6 +7,7 @@ struct KymBioApp: App {
 
     init() {
         CuratedColorScheme.registerAsKymaiaTheme()
+        TutorConstitution.register(.kymBio)
     }
 
     private var activeScheme: CuratedColorScheme {
