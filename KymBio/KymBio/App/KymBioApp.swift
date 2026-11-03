@@ -5,6 +5,10 @@ struct KymBioApp: App {
     @StateObject private var store = AppStore.shared
     @AppStorage(CuratedColorScheme.storageKey) private var selectedSchemeRaw = CuratedColorScheme.defaultScheme.rawValue
 
+    init() {
+        CuratedColorScheme.registerAsKymaiaTheme()
+    }
+
     private var activeScheme: CuratedColorScheme {
         CuratedColorScheme(rawValue: selectedSchemeRaw) ?? .defaultScheme
     }

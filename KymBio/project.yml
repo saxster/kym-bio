@@ -20,6 +20,8 @@ packages:
   GRDB:
     url: https://github.com/groue/GRDB.swift.git
     from: "6.24.0"
+  TeachingKit:
+    path: ../../teaching_kit
 
 targets:
   KymBio:
@@ -39,6 +41,8 @@ targets:
     dependencies:
       - package: GRDB
         product: GRDB
+      - package: TeachingKit
+        product: KymDesign
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio
@@ -77,6 +81,8 @@ targets:
     dependencies:
       - package: GRDB
         product: GRDB
+      - package: TeachingKit
+        product: KymDesign
       - target: KymBioWidgets
         embed: true
       - target: KymBioShareExtension
