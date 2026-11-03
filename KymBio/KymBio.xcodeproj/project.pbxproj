@@ -36,6 +36,7 @@
 		20E06E56EAD26D2168277661 /* SubjectTipVisualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB402C42356C7AC0C963B2E /* SubjectTipVisualView.swift */; };
 		22751640E11F0C284C06D34C /* AccessibilityHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9D6B6690503A41DF86380F /* AccessibilityHelpers.swift */; };
 		22924E99F7D98B7EAC9D0A7C /* AtomBuilderVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE06B4322788A9DF654609 /* AtomBuilderVisual.swift */; };
+		236AD3D287881A96749728A2 /* ThemeCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */; };
 		241AA30B9DD26BDF3A4589CC /* QuantitativeBioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03B26243C66431642A1A901 /* QuantitativeBioEngine.swift */; };
 		24C3ED9BDB7A8AEEEFBDA1ED /* JournalCardParts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA5CBF6A774C3F375668CBF /* JournalCardParts.swift */; };
 		26288385DB9A91E56F92D96E /* SeedPackModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32006BCB76F18B3BB30073A /* SeedPackModels.swift */; };
@@ -68,6 +69,7 @@
 		4D9402D8B9E6D6508A2C25B3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BCC40A5E50B91B3331C1AE /* AppStore.swift */; };
 		5147CEDDDDCBC8F7A4090D39 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476A6EA0BDD20537C6E7DFB4 /* Animations.swift */; };
 		517E9452E3E4840483BC6F2F /* PeriodicGridVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81D357E488A01630D354E35 /* PeriodicGridVisual.swift */; };
+		5371DBE609703EB923587371 /* theme-characterization.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FA757878CD65C81EA615F9E /* theme-characterization.json */; };
 		53D0443250753E270A79DBAA /* BiologyTutorCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE45E57087E44FF360318E20 /* BiologyTutorCanvasView.swift */; };
 		5422795EEE68FBB29466EC8F /* KymBioAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82277DA223CD7386C66F33BD /* KymBioAppIntents.swift */; };
 		554928115265529B0F8AF34A /* BiologyCoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D82DCDC13B6EC6016C974D6 /* BiologyCoachView.swift */; };
@@ -268,6 +270,7 @@
 		5C0F6EA2211DBF34995200E9 /* ReflectionVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionVisual.swift; sourceTree = "<group>"; };
 		5C84E5FB736919474439ECD3 /* LabJournalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabJournalHomeView.swift; sourceTree = "<group>"; };
 		5E9D6B6690503A41DF86380F /* AccessibilityHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityHelpers.swift; sourceTree = "<group>"; };
+		5FA757878CD65C81EA615F9E /* theme-characterization.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "theme-characterization.json"; sourceTree = "<group>"; };
 		5FBAE45E47CA92A07A845007 /* JournalGlanceTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalGlanceTile.swift; sourceTree = "<group>"; };
 		612AB90D6EB6138C9E2856EA /* ContentPacks */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ContentPacks; path = KymBio/Resources/ContentPacks; sourceTree = SOURCE_ROOT; };
 		65FD4EAA094B84E944E3C842 /* QuestionProofPracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionProofPracticeView.swift; sourceTree = "<group>"; };
@@ -300,6 +303,7 @@
 		AB6BD0FCCCA9C55ABAEACD9F /* PHScaleVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHScaleVisual.swift; sourceTree = "<group>"; };
 		AC3CDC3439726225F3334112 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B20174635D58D7F0E1DE7C55 /* ParticleStatesVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleStatesVisual.swift; sourceTree = "<group>"; };
+		BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCharacterizationTests.swift; sourceTree = "<group>"; };
 		BFD92E7CFBF4E9932CDAF290 /* MetacognitionAndBackupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetacognitionAndBackupView.swift; sourceTree = "<group>"; };
 		C0C1C296A513AD9EE626AA5E /* TutorConstitution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorConstitution.swift; sourceTree = "<group>"; };
 		C166532B393549D1130549F4 /* WritingPageFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPageFocus.swift; sourceTree = "<group>"; };
@@ -714,7 +718,9 @@
 			isa = PBXGroup;
 			children = (
 				679A6F4FF3D0548775512FB0 /* KymBioDomainTests.swift */,
+				BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */,
 				700EA41CF63B4E37254B24AF /* ThemeTests.swift */,
+				FE337D513FAB74ABCECBEF1E /* Golden */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -758,6 +764,14 @@
 				24FBD5BCAAF2B7301D16F13A /* TextbookPageScannerView.swift */,
 			);
 			path = Capture;
+			sourceTree = "<group>";
+		};
+		FE337D513FAB74ABCECBEF1E /* Golden */ = {
+			isa = PBXGroup;
+			children = (
+				5FA757878CD65C81EA615F9E /* theme-characterization.json */,
+			);
+			path = Golden;
 			sourceTree = "<group>";
 		};
 		FEC97E1D5AED1B17AA4B3332 /* Metacognition */ = {
@@ -816,6 +830,7 @@
 			buildConfigurationList = 4C180A46B138742645CF4BF2 /* Build configuration list for PBXNativeTarget "KymBioTests" */;
 			buildPhases = (
 				8AECA2099A8A135B7104A45B /* Sources */,
+				5C179B4AA2A66D836FD0A3CF /* Resources */,
 				8FA57678CF56B16372945CFC /* Frameworks */,
 			);
 			buildRules = (
@@ -930,6 +945,14 @@
 			files = (
 				564E4DF55C253961E9C9D826 /* ContentPacks in Resources */,
 				998DB255329C2255CF5D0153 /* LivingWorldBook in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C179B4AA2A66D836FD0A3CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5371DBE609703EB923587371 /* theme-characterization.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1142,6 +1165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F182D38A2E951B2E534F306 /* KymBioDomainTests.swift in Sources */,
+				236AD3D287881A96749728A2 /* ThemeCharacterizationTests.swift in Sources */,
 				F900B6C7A82B5BFE523700F0 /* ThemeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
