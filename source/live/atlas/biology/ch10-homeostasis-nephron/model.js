@@ -1,4 +1,3 @@
-import { immunityVaccineAccount } from '../../../homeostasis_model.js';
 // Chapter 10 pure model: insulin/glucagon glucose feedback, skin thermoregulation, kidney nephron filtration/reabsorption, and vaccine memory.
 export function glucoseHomeostasisAccount(mealCarbG = 60, insulinCapacityPct = 100) {
   const ins = Math.max(5, Math.min(100, insulinCapacityPct)) / 100;
@@ -18,8 +17,22 @@ export function nephronLedgerAccount(gfrMlMin = 125, adhLevelPct = 60, bloodGluc
   return { gfrMlMin, filtrateLPerDay, glucoseReabsorbedPct, waterReabsorbedPct, urineLPerDay, urineOsmolarityMosm };
 }
 
+// The paired 2D lab's antibody curves (kym_bio homeostasis_model.js, immunityVaccineAccount mode 0), restated here so the
+// chapter needs nothing outside the atlas: a primary response has no memory; a secondary one has 90% memory.
+const round1 = v => Math.round(v * 10) / 10;
+function antibodyAU(day, memoryPct) {
+  if (memoryPct >= 40) {
+    if (day < 1) return 0;
+    const t = day - 0.5, scale = 0.25 + 0.75 * (memoryPct / 100);
+    return round1(220 * scale * (t / 6.5) * Math.exp(1 - t / 6.5) + 18 * scale);
+  }
+  if (day <= 4) return 0;
+  const t = day - 4;
+  return round1(28 * (t / 10) * Math.exp(1 - t / 10));
+}
+
 export function immuneMemoryAccount(day = 6, responseType = 'secondary') {
-  const account = immunityVaccineAccount(0, day, responseType === 'primary' ? 0 : 90);
-  return { day: account.daysPostExposure, responseType, antibodyTitre: account.activeAntibodyAU,
+  const n = Number(day), d = Number.isFinite(n) ? Math.max(0, Math.min(42, n)) : 0;
+  return { day: d, responseType, antibodyTitre: antibodyAU(d, responseType === 'primary' ? 0 : 90),
     peakDay: responseType === 'primary' ? 14 : 7 };
 }
