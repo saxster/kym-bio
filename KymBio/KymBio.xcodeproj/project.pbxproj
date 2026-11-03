@@ -20,6 +20,7 @@
 		129A6797A4435B9AC8B009F7 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = FFFFB00019DBD344C66B8C90 /* GRDB */; };
 		12DDD2FD81D8FBFAF880B1C3 /* JournalPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1484AA7CF67E37AF4669C255 /* JournalPage.swift */; };
 		154ECD4ED9F764D52B299E96 /* ParticleStatesVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20174635D58D7F0E1DE7C55 /* ParticleStatesVisual.swift */; };
+		15AD7C431DB920F2E73EFABE /* LearningEngineCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906320B1230DB7070EC1B5C3 /* LearningEngineCharacterizationTests.swift */; };
 		1919366487236BE539A04B4D /* SafetyEscalationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368045AEFE0A0D05A3237611 /* SafetyEscalationService.swift */; };
 		1B1D5EE4F0B4B4E8B9A81F76 /* BiologyBreathingAndResilienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540EFAC8517C19F9F4D338E /* BiologyBreathingAndResilienceView.swift */; };
 		1BFFF63608EF961B5B478F11 /* TextbookPageScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FBD5BCAAF2B7301D16F13A /* TextbookPageScannerView.swift */; };
@@ -107,6 +108,7 @@
 		B7C3F33455657015FC36DE46 /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E46D9FB67FAB5991915697 /* TodayHomeView.swift */; };
 		B87FEA75836B7BCAA8C0F761 /* SubjectTipDetailSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E1822288363EA8625E81A6 /* SubjectTipDetailSections.swift */; };
 		BBA7ED2FD31931EB013F5515 /* CircuitToggleVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE79A1BCCA12DF0AFC56893 /* CircuitToggleVisual.swift */; };
+		BBF4AB6CE3EC1A8D71FADB82 /* learning-engines.json in Resources */ = {isa = PBXBuildFile; fileRef = CB4BF7A85CCC03457C41D9D3 /* learning-engines.json */; };
 		BD5A292D5F81D13369FA50AE /* KymBioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 352CA41F79B0E9A08B93102E /* KymBioApp.swift */; };
 		BF48E3D7AE44BC952B433C48 /* MetacognitionAndBackupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD92E7CFBF4E9932CDAF290 /* MetacognitionAndBackupView.swift */; };
 		C0338E3B319156CF3FECE9C8 /* StepSequenceVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351708E0158290859EBEBD83 /* StepSequenceVisual.swift */; };
@@ -230,6 +232,7 @@
 		87EE7A675E9468CD6D8CD965 /* LabsAtlasHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabsAtlasHomeView.swift; sourceTree = "<group>"; };
 		8C19CD7428BC7A269CBA5188 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D7F1DB1ADE1E65197211C79 /* KymBio-iPad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "KymBio-iPad.entitlements"; sourceTree = "<group>"; };
+		906320B1230DB7070EC1B5C3 /* LearningEngineCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngineCharacterizationTests.swift; sourceTree = "<group>"; };
 		91162F20DCA57257BCA5BC5A /* BiologyMindMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologyMindMapView.swift; sourceTree = "<group>"; };
 		91E1822288363EA8625E81A6 /* SubjectTipDetailSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectTipDetailSections.swift; sourceTree = "<group>"; };
 		9BD3AF5B4B3B942DE0A46939 /* KymBio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KymBio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +251,7 @@
 		C5FEA855828D865527E94A13 /* LearningEngines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngines.swift; sourceTree = "<group>"; };
 		C6E6C70B5B5773239774B059 /* SortClassifyVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortClassifyVisual.swift; sourceTree = "<group>"; };
 		C921A23AB046DFBD70CF8210 /* ThemePickerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerMenu.swift; sourceTree = "<group>"; };
+		CB4BF7A85CCC03457C41D9D3 /* learning-engines.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "learning-engines.json"; sourceTree = "<group>"; };
 		CD351C75CF064804B688D92F /* KymBioWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KymBioWidgets.swift; sourceTree = "<group>"; };
 		CEF9113970EC37568792E396 /* SystemSurfaceSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSurfaceSnapshotStore.swift; sourceTree = "<group>"; };
 		D03B26243C66431642A1A901 /* QuantitativeBioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantitativeBioEngine.swift; sourceTree = "<group>"; };
@@ -636,6 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				679A6F4FF3D0548775512FB0 /* KymBioDomainTests.swift */,
+				906320B1230DB7070EC1B5C3 /* LearningEngineCharacterizationTests.swift */,
 				BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */,
 				700EA41CF63B4E37254B24AF /* ThemeTests.swift */,
 				FE337D513FAB74ABCECBEF1E /* Golden */,
@@ -687,6 +692,7 @@
 		FE337D513FAB74ABCECBEF1E /* Golden */ = {
 			isa = PBXGroup;
 			children = (
+				CB4BF7A85CCC03457C41D9D3 /* learning-engines.json */,
 				5FA757878CD65C81EA615F9E /* theme-characterization.json */,
 			);
 			path = Golden;
@@ -873,6 +879,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBF4AB6CE3EC1A8D71FADB82 /* learning-engines.json in Resources */,
 				5371DBE609703EB923587371 /* theme-characterization.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1038,6 +1045,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F182D38A2E951B2E534F306 /* KymBioDomainTests.swift in Sources */,
+				15AD7C431DB920F2E73EFABE /* LearningEngineCharacterizationTests.swift in Sources */,
 				236AD3D287881A96749728A2 /* ThemeCharacterizationTests.swift in Sources */,
 				F900B6C7A82B5BFE523700F0 /* ThemeTests.swift in Sources */,
 			);
