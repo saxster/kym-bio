@@ -33,6 +33,7 @@
 		20DEA78F2EE4882318C89D15 /* JournalEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A5E246114D670CF6D89CC3 /* JournalEmptyState.swift */; };
 		20E06E56EAD26D2168277661 /* SubjectTipVisualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB402C42356C7AC0C963B2E /* SubjectTipVisualView.swift */; };
 		217A3FBC99BA23DC7873C1F1 /* KymDesignExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9BFD17239546BEBDC0A4D5 /* KymDesignExport.swift */; };
+		21DA4F341C8E0C05051A3FB9 /* KymLearning in Frameworks */ = {isa = PBXBuildFile; productRef = C0FCFF33D5247C7963832F4A /* KymLearning */; };
 		22924E99F7D98B7EAC9D0A7C /* AtomBuilderVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBE06B4322788A9DF654609 /* AtomBuilderVisual.swift */; };
 		236AD3D287881A96749728A2 /* ThemeCharacterizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */; };
 		241AA30B9DD26BDF3A4589CC /* QuantitativeBioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03B26243C66431642A1A901 /* QuantitativeBioEngine.swift */; };
@@ -51,6 +52,7 @@
 		492F5818E54CB8C6EF57FFC0 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CDC3439726225F3334112 /* ShareViewController.swift */; };
 		49935A6EE015E99183AF3F1E /* SubjectTipsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223B4F63483DFF37E0FFDBA /* SubjectTipsViews.swift */; };
 		499738F5871E51CBC3C865B1 /* TutorConstitution.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C1C296A513AD9EE626AA5E /* TutorConstitution.swift */; };
+		4B12C925EACE2BAF1E111036 /* KymLearning in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7CB85A228E5A38882E2EE5 /* KymLearning */; };
 		4BCAFDBA814B72702AF9C071 /* PeriodicGridVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81D357E488A01630D354E35 /* PeriodicGridVisual.swift */; };
 		4C713E990BCB0E74A41BD673 /* MissingDesignElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E612B4D68290D8039A713 /* MissingDesignElements.swift */; };
 		4D9402D8B9E6D6508A2C25B3 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BCC40A5E50B91B3331C1AE /* AppStore.swift */; };
@@ -282,6 +284,7 @@
 			files = (
 				129A6797A4435B9AC8B009F7 /* GRDB in Frameworks */,
 				F283CA7D655452BB0D876339 /* KymDesign in Frameworks */,
+				21DA4F341C8E0C05051A3FB9 /* KymLearning in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +302,7 @@
 			files = (
 				CC257D0BFF8DBF6F8DF8820C /* GRDB in Frameworks */,
 				A00776737D14E57AD1133A52 /* KymDesign in Frameworks */,
+				4B12C925EACE2BAF1E111036 /* KymLearning in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +749,7 @@
 			packageProductDependencies = (
 				B026F68BA5DFEDB39B1D7A4C /* GRDB */,
 				83C2F5EE83E8F413713F22C9 /* KymDesign */,
+				1C7CB85A228E5A38882E2EE5 /* KymLearning */,
 			);
 			productName = "KymBio-iPad";
 			productReference = FD3507C510FBB2A104C64BF7 /* KymBio-iPad.app */;
@@ -804,6 +809,7 @@
 			packageProductDependencies = (
 				FFFFB00019DBD344C66B8C90 /* GRDB */,
 				C01B64FF1FAE1B25D3EA726D /* KymDesign */,
+				C0FCFF33D5247C7963832F4A /* KymLearning */,
 			);
 			productName = KymBio;
 			productReference = 9BD3AF5B4B3B942DE0A46939 /* KymBio.app */;
@@ -1524,6 +1530,10 @@
 			package = B357B7C31C3BE73C1DACE700 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
 		};
+		1C7CB85A228E5A38882E2EE5 /* KymLearning */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLearning;
+		};
 		83C2F5EE83E8F413713F22C9 /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymDesign;
@@ -1536,6 +1546,10 @@
 		C01B64FF1FAE1B25D3EA726D /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymDesign;
+		};
+		C0FCFF33D5247C7963832F4A /* KymLearning */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLearning;
 		};
 		FFFFB00019DBD344C66B8C90 /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
