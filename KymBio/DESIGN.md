@@ -1,11 +1,18 @@
 # KymBio Design System & Architecture Charter
 
-## 1. Visual Direction: Apple Journal for iPad + *The Living World*
-`KymBio` uses the Apple Journal for iPad design kit (`Design/Journal/`) ported from `KymaiaTutor`:
-- **Default Theme (`.journal`):** Soft lavender page (`#F3F1F7` light / `#0E0E12` dark) with lifted pure-white cards (`#FFFFFF` light / `#1C1B22` dark) and iris violet (`#5856D6` / `#7D7AFF`).
-- **Signature Biology Theme (`.botanical` — *Living World*):** Warm rag paper (`#F7F3E8` light / `#0F1916` dark), deep forest ink (`#203D36` / `#ECF4F0`), conservation emerald (`#2E604A` / `#58B88C`), and terracotta specimen highlights (`#8A3B28` / `#E0866E`).
-- **Mumbai Coastal Theme (`.monsoon` — *Marine Drive*):** Coastal mist (`#F1F5F7` light / `#0C1418` dark), Arabian Sea teal (`#125E7A` / `#57B8D9`), and lantern gold (`#7A4A10` / `#E8B268`).
-- **Plus 5 Scholarly Themes:** `Sketchbook`, `Terracotta`, `Scholar`, `Grove`, and `Dusk` — all audited for WCAG AAA (`>= 7.0:1`) body ink and WCAG AA (`>= 4.5:1`) secondary/accent contrast.
+## 1. Visual Direction: The Standard
+`KymBio` draws in The Standard, the design system it shares with the other subject apps and apple_poem.
+Its themes, tokens, type scale, motion and components live in teaching_kit; the values and rules are in
+`teaching_kit/docs/STANDARD.md`. Do not restate them here.
+- **Themes:** the six Standard themes plus Follow System, with Vivid as the default. `Design/AppTheme.swift`
+  moves a choice saved under the old catalogue: Terracotta and Scholar become Warm, Living World and Grove
+  become Paper, Dusk stays Dusk, and the rest become Vivid.
+- **Screens:** room pages use the editorial header (`JournalPage(eyebrow:)`), filters use the ink-inverted
+  chip, and each room has at most one `BrassButtonStyle` primary action.
+- **Features/ drift:** no radius literals, fixed or shorthand system fonts, system secondary text or named
+  system colours (`check-consumers.mjs --lint`). Fixed sizes inside drawn figures go in `BioFigureGeometry`.
+- **Living World web book:** gets the closest of its own `light`, `dark` and `sepia` themes plus the
+  Standard colours as `--kymbio-*` variables.
 
 ## 2. Three-App Science Spine (`KymBio`, `KymChem`, `KymPhysics`)
 - Kym's school textbook is **Cambridge Lower Secondary Science 8 (Second Edition)** (*Learner's Book 8* & *Workbook 8* by Mary Jones, Diane Fellowes-Freeman & Michael Smyth).
