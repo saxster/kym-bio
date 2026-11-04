@@ -1,72 +1,52 @@
 import XCTest
 @testable import KymBio
 
+/// The Standard replaced KymBio's own theme catalogue; its contrast is tested in teaching_kit.
 final class ThemeTests: XCTestCase {
-    func testDefaultThemeIsAppleJournal() {
-        XCTAssertEqual(CuratedColorScheme.defaultScheme, .journal)
-        XCTAssertEqual(CuratedColorScheme.allCases.count, 8)
-        XCTAssertTrue(CuratedColorScheme.allCases.contains(.botanical))
-        XCTAssertTrue(CuratedColorScheme.allCases.contains(.monsoon))
+    func testEveryOldThemeChoiceMovesToAStandardTheme() throws {
+        let oldIDs = ["journal", "botanical", "monsoon", "sketchbook", "hearth", "scholar", "grove", "dusk", "not-a-theme"]
+        let suite = "KymBioTests.theme.\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let key = StandardThemeStore.subjectAppStorageKey
+        let expected = [
+            "hearth": "sepia", "scholar": "sepia",
+            "botanical": "parchment", "grove": "parchment",
+            "dusk": "dark-graphite"
+        ]
+        for oldID in oldIDs {
+            defaults.set(oldID, forKey: key)
+            AppTheme.register(defaults: defaults)
+            XCTAssertEqual(defaults.string(forKey: key), expected[oldID] ?? "vivid", oldID)
+        }
+        defaults.removeObject(forKey: key)
+        AppTheme.register(defaults: defaults)
+        XCTAssertNil(defaults.string(forKey: key), "a learner who never chose keeps no stored choice")
+        XCTAssertEqual(StandardThemeStore.storedID(in: defaults), "vivid", "and gets Vivid, the default")
+        AppTheme.register()
     }
 
-    func testAllEightThemesMeetWCAGContrastStandards() {
-        for scheme in CuratedColorScheme.allCases {
-            let p = scheme.palette
-            let n = p.neutrals
-
-            // Primary ink on background and card surface >= 7.0:1 (WCAG AAA)
-            XCTAssertGreaterThanOrEqual(
-                n.ink.light.contrastRatio(with: p.background.light), 7.0,
-                "\(scheme.rawValue) light ink vs background failed AAA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                n.ink.light.contrastRatio(with: n.surface.light), 7.0,
-                "\(scheme.rawValue) light ink vs surface failed AAA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                n.ink.dark.contrastRatio(with: p.background.dark), 7.0,
-                "\(scheme.rawValue) dark ink vs background failed AAA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                n.ink.dark.contrastRatio(with: n.surface.dark), 7.0,
-                "\(scheme.rawValue) dark ink vs surface failed AAA"
-            )
-
-            // Muted & tertiary ink on surface >= 4.5:1 (WCAG AA)
-            XCTAssertGreaterThanOrEqual(
-                n.mutedInk.light.contrastRatio(with: n.surface.light), 4.5,
-                "\(scheme.rawValue) light mutedInk vs surface failed AA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                n.tertiaryInk.light.contrastRatio(with: n.surface.light), 4.5,
-                "\(scheme.rawValue) light tertiaryInk vs surface failed AA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                n.mutedInk.dark.contrastRatio(with: n.surface.dark), 4.5,
-                "\(scheme.rawValue) dark mutedInk vs surface failed AA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                n.tertiaryInk.dark.contrastRatio(with: n.surface.dark), 4.5,
-                "\(scheme.rawValue) dark tertiaryInk vs surface failed AA"
-            )
-
-            // Primary & secondary accents on surface >= 4.5:1 (WCAG AA)
-            XCTAssertGreaterThanOrEqual(
-                p.primary.light.contrastRatio(with: n.surface.light), 4.5,
-                "\(scheme.rawValue) light primary vs surface failed AA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                p.secondary.light.contrastRatio(with: n.surface.light), 4.5,
-                "\(scheme.rawValue) light secondary vs surface failed AA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                p.primary.dark.contrastRatio(with: n.surface.dark), 4.5,
-                "\(scheme.rawValue) dark primary vs surface failed AA"
-            )
-            XCTAssertGreaterThanOrEqual(
-                p.secondary.dark.contrastRatio(with: n.surface.dark), 4.5,
-                "\(scheme.rawValue) dark secondary vs surface failed AA"
-            )
+    func testAStandardChoiceSurvivesRegistration() throws {
+        let suite = "KymBioTests.theme.\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let key = StandardThemeStore.subjectAppStorageKey
+        for id in [StandardTheme.systemID] + StandardTheme.all.map(\.id) {
+            defaults.set(id, forKey: key)
+            AppTheme.register(defaults: defaults)
+            XCTAssertEqual(defaults.string(forKey: key), id)
         }
+        AppTheme.register()
+    }
+
+    func testTheWebBookGetsAThemeNameItKnows() {
+        let known: Set<String> = ["light", "dark", "sepia"]
+        for theme in StandardTheme.all {
+            XCTAssertTrue(known.contains(AppTheme.webBookTheme(for: theme)), theme.id)
+        }
+        XCTAssertEqual(AppTheme.webBookTheme(for: .sepia), "sepia")
+        XCTAssertEqual(AppTheme.webBookTheme(for: .parchment), "light")
+        XCTAssertEqual(AppTheme.webBookTheme(for: .darkGraphite), "dark")
+        XCTAssertEqual(AppTheme.webBookTheme(for: .vivid), "dark")
     }
 }

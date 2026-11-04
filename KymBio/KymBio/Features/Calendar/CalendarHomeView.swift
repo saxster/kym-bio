@@ -106,7 +106,7 @@ struct CalendarHomeView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                ThemePickerMenu()
+                StandardThemeMenu()
             }
         }
     }

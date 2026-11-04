@@ -81,7 +81,7 @@ struct BiologyCoachView: View {
         .sessionJournalSafetyAlert(message: $safetySupportMessage)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                ThemePickerMenu()
+                StandardThemeMenu()
             }
         }
         .sheet(isPresented: $showAPIKeySheet) {

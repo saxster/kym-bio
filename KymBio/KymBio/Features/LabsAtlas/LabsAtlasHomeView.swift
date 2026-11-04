@@ -92,7 +92,7 @@ struct LabsAtlasHomeView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                ThemePickerMenu()
+                StandardThemeMenu()
             }
         }
         .onAppear {

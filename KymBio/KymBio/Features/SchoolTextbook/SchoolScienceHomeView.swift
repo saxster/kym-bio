@@ -33,7 +33,7 @@ struct SchoolScienceHomeView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                ThemePickerMenu()
+                StandardThemeMenu()
             }
         }
         .sheet(item: $store.activePracticeQuestion) { question in

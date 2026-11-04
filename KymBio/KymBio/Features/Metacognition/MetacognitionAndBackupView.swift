@@ -504,7 +504,7 @@ struct MetacognitionAndBackupSheet: View {
         let archive = KymBioBackupArchive(
             exportedAt: Date(),
             learnerName: "Kym",
-            activeThemeId: store.activeTheme.rawValue,
+            activeThemeId: store.activeThemeID,
             disciplineLens: store.disciplineLens.rawValue,
             journalEntriesCount: store.journalEntries.count,
             provenQuestionsCount: store.questionProofStates.values.filter { $0.level == .proven || $0.level == .secure }.count,

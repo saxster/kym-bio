@@ -41,7 +41,7 @@ struct LivingWorldHomeView: View {
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                ThemePickerMenu()
+                StandardThemeMenu()
             }
         }
         .onChange(of: store.activeLivingWorldChapter) { _, newChapter in

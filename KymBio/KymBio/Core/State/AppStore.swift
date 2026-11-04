@@ -425,7 +425,7 @@ final class AppStore: ObservableObject {
     // MARK: - Captured Textbook Pages & Convenience Helpers
 
     var seedPack: KymBioSeedPack { pack }
-    var activeTheme: CuratedColorScheme { CuratedColorScheme.current }
+    var activeThemeID: String { AppTheme.currentID }
     var disciplineLens: ScienceDisciplineLens { selectedSchoolLens }
     var questionProofStates: [String: QuestionProofRecord] { questionProofs }
     var overallReadinessScore: Double {

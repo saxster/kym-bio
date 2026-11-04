@@ -68,7 +68,7 @@ struct LabJournalHomeView: View {
         .sessionJournalSafetyAlert(message: $safetySupportMessage)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                ThemePickerMenu()
+                StandardThemeMenu()
             }
         }
     }

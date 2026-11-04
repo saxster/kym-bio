@@ -25,11 +25,13 @@ struct TodayHomeView: View {
             }
             coreBiologyUnitsSection
             featuredLabsAndDiagramsSection
-            ThemeGallerySection()
+            JournalSection(title: "Appearance") {
+                StandardThemeGallery()
+            }
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                ThemePickerMenu()
+                StandardThemeMenu()
             }
         }
         .sheet(isPresented: $showingFSRSReviewSheet) {

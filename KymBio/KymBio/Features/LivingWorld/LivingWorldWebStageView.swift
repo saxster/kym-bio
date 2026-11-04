@@ -6,8 +6,7 @@ import WebKit
 /// theme palette tokens, chapter navigation, and challenge stamps bidirectionally with Swift.
 struct LivingWorldWebStageView: View {
     @EnvironmentObject private var store: AppStore
-    @AppStorage(CuratedColorScheme.storageKey) private var selectedSchemeRaw = CuratedColorScheme.defaultScheme.rawValue
-    @Environment(\.colorScheme) private var systemColorScheme
+    @Environment(\.standardTheme) private var theme
 
     let chapterNumber: Int
     var targetWidgetId: String? = nil
@@ -18,8 +17,7 @@ struct LivingWorldWebStageView: View {
             chapterNumber: chapterNumber,
             targetWidgetId: targetWidgetId,
             targetExplorerId: targetExplorerId,
-            scheme: CuratedColorScheme(rawValue: selectedSchemeRaw) ?? .defaultScheme,
-            isDark: systemColorScheme == .dark,
+            theme: theme,
             syllabusBoard: store.syllabusBoard,
             stampedWidgetIds: Array(store.widgetStamps.keys),
             onWidgetStamped: { widgetId, readout in
@@ -38,8 +36,7 @@ private struct LivingWorldWebRepresentable: UIViewRepresentable {
     let chapterNumber: Int
     let targetWidgetId: String?
     let targetExplorerId: String?
-    let scheme: CuratedColorScheme
-    let isDark: Bool
+    let theme: StandardTheme
     let syllabusBoard: String
     let stampedWidgetIds: [String]
     let onWidgetStamped: (String, String) -> Void
@@ -63,8 +60,7 @@ private struct LivingWorldWebRepresentable: UIViewRepresentable {
             chapterNumber: chapterNumber,
             widgetId: targetWidgetId,
             explorerId: targetExplorerId,
-            scheme: scheme,
-            isDark: isDark,
+            theme: theme,
             syllabusBoard: syllabusBoard,
             stampedWidgetIds: stampedWidgetIds
         )
@@ -75,8 +71,7 @@ private struct LivingWorldWebRepresentable: NSViewRepresentable {
     let chapterNumber: Int
     let targetWidgetId: String?
     let targetExplorerId: String?
-    let scheme: CuratedColorScheme
-    let isDark: Bool
+    let theme: StandardTheme
     let syllabusBoard: String
     let stampedWidgetIds: [String]
     let onWidgetStamped: (String, String) -> Void
@@ -98,8 +93,7 @@ private struct LivingWorldWebRepresentable: NSViewRepresentable {
             chapterNumber: chapterNumber,
             widgetId: targetWidgetId,
             explorerId: targetExplorerId,
-            scheme: scheme,
-            isDark: isDark,
+            theme: theme,
             syllabusBoard: syllabusBoard,
             stampedWidgetIds: stampedWidgetIds
         )
@@ -181,26 +175,23 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
         chapterNumber: Int,
         widgetId: String?,
         explorerId: String?,
-        scheme: CuratedColorScheme,
-        isDark: Bool,
+        theme: StandardTheme,
         syllabusBoard: String,
         stampedWidgetIds: [String]
     ) {
-        let darkVal = isDark ? "dark" : "light"
-        let palette = scheme.palette
-        let bgRGBA = isDark ? palette.background.dark : palette.background.light
-        let surfRGBA = isDark ? palette.neutrals.surface.dark : palette.neutrals.surface.light
-        let inkRGBA = isDark ? palette.neutrals.ink.dark : palette.neutrals.ink.light
-        let accRGBA = isDark ? palette.primary.dark : palette.primary.light
-        let bgCSS = "rgb(\(Int(bgRGBA.red * 255)), \(Int(bgRGBA.green * 255)), \(Int(bgRGBA.blue * 255)))"
-        let surfCSS = "rgb(\(Int(surfRGBA.red * 255)), \(Int(surfRGBA.green * 255)), \(Int(surfRGBA.blue * 255)))"
-        let inkCSS = "rgb(\(Int(inkRGBA.red * 255)), \(Int(inkRGBA.green * 255)), \(Int(inkRGBA.blue * 255)))"
-        let accCSS = "rgb(\(Int(accRGBA.red * 255)), \(Int(accRGBA.green * 255)), \(Int(accRGBA.blue * 255)))"
+        let webTheme = AppTheme.webBookTheme(for: theme)
+        func css(_ hex: UInt32) -> String {
+            "rgb(\((hex >> 16) & 0xFF), \((hex >> 8) & 0xFF), \(hex & 0xFF))"
+        }
+        let bgCSS = css(theme.bgHex)
+        let surfCSS = css(theme.surfaceHex)
+        let inkCSS = css(theme.inkHex)
+        let accCSS = css(theme.brassHex)
         let stampsJSON = (try? String(data: JSONEncoder().encode(stampedWidgetIds), encoding: .utf8)) ?? "[]"
         var js = """
         (function() {
-            document.documentElement.setAttribute('data-theme', '\(darkVal)');
-            document.documentElement.setAttribute('data-kymbio-scheme', '\(scheme.rawValue)');
+            document.documentElement.setAttribute('data-theme', '\(webTheme)');
+            document.documentElement.setAttribute('data-kymbio-scheme', '\(theme.id)');
             document.documentElement.style.setProperty('--kymbio-bg', '\(bgCSS)');
             document.documentElement.style.setProperty('--kymbio-surface', '\(surfCSS)');
             document.documentElement.style.setProperty('--kymbio-ink', '\(inkCSS)');

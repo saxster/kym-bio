@@ -3,29 +3,25 @@ import SwiftUI
 @main
 struct KymBioApp: App {
     @StateObject private var store = AppStore.shared
-    @AppStorage(CuratedColorScheme.storageKey) private var selectedSchemeRaw = CuratedColorScheme.defaultScheme.rawValue
 
     init() {
-        CuratedColorScheme.registerAsKymaiaTheme()
+        AppTheme.register()
         TutorConstitution.register(.kymBio)
-    }
-
-    private var activeScheme: CuratedColorScheme {
-        CuratedColorScheme(rawValue: selectedSchemeRaw) ?? .defaultScheme
     }
 
     var body: some Scene {
         WindowGroup {
-            KymBioRootShellView()
-                .environmentObject(store)
-                .environment(\.curatedColorScheme, activeScheme)
-                .id(activeScheme.rawValue)
-                .onOpenURL { url in
-                    store.openDeepLink(url)
-                }
-                .task {
-                    SystemSurfaceSnapshotStore.shared.indexContentInSpotlight(pack: store.pack)
-                }
+            StandardIdiomReader {
+                KymBioRootShellView()
+                    .environmentObject(store)
+                    .standardThemeHost()
+                    .onOpenURL { url in
+                        store.openDeepLink(url)
+                    }
+                    .task {
+                        SystemSurfaceSnapshotStore.shared.indexContentInSpotlight(pack: store.pack)
+                    }
+            }
         }
     }
 }
