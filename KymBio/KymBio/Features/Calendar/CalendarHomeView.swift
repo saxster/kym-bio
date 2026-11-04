@@ -98,6 +98,7 @@ struct CalendarHomeView: View {
     var body: some View {
         JournalPage(
             title: "Calendar, Run My Day & Wet Labs",
+            eyebrow: "Planner",
             subtitle: "Science 8 exam planner, 30-minute daily study blocks and kitchen wet-lab timers"
         ) {
             runMyDaySection
@@ -136,7 +137,7 @@ struct CalendarHomeView: View {
                         } label: {
                             Label("Add to Apple Calendar", systemImage: "calendar.badge.plus")
                         }
-                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                         .accessibilityIdentifier("calendar.export-eventkit")
 
                         Button {
@@ -209,7 +210,7 @@ struct CalendarHomeView: View {
                                 store.activePracticeQuestion = nextQuestion
                                 store.selectedRoom = .schoolScience
                             }
-                            .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                            .buttonStyle(BrassButtonStyle())
                         }
                         .journalMiniCard()
                     }
@@ -316,7 +317,7 @@ struct CalendarHomeView: View {
                                     let stageDurationSeconds = max(60, (active.durationMinutes * 60) / max(1, active.stages.count))
                                     wetLabSecondsRemaining = stageDurationSeconds
                                 }
-                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                             }
                             Button("Record observations in Lab Journal") {
                                 store.selectedRoom = .labJournal

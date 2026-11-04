@@ -128,7 +128,7 @@ struct FullScreenPencilAnnotatorOverlay: View {
         ZStack(alignment: .top) {
             GeometryReader { geo in
                 ZStack {
-                    Color.black.opacity(0.04)
+                    Color.kymaiaInk.opacity(0.04)
                         .ignoresSafeArea()
                         .gesture(
                             DragGesture(minimumDistance: 0)
@@ -203,7 +203,7 @@ struct FullScreenPencilAnnotatorOverlay: View {
             if let savedBanner {
                 Text(savedBanner)
                     .font(.kymaiaCaption.weight(.semibold))
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(Color.kymaiaBackground)
                     .padding(.horizontal, Spacing.md)
                     .padding(.vertical, Spacing.xs)
                     .background(Capsule().fill(Color.kymaiaSuccess))

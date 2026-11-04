@@ -116,10 +116,10 @@ struct SubjectTipsLibraryView: View {
             }
 
             if sections.isEmpty {
-                JournalEmptyState(
+                EmptyStateCard(
+                    eyebrow: "Field guide",
                     title: savedOnly ? "No saved tips yet" : "No tips match",
-                    systemImage: savedOnly ? "bookmark" : "magnifyingglass",
-                    message: savedOnly ? "Bookmark any field guide tip to keep it handy here." : "Try a different search word."
+                    subtitle: savedOnly ? "Bookmark any field guide tip to keep it handy here." : "Try a different search word."
                 )
             } else {
                 ForEach(sections) { section in

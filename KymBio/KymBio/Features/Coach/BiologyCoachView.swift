@@ -62,6 +62,7 @@ struct BiologyCoachView: View {
     var body: some View {
         JournalPage(
             title: "Biology Coach & Quantitative Bench",
+            eyebrow: "AI tutor",
             subtitle: "Socratic AI biology tutor · Grounded in your Cambridge Science 8 textbook and The Living World (AI tutor, not a person)",
             column: .conversation
         ) {
@@ -274,7 +275,7 @@ struct BiologyCoachView: View {
                             } label: {
                                 Label(isGeneratingReply ? "Thinking…" : "Send", systemImage: "arrow.up.circle.fill")
                             }
-                            .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                            .buttonStyle(BrassButtonStyle())
                             .disabled(isGeneratingReply || inputPrompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                             .accessibilityIdentifier("coach.send")
 
@@ -649,7 +650,7 @@ struct BiologyCoachView: View {
                         } label: {
                             Label("Verify answer", systemImage: "checkmark.circle.fill")
                         }
-                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                         .accessibilityIdentifier("coach.quant.verify")
 
                         Button(showQuantWorkedSolution ? "Hide steps" : "Show worked steps") {

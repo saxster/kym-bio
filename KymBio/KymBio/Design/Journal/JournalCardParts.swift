@@ -163,11 +163,18 @@ struct JournalChip: View {
             Text(text)
                 .font(.kymaiaCaption.weight(.semibold))
         }
-        .foregroundStyle(isSelected ? Color.white : foreground)
+        .foregroundStyle(isFilter ? (isSelected ? Color.kymaiaBackground : Color.kymaiaInk) : foreground)
         .padding(.horizontal, Spacing.sm + 1)
         .padding(.vertical, Spacing.xs)
-        .background(isSelected ? Color.kymaiaPrimary : fill, in: Capsule())
+        .background(isFilter ? (isSelected ? Color.kymaiaInk : Color.clear) : fill, in: Capsule())
+        .overlay(Capsule().stroke(isFilter && !isSelected ? Color.kymaiaHairline : Color.clear, lineWidth: 1))
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
+
+    /// A chip with an action is a filter. It draws The Standard's ink inversion (solid ink with
+    /// page-coloured text when chosen, a hairline outline otherwise), like `StandardFilterChip`,
+    /// because the accent marks the learning work, not navigation.
+    private var isFilter: Bool { action != nil }
 
     private var foreground: Color {
         switch tone {

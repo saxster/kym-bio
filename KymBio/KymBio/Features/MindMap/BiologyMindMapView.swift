@@ -368,7 +368,7 @@ struct BiologyMindMapView: View {
                                     }
 
                                     Button {
-                                        withAnimation(.easeInOut(duration: 0.18)) {
+                                        withKymaiaAnimation(StandardMotion.snappy) {
                                             selectedNodeID = node.id
                                         }
                                     } label: {
@@ -382,13 +382,13 @@ struct BiologyMindMapView: View {
                                             }
                                             Text(node.subtitle)
                                                 .font(.kymaiaCaption2)
-                                                .foregroundStyle(isSelected ? Color.white.opacity(0.88) : Color.kymaiaMutedInk)
+                                                .foregroundStyle(isSelected ? Color.kymaiaBackground.opacity(0.88) : Color.kymaiaMutedInk)
                                                 .lineLimit(1)
                                         }
                                         .padding(.horizontal, Spacing.sm)
                                         .padding(.vertical, Spacing.xs)
                                         .frame(width: 176, alignment: .leading)
-                                        .foregroundStyle(isSelected ? Color.white : Color.kymaiaInk)
+                                        .foregroundStyle(isSelected ? Color.kymaiaBackground : Color.kymaiaInk)
                                         .background(
                                             RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
                                                 .fill(isSelected ? Color.kymaiaPrimary : Color.kymaiaSurface)

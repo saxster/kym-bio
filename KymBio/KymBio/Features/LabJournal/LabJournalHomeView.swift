@@ -50,6 +50,7 @@ struct LabJournalHomeView: View {
     var body: some View {
         JournalPage(
             title: "Lab Journal & Cornell Notes",
+            eyebrow: "Lab journal",
             subtitle: "Cornell cue-testing, scientific enquiry lab logs and Apple Pencil specimen sketches (private by default)",
             floatingAction: JournalAction(
                 title: "New journal page",

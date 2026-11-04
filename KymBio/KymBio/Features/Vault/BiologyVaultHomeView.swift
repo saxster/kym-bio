@@ -284,7 +284,7 @@ struct BiologyVaultHomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: Spacing.xs) {
                         ForEach(Tab.allCases, id: \.self) { tab in
-                            JournalChip(
+                            StandardFilterChip(
                                 tab.rawValue,
                                 isSelected: selectedTab == tab
                             ) {
@@ -308,6 +308,7 @@ struct BiologyVaultHomeView: View {
             case .memoryPalaces:
                 JournalPage(
                     title: "Biology memory palaces",
+                    eyebrow: "Vault",
                     subtitle: "Walk spatial Mumbai and home loci trails to anchor multi-step biological sequences and food tests."
                 ) {
                     BiologyMemoryPalaceView()
@@ -315,6 +316,7 @@ struct BiologyVaultHomeView: View {
             case .mindMap:
                 JournalPage(
                     title: "Causal concept mind-map",
+                    eyebrow: "Vault",
                     subtitle: "Explore and extend the mechanistic web linking The Living World, Cambridge Science 8, and Chemistry/Physics bridges."
                 ) {
                     BiologyMindMapView()
@@ -322,6 +324,7 @@ struct BiologyVaultHomeView: View {
             case .claimAutopsy:
                 JournalPage(
                     title: "Thinking fortress: biological claim autopsy",
+                    eyebrow: "Vault",
                     subtitle: "Evaluate viral health and environmental claims using Cambridge Thinking and Working Scientifically criteria."
                 ) {
                     BiologyClaimAutopsyView()
@@ -337,6 +340,7 @@ struct BiologyVaultHomeView: View {
     private var learnByHeartBody: some View {
         JournalPage(
             title: "Learn by heart vault",
+            eyebrow: "Vault",
             subtitle: "Progressive word deletion and spoken recall for Cambridge mark-scheme definitions, equations, and causal cascades."
         ) {
             JournalSection(title: "1. Choose a passage or equation (\(BiologyVaultCatalog.cards.count) essential cards)") {
@@ -385,20 +389,13 @@ struct BiologyVaultHomeView: View {
                         // Stage step bar
                         HStack(spacing: Spacing.xs) {
                             ForEach(0...5, id: \.self) { stage in
-                                Button {
+                                StandardFilterChip(
+                                    stage == 0 ? "0 · Full" : (stage == 5 ? "5 · Cold" : "Stage \(stage)"),
+                                    isSelected: deletionStage == stage
+                                ) {
                                     deletionStage = stage
                                     isRevealed = false
-                                } label: {
-                                    Text(stage == 0 ? "0 · Full" : (stage == 5 ? "5 · Cold" : "Stage \(stage)"))
-                                        .font(.kymaiaCaption.weight(.semibold))
-                                        .padding(.horizontal, Spacing.sm)
-                                        .padding(.vertical, 6)
-                                        .background(
-                                            Capsule().fill(deletionStage == stage ? Color.kymaiaPrimary : Color.kymaiaControlFill)
-                                        )
-                                        .foregroundStyle(deletionStage == stage ? Color.white : Color.kymaiaInk)
                                 }
-                                .buttonStyle(.plain)
                             }
                         }
 
@@ -435,7 +432,7 @@ struct BiologyVaultHomeView: View {
                                 } label: {
                                     Label("Next fading stage", systemImage: "arrow.right.circle.fill")
                                 }
-                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                             }
                         }
 
@@ -459,7 +456,7 @@ struct BiologyVaultHomeView: View {
                                 } label: {
                                     Label("Score my recall against key terms", systemImage: "checkmark.seal.fill")
                                 }
-                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                                .buttonStyle(BrassButtonStyle())
                                 .disabled(recallAttempt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
 
                                 Spacer()
@@ -501,6 +498,7 @@ struct BiologyVaultHomeView: View {
     private var morphemeLadderBody: some View {
         JournalPage(
             title: "Greek and Latin biology morpheme ladder",
+            eyebrow: "Vault",
             subtitle: "Decode any unfamiliar biology word by owning the 12 core Greek and Latin roots that build the textbook."
         ) {
             ForEach(BiologyVaultCatalog.morphemes) { entry in

@@ -1,7 +1,11 @@
 import SwiftUI
 
+/// A scrolling page on the theme's background. A top-level room page passes an `eyebrow` and draws
+/// The Standard's `EditorialHeader` (eyebrow, serif title, muted subtitle) with an inline
+/// navigation title; a nested page keeps the large navigation title and the subtitle line.
 struct JournalPage<Content: View>: View {
     let title: String
+    var eyebrow: String?
     var subtitle: String?
     var subtitleIdentifier: String
     var floatingAction: JournalAction?
@@ -10,6 +14,7 @@ struct JournalPage<Content: View>: View {
 
     init(
         title: String,
+        eyebrow: String? = nil,
         subtitle: String? = nil,
         subtitleIdentifier: String = "journal-page.subtitle",
         floatingAction: JournalAction? = nil,
@@ -17,6 +22,7 @@ struct JournalPage<Content: View>: View {
         @ViewBuilder content: () -> Content
     ) {
         self.title = title
+        self.eyebrow = eyebrow
         self.subtitle = subtitle
         self.subtitleIdentifier = subtitleIdentifier
         self.floatingAction = floatingAction
@@ -30,7 +36,11 @@ struct JournalPage<Content: View>: View {
 
             ScrollView {
                 VStack(alignment: .leading, spacing: JournalLayout.sectionSpacing) {
-                    if let subtitle {
+                    if let eyebrow {
+                        EditorialHeader(eyebrow: eyebrow, title: title, subtitle: subtitle ?? "")
+                            .padding(.bottom, -JournalLayout.sectionSpacing)
+                            .accessibilityIdentifier(subtitleIdentifier)
+                    } else if let subtitle {
                         subtitleLine(subtitle)
                     }
                     content
@@ -53,7 +63,7 @@ struct JournalPage<Content: View>: View {
             }
         }
         .foregroundStyle(Color.kymaiaInk)
-        .modifier(JournalNavigationTitle(title: title, display: .large))
+        .modifier(JournalNavigationTitle(title: title, display: eyebrow == nil ? .large : .inline))
     }
 
     private func subtitleLine(_ text: String) -> some View {

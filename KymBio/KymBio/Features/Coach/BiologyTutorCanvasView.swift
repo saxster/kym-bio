@@ -366,7 +366,7 @@ struct BiologyTutorCanvasView: View {
             let alveolusRect = CGRect(x: size.width * 0.28, y: size.height * 0.14, width: size.width * 0.44, height: size.height * 0.38)
             context.stroke(Path(ellipseIn: alveolusRect), with: .color(strokeColor), lineWidth: 2.5)
             let capRect = CGRect(x: size.width * 0.20, y: size.height * 0.62, width: size.width * 0.60, height: size.height * 0.22)
-            context.stroke(Path(roundedRect: capRect, cornerRadius: 16), with: .color(Color.kymaiaError.opacity(0.55)), lineWidth: 2.5)
+            context.stroke(Path(roundedRect: capRect, cornerRadius: BioFigureGeometry.capillaryRadius), with: .color(Color.kymaiaError.opacity(0.55)), lineWidth: 2.5)
 
         default:
             // Punnett 2x2 grid

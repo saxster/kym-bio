@@ -392,11 +392,11 @@ struct QuestionProofPracticeView: View {
                 HStack(spacing: Spacing.md) {
                     Text("I (Image size)")
                         .padding(Spacing.xs)
-                        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.kymaiaPrimary))
+                        .overlay(RoundedRectangle(cornerRadius: CornerRadius.small).stroke(Color.kymaiaPrimary))
                     Text("÷")
                     Text("A (Actual size) × M (Magnification)")
                         .padding(Spacing.xs)
-                        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.kymaiaPrimary))
+                        .overlay(RoundedRectangle(cornerRadius: CornerRadius.small).stroke(Color.kymaiaPrimary))
                 }
                 .font(.kymaiaMonospaced)
             }
@@ -429,7 +429,7 @@ struct QuestionProofPracticeView: View {
     }
 
     private func evaluationSection(_ eval: QuestionEvaluationResult) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
+        QuietPanel {
             HStack {
                 JournalChip(
                     text: eval.resultingProofLevel.displayTitle,
@@ -463,11 +463,6 @@ struct QuestionProofPracticeView: View {
                 .font(.kymaiaSerifProse)
                 .foregroundStyle(Color.kymaiaInk)
         }
-        .padding(Spacing.md)
-        .background(
-            RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
-                .fill(Color.kymaiaElevatedSurface)
-        )
     }
 
     private func submitAttempt() {

@@ -76,6 +76,7 @@ struct LabsAtlasHomeView: View {
     var body: some View {
         JournalPage(
             title: "3D Labs, Atlas & Diagram Recall",
+            eyebrow: "Labs and atlas",
             subtitle: "47 interactive simulations, 117 3D Atlas lessons and 12 Apple Pencil specimen plates"
         ) {
             modeSelectorCard
@@ -203,7 +204,7 @@ struct LabsAtlasHomeView: View {
                                         systemImage: "checkmark.seal.fill"
                                     )
                                 }
-                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                                 .accessibilityIdentifier("labs.widget.stamp")
                             }
                             .padding(Spacing.md)
@@ -396,7 +397,7 @@ struct LabsAtlasHomeView: View {
                                     VStack(spacing: 2) {
                                         Text("\(idx + 1)")
                                             .font(.kymaiaCaption.weight(.bold).monospacedDigit())
-                                            .foregroundStyle(Color.white)
+                                            .foregroundStyle(Color.kymaiaBackground)
                                             .frame(width: 24, height: 24)
                                             .background(Circle().fill(Color.kymaiaPrimary))
                                         if showMasterPlateOverlay {
@@ -462,7 +463,7 @@ struct LabsAtlasHomeView: View {
                         } label: {
                             Label("Check labels & record Diagram Recall", systemImage: "checkmark.seal.fill")
                         }
-                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled))
+                        .buttonStyle(BrassButtonStyle())
                         .accessibilityIdentifier("labs.plate.grade")
 
                         Button {
@@ -506,7 +507,7 @@ struct LabsAtlasHomeView: View {
                 width: canvasSize.width * 0.72,
                 height: canvasSize.height * 0.80
             )
-            let contour = RoundedRectangle(cornerRadius: 36, style: .continuous).path(in: outerRect)
+            let contour = RoundedRectangle(cornerRadius: BioFigureGeometry.plateContourRadius, style: .continuous).path(in: outerRect)
             context.stroke(contour, with: .color(Color.kymaiaMutedInk), style: StrokeStyle(lineWidth: 2, dash: [6, 4]))
 
             for pin in plate.callouts {

@@ -29,6 +29,7 @@ struct LivingWorldHomeView: View {
     var body: some View {
         JournalPage(
             title: "The Living World",
+            eyebrow: "Story textbook",
             subtitle: "First-principles biology across 4 volumes, 16 chapters and 4 interactive explorers"
         ) {
             modeAndExplorersSection
@@ -231,7 +232,7 @@ struct LivingWorldHomeView: View {
                     } label: {
                         Label("Open interactive 3D workbench", systemImage: "cube.transparent.fill")
                     }
-                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                    .buttonStyle(BrassButtonStyle())
                     .accessibilityIdentifier("living-world.open-web-workbench")
                 }
 
@@ -334,7 +335,7 @@ struct LivingWorldHomeView: View {
                                     } label: {
                                         Label("Open in 3D Labs Bench", systemImage: "cube.transparent")
                                     }
-                                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
 
                                     Button {
                                         _ = store.freezeWidgetIntoLabLog(
@@ -406,7 +407,7 @@ struct LivingWorldHomeView: View {
                             addCheck: callout.kind == "check"
                         )
                     }
-                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                 } else {
                     if !currentText.isEmpty {
                         Text("Your committed prediction: \(currentText)")

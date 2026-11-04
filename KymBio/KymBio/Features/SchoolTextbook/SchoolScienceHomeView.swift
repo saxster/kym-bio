@@ -22,6 +22,7 @@ struct SchoolScienceHomeView: View {
     var body: some View {
         JournalPage(
             title: "School Science 8",
+            eyebrow: "Cambridge Science 8",
             subtitle: "\(textbook.title) · \(textbook.authors)"
         ) {
             lensSelectorCard
@@ -458,7 +459,7 @@ struct SchoolScienceHomeView: View {
                             systemImage: "Checkmark.seal.fill".lowercased()
                         )
                     }
-                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                    .buttonStyle(BrassButtonStyle())
                     .accessibilityIdentifier("school.question.\(question.id).start")
 
                     Button {

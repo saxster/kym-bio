@@ -17,6 +17,7 @@ struct TodayHomeView: View {
     var body: some View {
         JournalPage(
             title: GreetingPeriod.current().greeting(for: "Kym"),
+            eyebrow: "Today",
             subtitle: "8th-grade Biology · Cambridge Lower Secondary Science 8 & The Living World"
         ) {
             glanceTilesRow
@@ -119,7 +120,7 @@ struct TodayHomeView: View {
                         } label: {
                             Label("Prove this question now", systemImage: "checkmark.seal.fill")
                         }
-                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                        .buttonStyle(BrassButtonStyle())
                         .accessibilityIdentifier("today.next-question.start")
 
                         Button {
@@ -302,7 +303,7 @@ struct FSRSReviewSheetView: View {
                     Button("Reveal model answer") {
                         isRevealed = true
                     }
-                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled))
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted))
                     .accessibilityIdentifier("fsrs.reveal")
                 } else {
                     HStack(spacing: Spacing.sm) {

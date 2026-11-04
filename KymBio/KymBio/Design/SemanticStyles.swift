@@ -38,3 +38,11 @@ extension ShapeStyle where Self == Color {
     static var kymaiaWarningStyle: Color { KymaiaSemanticStyle.warning }
     static var kymaiaDestructive: Color { KymaiaSemanticStyle.destructive }
 }
+
+/// Fixed corner radii inside drawn biology figures (the anatomy plate's guide contour, the
+/// alveolus capillary), where the shape is part of the drawing's geometry. Everything outside a
+/// figure uses `CornerRadius.*` or `StandardRadius.*`.
+enum BioFigureGeometry {
+    static let plateContourRadius: CGFloat = 36
+    static let capillaryRadius: CGFloat = 16
+}

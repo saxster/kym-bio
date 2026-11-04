@@ -76,7 +76,7 @@ struct BiologyBreathingStudioView: View {
                             .fill(Color.kymaiaPrimary.opacity(0.18))
                             .frame(width: 140, height: 140)
                             .scaleEffect(isRunning ? phase.targetScale : 0.68)
-                            .animation(.easeInOut(duration: 1.0), value: phase)
+                            .standardAnimation(.easeInOut(duration: 1.0), value: phase)
 
                         VStack(spacing: 2) {
                             Image(systemName: "lungs.fill")
