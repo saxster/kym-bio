@@ -23,6 +23,12 @@ struct KymBioApp: App {
                     }
             }
         }
+        #if os(macOS)
+        Settings {
+            StandardAppearanceSettings(appName: "KymBio")
+                .standardThemeHost(rebuildsOnThemeChange: false)
+        }
+        #endif
     }
 }
 
@@ -36,6 +42,11 @@ struct KymBioRootShellView: View {
         ZStack {
             NavigationSplitView {
                 sidebarView
+                    .toolbar {
+                        ToolbarItem(placement: .automatic) {
+                            StandardSettingsButton(appName: "KymBio")
+                        }
+                    }
                     .navigationSplitViewColumnWidth(
                         min: Theme.Dimension.sidebarMinimumWidth,
                         ideal: Theme.Dimension.sidebarIdealWidth,
