@@ -45,4 +45,8 @@ extension ShapeStyle where Self == Color {
 enum BioFigureGeometry {
     static let plateContourRadius: CGFloat = 36
     static let capillaryRadius: CGFloat = 16
+    /// Radius of the convergence dot where jointly-entailing hyperedge premises meet before the target arrow.
+    static let junctionDotRadius: CGFloat = 5.0
+    /// Length of drawn vector callout arrowheads on the TutorCanvas overlay.
+    static let arrowHeadLength: CGFloat = 10.0
 }

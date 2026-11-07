@@ -733,6 +733,29 @@ figure[data-live], figure[data-labs] {
   contain-intrinsic-size: auto none auto 380px;
 }
 
+/* Pre-reveal confidence rail & reading-thinking note in :::check and :::predict */
+.lj-conf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .45rem;
+  margin: .45rem 0;
+  font-family: var(--sans);
+  font-size: .82rem;
+}
+.lj-rt {
+  margin: .35rem 0 .5rem;
+  font-family: var(--sans);
+  font-size: .82rem;
+  color: var(--muted);
+}
+.lj-rt-sum {
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  margin-bottom: .25rem;
+}
+
 /* Chapter 5 print verification: paper output must not inherit a dark screen palette. */
 @media print {
   html:root {

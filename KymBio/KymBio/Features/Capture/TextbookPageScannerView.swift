@@ -287,6 +287,14 @@ struct TextbookPageScannerSheet: View {
                         Label("Save & open in Cornell Notes", systemImage: "note.text.badge.plus")
                     }
                     .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted))
+
+                    Button {
+                        extractPageConceptsToMindMap()
+                    } label: {
+                        Label("Extract Concepts to Mind Map", systemImage: "point.3.connected.trianglepath.dotted")
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost))
+                    .accessibilityIdentifier("scanner.extract-concepts")
                 }
 
                 if let statusMessage {
@@ -356,5 +364,45 @@ struct TextbookPageScannerSheet: View {
             store.selectedRoom = .labJournal
             dismiss()
         }
+    }
+
+    private func extractPageConceptsToMindMap() {
+        let res = currentResolution
+        let pageNum = res.detectedPageNumber ?? 233
+        let customNodesKey = "kymbio.mindmap.customNodes"
+        let customEdgesKey = "kymbio.mindmap.customEdges"
+
+        let savedCustomNodes: [BiologyConceptNode] = (try? JSONDecoder().decode(
+            [BiologyConceptNode].self,
+            from: UserDefaults.standard.data(forKey: customNodesKey) ?? Data()
+        )) ?? []
+        let savedCustomEdges: [BiologyConceptEdge] = (try? JSONDecoder().decode(
+            [BiologyConceptEdge].self,
+            from: UserDefaults.standard.data(forKey: customEdgesKey) ?? Data()
+        )) ?? []
+
+        let audit = BiologyGraphExtractionEngine.extractAndMerge(
+            sourceText: ocrText.isEmpty ? (res.matchedTopicTitle ?? "Cambridge Science 8 p. \(pageNum)") : ocrText,
+            sourceKind: "scanned_page",
+            sourceId: "\(res.detectedBookType)-p\(pageNum)",
+            linkedChapterID: nil,
+            linkedTopicID: res.matchedTopicCode,
+            existingNodes: BiologyConceptGraphEngine.defaultNodes + savedCustomNodes,
+            existingEdges: BiologyConceptGraphEngine.defaultEdges + savedCustomEdges
+        )
+
+        let defaultNodeIDs = Set(BiologyConceptGraphEngine.defaultNodes.map(\.id))
+        let defaultEdgeIDs = Set(BiologyConceptGraphEngine.defaultEdges.map(\.id))
+        let newCustomNodes = audit.resultingNodes.filter { !defaultNodeIDs.contains($0.id) }
+        let newCustomEdges = audit.resultingEdges.filter { !defaultEdgeIDs.contains($0.id) }
+
+        if let nData = try? JSONEncoder().encode(newCustomNodes) {
+            UserDefaults.standard.set(nData, forKey: customNodesKey)
+        }
+        if let eData = try? JSONEncoder().encode(newCustomEdges) {
+            UserDefaults.standard.set(eData, forKey: customEdgesKey)
+        }
+
+        statusMessage = "Extracted \(audit.candidateNodes.count) concept(s) (\(audit.mergedNodeIDs.count) merged with existing graph) into Mind Map."
     }
 }

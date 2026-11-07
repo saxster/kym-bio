@@ -45,6 +45,90 @@ enum BiologyScratchpadStamp: String, CaseIterable, Identifiable, Sendable {
     }
 }
 
+struct ConfidenceRailControl: View {
+    @Binding var selectedStop: LearnerConfidenceStop?
+    let onDontKnowYet: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            HStack {
+                Label("How sure are you before checking?", systemImage: "gauge.with.dots.needle.67percent")
+                    .font(.kymaiaCaption.weight(.semibold))
+                    .foregroundStyle(Color.kymaiaPrimary)
+                Spacer()
+                if let stop = selectedStop {
+                    JournalChip("\(stop.displayLabel) · \(stop.shortCaption)", tone: stop.rawValue >= 70 ? .good : .neutral)
+                }
+            }
+
+            HStack(spacing: Spacing.xs) {
+                FlowLayout(spacing: Spacing.xs) {
+                    ForEach(LearnerConfidenceStop.allCases) { stop in
+                        Button {
+                            selectedStop = stop
+                        } label: {
+                            Text(stop.displayLabel)
+                        }
+                        .buttonStyle(
+                            JournalCapsuleButtonStyle(
+                                prominence: selectedStop == stop ? .filled : .tinted,
+                                size: .small
+                            )
+                        )
+                        .accessibilityIdentifier("confidence-rail.stop.\(stop.rawValue)")
+                    }
+                }
+
+                Spacer(minLength: Spacing.sm)
+
+                Button {
+                    selectedStop = .zero
+                    onDontKnowYet()
+                } label: {
+                    Label("I don't know yet", systemImage: "hand.raised")
+                }
+                .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                .accessibilityIdentifier("confidence-rail.dont-know")
+            }
+        }
+        .padding(Spacing.sm)
+        .background(
+            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                .fill(Color.kymaiaElevatedSurface)
+        )
+    }
+}
+
+struct ConfidenceRailBadge: View {
+    let confidence: LearnerConfidenceStop?
+    let isDontKnow: Bool
+    let quadrant: ConfidenceVerdictQuadrant
+
+    private var tone: JournalChip.Tone {
+        switch quadrant {
+        case .solidMastery: return .good
+        case .fragileGuess: return .warn
+        case .honestGap: return .neutral
+        case .committedMisconception: return .warn
+        }
+    }
+
+    var body: some View {
+        HStack(spacing: Spacing.xs) {
+            JournalChip(
+                quadrant.badgeTitle,
+                systemImage: isDontKnow ? "hand.raised.fill" : "gauge.with.dots.needle.67percent",
+                tone: tone
+            )
+            if isDontKnow {
+                JournalChip("Skipped guessing cleanly", tone: .neutral)
+            } else if let stop = confidence {
+                JournalChip("Pre-check confidence: \(stop.displayLabel)", tone: .neutral)
+            }
+        }
+    }
+}
+
 struct QuestionProofPracticeView: View {
     @EnvironmentObject private var store: AppStore
     @Environment(\.dismiss) private var dismiss
@@ -56,6 +140,10 @@ struct QuestionProofPracticeView: View {
     @State private var attemptNumber: Int = 1
     @State private var answerText: String = ""
     @State private var fadedInput: String = ""
+    @State private var selectedConfidence: LearnerConfidenceStop? = .moderate
+    @State private var readingThinkingText: String = ""
+    @State private var showReadingThinkingField: Bool = false
+    @State private var activeTransferTwin: SchoolScienceTransferTwin? = nil
     @State private var evaluation: QuestionEvaluationResult? = nil
     @State private var showScratchpad: Bool = true
     @State private var selectedPaperStyle: JournalPaperStyle = .grid
@@ -88,7 +176,14 @@ struct QuestionProofPracticeView: View {
                 )
             }
             promptSection
+            readingThinkingSection
             scaffoldContentSection
+            ConfidenceRailControl(
+                selectedStop: $selectedConfidence,
+                onDontKnowYet: {
+                    submitDontKnowYet()
+                }
+            )
             scratchpadSection
             if let evaluation {
                 evaluationSection(evaluation)
@@ -173,12 +268,50 @@ struct QuestionProofPracticeView: View {
 
     private var promptSection: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
-            Text("Question")
-                .font(.kymaiaCaption.weight(.semibold))
-                .foregroundStyle(Color.kymaiaMutedInk)
-            Text(question.prompt)
+            HStack {
+                Text(activeTransferTwin != nil ? "Transfer Twin Question (Fresh Independent Surface)" : "Question")
+                    .font(.kymaiaCaption.weight(.semibold))
+                    .foregroundStyle(Color.kymaiaMutedInk)
+                if let twin = activeTransferTwin {
+                    JournalChip(twin.transferContextTitle, systemImage: "arrow.triangle.branch", tone: .good)
+                }
+                Spacer()
+            }
+            Text(activeTransferTwin?.prompt ?? question.prompt)
                 .font(.kymaiaQuestion)
                 .foregroundStyle(Color.kymaiaInk)
+        }
+    }
+
+    private var readingThinkingSection: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            HStack {
+                Button {
+                    showReadingThinkingField.toggle()
+                } label: {
+                    Label(
+                        showReadingThinkingField ? "Hide 'Thinking while reading' note" : "Add 'Thinking while reading' hypothesis before checking",
+                        systemImage: "brain.head.profile"
+                    )
+                }
+                .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                .accessibilityIdentifier("question-proof.toggle-reading-thinking")
+
+                Spacer()
+                if showReadingThinkingField {
+                    VoiceDictationButton(text: $readingThinkingText, label: "Speak thought")
+                }
+            }
+
+            if showReadingThinkingField {
+                TextField(
+                    "Jot your initial hunch or causal chain before opening hints…",
+                    text: $readingThinkingText
+                )
+                .learnerTextInput(.retrieval)
+                .textFieldStyle(.roundedBorder)
+                .accessibilityIdentifier("question-proof.reading-thinking-input")
+            }
         }
     }
 
@@ -435,10 +568,23 @@ struct QuestionProofPracticeView: View {
                     text: eval.resultingProofLevel.displayTitle,
                     tone: eval.resultingProofLevel.isIndependentProof ? .good : .warn
                 )
+                if eval.usedTransferTwin {
+                    JournalChip("Transfer Twin Proof", systemImage: "arrow.triangle.branch", tone: .good)
+                }
                 Text("\(eval.matchedKeywords.count) of \(question.markSchemeKeywords.count) mark-scheme ideas matched")
                     .font(.kymaiaCaption.monospacedDigit())
                     .foregroundStyle(Color.kymaiaMutedInk)
             }
+
+            ConfidenceRailBadge(
+                confidence: eval.confidence,
+                isDontKnow: eval.isDontKnow,
+                quadrant: eval.quadrant
+            )
+
+            Text(eval.quadrant.coachingDirective)
+                .font(.kymaiaCaption)
+                .foregroundStyle(Color.kymaiaSecondaryInk)
 
             Text(eval.feedbackSummary)
                 .font(.kymaiaBody)
@@ -456,13 +602,29 @@ struct QuestionProofPracticeView: View {
             }
 
             Divider()
-            Text("Cambridge model answer")
+            Text(activeTransferTwin != nil ? "Cambridge model answer (Transfer Twin)" : "Cambridge model answer")
                 .font(.kymaiaCaption.weight(.semibold))
                 .foregroundStyle(Color.kymaiaMutedInk)
-            Text(question.modelAnswer)
+            Text(activeTransferTwin?.modelAnswer ?? question.modelAnswer)
                 .font(.kymaiaSerifProse)
                 .foregroundStyle(Color.kymaiaInk)
         }
+    }
+
+    private func submitDontKnowYet() {
+        persistCurrentScratchpad()
+        stage = .workedExample
+        usedAssistanceThisAttempt = true
+        let result = store.submitQuestionAttempt(
+            question: question,
+            answerText: answerText,
+            usedAssistance: true,
+            confidence: .zero,
+            isDontKnow: true,
+            readingThinkingText: readingThinkingText,
+            usedTransferTwin: activeTransferTwin != nil
+        )
+        evaluation = result
     }
 
     private func submitAttempt() {
@@ -479,7 +641,11 @@ struct QuestionProofPracticeView: View {
         let result = store.submitQuestionAttempt(
             question: question,
             answerText: answerText,
-            usedAssistance: usedAssistanceThisAttempt
+            usedAssistance: usedAssistanceThisAttempt,
+            confidence: selectedConfidence,
+            isDontKnow: false,
+            readingThinkingText: readingThinkingText,
+            usedTransferTwin: activeTransferTwin != nil
         )
         evaluation = result
         if !result.isPass {
@@ -492,11 +658,16 @@ struct QuestionProofPracticeView: View {
     }
 
     private func startFreshIndependentAttempt() {
+        let hadAssistanceOrEvaluation = usedAssistanceThisAttempt || evaluation != nil
         attemptNumber += 1
         stage = .independent
         usedAssistanceThisAttempt = false
         answerText = ""
         evaluation = nil
+        selectedConfidence = .moderate
+        if hadAssistanceOrEvaluation {
+            activeTransferTwin = TransferTwinCatalog.twin(for: question)
+        }
         scratchpadStrokePoints.removeAll()
         activeScratchpadStroke.removeAll()
         activeStamp = nil

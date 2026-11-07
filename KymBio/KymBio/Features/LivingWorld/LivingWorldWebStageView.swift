@@ -26,6 +26,16 @@ struct LivingWorldWebStageView: View {
                     chapterNumber: chapterNumber,
                     readout: readout
                 )
+            },
+            onCalloutSaved: { calloutId, responseText, confidenceTag, readingThinking in
+                store.saveCalloutResponse(
+                    calloutId: calloutId,
+                    chapterNumber: chapterNumber,
+                    responseText: responseText,
+                    isUnlocked: true,
+                    confidenceTag: confidenceTag,
+                    readingThinkingText: readingThinking
+                )
             }
         )
     }
@@ -40,9 +50,10 @@ private struct LivingWorldWebRepresentable: UIViewRepresentable {
     let syllabusBoard: String
     let stampedWidgetIds: [String]
     let onWidgetStamped: (String, String) -> Void
+    var onCalloutSaved: ((String, String, String, String) -> Void)? = nil
 
     func makeCoordinator() -> LivingWorldWebCoordinator {
-        LivingWorldWebCoordinator(onWidgetStamped: onWidgetStamped)
+        LivingWorldWebCoordinator(onWidgetStamped: onWidgetStamped, onCalloutSaved: onCalloutSaved)
     }
 
     func makeUIView(context: Context) -> WKWebView {
@@ -75,9 +86,10 @@ private struct LivingWorldWebRepresentable: NSViewRepresentable {
     let syllabusBoard: String
     let stampedWidgetIds: [String]
     let onWidgetStamped: (String, String) -> Void
+    var onCalloutSaved: ((String, String, String, String) -> Void)? = nil
 
     func makeCoordinator() -> LivingWorldWebCoordinator {
-        LivingWorldWebCoordinator(onWidgetStamped: onWidgetStamped)
+        LivingWorldWebCoordinator(onWidgetStamped: onWidgetStamped, onCalloutSaved: onCalloutSaved)
     }
 
     func makeNSView(context: Context) -> WKWebView {
@@ -103,13 +115,18 @@ private struct LivingWorldWebRepresentable: NSViewRepresentable {
 
 final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavigationDelegate {
     let onWidgetStamped: (String, String) -> Void
+    let onCalloutSaved: ((String, String, String, String) -> Void)?
     private var hasLoaded = false
     private var lastChapterNumber: Int = -1
     private var lastWidgetId: String? = nil
     private var lastExplorerId: String? = nil
 
-    init(onWidgetStamped: @escaping (String, String) -> Void) {
+    init(
+        onWidgetStamped: @escaping (String, String) -> Void,
+        onCalloutSaved: ((String, String, String, String) -> Void)? = nil
+    ) {
         self.onWidgetStamped = onWidgetStamped
+        self.onCalloutSaved = onCalloutSaved
     }
 
     static func makeWebConfiguration(coordinator: LivingWorldWebCoordinator) -> WKWebViewConfiguration {
@@ -127,6 +144,15 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
                         if (typeof key === 'string' && (key.indexOf('lw.stamp.') === 0 || key.indexOf('lw.challenge.') === 0)) {
                             var wid = key.replace('lw.stamp.', '').replace('lw.challenge.', '');
                             window.webkit.messageHandlers.kymbioBridge.postMessage({ widgetId: wid, readout: String(val) });
+                        } else if (typeof key === 'string' && (key.indexOf('lw:chk:') === 0 || key.indexOf('lw:pred:') === 0)) {
+                            var cid = key.replace('lw:', '');
+                            var parsed = JSON.parse(val);
+                            window.webkit.messageHandlers.kymbioBridge.postMessage({
+                                calloutId: cid,
+                                responseText: String(parsed.a || parsed.o || ''),
+                                confidenceTag: String(parsed.conf || ''),
+                                readingThinking: String(parsed.rt || '')
+                            });
                         }
                     } catch (e) {}
                 };
@@ -229,11 +255,19 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        guard let body = message.body as? [String: Any],
-              let widgetId = body["widgetId"] as? String else { return }
-        let readout = (body["readout"] as? String) ?? "Completed in interactive stage"
-        Task { @MainActor in
-            onWidgetStamped(widgetId, readout)
+        guard let body = message.body as? [String: Any] else { return }
+        if let widgetId = body["widgetId"] as? String {
+            let readout = (body["readout"] as? String) ?? "Completed in interactive stage"
+            Task { @MainActor in
+                onWidgetStamped(widgetId, readout)
+            }
+        } else if let calloutId = body["calloutId"] as? String {
+            let responseText = (body["responseText"] as? String) ?? ""
+            let confidenceTag = (body["confidenceTag"] as? String) ?? ""
+            let readingThinking = (body["readingThinking"] as? String) ?? ""
+            Task { @MainActor in
+                onCalloutSaved?(calloutId, responseText, confidenceTag, readingThinking)
+            }
         }
     }
 }

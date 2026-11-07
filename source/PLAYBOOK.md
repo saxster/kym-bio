@@ -121,7 +121,7 @@ Ideas aren't copyrightable. Re-teach the content in our voice; never paste sourc
    - licence and provenance check.
 8. **Figures and live widgets**, then **visual QA** with Playwright screenshots at 390, 820, 1024, 1180 and 1440 px, in light, dark and sepia; plus `livetest.py` and no console errors.
 9. **Publish** to GitHub Pages, then verify live by checking the service worker's version string matches the build.
-10. **Feedback loop.** What Kym actually reads, skips and gets wrong feeds the next revision. This part isn't built yet; it's the biggest open gap.
+10. **Feedback loop (`source/tests/read_kym_record.py`).** What Kym actually reads, skips, guesses on (`fragile_guess`), and gets wrong with high confidence (`committed_misconception`) feeds the next revision via the read-only `python3 source/tests/read_kym_record.py` CLI, which inspects web-book notebook JSON exports and `.kymbiobackup` archives to emit `REVISION_BRIEF.md`.
 
 ## 6. Lessons learned (each cost real effort)
 

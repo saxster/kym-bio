@@ -2,15 +2,15 @@ import SwiftUI
 
 // MARK: - Biology Concept Graph Models & Testable Engine
 
-enum BiologyConceptDomain: String, CaseIterable, Codable, Identifiable {
+public enum BiologyConceptDomain: String, CaseIterable, Codable, Identifiable, Sendable {
     case livingWorld = "Living World"
     case cambridgeBio = "Cambridge Bio (1, 4, 7)"
     case physicsChemBridge = "Chem & Physics Bridges"
     case customNote = "Your Custom Nodes"
 
-    var id: String { rawValue }
+    public var id: String { rawValue }
 
-    var symbolName: String {
+    public var symbolName: String {
         switch self {
         case .livingWorld: return "leaf.fill"
         case .cambridgeBio: return "book.closed.fill"
@@ -20,26 +20,137 @@ enum BiologyConceptDomain: String, CaseIterable, Codable, Identifiable {
     }
 }
 
-struct BiologyConceptNode: Identifiable, Codable, Equatable {
-    let id: String
-    var title: String
-    var subtitle: String
-    var domain: BiologyConceptDomain
-    var linkedChapterID: String?
-    var linkedTopicID: String?
-    var normalizedX: Double
-    var normalizedY: Double
-    var keyMechanismSummary: String
+public struct ConceptProvenanceAnchor: Codable, Equatable, Sendable {
+    public let sourceKind: String   // "chapter" | "scanned_page" | "journal_note"
+    public let sourceId: String
+    public let excerpt: String
+
+    public init(sourceKind: String, sourceId: String, excerpt: String) {
+        self.sourceKind = sourceKind
+        self.sourceId = sourceId
+        self.excerpt = excerpt
+    }
 }
 
-struct BiologyConceptEdge: Identifiable, Codable, Equatable {
-    var id: String { "\(fromNodeID)->\(toNodeID)" }
-    let fromNodeID: String
-    let toNodeID: String
-    let causalRelationLabel: String
+public struct BiologyConceptNode: Identifiable, Codable, Equatable, Sendable {
+    public let id: String
+    public var title: String
+    public var subtitle: String
+    public var domain: BiologyConceptDomain
+    public var linkedChapterID: String?
+    public var linkedTopicID: String?
+    public var normalizedX: Double
+    public var normalizedY: Double
+    public var keyMechanismSummary: String
+    public var provenanceAnchors: [ConceptProvenanceAnchor]
+
+    public init(
+        id: String,
+        title: String,
+        subtitle: String,
+        domain: BiologyConceptDomain,
+        linkedChapterID: String? = nil,
+        linkedTopicID: String? = nil,
+        normalizedX: Double,
+        normalizedY: Double,
+        keyMechanismSummary: String,
+        provenanceAnchors: [ConceptProvenanceAnchor] = []
+    ) {
+        self.id = id
+        self.title = title
+        self.subtitle = subtitle
+        self.domain = domain
+        self.linkedChapterID = linkedChapterID
+        self.linkedTopicID = linkedTopicID
+        self.normalizedX = normalizedX
+        self.normalizedY = normalizedY
+        self.keyMechanismSummary = keyMechanismSummary
+        self.provenanceAnchors = provenanceAnchors
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, title, subtitle, domain, linkedChapterID, linkedTopicID
+        case normalizedX, normalizedY, keyMechanismSummary, provenanceAnchors
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        title = try c.decode(String.self, forKey: .title)
+        subtitle = try c.decode(String.self, forKey: .subtitle)
+        domain = try c.decode(BiologyConceptDomain.self, forKey: .domain)
+        linkedChapterID = try c.decodeIfPresent(String.self, forKey: .linkedChapterID)
+        linkedTopicID = try c.decodeIfPresent(String.self, forKey: .linkedTopicID)
+        normalizedX = try c.decode(Double.self, forKey: .normalizedX)
+        normalizedY = try c.decode(Double.self, forKey: .normalizedY)
+        keyMechanismSummary = try c.decode(String.self, forKey: .keyMechanismSummary)
+        provenanceAnchors = (try? c.decode([ConceptProvenanceAnchor].self, forKey: .provenanceAnchors)) ?? []
+    }
 }
 
-enum BiologyConceptGraphEngine {
+public struct BiologyConceptEdge: Identifiable, Codable, Equatable, Sendable {
+    public var id: String { "\(fromNodeIDs.joined(separator: "+"))->\(toNodeID)" }
+    public let fromNodeIDs: [String]
+    public var fromNodeID: String { fromNodeIDs.first ?? "" }
+    public let toNodeID: String
+    public let causalRelationLabel: String
+    public let isJointEntailment: Bool
+
+    public init(
+        fromNodeID: String,
+        toNodeID: String,
+        causalRelationLabel: String,
+        isJointEntailment: Bool = false
+    ) {
+        self.fromNodeIDs = [fromNodeID]
+        self.toNodeID = toNodeID
+        self.causalRelationLabel = causalRelationLabel
+        self.isJointEntailment = isJointEntailment
+    }
+
+    public init(
+        fromNodeIDs: [String],
+        toNodeID: String,
+        causalRelationLabel: String,
+        isJointEntailment: Bool = true
+    ) {
+        self.fromNodeIDs = fromNodeIDs.isEmpty ? [""] : fromNodeIDs
+        self.toNodeID = toNodeID
+        self.causalRelationLabel = causalRelationLabel
+        self.isJointEntailment = isJointEntailment && fromNodeIDs.count > 1
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case fromNodeIDs, fromNodeID, toNodeID, causalRelationLabel, isJointEntailment
+    }
+
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        if let multi = try? c.decode([String].self, forKey: .fromNodeIDs), !multi.isEmpty {
+            fromNodeIDs = multi
+        } else if let single = try? c.decode(String.self, forKey: .fromNodeID) {
+            fromNodeIDs = [single]
+        } else {
+            fromNodeIDs = []
+        }
+        toNodeID = try c.decode(String.self, forKey: .toNodeID)
+        causalRelationLabel = try c.decode(String.self, forKey: .causalRelationLabel)
+        isJointEntailment = (try? c.decode(Bool.self, forKey: .isJointEntailment)) ?? (fromNodeIDs.count > 1)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(fromNodeIDs, forKey: .fromNodeIDs)
+        try c.encode(fromNodeID, forKey: .fromNodeID)
+        try c.encode(toNodeID, forKey: .toNodeID)
+        try c.encode(causalRelationLabel, forKey: .causalRelationLabel)
+        try c.encode(isJointEntailment, forKey: .isJointEntailment)
+    }
+}
+
+public enum BiologyConceptGraphEngine {
+    public static var nodes: [BiologyConceptNode] { defaultNodes }
+    public static var edges: [BiologyConceptEdge] { defaultEdges }
     static let defaultNodes: [BiologyConceptNode] = [
         BiologyConceptNode(
             id: "node-ch02-cells",
@@ -187,23 +298,37 @@ enum BiologyConceptGraphEngine {
             fromNodeID: "node-u1-respiration",
             toNodeID: "node-u4-ecosystems",
             causalRelationLabel: "90% respiratory heat loss explains 10% trophic pyramid"
+        ),
+        BiologyConceptEdge(
+            fromNodeIDs: ["node-u7-diet", "node-ch03-osmosis"],
+            toNodeID: "node-u1-respiration",
+            causalRelationLabel: "jointly supply absorbed glucose + diffused O2 to mitochondria",
+            isJointEntailment: true
         )
     ]
 
-    /// Returns direct neighbor nodes and connecting edges for a given `nodeID`.
-    static func neighborhood(
+    /// Returns direct neighbor nodes and connecting edges for a given `nodeID` (including multi-premise hyperedges).
+    public static func neighborhood(
         for nodeID: String,
         nodes: [BiologyConceptNode],
         edges: [BiologyConceptEdge]
     ) -> (neighbors: [BiologyConceptNode], incidentEdges: [BiologyConceptEdge]) {
-        let incident = edges.filter { $0.fromNodeID == nodeID || $0.toNodeID == nodeID }
-        let neighborIDs = Set(incident.map { $0.fromNodeID == nodeID ? $0.toNodeID : $0.fromNodeID })
+        let incident = edges.filter { $0.fromNodeIDs.contains(nodeID) || $0.toNodeID == nodeID }
+        var neighborIDs: Set<String> = []
+        for edge in incident {
+            if edge.toNodeID == nodeID {
+                neighborIDs.formUnion(edge.fromNodeIDs)
+            } else {
+                neighborIDs.insert(edge.toNodeID)
+                neighborIDs.formUnion(edge.fromNodeIDs.filter { $0 != nodeID })
+            }
+        }
         let neighborNodes = nodes.filter { neighborIDs.contains($0.id) }
         return (neighborNodes, incident)
     }
 
     /// Breadth-first causal path finder between any two concept nodes.
-    static func shortestCausalPath(
+    public static func shortestCausalPath(
         from startID: String,
         to targetID: String,
         edges: [BiologyConceptEdge]
@@ -211,8 +336,10 @@ enum BiologyConceptGraphEngine {
         if startID == targetID { return [startID] }
         var adjacency: [String: [String]] = [:]
         for edge in edges {
-            adjacency[edge.fromNodeID, default: []].append(edge.toNodeID)
-            adjacency[edge.toNodeID, default: []].append(edge.fromNodeID)
+            for fromID in edge.fromNodeIDs {
+                adjacency[fromID, default: []].append(edge.toNodeID)
+                adjacency[edge.toNodeID, default: []].append(fromID)
+            }
         }
 
         var queue: [[String]] = [[startID]]
@@ -231,6 +358,210 @@ enum BiologyConceptGraphEngine {
             }
         }
         return []
+    }
+
+    /// Ancestry-cover transitive reduction: removes single-premise shortcut edges `A -> C` when a directed path `A -> ... -> C` of length >= 2 already exists, while preserving jointly-entailing hyperedges.
+    public static func simplifyRedundantEdges(edges: [BiologyConceptEdge]) -> [BiologyConceptEdge] {
+        var directedAdj: [String: Set<String>] = [:]
+        for edge in edges {
+            for fromID in edge.fromNodeIDs {
+                directedAdj[fromID, default: []].insert(edge.toNodeID)
+            }
+        }
+
+        func hasAlternateDirectedPath(from start: String, to target: String) -> Bool {
+            var queue: [(node: String, depth: Int)] = [(start, 0)]
+            var visited: Set<String> = [start]
+            while !queue.isEmpty {
+                let current = queue.removeFirst()
+                for next in directedAdj[current.node, default: []] {
+                    if current.depth == 0 && next == target {
+                        continue // skip the direct edge under test
+                    }
+                    if next == target && current.depth >= 1 {
+                        return true
+                    }
+                    if !visited.contains(next) {
+                        visited.insert(next)
+                        queue.append((next, current.depth + 1))
+                    }
+                }
+            }
+            return false
+        }
+
+        return edges.filter { edge in
+            if edge.isJointEntailment && edge.fromNodeIDs.count > 1 {
+                return true
+            }
+            guard let singleFrom = edge.fromNodeIDs.first else { return false }
+            return !hasAlternateDirectedPath(from: singleFrom, to: edge.toNodeID)
+        }
+    }
+}
+
+// MARK: - 3-Stage Grounded Concept Graph Extraction Engine (Workstream 4)
+
+public struct GraphExtractionAuditResult: Equatable, Sendable {
+    public let candidateNodes: [BiologyConceptNode]
+    public let candidateEdges: [BiologyConceptEdge]
+    public let mergedNodeIDs: [String: String] // duplicateCandidateID -> canonicalNodeID
+    public let resultingNodes: [BiologyConceptNode]
+    public let resultingEdges: [BiologyConceptEdge]
+}
+
+public enum BiologyGraphExtractionEngine {
+    /// Runs the 3-stage pipeline:
+    /// Stage 1 (Extractor): extracts atomic biological concepts & causal links from source text.
+    /// Stage 2 (Identity Auditor): detects and merges synonymous/duplicate nodes against existing graph nodes.
+    /// Stage 3 (Deterministic Merger): appends new nodes with provenance anchors, redirects merged edges, and runs `simplifyRedundantEdges`.
+    public static func extractAndMerge(
+        sourceText: String,
+        sourceKind: String,
+        sourceId: String,
+        linkedChapterID: String? = nil,
+        linkedTopicID: String? = nil,
+        existingNodes: [BiologyConceptNode],
+        existingEdges: [BiologyConceptEdge]
+    ) -> GraphExtractionAuditResult {
+        let anchor = ConceptProvenanceAnchor(
+            sourceKind: sourceKind,
+            sourceId: sourceId,
+            excerpt: String(sourceText.trimmingCharacters(in: .whitespacesAndNewlines).prefix(160))
+        )
+
+        // Stage 1: Extract candidate concepts from text sentences/clauses
+        let rawCandidates = stage1ExtractCandidates(
+            from: sourceText,
+            anchor: anchor,
+            linkedChapterID: linkedChapterID,
+            linkedTopicID: linkedTopicID
+        )
+
+        // Stage 2: Audit candidate identities against existing nodes (same-identity vs distinct)
+        var mergedMap: [String: String] = [:]
+        var updatedNodes = existingNodes
+        var newNodes: [BiologyConceptNode] = []
+
+        for candidate in rawCandidates.nodes {
+            if let matchIdx = updatedNodes.firstIndex(where: { isSameConceptIdentity($0, candidate) }) {
+                let canonicalID = updatedNodes[matchIdx].id
+                mergedMap[candidate.id] = canonicalID
+                if !updatedNodes[matchIdx].provenanceAnchors.contains(anchor) {
+                    updatedNodes[matchIdx].provenanceAnchors.append(anchor)
+                }
+            } else {
+                newNodes.append(candidate)
+                updatedNodes.append(candidate)
+            }
+        }
+
+        // Stage 3: Deterministic Merge + Hyperedge / Transitive Reduction
+        var combinedEdges = existingEdges
+        for edge in rawCandidates.edges {
+            let resolvedFrom = edge.fromNodeIDs.map { mergedMap[$0] ?? $0 }
+            let resolvedTo = mergedMap[edge.toNodeID] ?? edge.toNodeID
+            guard !resolvedFrom.contains(resolvedTo) else { continue }
+            let remapped = BiologyConceptEdge(
+                fromNodeIDs: Array(NSOrderedSet(array: resolvedFrom)).compactMap { $0 as? String },
+                toNodeID: resolvedTo,
+                causalRelationLabel: edge.causalRelationLabel,
+                isJointEntailment: edge.isJointEntailment
+            )
+            if !combinedEdges.contains(where: { $0.id == remapped.id }) {
+                combinedEdges.append(remapped)
+            }
+        }
+
+        let simplifiedEdges = BiologyConceptGraphEngine.simplifyRedundantEdges(edges: combinedEdges)
+        return GraphExtractionAuditResult(
+            candidateNodes: rawCandidates.nodes,
+            candidateEdges: rawCandidates.edges,
+            mergedNodeIDs: mergedMap,
+            resultingNodes: updatedNodes,
+            resultingEdges: simplifiedEdges
+        )
+    }
+
+    private static func stage1ExtractCandidates(
+        from text: String,
+        anchor: ConceptProvenanceAnchor,
+        linkedChapterID: String?,
+        linkedTopicID: String?
+    ) -> (nodes: [BiologyConceptNode], edges: [BiologyConceptEdge]) {
+        let lower = text.lowercased()
+        var extractedNodes: [BiologyConceptNode] = []
+        var extractedEdges: [BiologyConceptEdge] = []
+
+        let conceptLexicon: [(key: String, title: String, subtitle: String, summary: String, domain: BiologyConceptDomain)] = [
+            ("respiration", "Unit 1 · Respiration & Gas Exchange", "Aerobic & anaerobic ATP release", "Cellular oxidation of glucose in mitochondria releasing energy.", .cambridgeBio),
+            ("osmosis", "Ch 3 · Diffusion & Osmosis", "Water potential gradient", "Net movement of water across a partially permeable membrane.", .livingWorld),
+            ("enzyme", "Ch 4 · Biomolecules & Enzymes", "Active-site catalysis", "Biological catalysts that lower activation energy and denature at extreme pH/temperature.", .livingWorld),
+            ("photosynthesis", "Ch 5 · Photosynthesis & Carbon Fixation", "Endothermic light capture", "Chloroplasts trap light energy to reduce CO2 and water into glucose and oxygen.", .livingWorld),
+            ("bioaccumulation", "Unit 4.4 · Bioaccumulation & Biomagnification", "Persistent trophic toxins", "Persistent toxins build up within organisms and magnify up food chains.", .cambridgeBio),
+            ("haemoglobin", "Unit 1.5 · Haemoglobin & Red Blood Cells", "Reversible oxygen transport", "Biconcave anucleate red blood cells carry oxygen as oxyhaemoglobin.", .cambridgeBio),
+            ("antagonistic", "Unit 7.4 · Antagonistic Muscle Pairs", "Biceps & triceps levers", "Muscles only pull when contracting, working in opposing pairs across synovial joints.", .cambridgeBio)
+        ]
+
+        for (idx, item) in conceptLexicon.enumerated() where lower.contains(item.key) {
+            let angle = Double(idx) * 0.9
+            let node = BiologyConceptNode(
+                id: "extracted-\(item.key)",
+                title: item.title,
+                subtitle: item.subtitle,
+                domain: item.domain,
+                linkedChapterID: linkedChapterID,
+                linkedTopicID: linkedTopicID,
+                normalizedX: min(0.86, max(0.14, 0.50 + 0.28 * cos(angle))),
+                normalizedY: min(0.86, max(0.14, 0.50 + 0.28 * sin(angle))),
+                keyMechanismSummary: item.summary,
+                provenanceAnchors: [anchor]
+            )
+            extractedNodes.append(node)
+        }
+
+        if extractedNodes.isEmpty {
+            let cleanTitle = String(text.trimmingCharacters(in: .whitespacesAndNewlines).prefix(38))
+            let fallbackNode = BiologyConceptNode(
+                id: "extracted-\( abs(cleanTitle.hashValue) % 100_000 )",
+                title: cleanTitle.isEmpty ? "Extracted Biology Concept" : cleanTitle,
+                subtitle: "Extracted from \(anchor.sourceKind)",
+                domain: .customNote,
+                linkedChapterID: linkedChapterID,
+                linkedTopicID: linkedTopicID,
+                normalizedX: 0.55,
+                normalizedY: 0.45,
+                keyMechanismSummary: anchor.excerpt,
+                provenanceAnchors: [anchor]
+            )
+            extractedNodes.append(fallbackNode)
+        }
+
+        if extractedNodes.count >= 2 {
+            for i in 0..<(extractedNodes.count - 1) {
+                extractedEdges.append(
+                    BiologyConceptEdge(
+                        fromNodeID: extractedNodes[i].id,
+                        toNodeID: extractedNodes[i + 1].id,
+                        causalRelationLabel: "mechanistically supports"
+                    )
+                )
+            }
+        }
+        return (extractedNodes, extractedEdges)
+    }
+
+    private static func isSameConceptIdentity(_ existing: BiologyConceptNode, _ candidate: BiologyConceptNode) -> Bool {
+        let eTitle = existing.title.lowercased()
+        let cTitle = candidate.title.lowercased()
+        if eTitle == cTitle { return true }
+        let sharedKeywords = ["respiration", "osmosis", "enzymes", "photosynthesis", "ecosystems", "diet"]
+        for kw in sharedKeywords {
+            if eTitle.contains(kw) && cTitle.contains(kw) {
+                return true
+            }
+        }
+        return false
     }
 }
 
@@ -332,29 +663,65 @@ struct BiologyMindMapView: View {
 
                         ScrollView([.horizontal, .vertical], showsIndicators: true) {
                             ZStack(alignment: .topLeading) {
-                                // Edges canvas
+                                // Edges & jointly-entailing hyperedges canvas
                                 Canvas { context, size in
                                     for edge in edges {
-                                        guard let fromNode = visibleNodes.first(where: { $0.id == edge.fromNodeID }),
-                                              let toNode = visibleNodes.first(where: { $0.id == edge.toNodeID }) else {
+                                        guard let toNode = visibleNodes.first(where: { $0.id == edge.toNodeID }) else {
                                             continue
                                         }
-                                        let p1 = CGPoint(x: fromNode.normalizedX * size.width, y: fromNode.normalizedY * size.height)
-                                        let p2 = CGPoint(x: toNode.normalizedX * size.width, y: toNode.normalizedY * size.height)
+                                        let fromNodes = edge.fromNodeIDs.compactMap { id in
+                                            visibleNodes.first(where: { $0.id == id })
+                                        }
+                                        guard !fromNodes.isEmpty else { continue }
 
-                                        let isHighlighted = (edge.fromNodeID == selectedNodeID || edge.toNodeID == selectedNodeID)
-                                        var path = Path()
-                                        path.move(to: p1)
-                                        path.addLine(to: p2)
+                                        let pTarget = CGPoint(x: toNode.normalizedX * size.width, y: toNode.normalizedY * size.height)
+                                        let isHighlighted = edge.fromNodeIDs.contains(selectedNodeID) || edge.toNodeID == selectedNodeID
+                                        let strokeColor = isHighlighted ? Color.kymaiaPrimary : Color.kymaiaControlBorder
 
-                                        context.stroke(
-                                            path,
-                                            with: .color(isHighlighted ? Color.kymaiaPrimary : Color.kymaiaControlBorder),
-                                            style: StrokeStyle(
-                                                lineWidth: isHighlighted ? 2.6 : 1.3,
-                                                dash: isHighlighted ? [] : [5, 4]
+                                        if edge.isJointEntailment && fromNodes.count > 1 {
+                                            let avgX = fromNodes.map { $0.normalizedX * size.width }.reduce(0, +) / CGFloat(fromNodes.count)
+                                            let avgY = fromNodes.map { $0.normalizedY * size.height }.reduce(0, +) / CGFloat(fromNodes.count)
+                                            let junction = CGPoint(
+                                                x: (avgX + pTarget.x) * 0.5,
+                                                y: (avgY + pTarget.y) * 0.5
                                             )
-                                        )
+                                            for fn in fromNodes {
+                                                let pPremise = CGPoint(x: fn.normalizedX * size.width, y: fn.normalizedY * size.height)
+                                                var branch = Path()
+                                                branch.move(to: pPremise)
+                                                branch.addLine(to: junction)
+                                                context.stroke(
+                                                    branch,
+                                                    with: .color(strokeColor),
+                                                    style: StrokeStyle(lineWidth: isHighlighted ? 2.2 : 1.3)
+                                                )
+                                            }
+                                            var stem = Path()
+                                            stem.move(to: junction)
+                                            stem.addLine(to: pTarget)
+                                            context.stroke(
+                                                stem,
+                                                with: .color(strokeColor),
+                                                style: StrokeStyle(lineWidth: isHighlighted ? 2.8 : 1.6)
+                                            )
+                                            let r = BioFigureGeometry.junctionDotRadius
+                                            let dotRect = CGRect(x: junction.x - r, y: junction.y - r, width: r * 2, height: r * 2)
+                                            context.fill(Path(ellipseIn: dotRect), with: .color(Color.kymaiaPrimaryStrong))
+                                        } else if let fromNode = fromNodes.first {
+                                            let p1 = CGPoint(x: fromNode.normalizedX * size.width, y: fromNode.normalizedY * size.height)
+                                            var path = Path()
+                                            path.move(to: p1)
+                                            path.addLine(to: pTarget)
+
+                                            context.stroke(
+                                                path,
+                                                with: .color(strokeColor),
+                                                style: StrokeStyle(
+                                                    lineWidth: isHighlighted ? 2.6 : 1.3,
+                                                    dash: isHighlighted ? [] : [5, 4]
+                                                )
+                                            )
+                                        }
                                     }
                                 }
                                 .frame(width: width, height: height)
@@ -519,6 +886,15 @@ struct BiologyMindMapView: View {
                         }
                         .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
                         .disabled(newCustomTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+
+                        Button {
+                            edges = BiologyConceptGraphEngine.simplifyRedundantEdges(edges: edges)
+                            savePersistedCustomGraph()
+                        } label: {
+                            Label("Simplify redundant links", systemImage: "wand.and.stars")
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                        .accessibilityIdentifier("mindmap.simplify-edges")
                     }
                 }
             }

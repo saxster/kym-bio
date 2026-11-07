@@ -14,6 +14,40 @@ struct BiologicalClaimCase: Identifiable, Codable, Equatable {
     let requiredKeyTerms: [String]
 }
 
+enum DistractorCraftAuditor {
+    struct AuditVerdict: Equatable, Sendable {
+        let caseId: String
+        let maxToMinLengthRatio: Double
+        let issues: [String]
+        var passed: Bool { issues.isEmpty }
+    }
+
+    static func audit(_ claimCase: BiologicalClaimCase) -> AuditVerdict {
+        var issues: [String] = []
+        let lengths = claimCase.flawChoices.map { $0.trimmingCharacters(in: .whitespacesAndNewlines).count }
+        let minLen = max(1, lengths.min() ?? 1)
+        let maxLen = lengths.max() ?? 1
+        let ratio = Double(maxLen) / Double(minLen)
+
+        if ratio > 1.8 {
+            issues.append(String(format: "Option length ratio %.2f exceeds 1.80 symmetry ceiling.", ratio))
+        }
+        for (idx, choice) in claimCase.flawChoices.enumerated() {
+            if choice.contains("(") || choice.contains(")") {
+                issues.append("Option \(idx) contains parenthetical explanation giveaway.")
+            }
+            if choice.count < 45 {
+                issues.append("Option \(idx) is too short (\(choice.count) chars) to match technical register.")
+            }
+        }
+        return AuditVerdict(caseId: claimCase.id, maxToMinLengthRatio: ratio, issues: issues)
+    }
+
+    static func auditAll(_ cases: [BiologicalClaimCase] = BiologyClaimAutopsyCatalog.cases) -> [AuditVerdict] {
+        cases.map { audit($0) }
+    }
+}
+
 enum BiologyClaimAutopsyCatalog {
     static let cases: [BiologicalClaimCase] = [
         BiologicalClaimCase(
@@ -22,9 +56,9 @@ enum BiologyClaimAutopsyCatalog {
             viralClaimQuote: "\"Drinking bottled water at pH 9.5 raises your blood pH from acidic to alkaline, supercharging your red blood cells!\"",
             cambridgeStrandTag: "Unit 7.1,Unit 1.5 & Ch 7/10 · Homeostasis",
             flawChoices: [
-                "Ignores stomach hydrochloric acid (pH 1.5–2.0) neutralisation and tight renal/respiratory blood pH buffering (7.35–7.45)",
-                "Uses a thermometer with 1 °C graduations instead of 0.1 °C",
-                "Measures plant transpiration rate in the dark"
+                "Ignores gastric hydrochloric acid neutralisation and tight renal-respiratory blood pH buffering",
+                "Assumes alkaline hydroxide ions cross the intestinal epithelium only by active transport pumps",
+                "Overlooks that haemoglobin releases oxygen faster only when plasma pH rises above neutral levels"
             ],
             correctFlawIndex: 0,
             mechanismFallacyExplanation: "As soon as alkaline water enters the stomach, gastric juice (hydrochloric acid, pH ~1.5–2.0) neutralises it. Even more importantly, human blood pH is homeostatically locked between 7.35 and 7.45 by bicarbonate buffers, lung CO2 exhalation, and kidney nephrons—if blood pH actually rose to 9.5, plasma proteins and haemoglobin would denature fatally.",
@@ -37,9 +71,9 @@ enum BiologyClaimAutopsyCatalog {
             viralClaimQuote: "\"I took leftover amoxicillin tablets for my viral runny nose, and two days later I felt better—proving antibiotics kill cold viruses!\"",
             cambridgeStrandTag: "Unit 4 & Ch 2/14 · Scientific Enquiry & Selection",
             flawChoices: [
-                "Uses metric units instead of imperial units",
-                "No untreated control group (confounded by the immune system's natural 48-hour recovery) and confuses acellular viruses with prokaryotic bacteria",
-                "Tests too many bacterial species at once"
+                "Assumes oral amoxicillin requires at least seven days to diffuse into upper respiratory mucus",
+                "Omits an untreated control group and confuses acellular viruses with cell-walled bacteria",
+                "Ignores that cold viruses rapidly mutate their peptidoglycan cell walls against beta-lactams"
             ],
             correctFlawIndex: 1,
             mechanismFallacyExplanation: "First, a single anecdote (n = 1) with no control group confuses natural immune recovery over 48 hours with drug efficacy. Second, antibiotics target bacterial peptidoglycan cell walls or 70S ribosomes; viruses are acellular protein-coated genetic material (no cell wall, no ribosomes) replicating inside host cells, so antibiotics have zero target to attack—and misusing them selects for antibiotic-resistant bacteria.",
@@ -52,9 +86,9 @@ enum BiologyClaimAutopsyCatalog {
             viralClaimQuote: "\"We placed one fern with Miracle Tonic on a sunny balcony and one untreated fern in a dark cupboard—the tonic fern grew twice as tall!\"",
             cambridgeStrandTag: "Unit 1/4/7 · Thinking and Working Scientifically",
             flawChoices: [
-                "Sample size is n = 1 with no repeats, and light intensity/temperature were not kept constant as control variables",
-                "The ruler used to measure stem height was made of plastic",
-                "Ferns do not contain chlorophyll in their chloroplasts"
+                "Uses a single-plant sample size without repeats and fails to control light intensity across groups",
+                "Measures vertical stem elongation rather than counting the total number of new root hair cells",
+                "Applies liquid mineral tonic to mature fern fronds that absorb nitrates only through stomata"
             ],
             correctFlawIndex: 0,
             mechanismFallacyExplanation: "In a fair test, only the independent variable (presence of tonic) may be changed while all control variables (light intensity, temperature, pot volume, water volume, initial plant mass) are kept constant. Placing the treated fern in sunlight and the control in a dark cupboard confounds the experiment with photosynthesis rate, and n = 1 cannot rule out individual genetic variation.",
@@ -67,9 +101,9 @@ enum BiologyClaimAutopsyCatalog {
             viralClaimQuote: "\"A 100-tonne banyan tree has massive wooden branches, so it must have eaten 100 tonnes of soil through its roots as it grew.\"",
             cambridgeStrandTag: "Ch 5 & Unit 5.5 · Photosynthesis Mass Balance",
             flawChoices: [
-                "Ignores that dry plant biomass (cellulose and lignin) is built almost entirely from atmospheric carbon dioxide gas (CO2) and water (H2O) during photosynthesis",
-                "Assumes roots absorb chlorophyll from soil bacteria",
-                "Forgets that banyan trees only respire during the daytime"
+                "Ignores that dry woody biomass is synthesised from atmospheric carbon dioxide gas and water",
+                "Overlooks that root hair cells convert absorbed silicate sand grains into cellulose fibres",
+                "Forgets that phloem sieve tubes transport dissolved soil humus directly into woody bark tissue"
             ],
             correctFlawIndex: 0,
             mechanismFallacyExplanation: "As Jan Baptist van Helmont proved with his 5-year willow tree experiment (where the tree gained 74 kg while dry soil mass dropped by only 57 grams), soil only supplies trace mineral ions (like nitrates and magnesium) and water. The carbon and oxygen atoms making up >95% of dry wood biomass come from atmospheric CO2 gas entering through leaf stomata during photosynthesis.",
@@ -82,9 +116,9 @@ enum BiologyClaimAutopsyCatalog {
             viralClaimQuote: "\"This zero-sugar, zero-calorie energy drink gives your muscle mitochondria 4 hours of pure cellular energy!\"",
             cambridgeStrandTag: "Unit 1.4,Unit 7.1 & Ch 6/9 · Cellular Respiration vs. Synapses",
             flawChoices: [
-                "Confuses nervous-system alertness (blocking adenosine receptors at brain synapses) with actual chemical energy (ATP) released by oxidising glucose or lipids in mitochondria",
-                "Caffeine is a dietary fibre that cannot be absorbed into the bloodstream",
-                "Muscle cells only use Vitamin C as their respiratory substrate"
+                "Confuses synaptic adenosine-receptor stimulation with chemical energy released by oxidising glucose",
+                "Assumes skeletal muscle mitochondria oxidise caffeine molecules only during anaerobic exercise",
+                "Overlooks that artificial sweeteners block glucose transport proteins across muscle membranes"
             ],
             correctFlawIndex: 0,
             mechanismFallacyExplanation: "In biology, cellular energy means ATP synthesised by oxidising organic fuel molecules (glucose, fatty acids) during cellular respiration in mitochondria. A zero-calorie drink contains zero chemical bond energy (0 kJ) for respiration; caffeine merely blocks adenosine receptors in brain synapses so you temporarily feel less tired while drawing down your existing glycogen reserves.",
@@ -97,9 +131,9 @@ enum BiologyClaimAutopsyCatalog {
             viralClaimQuote: "\"Sweating heavily in a hot room replaces your liver and kidneys by flushing metabolic toxins out through your skin pores!\"",
             cambridgeStrandTag: "Ch 10 & Unit 1.5 · Excretion vs. Thermoregulation",
             flawChoices: [
-                "Confuses thermoregulatory evaporative cooling (99% water + NaCl) with hepatic deamination and renal nephron filtration of urea",
-                "Sweat glands are located inside the lungs rather than the dermis",
-                "The liver produces oxygen gas during exercise"
+                "Confuses evaporative thermoregulation by dermal sweat glands with hepatic and renal urea excretion",
+                "Assumes eccrine sweat ducts actively pump deaminated proteins against a concentration gradient",
+                "Ignores that high ambient humidity prevents nephron glomeruli from filtering blood plasma"
             ],
             correctFlawIndex: 0,
             mechanismFallacyExplanation: "Sweating is a thermoregulatory homeostasis response: evaporation of water from the skin surface removes latent heat to cool blood in dermal capillaries. Sweat is ~99% water with small amounts of sodium chloride. Metabolic waste products and toxins are detoxified by liver hepatocytes (converting excess amino acids to urea) and filtered out of blood plasma by kidney nephrons.",
@@ -130,6 +164,7 @@ enum BiologyClaimAutopsyCatalog {
 struct BiologyClaimAutopsyView: View {
     @State private var selectedCaseID: String = BiologyClaimAutopsyCatalog.cases[0].id
     @State private var selectedFlawIndex: Int?
+    @State private var selectedConfidence: LearnerConfidenceStop? = .moderate
     @State private var writtenEvaluation: String = ""
     @State private var submittedResult: (isFlawCorrect: Bool, recallEval: BiologicalRecallEvaluation, passedProof: Bool)?
     @State private var completedCaseIDs: Set<String> = []
@@ -244,6 +279,18 @@ struct BiologyClaimAutopsyView: View {
                                     .strokeBorder(Color.kymaiaControlBorder, lineWidth: 1)
                             )
                     }
+
+                    ConfidenceRailControl(
+                        selectedStop: $selectedConfidence,
+                        onDontKnowYet: {
+                            selectedConfidence = .zero
+                            submittedResult = BiologyClaimAutopsyCatalog.scoreAutopsy(
+                                claimCase: activeCase,
+                                selectedFlawIndex: selectedFlawIndex,
+                                writtenEvaluation: writtenEvaluation
+                            )
+                        }
+                    )
 
                     Button {
                         let res = BiologyClaimAutopsyCatalog.scoreAutopsy(

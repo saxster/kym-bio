@@ -10,6 +10,11 @@ const RATINGS = [
   ['partly', 'Partly'],
   ['not', 'Not yet'],
 ];
+const CONF_STOPS = [
+  ['sure', 'Sure'],
+  ['guess', '50–50 guess'],
+  ['unsure', 'Not sure'],
+];
 
 const FLAP_CORNER_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" class="flap-ear"><path d="M4 18 L18 4 L18 14 Q18 18 14 18 Z" fill="currentColor" opacity=".18"/><path d="M4 18 L18 4 M6 12 L12 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>';
 
@@ -42,6 +47,27 @@ function setupCheck(box) {
   const ta = el('textarea', { class: 'lj-ta', rows: 2, id: id + '-mine', placeholder: 'Write it here, or just think it' });
   ta.value = saved.a || '';
   const label = el('label', { class: 'lj-lab', for: id + '-mine' }, 'Your answer');
+
+  const rtTa = el('textarea', { class: 'lj-ta lj-rt-ta', rows: 1, id: id + '-rt', placeholder: 'Thinking while reading: jot your initial hunch before lifting the flap…' });
+  rtTa.value = saved.rt || '';
+  const rtWrap = el('details', { class: 'lj-rt', open: !!saved.rt },
+    el('summary', { class: 'lj-rt-sum' }, 'Thinking while reading (optional)'),
+    rtTa);
+
+  const confRow = el('div', { class: 'lj-conf', role: 'group', 'aria-label': 'How sure are you before lifting the flap?' });
+  const confBtns = CONF_STOPS.map(([v, l]) => el('button', { type: 'button', class: 'lj-chip lj-conf-chip', 'data-conf': v, 'aria-pressed': String(saved.conf === v) }, l));
+  confRow.append(el('span', { class: 'lj-q' }, 'Confidence:'), ...confBtns);
+
+  function paintConf(c) {
+    confBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.conf === c)));
+    box.dataset.conf = c || '';
+  }
+  confBtns.forEach(b => b.addEventListener('click', () => {
+    playSound('tick');
+    const s = store.get(key, {}); s.conf = b.dataset.conf; s.a = ta.value; s.rt = rtTa.value; s.t = Date.now(); store.set(key, s);
+    paintConf(s.conf); App.emit('learn:change');
+  }));
+
   const showBtn = el('button', {
     type: 'button',
     class: 'lj-btn primary chk-flap-btn',
@@ -58,8 +84,9 @@ function setupCheck(box) {
   const again = el('button', { type: 'button', class: 'lj-link' }, 'Try again');
   answer.append(rateRow, again);
 
-  const save = () => { const s = store.get(key, {}); s.a = ta.value; s.t = Date.now(); store.set(key, s); App.emit('learn:change'); };
+  const save = () => { const s = store.get(key, {}); s.a = ta.value; s.rt = rtTa.value; s.t = Date.now(); store.set(key, s); App.emit('learn:change'); };
   ta.addEventListener('input', debounce(save, 400));
+  rtTa.addEventListener('input', debounce(save, 400));
 
   function paintRating(r) {
     rateBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.r === r)));
@@ -73,26 +100,27 @@ function setupCheck(box) {
     } else answer.hidden = false;
   }
   showBtn.addEventListener('click', () => {
-    const s = store.get(key, {}); s.a = ta.value; s.seen = true; s.t = Date.now(); store.set(key, s);
+    const s = store.get(key, {}); s.a = ta.value; s.rt = rtTa.value; s.seen = true; s.t = Date.now(); store.set(key, s);
     open(true); App.emit('learn:change');
     answer.querySelector('.lj-chip').focus({ preventScroll: true });
   });
   rateBtns.forEach(b => b.addEventListener('click', () => {
     playSound('tick');
-    const s = store.get(key, {}); s.r = b.dataset.r; s.a = ta.value; s.seen = true; s.t = Date.now(); store.set(key, s);
+    const s = store.get(key, {}); s.r = b.dataset.r; s.a = ta.value; s.rt = rtTa.value; s.seen = true; s.t = Date.now(); store.set(key, s);
     paintRating(s.r); App.emit('learn:change');
   }));
   again.addEventListener('click', () => {
     playSound('flap');
-    store.set(key, { a: '', t: Date.now() });
-    ta.value = ''; paintRating(''); answer.hidden = true; showBtn.hidden = false; showBtn.setAttribute('aria-expanded', 'false');
+    store.set(key, { a: '', rt: '', conf: '', t: Date.now() });
+    ta.value = ''; rtTa.value = ''; paintConf(''); paintRating(''); answer.hidden = true; showBtn.hidden = false; showBtn.setAttribute('aria-expanded', 'false');
     ta.focus(); App.emit('learn:change');
   });
 
-  const ui = el('div', { class: 'chk-ui' }, label, ta, el('div', { class: 'lj-row' }, showBtn), answer);
+  const ui = el('div', { class: 'chk-ui' }, rtWrap, label, ta, confRow, el('div', { class: 'lj-row' }, showBtn), answer);
   if (back) box.insertBefore(ui, back); else box.append(ui);
   if (back) back.classList.add('lj-back');
   if (saved.seen) open(false);
+  paintConf(saved.conf);
   paintRating(saved.r);
 }
 
@@ -160,6 +188,18 @@ function setupPredict(box) {
     return b;
   });
   const you = el('p', { class: 'pred-you', 'aria-live': 'polite' });
+  const savedPred = store.get(key, {}) || {};
+  const confRow = el('div', { class: 'lj-conf pred-conf', role: 'group', 'aria-label': 'Prediction confidence' });
+  const confBtns = CONF_STOPS.map(([v, l]) => el('button', { type: 'button', class: 'lj-chip lj-conf-chip', 'data-conf': v, 'aria-pressed': String(savedPred.conf === v) }, l));
+  confRow.append(el('span', { class: 'lj-q' }, 'Confidence:'), ...confBtns);
+  confBtns.forEach(b => b.addEventListener('click', () => {
+    playSound('tick');
+    const cur = store.get(key, {}) || {};
+    cur.conf = b.dataset.conf; cur.t = Date.now();
+    store.set(key, cur);
+    confBtns.forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.conf === cur.conf)));
+    App.emit('learn:change');
+  }));
   const flapText = el('span', { class: 'flap-t' }, 'Lift the flap to see the answer …after you have made your prediction');
   const flap = el('button', {
     type: 'button',
@@ -172,7 +212,7 @@ function setupPredict(box) {
     el('span', { class: 'flap-i', html: FLAP_CORNER_SVG }),
   );
   const again = el('button', { type: 'button', class: 'lj-link' }, 'Fold flap & change my prediction');
-  list.after(you, flap);
+  list.after(confRow, you, flap);
   rev.append(again);
   rev.id = rev.id || id + '-reveal';
   flap.setAttribute('aria-controls', rev.id);
@@ -222,7 +262,8 @@ function setupPredict(box) {
   }
   function choose(i) {
     playSound('tick');
-    store.set(key, { c: i, o: clean(btns[i].querySelector('.pred-t').textContent), q, t: Date.now() });
+    const prev = store.get(key, {}) || {};
+    store.set(key, { c: i, o: clean(btns[i].querySelector('.pred-t').textContent), q, conf: prev.conf || 'sure', t: Date.now() });
     paint(true); App.emit('learn:change');
   }
   again.addEventListener('click', () => {

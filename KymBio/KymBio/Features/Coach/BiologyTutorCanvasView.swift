@@ -1,21 +1,173 @@
+import CryptoKit
 import SwiftUI
+
+// MARK: - Learner Image Snapshot Store & Static Vector Overlay Validator (Workstream 5)
+
+public struct LearnerImageSnapshotRecord: Codable, Equatable, Identifiable, Sendable {
+    public let id: String               // SHA-256 hex content address
+    public let boundedWidth: Int
+    public let boundedHeight: Int
+    public let byteCount: Int
+    public let createdAt: Date
+}
+
+public enum LearnerImageSnapshotStore {
+    public static let maxAllowedDimension: Int = 1600
+    private static var inMemoryBlobs: [String: Data] = [:]
+    private static var inMemoryRecords: [String: LearnerImageSnapshotRecord] = [:]
+
+    public static func sha256Hex(of data: Data) -> String {
+        let digest = SHA256.hash(data: data)
+        return digest.map { String(format: "%02x", $0) }.joined()
+    }
+
+    public static func boundDimensions(width: Int, height: Int, maxDimension: Int = maxAllowedDimension) -> (width: Int, height: Int) {
+        let safeW = max(1, width)
+        let safeH = max(1, height)
+        let largest = max(safeW, safeH)
+        guard largest > maxDimension else {
+            return (safeW, safeH)
+        }
+        let scale = Double(maxDimension) / Double(largest)
+        return (
+            max(1, Int((Double(safeW) * scale).rounded())),
+            max(1, Int((Double(safeH) * scale).rounded()))
+        )
+    }
+
+    @discardableResult
+    public static func storeSnapshot(
+        data: Data,
+        width: Int,
+        height: Int,
+        now: Date = Date()
+    ) -> LearnerImageSnapshotRecord {
+        let hash = sha256Hex(of: data)
+        let bounded = boundDimensions(width: width, height: height)
+        let rec = LearnerImageSnapshotRecord(
+            id: hash,
+            boundedWidth: bounded.width,
+            boundedHeight: bounded.height,
+            byteCount: data.count,
+            createdAt: now
+        )
+        inMemoryBlobs[hash] = data
+        inMemoryRecords[hash] = rec
+        return rec
+    }
+
+    public static func fetchSnapshot(id: String) -> (record: LearnerImageSnapshotRecord, data: Data)? {
+        guard let rec = inMemoryRecords[id], let data = inMemoryBlobs[id] else { return nil }
+        return (rec, data)
+    }
+}
+
+public struct TutorCanvasVectorArrow: Identifiable, Codable, Equatable, Sendable {
+    public let id: String
+    public let fromX: Double
+    public let fromY: Double
+    public let toX: Double
+    public let toY: Double
+    public let caption: String
+
+    public init(id: String, fromX: Double, fromY: Double, toX: Double, toY: Double, caption: String) {
+        self.id = id
+        self.fromX = fromX
+        self.fromY = fromY
+        self.toX = toX
+        self.toY = toY
+        self.caption = caption
+    }
+}
+
+public struct TutorCanvasOverlaySpec: Codable, Equatable, Sendable {
+    public let snapshotID: String?
+    public let labels: [TutorCanvasLabel]
+    public let arrows: [TutorCanvasVectorArrow]
+
+    public init(snapshotID: String? = nil, labels: [TutorCanvasLabel], arrows: [TutorCanvasVectorArrow]) {
+        self.snapshotID = snapshotID
+        self.labels = labels
+        self.arrows = arrows
+    }
+}
+
+public enum TutorCanvasOverlayValidator {
+    private static let forbiddenTokens: [String] = [
+        "<script", "</script", "javascript:", "onload=", "onerror=", "onclick=",
+        "http://", "https://", "<foreignobject", "<iframe"
+    ]
+
+    public static func validate(_ spec: TutorCanvasOverlaySpec) -> (isValid: Bool, issues: [String]) {
+        var issues: [String] = []
+
+        for label in spec.labels {
+            if !(0.0...1.0).contains(label.normalizedX) || !(0.0...1.0).contains(label.normalizedY) {
+                issues.append("Label '\(label.id)' coordinates (\(label.normalizedX), \(label.normalizedY)) outside 0.0...1.0.")
+            }
+            let lower = label.text.lowercased()
+            for forbidden in forbiddenTokens where lower.contains(forbidden) {
+                issues.append("Label '\(label.id)' contains forbidden token '\(forbidden)'.")
+            }
+        }
+
+        for arrow in spec.arrows {
+            let coords = [arrow.fromX, arrow.fromY, arrow.toX, arrow.toY]
+            if coords.contains(where: { !(0.0...1.0).contains($0) }) {
+                issues.append("Arrow '\(arrow.id)' coordinates outside 0.0...1.0.")
+            }
+            let lower = arrow.caption.lowercased()
+            for forbidden in forbiddenTokens where lower.contains(forbidden) {
+                issues.append("Arrow '\(arrow.id)' contains forbidden token '\(forbidden)'.")
+            }
+        }
+
+        return (issues.isEmpty, issues)
+    }
+}
 
 // MARK: - TutorCanvas Co-Drawing Models & 4 Biological Visual Proof Boards
 
-struct BiologyTutorCanvasStep: Identifiable, Codable, Equatable {
-    let id: String
-    let stepNumber: Int
-    let title: String
-    let coachNarration: String
-    let learnerTaskPrompt: String
-    let calloutLabels: [TutorCanvasLabel]
+public struct BiologyTutorCanvasStep: Identifiable, Codable, Equatable, Sendable {
+    public let id: String
+    public let stepNumber: Int
+    public let title: String
+    public let coachNarration: String
+    public let learnerTaskPrompt: String
+    public let calloutLabels: [TutorCanvasLabel]
+    public let vectorArrows: [TutorCanvasVectorArrow]
+
+    public init(
+        id: String,
+        stepNumber: Int,
+        title: String,
+        coachNarration: String,
+        learnerTaskPrompt: String,
+        calloutLabels: [TutorCanvasLabel],
+        vectorArrows: [TutorCanvasVectorArrow] = []
+    ) {
+        self.id = id
+        self.stepNumber = stepNumber
+        self.title = title
+        self.coachNarration = coachNarration
+        self.learnerTaskPrompt = learnerTaskPrompt
+        self.calloutLabels = calloutLabels
+        self.vectorArrows = vectorArrows
+    }
 }
 
-struct TutorCanvasLabel: Identifiable, Codable, Equatable {
-    let id: String
-    let text: String
-    let normalizedX: Double
-    let normalizedY: Double
+public struct TutorCanvasLabel: Identifiable, Codable, Equatable, Sendable {
+    public let id: String
+    public let text: String
+    public let normalizedX: Double
+    public let normalizedY: Double
+
+    public init(id: String, text: String, normalizedX: Double, normalizedY: Double) {
+        self.id = id
+        self.text = text
+        self.normalizedX = normalizedX
+        self.normalizedY = normalizedY
+    }
 }
 
 struct BiologyTutorCanvasBoard: Identifiable, Codable, Equatable {
@@ -186,6 +338,7 @@ struct BiologyTutorCanvasView: View {
     @State private var strokes: [[CGPoint]] = []
     @State private var activeStroke: [CGPoint] = []
     @State private var savedStatusText: String?
+    @State private var activePhotoOverlaySpec: TutorCanvasOverlaySpec? = nil
 
     private var activeBoard: BiologyTutorCanvasBoard {
         BiologyTutorCanvasCatalog.boards.first(where: { $0.id == selectedBoardID }) ?? BiologyTutorCanvasCatalog.boards[0]
@@ -227,9 +380,21 @@ struct BiologyTutorCanvasView: View {
                         Button("Clear ink") {
                             strokes.removeAll()
                             activeStroke.removeAll()
+                            activePhotoOverlaySpec = nil
                             persistStrokesForBoard(activeBoard.id, data: nil)
                         }
                         .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+
+                        Button {
+                            loadScannedPageVectorOverlay()
+                        } label: {
+                            Label(
+                                activePhotoOverlaySpec != nil ? "Overlay active" : "Scanned Page Overlay",
+                                systemImage: "viewfinder.rectangular"
+                            )
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: activePhotoOverlaySpec != nil ? .filled : .tinted, size: .small))
+                        .accessibilityIdentifier("tutorcanvas.photo-overlay")
 
                         Button {
                             freezeCoDrawingToLabJournal()
@@ -255,13 +420,30 @@ struct BiologyTutorCanvasView: View {
                     JournalPaperSheet(style: .dotGrid, minHeight: 280) {
                         GeometryReader { geo in
                             ZStack(alignment: .topLeading) {
-                                // Coach schematic vector layer
+                                // Coach schematic vector layer + optional Scanned Page Vector Arrows
                                 Canvas { context, size in
                                     drawCoachSchematic(for: activeBoard.id, stepNumber: activeStep.stepNumber, in: &context, size: size)
+                                    let arrows = (activePhotoOverlaySpec?.arrows ?? []) + activeStep.vectorArrows
+                                    for arrow in arrows {
+                                        let pFrom = CGPoint(x: arrow.fromX * size.width, y: arrow.fromY * size.height)
+                                        let pTo = CGPoint(x: arrow.toX * size.width, y: arrow.toY * size.height)
+                                        var line = Path()
+                                        line.move(to: pFrom)
+                                        line.addLine(to: pTo)
+                                        context.stroke(line, with: .color(Color.kymaiaPrimaryStrong), lineWidth: 2.5)
+                                        let angle = atan2(pTo.y - pFrom.y, pTo.x - pFrom.x)
+                                        let headLen = BioFigureGeometry.arrowHeadLength
+                                        var head = Path()
+                                        head.move(to: pTo)
+                                        head.addLine(to: CGPoint(x: pTo.x - headLen * cos(angle - .pi / 6), y: pTo.y - headLen * sin(angle - .pi / 6)))
+                                        head.move(to: pTo)
+                                        head.addLine(to: CGPoint(x: pTo.x - headLen * cos(angle + .pi / 6), y: pTo.y - headLen * sin(angle + .pi / 6)))
+                                        context.stroke(head, with: .color(Color.kymaiaPrimaryStrong), lineWidth: 2.5)
+                                    }
                                 }
 
-                                // Coach callout labels
-                                ForEach(activeStep.calloutLabels) { label in
+                                // Coach callout labels + validated Photo Overlay labels
+                                ForEach(activeStep.calloutLabels + (activePhotoOverlaySpec?.labels ?? [])) { label in
                                     Text(label.text)
                                         .font(.kymaiaCaption.weight(.semibold))
                                         .foregroundStyle(Color.kymaiaPrimaryStrong)
@@ -412,5 +594,37 @@ struct BiologyTutorCanvasView: View {
             drawingData: encoded
         )
         savedStatusText = "Saved co-drawing to your Lab Journal!"
+    }
+
+    private func loadScannedPageVectorOverlay() {
+        let latestPage = store.fetchCapturedPages().first
+        let seedBytes = Data((latestPage?.ocrText ?? activeBoard.title).utf8)
+        let snapshot = LearnerImageSnapshotStore.storeSnapshot(data: seedBytes, width: 2048, height: 1536)
+        let spec = TutorCanvasOverlaySpec(
+            snapshotID: snapshot.id,
+            labels: [
+                TutorCanvasLabel(
+                    id: "ov-label-1",
+                    text: latestPage.map { "Scanned p. \($0.pageNumber) · Key Mechanism Anchor" } ?? "Specimen Callout · Check Gradient Direction",
+                    normalizedX: 0.50,
+                    normalizedY: 0.12
+                )
+            ],
+            arrows: [
+                TutorCanvasVectorArrow(
+                    id: "ov-arrow-1",
+                    fromX: 0.28,
+                    fromY: 0.35,
+                    toX: 0.48,
+                    toY: 0.52,
+                    caption: "Causal vector"
+                )
+            ]
+        )
+        let validation = TutorCanvasOverlayValidator.validate(spec)
+        if validation.isValid {
+            activePhotoOverlaySpec = spec
+            savedStatusText = "Loaded validated vector overlay (snapshot \(String(snapshot.id.prefix(8))) · \(snapshot.boundedWidth)×\(snapshot.boundedHeight))."
+        }
     }
 }

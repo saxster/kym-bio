@@ -417,4 +417,207 @@ final class KymBioDomainTests: XCTestCase {
         XCTAssertTrue(verdict.approved)
         XCTAssertEqual(verdict.votes.count, 4)
     }
+
+    func testWorkstream1CoachStateMachinePrerequisiteBracketingAndModularPromptComposer() {
+        let u1Plan = CoachHarnessEngine.makePlan(forUnit: 1)
+        XCTAssertEqual(u1Plan.targetNodeID, "node-u1-respiration")
+        XCTAssertEqual(u1Plan.strands.count, 2)
+        XCTAssertFalse(u1Plan.causalStepNodeIDs.isEmpty)
+
+        // Probe -> Plan -> Teach -> Practise progression
+        let step1 = CoachHarnessEngine.advance(
+            phase: .probe,
+            plan: u1Plan,
+            learnerText: "Oxygen diffuses across the one-cell-thick alveolus wall into capillaries.",
+            effectiveStyle: .adaptive
+        )
+        XCTAssertEqual(step1.nextPhase, .plan)
+
+        let step2 = CoachHarnessEngine.advance(
+            phase: step1.nextPhase,
+            plan: step1.updatedPlan,
+            learnerText: "Ready to trace the causal chain.",
+            effectiveStyle: .adaptive
+        )
+        XCTAssertEqual(step2.nextPhase, .teach)
+
+        // Immediate "just explain" opt-out from .probe jumps straight to .teach
+        let optOut = CoachHarnessEngine.advance(
+            phase: .probe,
+            plan: u1Plan,
+            learnerText: "Please just explain this directly.",
+            effectiveStyle: .explainDirectly
+        )
+        XCTAssertEqual(optOut.nextPhase, .teach)
+
+        // Modular prompt composer locks 00-constitution and allows bounded overrides on 10-phase-doctrine
+        let segments = CoachPromptSegmentComposer.composeSegments(
+            persona: .marieCurie,
+            guidanceStyle: .adaptive,
+            dialogueMode: .socratic,
+            mentorIntent: .learn,
+            conversationMode: .openChat,
+            coachPhase: .probe,
+            lessonPlan: u1Plan,
+            activeChapterContext: "Ch 6 Respiration",
+            misconceptionContext: "Energy is released, not made",
+            schoolWordingContext: "glucose + oxygen -> carbon dioxide + water",
+            sharedMuddiestPoint: nil,
+            segmentOverrides: [
+                "00-constitution": "Attempted override of constitution",
+                "10-phase-doctrine": "Custom phase doctrine for Unit 1 probe."
+            ]
+        )
+        XCTAssertEqual(segments.count, 5)
+        XCTAssertFalse(segments[0].body.contains("Attempted override of constitution"))
+        XCTAssertTrue(segments[0].body.contains("1. Safety, privacy, and human dignity."))
+        XCTAssertEqual(segments[1].body, "Custom phase doctrine for Unit 1 probe.")
+    }
+
+    @MainActor
+    func testWorkstream2And3ConfidenceRailQuadrantsTransferTwinsAndDistractorCraft() throws {
+        let pack = try SeedPackLoader.loadFromBundle()
+        XCTAssertEqual(pack.schoolQuestions.count, 15)
+
+        // Every school question has a distinct transfer twin testing the exact same markSchemeKeywords
+        for q in pack.schoolQuestions {
+            let twin = TransferTwinCatalog.twin(for: q)
+            XCTAssertEqual(twin.parentQuestionId, q.id)
+            XCTAssertNotEqual(twin.prompt, q.prompt)
+            XCTAssertEqual(twin.markSchemeKeywords, q.markSchemeKeywords)
+        }
+
+        // Verify 4-quadrant confidence-verdict matrix
+        XCTAssertEqual(
+            ConfidenceVerdictQuadrant.compute(isPass: true, confidence: .high, isDontKnow: false),
+            .solidMastery
+        )
+        XCTAssertEqual(
+            ConfidenceVerdictQuadrant.compute(isPass: true, confidence: .low, isDontKnow: false),
+            .fragileGuess
+        )
+        XCTAssertEqual(
+            ConfidenceVerdictQuadrant.compute(isPass: false, confidence: .zero, isDontKnow: true),
+            .honestGap
+        )
+        XCTAssertEqual(
+            ConfidenceVerdictQuadrant.compute(isPass: false, confidence: .certain, isDontKnow: false),
+            .committedMisconception
+        )
+
+        // Verify AppStore persists confidence, reading-thinking, and transfer-twin proof
+        let db = DatabaseManager(inMemory: true)
+        let store = AppStore(db: db, pack: pack)
+        let q = pack.schoolQuestions[0]
+
+        let misconceptionEval = store.submitQuestionAttempt(
+            question: q,
+            answerText: "Air goes straight into the heart without trachea or alveoli.",
+            usedAssistance: false,
+            confidence: .certain,
+            isDontKnow: false,
+            readingThinkingText: "I think lungs pump blood directly",
+            usedTransferTwin: false
+        )
+        XCTAssertEqual(misconceptionEval.quadrant, .committedMisconception)
+        XCTAssertEqual(store.questionProofs[q.id]?.lastConfidencePercent, 100)
+        XCTAssertEqual(store.questionProofs[q.id]?.lastQuadrant, "committed_misconception")
+
+        let twinPassEval = store.submitQuestionAttempt(
+            question: q,
+            answerText: q.modelAnswer,
+            usedAssistance: false,
+            confidence: .high,
+            isDontKnow: false,
+            readingThinkingText: "Trachea cartilage prevents collapse; cilia sweep mucus",
+            usedTransferTwin: true
+        )
+        XCTAssertTrue(twinPassEval.isPass)
+        XCTAssertEqual(twinPassEval.quadrant, .solidMastery)
+        XCTAssertEqual(store.questionProofs[q.id]?.provedViaTransferTwin, true)
+
+        // Verify DistractorCraftAuditor passes on all 6 BiologicalClaimCase entries
+        let audits = DistractorCraftAuditor.auditAll()
+        XCTAssertEqual(audits.count, 6)
+        for verdict in audits {
+            XCTAssertTrue(verdict.passed, "Distractor craft failed for \(verdict.caseId): \(verdict.issues)")
+            XCTAssertLessThanOrEqual(verdict.maxToMinLengthRatio, 1.80)
+        }
+    }
+
+    func testWorkstream4And5And6HyperedgesTransitiveReductionGraphExtractionAndOverlayValidator() throws {
+        // 1. Jointly-entailing hyperedge & transitive reduction
+        let eAB = BiologyConceptEdge(fromNodeID: "A", toNodeID: "B", causalRelationLabel: "step 1")
+        let eBC = BiologyConceptEdge(fromNodeID: "B", toNodeID: "C", causalRelationLabel: "step 2")
+        let eACShortcut = BiologyConceptEdge(fromNodeID: "A", toNodeID: "C", causalRelationLabel: "redundant shortcut")
+        let eJoint = BiologyConceptEdge(
+            fromNodeIDs: ["A", "D"],
+            toNodeID: "C",
+            causalRelationLabel: "jointly entails",
+            isJointEntailment: true
+        )
+        let reduced = BiologyConceptGraphEngine.simplifyRedundantEdges(edges: [eAB, eBC, eACShortcut, eJoint])
+        XCTAssertTrue(reduced.contains(eAB))
+        XCTAssertTrue(reduced.contains(eBC))
+        XCTAssertFalse(reduced.contains(eACShortcut), "Redundant transitive shortcut A->C should be pruned")
+        XCTAssertTrue(reduced.contains(eJoint), "Jointly-entailing hyperedge (A+D)->C must be preserved")
+
+        // 2. 3-stage extraction & identity deduplication
+        let extraction = BiologyGraphExtractionEngine.extractAndMerge(
+            sourceText: "Aerobic respiration in mitochondria uses oxygen and glucose, while osmosis moves water across membranes.",
+            sourceKind: "scanned_page",
+            sourceId: "wb-p134",
+            linkedChapterID: "ch06",
+            linkedTopicID: "1.4",
+            existingNodes: BiologyConceptGraphEngine.defaultNodes,
+            existingEdges: BiologyConceptGraphEngine.defaultEdges
+        )
+        XCTAssertFalse(extraction.candidateNodes.isEmpty)
+        XCTAssertGreaterThanOrEqual(extraction.mergedNodeIDs.count, 2, "Respiration and osmosis should merge with existing canonical nodes")
+
+        // 3. LearnerImageSnapshotStore & TutorCanvasOverlayValidator
+        let sampleData = Data("sample- biology-page-bytes".utf8)
+        let snap = LearnerImageSnapshotStore.storeSnapshot(data: sampleData, width: 3200, height: 2400)
+        XCTAssertEqual(snap.id.count, 64)
+        XCTAssertEqual(snap.boundedWidth, 1600)
+        XCTAssertEqual(snap.boundedHeight, 1200)
+        XCTAssertNotNil(LearnerImageSnapshotStore.fetchSnapshot(id: snap.id))
+
+        let validSpec = TutorCanvasOverlaySpec(
+            snapshotID: snap.id,
+            labels: [TutorCanvasLabel(id: "l1", text: "Alveolar wall", normalizedX: 0.5, normalizedY: 0.4)],
+            arrows: [TutorCanvasVectorArrow(id: "a1", fromX: 0.2, fromY: 0.3, toX: 0.5, toY: 0.4, caption: "O2 diffusion")]
+        )
+        XCTAssertTrue(TutorCanvasOverlayValidator.validate(validSpec).isValid)
+
+        let invalidSpec = TutorCanvasOverlaySpec(
+            snapshotID: snap.id,
+            labels: [TutorCanvasLabel(id: "bad", text: "<script>alert(1)</script>", normalizedX: 1.4, normalizedY: -0.2)],
+            arrows: []
+        )
+        let validation = TutorCanvasOverlayValidator.validate(invalidSpec)
+        XCTAssertFalse(validation.isValid)
+        XCTAssertGreaterThanOrEqual(validation.issues.count, 2)
+
+        // 4. KymBioBackupArchive schemaVersion 2 round-trip
+        let archive = KymBioBackupArchive(
+            schemaVersion: 2,
+            exportedAt: Date(timeIntervalSince1970: 1_760_000_000),
+            learnerName: "Kym",
+            activeThemeId: "classic",
+            disciplineLens: "core_biology",
+            journalEntriesCount: 2,
+            provenQuestionsCount: 1,
+            errorLogEntries: [],
+            questionProofRecords: [:],
+            bktSkills: [:],
+            conceptGraphNodes: BiologyConceptGraphEngine.defaultNodes,
+            conceptGraphEdges: BiologyConceptGraphEngine.defaultEdges,
+            chapterReadingProgress: [:]
+        )
+        let encoded = try JSONEncoder().encode(archive)
+        let decoded = try JSONDecoder().decode(KymBioBackupArchive.self, from: encoded)
+        XCTAssertEqual(decoded.schemaVersion, 2)
+        XCTAssertEqual(decoded.conceptGraphNodes.count, BiologyConceptGraphEngine.defaultNodes.count)
+    }
 }

@@ -198,7 +198,11 @@ final class AppStore: ObservableObject {
         question: SchoolScienceQuestion,
         answerText: String,
         usedAssistance: Bool,
-        now: Date = Date()
+        now: Date = Date(),
+        confidence: LearnerConfidenceStop? = nil,
+        isDontKnow: Bool = false,
+        readingThinkingText: String = "",
+        usedTransferTwin: Bool = false
     ) -> QuestionEvaluationResult {
         let existing = questionProofs[question.id]
         let (evaluation, record) = QuestionProofService.evaluateAndRecord(
@@ -206,7 +210,11 @@ final class AppStore: ObservableObject {
             answerText: answerText,
             usedAssistance: usedAssistance,
             existingProof: existing,
-            now: now
+            now: now,
+            confidence: confidence,
+            isDontKnow: isDontKnow,
+            readingThinkingText: readingThinkingText,
+            usedTransferTwin: usedTransferTwin
         )
 
         do {
@@ -216,17 +224,52 @@ final class AppStore: ObservableObject {
                     let updatedSkill = BKTEngine.update(
                         skill: skill,
                         isCorrect: evaluation.isPass,
-                        usedAssistance: usedAssistance,
+                        usedAssistance: usedAssistance || isDontKnow,
                         now: now
                     )
                     try updatedSkill.save(conn)
                 }
+            }
+            if evaluation.quadrant == .committedMisconception {
+                recordCommittedMisconceptionLogEntry(
+                    question: question,
+                    answerText: answerText,
+                    missingKeywords: evaluation.missingKeywords,
+                    confidence: confidence,
+                    now: now
+                )
             }
             reloadAllState()
         } catch {
             print("Failed to save question proof: \(error)")
         }
         return evaluation
+    }
+
+    private func recordCommittedMisconceptionLogEntry(
+        question: SchoolScienceQuestion,
+        answerText: String,
+        missingKeywords: [String],
+        confidence: LearnerConfidenceStop?,
+        now: Date
+    ) {
+        let defaults = UserDefaults.standard
+        let existingData = defaults.string(forKey: "kymbio.metacognition.entries")?.data(using: .utf8) ?? Data()
+        var current = (try? JSONDecoder().decode([MetacognitionErrorEntry].self, from: existingData)) ?? []
+        let confText = confidence.map { " (\($0.displayLabel) confidence)" } ?? ""
+        let entry = MetacognitionErrorEntry(
+            id: "err-misconception-\(question.id)-\(Int(now.timeIntervalSince1970))",
+            unitOrChapter: "Unit \(question.topicCode) · Ch \(question.linkedChapter)",
+            category: .mechanismGap,
+            whatIWWrote: answerText.trimmingCharacters(in: .whitespacesAndNewlines) + confText,
+            markSchemeCorrection: "Missing key mechanism points: \(missingKeywords.joined(separator: ", ")). Model: \(question.modelAnswer)",
+            createdAt: now
+        )
+        current.insert(entry, at: 0)
+        if let encoded = try? JSONEncoder().encode(current),
+           let json = String(data: encoded, encoding: .utf8) {
+            defaults.set(json, forKey: "kymbio.metacognition.entries")
+        }
     }
 
     func reviewFSRSCard(_ card: FSRSCardRecord, rating: FSRSRating, now: Date = Date()) {
@@ -458,13 +501,22 @@ final class AppStore: ObservableObject {
         }) ?? []
     }
 
-    func saveCalloutResponse(calloutId: String, chapterNumber: Int, responseText: String, isUnlocked: Bool) {
+    func saveCalloutResponse(
+        calloutId: String,
+        chapterNumber: Int,
+        responseText: String,
+        isUnlocked: Bool,
+        confidenceTag: String = "",
+        readingThinkingText: String = ""
+    ) {
         let record = CalloutResponseRecord(
             id: calloutId,
             chapterNumber: chapterNumber,
             responseText: responseText,
             isUnlocked: isUnlocked,
-            updatedAt: Date()
+            updatedAt: Date(),
+            confidenceTag: confidenceTag,
+            readingThinkingText: readingThinkingText
         )
         do {
             try db.statePool.write { conn in

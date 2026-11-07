@@ -33,6 +33,8 @@ struct BiologyCoachView: View {
     @State private var selectedGuidanceStyle: TutorGuidanceStyle = .adaptive
     @State private var selectedIntent: MentorIntent = .learn
     @State private var selectedConversationMode: ConversationMode = .openChat
+    @State private var coachPhase: CoachSessionPhase = .probe
+    @State private var lessonPlan: CoachLessonPlanDAG = CoachHarnessEngine.makePlan(forUnit: 7)
     @State private var inputPrompt: String = ""
     @State private var isGeneratingReply: Bool = false
     @State private var showAPIKeySheet: Bool = false
@@ -225,6 +227,7 @@ struct BiologyCoachView: View {
     private var socraticCoachSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             mentorControlsCard
+            coachPhaseAndPlanCard
 
             JournalSection(title: "Quick Socratic prompts for your active topics") {
                 FlowLayout(spacing: Spacing.xs) {
@@ -355,6 +358,78 @@ struct BiologyCoachView: View {
         }
     }
 
+    private var coachPhaseAndPlanCard: some View {
+        JournalCard {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                HStack {
+                    Label("4-Phase Teaching Loop · \(lessonPlan.targetTitle)", systemImage: coachPhase.symbolName)
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaPrimary)
+                    Spacer()
+                    JournalChip(lessonPlan.activeCheckKind.badgeLabel, systemImage: "sparkles", tone: .accent)
+                    Button("Skip probe & explain directly") {
+                        selectedGuidanceStyle = .explainDirectly
+                        coachPhase = .teach
+                        sendUserMessage("Just explain \(lessonPlan.targetTitle) directly step by step.")
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                    .accessibilityIdentifier("coach.skip-probe-explain")
+                }
+
+                // 4-phase strip: 1. Probe -> 2. Plan -> 3. Teach -> 4. Practise
+                FlowLayout(spacing: Spacing.xs) {
+                    ForEach(CoachSessionPhase.allCases) { phase in
+                        Button {
+                            coachPhase = phase
+                        } label: {
+                            Label(phase.title, systemImage: phase.symbolName)
+                        }
+                        .buttonStyle(
+                            JournalCapsuleButtonStyle(
+                                prominence: coachPhase == phase ? .filled : .tinted,
+                                size: .small
+                            )
+                        )
+                        .accessibilityIdentifier("coach.phase.\(phase.rawValue)")
+                    }
+                }
+
+                // Live Causal Dependency Plan DAG nodes
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("Live Causal Plan (tap any prerequisite node to focus)")
+                        .font(.kymaiaCaption2)
+                        .foregroundStyle(Color.kymaiaMutedInk)
+                    FlowLayout(spacing: Spacing.xs) {
+                        ForEach(Array(lessonPlan.causalStepNodeIDs.enumerated()), id: \.offset) { idx, nodeID in
+                            let nodeTitle = BiologyConceptGraphEngine.nodes.first(where: { $0.id == nodeID })?.title ?? nodeID
+                            let isDone = lessonPlan.completedNodeIDs.contains(nodeID)
+                            let isCurrent = idx == lessonPlan.currentStepIndex
+                            Button {
+                                lessonPlan.currentStepIndex = idx
+                                coachPhase = .teach
+                            } label: {
+                                Label(
+                                    "\(idx + 1). \(nodeTitle)",
+                                    systemImage: isDone ? "checkmark.circle.fill" : (isCurrent ? "arrow.right.circle.fill" : "circle")
+                                )
+                            }
+                            .buttonStyle(
+                                JournalCapsuleButtonStyle(
+                                    prominence: isCurrent ? .filled : (isDone ? .tinted : .ghost),
+                                    size: .small
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        .onChange(of: store.selectedUnitNumber) { _, newUnit in
+            lessonPlan = CoachHarnessEngine.makePlan(forUnit: newUnit)
+            coachPhase = .probe
+        }
+    }
+
     private func socraticStarterChip(_ prompt: String) -> some View {
         Button(prompt) {
             sendUserMessage(prompt)
@@ -395,6 +470,14 @@ struct BiologyCoachView: View {
         if resolvedStyle != selectedGuidanceStyle {
             selectedGuidanceStyle = resolvedStyle
         }
+        let transition = CoachHarnessEngine.advance(
+            phase: coachPhase,
+            plan: lessonPlan,
+            learnerText: trimmed,
+            effectiveStyle: resolvedStyle
+        )
+        coachPhase = transition.nextPhase
+        lessonPlan = transition.updatedPlan
 
         if liveAIClient.hasLiveAPIKey {
             isGeneratingReply = true

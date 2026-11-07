@@ -41,9 +41,24 @@ struct QuestionProofRecord: Codable, FetchableRecord, PersistableRecord, Identif
     var lastUsedAssistance: Bool
     var matchedKeywordsCSV: String
     var missingKeywordsCSV: String
+    var lastConfidencePercent: Int? = nil
+    var lastWasDontKnow: Bool = false
+    var lastReadingThinkingText: String = ""
+    var lastQuadrant: String = ""
+    var provedViaTransferTwin: Bool = false
 
     var level: QuestionProofLevel {
         QuestionProofLevel(rawValue: proofLevel) ?? .unseen
+    }
+
+    var confidenceStop: LearnerConfidenceStop? {
+        guard let pct = lastConfidencePercent else { return nil }
+        return LearnerConfidenceStop(rawValue: pct)
+    }
+
+    var verdictQuadrant: ConfidenceVerdictQuadrant? {
+        guard !lastQuadrant.isEmpty else { return nil }
+        return ConfidenceVerdictQuadrant(rawValue: lastQuadrant)
     }
 }
 
@@ -180,6 +195,8 @@ struct CalloutResponseRecord: Codable, FetchableRecord, PersistableRecord, Ident
     var responseText: String
     var isUnlocked: Bool
     var updatedAt: Date
+    var confidenceTag: String = ""
+    var readingThinkingText: String = ""
 }
 
 struct KBChapterRecord: Codable, FetchableRecord, PersistableRecord, Identifiable, Equatable, Sendable {
@@ -398,6 +415,19 @@ final class DatabaseManager: Sendable {
                 t.column("responseText", .text).notNull()
                 t.column("isUnlocked", .boolean).notNull()
                 t.column("updatedAt", .datetime).notNull()
+            }
+        }
+        migrator.registerMigration("v2_learnharness_state") { db in
+            try db.alter(table: QuestionProofRecord.databaseTableName) { t in
+                t.add(column: "lastConfidencePercent", .integer)
+                t.add(column: "lastWasDontKnow", .boolean).notNull().defaults(to: false)
+                t.add(column: "lastReadingThinkingText", .text).notNull().defaults(to: "")
+                t.add(column: "lastQuadrant", .text).notNull().defaults(to: "")
+                t.add(column: "provedViaTransferTwin", .boolean).notNull().defaults(to: false)
+            }
+            try db.alter(table: CalloutResponseRecord.databaseTableName) { t in
+                t.add(column: "confidenceTag", .text).notNull().defaults(to: "")
+                t.add(column: "readingThinkingText", .text).notNull().defaults(to: "")
             }
         }
         try migrator.migrate(writer)

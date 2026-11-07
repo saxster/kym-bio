@@ -802,48 +802,25 @@ enum ChatResponseComposer {
         activeChapterContext: String,
         misconceptionContext: String,
         schoolWordingContext: String,
-        sharedMuddiestPoint: String?
+        sharedMuddiestPoint: String?,
+        coachPhase: CoachSessionPhase = .teach,
+        lessonPlan: CoachLessonPlanDAG? = nil,
+        segmentOverrides: [String: String] = [:]
     ) -> String {
-        let soul = BundledAgentSoulCatalog.soulDocument(for: persona)
-        let safetyBlock = ChatSafetyDirectives.block(
-            soulDocument: soul,
+        CoachPromptSegmentComposer.composeSystemPrompt(
+            persona: persona,
             guidanceStyle: guidanceStyle,
-            dialogueMode: dialogueMode
+            dialogueMode: dialogueMode,
+            mentorIntent: mentorIntent,
+            conversationMode: conversationMode,
+            coachPhase: coachPhase,
+            lessonPlan: lessonPlan,
+            activeChapterContext: activeChapterContext,
+            misconceptionContext: misconceptionContext,
+            schoolWordingContext: schoolWordingContext,
+            sharedMuddiestPoint: sharedMuddiestPoint,
+            segmentOverrides: segmentOverrides
         )
-
-        var lines: [String] = [
-            safetyBlock,
-            "",
-            "# Persona Voice",
-            persona.systemPrompt,
-            "",
-            "# Grounded Biology Curriculum Context",
-            "- Address Kym in second-person present tense ('you') using British English spelling (haemoglobin, oesophagus, specialised, catalyse, colour, vapour).",
-            "- Active Chapter Context: \(activeChapterContext)",
-            "- Misconception Research Context: \(misconceptionContext)",
-            "- Cambridge 0893 School Wording Context: \(schoolWordingContext)",
-            "- Mentor Intent: \(mentorIntent.promptDirective)"
-        ]
-
-        if let muddy = sharedMuddiestPoint?.trimmingCharacters(in: .whitespacesAndNewlines), !muddy.isEmpty {
-            lines.append("- Learner-Shared Muddiest Point from Lab Journal (explicitly shared for this session): \(muddy)")
-        }
-
-        if conversationMode == .schoolHelp && persona != .sparky && persona != .council {
-            lines.append("")
-            lines.append("""
-            # Structured School-Help Response Contract
-            Return Markdown only and use these exact six level-2 headings in order:
-            ## 1) Lesson Snapshot
-            ## 2) Key Ideas
-            ## 3) Guided Steps
-            ## 4) Worked Example or Source Breakdown
-            ## 5) Practice Check
-            ## 6) Check for Understanding
-            """)
-        }
-
-        return lines.joined(separator: "\n")
     }
 
     static func enforceStructuredLessonIfNeeded(
@@ -1275,5 +1252,441 @@ struct SupportiveReframeCallout: View {
         case "reframe": return "Another way to see this"
         default: return "A moment to pause"
         }
+    }
+}
+
+// MARK: - 9. 4-Phase Socratic Coach State Machine, Prerequisite Bracketing & Modular Prompt Composer (Workstream 1)
+
+public enum CoachSessionPhase: String, Codable, CaseIterable, Identifiable, Sendable {
+    case probe = "probe"
+    case plan = "plan"
+    case teach = "teach"
+    case practice = "practice"
+
+    public var id: String { rawValue }
+
+    public var stepNumber: Int {
+        switch self {
+        case .probe: return 1
+        case .plan: return 2
+        case .teach: return 3
+        case .practice: return 4
+        }
+    }
+
+    public var title: String {
+        switch self {
+        case .probe: return "1. Probe"
+        case .plan: return "2. Plan"
+        case .teach: return "3. Teach"
+        case .practice: return "4. Practise"
+        }
+    }
+
+    public var subtitle: String {
+        switch self {
+        case .probe: return "Bracket prerequisite strands"
+        case .plan: return "Share live causal DAG"
+        case .teach: return "One step + micro-check"
+        case .practice: return "Independent transfer proof"
+        }
+    }
+
+    public var symbolName: String {
+        switch self {
+        case .probe: return "scope"
+        case .plan: return "point.3.connected.trianglepath.dotted"
+        case .teach: return "lightbulb.max.fill"
+        case .practice: return "checkmark.seal.fill"
+        }
+    }
+
+    public var doctrinePrompt: String {
+        switch self {
+        case .probe:
+            return """
+            PHASE 1 — PROBE (Prerequisite Bracketing):
+            - Identify 1–3 independent prerequisite strands that feed the target concept.
+            - Ask ONE crisp diagnostic question at the midpoint of the first unprobed strand.
+            - Do NOT lecture during the probe. Wait for the learner's response or an explicit 'just explain' opt-out.
+            """
+        case .plan:
+            return """
+            PHASE 2 — PLAN (Live Causal Dependency DAG):
+            - Share a concise 2–4 node causal path from the highest solid prerequisite to the target concept.
+            - Invite Kym to confirm or jump to any node in the plan.
+            """
+        case .teach:
+            return """
+            PHASE 3 — TEACH (One Reasoning Step + Micro-Check):
+            - Advance ONE causal step at a time along the live plan.
+            - Pair each step with a micro-check (predict-before-unveil, explain-back, or boundary check) unless Kym asked to 'just explain'.
+            """
+        case .practice:
+            return """
+            PHASE 4 — PRACTISE (Independent Transfer):
+            - Present an unassisted transfer scenario or exam-style check on the target node.
+            - Celebrate specific causal links and Cambridge 0893 mark-scheme precision.
+            """
+        }
+    }
+}
+
+public enum CoachStepCheckKind: String, Codable, CaseIterable, Sendable {
+    case predict = "predict"
+    case explain = "explain"
+    case check = "check"
+
+    public var badgeLabel: String {
+        switch self {
+        case .predict: return "Predict first"
+        case .explain: return "Explain back"
+        case .check: return "Quick check"
+        }
+    }
+}
+
+public struct PrerequisiteStrandBracket: Codable, Equatable, Identifiable, Sendable {
+    public var id: String { strandId }
+    public let strandId: String
+    public let title: String
+    public let orderedNodeIDs: [String]
+    public var lowerSolidIndex: Int
+    public var upperGapIndex: Int
+    public var probedResultSummary: String?
+
+    public var midpointNodeID: String {
+        guard !orderedNodeIDs.isEmpty else { return strandId }
+        let mid = max(0, min(orderedNodeIDs.count - 1, (lowerSolidIndex + upperGapIndex) / 2))
+        return orderedNodeIDs[mid]
+    }
+}
+
+public struct CoachLessonPlanDAG: Codable, Equatable, Sendable {
+    public var targetNodeID: String
+    public var targetTitle: String
+    public var strands: [PrerequisiteStrandBracket]
+    public var causalStepNodeIDs: [String]
+    public var currentStepIndex: Int
+    public var completedNodeIDs: Set<String>
+    public var activeCheckKind: CoachStepCheckKind
+
+    public var currentStepNodeID: String {
+        guard !causalStepNodeIDs.isEmpty else { return targetNodeID }
+        let idx = max(0, min(causalStepNodeIDs.count - 1, currentStepIndex))
+        return causalStepNodeIDs[idx]
+    }
+
+    public var progressFraction: Double {
+        guard !causalStepNodeIDs.isEmpty else { return 1.0 }
+        return Double(completedNodeIDs.count) / Double(causalStepNodeIDs.count)
+    }
+}
+
+public enum CoachHarnessEngine {
+    /// Builds a prerequisite-bracketed `CoachLessonPlanDAG` for a Cambridge Science 8 unit using `BiologyConceptGraphEngine`.
+    public static func makePlan(
+        forUnit unitNumber: Int,
+        nodes: [BiologyConceptNode] = BiologyConceptGraphEngine.nodes,
+        edges: [BiologyConceptEdge] = BiologyConceptGraphEngine.edges
+    ) -> CoachLessonPlanDAG {
+        let strands: [PrerequisiteStrandBracket]
+        let defaultTargetID: String
+
+        switch unitNumber {
+        case 1:
+            defaultTargetID = "node-u1-respiration"
+            strands = [
+                PrerequisiteStrandBracket(
+                    strandId: "strand-u1-gas",
+                    title: "Gas Exchange & Diffusion",
+                    orderedNodeIDs: ["node-ch02-cells", "node-ch03-osmosis", "node-u1-respiration"],
+                    lowerSolidIndex: 0,
+                    upperGapIndex: 2,
+                    probedResultSummary: nil
+                ),
+                PrerequisiteStrandBracket(
+                    strandId: "strand-u1-pressure",
+                    title: "Thoracic Pressure & Enthalpy",
+                    orderedNodeIDs: ["node-bridge-pressure", "node-bridge-enthalpy", "node-u1-respiration"],
+                    lowerSolidIndex: 0,
+                    upperGapIndex: 2,
+                    probedResultSummary: nil
+                )
+            ]
+        case 4:
+            defaultTargetID = "node-u4-ecosystems"
+            strands = [
+                PrerequisiteStrandBracket(
+                    strandId: "strand-u4-trophic",
+                    title: "Producers & Trophic Energy Flow",
+                    orderedNodeIDs: ["node-ch05-photosynthesis", "node-u1-respiration", "node-u4-ecosystems"],
+                    lowerSolidIndex: 0,
+                    upperGapIndex: 2,
+                    probedResultSummary: nil
+                ),
+                PrerequisiteStrandBracket(
+                    strandId: "strand-u4-cells",
+                    title: "Cellular Foundations of Webs",
+                    orderedNodeIDs: ["node-ch02-cells", "node-ch05-photosynthesis", "node-u4-ecosystems"],
+                    lowerSolidIndex: 0,
+                    upperGapIndex: 2,
+                    probedResultSummary: nil
+                )
+            ]
+        default:
+            defaultTargetID = "node-u7-diet"
+            strands = [
+                PrerequisiteStrandBracket(
+                    strandId: "strand-u7-enzymes",
+                    title: "Enzymatic Digestion & Absorption",
+                    orderedNodeIDs: ["node-ch04-enzymes", "node-u7-diet", "node-u1-respiration"],
+                    lowerSolidIndex: 0,
+                    upperGapIndex: 2,
+                    probedResultSummary: nil
+                ),
+                PrerequisiteStrandBracket(
+                    strandId: "strand-u7-transport",
+                    title: "Membrane Flux & Cellular Fuel",
+                    orderedNodeIDs: ["node-ch02-cells", "node-ch03-osmosis", "node-u7-diet"],
+                    lowerSolidIndex: 0,
+                    upperGapIndex: 2,
+                    probedResultSummary: nil
+                )
+            ]
+        }
+
+        let startNodeID = strands.first?.orderedNodeIDs.first ?? "node-ch02-cells"
+        let shortest = BiologyConceptGraphEngine.shortestCausalPath(
+            from: startNodeID,
+            to: defaultTargetID,
+            edges: edges
+        )
+        let steps = shortest.count >= 2
+            ? shortest
+            : Array(NSOrderedSet(array: strands.flatMap(\.orderedNodeIDs))).compactMap { $0 as? String }
+        let targetNode = nodes.first(where: { $0.id == defaultTargetID })
+
+        return CoachLessonPlanDAG(
+            targetNodeID: defaultTargetID,
+            targetTitle: targetNode?.title ?? "Unit \(unitNumber) Core Mechanism",
+            strands: strands,
+            causalStepNodeIDs: steps.isEmpty ? [defaultTargetID] : steps,
+            currentStepIndex: 0,
+            completedNodeIDs: [],
+            activeCheckKind: .predict
+        )
+    }
+
+    /// Advances the 4-phase state machine and live causal plan based on the learner's message and guidance style.
+    public static func advance(
+        phase: CoachSessionPhase,
+        plan: CoachLessonPlanDAG,
+        learnerText: String,
+        effectiveStyle: TutorGuidanceStyle
+    ) -> (nextPhase: CoachSessionPhase, updatedPlan: CoachLessonPlanDAG) {
+        var mutablePlan = plan
+        let trimmed = learnerText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lower = trimmed.lowercased()
+
+        // Immediate opt-out ("just explain", etc.) jumps straight to .teach without gating on a probe.
+        if effectiveStyle == .explainDirectly || MotivationalDialoguePolicy.requestsDirectExplanation(in: trimmed) {
+            return (.teach, mutablePlan)
+        }
+
+        let isSubstantiveTurn = trimmed.count >= 12 && !lower.contains("don't know") && !lower.contains("not sure")
+
+        switch phase {
+        case .probe:
+            if !mutablePlan.strands.isEmpty {
+                mutablePlan.strands[0].probedResultSummary = isSubstantiveTurn
+                    ? "Midpoint solid — advancing to causal plan"
+                    : "Gap spotted — scaffolding from foundational node"
+                if isSubstantiveTurn {
+                    mutablePlan.strands[0].lowerSolidIndex = max(
+                        mutablePlan.strands[0].lowerSolidIndex,
+                        mutablePlan.strands[0].orderedNodeIDs.count / 2
+                    )
+                } else {
+                    mutablePlan.strands[0].upperGapIndex = min(
+                        mutablePlan.strands[0].upperGapIndex,
+                        mutablePlan.strands[0].orderedNodeIDs.count / 2
+                    )
+                }
+            }
+            return (.plan, mutablePlan)
+
+        case .plan:
+            mutablePlan.activeCheckKind = .predict
+            return (.teach, mutablePlan)
+
+        case .teach:
+            if isSubstantiveTurn {
+                let completedID = mutablePlan.currentStepNodeID
+                mutablePlan.completedNodeIDs.insert(completedID)
+                if mutablePlan.currentStepIndex + 1 < mutablePlan.causalStepNodeIDs.count {
+                    mutablePlan.currentStepIndex += 1
+                    let allKinds = CoachStepCheckKind.allCases
+                    mutablePlan.activeCheckKind = allKinds[mutablePlan.currentStepIndex % allKinds.count]
+                    return (.teach, mutablePlan)
+                } else {
+                    mutablePlan.activeCheckKind = .check
+                    return (.practice, mutablePlan)
+                }
+            } else {
+                mutablePlan.activeCheckKind = .explain
+                return (.teach, mutablePlan)
+            }
+
+        case .practice:
+            if isSubstantiveTurn {
+                mutablePlan.completedNodeIDs.insert(mutablePlan.targetNodeID)
+            }
+            return (.practice, mutablePlan)
+        }
+    }
+}
+
+public enum CoachPromptSegmentID: String, CaseIterable, Sendable {
+    case constitution = "00-constitution"
+    case phaseDoctrine = "10-phase-doctrine"
+    case personaSoul = "20-persona-soul"
+    case confidenceAndThinking = "30-confidence-and-thinking"
+    case groundingContext = "40-grounding-context"
+}
+
+enum CoachPromptSegmentComposer {
+    /// Only non-constitutional pedagogical/grounding segments may be customized; `00-constitution` is locked.
+    static let overridableSegments: Set<String> = [
+        CoachPromptSegmentID.phaseDoctrine.rawValue,
+        CoachPromptSegmentID.confidenceAndThinking.rawValue,
+        CoachPromptSegmentID.groundingContext.rawValue
+    ]
+
+    static func composeSegments(
+        persona: TutorPersona,
+        guidanceStyle: TutorGuidanceStyle,
+        dialogueMode: AIDialogueSupportMode,
+        mentorIntent: MentorIntent,
+        conversationMode: ConversationMode,
+        coachPhase: CoachSessionPhase,
+        lessonPlan: CoachLessonPlanDAG?,
+        activeChapterContext: String,
+        misconceptionContext: String,
+        schoolWordingContext: String,
+        sharedMuddiestPoint: String?,
+        segmentOverrides: [String: String] = [:]
+    ) -> [(id: CoachPromptSegmentID, body: String)] {
+        let soul = BundledAgentSoulCatalog.soulDocument(for: persona)
+        let seg00 = ChatSafetyDirectives.block(
+            soulDocument: soul,
+            guidanceStyle: guidanceStyle,
+            dialogueMode: dialogueMode
+        )
+
+        var planLines: [String] = [
+            "# Socratic Teaching Loop (\(coachPhase.title))",
+            coachPhase.doctrinePrompt
+        ]
+        if let plan = lessonPlan {
+            let stepTitles = plan.causalStepNodeIDs.joined(separator: " -> ")
+            planLines.append("Active Causal Plan DAG: \(stepTitles) (current step: \(plan.currentStepNodeID), micro-check: \(plan.activeCheckKind.badgeLabel))")
+        }
+        let defaultSeg10 = planLines.joined(separator: "\n")
+        let seg10 = sanitizedOverride(for: .phaseDoctrine, in: segmentOverrides) ?? defaultSeg10
+
+        let seg20 = """
+        # Persona Voice
+        \(persona.systemPrompt)
+        """
+
+        let defaultSeg30 = """
+        # Pre-Answer Confidence & Reading-Thinking Calibration
+        - Solid Mastery (Correct + High Confidence): brief affirmation and advance.
+        - Fragile Guess (Correct + Low Confidence): reinforce the mechanism so it stops feeling like a guess.
+        - Honest Gap ("I don't know yet" or Wrong + Low Confidence): build cleanly from first principles with zero penalty.
+        - High-Priority Misconception (Wrong + High Confidence): unpack what made the mistaken path feel right before contrasting with the Cambridge mark scheme.
+        """
+        let seg30 = sanitizedOverride(for: .confidenceAndThinking, in: segmentOverrides) ?? defaultSeg30
+
+        var groundingLines: [String] = [
+            "# Grounded Biology Curriculum Context",
+            "- Address Kym in second-person present tense ('you') using British English spelling (haemoglobin, oesophagus, specialised, catalyse, colour, vapour).",
+            "- Active Chapter Context: \(activeChapterContext)",
+            "- Misconception Research Context: \(misconceptionContext)",
+            "- Cambridge 0893 School Wording Context: \(schoolWordingContext)",
+            "- Mentor Intent: \(mentorIntent.promptDirective)"
+        ]
+        if let muddy = sharedMuddiestPoint?.trimmingCharacters(in: .whitespacesAndNewlines), !muddy.isEmpty {
+            groundingLines.append("- Learner-Shared Muddiest Point from Lab Journal (explicitly shared for this session): \(muddy)")
+        }
+        if conversationMode == .schoolHelp && persona != .sparky && persona != .council {
+            groundingLines.append("")
+            groundingLines.append("""
+            # Structured School-Help Response Contract
+            Return Markdown only and use these exact six level-2 headings in order:
+            ## 1) Lesson Snapshot
+            ## 2) Key Ideas
+            ## 3) Guided Steps
+            ## 4) Worked Example or Source Breakdown
+            ## 5) Practice Check
+            ## 6) Check for Understanding
+            """)
+        }
+        let defaultSeg40 = groundingLines.joined(separator: "\n")
+        let seg40 = sanitizedOverride(for: .groundingContext, in: segmentOverrides) ?? defaultSeg40
+
+        return [
+            (.constitution, seg00),
+            (.phaseDoctrine, seg10),
+            (.personaSoul, seg20),
+            (.confidenceAndThinking, seg30),
+            (.groundingContext, seg40)
+        ]
+    }
+
+    static func composeSystemPrompt(
+        persona: TutorPersona,
+        guidanceStyle: TutorGuidanceStyle,
+        dialogueMode: AIDialogueSupportMode,
+        mentorIntent: MentorIntent,
+        conversationMode: ConversationMode,
+        coachPhase: CoachSessionPhase = .teach,
+        lessonPlan: CoachLessonPlanDAG? = nil,
+        activeChapterContext: String,
+        misconceptionContext: String,
+        schoolWordingContext: String,
+        sharedMuddiestPoint: String?,
+        segmentOverrides: [String: String] = [:]
+    ) -> String {
+        composeSegments(
+            persona: persona,
+            guidanceStyle: guidanceStyle,
+            dialogueMode: dialogueMode,
+            mentorIntent: mentorIntent,
+            conversationMode: conversationMode,
+            coachPhase: coachPhase,
+            lessonPlan: lessonPlan,
+            activeChapterContext: activeChapterContext,
+            misconceptionContext: misconceptionContext,
+            schoolWordingContext: schoolWordingContext,
+            sharedMuddiestPoint: sharedMuddiestPoint,
+            segmentOverrides: segmentOverrides
+        )
+        .map(\.body)
+        .joined(separator: "\n\n")
+    }
+
+    private static func sanitizedOverride(
+        for segment: CoachPromptSegmentID,
+        in overrides: [String: String]
+    ) -> String? {
+        guard overridableSegments.contains(segment.rawValue),
+              let raw = overrides[segment.rawValue]?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !raw.isEmpty,
+              DevelopmentalResponseValidator.validate(raw).isValid else {
+            return nil
+        }
+        return raw
     }
 }

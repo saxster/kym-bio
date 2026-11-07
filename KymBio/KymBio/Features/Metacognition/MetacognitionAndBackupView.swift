@@ -269,14 +269,50 @@ public struct MetacognitionErrorEntry: Identifiable, Codable, Equatable, Sendabl
     public var createdAt: Date
 }
 
-public struct KymBioBackupArchive: Codable, Sendable {
-    public var exportedAt: Date
-    public var learnerName: String
-    public var activeThemeId: String
-    public var disciplineLens: String
-    public var journalEntriesCount: Int
-    public var provenQuestionsCount: Int
-    public var errorLogEntries: [MetacognitionErrorEntry]
+struct KymBioBackupArchive: Codable, Sendable {
+    var schemaVersion: Int
+    var exportedAt: Date
+    var learnerName: String
+    var activeThemeId: String
+    var disciplineLens: String
+    var journalEntriesCount: Int
+    var provenQuestionsCount: Int
+    var errorLogEntries: [MetacognitionErrorEntry]
+    var questionProofRecords: [String: QuestionProofRecord]
+    var bktSkills: [String: BKTSkillRecord]
+    var conceptGraphNodes: [BiologyConceptNode]
+    var conceptGraphEdges: [BiologyConceptEdge]
+    var chapterReadingProgress: [Int: ChapterReadingProgressRecord]
+
+    init(
+        schemaVersion: Int = 2,
+        exportedAt: Date,
+        learnerName: String,
+        activeThemeId: String,
+        disciplineLens: String,
+        journalEntriesCount: Int,
+        provenQuestionsCount: Int,
+        errorLogEntries: [MetacognitionErrorEntry],
+        questionProofRecords: [String: QuestionProofRecord] = [:],
+        bktSkills: [String: BKTSkillRecord] = [:],
+        conceptGraphNodes: [BiologyConceptNode] = [],
+        conceptGraphEdges: [BiologyConceptEdge] = [],
+        chapterReadingProgress: [Int: ChapterReadingProgressRecord] = [:]
+    ) {
+        self.schemaVersion = schemaVersion
+        self.exportedAt = exportedAt
+        self.learnerName = learnerName
+        self.activeThemeId = activeThemeId
+        self.disciplineLens = disciplineLens
+        self.journalEntriesCount = journalEntriesCount
+        self.provenQuestionsCount = provenQuestionsCount
+        self.errorLogEntries = errorLogEntries
+        self.questionProofRecords = questionProofRecords
+        self.bktSkills = bktSkills
+        self.conceptGraphNodes = conceptGraphNodes
+        self.conceptGraphEdges = conceptGraphEdges
+        self.chapterReadingProgress = chapterReadingProgress
+    }
 }
 
 struct MetacognitionAndBackupSheet: View {
@@ -501,14 +537,28 @@ struct MetacognitionAndBackupSheet: View {
     }
 
     private func generateBackupSnapshot() {
+        let customNodes: [BiologyConceptNode] = (try? JSONDecoder().decode(
+            [BiologyConceptNode].self,
+            from: UserDefaults.standard.data(forKey: "kymbio.mindmap.customNodes") ?? Data()
+        )) ?? []
+        let customEdges: [BiologyConceptEdge] = (try? JSONDecoder().decode(
+            [BiologyConceptEdge].self,
+            from: UserDefaults.standard.data(forKey: "kymbio.mindmap.customEdges") ?? Data()
+        )) ?? []
         let archive = KymBioBackupArchive(
+            schemaVersion: 2,
             exportedAt: Date(),
             learnerName: "Kym",
             activeThemeId: store.activeThemeID,
             disciplineLens: store.disciplineLens.rawValue,
             journalEntriesCount: store.journalEntries.count,
             provenQuestionsCount: store.questionProofStates.values.filter { $0.level == .proven || $0.level == .secure }.count,
-            errorLogEntries: entries
+            errorLogEntries: entries,
+            questionProofRecords: store.questionProofs,
+            bktSkills: store.bktSkills,
+            conceptGraphNodes: BiologyConceptGraphEngine.defaultNodes + customNodes,
+            conceptGraphEdges: BiologyConceptGraphEngine.defaultEdges + customEdges,
+            chapterReadingProgress: store.readingProgress
         )
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]

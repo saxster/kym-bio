@@ -250,7 +250,7 @@ function gather() {
     tried++; if (s.r === 'got') got++; if (s.r === 'partly') partly++;
     const place = placeOf(box);
     const q = strip([...box.children].filter(x => x.tagName === 'P' && !x.classList.contains('bh') && !x.classList.contains('ans')).map(x => x.textContent).join(' '));
-    add(place, { type: 'check', target: box.id, story: place.kind === 'story' ? place.id : null, where: place.label, q, a: s.a, r: s.r, t: s.t });
+    add(place, { type: 'check', target: box.id, story: place.kind === 'story' ? place.id : null, where: place.label, q, a: s.a, rt: s.rt, conf: s.conf, r: s.r, t: s.t });
   });
   const preds = [...document.querySelectorAll('.box.predict[data-predict]')];
   let predN = 0;
@@ -260,7 +260,7 @@ function gather() {
     predN++;
     const place = placeOf(box);
     add(place, { type: 'pred', target: box.id, story: place.kind === 'story' ? place.id : null, where: place.label,
-      q: s.q || strip(box.querySelector('.pq') && box.querySelector('.pq').textContent), o: s.o, c: s.c, t: s.t });
+      q: s.q || strip(box.querySelector('.pq') && box.querySelector('.pq').textContent), o: s.o, c: s.c, conf: s.conf, t: s.t });
   });
   const homes = [...document.querySelectorAll('.box.home[data-home]')];
   let doneN = 0;
@@ -370,8 +370,8 @@ function markdown() {
     g.items.forEach(it => {
       const w = it.where ? ` (${it.where})` : '';
       if (it.type === 'hl') { L.push(`> ${strip(it.quote)}${w}`, ''); if (it.note) L.push(`Note: ${it.note}`, ''); }
-      else if (it.type === 'pred') { L.push(`**Prediction${w}.** ${it.q}`, '', `I predicted: ${it.o}`, ''); }
-      else if (it.type === 'check') { L.push(`**Check yourself${w}.** ${it.q}`, '', `My answer: ${it.a || '(in my head)'}${it.r ? ` · ${RLABEL[it.r]}` : ''}`, ''); }
+      else if (it.type === 'pred') { L.push(`**Prediction${w}.** ${it.q}`, '', `I predicted: ${it.o}${it.conf ? ` (confidence: ${it.conf})` : ''}`, ''); }
+      else if (it.type === 'check') { L.push(`**Check yourself${w}.** ${it.q}`, '', ...(it.rt ? [`Thinking while reading: ${it.rt}`, ''] : []), `My answer: ${it.a || '(in my head)'}${it.conf ? ` (confidence: ${it.conf})` : ''}${it.r ? ` · ${RLABEL[it.r]}` : ''}`, ''); }
       else if (it.type === 'lab') { L.push(`**Live experiment${w}: ${it.title}**`, '');
         if (it.pred) L.push(`I predicted: ${it.pred}`, ''); if (it.res) L.push(`My explanation: ${it.res}`, ''); }
       else { L.push(`**Try it at home${w}: ${it.title}**${it.done ? ` (done ${fmtDate(it.date)})` : ''}`, '');
