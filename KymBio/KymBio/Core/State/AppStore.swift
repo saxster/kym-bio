@@ -74,6 +74,7 @@ final class AppStore: ObservableObject {
     @Published var activePracticeQuestion: SchoolScienceQuestion? = nil
     @Published var activeJournalEntry: LabJournalEntryRecord? = nil
     @Published var syllabusBoard: String = "0893" // Cambridge 0893 default
+    @Published var showDailyFlowSheet: Bool = false
 
     // MARK: - Journal Muddiest-Point Privacy Lease (Ported from ../kym_tutor)
     // Coach never reads private Lab Journal entries unless Kym explicitly shares a muddiest point.

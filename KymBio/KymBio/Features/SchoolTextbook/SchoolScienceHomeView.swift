@@ -257,6 +257,12 @@ struct SchoolScienceHomeView: View {
             }
         }
 
+        JournalSection(title: "Unit \(unit.unitNumber) Peer Biological Debate · Who Is Right & Why?") {
+            BiologicalDebateCardView(
+                scenario: BiologicalDebateCatalog.scenario(forSchoolUnit: unit.unitNumber)
+            )
+        }
+
         JournalSection(title: "Learner's Book & Workbook Question Proofs (\(unitQuestions.count))") {
             if unitQuestions.isEmpty {
                 JournalEmptyState(

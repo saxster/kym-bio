@@ -620,4 +620,210 @@ final class KymBioDomainTests: XCTestCase {
         XCTAssertEqual(decoded.schemaVersion, 2)
         XCTAssertEqual(decoded.conceptGraphNodes.count, BiologyConceptGraphEngine.defaultNodes.count)
     }
+
+    // MARK: - SmartyMe & Brilliant Pedagogical Engines Tests
+
+    func testQuantitativeBioBuggyRuleTrapsAcrossAllSixteenProblems() {
+        let problems = QuantitativeBioEngine.allProblems
+        XCTAssertEqual(problems.count, 16)
+
+        for problem in problems {
+            XCTAssertGreaterThanOrEqual(
+                problem.traps.count,
+                2,
+                "Expected >= 2 buggy-rule traps for \(problem.id)"
+            )
+            for trap in problem.traps {
+                let outcome = QuantitativeBioEngine.evaluate(
+                    problem: problem,
+                    rawInput: "\(trap.buggyValue) \(problem.expectedUnit)"
+                )
+                XCTAssertFalse(outcome.isCorrect)
+                XCTAssertNotNil(outcome.matchedTrap, "Expected trap \(trap.trapName) on \(problem.id)")
+                XCTAssertFalse(trap.diagnosticWhy.isEmpty)
+                XCTAssertFalse(trap.visualFixNudge.isEmpty)
+            }
+        }
+    }
+
+    func testSocraticBioStepEvaluatorAndMeteredHintLadder() {
+        let pack = SeedPackLoader.shared
+        let q = pack.schoolQuestions[0] // cart, mucus, cilia
+
+        // Partial input should not leak the full fadedAnswer
+        let partialEval = SocraticBioStepEvaluator.evaluateFadedStep(
+            learnerInput: "cartilage",
+            expectedFadedAnswer: q.fadedAnswer,
+            markSchemeKeywords: q.markSchemeKeywords
+        )
+        XCTAssertFalse(partialEval.isComplete)
+        XCTAssertEqual(partialEval.matchedSlotsCount, 1)
+        XCTAssertEqual(partialEval.totalSlotsCount, 3)
+        XCTAssertFalse(partialEval.socraticFeedback.lowercased().contains("cilia"))
+
+        // Complete input passes all 3 slots
+        let fullEval = SocraticBioStepEvaluator.evaluateFadedStep(
+            learnerInput: "cartilage, mucus, and cilia",
+            expectedFadedAnswer: q.fadedAnswer,
+            markSchemeKeywords: q.markSchemeKeywords
+        )
+        XCTAssertTrue(fullEval.isComplete)
+        XCTAssertEqual(fullEval.matchedSlotsCount, 3)
+
+        // Rungs 0..2 preserve independent proof; Rungs 3..5 mark attempt as assisted
+        for rung in BioHintLadderRung.allCases {
+            let text = BioMeteredHintLadderEngine.hintText(for: rung, question: q)
+            XCTAssertFalse(text.isEmpty)
+            if rung.rawValue <= 2 {
+                XCTAssertTrue(rung.preservesIndependentProof)
+            } else {
+                XCTAssertFalse(rung.preservesIndependentProof)
+            }
+        }
+    }
+
+    func testBioManipulativeSandboxesCoverAllSchoolQuestions() {
+        let pack = SeedPackLoader.shared
+        var seenKinds: Set<BioManipulativeKind> = []
+
+        for question in pack.schoolQuestions {
+            let spec = BioManipulativeEngine.spec(for: question)
+            seenKinds.insert(spec.kind)
+            let state = BioManipulativeState(
+                primaryValue: spec.defaultPrimary,
+                secondaryValue: spec.defaultSecondary
+            )
+            let readout = state.liveReadout(for: spec)
+            XCTAssertFalse(readout.isEmpty)
+            XCTAssertFalse(spec.targetInsight.isEmpty)
+        }
+
+        XCTAssertEqual(seenKinds.count, BioManipulativeKind.allCases.count)
+    }
+
+    @MainActor
+    func testChapterInteractiveBeatsBridgesAndAudioNarrator() {
+        let pack = SeedPackLoader.shared
+        XCTAssertEqual(pack.chapters.count, 16)
+
+        for chapter in pack.chapters {
+            let beats = ChapterInteractiveBeatEngine.beats(for: chapter)
+            XCTAssertGreaterThanOrEqual(beats.count, 5, "Expected >= 5 beats for Ch \(chapter.number)")
+            XCTAssertEqual(beats.first?.kind, ChapterInteractiveBeatKind.everydayHook)
+            XCTAssertEqual(beats.last?.kind, ChapterInteractiveBeatKind.chapterSynthesis)
+            XCTAssertTrue(beats.contains(where: { $0.kind == ChapterInteractiveBeatKind.interactiveLabAndMechanism }))
+            XCTAssertTrue(beats.contains(where: { $0.kind == ChapterInteractiveBeatKind.misconceptionDebate }))
+
+            let bridge = PhenomenonToMechanismBridge.bridge(forChapter: chapter.number)
+            XCTAssertEqual(bridge.chapterNumber, chapter.number)
+            XCTAssertGreaterThanOrEqual(bridge.termMappings.count, 3)
+            for term in bridge.termMappings {
+                XCTAssertFalse(bridge.perturbationPrompt(for: term).isEmpty)
+                XCTAssertFalse(bridge.perturbationExplanation(for: term).isEmpty)
+            }
+        }
+
+        let sampleBeat = ChapterInteractiveBeatEngine.beats(for: pack.chapters[0])[0]
+        let narrator = ChapterAudioNarrator(allowsHardwareSpeech: false)
+        XCTAssertFalse(narrator.isPlaying)
+        XCTAssertEqual(narrator.playbackSpeedMultiplier, 1.0)
+
+        narrator.togglePlayPause(for: sampleBeat)
+        XCTAssertTrue(narrator.isPlaying)
+        XCTAssertEqual(narrator.activeBeatId, sampleBeat.id)
+
+        narrator.cycleSpeed(restartingIfPlaying: sampleBeat)
+        XCTAssertEqual(narrator.playbackSpeedMultiplier, 1.25)
+        narrator.cycleSpeed(restartingIfPlaying: sampleBeat)
+        XCTAssertEqual(narrator.playbackSpeedMultiplier, 1.5)
+        narrator.cycleSpeed(restartingIfPlaying: sampleBeat)
+        XCTAssertEqual(narrator.playbackSpeedMultiplier, 1.0)
+
+        narrator.advanceWatchStep(totalSteps: 5, caption: "Step 2 caption")
+        XCTAssertEqual(narrator.activeWatchStepIndex, 1)
+
+        narrator.stop()
+        XCTAssertFalse(narrator.isPlaying)
+        XCTAssertNil(narrator.activeBeatId)
+    }
+
+    func testBiologicalDebateCatalogCompletenessAndEvaluation() {
+        XCTAssertEqual(BiologicalDebateCatalog.allScenarios.count, 16)
+        for chNum in 0...15 {
+            let scenario = BiologicalDebateCatalog.scenario(forChapter: chNum)
+            XCTAssertEqual(scenario.chapterNumber, chNum)
+            XCTAssertGreaterThanOrEqual(scenario.choices.count, 3)
+
+            let correctChoices = scenario.choices.filter(\.isCorrect)
+            XCTAssertEqual(correctChoices.count, 1, "Expected 1 correct choice in Ch \(chNum) debate")
+
+            for choice in scenario.choices {
+                let evaluated = BiologicalDebateEngine.evaluate(scenario: scenario, choiceId: choice.id)
+                XCTAssertEqual(evaluated?.id, choice.id)
+                XCTAssertFalse(choice.socraticRebuttal.isEmpty)
+                XCTAssertFalse(choice.invariantTakeaway.isEmpty)
+            }
+        }
+    }
+
+    func testDailyFlowSessionEngineFifteenMinuteComposer() {
+        let pack = SeedPackLoader.shared
+        let now = Date()
+        let dueCard = FSRSCardRecord(
+            id: "card-due-1",
+            topicCode: "1.4",
+            chapterNumber: 6,
+            frontPrompt: "Word equation for aerobic respiration?",
+            backAnswer: "glucose + oxygen -> carbon dioxide + water",
+            stability: 2.5,
+            difficulty: 5.0,
+            elapsedDays: 1.0,
+            scheduledDays: 1.0,
+            reps: 1,
+            lapses: 0,
+            state: 2,
+            dueAt: now.addingTimeInterval(-3600),
+            lastReviewAt: nil
+        )
+        let futureCard = FSRSCardRecord(
+            id: "card-future-1",
+            topicCode: "1.2",
+            chapterNumber: 6,
+            frontPrompt: "How thick is an alveolus wall?",
+            backAnswer: "One cell thick",
+            stability: 1.2,
+            difficulty: 5.0,
+            elapsedDays: 2.0,
+            scheduledDays: 3.0,
+            reps: 2,
+            lapses: 0,
+            state: 2,
+            dueAt: now.addingTimeInterval(86400 * 3),
+            lastReviewAt: now
+        )
+
+        let duePlan = DailyFlowSessionEngine.buildPlan(
+            pack: pack,
+            fsrsCards: [dueCard, futureCard],
+            proofs: [:],
+            preferredChapterNumber: 6,
+            now: now
+        )
+        XCTAssertEqual(duePlan.totalMinutes, 15)
+        XCTAssertFalse(duePlan.isWarmupReview)
+        XCTAssertEqual(duePlan.dueCards.count, 1)
+        XCTAssertEqual(duePlan.chapter.number, 6)
+
+        // When 0 cards are due, falls back to lowest-stability warm-up review
+        let warmupPlan = DailyFlowSessionEngine.buildPlan(
+            pack: pack,
+            fsrsCards: [futureCard],
+            proofs: [:],
+            preferredChapterNumber: 6,
+            now: now
+        )
+        XCTAssertEqual(warmupPlan.totalMinutes, 15)
+        XCTAssertTrue(warmupPlan.isWarmupReview)
+        XCTAssertEqual(warmupPlan.dueCards.count, 1)
+    }
 }

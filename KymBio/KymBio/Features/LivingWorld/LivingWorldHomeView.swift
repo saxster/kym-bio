@@ -1,6 +1,7 @@
 import SwiftUI
 
 enum LivingWorldPresentationMode: String, CaseIterable, Identifiable, Sendable {
+    case interactiveBeats = "interactive_beats"
     case nativeJournal = "native_journal"
     case interactiveWebBook = "interactive_web_book"
 
@@ -8,6 +9,7 @@ enum LivingWorldPresentationMode: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
+        case .interactiveBeats: return "Interactive Beats (Brilliant Mode)"
         case .nativeJournal: return "Journal Study Reader"
         case .interactiveWebBook: return "Full Interactive Book & 3D Stage"
         }
@@ -16,8 +18,11 @@ enum LivingWorldPresentationMode: String, CaseIterable, Identifiable, Sendable {
 
 struct LivingWorldHomeView: View {
     @EnvironmentObject private var store: AppStore
-    @State private var presentationMode: LivingWorldPresentationMode = .nativeJournal
+    @StateObject private var audioNarrator = ChapterAudioNarrator()
+    @State private var presentationMode: LivingWorldPresentationMode = .interactiveBeats
     @State private var selectedVolumeNumber: Int = 1
+    @State private var activeBeatIndexByChapter: [Int: Int] = [:]
+    @State private var completedDebateChapterIds: Set<Int> = []
     @State private var predictionInputs: [String: String] = [:]
     @State private var unlockedCalloutIds: Set<String> = []
 
@@ -34,10 +39,17 @@ struct LivingWorldHomeView: View {
         ) {
             modeAndExplorersSection
             volumeAndChapterPickerSection
-            if presentationMode == .interactiveWebBook {
+            switch presentationMode {
+            case .interactiveBeats:
+                if let chapter = activeChapter {
+                    interactiveBeatsChapterView(chapter)
+                }
+            case .nativeJournal:
+                if let chapter = activeChapter {
+                    nativeChapterReaderSection(for: chapter)
+                }
+            case .interactiveWebBook:
                 interactiveWebStageCard
-            } else if let chapter = activeChapter {
-                nativeChapterReaderSection(for: chapter)
             }
         }
         .toolbar {
@@ -46,9 +58,13 @@ struct LivingWorldHomeView: View {
             }
         }
         .onChange(of: store.activeLivingWorldChapter) { _, newChapter in
+            audioNarrator.stop()
             if let ch = store.pack.chapters.first(where: { $0.number == newChapter }) {
                 selectedVolumeNumber = ch.volumeNumber
             }
+        }
+        .onDisappear {
+            audioNarrator.stop()
         }
     }
 
@@ -352,6 +368,208 @@ struct LivingWorldHomeView: View {
                     }
                 }
             }
+        }
+
+        // Phenomenon -> Submicroscopic Mechanism -> Formal Law Bridge
+        JournalSection(title: "Phenomenon → Mechanism → Formal Law Bridge") {
+            PhenomenonMechanismBridgeCard(bridge: PhenomenonToMechanismBridge.bridge(forChapter: chapter.number))
+        }
+
+        // Peer Biological Debate ("Who Is Right & Why?")
+        JournalSection(title: "Peer Biological Debate · Who Is Right & Why?") {
+            BiologicalDebateCardView(scenario: BiologicalDebateCatalog.scenario(forChapter: chapter.number)) { _ in
+                completedDebateChapterIds.insert(chapter.number)
+            }
+        }
+    }
+
+    // MARK: - Brilliant & SmartyMe Bite-Sized Interactive Beats Mode
+
+    @ViewBuilder
+    private func interactiveBeatsChapterView(_ chapter: LivingWorldChapter) -> some View {
+        let beats = ChapterInteractiveBeatEngine.beats(for: chapter)
+        let currentIndex = min(max(0, activeBeatIndexByChapter[chapter.number] ?? 0), max(0, beats.count - 1))
+        let currentBeat = beats[currentIndex]
+        let isBeatGateSatisfied = isBeatUnlocked(currentBeat, chapterNumber: chapter.number)
+
+        JournalSection(title: "Chapter \(chapter.number): \(chapter.title) · Beat \(currentIndex + 1) of \(beats.count)") {
+            JournalCard {
+                VStack(alignment: .leading, spacing: Spacing.md) {
+                    // Top Read & Listen bar + Beat counter
+                    HStack(spacing: Spacing.xs) {
+                        JournalChip(
+                            label: currentBeat.kind.badgeLabel,
+                            systemImage: currentBeat.kind.systemImage,
+                            tone: .accent
+                        )
+                        JournalChip(
+                            text: "Beat \(currentIndex + 1) / \(beats.count) · ~\(max(1, currentBeat.estimatedSeconds / 60))m",
+                            tone: .neutral
+                        )
+                        Spacer()
+                        Button {
+                            audioNarrator.togglePlayPause(for: currentBeat)
+                        } label: {
+                            Label(
+                                audioNarrator.isPlaying && audioNarrator.activeBeatId == currentBeat.id
+                                    ? "Pause"
+                                    : "Read & Listen",
+                                systemImage: audioNarrator.isPlaying && audioNarrator.activeBeatId == currentBeat.id
+                                    ? "pause.circle.fill"
+                                    : "speaker.wave.2.fill"
+                            )
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                        .accessibilityIdentifier("living-world.beat.audio-toggle")
+
+                        Button("\(String(format: "%.2gx", audioNarrator.playbackSpeedMultiplier))") {
+                            audioNarrator.cycleSpeed(restartingIfPlaying: currentBeat)
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                        .accessibilityIdentifier("living-world.beat.audio-speed")
+                    }
+
+                    // Segmented Beat Progress Rail
+                    HStack(spacing: Spacing.xs) {
+                        ForEach(beats) { beat in
+                            Button {
+                                audioNarrator.stop()
+                                activeBeatIndexByChapter[chapter.number] = beat.index
+                            } label: {
+                                RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+                                    .fill(
+                                        beat.index < currentIndex
+                                            ? Color.kymaiaSuccess
+                                            : (beat.index == currentIndex ? Color.kymaiaPrimary : Color.kymaiaControlFill)
+                                    )
+                                    .frame(height: BioFigureGeometry.beatRailHeight)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("Beat \(beat.index + 1): \(beat.title)")
+                        }
+                    }
+
+                    Text(currentBeat.eyebrow)
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaMutedInk)
+
+                    Text(currentBeat.title)
+                        .font(.kymaiaTitle2)
+                        .foregroundStyle(Color.kymaiaInk)
+
+                    if currentBeat.kind != .interactiveLabAndMechanism && currentBeat.kind != .misconceptionDebate {
+                        Text(currentBeat.bodyMarkdown)
+                            .font(.kymaiaSerifProse)
+                            .foregroundStyle(Color.kymaiaInk)
+                    }
+
+                    if !currentBeat.keyTerms.isEmpty {
+                        FlowLayout(spacing: Spacing.xs) {
+                            ForEach(currentBeat.keyTerms, id: \.self) { term in
+                                JournalChip(text: term, tone: .accent)
+                            }
+                        }
+                    }
+
+                    if !currentBeat.widgetIds.isEmpty {
+                        FlowLayout(spacing: Spacing.xs) {
+                            ForEach(currentBeat.widgetIds, id: \.self) { wid in
+                                Button {
+                                    store.activeWidgetId = wid
+                                    store.selectedRoom = .labsAtlas
+                                } label: {
+                                    Label("Launch Lab: \(wid.replacingOccurrences(of: "_", with: " "))", systemImage: "cube.transparent")
+                                }
+                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                            }
+                        }
+                    }
+
+                    // Prev / Next Beat Navigation
+                    HStack(spacing: Spacing.sm) {
+                        Button {
+                            audioNarrator.stop()
+                            if currentIndex > 0 {
+                                activeBeatIndexByChapter[chapter.number] = currentIndex - 1
+                            }
+                        } label: {
+                            Label("Previous Beat", systemImage: "chevron.left")
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                        .disabled(currentIndex == 0)
+
+                        Spacer()
+
+                        if !isBeatGateSatisfied {
+                            JournalChip(
+                                label: "Complete check below to unlock next beat",
+                                systemImage: "lock.fill",
+                                tone: .warn
+                            )
+                        }
+
+                        Button {
+                            audioNarrator.stop()
+                            if currentIndex + 1 < beats.count {
+                                activeBeatIndexByChapter[chapter.number] = currentIndex + 1
+                                let newFraction = Double(currentIndex + 2) / Double(beats.count)
+                                store.updateChapterProgress(
+                                    chapterNumber: chapter.number,
+                                    fraction: newFraction,
+                                    addPrediction: false,
+                                    addCheck: false
+                                )
+                            } else {
+                                store.updateChapterProgress(
+                                    chapterNumber: chapter.number,
+                                    fraction: 1.0,
+                                    addPrediction: false,
+                                    addCheck: true
+                                )
+                            }
+                        } label: {
+                            Label(
+                                currentIndex + 1 < beats.count ? "Next Beat" : "Complete Chapter \(chapter.number)",
+                                systemImage: currentIndex + 1 < beats.count ? "chevron.right" : "checkmark.seal.fill"
+                            )
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                        .disabled(!isBeatGateSatisfied)
+                        .accessibilityIdentifier("living-world.beat.next")
+                    }
+                }
+            }
+
+            if let callout = currentBeat.callout {
+                calloutCard(callout, chapterNumber: chapter.number)
+            }
+
+            if let bridge = currentBeat.bridge {
+                PhenomenonMechanismBridgeCard(bridge: bridge)
+            }
+
+            if let debate = currentBeat.debate {
+                BiologicalDebateCardView(scenario: debate) { _ in
+                    completedDebateChapterIds.insert(chapter.number)
+                }
+            }
+        }
+    }
+
+    private func isBeatUnlocked(_ beat: ChapterInteractiveBeat, chapterNumber: Int) -> Bool {
+        guard beat.requiresInteractionToAdvance else { return true }
+        switch beat.kind {
+        case .calloutGate:
+            guard let callout = beat.callout else { return true }
+            if callout.kind != "predict" && callout.kind != "check" {
+                return true
+            }
+            return (store.calloutResponses[callout.id]?.isUnlocked == true)
+                || unlockedCalloutIds.contains(callout.id)
+        case .misconceptionDebate:
+            return completedDebateChapterIds.contains(chapterNumber)
+        default:
+            return true
         }
     }
 

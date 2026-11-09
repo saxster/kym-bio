@@ -53,9 +53,22 @@ def parse_chapters():
         if not md_path.exists():
             continue
         raw = md_path.read_text(encoding="utf-8")
-        lines = raw.splitlines()
+        body_raw = raw
         title = f"Chapter {ch_num}"
         subtitle = ""
+        if raw.startswith("---\n"):
+            fm_end = raw.find("\n---\n", 4)
+            if fm_end != -1:
+                fm_block = raw[4:fm_end]
+                body_raw = raw[fm_end + 5:]
+                m_title = re.search(r"^title:\s*(.+)$", fm_block, re.MULTILINE)
+                if m_title:
+                    title = m_title.group(1).strip().strip('"').strip("'")
+                m_q = re.search(r"^question:\s*(.+)$", fm_block, re.MULTILINE)
+                if m_q:
+                    subtitle = m_q.group(1).strip().strip('"').strip("'")
+
+        lines = body_raw.splitlines()
         for line in lines:
             if line.startswith("# "):
                 raw_title = line[2:].strip()
@@ -116,7 +129,7 @@ def parse_chapters():
 
         # Extract widget references
         widgets = []
-        for m in re.finditer(r"\{\{widget:([a-zA-Z0-9_]+)\}\}|data-widget=[\"']([a-zA-Z0-9_]+)[\"']|:::widget\s+([a-zA-Z0-9_]+)", raw):
+        for m in re.finditer(r"\{\{widget:([a-zA-Z0-9_]+)\}\}|data-widget=[\"']([a-zA-Z0-9_]+)[\"']|:::(?:widget|live)\s+([a-zA-Z0-9_]+)", raw):
             w_id = m.group(1) or m.group(2) or m.group(3)
             if w_id and w_id not in widgets:
                 widgets.append(w_id)

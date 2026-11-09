@@ -54,8 +54,8 @@
       "number": 0,
       "volumeNumber": 1,
       "volumeTitle": "Volume I · Cells and the Machinery of Life",
-      "title": "Chapter 0",
-      "subtitle": "Chapter 0 of The Living World",
+      "title": "The detective’s lens",
+      "subtitle": "When maggots appear on rotting meat, or a muddy Mumbai monsoon puddle turns bright green overnight, did living things spring out of non-living matter by themselves?",
       "hookSummary": ":::scene Florence, summer 1668",
       "sections": [
         {
@@ -144,15 +144,18 @@
         "cells",
         "magnification"
       ],
-      "widgets": []
+      "widgets": [
+        "redi_jars",
+        "leeuwenhoek_scope"
+      ]
     },
     {
       "id": "ch01",
       "number": 1,
       "volumeNumber": 1,
       "volumeTitle": "Volume I · Cells and the Machinery of Life",
-      "title": "Chapter 1",
-      "subtitle": "Chapter 1 of The Living World",
+      "title": "The seed and the flame",
+      "subtitle": "A candle flame moves, grows, consumes fuel, takes in oxygen, and releases carbon dioxide. A dry moong bean in your kitchen cupboard does none of those things. Why is the bean alive and the flame not?",
       "hookSummary": ":::scene Sanjay Gandhi National Park, Mumbai, early June",
       "sections": [
         {
@@ -289,15 +292,18 @@
         "Reproduction",
         "virus"
       ],
-      "widgets": []
+      "widgets": [
+        "monsoon_imbibition",
+        "seed_flame3d"
+      ]
     },
     {
       "id": "ch02",
       "number": 2,
       "volumeNumber": 1,
       "volumeTitle": "Volume I · Cells and the Machinery of Life",
-      "title": "Chapter 2",
-      "subtitle": "Chapter 2 of The Living World",
+      "title": "The nanocity under the microscope",
+      "subtitle": "Why is your body built from trillions of tiny cells instead of one giant cell?",
       "hookSummary": ":::scene Mumbai, an onion on the kitchen board",
       "sections": [
         {
@@ -448,15 +454,19 @@
         "surface-area-to-volume ratio",
         "specialised cells"
       ],
-      "widgets": []
+      "widgets": [
+        "cell_inventory",
+        "organelle_clues",
+        "sav_cubes3d"
+      ]
     },
     {
       "id": "ch03",
       "number": 3,
       "volumeNumber": 1,
       "volumeTitle": "Volume I · Cells and the Machinery of Life",
-      "title": "Chapter 3",
-      "subtitle": "Chapter 3 of The Living World",
+      "title": "The Crowded Train & The Salty Sea",
+      "subtitle": "Mangroves stand in salty tidal water that makes many garden plants wilt. How can their roots take up water from it?",
       "hookSummary": ":::scene Mumbai, a crowded local train doorway",
       "sections": [
         {
@@ -600,15 +610,20 @@
         "plasmolysis",
         "active transport"
       ],
-      "widgets": []
+      "widgets": [
+        "diffusion_membrane",
+        "water_potential",
+        "osmosis_cells",
+        "root_transport"
+      ]
     },
     {
       "id": "ch04",
       "number": 4,
       "volumeNumber": 1,
       "volumeTitle": "Volume I · Cells and the Machinery of Life",
-      "title": "Chapter 4",
-      "subtitle": "Chapter 4 of The Living World",
+      "title": "Carbon's Lego Set & The Million-Speed Locks",
+      "subtitle": "How can a folded protein recognise a particular molecule and help chemistry happen fast in watery cells?",
       "hookSummary": ":::scene Mumbai, rice, dal and a drop of oil",
       "sections": [
         {
@@ -774,15 +789,19 @@
         "optimum",
         "food test"
       ],
-      "widgets": []
+      "widgets": [
+        "enzyme_barrier",
+        "enzyme_conditions",
+        "food_detective"
+      ]
     },
     {
       "id": "ch05",
       "number": 5,
       "volumeNumber": 2,
       "volumeTitle": "Volume II · Energy and Human Systems",
-      "title": "Chapter 5",
-      "subtitle": "Chapter 5 of The Living World",
+      "title": "Solar Power & The Green Engine",
+      "subtitle": "A tiny seed can become a great tree. Where does its new solid material come from—and how does a leaf supply it?",
       "hookSummary": ":::scene A willow experiment, reported in 1648",
       "sections": [
         {
@@ -943,15 +962,19 @@
         "Cohesion",
         "translocation"
       ],
-      "widgets": []
+      "widgets": [
+        "carbon_account",
+        "limiting_lab",
+        "sap_routes"
+      ]
     },
     {
       "id": "ch06",
       "number": 6,
       "volumeNumber": 2,
       "volumeTitle": "Volume II · Energy and Human Systems",
-      "title": "Chapter 6",
-      "subtitle": "Chapter 6 of The Living World",
+      "title": "Burning Sugar in the Dark",
+      "subtitle": "How can invisible reactions in a cell power its work—and where do the atoms of the fuel go?",
       "hookSummary": "Your chest moves as you breathe. A root tip appears still. The tempting wrong idea is “My lungs do respiration; plants have no lungs, so they do something else.” It bundles a delivery system together with the chemistry it supplies.",
       "sections": [
         {
@@ -1086,15 +1109,19 @@
         "fermentation",
         "lactate"
       ],
-      "widgets": []
+      "widgets": [
+        "respiration_relay",
+        "oxidation_ledger",
+        "carrier_routes"
+      ]
     },
     {
       "id": "ch07",
       "number": 7,
       "volumeNumber": 2,
       "volumeTitle": "Volume II · Energy and Human Systems",
-      "title": "Chapter 7",
-      "subtitle": "Chapter 7 of The Living World",
+      "title": "The Chemical Disassembly Line",
+      "subtitle": "How does a meal become material that cells can use, without the gut digesting its own walls?",
       "hookSummary": "When you swallow food in an ordinary meal, it disappears from view. Has it therefore become part of your muscles? The tempting answer is “It is inside me, so my cells already have it.” But a coin inside a pocket has not crossed the cloth. Being enclosed and crossing a boundary are different facts.",
       "sections": [
         {
@@ -1239,15 +1266,19 @@
         "microvilli",
         "chylomicrons"
       ],
-      "widgets": []
+      "widgets": [
+        "digestive_steps",
+        "emulsification",
+        "absorption_routes"
+      ]
     },
     {
       "id": "ch08",
       "number": 8,
       "volumeNumber": 2,
       "volumeTitle": "Volume II · Energy and Human Systems",
-      "title": "Chapter 8",
-      "subtitle": "Chapter 8 of The Living World",
+      "title": "The Breath and the Double Pump",
+      "subtitle": "How do moving air and a two-sided pump supply oxygen and nutrients to every working cell while protecting delicate exchange surfaces?",
       "hookSummary": "Take a quiet breath through your nose. Air enters because pressure inside the alveoli briefly falls below pressure outside. Your respiratory muscles create that difference by expanding the chest. Follow the movement first, then ask how chest movement reaches the lungs.\n:::predict\nDuring quiet inhalation, your diaphragm contracts and flattens downward while y",
       "sections": [
         {
@@ -1388,15 +1419,19 @@
         "tissue fluid",
         "haemoglobin"
       ],
-      "widgets": []
+      "widgets": [
+        "breathing_gradients",
+        "double_pump",
+        "vessel_exchange"
+      ]
     },
     {
       "id": "ch09",
       "number": 9,
       "volumeNumber": 2,
       "volumeTitle": "Volume II · Energy and Human Systems",
-      "title": "Chapter 9",
-      "subtitle": "Chapter 9 of The Living World",
+      "title": "High-Speed Wiring and Chemical Couriers",
+      "subtitle": "When your fingers brush a hot steel tawa, your arm pulls back before you finish thinking “ouch”—and when a stray dog barks beside you on a Mumbai pavement, your heart races for minutes after the dog is gone. How do electrical impulses along salty cells and chemical couriers in the blood coordinate thirty trillion cells across two completely different timescales?",
       "hookSummary": ":::scene Mumbai, a pavement startle and a hot kitchen tawa",
       "sections": [
         {
@@ -1538,15 +1573,19 @@
         "Gravitropism",
         "auxin"
       ],
-      "widgets": []
+      "widgets": [
+        "reflex_action_potential",
+        "synapse_transmission",
+        "eye_accommodation_tropism"
+      ]
     },
     {
       "id": "ch10",
       "number": 10,
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Reproduction, Health and Microbes",
-      "title": "Chapter 10",
-      "subtitle": "Chapter 10 of The Living World",
+      "title": "Holding the Line in a Mumbai Summer",
+      "subtitle": "How does your body keep its internal conditions suitable for life through a hot day, a meal and an encounter with a pathogen?",
       "hookSummary": ":::scene Paris, 1859–1865, and Toronto, January 1922",
       "sections": [
         {
@@ -1708,15 +1747,19 @@
         "memory cells",
         "passive immunity"
       ],
-      "widgets": []
+      "widgets": [
+        "glucose_thermoregulation",
+        "nephron_filtration",
+        "immunity_vaccine_memory"
+      ]
     },
     {
       "id": "ch11",
       "number": 11,
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Reproduction, Health and Microbes",
-      "title": "Chapter 11",
-      "subtitle": "Chapter 11 of The Living World",
+      "title": "The Twisted Ladder & The Protein Printers",
+      "subtitle": "How does a two-nanometre twisted ladder of just four chemical letters store the blueprints for thousands of folded protein machines, and why does changing one letter in Child Y alter red blood cells while changing one letter in Child X leaves the amino-acid sequence unchanged?",
       "hookSummary": ":::scene A pathology bench in London, 1928, a biochemical laboratory in New York, 1944, and a Mumbai kitchen counter",
       "sections": [
         {
@@ -1854,15 +1897,19 @@
         "Missense substitution",
         "Nonsense (stop) substitution"
       ],
-      "widgets": []
+      "widgets": [
+        "dna_base_pairing",
+        "codon_cipher_khorana",
+        "transcription_translation_ribosome"
+      ]
     },
     {
       "id": "ch12",
       "number": 12,
       "volumeNumber": 3,
       "volumeTitle": "Volume III · Reproduction, Health and Microbes",
-      "title": "Chapter 12",
-      "subtitle": "Chapter 12 of The Living World",
+      "title": "Copying the Blueprint: Mitosis, Stem Cells & Meiosis",
+      "subtitle": "How does a single fertilised egg cell copy two metres of DNA to build thirty-seven trillion body cells, why do cells with the exact same genes build completely different proteins, and how does meiosis halve the chromosome count in gametes—while jamming inside a seedless Cavendish banana?",
       "hookSummary": ":::scene Cavendish Laboratory, Cambridge, April 1953, and Norman Church Laboratory, Caltech, Pasadena, 1957–1958",
       "sections": [
         {
@@ -2018,15 +2065,19 @@
         "Fertilisation",
         "sexual reproduction"
       ],
-      "widgets": []
+      "widgets": [
+        "dna_replication_meselson",
+        "mitosis_meiosis_stepper",
+        "stem_cell_expression_lab"
+      ]
     },
     {
       "id": "ch13",
       "number": 13,
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Heredity, Evolution and the Living Planet",
-      "title": "Chapter 13",
-      "subtitle": "Chapter 13 of The Living World",
+      "title": "The Monk's Spreadsheet: Mendel, Alleles & Inheritance",
+      "subtitle": "How do the two inherited copies of an autosomal gene interact to build your traits, how can we calculate the chances of inheriting different traits, and what can blood groups reveal about a Mumbai maternity-ward bracelet swap?",
       "hookSummary": ":::scene St Thomas's Abbey, Brno (Moravia), 1856–1866",
       "sections": [
         {
@@ -2176,15 +2227,19 @@
         "Codominance",
         "sex-linked characteristic"
       ],
-      "widgets": []
+      "widgets": [
+        "mendel_punnett_simulator",
+        "abo_codominance_pedigree",
+        "sex_linked_cross_lab"
+      ]
     },
     {
       "id": "ch14",
       "number": 14,
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Heredity, Evolution and the Living Planet",
-      "title": "Chapter 14",
-      "subtitle": "Chapter 14 of The Living World",
+      "title": "The Glitch Engine & Natural Selection: Variation, Adaptation & Evolution",
+      "subtitle": "Why does a dangerous sickle-cell allele stay common across malarial regions of India and East Africa instead of dying out—and how can random copying glitches in DNA build every beak, leaf, and antibiotic-resistant superbug on Earth without anyone designing them?",
       "hookSummary": ":::scene Mumbai School Biology Laboratory & University of Wisconsin, Madison, 1952",
       "sections": [
         {
@@ -2348,15 +2403,19 @@
         "fossil",
         "molecular clock"
       ],
-      "widgets": []
+      "widgets": [
+        "variation_mutation_lab",
+        "natural_selection_simulator",
+        "adaptive_features_selective_breeding"
+      ]
     },
     {
       "id": "ch15",
       "number": 15,
       "volumeNumber": 4,
       "volumeTitle": "Volume IV · Heredity, Evolution and the Living Planet",
-      "title": "Chapter 15",
-      "subtitle": "Chapter 15 of The Living World",
+      "title": "Web of Life & Code Rewritable: Ecology, Nutrient Cycles & Biotechnology",
+      "subtitle": "Why do long food chains become uncommon as energy available for new biomass decreases—while the carbon, water, and nitrogen atoms inside their bodies cycle through planetary reservoirs, and DNA instructions can be copied into bacteria to brew human insulin?",
       "hookSummary": ":::scene Sanjay Gandhi National Park (SGNP), Borivali & Oval Maidan, Mumbai",
       "sections": [
         {
@@ -2521,7 +2580,11 @@
         "Stationary phase",
         "Death phase"
       ],
-      "widgets": []
+      "widgets": [
+        "ecosystem_trophic_lab",
+        "nutrient_cycles_eutrophication",
+        "biotech_fermenter_plasmid_lab"
+      ]
     }
   ],
   "explorers": [

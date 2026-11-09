@@ -49,4 +49,424 @@ enum BioFigureGeometry {
     static let junctionDotRadius: CGFloat = 5.0
     /// Length of drawn vector callout arrowheads on the TutorCanvas overlay.
     static let arrowHeadLength: CGFloat = 10.0
+    /// Height of the segmented beat progress bar in Interactive Beats mode.
+    static let beatRailHeight: CGFloat = 8.0
+    /// Height of the visual bar gauge inside biological manipulative sandboxes.
+    static let manipulativeGaugeHeight: CGFloat = 14.0
+}
+
+// MARK: - Reusable SmartyMe & Brilliant Pedagogical Cards
+
+/// Brilliant-style Phenomenon -> Submicroscopic Mechanism -> Formal Principle/Equation Bridge Card.
+struct PhenomenonMechanismBridgeCard: View {
+    let bridge: PhenomenonToMechanismBridge
+    @State private var selectedTermId: String? = nil
+    @State private var selectedPerturbationChoice: String? = nil
+
+    private var activeTerm: MechanismTermMapping {
+        if let id = selectedTermId, let found = bridge.termMappings.first(where: { $0.id == id }) {
+            return found
+        }
+        return bridge.termMappings[0]
+    }
+
+    var body: some View {
+        JournalCard {
+            VStack(alignment: .leading, spacing: Spacing.md) {
+                HStack(spacing: Spacing.xs) {
+                    JournalChip(label: "Phenomenon → Mechanism → Law", systemImage: "sparkles", tone: .accent)
+                    JournalChip(text: "Ch \(bridge.chapterNumber)", tone: .neutral)
+                    Spacer()
+                }
+
+                Text(bridge.title)
+                    .font(.kymaiaCardTitle)
+                    .foregroundStyle(Color.kymaiaInk)
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Label("1. Observable phenomenon (what you see)", systemImage: "eye.fill")
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaPrimary)
+                    Text(bridge.observablePhenomenon)
+                        .font(.kymaiaBody)
+                        .foregroundStyle(Color.kymaiaInk)
+                }
+                .padding(Spacing.sm)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .fill(Color.kymaiaElevatedSurface)
+                )
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Label("2. Submicroscopic mechanism (why it works)", systemImage: "atom")
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaSuccess)
+                    Text(bridge.ahaMechanismInvariant)
+                        .font(.kymaiaBody)
+                        .foregroundStyle(Color.kymaiaInk)
+                }
+                .padding(Spacing.sm)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .fill(Color.kymaiaSuccess.opacity(0.10))
+                )
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Label("3. Formal principle & equation (tap any term to perturb)", systemImage: "function")
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaMutedInk)
+                    Text(bridge.principleOrEquationDisplay)
+                        .font(.kymaiaMonospaced)
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
+                        .padding(Spacing.sm)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .fill(Color.kymaiaSelectionFill)
+                        )
+                }
+
+                FlowLayout(spacing: Spacing.xs) {
+                    ForEach(bridge.termMappings) { mapping in
+                        let isSelected = activeTerm.id == mapping.id
+                        Button {
+                            selectedTermId = mapping.id
+                            selectedPerturbationChoice = nil
+                        } label: {
+                            HStack(spacing: 4) {
+                                Image(systemName: "hand.tap.fill")
+                                Text(mapping.symbolOrTerm)
+                            }
+                        }
+                        .buttonStyle(
+                            JournalCapsuleButtonStyle(
+                                prominence: isSelected ? .filled : .tinted,
+                                size: .small
+                            )
+                        )
+                        .accessibilityIdentifier("bridge.term.\(mapping.id)")
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    HStack {
+                        Text(activeTerm.symbolOrTerm)
+                            .font(.kymaiaCaption.weight(.bold))
+                            .foregroundStyle(Color.kymaiaPrimaryStrong)
+                        Text("· Control variable: \(activeTerm.sliderVariable)")
+                            .font(.kymaiaCaption)
+                            .foregroundStyle(Color.kymaiaMutedInk)
+                    }
+                    Text(activeTerm.biologicalMeaning)
+                        .font(.kymaiaBody)
+                        .foregroundStyle(Color.kymaiaInk)
+                    Text("Real-world anchor: \(activeTerm.physicalAnchor)")
+                        .font(.kymaiaCaption)
+                        .foregroundStyle(Color.kymaiaTertiaryInk)
+
+                    Divider()
+
+                    Text(bridge.perturbationPrompt(for: activeTerm))
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaInk)
+
+                    FlowLayout(spacing: Spacing.xs) {
+                        ForEach(["Increases rate / output", "Decreases rate / output", "Shifts dynamic equilibrium"], id: \.self) { option in
+                            Button(option) {
+                                selectedPerturbationChoice = option
+                            }
+                            .buttonStyle(
+                                JournalCapsuleButtonStyle(
+                                    prominence: selectedPerturbationChoice == option ? .filled : .ghost,
+                                    size: .small
+                                )
+                            )
+                        }
+                    }
+
+                    if let choice = selectedPerturbationChoice {
+                        Text("Prediction recorded (\(choice)): \(bridge.perturbationExplanation(for: activeTerm))")
+                            .font(.kymaiaCaption)
+                            .foregroundStyle(Color.kymaiaSuccess)
+                            .padding(.top, 2)
+                    }
+                }
+                .padding(Spacing.md)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .fill(Color.kymaiaElevatedSurface)
+                )
+            }
+        }
+    }
+}
+
+/// SmartyMe-style Branching Peer Biological Debate Card ("Who Is Right & Why?").
+struct BiologicalDebateCardView: View {
+    let scenario: BiologicalDebateScenario
+    var onCompleted: ((Bool) -> Void)? = nil
+
+    @State private var selectedChoiceId: String? = nil
+
+    var body: some View {
+        JournalCard {
+            VStack(alignment: .leading, spacing: Spacing.md) {
+                HStack(spacing: Spacing.xs) {
+                    JournalChip(
+                        label: "Peer Debate · Who Is Right & Why?",
+                        systemImage: "bubble.left.and.bubble.right.fill",
+                        tone: .accent
+                    )
+                    JournalChip(text: "Ch \(scenario.chapterNumber) · Topic \(scenario.topicCode)", tone: .neutral)
+                    Spacer()
+                }
+
+                Text(scenario.title)
+                    .font(.kymaiaCardTitle)
+                    .foregroundStyle(Color.kymaiaInk)
+
+                Text(scenario.mumbaiContextPrompt)
+                    .font(.kymaiaSerifProse)
+                    .foregroundStyle(Color.kymaiaInk)
+
+                VStack(spacing: Spacing.sm) {
+                    ForEach(scenario.choices) { choice in
+                        let isSelected = selectedChoiceId == choice.id
+                        Button {
+                            selectedChoiceId = choice.id
+                            onCompleted?(choice.isCorrect)
+                        } label: {
+                            HStack(alignment: .top, spacing: Spacing.sm) {
+                                Image(
+                                    systemName: isSelected
+                                        ? (choice.isCorrect ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                                        : "person.wave.2.fill"
+                                )
+                                .foregroundStyle(
+                                    isSelected
+                                        ? (choice.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
+                                        : Color.kymaiaPrimary
+                                )
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(choice.speakerName)
+                                        .font(.kymaiaCaption.weight(.bold))
+                                        .foregroundStyle(Color.kymaiaPrimaryStrong)
+                                    Text("\"\(choice.claim)\"")
+                                        .font(.kymaiaBody)
+                                        .foregroundStyle(Color.kymaiaInk)
+                                        .multilineTextAlignment(.leading)
+                                }
+                                Spacer()
+                            }
+                            .padding(Spacing.md)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                    .fill(isSelected ? Color.kymaiaSelectionFill : Color.kymaiaElevatedSurface)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                    .strokeBorder(
+                                        isSelected
+                                            ? (choice.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
+                                            : Color.kymaiaHairline,
+                                        lineWidth: isSelected ? 2 : 1
+                                    )
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("debate.choice.\(choice.id)")
+                    }
+                }
+
+                if let selectedId = selectedChoiceId,
+                   let chosen = BiologicalDebateEngine.evaluate(scenario: scenario, choiceId: selectedId) {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
+                        HStack {
+                            Image(systemName: chosen.isCorrect ? "checkmark.seal.fill" : "lightbulb.fill")
+                                .foregroundStyle(chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
+                            Text(
+                                chosen.isCorrect
+                                    ? "\(chosen.speakerName) is right — Mechanistic Verdict"
+                                    : "Why \(chosen.speakerName)'s claim falls into a classic trap"
+                            )
+                            .font(.kymaiaCaption.weight(.bold))
+                            .foregroundStyle(chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
+                        }
+
+                        Text(chosen.socraticRebuttal)
+                            .font(.kymaiaBody)
+                            .foregroundStyle(Color.kymaiaInk)
+
+                        Text("Core Invariant: \(chosen.invariantTakeaway)")
+                            .font(.kymaiaCaption.weight(.semibold))
+                            .foregroundStyle(Color.kymaiaPrimaryStrong)
+                            .padding(.top, 2)
+                    }
+                    .padding(Spacing.md)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                            .fill(
+                                (chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
+                                    .opacity(0.12)
+                            )
+                    )
+                }
+            }
+        }
+    }
+}
+
+/// Brilliant-style Interactive Biological System Manipulative Sandbox Card.
+struct BioManipulativeSandboxCard: View {
+    let spec: BioManipulativeSpec
+    var onStampReadout: ((String) -> Void)? = nil
+
+    @State private var primaryValue: Double
+    @State private var secondaryValue: Double
+
+    init(spec: BioManipulativeSpec, onStampReadout: ((String) -> Void)? = nil) {
+        self.spec = spec
+        self.onStampReadout = onStampReadout
+        _primaryValue = State(initialValue: spec.defaultPrimary)
+        _secondaryValue = State(initialValue: spec.defaultSecondary)
+    }
+
+    private var state: BioManipulativeState {
+        BioManipulativeState(primaryValue: primaryValue, secondaryValue: secondaryValue)
+    }
+
+    private var normalizedFillFraction: Double {
+        let pNorm = (primaryValue - spec.primaryRange.lowerBound)
+            / max(1.0, spec.primaryRange.upperBound - spec.primaryRange.lowerBound)
+        let sNorm = (secondaryValue - spec.secondaryRange.lowerBound)
+            / max(1.0, spec.secondaryRange.upperBound - spec.secondaryRange.lowerBound)
+        return min(1.0, max(0.08, (pNorm + sNorm) / 2.0))
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            HStack(spacing: Spacing.xs) {
+                JournalChip(
+                    label: spec.kind.title,
+                    systemImage: "slider.horizontal.3",
+                    tone: .accent
+                )
+                JournalChip(text: spec.kind.badgeLabel, tone: .neutral)
+                Spacer()
+            }
+
+            Text(spec.prompt)
+                .font(.kymaiaCaption)
+                .foregroundStyle(Color.kymaiaMutedInk)
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("\(spec.primaryLabel): \(Int(primaryValue)) \(spec.primaryUnit)")
+                        .font(.kymaiaCaption.weight(.semibold).monospacedDigit())
+                    Spacer()
+                }
+                Slider(
+                    value: $primaryValue,
+                    in: spec.primaryRange,
+                    step: spec.primaryStep
+                )
+                .tint(Color.kymaiaPrimary)
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("\(spec.secondaryLabel): \(Int(secondaryValue)) \(spec.secondaryUnit)")
+                        .font(.kymaiaCaption.weight(.semibold).monospacedDigit())
+                    Spacer()
+                }
+                Slider(
+                    value: $secondaryValue,
+                    in: spec.secondaryRange,
+                    step: spec.secondaryStep
+                )
+                .tint(Color.kymaiaSecondary)
+            }
+
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+                        .fill(Color.kymaiaControlFill)
+                    RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+                        .fill(Color.kymaiaPrimary)
+                        .frame(width: geo.size.width * normalizedFillFraction)
+                }
+            }
+            .frame(height: BioFigureGeometry.manipulativeGaugeHeight)
+
+            Text(state.liveReadout(for: spec))
+                .font(.kymaiaMonospaced)
+                .foregroundStyle(Color.kymaiaInk)
+                .padding(Spacing.sm)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .fill(Color.kymaiaSurface)
+                )
+
+            HStack {
+                Text(spec.targetInsight)
+                    .font(.kymaiaCaption)
+                    .foregroundStyle(Color.kymaiaMutedInk)
+                Spacer()
+                if let onStampReadout {
+                    Button {
+                        onStampReadout(state.liveReadout(for: spec))
+                    } label: {
+                        Label("Stamp Readout to Answer", systemImage: "plus.bubble.fill")
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                    .accessibilityIdentifier("manipulative.stamp.\(spec.questionId)")
+                }
+            }
+        }
+        .padding(Spacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                .fill(Color.kymaiaElevatedSurface)
+        )
+    }
+}
+
+/// Non-punitive causal diagnostic banner when a learner's calculation hits a known BuggyBioRuleTrap.
+struct BuggyBioTrapBanner: View {
+    let trap: BuggyBioRuleTrap
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            HStack(spacing: Spacing.xs) {
+                Image(systemName: "exclamationmark.magnifyingglass")
+                    .foregroundStyle(Color.kymaiaWarning)
+                Text("Buggy-Rule Trap Detected · \(trap.trapName)")
+                    .font(.kymaiaCaption.weight(.bold))
+                    .foregroundStyle(Color.kymaiaWarning)
+            }
+            Text("Why this number appeared: \(trap.diagnosticWhy)")
+                .font(.kymaiaBody)
+                .foregroundStyle(Color.kymaiaInk)
+            Text("How to fix it: \(trap.visualFixNudge)")
+                .font(.kymaiaCaption.weight(.semibold))
+                .foregroundStyle(Color.kymaiaPrimaryStrong)
+        }
+        .padding(Spacing.md)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                .fill(Color.kymaiaWarning.opacity(0.14))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                .strokeBorder(Color.kymaiaWarning, lineWidth: 1)
+        )
+    }
 }

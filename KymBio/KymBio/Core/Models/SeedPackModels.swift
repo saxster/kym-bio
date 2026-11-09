@@ -118,7 +118,7 @@ struct LivingWorldSection: Codable, Identifiable, Equatable, Sendable {
     let excerpt: String
 }
 
-struct LivingWorldCallout: Codable, Identifiable, Equatable, Sendable {
+struct LivingWorldCallout: Codable, Identifiable, Equatable, Hashable, Sendable {
     let id: String
     let kind: String      // predict, check, recall, careful, school, home, case
     let title: String

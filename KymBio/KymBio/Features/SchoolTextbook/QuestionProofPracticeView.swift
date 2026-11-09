@@ -153,6 +153,10 @@ struct QuestionProofPracticeView: View {
     @State private var consecutiveShakyCount: Int = 0
     @State private var showBreathingSheet: Bool = false
     @State private var safetySupportMessage: String? = nil
+    @State private var activeHintRung: BioHintLadderRung? = nil
+    @State private var fadedStepEvaluation: BioFadedStepEvaluation? = nil
+    @State private var revealedFadedTerms: Bool = false
+    @State private var showManipulativeSandbox: Bool = true
 
     var body: some View {
         JournalFocusPage(
@@ -337,7 +341,7 @@ struct QuestionProofPracticeView: View {
 
         case .faded:
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                Label("Faded completion (fill in the missing mark-scheme terms)", systemImage: "square.and.pencil")
+                Label("Faded completion (fill in the missing mark-scheme terms without peeking)", systemImage: "square.and.pencil")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaPrimary)
                 Text(question.fadedPrompt)
@@ -349,18 +353,118 @@ struct QuestionProofPracticeView: View {
                         RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
                             .fill(Color.kymaiaElevatedSurface)
                     )
-                Text("Expected missing terms: \(question.fadedAnswer)")
-                    .font(.kymaiaCaption)
-                    .foregroundStyle(Color.kymaiaMutedInk)
+
+                HStack(spacing: Spacing.sm) {
+                    TextField("Type the missing terms separated by commas or semicolons…", text: $fadedInput)
+                        .learnerTextInput(.retrieval)
+                        .textFieldStyle(.roundedBorder)
+                        .accessibilityIdentifier("question-proof.faded-input")
+
+                    Button("Check Blanks") {
+                        fadedStepEvaluation = SocraticBioStepEvaluator.evaluateFadedStep(
+                            learnerInput: fadedInput,
+                            expectedFadedAnswer: question.fadedAnswer,
+                            markSchemeKeywords: question.markSchemeKeywords
+                        )
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+                    .accessibilityIdentifier("question-proof.faded-check")
+
+                    Button(revealedFadedTerms ? "Hide Terms" : "Reveal Terms (Guided)") {
+                        revealedFadedTerms.toggle()
+                        if revealedFadedTerms {
+                            usedAssistanceThisAttempt = true
+                        }
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                    .accessibilityIdentifier("question-proof.faded-reveal")
+                }
+
+                if let stepEval = fadedStepEvaluation {
+                    Text(stepEval.socraticFeedback)
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(stepEval.isComplete ? Color.kymaiaSuccess : Color.kymaiaWarning)
+                }
+
+                if revealedFadedTerms {
+                    Text("Expected missing terms: \(question.fadedAnswer)")
+                        .font(.kymaiaCaption)
+                        .foregroundStyle(Color.kymaiaMutedInk)
+                }
+
                 answerComposer(label: "Write out the complete answer")
             }
 
         case .independent:
-            answerComposer(
-                label: usedAssistanceThisAttempt
-                    ? "Your answer (currently marked as guided — tap 'Start fresh independent attempt' below to prove without hints)"
-                    : "Your independent answer (Writing Tools & autocorrect disabled so the retrieval is yours)"
-            )
+            VStack(alignment: .leading, spacing: Spacing.md) {
+                meteredHintLadderSection
+
+                HStack {
+                    Label("Interactive Biological Manipulative Sandbox", systemImage: "slider.horizontal.3")
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaPrimary)
+                    Spacer()
+                    Button(showManipulativeSandbox ? "Hide Sandbox" : "Open Sandbox") {
+                        showManipulativeSandbox.toggle()
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                }
+
+                if showManipulativeSandbox {
+                    BioManipulativeSandboxCard(spec: BioManipulativeEngine.spec(for: question)) { stampedReadout in
+                        if answerText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            answerText = "[Sandbox evidence: \(stampedReadout)]\n"
+                        } else {
+                            answerText += "\n[Sandbox evidence: \(stampedReadout)]"
+                        }
+                    }
+                }
+
+                answerComposer(
+                    label: usedAssistanceThisAttempt
+                        ? "Your answer (currently marked as guided — tap 'Start fresh independent attempt' below to prove without hints)"
+                        : "Your independent answer (Writing Tools & autocorrect disabled so the retrieval is yours)"
+                )
+            }
+        }
+    }
+
+    private var meteredHintLadderSection: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            HStack {
+                Label("6-Rung Metered Hint Ladder (R0–R2 keep Independent Proof; R3–R5 switch to Guided)", systemImage: "ladder")
+                    .font(.kymaiaCaption.weight(.semibold))
+                    .foregroundStyle(Color.kymaiaMutedInk)
+                Spacer()
+            }
+            FlowLayout(spacing: Spacing.xs) {
+                ForEach(BioHintLadderRung.allCases) { rung in
+                    Button(rung.badgeTitle) {
+                        activeHintRung = rung
+                        if !rung.preservesIndependentProof {
+                            usedAssistanceThisAttempt = true
+                        }
+                    }
+                    .buttonStyle(
+                        JournalCapsuleButtonStyle(
+                            prominence: activeHintRung == rung ? .filled : (rung.preservesIndependentProof ? .tinted : .ghost),
+                            size: .small
+                        )
+                    )
+                    .accessibilityIdentifier("question-proof.hint-rung.\(rung.rawValue)")
+                }
+            }
+            if let rung = activeHintRung {
+                Text(BioMeteredHintLadderEngine.hintText(for: rung, question: question))
+                    .font(.kymaiaCaption)
+                    .foregroundStyle(rung.preservesIndependentProof ? Color.kymaiaPrimaryStrong : Color.kymaiaWarning)
+                    .padding(Spacing.sm)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                            .fill(Color.kymaiaElevatedSurface)
+                    )
+            }
         }
     }
 
@@ -663,6 +767,10 @@ struct QuestionProofPracticeView: View {
         stage = .independent
         usedAssistanceThisAttempt = false
         answerText = ""
+        fadedInput = ""
+        fadedStepEvaluation = nil
+        revealedFadedTerms = false
+        activeHintRung = nil
         evaluation = nil
         selectedConfidence = .moderate
         if hadAssistanceOrEvaluation {

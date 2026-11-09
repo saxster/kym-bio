@@ -743,15 +743,19 @@ struct BiologyCoachView: View {
                     }
 
                     if let outcome = quantOutcome {
-                        HStack {
-                            JournalChip(
-                                label: outcome.isCorrect ? "Exact match" : "Check units / steps",
-                                systemImage: outcome.isCorrect ? "checkmark.seal.fill" : "exclamationmark.triangle.fill",
-                                tone: outcome.isCorrect ? .good : .warn
-                            )
-                            Text(outcome.diagnosticMessage)
-                                .font(.kymaiaBody)
-                                .foregroundStyle(outcome.isCorrect ? Color.kymaiaSuccess : Color.kymaiaInk)
+                        if let trap = outcome.matchedTrap {
+                            BuggyBioTrapBanner(trap: trap)
+                        } else {
+                            HStack {
+                                JournalChip(
+                                    label: outcome.isCorrect ? "Exact match" : "Check units / steps",
+                                    systemImage: outcome.isCorrect ? "checkmark.seal.fill" : "exclamationmark.triangle.fill",
+                                    tone: outcome.isCorrect ? .good : .warn
+                                )
+                                Text(outcome.diagnosticMessage)
+                                    .font(.kymaiaBody)
+                                    .foregroundStyle(outcome.isCorrect ? Color.kymaiaSuccess : Color.kymaiaInk)
+                            }
                         }
                     }
 
