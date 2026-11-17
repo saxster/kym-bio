@@ -97,6 +97,114 @@ def clean_inline_markdown(text: str) -> str:
     return t.strip()
 
 
+def parse_chapter_comics(lines: list[str], ch_num: int) -> list[dict]:
+    comic_kinds = {"comic_prologue", "comic_intro", "comic_opener", "comic_closer"}
+    role_map = {
+        "comic_prologue": ("prologue", "Prologue"),
+        "comic_intro": ("prologue", "Prologue"),
+        "comic_opener": ("opener", "Opening Scene"),
+        "comic_closer": ("closer", "Looking Ahead"),
+    }
+    basis_map = {
+        "DOCUMENTED FACT": "Evidence",
+        "THOUGHT EXPERIMENT": "What if?",
+    }
+    strips = []
+    idx = 0
+    while idx < len(lines):
+        m_open = re.match(r"^:::(comic_\w+)(?:[ \t]+(.*))?$", lines[idx].strip())
+        if not m_open or m_open.group(1) not in comic_kinds:
+            idx += 1
+            continue
+        kind = m_open.group(1)
+        arg = (m_open.group(2) or "").strip()
+        idx += 1
+        inner_lines = []
+        while idx < len(lines) and lines[idx].strip() != ":::":
+            inner_lines.append(lines[idx])
+            idx += 1
+        if idx < len(lines) and lines[idx].strip() == ":::":
+            idx += 1
+
+        role_key, role_label = role_map[kind]
+        if " · " in arg:
+            title_part, dateline_part = arg.split(" · ", 1)
+            c_title = clean_inline_markdown(title_part)
+            c_dateline = clean_inline_markdown(dateline_part)
+        else:
+            c_title = clean_inline_markdown(arg) or f"Chapter {ch_num} {role_label}"
+            c_dateline = "Malabar Hill Atelier, Mumbai"
+
+        raw_panels = [p.strip() for p in re.split(r"\n---+\n", "\n".join(inner_lines).strip()) if p.strip()]
+        panels = []
+        for p_idx, p_txt in enumerate(raw_panels, start=1):
+            cap_lines = []
+            bal_lines = []
+            for ln in p_txt.splitlines():
+                if ln.lstrip().startswith(">"):
+                    bal_lines.append(ln.lstrip()[1:].strip())
+                else:
+                    cap_lines.append(ln.strip())
+            cap_raw = " ".join(x for x in cap_lines if x)
+            bal_raw = " ".join(x for x in bal_lines if x)
+            sp_name = "Kym"
+            char_id = "kym"
+            basis_lbl = "Evidence"
+            speech_txt = ""
+            if bal_raw:
+                sp_match = re.match(r"^\*\*([^*]+?)\s*\(`([a-z_]+)`\s*·\s*([^)]+)\):\*\*\s*(.*)$", bal_raw)
+                if sp_match:
+                    raw_sp, raw_char, raw_basis, raw_speech = sp_match.groups()
+                    sp_name = clean_inline_markdown(raw_sp)
+                    char_id = raw_char.strip()
+                    basis_lbl = basis_map.get(raw_basis.strip().upper(), raw_basis.strip())
+                    speech_txt = clean_inline_markdown(raw_speech)
+                else:
+                    speech_txt = clean_inline_markdown(bal_raw)
+            panels.append({
+                "id": f"ch{ch_num:02d}-{role_key}-p{p_idx}",
+                "panelNumber": p_idx,
+                "caption": clean_inline_markdown(cap_raw),
+                "speakerName": sp_name,
+                "characterId": char_id,
+                "basisLabel": basis_lbl,
+                "speech": speech_txt,
+            })
+
+        if panels:
+            strips.append({
+                "id": f"ch{ch_num:02d}-{role_key}",
+                "role": role_key,
+                "roleLabel": role_label,
+                "title": c_title,
+                "dateline": c_dateline,
+                "panels": panels,
+            })
+    return strips
+
+
+def parse_chapter_figures(lines: list[str], ch_num: int) -> list[dict]:
+    figs = []
+    seen = set()
+    for line in lines:
+        m = re.match(r"^:::(?:fig|figwide)\s+([a-zA-Z0-9_]+)\(\)\s*\|\s*(.+)$", line.strip())
+        if not m:
+            continue
+        fig_id = m.group(1).strip()
+        if fig_id in seen:
+            continue
+        seen.add(fig_id)
+        caption = clean_inline_markdown(m.group(2).strip())
+        pretty_title = re.sub(r"^c\d+_", "", fig_id).replace("_", " ").title()
+        figs.append({
+            "id": fig_id,
+            "chapter": ch_num,
+            "title": pretty_title,
+            "caption": caption,
+        })
+    return figs
+
+
 def parse_chapters():
     chapters = []
     src_dir = SOURCE_DIR / "src"
@@ -287,6 +395,8 @@ def parse_chapters():
             "callouts": callouts,
             "keyTerms": terms[:24],
             "widgets": widgets,
+            "comics": parse_chapter_comics(lines, ch_num),
+            "figures": parse_chapter_figures(lines, ch_num),
         })
     return chapters
 

@@ -195,6 +195,142 @@
       "widgets": [
         "redi_jars",
         "leeuwenhoek_scope"
+      ],
+      "comics": [
+        {
+          "id": "ch00-prologue",
+          "role": "prologue",
+          "roleLabel": "Prologue",
+          "title": "How to Read The Living World",
+          "dateline": "Malabar Hill Rooftop Atelier, Mumbai",
+          "panels": [
+            {
+              "id": "ch00-prologue-p1",
+              "panelNumber": 1,
+              "caption": "On the Malabar Hill rooftop workbench, Master Bento sets three glass inkwells—cobalt blue (what is given), warm amber (what stays constant), and vermilion red (what changes)—beside a brass Leeuwenhoek paddle lens and a jar of dry green moong beans.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Before we trust any rule about living things, we test what stays fixed, what changes, and what breaks when we test a rival claim against a fair control."
+            },
+            {
+              "id": "ch00-prologue-p2",
+              "panelNumber": 2,
+              "caption": "Dash points to an open jar of rotting meat while Director Barnaby holds up a grand chart titled SPONTANEOUS GENERATION: LIFE FROM NON-LIVING MUCK.",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "What if?",
+              "speech": "Why wait for parent organisms when rotting soup and monsoon mud can manufacture beetles and microbes on demand?"
+            },
+            {
+              "id": "ch00-prologue-p3",
+              "panelNumber": 3,
+              "caption": "Dr. Zeta and Pip peer through an X-ray loupe at Francesco Redi's gauze-covered jar while Clara sketches the mesh barrier in her field notebook.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "In Florence in 1668, one sheet of fine Naples gauze stopped the flies while letting fresh air pass—and the maggot eggs sat stranded on top of the cloth."
+            },
+            {
+              "id": "ch00-prologue-p4",
+              "panelNumber": 4,
+              "caption": "Master Bento slides the 3D scale dial from a 4 mm moong seed down a thousandfold to a micrometre cell, and a thousandfold again to a 2 nm DNA helix.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Change one variable at a time, measure at the right scale, and never let a fancy label pretend to be a mechanism."
+            }
+          ]
+        },
+        {
+          "id": "ch00-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Case of the Sealed Grain Tin",
+          "dateline": "Mumbai Monsoon Kitchen & Florence, 1668",
+          "panels": [
+            {
+              "id": "ch00-opener-p1",
+              "panelNumber": 1,
+              "caption": "In a humid July kitchen in Mumbai, Dash pries open a tin of atta and points at tiny brown weevils crawling across the flour.",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "The lid was shut tight for a month, Kym. The flour itself must have turned into beetles."
+            },
+            {
+              "id": "ch00-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym holds a magnifying glass to a single grain of wheat, revealing the microscopic gelatinous plug left by a parent female rice weevil before the grain was ever packed.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Or a hidden parent laid an egg before the lid went on. How do we force those two stories into a fair test where only one survives?"
+            }
+          ]
+        },
+        {
+          "id": "ch00-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Gauze, the Swan Neck, and the Next Mystery",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch00-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's brass beam-scale balances Redi's gauze jar beside Pasteur's swan-neck bend, showing blue airborne dust spores settling in the lower glass curve while clean air arrows pass into the clear broth.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Both traps separate the invisible passenger from the air that carries it."
+            },
+            {
+              "id": "ch00-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash peers through Leeuwenhoek's glass bead at a 2 µm bacterium beside a 100 nm bacteriophage while Barnaby folds up his spontaneous-generation chart.",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "Wait a minute—if bacteria and cells are twenty times larger than viruses, what happens when we compare a dry moong bean with a burning candle flame?"
+            },
+            {
+              "id": "ch00-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym sets a flickering wax candle beside a jar of dry green moong beans on the teak workbench as June monsoon clouds gather over Marine Drive.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "The flame moves, breathes oxygen, eats wax, and releases carbon dioxide. The dry bean sits still as a stone. Why is the bean alive and the flame not?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c0_redi_jars",
+          "chapter": 0,
+          "title": "Redi Jars",
+          "caption": "Francesco Redi's three-jar test in Florence (1668). Left: open to both air and flies, maggots appear on the meat. Middle: sealed with a solid cover, no maggots appear, but critics can blame the lack of fresh air. Right: covered with fine gauze, fresh air flows in while flies are stopped at the mesh—and lay their eggs on top of the cloth."
+        },
+        {
+          "id": "c0_leeuwenhoek_lens",
+          "chapter": 0,
+          "title": "Leeuwenhoek Lens",
+          "caption": "Left: Robert Hooke's 1665 drawing of thin bottle cork, showing the tiny boxed chambers he named \"cells\". Right: Antonie van Leeuwenhoek's brass paddle microscope (actual height about 7 cm). The tiny spherical glass bead lens (inset) sits in a pinhole; the specimen on the brass point is brought within 1 mm of the bead by turning the vertical and horizontal screws, while the observer holds the brass plate right up against the eye."
+        },
+        {
+          "id": "c0_swan_neck",
+          "chapter": 0,
+          "title": "Swan Neck",
+          "caption": "Louis Pasteur's swan-neck flask experiment (1859). Left: broth is boiled in a flask whose long S-curved neck stays open at the tip. Middle: as the flask cools, air enters freely, while dust and microbes settle in the lower curve of the neck; the broth remains sterile and clear. Right: when the flask is tilted so the broth touches the dust trapped in the bend (or when the neck is snapped off), microbes enter the broth and multiply within 48 hours."
+        },
+        {
+          "id": "c0_scale_ladder",
+          "chapter": 0,
+          "title": "Scale Ladder",
+          "caption": "The biological ladder of size, stepping by factors of ten from a water molecule (0.28 nm) and DNA helix (2 nm) up through a ribosome (25 nm), a virus (100 nm), a bacterium (2 µm), a red blood cell (8 µm), a plant cell (50 µm), and a 4 mm moong seed. Each major rung is ten times wider than the one to its left."
+        }
       ]
     },
     {
@@ -373,6 +509,103 @@
       "widgets": [
         "monsoon_imbibition",
         "seed_flame3d"
+      ],
+      "comics": [
+        {
+          "id": "ch01-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Suspects on the Workbench",
+          "dateline": "Malabar Hill Atelier, Early June",
+          "panels": [
+            {
+              "id": "ch01-opener-p1",
+              "panelNumber": 1,
+              "caption": "On the Malabar Hill workbench, Director Barnaby points his flip-chart stick at a flickering wax candle beside a glass jar of hard, dry green moong beans.",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "What if?",
+              "speech": "Look at the performance metrics: the candle moves, consumes hydrocarbon fuel, inhales oxygen, and exhales carbon dioxide. The dry bean does nothing. By checklist, the flame is alive."
+            },
+            {
+              "id": "ch01-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym and Master Bento drop ten dry moong beans onto damp cotton wool while Dr. Zeta and Pip watch the X-ray loupe reveal a sugar-glass cytoplasm softening inside the seed coat.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Wait twelve hours in the June damp, Barnaby. Your flame burns its house down into heat and ash; the waking bean couples fuel breakdown to build a root."
+            }
+          ]
+        },
+        {
+          "id": "ch01-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Waking Bean, the Coupled Staircase & the Next Horizon",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch01-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's X-ray loupe reveals the hydrated moong bean's green radicle emerging as stepped blue-and-green enzyme bars bank golden ATP coins from glucose breakdown, while the red candle cliff dumps all 2,870 kJ/mol as uncoupled heat.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Both oxidise carbon fuel, Kym—only the cell couples the drop to rotary ATP turbines and polymer construction."
+            },
+            {
+              "id": "ch01-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash holds up a box of amoxicillin tablets beside a 100 nm bacteriophage model, and Clara taps the capsid's empty interior with her fountain pen.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—before you prescribe an antibiotic for a viral cold, show me a single bacterial cell wall or 70S ribosome inside that virus. There is nothing there for the drug to hit."
+            },
+            {
+              "id": "ch01-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym zooms the brass microscope onto the emerging white root tip of the moong sprout, revealing thousands of microscopic brick-like compartments dividing in unison.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Every living bean, bacterium, and detective is built of these walled compartments. Why can't a single cell just grow as big as a dog?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c1_monsoon_imbibition",
+          "chapter": 1,
+          "title": "Monsoon Imbibition",
+          "caption": "Hydration of a viable seed. The 10% and 65% water contents are chosen model states, not a soaking timetable. Holding 45 g of other material fixed gives total masses of 50 g and 128.6 g. Mobility is illustrated qualitatively; no respiration rate or germination threshold is measured by the drawing."
+        },
+        {
+          "id": "c1_seed_vs_flame",
+          "chapter": 1,
+          "title": "Seed Vs Flame",
+          "caption": "Both systems transform fuel. In the cell, enzyme-controlled pathways couple some energy transfers to ATP supply and cellular construction, while heat is also released. The flame lacks a cellular system of maintenance and inheritance. The staircase and 3D assembly are conceptual pictures, not literal molecular pathways."
+        },
+        {
+          "id": "c1_atp_cycle",
+          "chapter": 1,
+          "title": "Atp Cycle",
+          "caption": "A schematic of ATP and one common reaction cycle, ATP + water → ADP + Pᵢ. Re-forming ATP requires an energy-coupled reaction. Charges contribute to the chemistry, but the whole reaction and its conditions determine the free-energy change. Other ATP-dependent reactions can transfer phosphate to another molecule instead."
+        },
+        {
+          "id": "c1_mrs_gren_engine",
+          "chapter": 1,
+          "title": "Mrs Gren Engine",
+          "caption": "The seven MRS GREN processes as a single connected engineering diagram of a living organism. Nutrition brings in matter and fuel; Respiration transfers chemical energy from nutrients into forms including ATP; Excretion removes toxic chemical wastes made by metabolism (CO₂, urea); Sensitivity and Movement let the organism find resources and dodge danger; Growth builds new cellular structure; and Reproduction passes the DNA blueprint across generations."
+        },
+        {
+          "id": "c1_virus_border",
+          "chapter": 1,
+          "title": "Virus Border",
+          "caption": "The border of life: a living Bacterial Cell (left, ~2,000 nm long) vs. two virus examples, a T4 bacteriophage and an enveloped coronavirus (right, drawn at different enlargements so their parts are visible). The bacterium is a cell supplied by nutrients and its surroundings with a plasma membrane, cytoplasm, ribosomes, ATP generators and a circular DNA chromosome. The viruses lack ribosomes and independent ATP production. An enveloped virus also has a lipid covering; these schematic examples are not a universal size or shape rule."
+        }
       ]
     },
     {
@@ -573,6 +806,97 @@
         "cell_inventory",
         "organelle_clues",
         "sav_cubes3d"
+      ],
+      "comics": [
+        {
+          "id": "ch02-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Dog-Sized Amoeba Proposal",
+          "dateline": "Malabar Hill Atelier, Mumbai",
+          "panels": [
+            {
+              "id": "ch02-opener-p1",
+              "panelNumber": 1,
+              "caption": "Director Barnaby unrolls a blueprint titled PROJECT MONOLITH: ONE GIANT CELL PER EMPLOYEE while Dash inflates a spherical rubber balloon across the teak workbench.",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "What if?",
+              "speech": "Maintaining thirty trillion tiny cell membranes is bureaucratic waste. Let us merge them into one dog-sized cell and save on lipid bilayers."
+            },
+            {
+              "id": "ch02-opener-p2",
+              "panelNumber": 2,
+              "caption": "Master Bento places a 1 cm agar cube beside a 10 cm agar block as Kym checks the surface-area-to-volume gauge (6/L).",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Scale width up ten times, Barnaby, and your volume multiplies by a thousand while your doorway area only multiplies by a hundred. The centre of your giant cell starves before oxygen gets halfway in."
+            }
+          ]
+        },
+        {
+          "id": "ch02-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Thin Living Rim & the Next Doorway",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch02-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's X-ray loupe slices open Thiomargarita namibiensis, showing that 98% of the giant sphere is a passive nitrate vacuole while the active cytoplasm is a paper-thin peripheral shell only micrometres thick.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Even the largest bacterium on Earth obeys 6/L, Dash—it presses all its active machinery into a thin skin right against the outer membrane."
+            },
+            {
+              "id": "ch02-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash points at a green leaf cell on the 3D stage while Clara highlights the orange mitochondria beside the green chloroplasts.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute—never erase mitochondria from a plant cell diagram. When night falls over Sanjay Gandhi National Park, those mitochondria keep the plant cell's ATP supply alive."
+            },
+            {
+              "id": "ch02-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym zooms in on the 8 nm plasma membrane bounding a mangrove root hair cell standing in salty Arabian Sea tidewater at Carter Road.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "We know why every cell needs a huge membrane surface. Now how do water and ions actually cross that selective barrier without drowning or shrivelling the cell?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c2_cell_inventory",
+          "chapter": 2,
+          "title": "Cell Inventory",
+          "caption": "A shared kit with different additions. These are selected, typical cells at different enlargements. The green leaf cell has chloroplasts; a white onion bulb cell would retain the wall, membrane, vacuole and mitochondria while lacking developed chloroplasts. Boundaries and ribosomes are enlarged."
+        },
+        {
+          "id": "c2_stowaway_clues",
+          "chapter": 2,
+          "title": "Stowaway Clues",
+          "caption": "Independent clues support one ancestry explanation. The internal membrane folds of a mitochondrion and the membrane stacks of a chloroplast do different chemical jobs. These enlarged cutaways are reconstructions, not surviving photographs of ancient events."
+        },
+        {
+          "id": "c2_geometry",
+          "chapter": 2,
+          "title": "Geometry",
+          "caption": "All three cubes use the same drawing scale. Tenfold side gives a hundredfold surface and a thousandfold volume. Centimetres make the geometry easy to inspect; these are model blocks, not actual cell dimensions."
+        },
+        {
+          "id": "c2_specialists",
+          "chapter": 2,
+          "title": "Specialists",
+          "caption": "Five different solutions to different physical jobs. The profiles have different enlargements. Below them, a plant example connects one specialised cell to the whole organism."
+        }
       ]
     },
     {
@@ -779,6 +1103,97 @@
         "water_potential",
         "osmosis_cells",
         "root_transport"
+      ],
+      "comics": [
+        {
+          "id": "ch03-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Carter Road Mangrove Puzzle",
+          "dateline": "Bandra Seafront & Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch03-opener-p1",
+              "panelNumber": 1,
+              "caption": "At low tide along Carter Road in Bandra, Dash scoops up salty Arabian Sea creek water beside a thriving green Avicennia mangrove root.",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "If we pour this salty water on a balcony marigold pot, the plant wilts by evening. Why don't mangrove roots shrivel up in the sea?"
+            },
+            {
+              "id": "ch03-opener-p2",
+              "panelNumber": 2,
+              "caption": "Back on the Malabar Hill workbench, Kym and Dr. Zeta watch red and blue solute beads bounce blindly across a perforated membrane on the 3D stage while Director Barnaby tries to issue directional travel passes to the molecules.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Molecules cannot read your memo, Barnaby. Every water molecule and ion bounces at random—until a selective pore and an ATP-powered pump tip the odds."
+            }
+          ]
+        },
+        {
+          "id": "ch03-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Turgid Box, the Salt Pump & the Next Lock",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch03-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's X-ray loupe compares a turgid plant cell whose blue central vacuole presses outward (Ψₚ = +0.8 MPa) against its green cellulose box with a plasmolysed cell where external salt solution fills the gap inside the wall.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "The cellulose wall is an open basket weave, Dash—whatever solution bathes the slide walks right through the wall to touch the plasma membrane."
+            },
+            {
+              "id": "ch03-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash points at the empty space between the shrunk protoplast and the cell wall on his sketchpad, and Clara crosses out his label \"air bubble\".",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—if an exam diagram asks what fills Zone X between the cell wall and the peeled-back membrane, the answer is always the external concentrated solution, never air."
+            },
+            {
+              "id": "ch03-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym rotates the 3D carrier protein embedded in the membrane, watching its folded amino-acid ribbon clasp a single ion like a custom-cut brass lock.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "How can a chain of carbon, nitrogen, and oxygen atoms fold itself into a machine that recognises one exact molecule out of thousands?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c3_diffusion",
+          "chapter": 3,
+          "title": "Diffusion",
+          "caption": "Count both directions. The crossing chances and particle counts are chosen model numbers; dots stand for groups. Near equilibrium, individual trials fluctuate around equal concentrations."
+        },
+        {
+          "id": "c3_water_gate",
+          "chapter": 3,
+          "title": "Water Gate",
+          "caption": "The water pore and the pressure account are different views of the same problem. The enlarged channel is schematic; the numerical potentials are chosen examples. A positive pressure can balance a solute difference."
+        },
+        {
+          "id": "c3_cells",
+          "chapter": 3,
+          "title": "Cells",
+          "caption": "The wall changes the outcome. These are schematic endpoints at different enlargements, not a measured time series. The middle plant has little turgor; matching solute concentrations alone do not describe every pressurised plant cell."
+        },
+        {
+          "id": "c3_root_routes",
+          "chapter": 3,
+          "title": "Root Routes",
+          "caption": "Read the two protein routes on the left: ATP powers proton export, and proton return can power nitrate uptake. Then read the separate mangrove water account on the right: its numbered clues concern salt handling and water potential. Water follows its own gradient, without an ATP-driven water pump. Protein shapes and arrows are schematic."
+        }
       ]
     },
     {
@@ -1012,6 +1427,109 @@
         "enzyme_barrier",
         "enzyme_conditions",
         "food_detective"
+      ],
+      "comics": [
+        {
+          "id": "ch04-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Raw Papaya & the Melted Jelly",
+          "dateline": "Mumbai Kitchen & Madras, 1963",
+          "panels": [
+            {
+              "id": "ch04-opener-p1",
+              "panelNumber": 1,
+              "caption": "In a Mumbai kitchen, Dash stirs cubes of fresh green papaya into warm gelatin jelly and groans when the bowl refuses to set, while a second bowl made with boiled papaya sets firm.",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "Boiling \"killed\" the papaya juice, Kym. Whatever was eating the gelatin must have been a tiny living germ."
+            },
+            {
+              "id": "ch04-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym and Clara place G. N. Ramachandran's 1963 Madras (φ, ψ) backbone map beside the 3D papain enzyme model on the Malabar Hill workbench.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "A protein is a non-living molecule, Dash—it cannot die. Boiling shook its hydrogen bonds until its 3D active-site pocket unfolded."
+            }
+          ]
+        },
+        {
+          "id": "ch04-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Allowed Islands, the Denatured Lock & the Next Mystery",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch04-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D stage shows the blue globular enzyme lowering the red activation-energy arch (Eₐ) while G. N. Ramachandran's (φ, ψ) map highlights the two green steric basins where α-helices and β-sheets sit without atomic collisions.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Steric geometry locks the fold; complementary shape and charge in the active site lower the activation hurdle."
+            },
+            {
+              "id": "ch04-closer-p2",
+              "panelNumber": 2,
+              "caption": "Director Barnaby waves a memo claiming that boiling a protease enzyme \"kills\" it by snapping its peptide chain into single amino acids, and Clara points to the intact peptide backbone on the model.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Barnaby—boiling unfolds the 3D active site (denaturation) while the primary peptide bonds stay intact. And because a protein was never alive, it cannot die."
+            },
+            {
+              "id": "ch04-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym holds a dark-blue iodine-stained money-plant leaf up to the Mumbai morning sun on the atelier balcony.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "This leaf built solid starch overnight out of air, water, and sunlight using an enzyme called RuBisCO. Where did the solid mass of a ten-tonne banyan tree actually come from?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c4_water_carbon",
+          "chapter": 4,
+          "title": "Water Carbon",
+          "caption": "Water's partial charges and carbon's bonding capacity. The methane drawing records connections; it is not a claim that methane is flat. Distances and sizes are illustrative."
+        },
+        {
+          "id": "c4_building_units",
+          "chapter": 4,
+          "title": "Building Units",
+          "caption": "Compare architecture, not token counts. Real chains are much longer. The curved return symbols in the cellulose row mark alternating unit orientation; this is not an atom-by-atom formula. The triglyceride drawing represents only one kind of lipid."
+        },
+        {
+          "id": "c4_folding",
+          "chapter": 4,
+          "title": "Folding",
+          "caption": "The three collagen strands and local crowding comparisons are original schematic projections. They are not atomic coordinates or a reproduction of the 1963 map. “Allowed locally” does not mean “the full fold has been predicted”."
+        },
+        {
+          "id": "c4_barrier",
+          "chapter": 4,
+          "title": "Barrier",
+          "caption": "Chosen energy levels illustrate a principle, not a measured reaction. Both routes begin at 20 and end at 10. The horizontal axis follows reaction progress, not seconds or a molecule climbing a literal mountain."
+        },
+        {
+          "id": "c4_conditions",
+          "chapter": 4,
+          "title": "Conditions",
+          "caption": "Two temperature effects and a separate pH effect. The curves are invented teaching models, not data for a human enzyme or washing powder. Relative scales are chosen independently. No universal fever threshold is shown."
+        },
+        {
+          "id": "c4_food_tests",
+          "chapter": 4,
+          "title": "Food Tests",
+          "caption": "Keep targets, observations and controls together. All five tests belong in a supervised school laboratory. The map is a memory aid, not a substitute for a teacher's risk-assessed method."
+        }
       ]
     },
     {
@@ -1240,6 +1758,115 @@
         "carbon_account",
         "limiting_lab",
         "sap_routes"
+      ],
+      "comics": [
+        {
+          "id": "ch05-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Banyan Tree on the Weighing Scale",
+          "dateline": "Oval Maidan & Malabar Hill, Mumbai",
+          "panels": [
+            {
+              "id": "ch05-opener-p1",
+              "panelNumber": 1,
+              "caption": "Standing beneath a giant banyan tree (Ficus benghalensis) at Oval Maidan, Dash pats the massive woody trunk while Director Barnaby inspects the shallow soil bed around the paving stones.",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "That trunk weighs tonnes, Kym. If it grew out of the ground, why hasn't the tree dug a giant crater in the soil underneath it?"
+            },
+            {
+              "id": "ch05-opener-p2",
+              "panelNumber": 2,
+              "caption": "On the Malabar Hill workbench, Kym and Clara compare Jan Baptista van Helmont's 1648 willow-tree ledger (+74.7 kg tree vs -57 g dry soil) with a bubbling sprig of Hydrilla in sunlit sodium hydrogencarbonate solution.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Because trees are woven out of thin air and water, Dash. Sunlight splits water to free oxygen, and leaf enzymes stitch invisible CO₂ gas into solid wood."
+            }
+          ]
+        },
+        {
+          "id": "ch05-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Split Water Molecule, the Lignified Straw & the Dark Half of the Loop",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch05-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D leaf cross-section extrudes from a 2D histology slide into tall green palisade columns, spongy air spaces, and a pair of guard cells parting to let blue CO₂ diffuse in while red water vapour transpires out.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Cohesion between water molecules and evaporation from the spongy mesophyll cell walls pull the entire xylem column up from the roots without a mechanical pump."
+            },
+            {
+              "id": "ch05-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash points at a potato tuber growing underground in July and calls it a \"source\" all year round; Clara flips the calendar to April when the tuber sprouts.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—while the sunlit leaves are feeding the growing tuber in July, the tuber is a sink. Months later, when that stored starch breaks back down into sucrose to feed a new shoot in spring, the same tuber becomes a source."
+            },
+            {
+              "id": "ch05-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym switches off the atelier lamp above the potted Hydrilla jar, watching oxygen bubbles stop while the plant stays alive and warm in the dark.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Sunlight stored energy inside glucose bonds. Now how do plant and animal cells unlock that glucose in the dark without burning themselves up?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c5_ledger",
+          "chapter": 5,
+          "title": "Ledger",
+          "caption": "Recorded measurements and missing entries belong in different parts of the ledger. The original tree measurements are not a modern dry-mass balance."
+        },
+        {
+          "id": "c5_gas_evidence",
+          "chapter": 5,
+          "title": "Gas Evidence",
+          "caption": "A comparison map of historical questions. The dates label the reported investigation or publication; these rows do not reconstruct one shared apparatus."
+        },
+        {
+          "id": "c5_chloroplast",
+          "chapter": 5,
+          "title": "Chloroplast",
+          "caption": "Matter and energy have different jobs. This enlarged schematic separates water-derived oxygen from carbon incorporation; the fuller equation is an overall account, not a literal pathway for every atom."
+        },
+        {
+          "id": "c5_limits",
+          "chapter": 5,
+          "title": "Limits",
+          "caption": "Chosen model curves, not data. A lower carbon-dioxide capacity caps the benefit of increasing light. Other conditions, including temperature, can impose a different cap."
+        },
+        {
+          "id": "c5_leaf",
+          "chapter": 5,
+          "title": "Leaf",
+          "caption": "Follow light through the upper layers, gas through the pore and air spaces, and liquid through the vein. The lower inset changes viewing direction; its guard cells are enlarged and schematic."
+        },
+        {
+          "id": "c5_xylem",
+          "chapter": 5,
+          "title": "Xylem",
+          "caption": "Trace the causal chain from the leaf downwards, then trace the water's replacement route upwards. The arrows show a conceptual direction, not a measured height or velocity."
+        },
+        {
+          "id": "c5_phloem",
+          "chapter": 5,
+          "title": "Phloem",
+          "caption": "These are separate source–sink pathways. Source pressure and unloading determine the direction; one example carries assimilates upwards."
+        }
       ]
     },
     {
@@ -1436,6 +2063,109 @@
         "respiration_relay",
         "oxidation_ledger",
         "carrier_routes"
+      ],
+      "comics": [
+        {
+          "id": "ch06-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Vanishing Five Kilograms",
+          "dateline": "Oval Maidan & Malabar Hill Atelier, Mumbai",
+          "panels": [
+            {
+              "id": "ch06-opener-p1",
+              "panelNumber": 1,
+              "caption": "After a morning run around Oval Maidan, Dash steps off a bathroom scale and announces that five kilograms of body fat \"turned into pure heat energy and floated away.\"",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "We burn food for heat and movement, Kym. When someone loses five kilograms of fat, that mass converts straight into kilojoules of heat."
+            },
+            {
+              "id": "ch06-opener-p2",
+              "panelNumber": 2,
+              "caption": "Master Bento clamps a sealed flask of respiring yeast onto the brass balance beam while Kym and Clara trace the carbon and oxygen atoms in Meerman and Brown's stoichiometry ledger (84% CO₂, 16% H₂O).",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Chemical reactions rearrange atoms, Dash—they never destroy mass. You breathed those five kilograms out through your nose as invisible carbon dioxide gas and water vapour."
+            }
+          ]
+        },
+        {
+          "id": "ch06-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Proton Dam, the exhaled Carbon & the Next System",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch06-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's X-ray loupe reveals red H⁺ protons banking behind the folded inner mitochondrial cristae and spinning the golden F₀F₁ rotor to mint 32 ATP coins while 6CO₂ molecules drift out toward the bloodstream.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "The membrane is the dam, the proton gradient is the head of water, and ATP synthase is the rotary turbine."
+            },
+            {
+              "id": "ch06-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash points at a bowl of puffed Mumbai idli batter and claims the bubbles are oxygen gas from sprinting muscle fermentation; Clara taps the limewater test tube turning milky.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—sprinting human muscle makes lactic acid with zero gas bubbles. Rising bread and idli batter release carbon dioxide (CO₂) gas from microbial fermentation."
+            },
+            {
+              "id": "ch06-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym sets a plate of steamed idli, coconut chutney, and sambar on the workbench beside a 3D model of the nine-metre human alimentary canal.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Part I showed how a single cell uses glucose, amino acids, and oxygen. Now how does a thirty-trillion-cell human body disassemble a plate of idli-sambar and deliver those monomers to every cell?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c6_routes",
+          "chapter": 6,
+          "title": "Routes",
+          "caption": "Follow the human delivery route, then separate it from the cellular reactions. Roots and microbes can carry out energy-transferring chemistry without lungs. The drawings are enlarged schematics, not a scale comparison."
+        },
+        {
+          "id": "c6_respiration",
+          "chapter": 6,
+          "title": "Respiration",
+          "caption": "The carbon route and electron route answer different questions. The net equation balances material, while the pathway map shows intermediate connections. It does not assign the origin of each product oxygen atom."
+        },
+        {
+          "id": "c6_membrane",
+          "chapter": 6,
+          "title": "Membrane",
+          "caption": "Matrix below, intermembrane space above. Trace pumping outwards, then return through ATP synthase. Electron transfer and carbon dioxide formation have separate routes. Positions and tokens are schematic; they give no speed or proton-to-ATP ratio."
+        },
+        {
+          "id": "c6_mass",
+          "chapter": 6,
+          "title": "Mass",
+          "caption": "Start with the total-input and product ledger. The lower panel and optional second explorer tab extend it to original-fuel allocation, using an additional oxygen-exchange assumption."
+        },
+        {
+          "id": "c6_fermentation",
+          "chapter": 6,
+          "title": "Fermentation",
+          "caption": "Every route must restore the carrier form used by glycolysis. The two net ATP belong to glycolysis; recycling adds no extra ATP here. Yeast products and lactate products differ, and mixed-community idli is not assigned one universal equation."
+        },
+        {
+          "id": "c6_roots",
+          "chapter": 6,
+          "title": "Roots",
+          "caption": "Flooded soil can restrict oxygen delivery to roots, despite abundant water. Rice provides a contrasting example of internal gas routes; these are representative schematics, not a prediction of survival time or a universal plant design."
+        }
       ]
     },
     {
@@ -1642,6 +2372,127 @@
         "digestive_steps",
         "emulsification",
         "absorption_routes"
+      ],
+      "comics": [
+        {
+          "id": "ch07-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Doughnut Tunnel & the Gallbladder Mystery",
+          "dateline": "Malabar Hill Atelier, Mumbai",
+          "panels": [
+            {
+              "id": "ch07-opener-p1",
+              "panelNumber": 1,
+              "caption": "Director Barnaby swallows a bite of buttered Mumbai pav and declares that the bread is now \"inside his body's cells\" the moment it passes his lips.",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "What if?",
+              "speech": "Once food is in the stomach or intestine, it is inside the body. Digestion is just acid melting chunks into soup."
+            },
+            {
+              "id": "ch07-opener-p2",
+              "panelNumber": 2,
+              "caption": "Master Bento holds up a wooden torus (doughnut) on the workbench while Kym traces a bead through the central hole without ever piercing the wood.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Topologically, Barnaby, the gut tube is a tunnel from mouth to anus. Until an enzyme splits that starch into glucose and a villus cell transports it across its membrane, your lunch is still outside your cellular interior."
+            }
+          ]
+        },
+        {
+          "id": "ch07-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Emulsified Mist, the Two Villus Doors & the Next Pump",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch07-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's X-ray loupe zooms into a single finger-like intestinal villus: blue glucose and amino-acid beads cross the brush border into the red capillary mesh heading to the hepatic portal vein, while golden lipid droplets enter the central yellow lacteal.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "One-cell-thick walls keep diffusion distance tiny; microvilli multiply the surface area; blood flow and lacteal drainage maintain the steep gradient."
+            },
+            {
+              "id": "ch07-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash labels a bottle of green bile \"Fat-Splitting Enzyme\" on the workbench, and Clara peels the label off.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—bile is a physical detergent and alkaline buffer, never an enzyme. Emulsification is mechanical digestion; lipase does the chemical hydrolysis."
+            },
+            {
+              "id": "ch07-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym follows the red hepatic vein leaving the liver toward the right atrium of a beating four-chambered heart model.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "The gut and liver have loaded the blood with glucose and amino acids. Now how does a fist-sized double pump deliver oxygen and fuel to thirty trillion cells without losing pressure?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c7_canal",
+          "chapter": 7,
+          "title": "Canal",
+          "caption": "Trace the solid food route and the dashed secretion routes separately. This is a connection map, not an anatomical-position chart or a scale drawing. Bile can reach the duodenum without first entering the gallbladder."
+        },
+        {
+          "id": "c7_boundary",
+          "chapter": 7,
+          "title": "Boundary",
+          "caption": "Being inside the body's outline differs from crossing its lining. The drawing enlarges one epithelial barrier; it does not show the entire intestinal wall as one cell thick."
+        },
+        {
+          "id": "c7_movement",
+          "chapter": 7,
+          "title": "Movement",
+          "caption": "The two snapshots show a contraction progressing behind a bolus, not measured positions or a transit time. The separate tooth cutaway is enlarged and simplified; mechanical division and molecular hydrolysis remain different changes."
+        },
+        {
+          "id": "c7_chemistry",
+          "chapter": 7,
+          "title": "Chemistry",
+          "caption": "Follow one column at a time, noticing intermediate products and changes of compartment. These are selected main routes, not every enzyme or a clock. The fat column previews section 7.3's crucial difference between dispersing droplets and changing molecules."
+        },
+        {
+          "id": "c7_protection",
+          "chapter": 7,
+          "title": "Protection",
+          "caption": "Mucus, local bicarbonate, epithelial joins and renewal protect a living surface beside a reactive lumen. The layers are schematic, not a measured pH profile or thickness scale. Pepsinogen activation is shown separately from food movement."
+        },
+        {
+          "id": "c7_emulsion",
+          "chapter": 7,
+          "title": "Emulsion",
+          "caption": "A fixed volume is divided into equal three-dimensional spheres. The circles are a spread-out projection; their spacing does not depict the volume of watery gut contents. More interface is a geometric result, not a measured digestion rate."
+        },
+        {
+          "id": "c7_lipase",
+          "chapter": 7,
+          "title": "Lipase",
+          "caption": "This original connectivity map separates chemical hydrolysis from droplet division. In the representative triolein equation, both sides contain C 57, H 108 and O 8. The cartoon simplifies ester links and omits fatty-acid head-group atoms; the separate formula account includes every atom and the reaction water."
+        },
+        {
+          "id": "c7_villus",
+          "chapter": 7,
+          "title": "Villus",
+          "caption": "Inspect three different levels: folds bearing villi, one villus with blood and lymph routes, then a cell's microvilli. The panels use separate enlargements. Microvilli contain neither little blood vessels nor little lacteals."
+        },
+        {
+          "id": "c7_absorption",
+          "chapter": 7,
+          "title": "Absorption",
+          "caption": "Separate membrane entry and exit from later blood or lymph flow. Glucose illustrates the capillary–portal route; much long-chain lipid material illustrates rebuilding and packaging before the lacteal route. Some shorter-chain fatty acids are an explicit exception."
+        }
       ]
     },
     {
@@ -1844,6 +2695,127 @@
         "breathing_gradients",
         "double_pump",
         "vessel_exchange"
+      ],
+      "comics": [
+        {
+          "id": "ch08-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Two-Hundred-Litre Blood Mystery",
+          "dateline": "Frankfurt, 1628 & Malabar Hill, Mumbai",
+          "panels": [
+            {
+              "id": "ch08-opener-p1",
+              "panelNumber": 1,
+              "caption": "Director Barnaby holds up a medieval Galen chart claiming the liver manufactures fresh blood from every meal and sends it on a one-way trip to be consumed at the fingertips.",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "HISTORICAL ACCOUNT",
+              "speech": "A single-pass delivery pipeline is simple to manage—make new blood in the liver, burn it up in the tissues, and never bother with return pipes."
+            },
+            {
+              "id": "ch08-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym and Master Bento multiply 65 mL per heartbeat by 72 beats per minute on the Malabar Hill slate (4.68 L/min = 280.8 L/hour).",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "That is 280 litres an hour, Barnaby—five times your entire body mass before lunch. William Harvey proved by simple multiplication in 1628 that the same five litres of blood must race around a closed loop."
+            }
+          ]
+        },
+        {
+          "id": "ch08-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Two-Pressure Loop, the Capillary Slowdown & the Next Signal",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch08-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D heart model beats in slow motion: the thin-walled right ventricle gently perfuses the delicate lung alveoli at 25 mmHg, while the thick muscular left ventricle drives oxygenated red blood into the aorta at 120 mmHg.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Equal stroke volumes in series, two completely different pressures matched to two different capillary beds."
+            },
+            {
+              "id": "ch08-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash sketches a heart diagram from the front and labels the left-hand side of the paper \"Left Ventricle\"; Clara rotates the anatomical chest model to face him.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—every heart diagram is drawn as if you are looking at the patient's chest face-to-face. The patient's left ventricle (with the thickest muscular wall) is on the right-hand side of the page."
+            },
+            {
+              "id": "ch08-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym watches the heart rate on the 3D monitor jump from 70 to 140 bpm the instant a startled cat leaps onto the balcony rail.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Before your legs even start running, your heart and pupils react in a split second. How do electrical nerve impulses and chemical hormones coordinate thirty trillion cells?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c8_airway_mucociliary",
+          "chapter": 8,
+          "title": "Airway Mucociliary",
+          "caption": "Trace the conducting airways from nose to bronchioles and the enlarged mucociliary escalator. C-shaped cartilage rings keep the trachea open without pinching the oesophagus behind it. Dimensions are enlarged schematics, not a uniform scale."
+        },
+        {
+          "id": "c8_thorax_pressure_cycle",
+          "chapter": 8,
+          "title": "Thorax Pressure Cycle",
+          "caption": "Compare quiet inhalation, quiet passive exhalation and the classic bell-jar model. Gauge pressures are shown relative to sea-level atmospheric pressure (0 mmHg). Inspect where the bell-jar model matches diaphragm pressure changes and where its rigid glass wall and wide air space misrepresent a living ribcage and pleural film."
+        },
+        {
+          "id": "c8_alveolar_exchange",
+          "chapter": 8,
+          "title": "Alveolar Exchange",
+          "caption": "Follow oxygen and carbon dioxide diffusing in opposite directions across the ~0.5 µm alveolar–capillary barrier, alongside the inspired vs expired gas table and the brain CO₂ exercise control loop."
+        },
+        {
+          "id": "c8_harvey_evidence",
+          "chapter": 8,
+          "title": "Harvey Evidence",
+          "caption": "Compare Harvey’s 1628 conservative lower-bound calculation (top left), our chosen modern metric illustration (top right), and his Chapter XIII forearm vein-valve experiment (below)."
+        },
+        {
+          "id": "c8_double_circulation",
+          "chapter": 8,
+          "title": "Double Circulation",
+          "caption": "Trace the complete mammalian double circulation (left) and compare it with a fish’s single circulation (right). Note the named organ vessels required by 0610: pulmonary artery and vein, aorta, vena cava, hepatic artery, hepatic portal vein, hepatic vein, and renal artery and vein."
+        },
+        {
+          "id": "c8_heart_cutaway",
+          "chapter": 8,
+          "title": "Heart Cutaway",
+          "caption": "Follow the four chambers, septum, atrioventricular (tricuspid and bicuspid/mitral) valves, semilunar valves and coronary arteries on the heart’s outer surface. Anatomical right is on the viewer’s left."
+        },
+        {
+          "id": "c8_vessel_comparison",
+          "chapter": 8,
+          "title": "Vessel Comparison",
+          "caption": "Compare the cross-sections of an artery, capillary and vein (top, drawn at stated separate enlargements) and trace total cross-sectional area A(total), blood pressure P and linear flow velocity v across the systemic tree (bottom)."
+        },
+        {
+          "id": "c8_capillary_bed_blood",
+          "chapter": 8,
+          "title": "Capillary Bed Blood",
+          "caption": "Follow net fluid filtration, molecular diffusion and lymphatic return (top), alongside enlarged views of red blood cells, neutrophils (lobed nucleus), lymphocytes (large round nucleus), platelets and the fibrinogen-to-fibrin clotting mesh (bottom)."
+        },
+        {
+          "id": "c8_septal_defect_case",
+          "chapter": 8,
+          "title": "Septal Defect Case",
+          "caption": "Compare an intact ventricular septum (left) with an uncomplicated post-natal ventricular septal defect (right). Because left ventricular systolic pressure (~115–120 mmHg) is much higher than right ventricular pressure (~25–35 mmHg), oxygenated blood jets left-to-right into the right ventricle and recycles through the lungs."
+        }
       ]
     },
     {
@@ -2047,6 +3019,127 @@
         "reflex_action_potential",
         "synapse_transmission",
         "eye_accommodation_tropism"
+      ],
+      "comics": [
+        {
+          "id": "ch09-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Hot Steel Tawa Reflex",
+          "dateline": "Mumbai Kitchen & Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch09-opener-p1",
+              "panelNumber": 1,
+              "caption": "In a Mumbai kitchen, Dash's fingertips brush the rim of a hot iron tawa and his biceps jerk his hand back before he even shouts \"Ow.\"",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "My brain must have seen my fingers touch the pan, thought about the burn, and sent electrons racing down a copper-like nerve wire to my arm."
+            },
+            {
+              "id": "ch09-opener-p2",
+              "panelNumber": 2,
+              "caption": "On the Malabar Hill workbench, Kym and Dr. Zeta trace the three-neurone spinal reflex arc on the 3D stage while Clara points out the 20 nm synaptic gap where electrical impulses stop and chemical vesicles take over.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Your spinal cord pulled your arm back before your conscious brain even got the memo, Dash—and not a single free electron flowed down your nerve."
+            }
+          ]
+        },
+        {
+          "id": "ch09-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Chemical Cleft, the Elastic Lens & the Next Thermostat",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch09-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D stage shows blue neurotransmitter molecules diffusing across the 20 nm synaptic cleft to unlock sodium channels on the postsynaptic membrane, beside a cutaway eye whose contracting ciliary ring slackens the suspensory ligaments so the lens bulges thick.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Chemical diffusion across the cleft locks the direction; ring contraction in the ciliary body slackens the cables so the elastic lens rounds up."
+            },
+            {
+              "id": "ch09-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash draws auxin molecules getting \"burned up by sunlight\" on the sunny side of a canary-grass shoot; Clara places Frits Went's 1926 split agar block right underneath the tip.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—Went measured the total auxin collected from lit versus dark tips and proved light does not destroy auxin; auxin is transported laterally to the shaded side, where it stimulates faster cell elongation."
+            },
+            {
+              "id": "ch09-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym steps out onto the sunlit balcony at 38 °C as sweat beads form on her forehead and her pancreas quietly adjusts insulin secretion after lunch.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Nerves and hormones give the body wires and couriers. How does the brain-and-organ orchestra use them to hold core temperature at 37.0 °C and blood glucose steady through a Mumbai summer?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c9_nerves_vs_hormones",
+          "chapter": 9,
+          "title": "Nerves Vs Hormones",
+          "caption": "Point-to-point nervous wiring versus blood-borne hormonal broadcast (0610 14.1, 14.3). The nervous system routes electrical impulses along specific neurones from the CNS (brain and spinal cord) via the PNS to a single effector; endocrine glands release hormones into blood plasma so any target organ with complementary receptor proteins responds."
+        },
+        {
+          "id": "c9_neurone_types_reflex",
+          "chapter": 9,
+          "title": "Neurone Types Reflex",
+          "caption": "Identifying sensory, relay and motor neurones (top, 0610 14.1.4) and the complete spinal withdrawal reflex arc (bottom, 0610 14.1.5–14.1.6). Notice the sensory neurone's cell body on a side branch, the relay neurone wholly inside the spinal cord grey matter, and the motor neurone's myelinated axon running to the effector muscle."
+        },
+        {
+          "id": "c9_action_potential_wave",
+          "chapter": 9,
+          "title": "Action Potential Wave",
+          "caption": "Why an axon is not a copper wire (top left), the action potential trace (top right), and Obaid Siddiqi and Seymour Benzer's 1976 temperature-sensitive para^ts Drosophila test (bottom)."
+        },
+        {
+          "id": "c9_synapse_relay",
+          "chapter": 9,
+          "title": "Synapse Relay",
+          "caption": "Structure and four-step sequence of a chemical synapse (top, 0610 14.1.8–14.1.9) and the forward direction of this excitatory relay alongside Otto Loewi's 1921 two-heart proof (bottom, 14.1.10)."
+        },
+        {
+          "id": "c9_pathway_latency_budget",
+          "chapter": 9,
+          "title": "Pathway Latency Budget",
+          "caption": "Compare the routes and kinds of delay. The ruler example is a free-fall calculation; the pathway explorer uses chosen parameters, not measured universal biological times."
+        },
+        {
+          "id": "c9_eye_anatomy_receptors",
+          "chapter": 9,
+          "title": "Eye Anatomy Receptors",
+          "caption": "Cross-section of the human eye (top, 0610 14.2.2–14.2.3) and comparison of rods and cones across the retina (bottom, 14.2.7–14.2.9)."
+        },
+        {
+          "id": "c9_pupil_and_accommodation",
+          "chapter": 9,
+          "title": "Pupil And Accommodation",
+          "caption": "Antagonistic circular and radial iris muscles in the pupil reflex (top, 0610 14.2.5) and the sphincter-ring mechanics of ciliary muscles, suspensory ligaments and lens curvature during near and distant accommodation (bottom, 14.2.6)."
+        },
+        {
+          "id": "c9_plant_tropisms_auxin",
+          "chapter": 9,
+          "title": "Plant Tropisms Auxin",
+          "caption": "Coleoptile evidence from Darwin (1880), Boysen-Jensen (1913) and Went (1926) (top) and the four-step Cambridge 0610 Supplement mechanism of auxin in shoot phototropism and shoot/root gravitropism (bottom, 14.5.1–14.5.5)."
+        },
+        {
+          "id": "c9_tetrodotoxin_case",
+          "chapter": 9,
+          "title": "Tetrodotoxin Case",
+          "caption": "Case 9 comparison: normal voltage-gated sodium channel opening and action-potential propagation (left) versus tetrodotoxin (TTX) plugging the outer mouth of the sodium pore while leaving resting potassium channels and synaptic receptors intact (right, Narahashi, Moore & Scott 1964)."
+        }
       ]
     },
     {
@@ -2270,6 +3363,127 @@
         "glucose_thermoregulation",
         "nephron_filtration",
         "immunity_vaccine_memory"
+      ],
+      "comics": [
+        {
+          "id": "ch10-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The May Heatwave & the Fixed Capillary Myth",
+          "dateline": "Dadar Station & Malabar Hill, Mumbai",
+          "panels": [
+            {
+              "id": "ch10-opener-p1",
+              "panelNumber": 1,
+              "caption": "Outside Dadar station on a 38 °C afternoon in May, Dash wipes his flushed forehead and tells Director Barnaby that his blood capillaries have \"swum up to the top of his skin\" to dump heat.",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "Look how red my skin is, Kym. My capillaries must have crawled up to the epidermis so the heat can escape."
+            },
+            {
+              "id": "ch10-opener-p2",
+              "panelNumber": 2,
+              "caption": "Back at the Malabar Hill workbench, Kym and Master Bento turn the 3D skin arteriole valve while Clara points to the fixed capillary loops and the 2,420 J/g evaporative cooling meter.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Capillaries are anchored in the dermis and have zero muscle in their walls, Dash. Your arterioles widened to flood those fixed surface loops with warm blood, while evaporating sweat carries away latent heat."
+            }
+          ]
+        },
+        {
+          "id": "ch10-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Shunt Valve, the Memory Clone & the Master Code",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch10-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D stage shows the skin arteriole widening to send warm blood through fixed surface capillary loops beside a B lymphocyte locking onto a complementary viral antigen and dividing into antibody-printing plasma cells and long-lived memory cells.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Negative feedback holds the internal environment steady; complementary 3D antibodies and memory cells guard its borders."
+            },
+            {
+              "id": "ch10-closer-p2",
+              "panelNumber": 2,
+              "caption": "Director Barnaby points at a bottle of snake antivenom serum and claims one injection will give him lifelong immunity; Clara shakes her head.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Barnaby—injected ready-made antibodies give immediate passive immunity, which saves your life today, but because your own lymphocytes never activated, zero memory cells were formed and the borrowed protein is cleared within weeks."
+            },
+            {
+              "id": "ch10-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym inspects the Y-shaped antibody protein alongside the insulin hormone and the Na⁺/K⁺ pump on the workbench.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Every enzyme, hormone, pump, and antibody in Chapters 1 to 10 is a folded protein. How does a four-letter chemical script inside the nucleus tell ribosomes the exact amino-acid order for twenty thousand different proteins?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c10_negative_feedback_glucose",
+          "chapter": 10,
+          "title": "Negative Feedback Glucose",
+          "caption": "The figure-of-eight negative-feedback loop that holds blood plasma glucose near its 5.0 mmol/L (4.0–5.5 mmol/L) set point. Top loop: when a meal raises blood glucose, pancreatic beta cells secrete insulin so liver and muscle cells take up glucose and convert it into stored glycogen. Bottom loop: when fasting or exercise lowers blood glucose, pancreatic alpha cells secrete glucagon so liver cells break down glycogen back into glucose."
+        },
+        {
+          "id": "c10_skin_thermoregulation",
+          "chapter": 10,
+          "title": "Skin Thermoregulation",
+          "caption": "Mammalian skin structure and negative-feedback thermoregulation coordinated by the brain (hypothalamus) around a 37.0 °C set point. Left: when core temperature rises above 37.0 °C, arterioles supplying skin surface capillaries vasodilate so more warm blood flows near the surface, sweat glands secrete sweat whose evaporation absorbs latent heat (2,420 J/g), and hair erector muscles relax. Right: when core temperature falls below 37.0 °C, skin arterioles vasoconstrict, sweating stops, hair erector muscles contract to stand hairs upright, and skeletal muscles shiver."
+        },
+        {
+          "id": "c10_mumbai_heat_balance",
+          "chapter": 10,
+          "title": "Mumbai Heat Balance",
+          "caption": "Quantitative thermal energy ledger comparing a walker (180 W metabolic heat) in a cool 22 °C room, in 38 °C dry inland air (20% relative humidity), and in 38 °C humid coastal air (80% relative humidity), above an illustrative heat-damage curve; proteins and tissues differ in temperature sensitivity."
+        },
+        {
+          "id": "c10_liver_excretion_urea",
+          "chapter": 10,
+          "title": "Liver Excretion Urea",
+          "caption": "Left: inside the liver, needed amino acids from the hepatic portal vein are assimilated into proteins (albumin, fibrinogen), while excess amino acids undergo deamination—removing the nitrogen-containing amino part (−NH₂) to form ammonia and then urea, which enters the hepatic vein to travel to the kidneys. Right: the human urinary system (renal arteries, kidneys with outer cortex and inner medulla, renal veins, ureters, urinary bladder, sphincter and urethra) above the Excretion vs Egestion ledger."
+        },
+        {
+          "id": "c10_kidney_nephron_ledger",
+          "chapter": 10,
+          "title": "Kidney Nephron Ledger",
+          "caption": "Structure and two-stage function of a kidney nephron across the cortex and medulla (top), paired with the quantitative daily concentration and mass-balance ledger (bottom) showing why protein values are rounded model entries, glucose recovery is nearly complete at ordinary loads, and urea is concentrated ~67-fold in final urine."
+        },
+        {
+          "id": "c10_pathogens_barriers_cholera",
+          "chapter": 10,
+          "title": "Pathogens Barriers Cholera",
+          "caption": "Top and middle: direct vs indirect pathogen transmission, the five community hygiene defences (clean water supply, hygienic food preparation, personal hygiene, waste disposal, sewage treatment), and the body's mechanical barriers (skin, hairs in the nose) and chemical barriers (mucus, stomach acid). Bottom: how cholera toxin causes chloride ion secretion and osmotic water loss into the small intestine, and how Oral Rehydration Solution (water + measured salt and glucose) reverses that flow."
+        },
+        {
+          "id": "c10_immune_response_vaccines",
+          "chapter": 10,
+          "title": "Immune Response Vaccines",
+          "caption": "Top: division of labour between phagocytes (phagocytosis) and lymphocytes (secreting protein antibodies with a complementary shape to a pathogen's specific antigen, leading to direct destruction or marking for phagocytes). Bottom: how vaccination works—1st exposure (vaccine) produces a slow, modest primary antibody response and builds memory cells; 2nd exposure to the live pathogen can trigger a faster, larger secondary antibody response. The graph uses illustrative antibody units; its threshold does not guarantee protection in every person."
+        },
+        {
+          "id": "c10_active_vs_passive_immunity",
+          "chapter": 10,
+          "title": "Active Vs Passive Immunity",
+          "caption": "Comparison of Active Immunity (catching an infection or receiving a vaccine: host lymphocytes are stimulated by antigens to make antibodies and long-lived memory cells) versus Passive Immunity (antibodies across the placenta, in breast milk, or by injection: immediate protection, no memory generated by antibody transfer itself, and short-term duration as borrowed antibodies decay)."
+        },
+        {
+          "id": "c10_diabetes_renal_case",
+          "chapter": 10,
+          "title": "Diabetes Renal Case",
+          "caption": "A fictional rate ledger at an assumed adult GFR. Glucose normally filters; finite reabsorptive capacity can leave glucose in urine. Negative protein testing does not prove perfect kidney health."
+        }
       ]
     },
     {
@@ -2463,6 +3677,127 @@
         "dna_base_pairing",
         "codon_cipher_khorana",
         "transcription_translation_ribosome"
+      ],
+      "comics": [
+        {
+          "id": "ch11-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Four-Letter Telegraph",
+          "dateline": "Malabar Hill Atelier, Mumbai & Cambridge, 1953",
+          "panels": [
+            {
+              "id": "ch11-opener-p1",
+              "panelNumber": 1,
+              "caption": "Director Barnaby stares at four jars of DNA bases (A, T, C, G) on the Malabar Hill workbench and declares that a four-letter alphabet is far too small to spell twenty different amino acids.",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "What if?",
+              "speech": "Four letters can only name four amino acids, Kym—or sixteen if you pair them up (4² = 16). You are four amino acids short of a protein."
+            },
+            {
+              "id": "ch11-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym, Clara, and Master Bento lay out Har Gobind Khorana's synthetic RNA triplet cards (4³ = 64 codons) beside Rosalind Franklin's Photo 51 X-cross and a 3D ribosome model.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Read them in three-letter codons, Barnaby: 4 × 4 × 4 = 64 words—plenty to specify all twenty amino acids plus start and stop punctuation."
+            }
+          ]
+        },
+        {
+          "id": "ch11-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Photo 51 Helix, the Ribosome Tape & the Dividing Cell",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch11-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D stage shows the 2.0 nm DNA double helix unzipping in the nucleus to transcribe a red mRNA ribbon, which threads through a cytoplasmic ribosome as tRNA adaptors lock onto three-base codons and stitch a folding polypeptide chain.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Base sequence sets codon sequence; codon sequence sets amino-acid sequence; amino-acid sequence sets the 3D fold."
+            },
+            {
+              "id": "ch11-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash writes \"A pairs with U in the DNA double helix\" on his notepad, and Clara circles the letter U with her green pen.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—DNA contains Thymine (T), so inside the DNA double helix A always pairs with T. Uracil (U) replaces Thymine only in RNA (extmRNA and exttRNA)."
+            },
+            {
+              "id": "ch11-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym zooms back out to a single fertilised human zygote containing 46 DNA chromosomes preparing to divide into two cells, then four, then thirty trillion.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "If every cell in your body needs a complete copy of all 46 chromosomes—except sperm and egg cells, which must have exactly half (23)—how does a cell copy and deal out its DNA deck without losing a single card?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c11_avery_dna_genes",
+          "chapter": 11,
+          "title": "Avery Dna Genes",
+          "caption": "Top: Avery, MacLeod and McCarty's (1944) enzymatic elimination ledger proving that destroying DNA (with DNase)—and not destroying protein or RNA—abolishes hereditary transformation. Middle: the five-step scale hierarchy from a eukaryotic cell (~20 µm) and its nucleus (~6 µm) down through a chromosome and a single gene to the 2.0 nm DNA double helix. Bottom: the four-step kitchen biochemistry of spooling visible white DNA fibres from mashed banana cells."
+        },
+        {
+          "id": "c11_photo51_double_helix",
+          "chapter": 11,
+          "title": "Photo51 Double Helix",
+          "caption": "Left: Rosalind Franklin and Raymond Gosling's Photo 51 (May 1952) hydrated B-DNA X-ray diffraction pattern showing the helical X-cross, 3.4 nm turn pitch, 0.34 nm base step (10 base pairs per turn), missing 4th layer line, and 2.0 nm diameter. Centre: Erwin Chargaff's (1950) species base-ratio ledger showing %A ≈ %T and %G ≈ %C across organisms. Right: Watson and Crick's (1953) antiparallel double-helix ladder with two-hydrogen-bond A=T rungs and three-hydrogen-bond C≡G rungs inside a helix with approximately 2.0 nm overall diameter."
+        },
+        {
+          "id": "c11_triplet_code_khorana",
+          "chapter": 11,
+          "title": "Triplet Code Khorana",
+          "caption": "Top-left: combinatorial arithmetic showing why 4 bases require 3-letter triplet codons (4³ = 64) to encode 20 amino acids. Top-right: Crick and Brenner's (1961) phage T4 frameshift proof showing why +1 and +2 insertions scramble the reading frame while +3 restores it. Bottom: Marshall Nirenberg's homopolymer poly-U (UUU → Phe) and Har Gobind Khorana's synthetic repeating copolymers ((UC)ₙ → Ser–Leu, (UG)ₙ → Cys–Val, and UAG amber stop codons)."
+        },
+        {
+          "id": "c11_transcription_translation",
+          "chapter": 11,
+          "title": "Transcription Translation",
+          "caption": "The six-step Cambridge IGCSE 0610 (17.1 Supplement) pathway of protein synthesis. Left (Nucleus): Step 1—the DNA gene remains inside the nucleus; Step 2—a single-stranded mRNA copy of the gene is made (with Uracil U in place of Thymine T). Middle (Nuclear pore): Step 3—the mRNA molecule moves from the nucleus into the cytoplasm. Right (Cytoplasm): Step 4—the mRNA passes through a ribosome one triplet codon at a time; Step 5—the ribosome assembles amino acids into a protein molecule; Step 6—the specific sequence of amino acids is determined by the sequence of bases in the mRNA."
+        },
+        {
+          "id": "c11_sequence_to_3d_machines",
+          "chapter": 11,
+          "title": "Sequence To 3D Machines",
+          "caption": "How DNA controls cell function (0610 17.1 Supplement 4): the sequence of bases in a DNA gene sets the mRNA codon sequence, which sets the amino-acid sequence, which folds via Ramachandran backbone constraints into four essential families of 3D protein machines—(A) Enzymes, (B) Membrane carriers and channels, (C) Receptors for neurotransmitters and hormones, and (D) Antibodies and oxygen carriers."
+        },
+        {
+          "id": "c11_dna_vs_mrna_ledger",
+          "chapter": 11,
+          "title": "Dna Vs Mrna Ledger",
+          "caption": "Side-by-side comparison of double-stranded chromosomal DNA (the permanent master archive that stays inside the nucleus and uses bases A, T, C, G) and single-stranded messenger RNA (mRNA, the short working copy of a single gene that uses Uracil U in place of Thymine T and travels from the nucleus through nuclear pores to pass through cytoplasmic ribosomes)."
+        },
+        {
+          "id": "c11_beta_globin_mutation",
+          "chapter": 11,
+          "title": "Beta Globin Mutation",
+          "caption": "Vernon Ingram's (1956–1957) discovery in human beta-globin (HBB codons 1–7). Top (Normal HbA): Codon 6 is GAG in coding DNA and GAG in mRNA, placing hydrophilic, negatively charged glutamic acid (Glu⁶) on the protein exterior so HbA tetramers stay separate and red blood cells stay flexible biconcave discs. Bottom (Sickle-cell HbS): a single A → T base substitution changes Codon 6 to GTG (mRNA GUG), replacing Glu⁶ with hydrophobic valine (Val⁶) and creating a sticky surface patch that polymerises deoxygenated HbS into rigid fibres."
+        },
+        {
+          "id": "c11_mutation_outcomes_comparison",
+          "chapter": 11,
+          "title": "Mutation Outcomes Comparison",
+          "caption": "Three single-base substitutions in human beta-globin and their three distinct protein outcomes. Left (A — Silent / Synonymous): Codon 3 CTG → CTT (mRNA CUG → CUU) still codes for Leucine (Leu³) because the 64-codon code is degenerate, producing same beta-globin sequence. Centre (B — Missense): Codon 6 GAG → GTG (mRNA GAG → GUG) replaces hydrophilic Glu⁶ with hydrophobic Val⁶, creating sticky HbS. Right (C — Nonsense / Stop): Codon 39 CAG → TAG (mRNA CAG → UAG Stop) halts the ribosome early, releasing a truncated, non-functional fragment."
+        },
+        {
+          "id": "c11_leucine_silent_case",
+          "chapter": 11,
+          "title": "Leucine Silent Case",
+          "caption": "Diagnostic synthesis for Case 11 comparing the Reference human beta-globin (HBB) sequence for Codons 1–7 against Child X (single-base change at Codon 3: CTG → CTT, mRNA CUG → CUU, silent Leucine substitution producing usual beta-globin sequence) and Child Y (single-base change at Codon 6: GAG → GTG, mRNA GAG → GUG, missense Glu⁶ → Val⁶ substitution producing sticky deoxygenated HbS)."
+        }
       ]
     },
     {
@@ -2662,6 +3997,127 @@
         "dna_replication_meselson",
         "mitosis_meiosis_stepper",
         "stem_cell_expression_lab"
+      ],
+      "comics": [
+        {
+          "id": "ch12-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Halving Paradox & the Seedless Banana",
+          "dateline": "Coimbatore, 1934 & Malabar Hill, Mumbai",
+          "panels": [
+            {
+              "id": "ch12-opener-p1",
+              "panelNumber": 1,
+              "caption": "Dash slices a ripe Mumbai elaichi and Cavendish banana on the Malabar Hill workbench and notices there are no hard black seeds inside—only tiny dark specks.",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "If every plant needs seeds to make the next generation, how have farmers grown identical Cavendish bananas for a century—and why did a single soil fungus nearly wipe out the world's banana plantations?"
+            },
+            {
+              "id": "ch12-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym and Clara place E. K. Janaki Ammal's Coimbatore chromosome squash drawings beside Master Bento's 3D mitosis-versus-meiosis stepper (2n = 46 → 2n = 46 vs 2n = 46 → n = 23).",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Cloned shoots divide by mitosis, Dash—copying the exact same genotype into every plant—whereas sexual reproduction uses meiosis to halve chromosomes into haploid gametes and shuffle new variation."
+            }
+          ]
+        },
+        {
+          "id": "ch12-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Hybrid Density Band, the Separating Chromatids & the Monk's Pea Patch",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch12-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D stage steps from Meselson and Stahl's single hybrid ¹⁵N/¹⁴N ultracentrifuge band into mitotic anaphase (where identical sister chromatids pull to opposite poles to preserve 2n = 46) and meiotic reduction division (2n = 46 → n = 23).",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Replicate before mitosis to keep the count constant; halve during meiosis so fertilisation restores 2n without doubling chromosomes every generation."
+            },
+            {
+              "id": "ch12-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash points at a field of genetically identical cloned Cavendish banana plants and says asexual reproduction is always better for farmers because it is fast; Clara holds up a leaf wilted by Tropical Race 4 (Fusarium) fungus.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—uniform clones are a commercial triumph until one new pathogen arrives: with zero genetic variation across the monoculture, every plant in the plantation shares the exact same vulnerability."
+            },
+            {
+              "id": "ch12-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym picks up two haploid gametes—one carrying allele R for round peas and one carrying allele r for wrinkled peas—and drops them into a 2 × 2 brass Punnett grid.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Meiosis puts one allele into each gamete, and fertilisation pairs two gametes at random. How did an Austrian monk counting 19,959 pea seeds use that simple rule to predict inheritance before anyone knew what DNA was?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c12_meselson_stahl_replication",
+          "chapter": 12,
+          "title": "Meselson Stahl Replication",
+          "caption": "Left: At a nuclear replication fork, DNA helicase breaks complementary hydrogen bonds (A=T with 2 H-bonds, C≡G with 3 H-bonds) while DNA polymerase builds a new ¹⁴N strand (green/teal) against each parental ¹⁵N template strand (coral) with ~10⁻⁹ proofreading fidelity across ~40,000 origins. Right: In Matthew Meselson and Franklin Stahl's 1958 CsCl density-gradient tubes at 140,000 × g, Generation 1 forms a single 100% hybrid band (1.717 g/cm³), eliminating conservative replication, and Generation 2 splits into 50% hybrid (1.717 g/cm³) and 50% light (1.710 g/cm³), eliminating dispersive replication."
+        },
+        {
+          "id": "c12_chromosome_chromatid_ledger",
+          "chapter": 12,
+          "title": "Chromosome Chromatid Ledger",
+          "caption": "Chromosome versus sister chromatid accounting across S-phase replication and mitosis. Step 1 (G₁ before replication): 1 chromosome has 1 centromere and 1 DNA double helix (human somatic cell: 46 chromosomes, 46 DNA helices, mass 2C). Step 2 (G₂ after S-phase replication): each chromosome consists of 2 identical sister chromatids linked near their paired centromeres (still 46 chromosomes, now 92 chromatids / DNA helices, mass 4C). Step 3 (Mitotic separation): links between sisters are released so each chromatid becomes an independent daughter chromosome (46 chromosomes and 46 DNA helices in each of the 2 daughter nuclei)."
+        },
+        {
+          "id": "c12_mitosis_cycle_roles",
+          "chapter": 12,
+          "title": "Mitosis Cycle Roles",
+          "caption": "Top: The four-step mitotic division sequence first traced by Walther Flemming (1882), showing interphase S-phase replication (46 chromosomes → 92 sister chromatids), equatorial alignment, spindle separation of sister chromatids, and formation of 2 genetically identical diploid daughter cells (2n = 46 maintained). Bottom: The four biological roles of mitosis required by Cambridge IGCSE 0610 Topic 17.2.2—Growth, Repair of damaged tissues, Replacement of worn-out cells, and Asexual reproduction."
+        },
+        {
+          "id": "c12_asexual_vs_sexual_crops",
+          "chapter": 12,
+          "title": "Asexual Vs Sexual Crops",
+          "caption": "Comparative ledger of asexual reproduction by mitosis (left, 0610 Topic 16.1) versus sexual reproduction by meiosis and gamete fusion (right, 0610 Topic 16.2), contrasting mechanisms, examples, advantages, and disadvantages in wild populations and agricultural crop production."
+        },
+        {
+          "id": "c12_stem_cells_gene_expression",
+          "chapter": 12,
+          "title": "Stem Cells Gene Expression",
+          "caption": "Top: The three main sources of stem cells (0610 Topic 17.2.5)—embryonic stem cells, adult tissue stem cells (such as bone marrow and gut crypts), and plant apical meristems—all dividing by mitosis to self-renew and produce cells that specialise. Bottom: Selective gene expression switchboard (0610 Topic 17.1.6) across a pancreatic beta cell, a bone-marrow erythroblast, and a spinal motor neurone, showing how all three cells retain 2n = 46 chromosomes in the model, with the representative genes present and express housekeeping genes (ATP5F1A) alongside different specialist combinations including INS, HBB, or CHAT."
+        },
+        {
+          "id": "c12_gurdon_yamanaka_proof",
+          "chapter": 12,
+          "title": "Gurdon Yamanaka Proof",
+          "caption": "Experimental proof that specialisation is selective gene bookmarking rather than gene deletion. Left: John Gurdon (Oxford, 1962) transplanted a diploid nucleus from a differentiated Xenopus tadpole intestinal cell into a UV-enucleated frog egg, producing a normal swimming tadpole and fertile frog. Right: Shinya Yamanaka (Kyoto, 2006) introduced four master transcription factors (Oct4, Sox2, Klf4, c-Myc) into adult skin fibroblasts, rewinding them into induced pluripotent stem cells (iPSCs) able to form heart, nerve, or pancreatic beta cells."
+        },
+        {
+          "id": "c12_diploid_haploid_meiosis",
+          "chapter": 12,
+          "title": "Diploid Haploid Meiosis",
+          "caption": "Top: The human sexual chromosome cycle (0610 Topics 17.3 & 16.2), tracing a diploid germ cell (2n = 46, 23 homologous pairs) through S-phase replication (92 chromatids) and Meiosis I & II reduction division into 4 haploid products (sperm model) (n = 23), followed by fertilisation (fusion of gamete nuclei, 23 + 23 = 46) to restore the diploid zygote (2n = 46). Bottom: August Weismann's arithmetic proof showing why making gametes by mitosis would cause runaway chromosome doubling (46 → 92 → 184 → 47,104 by Generation 10)."
+        },
+        {
+          "id": "c12_mitosis_vs_meiosis_ledger",
+          "chapter": 12,
+          "title": "Mitosis Vs Meiosis Ledger",
+          "caption": "Master side-by-side comparison ledger of Mitosis (left, conservation division, 0610 Topic 17.2) versus Meiosis (right, reduction division, 0610 Topic 17.3) across all seven syllabus dimensions: site in the organism, pre-division S-phase DNA replication, number of nuclear divisions (1 vs 2), number of daughter cells (2 vs 4), ploidy and human chromosome count (2n = 46 → 2n = 46 vs 2n = 46 → n = 23), genetic identity of products, and biological roles."
+        },
+        {
+          "id": "c12_triploid_banana_case",
+          "chapter": 12,
+          "title": "Triploid Banana Case",
+          "caption": "Diagnostic synthesis for Case 12 comparing wild ancestral diploid bananas (Musa acuminata, 2n = 22, 11 homologous pairs → balanced 11 + 11 meiosis → hard fertile seeds and high genetic diversity against TR4), commercial triploid Cavendish bananas (3n = 33, 11 homologous triplets → uneven 2-vs-1 Meiosis I traffic jam → sterile seedless fruit propagated only by mitotic suckers and meristem tissue culture, creating 100% clonal vulnerability to Panama disease TR4), and E. K. Janaki Ammal's Coimbatore sugarcane crosses (combining meiotic hybridisation with mitotic stem-cutting propagation)."
+        }
       ]
     },
     {
@@ -2849,6 +4305,127 @@
         "mendel_punnett_simulator",
         "abo_codominance_pedigree",
         "sex_linked_cross_lab"
+      ],
+      "comics": [
+        {
+          "id": "ch13-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Paint-Pot Fallacy",
+          "dateline": "Brno Monastery, 1865 & Malabar Hill Atelier, Mumbai",
+          "panels": [
+            {
+              "id": "ch13-opener-p1",
+              "panelNumber": 1,
+              "caption": "Director Barnaby mixes a jar of purple paint with a jar of white paint on the Malabar Hill workbench, producing pale lilac, and claims child traits work the exact same way.",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "What if?",
+              "speech": "Inheritance is just blending paint, Kym: cross a purple-flowered pea with a white-flowered pea and the white trait is diluted forever."
+            },
+            {
+              "id": "ch13-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym and Master Bento open Gregor Mendel's F₂ pea pods on the teak table: beside three deep-purple flowers sits a snow-white flower, completely unblemished after hiding for a generation.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Genes are discrete DNA cards, Barnaby, not liquid paint. The recessive b allele rode silently through the Bb hybrid and reappeared intact when two (b) gametes met."
+            }
+          ]
+        },
+        {
+          "id": "ch13-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Unblended Pea, the Bare Y Chromosome & the Selection Filter",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch13-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D Punnett brass matrix sorts (R)/(r) pea gametes into 1 RR : 2 Rr : 1 rr, beside an Xᴮ Xᵇ × Xᴮ Y chromosome grid showing the short bare Y chromosome leaving a single Xᵇ unmasked in 50% of sons.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Discrete alleles segregate cleanly at meiosis; chromosome symmetry explains why autosomal traits ignore sex while X-linked traits strike hemizygous males."
+            },
+            {
+              "id": "ch13-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash looks at a pedigree where two unaffected parents have a daughter with cystic fibrosis (aa) and guesses the allele must be X-linked; Clara points to the unaffected father (Xᴬ Y).",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—if a recessive condition is X-linked (X^a X^a), an affected daughter must inherit one X^a from her father, so her father must be affected (X^a Y). An affected daughter born to an unaffected father proves the recessive gene is autosomal (Aa × Aa → aa)."
+            },
+            {
+              "id": "ch13-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym picks up a blood-smear slide from central India showing heterozygous sickle-cell trait (Hbᴬ Hbˢ) red blood cells resisting Plasmodium falciparum malaria parasites.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Mendel showed how existing alleles pass from parents to offspring. Where do brand-new alleles come from in the first place—and why does a dangerous allele like Hbˢ become common in malaria zones?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c13_mendel_peas_ratios",
+          "chapter": 13,
+          "title": "Mendel Peas Ratios",
+          "caption": "Johann Gregor Mendel's 1866 Brno garden-pea breeding sequence (P, F₁, F₂, and F₃ generations) alongside the complete seven-character F₂ ledger (14,949 dominant : 5,010 recessive = 2.98 : 1 across 19,959 outcomes), demonstrating why discrete particulate inheritance defeated the paint-pot blending hypothesis."
+        },
+        {
+          "id": "c13_homologous_loci_alleles",
+          "chapter": 13,
+          "title": "Homologous Loci Alleles",
+          "caption": "Maternal and paternal homologous chromosomes in a diploid (2n) cell showing matching gene loci (Homozygous dominant RR, Heterozygous Bb, Homozygous recessive tt), paired with the molecular mechanism of dominance at the pea seed-shape locus (Starch-Branching Enzyme I: two working R copies in RR and one sufficient working R copy in Rr both yield round seeds, whereas loss of functional SBEI in rr causes sucrose accumulation, osmotic water uptake, and wrinkled drying seeds)."
+        },
+        {
+          "id": "c13_punnett_test_cross_ledger",
+          "chapter": 13,
+          "title": "Punnett Test Cross Ledger",
+          "caption": "Side-by-side Cambridge six-line genetic diagrams comparing the monohybrid F₁ self-cross (Bb × Bb → 1 BB : 2 Bb : 1 bb genotypes and 3 Purple : 1 White phenotypes) with the diagnostic test cross (Bb × bb → 1 Bb : 1 bb = 1 : 1 ratio, versus BB × bb → 100% Bb)."
+        },
+        {
+          "id": "c13_pedigree_detective_rules",
+          "chapter": 13,
+          "title": "Pedigree Detective Rules",
+          "caption": "Standard pedigree chart symbols and side-by-side deductions under a single-gene, fully expressed, no-new-mutation model for Rule 1 (two unaffected carrier parents Aa × Aa producing an affected child aa proves the condition is autosomal recessive) and Rule 2 (two affected heterozygous parents Aa × Aa producing an unaffected child aa proves the condition is autosomal dominant), with a clinical note on L. D. Sanghvi's carrier screening in Mumbai."
+        },
+        {
+          "id": "c13_codominance_abo_blood",
+          "chapter": 13,
+          "title": "Codominance Abo Blood",
+          "caption": "Molecular action of the three ABO alleles (Iᴬ, Iᴮ, Iᴼ) on Chromosome 9, the complete table mapping all six diploid genotypes to the four blood groups and plasma antibodies, and the 2 × 2 Punnett square for IᴬIᴼ × IᴮIᴼ producing all four blood groups (25% AB, 25% A, 25% B, 25% O)."
+        },
+        {
+          "id": "c13_dominance_vs_codominance",
+          "chapter": 13,
+          "title": "Dominance Vs Codominance",
+          "caption": "Side-by-side comparison of Simple Dominance (Rr × Rr → 1 : 2 : 1 genotype ratio collapses into a 3 : 1 phenotype ratio because Rr and RR look identical) versus Codominance (IᴬIᴮ × IᴬIᴮ or CᴿCᵂ × CᴿCᵂ → 1 : 2 : 1 phenotype ratio directly mirrors the 1 : 2 : 1 genotype ratio because the heterozygote expresses both alleles simultaneously without blending)."
+        },
+        {
+          "id": "c13_xx_xy_sex_determination",
+          "chapter": 13,
+          "title": "Xx Xy Sex Determination",
+          "caption": "Comparison of the human X chromosome (~156 Mb, ~850–900 protein-coding genes) and Y chromosome (~57 Mb, <100 protein-coding genes including SRY), alongside the whole-chromosome 2 × 2 Punnett square (XX × XY → 50% XX female : 50% XY male = 1 : 1 ratio) and Nettie Stevens's 1905 discovery."
+        },
+        {
+          "id": "c13_x_linked_inheritance",
+          "chapter": 13,
+          "title": "X Linked Inheritance",
+          "caption": "Side-by-side X-linked recessive Punnett squares comparing Cross A (Carrier Mother XᴮXᵇ × Normal Father XᴮY → 0% affected daughters, 50% carrier daughters, 50% normal sons, 50% affected sons = 25% of all children) with Cross B (Homozygous Normal Mother XᴮXᴮ × Affected Father XᵇY → 100% carrier daughters XᴮXᵇ and 100% normal sons XᴮY, demonstrating 0% father-to-son X transmission)."
+        },
+        {
+          "id": "c13_mumbai_maternity_case",
+          "chapter": 13,
+          "title": "Mumbai Maternity Case",
+          "caption": "Forensic synthesis plate for Case 13 resolving (Left) the Mumbai maternity ward ABO bracelet swap (Couple 1 IᴬIᴮ × IᴼIᴼ can only produce Group A or Group B children, proving Group O Baby 1 belongs to Couple 2 IᴬIᴼ × IᴮIᴼ and Group A Baby 2 belongs to Couple 1) and (Right) the X-linked clinic pedigree (showing why two normal-vision parents XᴮXᵇ × XᴮY have a 50% chance among sons—25% of all children—of an affected son XᵇY and how the allele passed from the affected maternal grandfather XᵇY through the carrier mother XᴮXᵇ)."
+        }
       ]
     },
     {
@@ -3050,6 +4627,127 @@
         "variation_mutation_lab",
         "natural_selection_simulator",
         "adaptive_features_selective_breeding"
+      ],
+      "comics": [
+        {
+          "id": "ch14-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Velveteen Stamp That Caught Evolution in the Act",
+          "dateline": "Madison, 1952 & Malabar Hill, Mumbai",
+          "panels": [
+            {
+              "id": "ch14-opener-p1",
+              "panelNumber": 1,
+              "caption": "Director Barnaby sprays antibacterial cleaner across the desk and announces that the surviving bacteria \"saw the poison coming and decided to mutate a shield to survive.\"",
+              "speakerName": "Director Barnaby",
+              "characterId": "barnaby",
+              "basisLabel": "What if?",
+              "speech": "Challenges inspire innovation, Kym. When an antibiotic hits a bacterium, the bacterium rewrites its DNA on the spot to beat the drug."
+            },
+            {
+              "id": "ch14-opener-p2",
+              "panelNumber": 2,
+              "caption": "Kym and Clara press Esther and Joshua Lederberg's 1952 sterile velveteen stamp onto an antibiotic-free master agar plate and point to colony `C7`, which is already streptomycin-resistant before ever touching a drop of the drug.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Bacteria cannot read the future, Barnaby. The mutation happened by a random copying glitch before the antibiotic arrived; the drug simply killed the sensitive cells and left the pre-existing mutant standing."
+            }
+          ]
+        },
+        {
+          "id": "ch14-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Replica Stamp, the Desert Stoma & the Planetary Household",
+          "dateline": "Malabar Hill Atelier",
+          "panels": [
+            {
+              "id": "ch14-closer-p1",
+              "panelNumber": 1,
+              "caption": "In cutaway view, Master Bento's 3D stage shows the antibiotic selection filter clearing blue sensitive bacteria while pre-existing red resistant mutants multiply, alongside a rolled marram-grass xerophyte leaf trapping humid air in sunken stomatal grooves.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "Random mutation proposes; non-random survival and reproduction dispose across generations."
+            },
+            {
+              "id": "ch14-closer-p2",
+              "panelNumber": 2,
+              "caption": "Dash writes \"The cactus shrank its leaves into spines so that it wouldn't lose water in the desert\" on his practice sheet; Clara draws a red bracket around \"so that\".",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute, Dash—plants have no foresight. Ancestral plants had random genetic variation in leaf width; in arid heat, individuals with narrower, spined leaves lost less water by transpiration, survived, reproduced, and passed those alleles on over thousands of generations."
+            },
+            {
+              "id": "ch14-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym looks out from the Malabar Hill roof across the green canopy of Mumbai toward Sanjay Gandhi National Park and the Arabian Sea.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "What if?",
+              "speech": "Four billion years of mutation and natural selection built every species in that forest—and today humans can even splice a human gene into a bacterial plasmid. How do energy and atoms hold an entire ecosystem together?"
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c14_mutation_variation_spectra",
+          "chapter": 14,
+          "title": "Mutation Variation Spectra",
+          "caption": "Continuous vs discontinuous variation distributions (student height histogram + normal curve vs ABO blood group category bars), polygenic vs single-gene control, and the sources of genetic and phenotypic variation."
+        },
+        {
+          "id": "c14_mutagens_dna_glitches",
+          "chapter": 14,
+          "title": "Mutagens Dna Glitches",
+          "caption": "Spontaneous DNA base substitution at HBB codon 6 (CCT GAG GAG → CCT GTG GAG, Glu⁶ → Val⁶), illustrative mutation-rate multipliers (not measured dose responses), and Joshua & Esther Lederberg's 1952 sterile velveteen replica-plating proof."
+        },
+        {
+          "id": "c14_natural_selection_six_steps",
+          "chapter": 14,
+          "title": "Natural Selection Six Steps",
+          "caption": "The six-step causal engine of natural selection (Cambridge 0610 Topic 18.3) and Bernard Kettlewell's Biston betularia morph trajectories across pre-1848 unpolluted lichen bark (98% pale typica), 1895–1955 industrial soot (90% dark carbonaria), and post-1956 Clean Air recovery (88% pale typica)."
+        },
+        {
+          "id": "c14_antibiotic_resistance_selection",
+          "chapter": 14,
+          "title": "Antibiotic Resistance Selection",
+          "caption": "Evolution of bacterial antibiotic resistance by natural selection and an explicitly hypothetical culture comparison of continuous exposure versus drug removal after step 3."
+        },
+        {
+          "id": "c14_xerophyte_hydrophyte_adaptations",
+          "chapter": 14,
+          "title": "Xerophyte Hydrophyte Adaptations",
+          "caption": "Structural and physiological adaptations of xerophytes (Ammophila arenaria marram grass and Opuntia cactus) versus hydrophytes (Nymphaea floating water lily), with qualitative distinctions between dry-habitat, floating and submerged leaves."
+        },
+        {
+          "id": "c14_animal_plant_adaptive_features",
+          "chapter": 14,
+          "title": "Animal Plant Adaptive Features",
+          "caption": "Coordinated structural, physiological, and behavioural adaptive features in the Thar Desert dromedary camel and Arctic polar bear, alongside the Cambridge 0610 definitions of adaptive feature and evolutionary fitness."
+        },
+        {
+          "id": "c14_selective_breeding_vs_natural",
+          "chapter": 14,
+          "title": "Selective Breeding Vs Natural",
+          "caption": "The five-step selective breeding loop, E. K. Janaki Ammal's Coimbatore sugarcane and illustrative breeding trajectories across 40 generations, and the six-point comparison between natural selection and selective breeding."
+        },
+        {
+          "id": "c14_sahni_fossils_dna_clocks",
+          "chapter": 14,
+          "title": "Sahni Fossils Dna Clocks",
+          "caption": "Sahni's fossil evidence, an illustrative DNA alignment, molecular-clock limits, and Woese and Fox's 1977 finding and the formal 1990 three-domain proposal."
+        },
+        {
+          "id": "c14_sickle_cell_malaria_case",
+          "chapter": 14,
+          "title": "Sickle Cell Malaria Case",
+          "caption": "Balancing selection of the sickle-cell allele (Hbˢ) in Plasmodium falciparum malaria belts across East Africa (Anthony Allison 1954) and Central/Western India (L. D. Sanghvi): opposing selection pressures against HbᴬHbᴬ (malaria mortality) and HbˢHbˢ (sickle-cell anaemia) illustrate heterozygote advantage using assumed relative fitness values."
+        }
       ]
     },
     {
@@ -3252,6 +4950,127 @@
         "ecosystem_trophic_lab",
         "nutrient_cycles_eutrophication",
         "biotech_fermenter_plasmid_lab"
+      ],
+      "comics": [
+        {
+          "id": "ch15-opener",
+          "role": "opener",
+          "roleLabel": "Opening Scene",
+          "title": "The Banyan Pyramid & the Rewritable Plasmid",
+          "dateline": "Sanjay Gandhi National Park & Malabar Hill, Mumbai",
+          "panels": [
+            {
+              "id": "ch15-opener-p1",
+              "panelNumber": 1,
+              "caption": "In Sanjay Gandhi National Park, Dash sketches a food-chain arrow pointing from an Indian leopard's mouth toward a spotted deer, and claims decomposers \"recycle the leopard's energy back to the grass.\"",
+              "speakerName": "Dash",
+              "characterId": "dash",
+              "basisLabel": "What if?",
+              "speech": "The leopard eats the deer, so the arrow points at the deer—and when fungi rot the dead leaves, they send the energy right back into the tree roots."
+            },
+            {
+              "id": "ch15-opener-p2",
+              "panelNumber": 2,
+              "caption": "Master Bento flips the arrow around (`Karvi shrub → Spotted deer → Indian leopard`) while Kym and Clara trace the one-way red heat arrows radiating into the sky versus the closed blue loop of carbon and nitrogen atoms.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "Food-chain arrows show the direction of energy transfer, Dash—from eaten to eater. Once respiration turns chemical energy into low-grade heat, no leaf can ever trap that heat again; only the atoms recycle."
+            }
+          ]
+        },
+        {
+          "id": "ch15-closer",
+          "role": "closer",
+          "roleLabel": "Looking Ahead",
+          "title": "The Four-Billion-Year Thread",
+          "dateline": "Malabar Hill Rooftop Atelier, Mumbai",
+          "panels": [
+            {
+              "id": "ch15-closer-p1",
+              "panelNumber": 1,
+              "caption": "On the Malabar Hill rooftop at sunset, Kym, Dash, Master Bento, Clara, Dr. Zeta, Pip, and even a humbled Director Barnaby gather around the teak workbench where the sprouted green moong seedling from Chapter 1 now unfolds its first true leaves beside a vial of recombinant human insulin.",
+              "speakerName": "Master Bento",
+              "characterId": "bento",
+              "basisLabel": "Evidence",
+              "speech": "From a vitrified seed waking in June rain to thirty trillion human cells and a forest food web: one set of physical laws, one ATP energy currency, and one four-letter genetic code."
+            },
+            {
+              "id": "ch15-closer-p2",
+              "panelNumber": 2,
+              "caption": "Director Barnaby closes his binder and points to the three colour-coded inkwells on the bench—blue for what is given, amber for what stays conserved, and red for what changes.",
+              "speakerName": "Clara",
+              "characterId": "clara",
+              "basisLabel": "Evidence",
+              "speech": "Wait a minute—whenever anyone hands you a grand biological word, ask the detective's question: What is the physical mechanism, what stays conserved, and how did an experiment prove it?"
+            },
+            {
+              "id": "ch15-closer-p3",
+              "panelNumber": 3,
+              "caption": "Kym closes her field notebook and looks through Leeuwenhoek's brass lens one more time at a drop of rainwater from the balcony rail, teeming with dividing green algae and darting ciliates.",
+              "speakerName": "Kym",
+              "characterId": "kym",
+              "basisLabel": "Evidence",
+              "speech": "The investigation never ends. Every puddle, kitchen jar, and leaf in Mumbai is an open laboratory waiting for a fair test."
+            }
+          ]
+        }
+      ],
+      "figures": [
+        {
+          "id": "c15_food_webs_trophic_pyramids",
+          "chapter": 15,
+          "title": "Food Webs Trophic Pyramids",
+          "caption": "Mumbai SGNP food web showing one-way energy transfer arrows (→) across four trophic levels and decomposers, paired with a comparison of the pyramid of numbers (inverted at base), pyramid of dry biomass (upright), and pyramid of energy (upright with a consistent accounting boundary) for one giant banyan tree."
+        },
+        {
+          "id": "c15_energy_budget_sigmoid_growth",
+          "chapter": 15,
+          "title": "Energy Budget Sigmoid Growth",
+          "caption": "Illustrative allocation of inter-level energy outputs (respiration/heat, egested faeces, excreted urea, uneaten detritus), an explicitly assumed crop-to-food supply comparison before human digestion, and a four-phase microbial batch-growth curve."
+        },
+        {
+          "id": "c15_carbon_water_cycles",
+          "chapter": 15,
+          "title": "Carbon Water Cycles",
+          "caption": "The coupled water cycle (evaporation, leaf transpiration, condensation, precipitation, runoff) and carbon cycle (photosynthesis, feeding, respiration, decomposition, fossilisation, combustion), paired with Charles David Keeling's Mauna Loa CO₂ record (1958–2026)."
+        },
+        {
+          "id": "c15_nitrogen_cycle_legumes",
+          "chapter": 15,
+          "title": "Nitrogen Cycle Legumes",
+          "caption": "The five-stage nitrogen cycle linking atmospheric N₂ (78% of air), nitrogen fixation (Rhizobium in legume root nodules, free-living Azotobacter, lightning), plant root hair active transport of NO₃⁻, animal feeding and liver deamination to urea, decomposer ammonification (→ NH₄⁺), two-step aerobic nitrification (NH₄⁺ → NO₂⁻ → NO₃⁻), and anaerobic denitrification (NO₃⁻ → N₂)."
+        },
+        {
+          "id": "c15_eutrophication_greenhouse_impacts",
+          "chapter": 15,
+          "title": "Eutrophication Greenhouse Impacts",
+          "caption": "The illustrative eutrophication pathway and downstream river dissolved oxygen (DO) vs bacterial BOD sag curve, paired with the enhanced greenhouse effect (CO₂ and CH₄ infrared heat trapping) and non-biodegradable plastic pollution."
+        },
+        {
+          "id": "c15_deforestation_conservation_sustainability",
+          "chapter": 15,
+          "title": "Deforestation Conservation Sustainability",
+          "caption": "The four undesirable effects of deforestation (biodiversity loss/extinction, topsoil erosion, river siltation/flooding, and atmospheric CO₂ rise), monoculture vs intensive livestock trade-offs, sustainable forestry/fisheries, and the five-part species conservation toolkit."
+        },
+        {
+          "id": "c15_yeast_enzymes_industrial_fermenter",
+          "chapter": 15,
+          "title": "Yeast Enzymes Industrial Fermenter",
+          "caption": "Four everyday microbial and enzyme biotechnology applications (yeast bread and biofuels, pectinase juice extraction, biological washing powders, immobilised lactase) and an engineering cross-section of a jacketed stainless-steel industrial fermenter controlling conditions including waste products."
+        },
+        {
+          "id": "c15_recombinant_plasmid_insulin_crispr",
+          "chapter": 15,
+          "title": "Recombinant Plasmid Insulin Crispr",
+          "caption": "The five-step recombinant plasmid human insulin pipeline (prepared intron-free coding DNA, compatible ends, DNA ligase, selection, expression and product processing), GM crops pros/cons, selective breeding vs GM comparison, and programmable CRISPR-Cas9 gene editing."
+        },
+        {
+          "id": "c15_mumbai_creek_insulin_case",
+          "chapter": 15,
+          "title": "Mumbai Creek Insulin Case",
+          "caption": "Capstone Case Study: Fictional comparison of three separate Mumbai environments (SGNP forest headwaters, Powai/Mithi eutrophic outfall, Thane Creek mangrove sanctuary) paired with the Five Big Ideas of Biology across Chapters 0–15."
+        }
       ]
     }
   ],

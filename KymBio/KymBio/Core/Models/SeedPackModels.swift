@@ -110,6 +110,98 @@ struct LivingWorldChapter: Codable, Identifiable, Equatable, Sendable {
     let callouts: [LivingWorldCallout]
     let keyTerms: [String]
     let widgets: [String]
+    var comics: [LivingWorldComicStrip] = []
+    var figures: [LivingWorldFigureSpec] = []
+
+    enum CodingKeys: String, CodingKey {
+        case id, number, volumeNumber, volumeTitle, title, subtitle, hookSummary
+        case sections, callouts, keyTerms, widgets, comics, figures
+    }
+
+    init(
+        id: String,
+        number: Int,
+        volumeNumber: Int,
+        volumeTitle: String,
+        title: String,
+        subtitle: String,
+        hookSummary: String,
+        sections: [LivingWorldSection],
+        callouts: [LivingWorldCallout],
+        keyTerms: [String],
+        widgets: [String],
+        comics: [LivingWorldComicStrip] = [],
+        figures: [LivingWorldFigureSpec] = []
+    ) {
+        self.id = id
+        self.number = number
+        self.volumeNumber = volumeNumber
+        self.volumeTitle = volumeTitle
+        self.title = title
+        self.subtitle = subtitle
+        self.hookSummary = hookSummary
+        self.sections = sections
+        self.callouts = callouts
+        self.keyTerms = keyTerms
+        self.widgets = widgets
+        self.comics = comics
+        self.figures = figures
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        number = try c.decode(Int.self, forKey: .number)
+        volumeNumber = try c.decode(Int.self, forKey: .volumeNumber)
+        volumeTitle = try c.decode(String.self, forKey: .volumeTitle)
+        title = try c.decode(String.self, forKey: .title)
+        subtitle = try c.decode(String.self, forKey: .subtitle)
+        hookSummary = try c.decode(String.self, forKey: .hookSummary)
+        sections = try c.decode([LivingWorldSection].self, forKey: .sections)
+        callouts = try c.decode([LivingWorldCallout].self, forKey: .callouts)
+        keyTerms = try c.decode([String].self, forKey: .keyTerms)
+        widgets = try c.decode([String].self, forKey: .widgets)
+        comics = (try? c.decode([LivingWorldComicStrip].self, forKey: .comics)) ?? []
+        figures = (try? c.decode([LivingWorldFigureSpec].self, forKey: .figures)) ?? []
+    }
+
+    var openerComic: LivingWorldComicStrip? {
+        comics.first(where: { $0.role == "opener" }) ?? comics.first
+    }
+
+    var closerComic: LivingWorldComicStrip? {
+        comics.first(where: { $0.role == "closer" })
+    }
+
+    var prologueComic: LivingWorldComicStrip? {
+        comics.first(where: { $0.role == "prologue" })
+    }
+}
+
+struct LivingWorldComicStrip: Codable, Identifiable, Equatable, Hashable, Sendable {
+    let id: String
+    let role: String          // "prologue" | "opener" | "closer"
+    let roleLabel: String
+    let title: String
+    let dateline: String
+    let panels: [LivingWorldComicPanel]
+}
+
+struct LivingWorldComicPanel: Codable, Identifiable, Equatable, Hashable, Sendable {
+    let id: String
+    let panelNumber: Int
+    let caption: String
+    let speakerName: String
+    let characterId: String   // "kym" | "dash" | "barnaby" | "pip" | "bento" | "clara"
+    let basisLabel: String    // "Evidence" | "What if?"
+    let speech: String
+}
+
+struct LivingWorldFigureSpec: Codable, Identifiable, Equatable, Hashable, Sendable {
+    let id: String
+    let chapter: Int
+    let title: String
+    let caption: String
 }
 
 struct LivingWorldSection: Codable, Identifiable, Equatable, Sendable {

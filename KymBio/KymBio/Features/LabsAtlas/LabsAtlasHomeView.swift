@@ -498,29 +498,11 @@ struct LabsAtlasHomeView: View {
     }
 
     private func specimenSchematicOverlay(plate: DiagramRecallPlate, size: CGSize) -> some View {
-        Canvas { context, canvasSize in
-            let center = CGPoint(x: canvasSize.width * 0.5, y: canvasSize.height * 0.5)
-            // Draw clean anatomical guide contours connecting callout regions
-            let outerRect = CGRect(
-                x: canvasSize.width * 0.14,
-                y: canvasSize.height * 0.10,
-                width: canvasSize.width * 0.72,
-                height: canvasSize.height * 0.80
-            )
-            let contour = RoundedRectangle(cornerRadius: BioFigureGeometry.plateContourRadius, style: .continuous).path(in: outerRect)
-            context.stroke(contour, with: .color(Color.kymaiaMutedInk), style: StrokeStyle(lineWidth: 2, dash: [6, 4]))
-
-            for pin in plate.callouts {
-                let pt = CGPoint(x: pin.x * canvasSize.width, y: pin.y * canvasSize.height)
-                var leader = Path()
-                leader.move(to: center)
-                leader.addQuadCurve(
-                    to: pt,
-                    control: CGPoint(x: (center.x + pt.x) * 0.5, y: min(center.y, pt.y) - 18)
-                )
-                context.stroke(leader, with: .color(Color.kymaiaSecondary.opacity(0.65)), lineWidth: 1.5)
-            }
-        }
+        BioSpecimenPlateCanvas(
+            chapterNumber: plate.chapter,
+            figureId: plate.figureId,
+            callouts: plate.callouts
+        )
     }
 
     private func gradeAndRecordPlate(_ plate: DiagramRecallPlate) {
@@ -548,38 +530,73 @@ struct LabsAtlasHomeView: View {
     // MARK: - 3. 117 3D Atlas Lessons
 
     private var atlasLessonsSection: some View {
-        JournalSection(title: "3D Atlas Lessons (\(filteredAtlasLessons.count) of \(store.pack.atlasLessons.count))") {
-            VStack(spacing: Spacing.md) {
-                ForEach(filteredAtlasLessons) { lesson in
-                    JournalCard {
-                        VStack(alignment: .leading, spacing: Spacing.sm) {
-                            HStack {
-                                JournalChip(text: "Chapter \(lesson.chapter)", tone: .accent)
-                                JournalChip(text: "3D Lesson", tone: .neutral)
-                                Spacer()
-                            }
-                            Text(lesson.title)
-                                .font(.kymaiaCardTitle)
-                                .foregroundStyle(Color.kymaiaInk)
-                            Text(lesson.question)
-                                .font(.kymaiaBody.weight(.semibold))
-                                .foregroundStyle(Color.kymaiaPrimary)
-                            Text(lesson.explanation)
-                                .font(.kymaiaSerifProse)
-                                .foregroundStyle(Color.kymaiaInk)
-                            if !lesson.limits.isEmpty {
-                                Text("Model limits: \(lesson.limits)")
-                                    .font(.kymaiaCaption)
-                                    .foregroundStyle(Color.kymaiaTertiaryInk)
-                            }
-                            HStack {
-                                Button {
-                                    store.activeLivingWorldChapter = lesson.chapter
-                                    store.selectedRoom = .livingWorld
-                                } label: {
-                                    Label("Open Chapter \(lesson.chapter) 3D Atlas", systemImage: "cube.transparent")
+        let activeLessonChapter = selectedChapterFilter ?? (filteredAtlasLessons.first?.chapter ?? store.activeLivingWorldChapter)
+        return VStack(alignment: .leading, spacing: Spacing.md) {
+            JournalSection(title: "Live 3D Atlas Stage · Chapter \(activeLessonChapter)") {
+                JournalCard {
+                    LivingWorldWebStageView(
+                        chapterNumber: activeLessonChapter,
+                        targetWidgetId: filteredAtlasLessons.first?.widget
+                    )
+                    .frame(minHeight: 420)
+                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                    )
+                }
+            }
+
+            JournalSection(title: "3D Atlas Lessons (\(filteredAtlasLessons.count) of \(store.pack.atlasLessons.count))") {
+                VStack(spacing: Spacing.md) {
+                    ForEach(filteredAtlasLessons) { lesson in
+                        JournalCard {
+                            VStack(alignment: .leading, spacing: Spacing.sm) {
+                                HStack {
+                                    JournalChip(text: "Chapter \(lesson.chapter)", tone: .accent)
+                                    JournalChip(text: "3D Lesson", tone: .neutral)
+                                    Spacer()
                                 }
-                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                                HStack(alignment: .top, spacing: Spacing.md) {
+                                    BioSpecimenPlateCanvas(
+                                        chapterNumber: lesson.chapter,
+                                        figureId: lesson.figure,
+                                        callouts: []
+                                    )
+                                    .frame(width: 120, height: 88)
+                                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                                    )
+
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(lesson.title)
+                                            .font(.kymaiaCardTitle)
+                                            .foregroundStyle(Color.kymaiaInk)
+                                        Text(lesson.question)
+                                            .font(.kymaiaBody.weight(.semibold))
+                                            .foregroundStyle(Color.kymaiaPrimary)
+                                        Text(lesson.explanation)
+                                            .font(.kymaiaSerifProse)
+                                            .foregroundStyle(Color.kymaiaInk)
+                                    }
+                                }
+                                if !lesson.limits.isEmpty {
+                                    Text("Model limits: \(lesson.limits)")
+                                        .font(.kymaiaCaption)
+                                        .foregroundStyle(Color.kymaiaTertiaryInk)
+                                }
+                                HStack {
+                                    Button {
+                                        selectedChapterFilter = lesson.chapter
+                                        store.activeLivingWorldChapter = lesson.chapter
+                                        store.activeWidgetId = lesson.widget
+                                    } label: {
+                                        Label("Focus in 3D Stage Above", systemImage: "cube.transparent")
+                                    }
+                                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                                }
                             }
                         }
                     }

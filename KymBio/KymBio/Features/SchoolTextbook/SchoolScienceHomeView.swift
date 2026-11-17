@@ -199,6 +199,19 @@ struct SchoolScienceHomeView: View {
         )
         .id("explainer-unit-\(unit.unitNumber)")
 
+        BioChapterVisualPlateCard(
+            chapterNumber: unit.livingWorldChapters.first ?? unit.unitNumber,
+            figureTitle: "Unit \(unit.unitNumber) Visual Mechanism · \(unit.title)",
+            caption: unit.topics.first?.summary ?? unit.scienceInContext,
+            widgetId: unit.topics.first?.linkedWidgets.first,
+            onOpen3DStage: {
+                if let w = unit.topics.first?.linkedWidgets.first {
+                    store.activeWidgetId = w
+                }
+                store.selectedRoom = .labsAtlas
+            }
+        )
+
         JournalSection(title: "Unit \(unit.unitNumber): \(unit.title) — Progress at a glance") {
             JournalCardRow {
                 VStack(alignment: .leading, spacing: 4) {

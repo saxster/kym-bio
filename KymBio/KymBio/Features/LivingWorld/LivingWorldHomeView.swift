@@ -296,10 +296,18 @@ struct LivingWorldHomeView: View {
             }
         }
 
-        // Sections
-        JournalSection(title: "Sections in Chapter \(chapter.number) (\(chapter.sections.count))") {
+        // Prologue & Opening Ligne-Claire Comic Strips
+        if let prologue = chapter.prologueComic {
+            BioComicStripCardView(strip: prologue, chapterNumber: chapter.number)
+        }
+        if let opener = chapter.openerComic {
+            BioComicStripCardView(strip: opener, chapterNumber: chapter.number)
+        }
+
+        // Sections interleaved with Dual-Coded Figures
+        JournalSection(title: "Sections & Visual Plates in Chapter \(chapter.number) (\(chapter.sections.count))") {
             VStack(spacing: Spacing.md) {
-                ForEach(chapter.sections) { sec in
+                ForEach(Array(chapter.sections.enumerated()), id: \.element.id) { idx, sec in
                     JournalCard {
                         VStack(alignment: .leading, spacing: Spacing.sm) {
                             Text(sec.heading)
@@ -310,6 +318,44 @@ struct LivingWorldHomeView: View {
                                 .foregroundStyle(Color.kymaiaInk)
                         }
                     }
+                    if idx < chapter.figures.count {
+                        let fig = chapter.figures[idx]
+                        BioChapterVisualPlateCard(
+                            chapterNumber: chapter.number,
+                            figureTitle: fig.title,
+                            caption: fig.caption,
+                            widgetId: chapter.widgets.indices.contains(idx) ? chapter.widgets[idx] : chapter.widgets.first,
+                            onOpen3DStage: {
+                                presentationMode = .interactiveWebBook
+                            }
+                        )
+                    }
+                }
+            }
+        }
+
+        // Inline Live 3D / 2D Stage right inside Native Journal Reader
+        JournalSection(title: "Interactive 3D & 2D Stage · Chapter \(chapter.number)") {
+            JournalCard {
+                VStack(alignment: .leading, spacing: Spacing.sm) {
+                    HStack {
+                        JournalChip(label: "Live @saxster/atlas Stage", systemImage: "cube.transparent.fill", tone: .accent)
+                        Spacer()
+                        Button("Expand Full Illustrated Book") {
+                            presentationMode = .interactiveWebBook
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                    }
+                    LivingWorldWebStageView(
+                        chapterNumber: chapter.number,
+                        targetWidgetId: chapter.widgets.first
+                    )
+                    .frame(minHeight: 420)
+                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                    )
                 }
             }
         }
@@ -381,6 +427,11 @@ struct LivingWorldHomeView: View {
                 completedDebateChapterIds.insert(chapter.number)
             }
         }
+
+        // Closing Ligne-Claire Comic Resolution Strip
+        if let closer = chapter.closerComic {
+            BioComicStripCardView(strip: closer, chapterNumber: chapter.number)
+        }
     }
 
     // MARK: - Step-by-Step Interactive Guide Mode
@@ -393,6 +444,10 @@ struct LivingWorldHomeView: View {
         let isBeatGateSatisfied = isBeatUnlocked(currentBeat, chapterNumber: chapter.number)
 
         JournalSection(title: "Chapter \(chapter.number): \(chapter.title) · Step \(currentIndex + 1) of \(beats.count)") {
+            if currentIndex == 0, let opener = chapter.openerComic {
+                BioComicStripCardView(strip: opener, chapterNumber: chapter.number)
+            }
+
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     // Top Read & Listen bar + Step counter
@@ -458,6 +513,28 @@ struct LivingWorldHomeView: View {
                         .foregroundStyle(Color.kymaiaInk)
 
                     if currentBeat.kind != .interactiveLabAndMechanism && currentBeat.kind != .misconceptionDebate {
+                        let fig = chapter.figures.indices.contains(currentIndex % max(1, chapter.figures.count))
+                            ? chapter.figures[currentIndex % max(1, chapter.figures.count)]
+                            : nil
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
+                            BioSpecimenPlateCanvas(
+                                chapterNumber: chapter.number,
+                                figureId: fig?.id ?? currentBeat.widgetIds.first ?? currentBeat.id,
+                                callouts: []
+                            )
+                            .frame(height: 152)
+                            .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                    .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                            )
+                            if let fig {
+                                Text(fig.caption)
+                                    .font(.kymaiaCaption)
+                                    .foregroundStyle(Color.kymaiaMutedInk)
+                            }
+                        }
+
                         Text(currentBeat.bodyMarkdown)
                             .font(.kymaiaSerifProse)
                             .foregroundStyle(Color.kymaiaInk)
@@ -552,6 +629,10 @@ struct LivingWorldHomeView: View {
                 BiologicalDebateCardView(scenario: debate) { _ in
                     completedDebateChapterIds.insert(chapter.number)
                 }
+            }
+
+            if currentIndex == beats.count - 1, let closer = chapter.closerComic {
+                BioComicStripCardView(strip: closer, chapterNumber: chapter.number)
             }
         }
     }

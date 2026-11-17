@@ -3,6 +3,7 @@ import SwiftUI
 struct TodayHomeView: View {
     @EnvironmentObject private var store: AppStore
     @State private var showingFSRSReviewSheet = false
+    @State private var todaySpotlightWidgetId: String = "seed_flame3d"
 
     private var nextQuestion: SchoolScienceQuestion? {
         store.pack.schoolQuestions.first {
@@ -29,8 +30,16 @@ struct TodayHomeView: View {
             eyebrow: "Today",
             subtitle: "8th-grade Biology · Cambridge Lower Secondary Science 8 & The Living World"
         ) {
+            DailyAtelierHumourComicCard(
+                activeChapterNumber: store.activeLivingWorldChapter,
+                onOpenChapter: { chNum in
+                    store.activeLivingWorldChapter = chNum
+                    store.selectedRoom = .livingWorld
+                }
+            )
             glanceTilesRow
             dailyFlowCard
+            todayLiveAtlasSpotlightSection
             if let q = nextQuestion {
                 nextQuestionProofCard(q)
             }
@@ -126,6 +135,64 @@ struct TodayHomeView: View {
         }
     }
 
+    private var todayLiveAtlasSpotlightSection: some View {
+        let spotlightWidgets: [(id: String, title: String, chapter: Int)] = [
+            ("seed_flame3d", "Ch 1 · Candle Flame vs Seed Cell (3D ATP)", 1),
+            ("redi_jars", "Ch 0 · Redi's Three-Jar Experiment", 0),
+            ("alveolus_gas_exchange", "Ch 6 · Alveolus Gas Exchange", 6),
+            ("antagonistic_arm_lever", "Ch 8 · Biceps & Triceps Elbow Lever", 8),
+        ]
+        let activeSpec = spotlightWidgets.first(where: { $0.id == todaySpotlightWidgetId }) ?? spotlightWidgets[0]
+        return JournalSection(title: "Interactive 3D & 2D Biology Stage · Try It Right Here") {
+            JournalCard {
+                VStack(alignment: .leading, spacing: Spacing.md) {
+                    HStack(spacing: Spacing.xs) {
+                        JournalChip(
+                            label: "Live @saxster/atlas & 3D Lab",
+                            systemImage: "cube.transparent.fill",
+                            tone: .accent
+                        )
+                        JournalChip(text: activeSpec.title, tone: .good)
+                        Spacer()
+                        Button {
+                            store.activeWidgetId = activeSpec.id
+                            store.selectedRoom = .labsAtlas
+                        } label: {
+                            Label("Full-Screen Lab Bench", systemImage: "arrow.up.left.and.arrow.down.right")
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                    }
+
+                    FlowLayout(spacing: Spacing.xs) {
+                        ForEach(spotlightWidgets, id: \.id) { item in
+                            Button(item.title) {
+                                todaySpotlightWidgetId = item.id
+                                store.activeLivingWorldChapter = item.chapter
+                            }
+                            .buttonStyle(
+                                JournalCapsuleButtonStyle(
+                                    prominence: todaySpotlightWidgetId == item.id ? .filled : .ghost,
+                                    size: .small
+                                )
+                            )
+                        }
+                    }
+
+                    LivingWorldWebStageView(
+                        chapterNumber: activeSpec.chapter,
+                        targetWidgetId: activeSpec.id
+                    )
+                    .frame(minHeight: 420)
+                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                    )
+                }
+            }
+        }
+    }
+
     private var phenomenonMechanismSpotlightSection: some View {
         let bridge = PhenomenonToMechanismBridge.bridge(forChapter: store.activeLivingWorldChapter)
         return JournalSection(title: "How It Works · Everyday Clue to Biology Rule") {
@@ -197,6 +264,18 @@ struct TodayHomeView: View {
                     Text(question.prompt)
                         .font(.kymaiaSerifProse)
                         .foregroundStyle(Color.kymaiaInk)
+
+                    BioSpecimenPlateCanvas(
+                        chapterNumber: question.linkedChapter,
+                        figureId: question.linkedWidget.isEmpty ? question.id : question.linkedWidget,
+                        callouts: []
+                    )
+                    .frame(height: 120)
+                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                    )
 
                     HStack(spacing: Spacing.sm) {
                         Button {
@@ -287,6 +366,13 @@ struct TodayHomeView: View {
                     JournalChip(text: "3D Simulation · Ch 1 & Unit 1.4", tone: .accent)
                     Text("Candle Flame vs Living Seed Cell (ATP Engine)")
                         .font(.kymaiaCardTitle)
+                    BioSpecimenPlateCanvas(chapterNumber: 1, figureId: "seed_flame3d", callouts: [])
+                        .frame(height: 108)
+                        .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                        )
                     Text("Compare 1,000 °C uncoupled combustion with enzyme-coupled ATP synthesis at 28 °C.")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaMutedInk)
@@ -302,6 +388,13 @@ struct TodayHomeView: View {
                     JournalChip(text: "Pencil Diagram Recall · Unit 7.4", tone: .good)
                     Text("Antagonistic Biceps & Triceps at the Elbow Joint")
                         .font(.kymaiaCardTitle)
+                    BioSpecimenPlateCanvas(chapterNumber: 8, figureId: "plate-u7-arm-lever", callouts: [])
+                        .frame(height: 108)
+                        .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                        )
                     Text("Practise labelling scapula, humerus, radius, ulna, tendons and antagonistic muscles.")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaMutedInk)
@@ -609,6 +702,18 @@ struct DailyFlowPlayerSheet: View {
                 Text(beat.title)
                     .font(.kymaiaCardTitle)
                     .foregroundStyle(Color.kymaiaInk)
+
+                BioSpecimenPlateCanvas(
+                    chapterNumber: plan.chapter.number,
+                    figureId: beat.widgetIds.first ?? beat.id,
+                    callouts: []
+                )
+                .frame(height: 140)
+                .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                )
 
                 Text(beat.bodyMarkdown)
                     .font(.kymaiaSerifProse)

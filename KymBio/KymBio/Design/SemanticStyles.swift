@@ -83,6 +83,11 @@ struct PhenomenonMechanismBridgeCard: View {
                     .font(.kymaiaCardTitle)
                     .foregroundStyle(Color.kymaiaInk)
 
+                BioMechanismVisualTriptychView(
+                    chapterNumber: bridge.chapterNumber,
+                    selectedChoice: selectedPerturbationChoice
+                )
+
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Label("1. What you notice in everyday life", systemImage: "eye.fill")
                         .font(.kymaiaCaption.weight(.semibold))
@@ -232,6 +237,32 @@ struct BiologicalDebateCardView: View {
                     .font(.kymaiaSerifProse)
                     .foregroundStyle(Color.kymaiaInk)
 
+                HStack(spacing: Spacing.sm) {
+                    BioComicPanelIllustrationView(
+                        character: .dash,
+                        chapterNumber: scenario.chapterNumber,
+                        isResolution: false
+                    )
+                    .frame(height: 84)
+                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                    )
+
+                    BioComicPanelIllustrationView(
+                        character: .kym,
+                        chapterNumber: scenario.chapterNumber,
+                        isResolution: true
+                    )
+                    .frame(height: 84)
+                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                    )
+                }
+
                 VStack(spacing: Spacing.sm) {
                     ForEach(scenario.choices) { choice in
                         let isSelected = selectedChoiceId == choice.id
@@ -363,6 +394,18 @@ struct BioManipulativeSandboxCard: View {
             Text(spec.prompt)
                 .font(.kymaiaCaption)
                 .foregroundStyle(Color.kymaiaMutedInk)
+
+            BioSpecimenPlateCanvas(
+                chapterNumber: max(0, Int(spec.questionId.filter(\.isNumber).prefix(1)) ?? 1),
+                figureId: spec.questionId,
+                callouts: []
+            )
+            .frame(height: 112)
+            .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                    .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+            )
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
