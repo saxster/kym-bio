@@ -133,6 +133,12 @@ struct LivingWorldCallout: Codable, Identifiable, Equatable, Hashable, Sendable 
         case "school": return "School syllabus wording"
         case "home": return "Try at home"
         case "case": return "Case study"
+        case "tip": return "Tip · Rule of thumb"
+        case "remember": return "Remember · Core invariant"
+        case "warning": return "Warning · Pitfall"
+        case "technical": return "Technical stuff · :nutshell"
+        case "fireside": return "Fireside chat · Two voices"
+        case "cheatsheet": return "Tear-out cheat sheet"
         default: return kind.capitalized
         }
     }
@@ -146,6 +152,12 @@ struct LivingWorldCallout: Codable, Identifiable, Equatable, Hashable, Sendable 
         case "school": return "graduationcap"
         case "home": return "house"
         case "case": return "stethoscope"
+        case "tip": return "lightbulb"
+        case "remember": return "pin"
+        case "warning": return "exclamationmark.octagon"
+        case "technical": return "gearshape.2"
+        case "fireside": return "bubble.left.and.bubble.right"
+        case "cheatsheet": return "list.clipboard"
         default: return "bookmark"
         }
     }

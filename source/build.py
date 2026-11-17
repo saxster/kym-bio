@@ -76,6 +76,49 @@ def nuc(m):
             f'{", charge " + q if q else ""}"><span class="nz"><span>{a}</span><span>{z}</span></span>{sym}{qs}</span>')
 
 
+def byrne_inline(text: str) -> str:
+    text = re.sub(r'\(`given`\s+([^)]+)\)', r'(<span class="atlas-comic-byrne-given">\1</span>)', text)
+    text = re.sub(r'\(`stays`\s+([^)]+)\)', r'(<span class="atlas-comic-byrne-stays">\1</span>)', text)
+    text = re.sub(r'\(`moves`\s+([^)]+)\)', r'(<span class="atlas-comic-byrne-moves">\1</span>)', text)
+    return text
+
+
+def comic_panel_svg(char_id: str, idx: int, ch_n: int) -> str:
+    palettes = {
+        'kym': ('#23519C', '#E8F0FC', 'Kym · 10× Lens'),
+        'dash': ('#AE2B20', '#FCECE9', 'Dash · Fast Hunch'),
+        'barnaby': ('#AE2B20', '#FCECE9', 'Barnaby · Myth Stage'),
+        'pip': ('#B07C12', '#F8EACB', 'Dr. Zeta & Pip · 1 µm'),
+        'bento': ('#B07C12', '#F8EACB', 'Master Bento · Ledger'),
+        'clara': ('#2D6A4F', '#E6F3EC', 'Clara · Field Log'),
+    }
+    stroke, tint, tag = palettes.get(char_id, ('#23519C', '#F8EACB', 'Atelier Workbench'))
+    cx = 76 if idx % 2 == 1 else 244
+    gx = 216 if idx % 2 == 1 else 96
+    return (
+        f'<div class="atlas-comic-art" aria-hidden="true">'
+        f'<svg viewBox="0 0 320 118" preserveAspectRatio="xMidYMid meet">'
+        f'<rect x="6" y="6" width="308" height="106" rx="6" fill="{tint}" fill-opacity="0.45" stroke="#D8CFC0" stroke-width="1"/>'
+        f'<line x1="16" y1="92" x2="304" y2="92" stroke="#1F1B16" stroke-width="1.4"/>'
+        f'<g transform="translate({cx},54)">'
+        f'<circle cx="0" cy="-14" r="13" fill="#FFFDF7" stroke="#1F1B16" stroke-width="1.6"/>'
+        f'<circle cx="-4" cy="-16" r="1.6" fill="#1F1B16"/><circle cx="4" cy="-16" r="1.6" fill="#1F1B16"/>'
+        f'<path d="M-4,-9 Q0,-6 4,-9" fill="none" stroke="#1F1B16" stroke-width="1.3" stroke-linecap="round"/>'
+        f'<path d="M-14,18 C-14,3 14,3 14,18 Z" fill="{stroke}" fill-opacity="0.18" stroke="#1F1B16" stroke-width="1.5"/>'
+        f'<circle cx="18" cy="-8" r="7" fill="none" stroke="{stroke}" stroke-width="1.8"/>'
+        f'<line x1="13" y1="-3" x2="8" y2="4" stroke="{stroke}" stroke-width="1.8" stroke-linecap="round"/>'
+        f'</g>'
+        f'<g transform="translate({gx},50)">'
+        f'<rect x="-42" y="-24" width="84" height="52" rx="6" fill="#FFFDF7" stroke="#1F1B16" stroke-width="1.4"/>'
+        f'<circle cx="-16" cy="2" r="11" fill="#F8EACB" stroke="#B07C12" stroke-width="1.4"/>'
+        f'<circle cx="16" cy="2" r="11" fill="#E8F0FC" stroke="{stroke}" stroke-width="1.4"/>'
+        f'<path d="M-3,2 L3,2" stroke="#AE2B20" stroke-width="1.8" stroke-linecap="round"/>'
+        f'<text x="0" y="-12" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8.5" fill="#686259">{tag} · Ch.{ch_n}</text>'
+        f'</g>'
+        f'</svg></div>'
+    )
+
+
 def md(text: str) -> str:
     MD.reset()
     text = re.sub(r'==(.+?)==', r'<mark class="term">\1</mark>', text)
@@ -492,11 +535,58 @@ class Builder:
             inner = re.sub(r'(?<!\n)\n(?!\n)', '  \n', inner.strip())
             return f'<div class="work">{md(inner)}</div>'
         if kind == 'eq':
-            return f'<p class="eq">{md_inline(inner)}</p>'
-        if kind in ('comic_intro', 'comic_opener', 'comic_closer'):
-            role = {'comic_intro': 'bookPrologue', 'comic_opener': 'chapterOpener', 'comic_closer': 'chapterCloser'}[kind]
-            role_lbl = {'comic_intro': 'Book Introduction', 'comic_opener': 'Opening Scene', 'comic_closer': 'Chapter Resolution'}[kind]
-            title_html = md_inline(arg) if arg else role_lbl
+            eq_lines = [ln.strip() for ln in inner.strip().splitlines() if ln.strip()]
+            pills = [ln[1:].strip() for ln in eq_lines[1:] if ln.startswith(('-', '*'))]
+            if pills:
+                pill_html = ''.join(f'<span class="eq-callout-pill">{md_inline(byrne_inline(p))}</span>' for p in pills)
+                return f'<div class="eq-wrap"><p class="eq">{md_inline(byrne_inline(eq_lines[0]))}</p><div class="eq-callout">{pill_html}</div></div>'
+            return f'<p class="eq">{md_inline(byrne_inline(inner))}</p>'
+        if kind in ('tip', 'remember', 'warning', 'technical'):
+            medallions = {
+                'tip': ('callout-tip', 'Tip · Rule of thumb'),
+                'remember': ('callout-remember', 'Remember · Core invariant'),
+                'warning': ('callout-warning', 'Warning · Pitfall'),
+                'technical': ('callout-technical', 'Technical stuff · :nutshell'),
+            }
+            cls_name, badge_lbl = medallions[kind]
+            head = md_inline(arg) if arg else badge_lbl
+            if kind == 'technical':
+                return (f'<details class="box {cls_name}"><summary class="bh">'
+                        f'<span class="callout-medallion">{badge_lbl}</span><span>{head}</span>'
+                        f'</summary>{md(inner)}</details>')
+            return (f'<div class="box {cls_name}"><p class="bh">'
+                    f'<span class="callout-medallion">{badge_lbl}</span><span>{head}</span>'
+                    f'</p>{md(inner)}</div>')
+        if kind == 'fireside':
+            head = md_inline(arg) if arg else 'Fireside chat · Two voices'
+            return (f'<section class="box fireside-chat"><p class="bh">'
+                    f'<span class="callout-medallion">Fireside chat</span><span>{head}</span>'
+                    f'</p>{md(inner)}</section>')
+        if kind == 'cheatsheet':
+            head = md_inline(arg) if arg else f'Chapter {ch.n} Tear-Out Cheat Sheet'
+            return (f'<section class="box cheat-sheet-card"><p class="bh">'
+                    f'<span class="callout-medallion">Tear-out cheat sheet</span><span>{head}</span>'
+                    f'</p>{md(inner)}</section>')
+        if kind in ('comic_intro', 'comic_prologue', 'comic_opener', 'comic_closer'):
+            role = {
+                'comic_intro': 'bookPrologue',
+                'comic_prologue': 'bookPrologue',
+                'comic_opener': 'chapterOpener',
+                'comic_closer': 'chapterCloser',
+            }[kind]
+            role_lbl = {
+                'comic_intro': 'Book Introduction',
+                'comic_prologue': 'Book Introduction',
+                'comic_opener': 'Opening Scene',
+                'comic_closer': 'Chapter Resolution',
+            }[kind]
+            if arg and ' · ' in arg:
+                t_part, d_part = arg.split(' · ', 1)
+                header_left = (f'<div><div class="atlas-comic-dateline">{md_inline(d_part.strip())}</div>'
+                               f'<h2 class="atlas-comic-title">{md_inline(t_part.strip())}</h2></div>')
+            else:
+                title_html = md_inline(arg) if arg else role_lbl
+                header_left = f'<h2 class="atlas-comic-title">{title_html}</h2>'
             raw_panels = [p.strip() for p in re.split(r'\n---+\n', inner.strip()) if p.strip()]
             cards = []
             for idx, ptxt in enumerate(raw_panels, 1):
@@ -506,14 +596,27 @@ class Builder:
                         bal_lines.append(ln.lstrip()[1:].strip())
                     else:
                         cap_lines.append(ln.strip())
-                cap_html = md_inline(' '.join(c for c in cap_lines if c))
-                bal_html = (f'<div class="atlas-comic-balloon-wrap"><div class="atlas-comic-balloon">'
-                            f'{md_inline(" ".join(bal_lines))}</div></div>') if bal_lines else ''
-                cards.append(f'<article class="atlas-comic-panel" data-panel="{idx}">'
+                cap_html = md_inline(byrne_inline(' '.join(c for c in cap_lines if c)))
+                bal_raw = ' '.join(bal_lines)
+                char_id = 'kym'
+                sp_match = re.match(r'^\*\*([^*]+?)\s*\(`([a-z_]+)`\s*·\s*([^)]+)\):\*\*\s*(.*)$', bal_raw)
+                if sp_match:
+                    sp_name, char_id, sp_basis, sp_speech = sp_match.groups()
+                    bal_inner = (f'<div class="atlas-comic-speaker-row">'
+                                 f'<span class="atlas-comic-char-badge" data-character="{char_id}">{html.escape(sp_name.strip())}</span>'
+                                 f'<span class="atlas-comic-basis">{html.escape(sp_basis.strip())}</span>'
+                                 f'</div><div>{md_inline(byrne_inline(sp_speech.strip()))}</div>')
+                else:
+                    bal_inner = md_inline(byrne_inline(bal_raw))
+                tail_attr = ' data-tail="bottomRight"' if idx % 2 == 0 else ''
+                bal_html = (f'<div class="atlas-comic-balloon-wrap"><div class="atlas-comic-balloon"{tail_attr}>'
+                            f'{bal_inner}</div></div>') if bal_lines else ''
+                art_html = comic_panel_svg(char_id, idx, ch.n)
+                cards.append(f'<article class="atlas-comic-panel" data-panel="{idx}" data-character="{char_id}">'
                              f'<div class="atlas-comic-caption"><span class="atlas-comic-num">{idx}</span><span>{cap_html}</span></div>'
-                             f'{bal_html}</article>')
+                             f'{art_html}{bal_html}</article>')
             return (f'<section class="atlas-comic-strip" data-role="{role}">'
-                    f'<div class="atlas-comic-header"><h2 class="atlas-comic-title">{title_html}</h2>'
+                    f'<div class="atlas-comic-header">{header_left}'
                     f'<span class="atlas-comic-role-tag">{role_lbl}</span></div>'
                     f'<div class="atlas-comic-grid">{"".join(cards)}</div></section>')
         if kind == 'raw':
@@ -526,7 +629,7 @@ class Builder:
                       for n, t, _ in ch.sections if n)
         seen = set()  # each story is linked once per chapter: at its first mention
         intro = self.linker.link(self.render_blocks(ch.intro_src, ch, None), seen=seen)
-        intro = re.sub(r'<p>', '<p class="lede">', intro, count=1)
+        intro = re.sub(r'(?<!<blockquote>\n)(?<!<blockquote>)<p>', '<p class="lede">', intro, count=1)
         secs = []
         for n, t, body in ch.sections:
             if n:

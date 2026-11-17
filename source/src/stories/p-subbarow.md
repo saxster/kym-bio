@@ -22,7 +22,7 @@ Joining the biochemistry laboratory of Cyrus Fiske, SubbaRow tackled a problem t
 Using chemical methods to study muscle extracts, Fiske and SubbaRow identified **phosphocreatine** in work reported in 1927 and **adenosine triphosphate (ATP)** in 1929, independently of Karl Lohmann's ATP work in Germany that same year. Identifying these molecules was a beginning. Later experiments established how ATP reactions are coupled to movement, synthesis and transport. The familiar rechargeable-carrier picture grew from that later work; it was not all established by finding ATP in an extract.
 
 Because SubbaRow was a foreign national on a temporary visa without a formal medical doctorate recognised in Massachusetts, Harvard denied him a permanent faculty position. In 1940 he moved to Lederle Laboratories, where in just eight years before his sudden death at age fifty-three he directed teams that:
-1. Isolated and synthesised **folic acid** (vitamin $\text{B}_9$), curing the very tropical sprue that had killed his brothers;
+1. Isolated and synthesised **folic acid** (vitamin B₉), curing the very tropical sprue that had killed his brothers;
 2. Designed **aminopterin and methotrexate** (folic-acid mimics that block DNA synthesis in rapidly dividing cells), giving Sydney Farber the first effective drug against childhood leukaemia;
 3. Discovered **diethylcarbamazine (DEC)**, still used by the World Health Organization against elephantiasis (filariasis); and
 4. Isolated **aureomycin**, the world's first tetracycline antibiotic.

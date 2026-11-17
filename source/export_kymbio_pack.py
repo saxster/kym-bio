@@ -101,10 +101,10 @@ def parse_chapters():
         if current_sec:
             sections.append(current_sec)
 
-        # Extract :::callouts (predict, check, recall, careful, school, home, case)
+        # Extract :::callouts (predict, check, recall, careful, school, home, case, tip, remember, warning, technical, fireside, cheatsheet)
         callouts = []
         callout_pattern = re.compile(
-            r":::(predict|check|recall|careful|school|home|case)\s*([^\n]*)\n(.*?)\n:::",
+            r":::(predict|check|recall|careful|school|home|case|tip|remember|warning|technical|fireside|cheatsheet)\s*([^\n]*)\n(.*?)\n:::",
             re.DOTALL,
         )
         for idx, match in enumerate(callout_pattern.finditer(raw)):
