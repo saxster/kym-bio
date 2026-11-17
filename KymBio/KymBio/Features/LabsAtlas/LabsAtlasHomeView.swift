@@ -25,9 +25,9 @@ enum DiagramFadingTier: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .labelOnly: return "1. Label callouts"
-        case .ghostScaffold: return "2. Ghost scaffold (25%)"
-        case .blankRecall: return "3. Blank recall"
+        case .labelOnly: return "1. Full diagram"
+        case .ghostScaffold: return "2. Light outline"
+        case .blankRecall: return "3. Draw from memory"
         }
     }
 }
@@ -186,7 +186,7 @@ struct LabsAtlasHomeView: View {
                         // Challenge banner
                         if !widget.challengePrompt.isEmpty {
                             VStack(alignment: .leading, spacing: Spacing.xs) {
-                                Label("Goal-directed micro-challenge", systemImage: "flag.checkered")
+                                Label("Lab challenge", systemImage: "flag.checkered")
                                     .font(.kymaiaCaption.weight(.semibold))
                                     .foregroundStyle(Color.kymaiaPrimary)
                                 Text(widget.challengePrompt)
@@ -200,7 +200,7 @@ struct LabsAtlasHomeView: View {
                                     )
                                 } label: {
                                     Label(
-                                        store.widgetStamps[widget.id] != nil ? "Challenge stamped" : "Mark challenge completed",
+                                        store.widgetStamps[widget.id] != nil ? "Challenge completed" : "Mark challenge completed",
                                         systemImage: "checkmark.seal.fill"
                                     )
                                 }
@@ -227,10 +227,10 @@ struct LabsAtlasHomeView: View {
                                 .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                         )
 
-                        // 5-Shot Choreographed Watch Tour
+                        // Guided Watch Tour
                         if !widget.watchSteps.isEmpty {
                             VStack(alignment: .leading, spacing: Spacing.xs) {
-                                Text("5-Shot Choreographed Watch Tour")
+                                Text("Guided Step-by-Step Tour")
                                     .font(.kymaiaCaption.weight(.semibold))
                                     .foregroundStyle(Color.kymaiaMutedInk)
                                 FlowLayout(spacing: Spacing.xs) {
@@ -256,7 +256,7 @@ struct LabsAtlasHomeView: View {
 
                         // Cutaway & Model Honesty Footnote
                         HStack(spacing: Spacing.sm) {
-                            Button(showCutaway ? "Hide submicroscopic cutaway" : "Inspect submicroscopic cutaway") {
+                            Button(showCutaway ? "Hide cell-scale view" : "Look inside at the cell & molecule scale") {
                                 showCutaway.toggle()
                             }
                             .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
@@ -264,7 +264,7 @@ struct LabsAtlasHomeView: View {
 
                         if showCutaway && !widget.cutaway.isEmpty {
                             VStack(alignment: .leading, spacing: 4) {
-                                Label("Inside the mechanism (submicroscopic cutaway)", systemImage: "magnifyingglass.circle.fill")
+                                Label("Inside the cells & molecules", systemImage: "magnifyingglass.circle.fill")
                                     .font(.kymaiaCaption.weight(.semibold))
                                     .foregroundStyle(Color.kymaiaPrimary)
                                 Text(widget.cutaway)
@@ -555,7 +555,7 @@ struct LabsAtlasHomeView: View {
                         VStack(alignment: .leading, spacing: Spacing.sm) {
                             HStack {
                                 JournalChip(text: "Chapter \(lesson.chapter)", tone: .accent)
-                                JournalChip(text: lesson.id, tone: .neutral)
+                                JournalChip(text: "3D Lesson", tone: .neutral)
                                 Spacer()
                             }
                             Text(lesson.title)

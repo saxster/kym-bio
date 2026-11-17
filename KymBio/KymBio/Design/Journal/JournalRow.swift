@@ -118,14 +118,15 @@ struct JournalRow: View {
     private var titles: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title)
-                .font(.kymaiaBody)
+                .font(isInList ? .kymaiaSubheadline.weight(.medium) : .kymaiaBody)
                 .foregroundStyle(Color.kymaiaInk)
-                .lineLimit(2)
+                .lineLimit(isInList ? 1 : 2)
                 .fixedSize(horizontal: false, vertical: true)
             if let subtitle {
                 Text(subtitle)
-                    .font(.kymaiaCaption)
+                    .font(isInList ? .kymaiaCaption2 : .kymaiaCaption)
                     .foregroundStyle(Color.kymaiaMutedInk)
+                    .lineLimit(isInList ? 1 : 3)
                     .fixedSize(horizontal: false, vertical: true)
             }
             if let detail {
@@ -140,7 +141,7 @@ struct JournalRow: View {
 
     private func glyph(_ symbol: String, tint: Color) -> some View {
         Image(systemName: symbol)
-            .font(.kymaiaBody)
+            .font(isInList ? .kymaiaSubheadline.weight(.medium) : .kymaiaBody)
             .foregroundStyle(tint)
             .accessibilityHidden(true)
     }
@@ -163,7 +164,7 @@ struct JournalRow: View {
         case .count, .text, .none:
             if let text = trailing.visibleText {
                 Text(text)
-                    .font(.kymaiaBody.monospacedDigit())
+                    .font((isInList ? Font.kymaiaCaption : Font.kymaiaBody).monospacedDigit())
                     .foregroundStyle(isEmphasized ? Color.kymaiaPrimary : Color.kymaiaTertiaryInk)
             }
         }

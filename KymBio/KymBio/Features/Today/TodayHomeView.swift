@@ -37,9 +37,6 @@ struct TodayHomeView: View {
             phenomenonMechanismSpotlightSection
             coreBiologyUnitsSection
             featuredLabsAndDiagramsSection
-            JournalSection(title: "Appearance") {
-                StandardThemeGallery()
-            }
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -66,23 +63,23 @@ struct TodayHomeView: View {
         }
     }
 
-    // MARK: - 15-Minute Daily Flow Composer (SmartyMe + Brilliant Loop)
+    // MARK: - 15-Minute Daily Session Composer
 
     private var dailyFlowCard: some View {
         let plan = dailyPlan
-        return JournalSection(title: "15-Minute Daily Biology Flow") {
+        return JournalSection(title: "Today's 15-Minute Biology Plan") {
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     HStack(spacing: Spacing.xs) {
                         JournalChip(
-                            label: "\(plan.totalMinutes) min guided loop",
-                            systemImage: "Bolt.heart.fill".lowercased(),
+                            label: "\(plan.totalMinutes) min guided session",
+                            systemImage: "bolt.heart.fill",
                             tone: .accent
                         )
                         JournalChip(
                             text: plan.isWarmupReview
                                 ? "\(plan.dueCards.count) warm-up cards"
-                                : "\(plan.dueCards.count) due cards",
+                                : "\(plan.dueCards.count) cards to review",
                             tone: .good
                         )
                         JournalChip(
@@ -92,7 +89,7 @@ struct TodayHomeView: View {
                         Spacer()
                     }
 
-                    Text("Four bite-sized beats: lock in memory, unpack one submicroscopic mechanism with Read & Listen audio, win a peer biological debate, and prove one Cambridge Science 8 question.")
+                    Text("Four short steps: review key ideas, explore how cells work with audio, solve a 'Who is right?' puzzle, and answer one Cambridge Science 8 question.")
                         .font(.kymaiaBody)
                         .foregroundStyle(Color.kymaiaInk)
 
@@ -110,7 +107,7 @@ struct TodayHomeView: View {
                         Button {
                             store.showDailyFlowSheet = true
                         } label: {
-                            Label("Start 15-Minute Daily Flow", systemImage: "play.fill")
+                            Label("Start 15-Minute Session", systemImage: "play.fill")
                         }
                         .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled))
                         .accessibilityIdentifier("today.daily-flow.start")
@@ -119,7 +116,7 @@ struct TodayHomeView: View {
                             store.activeLivingWorldChapter = plan.chapter.number
                             store.selectedRoom = .livingWorld
                         } label: {
-                            Label("Open Chapter \(plan.chapter.number) Beats", systemImage: "sparkles")
+                            Label("Read Chapter \(plan.chapter.number)", systemImage: "sparkles")
                         }
                         .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted))
                         .accessibilityIdentifier("today.daily-flow.open-beats")
@@ -131,7 +128,7 @@ struct TodayHomeView: View {
 
     private var phenomenonMechanismSpotlightSection: some View {
         let bridge = PhenomenonToMechanismBridge.bridge(forChapter: store.activeLivingWorldChapter)
-        return JournalSection(title: "Phenomenon → Mechanism → Law Spotlight") {
+        return JournalSection(title: "How It Works · Everyday Clue to Biology Rule") {
             PhenomenonMechanismBridgeCard(bridge: bridge)
         }
     }
@@ -148,16 +145,16 @@ struct TodayHomeView: View {
                 }
             ) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("School Science 8 Proofs")
+                    Text("Cambridge Science 8 Questions")
                         .font(.kymaiaCaption.weight(.semibold))
-                    Text("\(provenQuestionsCount) of \(store.pack.schoolQuestions.count) proven")
-                        .font(.kymaiaTitle2.weight(.bold).monospacedDigit())
+                    Text("\(provenQuestionsCount) of \(store.pack.schoolQuestions.count) answered solo")
+                        .font(.kymaiaTitle3.weight(.bold).monospacedDigit())
                     Text("Learner's Book 8 & Workbook 8")
                         .font(.kymaiaCaption)
                 }
             }
-            .accessibilityLabel("School Science 8 Question Proofs")
-            .accessibilityValue("\(provenQuestionsCount) of \(store.pack.schoolQuestions.count) proven")
+            .accessibilityLabel("Cambridge Science 8 Practice Questions")
+            .accessibilityValue("\(provenQuestionsCount) of \(store.pack.schoolQuestions.count) answered solo")
             .accessibilityIdentifier("today.tile.proofs")
 
             JournalGlanceTile(
@@ -168,24 +165,24 @@ struct TodayHomeView: View {
                 }
             ) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Spaced Retrieval (FSRS)")
+                    Text("Quick Memory Cards")
                         .font(.kymaiaCaption.weight(.semibold))
-                    Text("\(store.dueFSRSCards.count) cards due")
-                        .font(.kymaiaTitle2.weight(.bold).monospacedDigit())
-                    Text("Tap to run a 3-minute retrieval set")
+                    Text("\(store.dueFSRSCards.count) cards ready")
+                        .font(.kymaiaTitle3.weight(.bold).monospacedDigit())
+                    Text("Tap for a 3-minute recall check")
                         .font(.kymaiaCaption)
                 }
             }
-            .accessibilityLabel("Spaced Retrieval cards due")
-            .accessibilityValue("\(store.dueFSRSCards.count) cards due")
+            .accessibilityLabel("Quick Memory Cards ready")
+            .accessibilityValue("\(store.dueFSRSCards.count) cards ready")
             .accessibilityIdentifier("today.tile.fsrs")
         }
     }
 
-    // MARK: - Next Question Proof Hero Card
+    // MARK: - Next Question Hero Card
 
     private func nextQuestionProofCard(_ question: SchoolScienceQuestion) -> some View {
-        JournalSection(title: "Next up for independent proof") {
+        JournalSection(title: "Next question to try on your own") {
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
                     HStack {
@@ -205,7 +202,7 @@ struct TodayHomeView: View {
                         Button {
                             store.activePracticeQuestion = question
                         } label: {
-                            Label("Prove this question now", systemImage: "checkmark.seal.fill")
+                            Label("Try this question now", systemImage: "checkmark.seal.fill")
                         }
                         .buttonStyle(BrassButtonStyle())
                         .accessibilityIdentifier("today.next-question.start")
@@ -338,7 +335,7 @@ struct FSRSReviewSheetView: View {
         let currentCard = cards.isEmpty ? nil : cards[safeIndex]
 
         JournalFocusPage(
-            title: "Spaced Retrieval (FSRS)",
+            title: "Quick Memory Cards",
             progress: .init(step: safeIndex + 1, total: max(1, cards.count)),
             closeLabel: "Done",
             close: { dismiss() }
@@ -348,7 +345,7 @@ struct FSRSReviewSheetView: View {
                     JournalChip(text: "Topic \(card.topicCode)", tone: .accent)
                     JournalChip(text: "Chapter \(card.chapterNumber)", tone: .neutral)
                     Spacer()
-                    Text("Stability: \(String(format: "%.1f", card.stability)) d")
+                    Text("Interval: \(String(format: "%.1f", card.stability)) d")
                         .font(.kymaiaCaption.monospacedDigit())
                         .foregroundStyle(Color.kymaiaMutedInk)
                 }
@@ -507,7 +504,7 @@ struct DailyFlowPlayerSheet: View {
             VStack(alignment: .leading, spacing: Spacing.md) {
                 HStack {
                     JournalChip(
-                        text: plan.isWarmupReview ? "Warm-up Retrieval" : "Due FSRS v5 Retrieval",
+                        text: plan.isWarmupReview ? "Warm-up Cards" : "Cards to Review",
                         tone: .accent
                     )
                     if !cards.isEmpty {

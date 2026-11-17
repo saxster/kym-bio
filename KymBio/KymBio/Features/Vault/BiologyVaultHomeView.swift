@@ -254,12 +254,12 @@ public final class BioSpeechSynthesizer: ObservableObject {
 
 struct BiologyVaultHomeView: View {
     enum Tab: String, CaseIterable {
-        case learnByHeart = "Learn by Heart"
-        case memoryPalaces = "Memory Palaces"
-        case mindMap = "Concept Mind-Map"
-        case claimAutopsy = "Claim Autopsy"
-        case morphemeLadder = "Greek & Latin Roots"
-        case fieldGuide = "Visual Field Guides"
+        case learnByHeart = "Key Definitions"
+        case memoryPalaces = "Memory Walks"
+        case mindMap = "Concept Map"
+        case claimAutopsy = "Fact-Check Claims"
+        case morphemeLadder = "Word Roots"
+        case fieldGuide = "Visual Guides"
     }
 
     @State private var selectedTab: Tab = .learnByHeart
@@ -307,25 +307,25 @@ struct BiologyVaultHomeView: View {
                 learnByHeartBody
             case .memoryPalaces:
                 JournalPage(
-                    title: "Biology memory palaces",
-                    eyebrow: "Vault",
-                    subtitle: "Walk spatial Mumbai and home loci trails to anchor multi-step biological sequences and food tests."
+                    title: "Biology Memory Walks",
+                    eyebrow: "Memory & Roots",
+                    subtitle: "Use familiar places around Mumbai and home to remember multi-step biology processes and food tests."
                 ) {
                     BiologyMemoryPalaceView()
                 }
             case .mindMap:
                 JournalPage(
-                    title: "Causal concept mind-map",
-                    eyebrow: "Vault",
-                    subtitle: "Explore and extend the mechanistic web linking The Living World, Cambridge Science 8, and Chemistry/Physics bridges."
+                    title: "Biology Concept Map",
+                    eyebrow: "Memory & Roots",
+                    subtitle: "Explore how ideas connect across The Living World, Cambridge Science 8, Chemistry, and Physics."
                 ) {
                     BiologyMindMapView()
                 }
             case .claimAutopsy:
                 JournalPage(
-                    title: "Thinking fortress: biological claim autopsy",
-                    eyebrow: "Vault",
-                    subtitle: "Evaluate viral health and environmental claims using Cambridge Thinking and Working Scientifically criteria."
+                    title: "Fact-Check Science Claims",
+                    eyebrow: "Memory & Roots",
+                    subtitle: "Test everyday health and environmental claims using fair-test evidence and biology rules."
                 ) {
                     BiologyClaimAutopsyView()
                 }
@@ -339,11 +339,11 @@ struct BiologyVaultHomeView: View {
 
     private var learnByHeartBody: some View {
         JournalPage(
-            title: "Learn by heart vault",
-            eyebrow: "Vault",
-            subtitle: "Progressive word deletion and spoken recall for Cambridge mark-scheme definitions, equations, and causal cascades."
+            title: "Key Definitions & Equations",
+            eyebrow: "Memory & Roots",
+            subtitle: "Practise core Cambridge definitions, equations, and step-by-step explanations until you know them by heart."
         ) {
-            JournalSection(title: "1. Choose a passage or equation (\(BiologyVaultCatalog.cards.count) essential cards)") {
+            JournalSection(title: "1. Choose a definition or equation (\(BiologyVaultCatalog.cards.count) essential cards)") {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: Spacing.sm) {
                         ForEach(BiologyVaultCatalog.cards) { card in
@@ -367,7 +367,7 @@ struct BiologyVaultHomeView: View {
                 }
             }
 
-            JournalSection(title: "2. Progressive deletion stage (Stage \(deletionStage) of 5)") {
+            JournalSection(title: "2. Fill-in-the-blank practice (Step \(deletionStage) of 5)") {
                 JournalCard {
                     VStack(alignment: .leading, spacing: Spacing.md) {
                         HStack {
@@ -497,9 +497,9 @@ struct BiologyVaultHomeView: View {
 
     private var morphemeLadderBody: some View {
         JournalPage(
-            title: "Greek and Latin biology morpheme ladder",
-            eyebrow: "Vault",
-            subtitle: "Decode any unfamiliar biology word by owning the 12 core Greek and Latin roots that build the textbook."
+            title: "Greek & Latin Word Roots",
+            eyebrow: "Memory & Roots",
+            subtitle: "Decode unfamiliar biology words by learning the 12 Greek and Latin roots that build them."
         ) {
             ForEach(BiologyVaultCatalog.morphemes) { entry in
                 let rung = currentRung(for: entry.id)
@@ -507,7 +507,7 @@ struct BiologyVaultHomeView: View {
                     VStack(alignment: .leading, spacing: Spacing.sm) {
                         HStack {
                             Text(entry.root)
-                                .font(.kymaiaTitle2)
+                                .font(.kymaiaTitle3)
                                 .foregroundStyle(Color.kymaiaPrimaryStrong)
                             JournalChip(label: entry.origin, systemImage: "character.book.closed", tone: .neutral)
                             JournalChip(label: "\"\(entry.literalMeaning)\"", systemImage: "sparkles", tone: .accent)
@@ -537,7 +537,7 @@ struct BiologyVaultHomeView: View {
                         Divider()
 
                         HStack(spacing: Spacing.xs) {
-                            Text("OWNERSHIP RUNG:")
+                            Text("PROGRESS:")
                                 .font(.kymaiaEyebrow)
                                 .foregroundStyle(Color.kymaiaMutedInk)
                             ForEach(MorphemeOwnershipRung.allCases, id: \.self) { level in

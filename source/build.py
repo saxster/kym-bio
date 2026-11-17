@@ -80,16 +80,19 @@ def byrne_inline(text: str) -> str:
     text = re.sub(r'\(`given`\s+([^)]+)\)', r'(<span class="atlas-comic-byrne-given">\1</span>)', text)
     text = re.sub(r'\(`stays`\s+([^)]+)\)', r'(<span class="atlas-comic-byrne-stays">\1</span>)', text)
     text = re.sub(r'\(`moves`\s+([^)]+)\)', r'(<span class="atlas-comic-byrne-moves">\1</span>)', text)
+    text = re.sub(r'`given`', r'<span class="atlas-comic-byrne-given">given</span>', text)
+    text = re.sub(r'`stays`', r'<span class="atlas-comic-byrne-stays">conserved</span>', text)
+    text = re.sub(r'`moves`', r'<span class="atlas-comic-byrne-moves">changes</span>', text)
     return text
 
 
 def comic_panel_svg(char_id: str, idx: int, ch_n: int) -> str:
     palettes = {
         'kym': ('#23519C', '#E8F0FC', 'Kym · 10× Lens'),
-        'dash': ('#AE2B20', '#FCECE9', 'Dash · Fast Hunch'),
-        'barnaby': ('#AE2B20', '#FCECE9', 'Barnaby · Myth Stage'),
+        'dash': ('#AE2B20', '#FCECE9', 'Dash · First Hunch'),
+        'barnaby': ('#AE2B20', '#FCECE9', 'Barnaby · Rival Claim'),
         'pip': ('#B07C12', '#F8EACB', 'Dr. Zeta & Pip · 1 µm'),
-        'bento': ('#B07C12', '#F8EACB', 'Master Bento · Ledger'),
+        'bento': ('#B07C12', '#F8EACB', 'Master Bento · Workbench'),
         'clara': ('#2D6A4F', '#E6F3EC', 'Clara · Field Log'),
     }
     stroke, tint, tag = palettes.get(char_id, ('#23519C', '#F8EACB', 'Atelier Workbench'))
@@ -543,10 +546,10 @@ class Builder:
             return f'<p class="eq">{md_inline(byrne_inline(inner))}</p>'
         if kind in ('tip', 'remember', 'warning', 'technical'):
             medallions = {
-                'tip': ('callout-tip', 'Tip · Rule of thumb'),
-                'remember': ('callout-remember', 'Remember · Core invariant'),
-                'warning': ('callout-warning', 'Warning · Pitfall'),
-                'technical': ('callout-technical', 'Technical stuff · :nutshell'),
+                'tip': ('callout-tip', 'Rule of thumb'),
+                'remember': ('callout-remember', 'Key idea'),
+                'warning': ('callout-warning', 'Watch out'),
+                'technical': ('callout-technical', 'Going deeper'),
             }
             cls_name, badge_lbl = medallions[kind]
             head = md_inline(arg) if arg else badge_lbl
@@ -558,14 +561,15 @@ class Builder:
                     f'<span class="callout-medallion">{badge_lbl}</span><span>{head}</span>'
                     f'</p>{md(inner)}</div>')
         if kind == 'fireside':
-            head = md_inline(arg) if arg else 'Fireside chat · Two voices'
+            head = md_inline(arg) if arg else 'Two voices'
             return (f'<section class="box fireside-chat"><p class="bh">'
-                    f'<span class="callout-medallion">Fireside chat</span><span>{head}</span>'
+                    f'<span class="callout-medallion">Two voices</span><span>{head}</span>'
                     f'</p>{md(inner)}</section>')
         if kind == 'cheatsheet':
-            head = md_inline(arg) if arg else f'Chapter {ch.n} Tear-Out Cheat Sheet'
+            clean_arg = re.sub(r'Tear-Out Cheat Sheet\s*·\s*', '', arg or '').strip()
+            head = md_inline(clean_arg) if clean_arg else f'Chapter {ch.n} Summary'
             return (f'<section class="box cheat-sheet-card"><p class="bh">'
-                    f'<span class="callout-medallion">Tear-out cheat sheet</span><span>{head}</span>'
+                    f'<span class="callout-medallion">Chapter summary</span><span>{head}</span>'
                     f'</p>{md(inner)}</section>')
         if kind in ('comic_intro', 'comic_prologue', 'comic_opener', 'comic_closer'):
             role = {
@@ -575,10 +579,10 @@ class Builder:
                 'comic_closer': 'chapterCloser',
             }[kind]
             role_lbl = {
-                'comic_intro': 'Book Introduction',
-                'comic_prologue': 'Book Introduction',
+                'comic_intro': 'Prologue',
+                'comic_prologue': 'Prologue',
                 'comic_opener': 'Opening Scene',
-                'comic_closer': 'Chapter Resolution',
+                'comic_closer': 'Looking Ahead',
             }[kind]
             if arg and ' · ' in arg:
                 t_part, d_part = arg.split(' · ', 1)
@@ -589,6 +593,10 @@ class Builder:
                 header_left = f'<h2 class="atlas-comic-title">{title_html}</h2>'
             raw_panels = [p.strip() for p in re.split(r'\n---+\n', inner.strip()) if p.strip()]
             cards = []
+            basis_labels = {
+                'DOCUMENTED FACT': 'Evidence',
+                'THOUGHT EXPERIMENT': 'What if?',
+            }
             for idx, ptxt in enumerate(raw_panels, 1):
                 cap_lines, bal_lines = [], []
                 for ln in ptxt.splitlines():
@@ -602,9 +610,10 @@ class Builder:
                 sp_match = re.match(r'^\*\*([^*]+?)\s*\(`([a-z_]+)`\s*·\s*([^)]+)\):\*\*\s*(.*)$', bal_raw)
                 if sp_match:
                     sp_name, char_id, sp_basis, sp_speech = sp_match.groups()
+                    friendly_basis = basis_labels.get(sp_basis.strip().upper(), sp_basis.strip())
                     bal_inner = (f'<div class="atlas-comic-speaker-row">'
                                  f'<span class="atlas-comic-char-badge" data-character="{char_id}">{html.escape(sp_name.strip())}</span>'
-                                 f'<span class="atlas-comic-basis">{html.escape(sp_basis.strip())}</span>'
+                                 f'<span class="atlas-comic-basis">{html.escape(friendly_basis)}</span>'
                                  f'</div><div>{md_inline(byrne_inline(sp_speech.strip()))}</div>')
                 else:
                     bal_inner = md_inline(byrne_inline(bal_raw))

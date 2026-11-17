@@ -49,13 +49,13 @@ struct LabJournalHomeView: View {
 
     var body: some View {
         JournalPage(
-            title: "Lab Journal & Cornell Notes",
-            eyebrow: "Lab journal",
-            subtitle: "Cornell cue-testing, scientific enquiry lab logs and Apple Pencil specimen sketches (private by default)",
+            title: "Lab Notebook & Study Notes",
+            eyebrow: "Lab notebook",
+            subtitle: "Cue-column study notes, kitchen lab logs and Apple Pencil specimen sketches (private by default)",
             floatingAction: JournalAction(
-                title: "New journal page",
+                title: "New notebook page",
                 systemImage: "plus",
-                hint: "Create a new Cornell page, Biology Lab Log or Specimen Sketch",
+                hint: "Create a new study page, Biology Lab Log or Specimen Sketch",
                 identifier: "journal.new-page",
                 action: { createBlankEntry(kind: .cornell) }
             )
@@ -82,9 +82,7 @@ struct LabJournalHomeView: View {
             let dedupeKey = "\(entry.id)::\(concern.category.rawValue)::\(concern.matchedPhrase)"
             if escalatedSafetyKeys.insert(dedupeKey).inserted {
                 safetySupportMessage = safetyService.supportiveResponse(for: concern)
-                Task {
-                    await safetyService.escalate(concern, channel: "lab_journal")
-                }
+                safetyService.escalate(concern, channel: "lab_journal")
             }
         }
     }
@@ -187,9 +185,7 @@ struct LabJournalHomeView: View {
                             let safetyService = SafetyEscalationService()
                             if let concern = safetyService.scan(candidate) {
                                 safetySupportMessage = safetyService.supportiveResponse(for: concern)
-                                Task {
-                                    await safetyService.escalate(concern, channel: "lab_journal_share")
-                                }
+                                safetyService.escalate(concern, channel: "lab_journal_share")
                             } else {
                                 store.shareJournalMuddiestPointWithCoach(candidate)
                             }

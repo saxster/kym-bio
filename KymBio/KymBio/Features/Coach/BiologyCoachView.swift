@@ -18,9 +18,9 @@ enum CoachTabMode: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .socraticChat: return "Socratic Biology Coach"
-        case .tutorCanvas: return "Co-Drawing Proof Board"
-        case .quantitativeBench: return "Quantitative Biology Bench (16 Templates)"
+        case .socraticChat: return "Biology Coach"
+        case .tutorCanvas: return "Sketch & Explain Board"
+        case .quantitativeBench: return "Biology Maths Practice (16 Topics)"
         }
     }
 }
@@ -63,9 +63,9 @@ struct BiologyCoachView: View {
 
     var body: some View {
         JournalPage(
-            title: "Biology Coach & Quantitative Bench",
+            title: "Biology Coach & Maths Practice",
             eyebrow: "AI tutor",
-            subtitle: "Socratic AI biology tutor · Grounded in your Cambridge Science 8 textbook and The Living World (AI tutor, not a person)",
+            subtitle: "Your biology tutor · Grounded in Cambridge Science 8 and The Living World (AI tutor, not a person)",
             column: .conversation
         ) {
             modePickerCard

@@ -48,10 +48,10 @@ public enum ConfidenceVerdictQuadrant: String, Codable, CaseIterable, Sendable {
 
     public var badgeTitle: String {
         switch self {
-        case .solidMastery: return "Solid Mastery"
-        case .fragileGuess: return "Fragile Guess — Needs Reinforcement"
-        case .honestGap: return "Honest Gap — Clean Slate"
-        case .committedMisconception: return "High-Priority Misconception"
+        case .solidMastery: return "Got It Cold"
+        case .fragileGuess: return "Right — Let's Lock It In"
+        case .honestGap: return "Good Question to Learn"
+        case .committedMisconception: return "Watch Out — Common Mix-Up"
         }
     }
 
@@ -109,8 +109,8 @@ enum TransferTwinCatalog {
         return SchoolScienceTransferTwin(
             id: "\(question.id)-twin",
             parentQuestionId: question.id,
-            transferContextTitle: "Fresh Transfer Context · Topic \(question.topicCode)",
-            prompt: "[Transfer Twin — Fresh Organism/Setup] Apply the exact same mechanism from Topic \(question.topicCode) to a new laboratory observation: \(question.prompt)",
+            transferContextTitle: "New Scenario · Topic \(question.topicCode)",
+            prompt: "[New Scenario] Apply the exact same mechanism from Topic \(question.topicCode) to a new laboratory observation: \(question.prompt)",
             markSchemeKeywords: question.markSchemeKeywords,
             modelAnswer: question.modelAnswer
         )
@@ -120,7 +120,7 @@ enum TransferTwinCatalog {
         "q-u1-1.1-lb": SchoolScienceTransferTwin(
             id: "q-u1-1.1-lb-twin",
             parentQuestionId: "q-u1-1.1-lb",
-            transferContextTitle: "Transfer Twin · Dusty Marathon Runner Airways",
+            transferContextTitle: "New Scenario · Dusty Marathon Runner Airways",
             prompt: "During a dusty cross-country run in Mumbai, an athlete inhales air through the nose. Trace the path of an oxygen molecule to an alveolus and explain how cartilage in the trachea and cilia + mucus in the bronchi protect the lungs during heavy breathing.",
             markSchemeKeywords: ["trachea", "bronchus", "bronchiole", "cartilage", "collapse", "mucus", "cilia"],
             modelAnswer: "Air travels down the trachea, into a bronchus, through smaller bronchioles to an alveolus. C-shaped rings of cartilage support the trachea so it does not collapse when air pressure drops during deep inhalation. Goblet cells secrete sticky mucus that traps dust and bacteria, and cilia beat rhythmically to sweep the mucus up to the throat."
@@ -128,7 +128,7 @@ enum TransferTwinCatalog {
         "q-u1-1.2-wb": SchoolScienceTransferTwin(
             id: "q-u1-1.2-wb-twin",
             parentQuestionId: "q-u1-1.2-wb",
-            transferContextTitle: "Transfer Twin · High-Altitude Mountain Goose Alveoli",
+            transferContextTitle: "New Scenario · High-Altitude Mountain Goose Alveoli",
             prompt: "A bar-headed goose flying over the Himalayas relies on rapid gas exchange in its lungs. Explain three structural adaptations of an alveolus and its surrounding blood supply that maximise the rate of oxygen diffusion into the blood.",
             markSchemeKeywords: ["surface area", "one cell thick", "short distance", "concentration gradient", "capillaries", "diffusion"],
             modelAnswer: "Millions of alveoli provide a huge total surface area for diffusion. Both the alveolus wall and capillary wall are one cell thick, giving a very short distance for diffusion. A dense network of blood capillaries and continuous ventilation maintain a steep concentration gradient."
@@ -136,7 +136,7 @@ enum TransferTwinCatalog {
         "q-u1-1.3-lb": SchoolScienceTransferTwin(
             id: "q-u1-1.3-lb-twin",
             parentQuestionId: "q-u1-1.3-lb",
-            transferContextTitle: "Transfer Twin · Swimmer Taking a Deep Breath Before Diving",
+            transferContextTitle: "New Scenario · Swimmer Taking a Deep Breath Before Diving",
             prompt: "Before diving into a pool, a swimmer takes a deep breath in. Describe and explain the exact sequence of actions in the intercostal muscles, ribcage, and diaphragm that causes air to rush into the lungs.",
             markSchemeKeywords: ["intercostal", "contract", "diaphragm", "flattens", "volume increases", "pressure decreases"],
             modelAnswer: "The external intercostal muscles contract to pull the ribcage upwards and outwards, while the diaphragm muscle contracts and flattens downwards. Consequently, thorax volume increases and air pressure inside the lungs decreases below atmospheric pressure, forcing air in."
@@ -144,7 +144,7 @@ enum TransferTwinCatalog {
         "q-u1-1.4-wb": SchoolScienceTransferTwin(
             id: "q-u1-1.4-wb-twin",
             parentQuestionId: "q-u1-1.4-wb",
-            transferContextTitle: "Transfer Twin · Germinating Chickpea Vacuum Flasks",
+            transferContextTitle: "New Scenario · Germinating Chickpea Vacuum Flasks",
             prompt: "Two insulated vacuum flasks are set up in a school lab: Jar X holds live germinating chickpeas washed in mild disinfectant; Jar Y holds boiled dead chickpeas washed in disinfectant. Write the word equation for aerobic respiration and explain why Jar X is 5 °C warmer than Jar Y after two days.",
             markSchemeKeywords: ["glucose", "oxygen", "carbon dioxide", "water", "releases energy", "heat", "mitochondria"],
             modelAnswer: "Word equation: glucose + oxygen -> carbon dioxide + water. Live germinating chickpeas carry out aerobic respiration inside their mitochondria, which releases energy from glucose; part of that energy transfers to the surroundings as heat. Boiled chickpeas have denatured enzymes so no respiration occurs."
@@ -152,7 +152,7 @@ enum TransferTwinCatalog {
         "q-u1-1.5-cyp": SchoolScienceTransferTwin(
             id: "q-u1-1.5-cyp-twin",
             parentQuestionId: "q-u1-1.5-cyp",
-            transferContextTitle: "Transfer Twin · Sprinter Blood Smear Comparison",
+            transferContextTitle: "New Scenario · Sprinter Blood Smear Comparison",
             prompt: "A sports physiologist examines a stained blood smear from a 400 m sprinter. State two visible structural differences between red blood cells and white blood cells, and explain how each red blood cell adaptation speeds up oxygen delivery to working muscle fibres.",
             markSchemeKeywords: ["no nucleus", "haemoglobin", "biconcave", "surface area", "white blood cell", "oxyhaemoglobin"],
             modelAnswer: "Red blood cells have no nucleus (unlike a white blood cell), leaving more space to pack in haemoglobin molecules that bind oxygen to form oxyhaemoglobin. Their biconcave disc shape gives a large surface area to volume ratio for rapid oxygen diffusion."
@@ -160,7 +160,7 @@ enum TransferTwinCatalog {
         "q-u2-2.4-wb": SchoolScienceTransferTwin(
             id: "q-u2-2.4-wb-twin",
             parentQuestionId: "q-u2-2.4-wb",
-            transferContextTitle: "Transfer Twin · Red Hibiscus Petal Chromatography",
+            transferContextTitle: "New Scenario · Red Hibiscus Petal Chromatography",
             prompt: "A student extracts pigments from crushed red hibiscus petals and sets up a paper chromatogram. Explain (a) why the origin line is drawn with a graphite pencil instead of a ballpoint pen, and (b) why the solvent in the chromatography tank must sit below the origin spot.",
             markSchemeKeywords: ["insoluble", "dissolve", "ink", "solvent", "below"],
             modelAnswer: "(a) Graphite is insoluble in the solvent, whereas pen ink would dissolve and travel up the paper, ruining the chromatogram. (b) The solvent level must start below the spot so the petal pigments do not dissolve directly into the pool of solvent at the bottom."
@@ -168,7 +168,7 @@ enum TransferTwinCatalog {
         "q-u3-3.4-wb": SchoolScienceTransferTwin(
             id: "q-u3-3.4-wb-twin",
             parentQuestionId: "q-u3-3.4-wb",
-            transferContextTitle: "Transfer Twin · Holding a Lab Microscope on the Palm",
+            transferContextTitle: "New Scenario · Holding a Lab Microscope on the Palm",
             prompt: "Treating the forearm as a lever with the elbow joint as the pivot: a student holds a 12 N portable microscope in her palm 0.30 m from the elbow pivot. Her biceps tendon attaches to the radius 0.04 m from the pivot. Calculate the moment of the load and the upward force exerted by the biceps to keep the forearm level.",
             markSchemeKeywords: ["3.6", "90", "moment", "pivot"],
             modelAnswer: "Clockwise moment about the elbow pivot = 12 N x 0.30 m = 3.6 N m. For equilibrium, anticlockwise moment = 3.6 N m = biceps force x 0.04 m, so upward biceps force = 3.6 / 0.04 = 90 N."
@@ -176,7 +176,7 @@ enum TransferTwinCatalog {
         "q-u4-4.1-lb": SchoolScienceTransferTwin(
             id: "q-u4-4.1-lb-twin",
             parentQuestionId: "q-u4-4.1-lb",
-            transferContextTitle: "Transfer Twin · Namib Desert Barrel Succulent Adaptations",
+            transferContextTitle: "New Scenario · Namib Desert Barrel Succulent Adaptations",
             prompt: "Explain how three structural adaptations of a spiny desert barrel cactus allow it to collect water, conserve water, and survive in an arid desert ecosystem.",
             markSchemeKeywords: ["roots", "store water", "stem", "spines", "surface area", "herbivores"],
             modelAnswer: "Wide, shallow roots absorb rainwater rapidly before it evaporates. A thick fleshy green stem can store water and carry out photosynthesis. Leaves are reduced to sharp spines, reducing the surface area for water loss by transpiration and deterring thirsty herbivores."
@@ -184,7 +184,7 @@ enum TransferTwinCatalog {
         "q-u4-4.2-wb": SchoolScienceTransferTwin(
             id: "q-u4-4.2-wb-twin",
             parentQuestionId: "q-u4-4.2-wb",
-            transferContextTitle: "Transfer Twin · Barents Sea Pack-Ice Food Web",
+            transferContextTitle: "New Scenario · Barents Sea Pack-Ice Food Web",
             prompt: "In a polar marine food chain (under-ice algae -> copepods -> polar cod -> ringed seals -> polar bears), state what the arrows represent and explain how rapid loss of summer sea ice alters the seal and polar bear populations.",
             markSchemeKeywords: ["energy transfer", "algae", "producer", "habitat", "seals", "decrease"],
             modelAnswer: "The arrows represent the direction of energy transfer through the food chain. Under-ice algae are the primary producer; losing sea ice destroys their habitat and hunting platforms, causing krill/fish and seals to decline so the polar bear population will decrease."
@@ -192,7 +192,7 @@ enum TransferTwinCatalog {
         "q-u4-4.3-lb": SchoolScienceTransferTwin(
             id: "q-u4-4.3-lb-twin",
             parentQuestionId: "q-u4-4.3-lb",
-            transferContextTitle: "Transfer Twin · Invasive African Grass in Arid Scrubland",
+            transferContextTitle: "New Scenario · Invasive African Grass in Arid Scrubland",
             prompt: "An introduced African pasture grass invades a dry desert reserve populated by slow-growing native cacti. Explain why the invasive grass multiplies unchecked and how it causes native cactus numbers to fall.",
             markSchemeKeywords: ["predators", "herbivores", "outcompetes", "water", "minerals", "fire", "native"],
             modelAnswer: "The invasive grass has no natural predators or specialist herbivores in the new desert, so it outcompetes native seedlings for scarce water and soil minerals. Its dense dry mats fuel frequent brush fire cycles that kill native cacti not adapted to fire."
@@ -200,7 +200,7 @@ enum TransferTwinCatalog {
         "q-u4-4.4-cyp": SchoolScienceTransferTwin(
             id: "q-u4-4.4-cyp-twin",
             parentQuestionId: "q-u4-4.4-cyp",
-            transferContextTitle: "Transfer Twin · Mercury & PCB Amplification in an Estuary",
+            transferContextTitle: "New Scenario · Mercury & PCB Amplification in an Estuary",
             prompt: "Trace amounts of a persistent organochlorine pesticide enter a coastal estuary (plankton -> minnows -> mullet -> sea eagles). Using the terms bioaccumulation and biomagnification, explain why sea eagles accumulate lethal toxin concentrations while the water tests almost clean.",
             markSchemeKeywords: ["persistent", "break down", "excreted", "bioaccumulation", "biomagnification", "concentration increases", "trophic"],
             modelAnswer: "The pesticide is persistent: it does not break down and cannot be excreted, so it builds up inside individual organisms over time (bioaccumulation). Because each predator eats many prey from the lower level, the toxin concentration increases at each trophic level (biomagnification)."
@@ -208,7 +208,7 @@ enum TransferTwinCatalog {
         "q-u7-7.1-lb": SchoolScienceTransferTwin(
             id: "q-u7-7.1-lb-twin",
             parentQuestionId: "q-u7-7.1-lb",
-            transferContextTitle: "Transfer Twin · Hospital Nutrition Lab & Anaemia Check",
+            transferContextTitle: "New Scenario · Hospital Nutrition Lab & Anaemia Check",
             prompt: "(a) Describe the reagents and positive colour changes used to test a crushed biscuit suspension for (i) starch and (ii) reducing sugar. (b) Explain why an endurance runner with severe dietary iron deficiency feels exhausted during exercise.",
             markSchemeKeywords: ["iodine", "blue-black", "Benedict", "heat", "brick-red", "haemoglobin", "oxygen", "respiration"],
             modelAnswer: "(a)(i) Add iodine solution; starch turns it blue-black. (ii) Add Benedict's solution and heat in a water bath; reducing sugar turns it brick-red. (b) Iron is needed to make haemoglobin in red blood cells; less haemoglobin transports less oxygen to muscles for aerobic respiration."
@@ -216,7 +216,7 @@ enum TransferTwinCatalog {
         "q-u7-7.2-wb": SchoolScienceTransferTwin(
             id: "q-u7-7.2-wb-twin",
             parentQuestionId: "q-u7-7.2-wb",
-            transferContextTitle: "Transfer Twin · Adolescent Growth Spurt & Maternal Nutrition",
+            transferContextTitle: "New Scenario · Adolescent Growth Spurt & Maternal Nutrition",
             prompt: "Compare the daily nutritional needs of a growing 13-year-old athlete and an expectant mother. Explain (a) why both require extra dietary protein and calcium, and (b) why total daily energy intake must rise during pregnancy.",
             markSchemeKeywords: ["protein", "new cells", "growth", "calcium", "bones", "fetus", "respiration"],
             modelAnswer: "(a) Protein is required to build new cells and tissues for growth, and calcium is required to mineralise growing bones and teeth. (b) During pregnancy, extra energy from respiration is needed to support the developing fetus and carry the mother's increased body mass."
@@ -224,7 +224,7 @@ enum TransferTwinCatalog {
         "q-u7-7.3-lb": SchoolScienceTransferTwin(
             id: "q-u7-7.3-lb-twin",
             parentQuestionId: "q-u7-7.3-lb",
-            transferContextTitle: "Transfer Twin · Maternal Smoking & Airway Pathology",
+            transferContextTitle: "New Scenario · Maternal Smoking & Airway Pathology",
             prompt: "Cigarette smoke delivers carbon monoxide and tar to the lungs. Explain the biological mechanisms by which (a) carbon monoxide restricts fetal growth during pregnancy, and (b) tar damages gas exchange and airway clearance.",
             markSchemeKeywords: ["carbon monoxide", "haemoglobin", "less oxygen", "respiration", "tar", "cilia", "mucus", "alveoli", "surface area"],
             modelAnswer: "(a) Carbon monoxide binds irreversibly to haemoglobin, so red blood cells carry less oxygen to the fetus for aerobic respiration and cell growth. (b) Tar paralyses cilia so mucus builds up, and chronic coughing breaks down alveoli walls, reducing the surface area for gas exchange."
@@ -232,7 +232,7 @@ enum TransferTwinCatalog {
         "q-u7-7.4-cyp": SchoolScienceTransferTwin(
             id: "q-u7-7.4-cyp-twin",
             parentQuestionId: "q-u7-7.4-cyp",
-            transferContextTitle: "Transfer Twin · Rowing Stroke Elbow Biomechanics",
+            transferContextTitle: "New Scenario · Rowing Stroke Elbow Biomechanics",
             prompt: "When a rower pulls an oar towards the chest and then pushes it back out, both biceps and triceps muscles are required. Explain why skeletal muscles must work as an antagonistic pair at the elbow, and distinguish the roles of tendons and ligaments.",
             markSchemeKeywords: ["only pull", "cannot push", "antagonistic", "biceps contracts", "triceps relaxes", "tendons", "ligaments"],
             modelAnswer: "Muscles can only pull bones when they contract and cannot push. Therefore they work as an antagonistic pair: to bend the arm, the biceps contracts while the triceps relaxes (and vice versa to straighten). Tendons attach muscle to bone, whereas ligaments connect bone to bone to stabilise the joint."
@@ -526,7 +526,7 @@ public struct PhenomenonToMechanismBridge: Identifiable, Hashable, Sendable {
     }
 
     public func perturbationPrompt(for mapping: MechanismTermMapping) -> String {
-        "Perturbation probe: If you vary \(mapping.sliderVariable) while holding all other factors constant, how does \(mapping.symbolOrTerm) change the biological outcome?"
+        "What if: If you change \(mapping.sliderVariable) while keeping everything else the same, how does \(mapping.symbolOrTerm) affect the outcome?"
     }
 
     public func perturbationExplanation(for mapping: MechanismTermMapping) -> String {
@@ -1047,12 +1047,12 @@ public enum ChapterInteractiveBeatKind: String, Codable, CaseIterable, Sendable 
 
     public var badgeLabel: String {
         switch self {
-        case .everydayHook: return "Beat · Mumbai Phenomenon Hook"
-        case .proseInsight: return "Beat · Concept Unpack"
-        case .calloutGate: return "Beat · Active Check Gate"
-        case .interactiveLabAndMechanism: return "Beat · Phenomenon → Mechanism → Law"
-        case .misconceptionDebate: return "Beat · Peer Debate"
-        case .chapterSynthesis: return "Beat · Invariant Synthesis"
+        case .everydayHook: return "Step · Everyday Clue"
+        case .proseInsight: return "Step · Core Idea"
+        case .calloutGate: return "Step · Quick Check"
+        case .interactiveLabAndMechanism: return "Step · How It Works"
+        case .misconceptionDebate: return "Step · Who Is Right?"
+        case .chapterSynthesis: return "Step · Chapter Summary"
         }
     }
 
@@ -1133,7 +1133,7 @@ enum ChapterInteractiveBeatEngine {
         let predictCallout = chapter.callouts.first(where: { $0.kind == "predict" })
         rawBeats.append((
             kind: .everydayHook,
-            eyebrow: "Chapter \(chapter.number) · Phenomenon Hook",
+            eyebrow: "Chapter \(chapter.number) · Opening Clue",
             title: chapter.title,
             body: chapter.hookSummary.isEmpty ? chapter.subtitle : chapter.hookSummary,
             callout: predictCallout,
@@ -1164,9 +1164,9 @@ enum ChapterInteractiveBeatEngine {
                 let gateCallout = nonPredictCallouts[secIdx]
                 rawBeats.append((
                     kind: .calloutGate,
-                    eyebrow: "Active Concept Gate · \(gateCallout.kind.capitalized)",
+                    eyebrow: "Quick Check · \(gateCallout.badgeText)",
                     title: gateCallout.title,
-                    body: "Commit to a mechanistic prediction before unlocking the next concept beat.",
+                    body: "Write your prediction or answer below to unlock the next step.",
                     callout: gateCallout,
                     bridge: nil,
                     debate: nil,
@@ -1177,11 +1177,11 @@ enum ChapterInteractiveBeatEngine {
             }
         }
 
-        // 3. Phenomenon -> Submicroscopic Mechanism -> Formal Law Bridge Beat
+        // 3. Everyday Clue -> Cell Mechanism -> Key Rule Bridge Beat
         let bridge = PhenomenonToMechanismBridge.bridge(forChapter: chapter.number)
         rawBeats.append((
             kind: .interactiveLabAndMechanism,
-            eyebrow: "Phenomenon → Mechanism → Law",
+            eyebrow: "How It Works · Clue to Rule",
             title: bridge.title,
             body: bridge.ahaMechanismInvariant,
             callout: nil,
@@ -1196,7 +1196,7 @@ enum ChapterInteractiveBeatEngine {
         let debate = BiologicalDebateCatalog.scenario(forChapter: chapter.number)
         rawBeats.append((
             kind: .misconceptionDebate,
-            eyebrow: "Peer Biological Debate · Who Is Right?",
+            eyebrow: "Who Is Right & Why?",
             title: debate.title,
             body: debate.mumbaiContextPrompt,
             callout: nil,
@@ -1207,13 +1207,13 @@ enum ChapterInteractiveBeatEngine {
             seconds: 120
         ))
 
-        // 5. Chapter Synthesis & Recall Lock-In Beat
+        // 5. Chapter Summary & Recall Beat
         let recallCallout = chapter.callouts.last(where: { $0.kind == "recall" || $0.kind == "school" }) ?? chapter.callouts.last
         rawBeats.append((
             kind: .chapterSynthesis,
-            eyebrow: "Chapter \(chapter.number) · Synthesis & Recall",
-            title: "Locking In Chapter \(chapter.number): \(chapter.title)",
-            body: "Key biological invariants: \(bridge.ahaMechanismInvariant)\n\nCore equation/law: \(bridge.principleOrEquationDisplay)",
+            eyebrow: "Chapter \(chapter.number) · Key Takeaways",
+            title: "Bringing It Together: \(chapter.title)",
+            body: "Key idea: \(bridge.ahaMechanismInvariant)\n\nKey equation: \(bridge.principleOrEquationDisplay)",
             callout: recallCallout,
             bridge: nil,
             debate: nil,
@@ -2141,12 +2141,12 @@ public enum BioHintLadderRung: Int, Codable, CaseIterable, Identifiable, Sendabl
 
     public var badgeTitle: String {
         switch self {
-        case .r0RestateGoal: return "R0 · Command Word"
-        case .r1IdentifyMechanism: return "R1 · Core Mechanism"
-        case .r2CambridgeWatchout: return "R2 · Wording Guardrail"
-        case .r3SubstepSkeleton: return "R3 · Step Skeleton (Assisted)"
-        case .r4PartialFill: return "R4 · Key Terms (Assisted)"
-        case .r5FullWorkedBridge: return "R5 · Worked Model (Assisted)"
+        case .r0RestateGoal: return "Hint 1 · What the Question Asks"
+        case .r1IdentifyMechanism: return "Hint 2 · Key Biology Idea"
+        case .r2CambridgeWatchout: return "Hint 3 · Exam Wording Tip"
+        case .r3SubstepSkeleton: return "Step Guide · Sentence Starter (Assisted)"
+        case .r4PartialFill: return "Step Guide · Key Terms (Assisted)"
+        case .r5FullWorkedBridge: return "Step Guide · Full Model Answer (Assisted)"
         }
     }
 }
@@ -2260,13 +2260,13 @@ public enum DailyFlowStageKind: Int, Codable, CaseIterable, Identifiable, Sendab
     public var title: String {
         switch self {
         case .memoryLock:
-            return "1. FSRS Memory Lock"
+            return "1. Quick Recall"
         case .conceptDiscoveryBeat:
-            return "2. Concept Discovery Beat"
+            return "2. Core Idea"
         case .misconceptionAndTrapCheck:
-            return "3. Debate & Trap Check"
+            return "3. Who Is Right?"
         case .schoolQuestionProof:
-            return "4. Cambridge Question Proof"
+            return "4. Practice Question"
         }
     }
 

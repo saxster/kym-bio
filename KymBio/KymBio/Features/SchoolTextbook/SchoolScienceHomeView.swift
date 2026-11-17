@@ -199,10 +199,10 @@ struct SchoolScienceHomeView: View {
         )
         .id("explainer-unit-\(unit.unitNumber)")
 
-        JournalSection(title: "Unit \(unit.unitNumber): \(unit.title) — Three-stage readiness") {
+        JournalSection(title: "Unit \(unit.unitNumber): \(unit.title) — Progress at a glance") {
             JournalCardRow {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("1. Material in")
+                    Text("1. Chapters read")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaMutedInk)
                     Text("\(readiness.chaptersReadCount) of \(unit.livingWorldChapters.count) chapters read")
@@ -214,24 +214,24 @@ struct SchoolScienceHomeView: View {
                 .journalMiniCard()
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("2. Checked learning")
+                    Text("2. Guided practice")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaMutedInk)
-                    Text("\(readiness.widgetsStampedCount) lab stamps · \(Int(readiness.averageBKTMastery * 100))% skill")
+                    Text("\(readiness.widgetsStampedCount) labs done · \(Int(readiness.averageBKTMastery * 100))% mastery")
                         .font(.kymaiaCardTitle.monospacedDigit())
-                    Text("\(readiness.questionsAssistedCount) guided attempts")
+                    Text("\(readiness.questionsAssistedCount) guided tries")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaTertiaryInk)
                 }
                 .journalMiniCard()
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("3. Independent proof")
+                    Text("3. Answered solo")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaMutedInk)
-                    Text("\(readiness.questionsProvenCount + readiness.questionsSecureCount) of \(readiness.questionsTotal) proven")
+                    Text("\(readiness.questionsProvenCount + readiness.questionsSecureCount) of \(readiness.questionsTotal) answered solo")
                         .font(.kymaiaCardTitle.monospacedDigit())
-                    Text("\(readiness.questionsSecureCount) secure across 2+ days")
+                    Text("\(readiness.questionsSecureCount) confirmed across 2+ days")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaTertiaryInk)
                 }

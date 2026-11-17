@@ -127,18 +127,18 @@ struct LivingWorldCallout: Codable, Identifiable, Equatable, Hashable, Sendable 
     var badgeText: String {
         switch kind {
         case "predict": return "Predict first"
-        case "check": return "Check understanding"
-        case "recall": return "Recall"
-        case "careful": return "Common trap"
-        case "school": return "School syllabus wording"
+        case "check": return "Quick check"
+        case "recall": return "Connect back"
+        case "careful": return "Common mix-up"
+        case "school": return "Cambridge exam tip"
         case "home": return "Try at home"
         case "case": return "Case study"
-        case "tip": return "Tip · Rule of thumb"
-        case "remember": return "Remember · Core invariant"
-        case "warning": return "Warning · Pitfall"
-        case "technical": return "Technical stuff · :nutshell"
-        case "fireside": return "Fireside chat · Two voices"
-        case "cheatsheet": return "Tear-out cheat sheet"
+        case "tip": return "Rule of thumb"
+        case "remember": return "Key idea"
+        case "warning": return "Watch out"
+        case "technical": return "Going deeper"
+        case "fireside": return "Two voices"
+        case "cheatsheet": return "Chapter summary"
         default: return kind.capitalized
         }
     }

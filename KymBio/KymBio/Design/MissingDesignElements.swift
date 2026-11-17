@@ -44,7 +44,7 @@ extension Font {
         .system(.title3, design: KymaiaThemeRuntime.current.style.headingFace.design).weight(.semibold)
     }
     public static var kymaiaCaption2: Font { .caption2 }
-    public static var kymaiaMonospaced: Font { .system(.callout, design: .monospaced) }
+    public static var kymaiaMonospaced: Font { .system(.footnote, design: .monospaced) }
 }
 
 extension StrokeWidth {

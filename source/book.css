@@ -21,7 +21,7 @@
   --grid: #e9e6da;
   --vol: var(--electron);
   --vol-wash: rgba(53, 109, 131, .07);
-  --measure: 34rem;
+  --measure: 36rem;
   --side: 15.5rem;
   --gap: 2.75rem;
   --serif: "Literata", "Literata Static", "Iowan Old Style", Georgia, serif;
@@ -65,8 +65,8 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 1.1875rem;
-  line-height: 1.62;
+  font-size: 1.075rem;
+  line-height: 1.65;
   font-variant-numeric: lining-nums proportional-nums;
   font-kerning: normal;
   hyphens: manual;
@@ -203,7 +203,7 @@ mark.term {
 .sec ul, .sec ol { padding-left: 1.3rem; margin: 0 0 1em; }
 .sec li { margin-bottom: .3em; }
 .sec li::marker { color: var(--vol); }
-.sec blockquote { margin: 0 0 1em; padding: 0 0 0 1.1rem; border-left: 2px solid var(--rule); color: var(--ink-2); font-style: italic; }
+.sec blockquote { margin: 0 0 1em; padding: 0 0 0 1.1rem; border-left: 1px solid var(--rule); color: var(--ink-2); font-style: italic; }
 
 /* nuclear symbols: [[nuc:A:Z:X:q]] */
 .nuc { display: inline-flex; align-items: flex-start; font-variant-numeric: lining-nums; white-space: nowrap; vertical-align: -.32em; line-height: 1; }
@@ -390,7 +390,7 @@ figure.live-lifting .live-stage {
 .live-your-numbers {
   order: 0; flex-basis: 100%; display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem .65rem;
   padding: .42rem .75rem; border-radius: 8px; background: var(--sheet);
-  border: 1px solid var(--rule); border-left: 3px solid var(--vol);
+  border: 1px solid var(--rule);
 }
 .live-yn-badge {
   font: 700 .68rem/1 var(--sans); text-transform: uppercase; letter-spacing: .06em; color: var(--vol);
@@ -452,11 +452,11 @@ figure.live-lifting .live-stage {
 .evidence .bh { color: var(--ink); }
 .evidence .bh .yr { color: var(--muted); font-weight: 400; }
 
-.careful { background: var(--sheet); border: 1px solid var(--rule); border-left: 4px solid var(--proton); border-radius: 3px 8px 8px 3px; }
+.careful { background: color-mix(in srgb, var(--proton) 5%, var(--sheet)); border: 1px solid color-mix(in srgb, var(--proton) 32%, var(--rule)); border-radius: 10px; }
 .careful .bh { color: var(--proton); }
 .careful blockquote { margin: 0 0 .7em; padding: 0; border: 0; font-style: italic; color: var(--ink); }
 
-.try { border: 1.5px dashed color-mix(in srgb, var(--vol) 55%, transparent); background: transparent; }
+.try { border: 1px solid color-mix(in srgb, var(--vol) 40%, var(--rule)); background: var(--vol-wash); border-radius: 10px; }
 .try .bh { color: var(--vol); }
 
 .check { padding: .9rem 0 .2rem; border-top: 1px solid var(--rule); border-radius: 0; margin-top: 2rem; }
@@ -556,7 +556,7 @@ dialog.storydlg::backdrop { background: rgba(20, 28, 25, .35); }
 .sd-bar button:hover { border-color: var(--ink); }
 .sd-body { overflow-y: auto; padding: 0 clamp(1rem, 4vw, 2.6rem) 4rem; overscroll-behavior: contain; }
 .sd-body article.story { padding-top: 1.6rem; max-width: 36rem; }
-.sd-body .side { float: none; width: auto; margin: 0 0 1rem; padding: .5rem 0 .5rem .9rem; border-left: 2px solid var(--vol); }
+.sd-body .side { float: none; width: auto; margin: 0 0 1rem; padding: .5rem 0 .5rem .9rem; border-left: 1px solid var(--vol); }
 .sd-body figure.wide, .sd-body .full { margin-right: 0; }
 html.sd-open { overflow: hidden; }
 @media screen and (max-width: 720px) {
@@ -604,7 +604,7 @@ html.sd-open { overflow: hidden; }
 @media screen and (max-width: 959px) {
   .flow { padding-right: 0; max-width: var(--measure); }
   .flow .full, .flow figure.wide { margin-right: 0; }
-  .side { float: none; width: auto; margin: 0 0 1.2rem; padding: .55rem 0 .55rem .9rem; border-left: 2px solid var(--vol); }
+  .side { float: none; width: auto; margin: 0 0 1.2rem; padding: .55rem 0 .55rem .9rem; border-left: 1px solid var(--vol); }
   .side.def { border-top: 0; }
   .sec > h3 .n { position: static; display: block; margin-bottom: .3rem; }
 }
@@ -683,7 +683,7 @@ html.sd-open { overflow: hidden; }
 .pred-reveal .lj-link { margin-top: .6rem; }
 .recall .bh { color: var(--vol); }
 .rec-pred { font-family: var(--sans); font-size: .85rem; color: var(--ink-2); background: var(--vol-wash); border-radius: 6px; padding: .4rem .6rem; }
-.school { background: transparent; border: 1px solid var(--rule); border-left: 3px solid var(--electron); border-radius: 3px 8px 8px 3px; padding: .75rem 1.1rem .8rem; }
+.school { background: color-mix(in srgb, var(--electron) 5%, var(--sheet)); border: 1px solid color-mix(in srgb, var(--electron) 32%, var(--rule)); border-radius: 10px; padding: .85rem 1.15rem .9rem; }
 .school .bh { color: var(--electron); }
 
 /* ------------------------------------------------------------------ chapter credit line and "Where this book comes from" */

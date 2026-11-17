@@ -357,22 +357,22 @@ struct MetacognitionAndBackupSheet: View {
 
     var body: some View {
         JournalFocusPage(
-            title: "Metacognition error log & study archive",
+            title: "Mistake Tracker & Study Backup",
             progress: nil,
             closeLabel: "Done",
             close: { dismiss() }
         ) {
-            // 1. Parent / Mentor Readiness Overview
-            JournalSection(title: "1. Cambridge Science 8 & Living World readiness snapshot") {
+            // 1. Readiness Overview
+            JournalSection(title: "1. Cambridge Science 8 & Living World progress") {
                 JournalCardRow {
                     VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Label("Overall readiness", systemImage: "chart.bar.fill")
+                        Label("Overall progress", systemImage: "chart.bar.fill")
                             .font(.kymaiaCaption.weight(.semibold))
                             .foregroundStyle(Color.kymaiaPrimary)
                         Text("\(Int(store.overallReadinessScore * 100))%")
                             .font(.kymaiaTitle3)
                             .foregroundStyle(Color.kymaiaInk)
-                        Text("BKT + FSRS + proofs")
+                        Text("Chapters, cards & questions")
                             .font(.kymaiaCaption2)
                             .foregroundStyle(Color.kymaiaMutedInk)
                     }
@@ -380,13 +380,13 @@ struct MetacognitionAndBackupSheet: View {
                     .journalMiniCard()
 
                     VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Label("Proven questions", systemImage: "checkmark.seal.fill")
+                        Label("Questions answered solo", systemImage: "checkmark.seal.fill")
                             .font(.kymaiaCaption.weight(.semibold))
                             .foregroundStyle(Color.kymaiaSuccess)
                         Text("\(store.questionProofStates.values.filter { $0.level == .proven || $0.level == .secure }.count)")
                             .font(.kymaiaTitle3)
                             .foregroundStyle(Color.kymaiaInk)
-                        Text("Independent proofs")
+                        Text("Without hints")
                             .font(.kymaiaCaption2)
                             .foregroundStyle(Color.kymaiaMutedInk)
                     }
@@ -394,13 +394,13 @@ struct MetacognitionAndBackupSheet: View {
                     .journalMiniCard()
 
                     VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Label("Lab journal pages", systemImage: "book.pages")
+                        Label("Lab notebook pages", systemImage: "book.pages")
                             .font(.kymaiaCaption.weight(.semibold))
                             .foregroundStyle(Color.kymaiaSecondary)
                         Text("\(store.journalEntries.count)")
                             .font(.kymaiaTitle3)
                             .foregroundStyle(Color.kymaiaInk)
-                        Text("Cornell & sketches")
+                        Text("Notes & sketches")
                             .font(.kymaiaCaption2)
                             .foregroundStyle(Color.kymaiaMutedInk)
                     }
@@ -410,22 +410,22 @@ struct MetacognitionAndBackupSheet: View {
             }
 
             // 1B. Physiological Box Breathing & Diaphragm Reset
-            JournalSection(title: "Pre-session diaphragm & vagus-nerve reset (Unit 1.3 & Ch 9)") {
+            JournalSection(title: "Calm breathing reset (Unit 1.3 & Ch 9)") {
                 BiologyBreathingStudioView()
             }
 
-            // 2. Log a new error slip
-            JournalSection(title: "2. Diagnose a mistake (turn every lost mark into a rule)") {
+            // 2. Log a new mistake
+            JournalSection(title: "2. Log a tricky question (turn every mistake into a clear rule)") {
                 JournalCard {
                     VStack(alignment: .leading, spacing: Spacing.sm) {
-                        Picker("Slip category", selection: $selectedCategory) {
+                        Picker("Mistake type", selection: $selectedCategory) {
                             ForEach(BiologyErrorSlipCategory.allCases, id: \.self) { cat in
                                 Text(cat.rawValue).tag(cat)
                             }
                         }
                         .pickerStyle(.menu)
 
-                        Text("Recommended fix: \(selectedCategory.coachingFix)")
+                        Text("Suggested next step: \(selectedCategory.coachingFix)")
                             .font(.kymaiaCaption)
                             .foregroundStyle(Color.kymaiaPrimaryStrong)
 
@@ -437,14 +437,14 @@ struct MetacognitionAndBackupSheet: View {
                             .textFieldStyle(.roundedBorder)
                             .learnerTextInput(.retrieval)
 
-                        TextField("Exact Cambridge mark-scheme or first-principles correction...", text: $markSchemeCorrection, axis: .vertical)
+                        TextField("Exact Cambridge mark-scheme or biology rule...", text: $markSchemeCorrection, axis: .vertical)
                             .textFieldStyle(.roundedBorder)
                             .learnerTextInput(.retrieval)
 
                         Button {
                             appendEntry()
                         } label: {
-                            Label("Add to error log", systemImage: "plus.circle.fill")
+                            Label("Add to mistake log", systemImage: "plus.circle.fill")
                         }
                         .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
                         .disabled(whatIWrote.isEmpty || markSchemeCorrection.isEmpty)
@@ -452,8 +452,8 @@ struct MetacognitionAndBackupSheet: View {
                 }
             }
 
-            // 3. Recorded Error Log
-            JournalSection(title: "3. Your biology error-attribution log (\(entries.count))") {
+            // 3. Recorded Mistake Log
+            JournalSection(title: "3. Your mistake & fix log (\(entries.count))") {
                 ForEach(entries) { item in
                     JournalCard {
                         VStack(alignment: .leading, spacing: Spacing.xs) {

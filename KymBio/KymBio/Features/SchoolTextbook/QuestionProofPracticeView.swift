@@ -12,9 +12,9 @@ enum QuestionScaffoldStage: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .independent: return "Independent proof"
-        case .faded: return "Faded completion"
-        case .workedExample: return "Worked example"
+        case .independent: return "Try on your own"
+        case .faded: return "Fill in the blanks"
+        case .workedExample: return "Step-by-step example"
         }
     }
 }
@@ -255,7 +255,7 @@ struct QuestionProofPracticeView: View {
                 JournalChip(text: "\(question.commandWord) · \(question.marks) marks", tone: .neutral)
                 Spacer()
                 JournalChip(
-                    text: usedAssistanceThisAttempt ? "Guided mode (honest)" : "Independent proof mode",
+                    text: usedAssistanceThisAttempt ? "Guided practice" : "Solo mode",
                     tone: usedAssistanceThisAttempt ? .warn : .good
                 )
             }
@@ -273,7 +273,7 @@ struct QuestionProofPracticeView: View {
     private var promptSection: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             HStack {
-                Text(activeTransferTwin != nil ? "Transfer Twin Question (Fresh Independent Surface)" : "Question")
+                Text(activeTransferTwin != nil ? "Follow-Up Question (New Scenario)" : "Question")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaMutedInk)
                 if let twin = activeTransferTwin {
@@ -294,7 +294,7 @@ struct QuestionProofPracticeView: View {
                     showReadingThinkingField.toggle()
                 } label: {
                     Label(
-                        showReadingThinkingField ? "Hide 'Thinking while reading' note" : "Add 'Thinking while reading' hypothesis before checking",
+                        showReadingThinkingField ? "Hide your first thought" : "Jot your first thought before checking",
                         systemImage: "brain.head.profile"
                     )
                 }
@@ -309,7 +309,7 @@ struct QuestionProofPracticeView: View {
 
             if showReadingThinkingField {
                 TextField(
-                    "Jot your initial hunch or causal chain before opening hints…",
+                    "Jot your initial hunch or step-by-step idea before opening hints…",
                     text: $readingThinkingText
                 )
                 .learnerTextInput(.retrieval)
@@ -324,7 +324,7 @@ struct QuestionProofPracticeView: View {
         switch stage {
         case .workedExample:
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                Label("Worked example (viewing this marks the current attempt as guided)", systemImage: "lightbulb.fill")
+                Label("Step-by-step example (viewing this marks the current try as guided)", systemImage: "lightbulb.fill")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaPrimary)
                 Text(question.workedExample)
@@ -341,7 +341,7 @@ struct QuestionProofPracticeView: View {
 
         case .faded:
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                Label("Faded completion (fill in the missing mark-scheme terms without peeking)", systemImage: "square.and.pencil")
+                Label("Fill in the blanks (type the missing scientific terms without peeking)", systemImage: "square.and.pencil")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaPrimary)
                 Text(question.fadedPrompt)
@@ -370,7 +370,7 @@ struct QuestionProofPracticeView: View {
                     .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
                     .accessibilityIdentifier("question-proof.faded-check")
 
-                    Button(revealedFadedTerms ? "Hide Terms" : "Reveal Terms (Guided)") {
+                    Button(revealedFadedTerms ? "Hide Terms" : "Show Terms (Guided)") {
                         revealedFadedTerms.toggle()
                         if revealedFadedTerms {
                             usedAssistanceThisAttempt = true
@@ -387,7 +387,7 @@ struct QuestionProofPracticeView: View {
                 }
 
                 if revealedFadedTerms {
-                    Text("Expected missing terms: \(question.fadedAnswer)")
+                    Text("Missing terms: \(question.fadedAnswer)")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaMutedInk)
                 }
@@ -400,11 +400,11 @@ struct QuestionProofPracticeView: View {
                 meteredHintLadderSection
 
                 HStack {
-                    Label("Interactive Biological Manipulative Sandbox", systemImage: "slider.horizontal.3")
+                    Label("Interactive Biology Explorer", systemImage: "slider.horizontal.3")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaPrimary)
                     Spacer()
-                    Button(showManipulativeSandbox ? "Hide Sandbox" : "Open Sandbox") {
+                    Button(showManipulativeSandbox ? "Hide Explorer" : "Open Explorer") {
                         showManipulativeSandbox.toggle()
                     }
                     .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
@@ -413,17 +413,17 @@ struct QuestionProofPracticeView: View {
                 if showManipulativeSandbox {
                     BioManipulativeSandboxCard(spec: BioManipulativeEngine.spec(for: question)) { stampedReadout in
                         if answerText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                            answerText = "[Sandbox evidence: \(stampedReadout)]\n"
+                            answerText = "[Explorer readout: \(stampedReadout)]\n"
                         } else {
-                            answerText += "\n[Sandbox evidence: \(stampedReadout)]"
+                            answerText += "\n[Explorer readout: \(stampedReadout)]"
                         }
                     }
                 }
 
                 answerComposer(
                     label: usedAssistanceThisAttempt
-                        ? "Your answer (currently marked as guided — tap 'Start fresh independent attempt' below to prove without hints)"
-                        : "Your independent answer (Writing Tools & autocorrect disabled so the retrieval is yours)"
+                        ? "Your answer (currently marked as guided — tap 'Start fresh solo attempt' below to answer on your own)"
+                        : "Your answer (autocorrect and AI rewriting are turned off so the words are yours)"
                 )
             }
         }
@@ -432,7 +432,7 @@ struct QuestionProofPracticeView: View {
     private var meteredHintLadderSection: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             HStack {
-                Label("6-Rung Metered Hint Ladder (R0–R2 keep Independent Proof; R3–R5 switch to Guided)", systemImage: "ladder")
+                Label("Step-by-Step Hints (Hints 1–3 keep Solo credit; Step Guides switch to Guided)", systemImage: "ladder")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaMutedInk)
                 Spacer()
@@ -673,7 +673,7 @@ struct QuestionProofPracticeView: View {
                     tone: eval.resultingProofLevel.isIndependentProof ? .good : .warn
                 )
                 if eval.usedTransferTwin {
-                    JournalChip("Transfer Twin Proof", systemImage: "arrow.triangle.branch", tone: .good)
+                    JournalChip("New Scenario", systemImage: "arrow.triangle.branch", tone: .good)
                 }
                 Text("\(eval.matchedKeywords.count) of \(question.markSchemeKeywords.count) mark-scheme ideas matched")
                     .font(.kymaiaCaption.monospacedDigit())
@@ -706,7 +706,7 @@ struct QuestionProofPracticeView: View {
             }
 
             Divider()
-            Text(activeTransferTwin != nil ? "Cambridge model answer (Transfer Twin)" : "Cambridge model answer")
+            Text(activeTransferTwin != nil ? "Cambridge model answer (New Scenario)" : "Cambridge model answer")
                 .font(.kymaiaCaption.weight(.semibold))
                 .foregroundStyle(Color.kymaiaMutedInk)
             Text(activeTransferTwin?.modelAnswer ?? question.modelAnswer)
@@ -735,9 +735,7 @@ struct QuestionProofPracticeView: View {
         let safetyService = SafetyEscalationService()
         if let concern = safetyService.scan(answerText) {
             safetySupportMessage = safetyService.supportiveResponse(for: concern)
-            Task {
-                await safetyService.escalate(concern, channel: "question_proof")
-            }
+            safetyService.escalate(concern, channel: "question_proof")
             return
         }
 

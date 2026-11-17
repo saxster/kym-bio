@@ -74,7 +74,7 @@ struct PhenomenonMechanismBridgeCard: View {
         JournalCard {
             VStack(alignment: .leading, spacing: Spacing.md) {
                 HStack(spacing: Spacing.xs) {
-                    JournalChip(label: "Phenomenon → Mechanism → Law", systemImage: "sparkles", tone: .accent)
+                    JournalChip(label: "Clue → Cell Mechanism → Key Rule", systemImage: "sparkles", tone: .accent)
                     JournalChip(text: "Ch \(bridge.chapterNumber)", tone: .neutral)
                     Spacer()
                 }
@@ -84,7 +84,7 @@ struct PhenomenonMechanismBridgeCard: View {
                     .foregroundStyle(Color.kymaiaInk)
 
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Label("1. Observable phenomenon (what you see)", systemImage: "eye.fill")
+                    Label("1. What you notice in everyday life", systemImage: "eye.fill")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaPrimary)
                     Text(bridge.observablePhenomenon)
@@ -99,7 +99,7 @@ struct PhenomenonMechanismBridgeCard: View {
                 )
 
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Label("2. Submicroscopic mechanism (why it works)", systemImage: "atom")
+                    Label("2. What happens inside the cells", systemImage: "atom")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaSuccess)
                     Text(bridge.ahaMechanismInvariant)
@@ -114,7 +114,7 @@ struct PhenomenonMechanismBridgeCard: View {
                 )
 
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Label("3. Formal principle & equation (tap any term to perturb)", systemImage: "function")
+                    Label("3. Key rule & equation (tap any part to test 'What if?')", systemImage: "function")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaMutedInk)
                     Text(bridge.principleOrEquationDisplay)
@@ -155,14 +155,14 @@ struct PhenomenonMechanismBridgeCard: View {
                         Text(activeTerm.symbolOrTerm)
                             .font(.kymaiaCaption.weight(.bold))
                             .foregroundStyle(Color.kymaiaPrimaryStrong)
-                        Text("· Control variable: \(activeTerm.sliderVariable)")
+                        Text("· What you can change: \(activeTerm.sliderVariable)")
                             .font(.kymaiaCaption)
                             .foregroundStyle(Color.kymaiaMutedInk)
                     }
                     Text(activeTerm.biologicalMeaning)
                         .font(.kymaiaBody)
                         .foregroundStyle(Color.kymaiaInk)
-                    Text("Real-world anchor: \(activeTerm.physicalAnchor)")
+                    Text("Real-world example: \(activeTerm.physicalAnchor)")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaTertiaryInk)
 
@@ -173,7 +173,7 @@ struct PhenomenonMechanismBridgeCard: View {
                         .foregroundStyle(Color.kymaiaInk)
 
                     FlowLayout(spacing: Spacing.xs) {
-                        ForEach(["Increases rate / output", "Decreases rate / output", "Shifts dynamic equilibrium"], id: \.self) { option in
+                        ForEach(["Goes up", "Goes down", "Balances out"], id: \.self) { option in
                             Button(option) {
                                 selectedPerturbationChoice = option
                             }
@@ -187,7 +187,7 @@ struct PhenomenonMechanismBridgeCard: View {
                     }
 
                     if let choice = selectedPerturbationChoice {
-                        Text("Prediction recorded (\(choice)): \(bridge.perturbationExplanation(for: activeTerm))")
+                        Text("Your prediction (\(choice)): \(bridge.perturbationExplanation(for: activeTerm))")
                             .font(.kymaiaCaption)
                             .foregroundStyle(Color.kymaiaSuccess)
                             .padding(.top, 2)
@@ -216,7 +216,7 @@ struct BiologicalDebateCardView: View {
             VStack(alignment: .leading, spacing: Spacing.md) {
                 HStack(spacing: Spacing.xs) {
                     JournalChip(
-                        label: "Peer Debate · Who Is Right & Why?",
+                        label: "Who Is Right & Why?",
                         systemImage: "bubble.left.and.bubble.right.fill",
                         tone: .accent
                     )
@@ -290,8 +290,8 @@ struct BiologicalDebateCardView: View {
                                 .foregroundStyle(chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
                             Text(
                                 chosen.isCorrect
-                                    ? "\(chosen.speakerName) is right — Mechanistic Verdict"
-                                    : "Why \(chosen.speakerName)'s claim falls into a classic trap"
+                                    ? "\(chosen.speakerName) is right — Here's why"
+                                    : "Why \(chosen.speakerName)'s idea is a common mix-up"
                             )
                             .font(.kymaiaCaption.weight(.bold))
                             .foregroundStyle(chosen.isCorrect ? Color.kymaiaSuccess : Color.kymaiaWarning)
@@ -301,7 +301,7 @@ struct BiologicalDebateCardView: View {
                             .font(.kymaiaBody)
                             .foregroundStyle(Color.kymaiaInk)
 
-                        Text("Core Invariant: \(chosen.invariantTakeaway)")
+                        Text("Key takeaway: \(chosen.invariantTakeaway)")
                             .font(.kymaiaCaption.weight(.semibold))
                             .foregroundStyle(Color.kymaiaPrimaryStrong)
                             .padding(.top, 2)
@@ -447,7 +447,7 @@ struct BuggyBioTrapBanner: View {
             HStack(spacing: Spacing.xs) {
                 Image(systemName: "exclamationmark.magnifyingglass")
                     .foregroundStyle(Color.kymaiaWarning)
-                Text("Buggy-Rule Trap Detected · \(trap.trapName)")
+                Text("Common Mix-Up · \(trap.trapName)")
                     .font(.kymaiaCaption.weight(.bold))
                     .foregroundStyle(Color.kymaiaWarning)
             }

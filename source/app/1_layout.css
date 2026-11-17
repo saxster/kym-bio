@@ -12,7 +12,7 @@ p, li, dd, figcaption { text-wrap: pretty; }
 .side.aside { color: var(--ink-2); }
 @media screen and (max-width: 959px) {
   /* notes sit in the text column, after the paragraph that introduces the word (see m_layout.js) */
-  .side { margin: -.2rem 0 1.4rem; padding: .6rem .9rem .65rem 1rem; border-left: 2px solid var(--vol); background: var(--vol-wash); border-radius: 0 8px 8px 0; }
+  .side { margin: -.2rem 0 1.4rem; padding: .6rem .9rem .65rem 1rem; border-left: 1px solid var(--vol); background: var(--vol-wash); border-radius: 0 8px 8px 0; }
 }
 .sd-body .side { margin: -.2rem 0 1.4rem; padding: .6rem .9rem .65rem 1rem; background: var(--vol-wash); border-radius: 0 8px 8px 0; font-size: .95rem; }
 figure figcaption { font-size: .94rem; line-height: 1.5; color: var(--ink-2); }
@@ -25,7 +25,7 @@ h1 .sx, h2 .sx, h3 .sx, h1 .sb, h2 .sb, h3 .sb { font-size: 1.12em; }
 sup, sub { font-size: .72em; font-weight: 500; }
 
 /* ---------------------------------------------------------- the big question: upright, larger, calm */
-.opener .bq { font-style: normal; color: var(--ink); font-size: clamp(1.3rem, 2.3vw, 1.62rem); line-height: 1.4; font-weight: 400; }
+.opener .bq { font-style: normal; color: var(--ink); font-size: clamp(1.15rem, 1.8vw, 1.38rem); line-height: 1.48; font-weight: 400; }
 .opener .bq-label { color: var(--vol); }
 
 /* ---------------------------------------------------------- the Contents page */

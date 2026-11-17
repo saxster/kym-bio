@@ -45,9 +45,81 @@ def volume_for_chapter(ch_num: int) -> int:
     return 1
 
 
+def clean_prose_block(md_text: str, max_chars: int = 1200) -> str:
+    """Strips ::: directives, markdown markers, and truncates cleanly at a sentence boundary."""
+    out_lines = []
+    lines = md_text.splitlines()
+    i = 0
+    single_line_kinds = {"scene", "story", "live", "fig", "figwide", "figcap"}
+    while i < len(lines):
+        stripped = lines[i].strip()
+        m_open = re.match(r"^:::(\w+)(?:[ \t]+(.*))?$", stripped)
+        if m_open:
+            kind = m_open.group(1)
+            if kind in single_line_kinds:
+                i += 1
+                if i < len(lines) and lines[i].strip() == ":::":
+                    i += 1
+                continue
+            # Skip multi-line :::block ... :::
+            i += 1
+            while i < len(lines) and lines[i].strip() != ":::":
+                i += 1
+            if i < len(lines) and lines[i].strip() == ":::":
+                i += 1
+            continue
+        if stripped.startswith("### "):
+            i += 1
+            continue
+        out_lines.append(lines[i])
+        i += 1
+
+    cleaned = "\n".join(out_lines)
+    cleaned = re.sub(r"==([^=\n]+)==", r"\1", cleaned)
+    cleaned = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", cleaned)
+    cleaned = re.sub(r"\*\*([^*]+)\*\*", r"\1", cleaned)
+    cleaned = re.sub(r"\*([^*\n]+)\*", r"\1", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+    if len(cleaned) <= max_chars:
+        return cleaned
+    window = cleaned[:max_chars]
+    last_stop = max(window.rfind(". "), window.rfind("? "), window.rfind("! "))
+    if last_stop > max_chars // 2:
+        return window[: last_stop + 1].strip()
+    return window.rsplit(" ", 1)[0].strip() + "…"
+
+
+def clean_inline_markdown(text: str) -> str:
+    t = re.sub(r"==([^=\n]+)==", r"\1", text)
+    t = re.sub(r"\*\*([^*]+)\*\*", r"\1", t)
+    t = re.sub(r"\*([^*\n]+)\*", r"\1", t)
+    t = re.sub(r"\(`(?:given|stays|moves)`\s+([^)]+)\)", r"(\1)", t)
+    return t.strip()
+
+
 def parse_chapters():
     chapters = []
     src_dir = SOURCE_DIR / "src"
+    callout_kinds = {
+        "predict", "check", "recall", "careful", "school",
+        "home", "case", "tip", "remember", "warning",
+        "technical", "fireside",
+    }
+    default_titles = {
+        "predict": "Predict Before You Look",
+        "check": "Quick Check",
+        "recall": "Connect Back",
+        "careful": "Common Mix-Up",
+        "school": "Cambridge Exam Tip",
+        "home": "Try It at Home",
+        "case": "Case Investigation",
+        "tip": "Rule of Thumb",
+        "remember": "Key Idea",
+        "warning": "Watch Out",
+        "technical": "Going Deeper",
+        "fireside": "Two Voices",
+    }
+
     for ch_num in range(16):
         md_path = src_dir / f"ch{ch_num:02d}.md"
         if not md_path.exists():
@@ -69,6 +141,9 @@ def parse_chapters():
                     subtitle = m_q.group(1).strip().strip('"').strip("'")
 
         lines = body_raw.splitlines()
+        intro_lines = []
+        sections = []
+        current_sec = None
         for line in lines:
             if line.startswith("# "):
                 raw_title = line[2:].strip()
@@ -80,12 +155,7 @@ def parse_chapters():
                     title = parts[1].strip()
                 else:
                     title = raw_title
-                break
-
-        # Extract sections (## ...)
-        sections = []
-        current_sec = None
-        for line in lines:
+                continue
             if line.startswith("## "):
                 if current_sec:
                     sections.append(current_sec)
@@ -98,24 +168,75 @@ def parse_chapters():
                 }
             elif current_sec is not None:
                 current_sec["markdown"] += line + "\n"
+            else:
+                intro_lines.append(line)
         if current_sec:
             sections.append(current_sec)
 
-        # Extract :::callouts (predict, check, recall, careful, school, home, case, tip, remember, warning, technical, fireside, cheatsheet)
+        # Extract :::callouts line-by-line so header stays on the opening :::kind line
         callouts = []
-        callout_pattern = re.compile(
-            r":::(predict|check|recall|careful|school|home|case|tip|remember|warning|technical|fireside|cheatsheet)\s*([^\n]*)\n(.*?)\n:::",
-            re.DOTALL,
-        )
-        for idx, match in enumerate(callout_pattern.finditer(raw)):
-            kind = match.group(1).strip()
-            header = match.group(2).strip()
-            body = match.group(3).strip()
+        idx = 0
+        line_idx = 0
+        while line_idx < len(lines):
+            m_open = re.match(r"^:::(\w+)(?:[ \t]+(.*))?$", lines[line_idx].strip())
+            if not m_open or m_open.group(1) not in callout_kinds:
+                line_idx += 1
+                continue
+            kind = m_open.group(1)
+            inline_arg = (m_open.group(2) or "").strip()
+            line_idx += 1
+            inner_lines = []
+            while line_idx < len(lines) and lines[line_idx].strip() != ":::":
+                inner_lines.append(lines[line_idx])
+                line_idx += 1
+            if line_idx < len(lines) and lines[line_idx].strip() == ":::":
+                line_idx += 1
+
+            inner_raw = "\n".join(inner_lines).strip()
+            if not inner_raw:
+                continue
+
+            idx += 1
+            c_title = default_titles.get(kind, kind.capitalize())
+            if inline_arg and not re.match(r"^\d+(\.\d+)?$", inline_arg):
+                c_title = clean_inline_markdown(inline_arg)
+            elif kind == "recall" and inline_arg:
+                c_title = f"From Chapter {inline_arg}"
+
+            if "\n???\n" in inner_raw:
+                q_part, a_part = inner_raw.split("\n???\n", 1)
+                q_clean = clean_inline_markdown(q_part)
+                a_clean = clean_inline_markdown(a_part)
+                if kind == "predict":
+                    # Separate question prompt from bullet options
+                    q_lines = []
+                    opt_lines = []
+                    for ql in q_clean.splitlines():
+                        if ql.lstrip().startswith(("- ", "* ")):
+                            opt_lines.append("• " + ql.lstrip()[2:].strip())
+                        else:
+                            q_lines.append(ql.strip())
+                    prompt_txt = " ".join(x for x in q_lines if x)
+                    opts_txt = "\n".join(opt_lines)
+                    c_body = f"{prompt_txt}\n{opts_txt}\n\nWhat happens: {a_clean}".strip()
+                else:
+                    c_body = f"{q_clean}\n\nAnswer: {a_clean}".strip()
+            elif kind == "careful":
+                careful_lines = inner_raw.splitlines()
+                if careful_lines and careful_lines[0].lstrip().startswith(">"):
+                    myth = clean_inline_markdown(careful_lines[0].lstrip()[1:].strip())
+                    rest = clean_inline_markdown("\n".join(careful_lines[1:]).strip())
+                    c_body = f"Common myth: {myth}\n\nWhy it breaks: {rest}".strip()
+                else:
+                    c_body = clean_inline_markdown(inner_raw)
+            else:
+                c_body = clean_inline_markdown(inner_raw)
+
             callouts.append({
-                "id": f"ch{ch_num:02d}-{kind}-{idx+1:02d}",
+                "id": f"ch{ch_num:02d}-{kind}-{idx:02d}",
                 "kind": kind,
-                "title": header or kind.capitalize(),
-                "body": body,
+                "title": c_title,
+                "body": c_body,
             })
 
         # Extract highlighted terms ==term==
@@ -135,7 +256,25 @@ def parse_chapters():
                 widgets.append(w_id)
 
         vol_num = volume_for_chapter(ch_num)
-        hook_summary = sections[0]["markdown"].strip().split("\n\n")[0][:360] if sections else ""
+        intro_clean = clean_prose_block("\n".join(intro_lines), max_chars=420)
+        first_sec_clean = clean_prose_block(sections[0]["markdown"], max_chars=420) if sections else ""
+        hook_source = intro_clean or first_sec_clean or subtitle
+        hook_summary = hook_source.split("\n\n")[0].strip()
+
+        clean_sections = []
+        for s in sections:
+            sec_excerpt = clean_prose_block(s["markdown"], max_chars=950)
+            if not sec_excerpt and s["heading"].lower().startswith("case file"):
+                case_callout = next((c for c in callouts if c["kind"] == "case"), None)
+                if case_callout:
+                    sec_excerpt = case_callout["body"]
+            if sec_excerpt:
+                clean_sections.append({
+                    "id": s["id"],
+                    "heading": s["heading"],
+                    "excerpt": sec_excerpt,
+                })
+
         chapters.append({
             "id": f"ch{ch_num:02d}",
             "number": ch_num,
@@ -144,14 +283,7 @@ def parse_chapters():
             "title": title,
             "subtitle": subtitle or f"Chapter {ch_num} of The Living World",
             "hookSummary": hook_summary,
-            "sections": [
-                {
-                    "id": s["id"],
-                    "heading": s["heading"],
-                    "excerpt": s["markdown"].strip()[:1200],
-                }
-                for s in sections
-            ],
+            "sections": clean_sections,
             "callouts": callouts,
             "keyTerms": terms[:24],
             "widgets": widgets,

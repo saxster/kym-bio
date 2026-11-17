@@ -119,15 +119,15 @@ struct CalendarHomeView: View {
             !store.proofLevel(for: $0.id).isIndependentProof
         } ?? store.pack.schoolQuestions.first
 
-        return JournalSection(title: "Run My Day — Today's 30-minute Biology study block") {
+        return JournalSection(title: "Today's 30-Minute Biology Study Plan") {
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
                     HStack {
                         JournalBadge(symbol: "calendar.badge.clock", tint: .kymaiaPrimary, size: .row)
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("30-minute interleaved Biology block")
+                            Text("30-minute Biology study plan")
                                 .font(.kymaiaCardTitle)
-                            Text("Combines first-principles reading, an interactive 3D/2D lab, and an independent Cambridge Science 8 Question Proof.")
+                            Text("Combines chapter reading, an interactive 3D/2D lab, and a solo Cambridge Science 8 practice question.")
                                 .font(.kymaiaCaption)
                                 .foregroundStyle(Color.kymaiaMutedInk)
                         }

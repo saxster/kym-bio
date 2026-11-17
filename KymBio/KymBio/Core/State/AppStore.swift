@@ -20,24 +20,24 @@ enum AppRoom: String, CaseIterable, Identifiable, Sendable {
         case .today: return "Today"
         case .livingWorld: return "The Living World"
         case .schoolScience: return "School Science 8"
-        case .labsAtlas: return "3D Labs & Atlas"
-        case .vaultAndTips: return "Vault & Field Guides"
-        case .labJournal: return "Lab Journal"
+        case .labsAtlas: return "3D Labs & Diagrams"
+        case .vaultAndTips: return "Memory & Word Roots"
+        case .labJournal: return "Lab Notebook"
         case .coach: return "Biology Coach"
-        case .calendar: return "Calendar"
+        case .calendar: return "Planner & Labs"
         }
     }
 
     var subtitle: String {
         switch self {
-        case .today: return "Daily briefing, next question proof and due cards"
-        case .livingWorld: return "16 narrative chapters, 4 volumes & 4 explorers"
+        case .today: return "Your daily biology plan and next question"
+        case .livingWorld: return "16 story chapters with interactive 3D models"
         case .schoolScience: return "Cambridge Learner's Book 8 & Workbook 8"
-        case .labsAtlas: return "117 3D Atlas lessons, 47 simulations & diagram recall"
-        case .vaultAndTips: return "Learn by Heart, Greek/Latin roots & visual field guides"
-        case .labJournal: return "Cornell notes, wet-lab logs & Apple Pencil sketches"
-        case .coach: return "Socratic AI tutor grounded in your textbook & labs"
-        case .calendar: return "Science tests, study blocks & wet-lab timers"
+        case .labsAtlas: return "Interactive simulations, 3D models & diagram practice"
+        case .vaultAndTips: return "Key definitions, Greek/Latin roots & study guides"
+        case .labJournal: return "Notes, kitchen lab logs & Apple Pencil sketches"
+        case .coach: return "Step-by-step tutor for your textbook & labs"
+        case .calendar: return "Test dates, study blocks & kitchen lab timers"
         }
     }
 

@@ -9,9 +9,9 @@ enum LivingWorldPresentationMode: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .interactiveBeats: return "Interactive Beats (Brilliant Mode)"
-        case .nativeJournal: return "Journal Study Reader"
-        case .interactiveWebBook: return "Full Interactive Book & 3D Stage"
+        case .interactiveBeats: return "Step-by-Step Guide"
+        case .nativeJournal: return "Chapter Summary & Notes"
+        case .interactiveWebBook: return "Full Illustrated Book & 3D Stage"
         }
     }
 }
@@ -253,7 +253,7 @@ struct LivingWorldHomeView: View {
                 }
 
                 Text("Chapter \(chapter.number) — \(chapter.title)")
-                    .font(.kymaiaPageTitle)
+                    .font(.kymaiaTitle2)
                     .foregroundStyle(Color.kymaiaInk)
 
                 if !chapter.hookSummary.isEmpty {
@@ -370,20 +370,20 @@ struct LivingWorldHomeView: View {
             }
         }
 
-        // Phenomenon -> Submicroscopic Mechanism -> Formal Law Bridge
-        JournalSection(title: "Phenomenon → Mechanism → Formal Law Bridge") {
+        // Everyday Clue -> Inside the Cell -> Key Rule Bridge
+        JournalSection(title: "How It Works · Everyday Clue to Biology Rule") {
             PhenomenonMechanismBridgeCard(bridge: PhenomenonToMechanismBridge.bridge(forChapter: chapter.number))
         }
 
         // Peer Biological Debate ("Who Is Right & Why?")
-        JournalSection(title: "Peer Biological Debate · Who Is Right & Why?") {
+        JournalSection(title: "Who Is Right & Why?") {
             BiologicalDebateCardView(scenario: BiologicalDebateCatalog.scenario(forChapter: chapter.number)) { _ in
                 completedDebateChapterIds.insert(chapter.number)
             }
         }
     }
 
-    // MARK: - Brilliant & SmartyMe Bite-Sized Interactive Beats Mode
+    // MARK: - Step-by-Step Interactive Guide Mode
 
     @ViewBuilder
     private func interactiveBeatsChapterView(_ chapter: LivingWorldChapter) -> some View {
@@ -392,10 +392,10 @@ struct LivingWorldHomeView: View {
         let currentBeat = beats[currentIndex]
         let isBeatGateSatisfied = isBeatUnlocked(currentBeat, chapterNumber: chapter.number)
 
-        JournalSection(title: "Chapter \(chapter.number): \(chapter.title) · Beat \(currentIndex + 1) of \(beats.count)") {
+        JournalSection(title: "Chapter \(chapter.number): \(chapter.title) · Step \(currentIndex + 1) of \(beats.count)") {
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
-                    // Top Read & Listen bar + Beat counter
+                    // Top Read & Listen bar + Step counter
                     HStack(spacing: Spacing.xs) {
                         JournalChip(
                             label: currentBeat.kind.badgeLabel,
@@ -403,7 +403,7 @@ struct LivingWorldHomeView: View {
                             tone: .accent
                         )
                         JournalChip(
-                            text: "Beat \(currentIndex + 1) / \(beats.count) · ~\(max(1, currentBeat.estimatedSeconds / 60))m",
+                            text: "Step \(currentIndex + 1) / \(beats.count) · ~\(max(1, currentBeat.estimatedSeconds / 60))m",
                             tone: .neutral
                         )
                         Spacer()
@@ -429,7 +429,7 @@ struct LivingWorldHomeView: View {
                         .accessibilityIdentifier("living-world.beat.audio-speed")
                     }
 
-                    // Segmented Beat Progress Rail
+                    // Segmented Step Progress Rail
                     HStack(spacing: Spacing.xs) {
                         ForEach(beats) { beat in
                             Button {
@@ -445,7 +445,7 @@ struct LivingWorldHomeView: View {
                                     .frame(height: BioFigureGeometry.beatRailHeight)
                             }
                             .buttonStyle(.plain)
-                            .accessibilityLabel("Beat \(beat.index + 1): \(beat.title)")
+                            .accessibilityLabel("Step \(beat.index + 1): \(beat.title)")
                         }
                     }
 
@@ -454,7 +454,7 @@ struct LivingWorldHomeView: View {
                         .foregroundStyle(Color.kymaiaMutedInk)
 
                     Text(currentBeat.title)
-                        .font(.kymaiaTitle2)
+                        .font(.kymaiaTitle3)
                         .foregroundStyle(Color.kymaiaInk)
 
                     if currentBeat.kind != .interactiveLabAndMechanism && currentBeat.kind != .misconceptionDebate {
@@ -586,6 +586,16 @@ struct LivingWorldHomeView: View {
             }
         }()
 
+        let parts: (question: String, reveal: String?) = {
+            if let range = callout.body.range(of: "\n\nWhat happens: ") {
+                return (String(callout.body[..<range.lowerBound]), String(callout.body[range.upperBound...]))
+            }
+            if let range = callout.body.range(of: "\n\nAnswer: ") {
+                return (String(callout.body[..<range.lowerBound]), String(callout.body[range.upperBound...]))
+            }
+            return (callout.body, nil)
+        }()
+
         return JournalCard {
             VStack(alignment: .leading, spacing: Spacing.sm) {
                 HStack {
@@ -597,7 +607,11 @@ struct LivingWorldHomeView: View {
                 }
 
                 if isGate && !isUnlocked {
-                    Text("Commit your prediction or answer in your own words before revealing the discussion:")
+                    Text(parts.question)
+                        .font(.kymaiaSerifProse)
+                        .foregroundStyle(Color.kymaiaInk)
+
+                    Text("Write your prediction or answer before revealing the explanation:")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaMutedInk)
                     TextField(
@@ -628,7 +642,7 @@ struct LivingWorldHomeView: View {
                     .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                 } else {
                     if !currentText.isEmpty {
-                        Text("Your committed prediction: \(currentText)")
+                        Text("Your prediction: \(currentText)")
                             .font(.kymaiaCaption)
                             .foregroundStyle(Color.kymaiaPrimary)
                     }

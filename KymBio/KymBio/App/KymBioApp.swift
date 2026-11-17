@@ -74,9 +74,9 @@ struct KymBioRootShellView: View {
                                 Button {
                                     showMetacognitionSheet = true
                                 } label: {
-                                    Label("Error Log & Backup", systemImage: "chart.xyaxis.line")
+                                    Label("Mistake Log & Backup", systemImage: "chart.xyaxis.line")
                                 }
-                                .help("Metacognition error-attribution log and .kymbiobackup archive")
+                                .help("Review common mistakes and save a .kymbiobackup archive")
                             }
                         }
                 }
@@ -114,8 +114,8 @@ struct KymBioRootShellView: View {
                     } label: {
                         JournalRow(
                             title: room.title,
-                            subtitle: room.subtitle,
-                            icon: .glyph(symbol: room.symbol, tint: .kymaiaPrimary),
+                            subtitle: nil,
+                            icon: .glyph(symbol: room.symbol, tint: isSelected ? .kymaiaPrimaryStrong : .kymaiaPrimary),
                             trailing: trailingCount(for: room, emphasized: isSelected)
                         )
                     }
@@ -127,7 +127,7 @@ struct KymBioRootShellView: View {
                     .accessibilityIdentifier("sidebar.room.\(room.rawValue)")
                 }
             } header: {
-                Text("KymBio · 8th Grade Biology")
+                Text("Study Rooms")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaMutedInk)
                     .textCase(nil)
@@ -140,21 +140,17 @@ struct KymBioRootShellView: View {
                         store.selectedRoom = .schoolScience
                     } label: {
                         JournalRow(
-                            title: "Unit \(unit.unitNumber): \(unit.title)",
-                            subtitle: "LB p. \(unit.learnersBookStartPage) · WB p. \(unit.workbookStartPage)",
-                            icon: .tile(symbol: "leaf.fill", tint: .kymaiaSuccess),
-                            trailing: .chip(
-                                unit.isCompletedInSchool ? "Ticked" : "Next",
-                                tone: unit.isCompletedInSchool ? .good : .accent,
-                                showsChevron: true
-                            )
+                            title: "Unit \(unit.unitNumber) · \(unit.title)",
+                            subtitle: "LB pp. \(unit.learnersBookStartPage)–\(unit.learnersBookEndPage)",
+                            icon: .glyph(symbol: "leaf.fill", tint: .kymaiaSuccess),
+                            trailing: .text(unit.isCompletedInSchool ? "Done" : "Up next")
                         )
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("sidebar.bio-unit.\(unit.unitNumber)")
                 }
             } header: {
-                Text("Cambridge Science 8 Biology")
+                Text("Cambridge Science 8")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaMutedInk)
                     .textCase(nil)
@@ -168,18 +164,20 @@ struct KymBioRootShellView: View {
                         }
                         store.selectedRoom = .livingWorld
                     } label: {
+                        let firstCh = vol.chapters.first ?? 0
+                        let lastCh = vol.chapters.last ?? 0
                         JournalRow(
-                            title: "Volume \(vol.number)",
-                            subtitle: vol.title.replacingOccurrences(of: "Volume \(roman(vol.number)) · ", with: ""),
-                            icon: .tile(symbol: "book.pages.fill", tint: .kymaiaPrimary),
-                            trailing: .count(vol.chapters.count)
+                            title: "Vol \(roman(vol.number)) · \(shortVolumeTitle(vol.number))",
+                            subtitle: nil,
+                            icon: .glyph(symbol: "book.pages.fill", tint: .kymaiaPrimary),
+                            trailing: .text("Ch \(firstCh)–\(lastCh)")
                         )
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("sidebar.volume.\(vol.number)")
                 }
             } header: {
-                Text("The Living World (16 Chapters)")
+                Text("The Living World")
                     .font(.kymaiaCaption.weight(.semibold))
                     .foregroundStyle(Color.kymaiaMutedInk)
                     .textCase(nil)
@@ -194,20 +192,20 @@ struct KymBioRootShellView: View {
         switch room {
         case .today:
             return .count(store.dueFSRSCards.count, emphasized: emphasized)
-        case .schoolScience:
-            return .count(store.pack.schoolQuestions.count, emphasized: emphasized)
-        case .livingWorld:
-            return .count(store.pack.chapters.count, emphasized: emphasized)
-        case .labsAtlas:
-            return .count(store.pack.widgets.count, emphasized: emphasized)
-        case .vaultAndTips:
-            return .count(BiologyVaultCatalog.cards.count + BiologyVaultCatalog.morphemes.count, emphasized: emphasized)
-        case .labJournal:
-            return .count(store.journalEntries.count, emphasized: emphasized)
-        case .coach:
-            return .count(QuantitativeBioEngine.allProblems.count, emphasized: emphasized)
         case .calendar:
             return .count(store.deadlines.count, emphasized: emphasized)
+        case .schoolScience, .livingWorld, .labsAtlas, .vaultAndTips, .labJournal, .coach:
+            return .none
+        }
+    }
+
+    private func shortVolumeTitle(_ n: Int) -> String {
+        switch n {
+        case 1: return "Cells & Life"
+        case 2: return "Energy & Systems"
+        case 3: return "Health & Microbes"
+        case 4: return "Genes & Ecosystems"
+        default: return "Volume \(n)"
         }
     }
 
