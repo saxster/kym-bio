@@ -27,4 +27,4 @@ As you read, you will meet a few kinds of boxes. Each one has one job.
 
 Four full-page explorers sit at the front of the book for structures you will return to again and again: <a href="#explore-scale">Powers of Ten in the Living World</a> (from a water molecule to the biosphere), <a href="#explore-cell">The 3D Cell & Nanocity Explorer</a> (interactive 3D animal, plant and bacterial cells), <a href="#explore-code">The Master Code: 3D DNA to Protein</a> (helix, codons and 3D protein folding), and <a href="#explore-map">the adventure map</a>.
 
-Numbers in this book are real measured quantities. A millimetre (mm) is 10⁻³ m, a thousandth of a metre. A micrometre (\mum) is 10⁻⁶ m, a thousandth of a millimetre—the scale of cells and bacteria. A nanometre (nm) is 10⁻⁹ m, a thousandth of a micrometre—the scale of DNA, proteins and cell membranes.
+Numbers in this book are real measured quantities. A millimetre (mm) is 10⁻³ m, a thousandth of a metre. A micrometre (µm) is 10⁻⁶ m, a thousandth of a millimetre—the scale of cells and bacteria. A nanometre (nm) is 10⁻⁹ m, a thousandth of a micrometre—the scale of DNA, proteins and cell membranes.

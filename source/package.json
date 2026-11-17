@@ -1,7 +1,8 @@
 {
-  "name": "the-moving-world",
+  "name": "the-living-world",
   "version": "1.0.0",
-  "description": "Build tools for The Moving World, a physics book (python3 build.py)",
+  "type": "module",
+  "description": "Build tools for The Living World, a biology book (python3 build.py)",
   "scripts": {
     "build": "python3 build.py",
     "site": "python3 build.py --site build/site",

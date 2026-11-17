@@ -140,7 +140,7 @@ def story_article(s: Story) -> str:
 
 def stories_section(stories, md_inline) -> str:
     out = ['<section class="stories flow" id="stories"><h2>Stories behind the ideas</h2>'
-           '<p class="st-intro">Every big idea in physics was found by someone, somewhere, often after years of getting it wrong. '
+           '<p class="st-intro">Every big idea in biology was found by someone, somewhere, often after years of getting it wrong. '
            'These are their stories, told slowly, with the idea explained step by step. Any word in the book that has a story '
            'is <a class="sl" href="#story-index" data-noopen>marked like this</a>; tap it and the story opens beside the page.</p>'
            '<nav class="st-index" id="story-index" aria-label="All stories">']
@@ -166,30 +166,7 @@ def initials(name):
     return (parts[0][0] + (parts[-1][0] if len(parts) > 1 else '')) if parts else '?'
 
 
-CARD_ONLY_CAST = [
-    ('p-tycho', 'Tycho Brahe', '1546', '1601',
-     'Measured the positions of the stars and planets for twenty years before the telescope', 'kepler'),
-    ('p-kepler', 'Johannes Kepler', '1571', '1630',
-     'Worked out from Tycho\u2019s Mars observations that planetary orbits are ellipses, not circles', 'kepler'),
-    ('p-torricelli', 'Evangelista Torricelli', '1608', '1647',
-     'Built the mercury barometer and realised we live submerged at the bottom of an ocean of air', 'ocean-of-air'),
-    ('p-cavendish', 'Henry Cavendish', '1731', '1810',
-     'Measured the tiny pull between lead spheres inside a shed and weighed the Earth', 'cavendish-shed'),
-    ('p-rumford', 'Count Rumford', '1753', '1814',
-     'Boiled water by boring a cannon barrel with a blunt drill, challenging the caloric fluid theory', 'caloric'),
-    ('p-oersted', 'Hans Christian \u00d8rsted', '1777', '1851',
-     'Found during a lecture in 1820 that an electric current makes a nearby compass needle twitch', 'oersted'),
-    ('p-fresnel', 'Augustin Fresnel', '1788', '1827',
-     'Built the mathematical wave theory of light, vindicated by the bright spot at the centre of a shadow', 'light-wave'),
-    ('p-mayer', 'Julius Robert Mayer', '1814', '1878',
-     'Ship\u2019s doctor in Java who reasoned that heat and mechanical work are forms of one conserved energy', 'conservation'),
-    ('p-maxwell', 'James Clerk Maxwell', '1831', '1879',
-     'Unified electricity and magnetism and showed that their waves travel at the speed of light', 'maxwell'),
-    ('p-meitner', 'Lise Meitner', '1878', '1968',
-     'Worked out with Otto Frisch how the uranium nucleus splits in nuclear fission and releases energy', 'sun-fire'),
-    ('p-krishnan', 'K. S. Krishnan', '1898', '1961',
-     'Co-discovered the Raman effect in Calcutta and kept the laboratory diary of February 1928', 'raman'),
-]
+CARD_ONLY_CAST = []
 
 
 def _birth_year(born: str) -> int:
@@ -215,8 +192,8 @@ def cast_section(stories, md_inline) -> str:
         for seed, name, born, died, role, target in entries)
     return ('<section class="front flow cast-page" id="cast"><h2>The cast</h2>'
             '<p>Every adventure has its characters. These are some of the people you will meet in this book: '
-            'star-gazers and instrument-makers, a ship\u2019s doctor, a teacher in Dacca who wrote to a famous stranger, '
-            'and women who had to fight to be allowed to study. Tap anyone to read their story.</p>'
+            'cloth-merchants and lens-grinders, a frontier fort surgeon, a monk counting peas in Brno, '
+            'a cytogeneticist in Coimbatore, and doctors and experimentalists in Kolkata and Mumbai. Tap anyone to read their story.</p>'
             f'<ul class="cast full">{cards}</ul></section>')
 
 
@@ -239,7 +216,7 @@ def timeline_section(stories, md_inline) -> str:
     rows = ''.join(rows)
     return ('<section class="timeline flow" id="timeline"><h2>The adventure in time</h2>'
             '<p>The ideas in this book were not found in the order a textbook teaches them. Here they are in the order '
-            'they actually happened: two and a half thousand years of people asking how things move, and why.</p>'
+            'they actually happened: four hundred years of people asking how living things work, and why.</p>'
             f'<ol class="tl">{rows}</ol></section>')
 
 
