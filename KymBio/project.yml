@@ -134,10 +134,7 @@ targets:
         CODE_SIGN_STYLE: Automatic
     entitlements:
       path: KymBio/KymBio-iPad.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.kymaia.science
-          - group.com.kymaia.bio
+      properties: {}
 
   KymBioWidgets:
     type: app-extension
@@ -154,10 +151,7 @@ targets:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     entitlements:
       path: KymBioWidgets/KymBioWidgets.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.kymaia.science
-          - group.com.kymaia.bio
+      properties: {}
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio.ipad.widgets
@@ -189,10 +183,7 @@ targets:
               NSExtensionActivationSupportsWebURLWithMaxCount: 5
     entitlements:
       path: KymBioShareExtension/KymBioShareExtension.entitlements
-      properties:
-        com.apple.security.application-groups:
-          - group.com.kymaia.science
-          - group.com.kymaia.bio
+      properties: {}
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio.ipad.share
