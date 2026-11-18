@@ -554,6 +554,27 @@ final class DatabaseManager: Sendable {
                     try card.save(db)
                 }
             }
+            for atomic in ChapterFlashcardAndSynthesisCatalog.atomicFlashcards {
+                if try FSRSCardRecord.fetchOne(db, key: atomic.id) == nil {
+                    let card = FSRSCardRecord(
+                        id: atomic.id,
+                        topicCode: atomic.topicCode,
+                        chapterNumber: atomic.chapterNumber,
+                        frontPrompt: atomic.frontPrompt,
+                        backAnswer: atomic.backAnswer,
+                        stability: 2.0,
+                        difficulty: 4.2,
+                        elapsedDays: 0,
+                        scheduledDays: 1,
+                        reps: 0,
+                        lapses: 0,
+                        state: 0,
+                        dueAt: now,
+                        lastReviewAt: nil
+                    )
+                    try card.save(db)
+                }
+            }
 
             let existingSkills = try BKTSkillRecord.fetchCount(db)
             if existingSkills == 0 {

@@ -1,0 +1,418 @@
+/* ==================================================================
+   Director's Cut Edition — Archival Plates, Real Micrographs &
+   "In the Master's Words" Science Writing Anthology (Chapters 0–15)
+   ================================================================== */
+
+html[data-directors-cut="0"] .dc-plate-card,
+html[data-directors-cut="0"] .dc-master-card {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------ Archival Plate & Real Specimen Card */
+.dc-plate-card {
+  position: relative;
+  max-width: var(--measure, 36rem);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 2.1rem 0;
+  border-radius: 12px;
+  border: 1.5px solid color-mix(in srgb, var(--vol, #203d36) 42%, var(--rule, #d5cbb8));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--vol, #203d36) 7%, var(--sheet, #faf6ed)), var(--sheet, #faf6ed) 48%);
+  box-shadow: 0 8px 24px -14px rgba(20, 38, 32, 0.22);
+  overflow: hidden;
+}
+
+.dc-plate-card[data-mode="specimen"] {
+  border-color: color-mix(in srgb, var(--green, #1e5e45) 48%, var(--rule, #d5cbb8));
+}
+
+.dc-plate-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.85rem;
+  padding: 0.75rem 1rem 0.65rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--vol, #203d36) 22%, var(--rule, #d5cbb8));
+  background: color-mix(in srgb, var(--vol, #203d36) 9%, var(--sheet, #faf6ed));
+}
+
+.dc-plate-eyebrow {
+  font: 600 0.74rem/1.2 var(--sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vol, #203d36);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dc-plate-scale {
+  font: 500 0.74rem/1.2 var(--sans);
+  color: var(--muted, #5c6b64);
+  background: color-mix(in srgb, var(--paper, #f6f3ec) 80%, transparent);
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule, #d5cbb8);
+}
+
+.dc-plate-title {
+  margin: 0;
+  padding: 0.75rem 1rem 0.35rem;
+  font: 600 clamp(1.02rem, 1.5vw, 1.18rem)/1.3 var(--serif);
+  color: var(--ink, #182b24);
+}
+
+.dc-plate-summary {
+  margin: 0;
+  padding: 0 1rem 0.8rem;
+  font: 400 0.94rem/1.55 var(--serif);
+  color: var(--ink-2, #2c3e37);
+}
+
+.dc-plate-stage {
+  position: relative;
+  margin: 0 0.85rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ink, #182b24) 22%, transparent);
+  background: #14201d;
+  user-select: none;
+}
+
+.dc-plate-stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+}
+
+.dc-plate-stage.is-zoomed img {
+  transform: scale(1.65);
+  cursor: zoom-out;
+}
+
+/* Interactive Callout Pins */
+.dc-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #fff8ea;
+  background: var(--proton, #a94730);
+  color: #fff8ea;
+  font: 700 0.76rem/1 var(--sans);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  transition: transform 0.16s ease, background 0.16s ease;
+  z-index: 2;
+  padding: 0;
+}
+
+.dc-pin:hover,
+.dc-pin[aria-pressed="true"] {
+  transform: translate(-50%, -50%) scale(1.18);
+  background: var(--green, #1e5e45);
+}
+
+.dc-pin-tray {
+  margin: 0.65rem 0.85rem 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--vol, #203d36) 8%, var(--paper, #f6f3ec));
+  border-left: 3px solid var(--vol, #203d36);
+  font: 400 0.88rem/1.48 var(--serif);
+  color: var(--ink, #182b24);
+}
+
+.dc-pin-tray b {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--vol, #203d36);
+  margin-right: 0.35rem;
+}
+
+.dc-plate-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.85rem 0.8rem;
+  border-top: 1px solid color-mix(in srgb, var(--rule, #d5cbb8) 70%, transparent);
+}
+
+.dc-plate-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.dc-btn {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, var(--vol, #203d36) 38%, var(--rule, #d5cbb8));
+  background: var(--paper, #f6f3ec);
+  color: var(--ink, #182b24);
+  font: 600 0.76rem/1.1 var(--sans);
+  padding: 0.42rem 0.7rem;
+  min-height: 32px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.dc-btn:hover,
+.dc-btn[aria-pressed="true"] {
+  background: var(--vol, #203d36);
+  color: var(--paper, #f6f3ec);
+  border-color: var(--vol, #203d36);
+}
+
+.dc-plate-credit {
+  font: italic 400 0.78rem/1.3 var(--serif);
+  color: var(--muted, #5c6b64);
+}
+
+/* ------------------------------------------------------------------ "In the Master's Words" Literary Card */
+.dc-master-card {
+  position: relative;
+  max-width: var(--measure, 36rem);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 2.2rem 0;
+  padding: 1.15rem 1.25rem 1.1rem;
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--neutron, #936022) 12%, transparent), transparent 70%),
+    linear-gradient(180deg, color-mix(in srgb, var(--neutron, #936022) 9%, var(--sheet, #faf6ed)), var(--sheet, #faf6ed) 65%);
+  border: 1.5px solid color-mix(in srgb, var(--neutron, #936022) 45%, var(--rule, #d5cbb8));
+  box-shadow: inset 0 2px 0 color-mix(in srgb, var(--neutron, #936022) 45%, transparent), 0 8px 22px -15px rgba(45, 32, 12, 0.22);
+}
+
+.dc-master-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.dc-master-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font: 600 0.73rem/1.1 var(--sans);
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  color: var(--neutron, #936022);
+  background: color-mix(in srgb, var(--neutron, #936022) 14%, var(--paper, #f6f3ec));
+  padding: 0.26rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--neutron, #936022) 34%, transparent);
+}
+
+.dc-master-cite {
+  margin: 0 0 0.7rem;
+  font: 600 1.04rem/1.32 var(--serif);
+  color: var(--ink, #182b24);
+}
+
+.dc-master-cite span {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink-2, #2c3e37);
+}
+
+.dc-master-quote {
+  margin: 0 0 0.9rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--neutron, #936022);
+  background: color-mix(in srgb, var(--paper, #f6f3ec) 72%, transparent);
+  border-radius: 0 8px 8px 0;
+  font: italic 400 clamp(0.98rem, 1.35vw, 1.07rem)/1.62 var(--serif);
+  color: var(--ink, #182b24);
+}
+
+.dc-master-notes {
+  display: grid;
+  gap: 0.55rem;
+  font: 400 0.91rem/1.54 var(--serif);
+  color: var(--ink-2, #2c3e37);
+}
+
+.dc-master-note-row {
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--sheet, #faf6ed) 85%, var(--paper, #f6f3ec));
+  border: 1px solid color-mix(in srgb, var(--rule, #d5cbb8) 75%, transparent);
+}
+
+.dc-master-note-row strong {
+  font: 600 0.76rem/1.2 var(--sans);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vol, #203d36);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.dc-custom-passage {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--vol, #203d36) 7%, var(--paper, #f6f3ec));
+  border: 1px dashed color-mix(in srgb, var(--vol, #203d36) 40%, var(--rule, #d5cbb8));
+  font: 400 0.93rem/1.6 var(--serif);
+  white-space: pre-wrap;
+}
+
+.dc-custom-editor {
+  margin-top: 0.7rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.dc-custom-editor[hidden],
+.dc-custom-passage[hidden] {
+  display: none !important;
+}
+
+.dc-custom-editor textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 96px;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--rule, #d5cbb8);
+  background: var(--paper, #f6f3ec);
+  color: var(--ink, #182b24);
+  font: 400 0.9rem/1.5 var(--serif);
+}
+
+.dc-master-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ------------------------------------------------------------------ Full-Book Cabinet of Curiosities Dialog */
+dialog.dc-cabinet-dialog {
+  width: min(94vw, 68rem);
+  max-height: 88vh;
+  margin: auto;
+  padding: 0;
+  border: 1.5px solid color-mix(in srgb, var(--vol, #203d36) 45%, var(--rule, #d5cbb8));
+  border-radius: 16px;
+  background: var(--paper, #f6f3ec);
+  color: var(--ink, #182b24);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+}
+
+dialog.dc-cabinet-dialog::backdrop {
+  background: rgba(14, 24, 20, 0.62);
+  backdrop-filter: blur(4px);
+}
+
+.dc-cabinet-shell {
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+}
+
+.dc-cabinet-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--rule, #d5cbb8);
+  background: var(--sheet, #faf6ed);
+}
+
+.dc-cabinet-head h2 {
+  margin: 0;
+  font: 600 clamp(1.15rem, 2vw, 1.45rem)/1.2 var(--serif);
+}
+
+.dc-cabinet-sub {
+  margin: 0.2rem 0 0;
+  font: 400 0.86rem/1.35 var(--sans);
+  color: var(--muted, #5c6b64);
+}
+
+.dc-cabinet-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.7rem 1.25rem;
+  border-bottom: 1px solid var(--rule, #d5cbb8);
+  background: color-mix(in srgb, var(--sheet, #faf6ed) 60%, var(--paper, #f6f3ec));
+}
+
+.dc-cabinet-body {
+  padding: 1.1rem 1.25rem 1.5rem;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}
+
+.dc-cabinet-tile {
+  border-radius: 12px;
+  border: 1px solid var(--rule, #d5cbb8);
+  background: var(--sheet, #faf6ed);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dc-cabinet-tile img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--rule, #d5cbb8);
+}
+
+.dc-cabinet-tile h3 {
+  margin: 0;
+  font: 600 0.98rem/1.3 var(--serif);
+}
+
+.dc-cabinet-tile p {
+  margin: 0;
+  font: 400 0.85rem/1.48 var(--serif);
+  color: var(--ink-2, #2c3e37);
+}
+
+@media (max-width: 520px) {
+  .dc-plate-header,
+  .dc-plate-title,
+  .dc-plate-summary,
+  .dc-plate-controls {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .dc-plate-stage,
+  .dc-pin-tray {
+    margin-left: 0.65rem;
+    margin-right: 0.65rem;
+  }
+  .dc-master-card {
+    padding: 0.9rem 0.85rem;
+  }
+}

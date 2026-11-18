@@ -659,17 +659,38 @@ struct TodayHomeView: View {
     }
 }
 
-// MARK: - FSRS Spaced Retrieval Sheet
+// MARK: - FSRS Spaced Retrieval Sheet (Bidirectional, Cloze Fading & Confidence-Calibrated)
+
+enum FlashcardDeckFilter: String, CaseIterable, Identifiable, Sendable {
+    case dueNow = "Due Today"
+    case activeChapter = "Active Chapter"
+    case allChapters = "All 16 Chapters"
+
+    var id: String { rawValue }
+}
 
 struct FSRSReviewSheetView: View {
     @EnvironmentObject private var store: AppStore
     @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var speaker = BioSpeechSynthesizer.shared
     @State private var currentIndex: Int = 0
     @State private var draftAnswer: String = ""
     @State private var isRevealed: Bool = false
+    @State private var studyMode: ChapterFlashcardStudyMode = .forward
+    @State private var deckFilter: FlashcardDeckFilter = .dueNow
+    @State private var selectedConfidence: LearnerConfidenceStop? = .moderate
+    @State private var didSelectDontKnow: Bool = false
 
     private var cards: [FSRSCardRecord] {
-        store.dueFSRSCards.isEmpty ? store.fsrsCards : store.dueFSRSCards
+        switch deckFilter {
+        case .dueNow:
+            return store.dueFSRSCards.isEmpty ? store.fsrsCards : store.dueFSRSCards
+        case .activeChapter:
+            let filtered = store.fsrsCards.filter { $0.chapterNumber == store.activeLivingWorldChapter }
+            return filtered.isEmpty ? store.fsrsCards : filtered
+        case .allChapters:
+            return store.fsrsCards
+        }
     }
 
     var body: some View {
@@ -677,29 +698,85 @@ struct FSRSReviewSheetView: View {
         let currentCard = cards.isEmpty ? nil : cards[safeIndex]
 
         JournalFocusPage(
-            title: "Quick Memory Cards",
+            title: "Mnemonic Flashcards & Spaced Retrieval",
             progress: .init(step: safeIndex + 1, total: max(1, cards.count)),
             closeLabel: "Done",
-            close: { dismiss() }
+            close: {
+                speaker.stop()
+                dismiss()
+            }
         ) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: Spacing.xs) {
+                        ForEach(FlashcardDeckFilter.allCases) { filter in
+                            Button(filter == .activeChapter ? "Ch \(store.activeLivingWorldChapter) Deck" : filter.rawValue) {
+                                deckFilter = filter
+                                currentIndex = 0
+                                isRevealed = false
+                            }
+                            .buttonStyle(
+                                JournalCapsuleButtonStyle(
+                                    prominence: deckFilter == filter ? .filled : .tinted,
+                                    size: .small
+                                )
+                            )
+                        }
+                        Divider().frame(height: 18)
+                        ForEach(ChapterFlashcardStudyMode.allCases) { mode in
+                            Button(mode.title) {
+                                studyMode = mode
+                                isRevealed = false
+                            }
+                            .buttonStyle(
+                                JournalCapsuleButtonStyle(
+                                    prominence: studyMode == mode ? .filled : .ghost,
+                                    size: .small
+                                )
+                            )
+                            .accessibilityIdentifier("fsrs.mode.\(mode.rawValue)")
+                        }
+                    }
+                }
+            }
+
             if let card = currentCard {
+                let promptText = ChapterFlashcardAndSynthesisCatalog.prompt(for: card, mode: studyMode)
+                let draftEval = ChapterFlashcardAndSynthesisCatalog.evaluateDraft(
+                    for: card,
+                    draftAnswer: draftAnswer,
+                    confidence: selectedConfidence
+                )
+
                 HStack {
                     JournalChip(text: "Topic \(card.topicCode)", tone: .accent)
                     JournalChip(text: "Chapter \(card.chapterNumber)", tone: .neutral)
+                    JournalChip(text: studyMode.title, tone: .good)
                     Spacer()
-                    Text("Interval: \(String(format: "%.1f", card.stability)) d")
+                    Button {
+                        speaker.speak(isRevealed ? card.backAnswer : promptText)
+                    } label: {
+                        Label("Listen", systemImage: "speaker.wave.2.fill")
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+
+                    Text("Stability: \(String(format: "%.1f", card.stability)) d")
                         .font(.kymaiaCaption.monospacedDigit())
                         .foregroundStyle(Color.kymaiaMutedInk)
                 }
 
-                Text(card.frontPrompt)
+                Text(promptText)
                     .font(.kymaiaQuestion)
                     .foregroundStyle(Color.kymaiaInk)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Write your answer before flipping the card:")
-                        .font(.kymaiaCaption.weight(.semibold))
-                        .foregroundStyle(Color.kymaiaMutedInk)
+                    HStack {
+                        Text("Write or speak your answer before flipping the card:")
+                            .font(.kymaiaCaption.weight(.semibold))
+                            .foregroundStyle(Color.kymaiaMutedInk)
+                        Spacer()
+                        VoiceDictationButton(text: $draftAnswer, label: "Speak recall")
+                    }
                     WritingTextEditor(text: $draftAnswer, serif: true)
                         .learnerTextInput(.retrieval)
                         .frame(minHeight: 100)
@@ -710,8 +787,43 @@ struct FSRSReviewSheetView: View {
                         )
                 }
 
+                ConfidenceRailControl(
+                    selectedStop: $selectedConfidence,
+                    onDontKnowYet: {
+                        didSelectDontKnow = true
+                        selectedConfidence = .zero
+                        isRevealed = true
+                    }
+                )
+
                 if isRevealed {
                     Divider()
+
+                    ConfidenceRailBadge(
+                        confidence: selectedConfidence,
+                        isDontKnow: didSelectDontKnow,
+                        quadrant: draftEval.quadrant
+                    )
+
+                    Text(draftEval.quadrant.coachingDirective)
+                        .font(.kymaiaCaption)
+                        .foregroundStyle(Color.kymaiaSecondaryInk)
+
+                    if !draftAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        VStack(alignment: .leading, spacing: 4) {
+                            if !draftEval.matchedKeyTerms.isEmpty {
+                                Text("Key terms matched (\(draftEval.matchedKeyTerms.count)): \(draftEval.matchedKeyTerms.joined(separator: ", "))")
+                                    .font(.kymaiaCaption.weight(.semibold))
+                                    .foregroundStyle(Color.kymaiaSuccess)
+                            }
+                            if !draftEval.missingKeyTerms.isEmpty {
+                                Text("Anchor terms to lock in: \(draftEval.missingKeyTerms.joined(separator: ", "))")
+                                    .font(.kymaiaCaption)
+                                    .foregroundStyle(Color.kymaiaWarning)
+                            }
+                        }
+                    }
+
                     Text("Model answer")
                         .font(.kymaiaCaption.weight(.semibold))
                         .foregroundStyle(Color.kymaiaPrimary)
@@ -734,10 +846,14 @@ struct FSRSReviewSheetView: View {
                 } else {
                     HStack(spacing: Spacing.sm) {
                         ForEach(FSRSRating.allCases, id: \.rawValue) { rating in
-                            Button(rating.title) {
+                            let preview = FSRSScheduler.app.schedule(card: card, rating: rating, now: Date())
+                            let days = max(1, Int(preview.scheduledDays.rounded()))
+                            Button("\(rating.title) · \(days)d") {
                                 store.reviewFSRSCard(card, rating: rating)
                                 draftAnswer = ""
                                 isRevealed = false
+                                didSelectDontKnow = false
+                                selectedConfidence = .moderate
                                 if currentIndex + 1 < cards.count {
                                     currentIndex += 1
                                 } else {

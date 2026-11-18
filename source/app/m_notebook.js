@@ -4,7 +4,7 @@ import App from './core.js';
 
 const { el, store } = App;
 const HL_KEY = 'hl';
-const OWNED = k => k === HL_KEY || k.startsWith('chk:') || k.startsWith('home:') || k.startsWith('pred:') || k.startsWith('lab:');
+const OWNED = k => k === HL_KEY || k.startsWith('chk:') || k.startsWith('home:') || k.startsWith('pred:') || k.startsWith('lab:') || k.startsWith('case:') || k.startsWith('eoc:') || k === 'mastery';
 const BOOK = () => App.data.title || document.title;
 const SLUG = () => BOOK().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const SKIP = 'svg, figure, button, textarea, input, template, script, style, .chk-ui, .home-ui, .pred-opts, .pred-you, .hl-pop, .live-controls, .scene, .bh, h2, h3, h4';
@@ -272,6 +272,27 @@ function gather() {
     add(place, { type: 'home', target: box.id, story: place.kind === 'story' ? place.id : null, where: place.label,
       title: strip(box.querySelector('.bh') && box.querySelector('.bh').textContent), pred: s.pred, res: s.res, done: s.done, date: s.date, t: s.t });
   });
+  const cases = [...document.querySelectorAll('.case[id]')];
+  let casesTried = 0;
+  cases.forEach(box => {
+    const s = store.get('case:' + box.id, null);
+    if (!s || (!s.a && !s.seen && !s.r)) return;
+    casesTried++;
+    const place = placeOf(box);
+    const title = strip(box.querySelector('h3') && box.querySelector('h3').textContent) || 'Case file';
+    add(place, { type: 'case', target: box.id, story: null, where: 'Case file', title, a: s.a, conf: s.conf, r: s.r, t: s.t });
+  });
+  const eocItems = [...document.querySelectorAll('.eoc-q-card[id]')];
+  let eocTried = 0;
+  eocItems.forEach(card => {
+    const s = store.get('eoc:' + card.id, null);
+    if (!s || (!s.a && !s.r)) return;
+    eocTried++;
+    const place = placeOf(card);
+    const q = strip(card.querySelector('.eoc-q-prompt') && card.querySelector('.eoc-q-prompt').textContent);
+    const rung = strip(card.querySelector('.eoc-q-rung') && card.querySelector('.eoc-q-rung').textContent);
+    add(place, { type: 'eoc', target: card.id, story: null, where: rung || 'End-of-chapter Q&A', q, a: s.a, conf: s.conf, r: s.r, t: s.t });
+  });
   const hls = all();
   for (const lesson of App.data.lessons || []) {
     const saved = store.get('lab:' + lesson.id, null);
@@ -289,7 +310,7 @@ function gather() {
     add(place, { type: 'hl', target: mark ? null : h.c, mark: h.id, story: place.kind === 'story' ? place.id : null, where: place.label, quote: h.quote, note: h.note, t: h.t });
   });
   const list = [...groups.values()].sort((a, b) => a.sort - b.sort || a.name.localeCompare(b.name));
-  return { list, stats: { preds: preds.length, predN, checks: checks.length, tried, got, partly, homes: homes.length, done: doneN, hls: hls.length, notes: hls.filter(h => h.note).length } };
+  return { list, stats: { preds: preds.length, predN, checks: checks.length, tried, got, partly, homes: homes.length, done: doneN, cases: cases.length, casesTried, eocTried, hls: hls.length, notes: hls.filter(h => h.note).length } };
 }
 
 const RLABEL = { got: 'I got it', partly: 'Partly', not: 'Not yet' };
@@ -353,6 +374,18 @@ function item(it) {
       it.a ? el('p', { class: 'nb-a' }, el('span', {}, 'You wrote: '), it.a) : el('p', { class: 'nb-a muted' }, 'You answered in your head.'),
       it.r ? el('p', { class: 'nb-r', 'data-r': it.r }, RLABEL[it.r]) : null, go);
   }
+  if (it.type === 'case') {
+    return el('article', { class: 'nb-item' }, el('p', { class: 'nb-kind' }, 'Forensic case file', where),
+      el('p', { class: 'nb-q' }, it.title),
+      it.a ? el('p', { class: 'nb-a' }, el('span', {}, 'My hypothesis: '), it.a) : el('p', { class: 'nb-a muted' }, 'Solved in my head.'),
+      it.r ? el('p', { class: 'nb-r', 'data-r': it.r }, RLABEL[it.r]) : null, go);
+  }
+  if (it.type === 'eoc') {
+    return el('article', { class: 'nb-item' }, el('p', { class: 'nb-kind' }, 'End-of-chapter Q&A', where),
+      el('p', { class: 'nb-q' }, it.q),
+      it.a ? el('p', { class: 'nb-a' }, el('span', {}, 'My answer: '), it.a) : el('p', { class: 'nb-a muted' }, 'Answered in my head.'),
+      it.r ? el('p', { class: 'nb-r', 'data-r': it.r }, RLABEL[it.r]) : null, go);
+  }
   return el('article', { class: 'nb-item' }, el('p', { class: 'nb-kind' }, 'Try it at home', where),
     el('p', { class: 'nb-q' }, it.title + (it.done ? ' · done ' + fmtDate(it.date) : '')),
     it.pred ? el('p', { class: 'nb-a' }, el('span', {}, 'I predicted: '), it.pred) : null,
@@ -372,6 +405,8 @@ function markdown() {
       if (it.type === 'hl') { L.push(`> ${strip(it.quote)}${w}`, ''); if (it.note) L.push(`Note: ${it.note}`, ''); }
       else if (it.type === 'pred') { L.push(`**Prediction${w}.** ${it.q}`, '', `I predicted: ${it.o}${it.conf ? ` (confidence: ${it.conf})` : ''}`, ''); }
       else if (it.type === 'check') { L.push(`**Check yourself${w}.** ${it.q}`, '', ...(it.rt ? [`Thinking while reading: ${it.rt}`, ''] : []), `My answer: ${it.a || '(in my head)'}${it.conf ? ` (confidence: ${it.conf})` : ''}${it.r ? ` · ${RLABEL[it.r]}` : ''}`, ''); }
+      else if (it.type === 'case') { L.push(`**Case file${w}: ${it.title}**`, '', `My hypothesis: ${it.a || '(in my head)'}${it.conf ? ` (confidence: ${it.conf})` : ''}${it.r ? ` · ${RLABEL[it.r]}` : ''}`, ''); }
+      else if (it.type === 'eoc') { L.push(`**End-of-chapter Q&A${w}.** ${it.q}`, '', `My answer: ${it.a || '(in my head)'}${it.conf ? ` (confidence: ${it.conf})` : ''}${it.r ? ` · ${RLABEL[it.r]}` : ''}`, ''); }
       else if (it.type === 'lab') { L.push(`**Live experiment${w}: ${it.title}**`, '');
         if (it.pred) L.push(`I predicted: ${it.pred}`, ''); if (it.res) L.push(`My explanation: ${it.res}`, ''); }
       else { L.push(`**Try it at home${w}: ${it.title}**${it.done ? ` (done ${fmtDate(it.date)})` : ''}`, '');

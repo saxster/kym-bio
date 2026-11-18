@@ -2357,3 +2357,466 @@ enum DailyFlowSessionEngine {
         )
     }
 }
+
+// MARK: - 16-Chapter Mnemonic Flashcards, 4-Rung End-of-Chapter Synthesis Q&A & 5-Question Quick Quiz Engine
+
+public enum ChapterFlashcardStudyMode: String, CaseIterable, Identifiable, Sendable {
+    case forward = "forward"
+    case reverse = "reverse"
+    case clozeStage1 = "cloze_1"
+    case clozeStage2 = "cloze_2"
+
+    public var id: String { rawValue }
+
+    public var title: String {
+        switch self {
+        case .forward: return "Prompt → Mechanism"
+        case .reverse: return "Reverse: Clue → Concept"
+        case .clozeStage1: return "Cloze Fading (Stage 1)"
+        case .clozeStage2: return "Cold Cloze (Stage 2)"
+        }
+    }
+}
+
+public struct ChapterAtomicFlashcard: Identifiable, Codable, Equatable, Sendable {
+    public let id: String
+    public let chapterNumber: Int
+    public let topicCode: String
+    public let conceptTitle: String
+    public let frontPrompt: String
+    public let backAnswer: String
+    public let reversePrompt: String
+    public let keyTerms: [String]
+}
+
+public struct FlashcardDraftEvaluation: Equatable, Sendable {
+    public let matchedKeyTerms: [String]
+    public let missingKeyTerms: [String]
+    public let combinedScore: Double
+    public let isPass: Bool
+    public let quadrant: ConfidenceVerdictQuadrant
+    public let feedbackSummary: String
+}
+
+public struct ChapterEndSynthesisQuestion: Identifiable, Codable, Equatable, Sendable {
+    public let id: String
+    public let chapterNumber: Int
+    public let rungNumber: Int
+    public let rungTitle: String
+    public let marks: Int
+    public let prompt: String
+    public let keywords: [String]
+    public let modelAnswer: String
+    public let transferTwinTitle: String?
+    public let transferTwinPrompt: String?
+    public let transferTwinAnswer: String?
+}
+
+public struct ChapterQuickQuizItem: Identifiable, Codable, Equatable, Sendable {
+    public let id: String
+    public let chapterNumber: Int
+    public let badgeTitle: String
+    public let prompt: String
+    public let options: [String]
+    public let correctIndex: Int
+    public let diagnosticExplanation: String
+}
+
+public enum ChapterFlashcardAndSynthesisCatalog {
+    public static let atomicFlashcards: [ChapterAtomicFlashcard] = [
+        ChapterAtomicFlashcard(
+            id: "card-ch00-resolution",
+            chapterNumber: 0,
+            topicCode: "0.1",
+            conceptTitle: "Abbe diffraction limit & empty magnification",
+            frontPrompt: "Why does visible-light microscopy hit a resolution ceiling near ~200 nm (d = 0.61 λ / NA) regardless of how much further you enlarge the image?",
+            backAnswer: "Visible light wavelengths (400–700 nm) diffract around microscopic apertures; when two points sit closer than ~200 nm, their Airy diffraction discs blur together (empty magnification). Electron microscopes use shorter de Broglie electron wavelengths to resolve ~0.2 nm.",
+            reversePrompt: "Name the optical principle (d = 0.61 λ / NA) explaining why enlarging a light-microscope image past ×1,500 produces a bigger blur rather than resolving 25 nm ribosomes.",
+            keyTerms: ["200 nm", "wavelengths", "diffraction", "magnification", "electron"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch01-coupled-atp",
+            chapterNumber: 1,
+            topicCode: "1.4",
+            conceptTitle: "Coupled ATP bioenergetics vs. uncoupled flame combustion",
+            frontPrompt: "Both a candle flame and a germinating moong seed oxidise carbon fuel with oxygen. How does a living cell avoid releasing 100% of glucose's free energy (-2,870 kJ/mol) as uncoupled heat?",
+            backAnswer: "Enzymes break down glucose across many coupled steps at 37 °C, capturing ~34% of the standard free energy by phosphorylating ADP + Pi into ~30–32 ATP molecules.",
+            reversePrompt: "Name the nucleotide free-energy carrier recharged ~800 times a day that couples exergonic glucose oxidation to endergonic cellular work.",
+            keyTerms: ["Enzymes", "glucose", "coupled", "ADP", "ATP"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch02-sav-ratio",
+            chapterNumber: 2,
+            topicCode: "1.2",
+            conceptTitle: "Surface-area-to-volume ratio (SA/V = 6/L)",
+            frontPrompt: "When a cubic cell's width L increases 10-fold, how do its surface area (6L²), volume (L³), and SA/V ratio change, and what constraint does this impose?",
+            backAnswer: "Surface area increases 100-fold (10²) while metabolising volume increases 1,000-fold (10³), so SA/V drops to one-tenth (6/L) and diffusion time to the centre (τ ≈ L²/2D) rises 100-fold, requiring folded surfaces.",
+            reversePrompt: "Name the geometric scaling ratio (6/L for a cube) that explains why large organisms are built of millions of microscopic cells and folded exchange surfaces.",
+            keyTerms: ["Surface area", "volume", "one-tenth", "diffusion", "folded"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch03-turgor-plasmolysis",
+            chapterNumber: 3,
+            topicCode: "3.2",
+            conceptTitle: "Turgor pressure vs. plasmolysis in plant cells",
+            frontPrompt: "Contrast what happens to a human red blood cell and a walled plant cell when immersed in pure distilled water (high water potential).",
+            backAnswer: "Water enters both by osmosis down the water-potential gradient. The red blood cell lacks a cell wall so it swells and bursts (lyses); the plant cell's inelastic cellulose wall builds opposing turgor pressure until the cell is firm (turgid) and net inflow stops.",
+            reversePrompt: "Name the pressure built against an inelastic plant cell wall when water enters the vacuole by osmosis from a dilute solution.",
+            keyTerms: ["osmosis", "water potential", "cell wall", "turgor", "turgid", "burst"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch04-enzyme-denaturation",
+            chapterNumber: 4,
+            topicCode: "7.1",
+            conceptTitle: "Enzyme active-site complementarity & thermal denaturation",
+            frontPrompt: "Why does heating an enzyme above 60 °C permanently abolish its catalytic rate, and why must you never write that the enzyme 'dies'?",
+            backAnswer: "Enzymes are folded protein catalysts, not living cells. Excessive thermal vibration breaks intramolecular hydrogen and ionic bonds, irreversibly unfolding the 3D active site (denaturation) so the substrate is no longer complementary.",
+            reversePrompt: "Name the irreversible structural change to an enzyme's 3D active site caused by extreme heat or pH breaking intramolecular bonds.",
+            keyTerms: ["catalysts", "protein", "active site", "complementary", "bonds", "denaturation"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch05-photolysis-limiting",
+            chapterNumber: 5,
+            topicCode: "4.1",
+            conceptTitle: "Water photolysis & Blackman's limiting factors in photosynthesis",
+            frontPrompt: "Where does the oxygen gas (O₂) released during photosynthesis originate, and what does Blackman's Law of Limiting Factors state?",
+            backAnswer: "All evolved O₂ comes from the light-driven splitting (photolysis) of water (2H₂O -> O₂ + 4H⁺ + 4e⁻) at Photosystem II in chloroplasts, while carbon mass comes from atmospheric CO₂. Blackman's Law states that the rate is governed by whichever required factor (light, CO₂, or temperature) is in shortest supply.",
+            reversePrompt: "Name the light-driven reaction at Photosystem II in thylakoid membranes that splits water molecules and releases oxygen gas.",
+            keyTerms: ["water", "photolysis", "chloroplasts", "Photosystem", "shortest supply"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch06-chemiosmosis-anaerobic",
+            chapterNumber: 6,
+            topicCode: "1.4",
+            conceptTitle: "Mitochondrial chemiosmosis & human vs. yeast anaerobic pathways",
+            frontPrompt: "How does the mitochondrial proton gradient drive ATP synthesis (~30–32 ATP/glucose), and how does anaerobic respiration differ between human muscle and yeast?",
+            backAnswer: "Inside mitochondria, the inner-membrane electron transport chain pumps protons into the intermembrane space; protons flowing back spin rotary ATP synthase. Anaerobically (2 ATP/glucose), human muscle converts glucose to lactic acid (building an oxygen debt with no CO₂), whereas yeast ferments glucose to ethanol + carbon dioxide.",
+            reversePrompt: "Name the anaerobic product formed in human skeletal muscle during vigorous sprinting that builds an oxygen debt without releasing CO₂.",
+            keyTerms: ["mitochondria", "protons", "ATP synthase", "lactic acid", "oxygen debt", "ethanol"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch07-emulsification-villi",
+            chapterNumber: 7,
+            topicCode: "7.1",
+            conceptTitle: "Bile emulsification, digestive hydrolases & villus absorption",
+            frontPrompt: "Why is bile NOT an enzyme, how does it accelerate lipid digestion, and how are small-intestine villi adapted for monomer absorption?",
+            backAnswer: "Bile (made in the liver, stored in the gall bladder) contains bile salts that physically emulsify fat globules into tiny droplets to increase surface area for pancreatic lipase. Villi and microvilli provide a ~30 m² surface area with a one-cell-thick epithelium over capillaries and lacteals.",
+            reversePrompt: "Name the physical process by which liver bile salts break large lipid globules into micro-droplets to expand the surface area for pancreatic lipase.",
+            keyTerms: ["liver", "emulsify", "surface area", "lipase", "villi", "one cell thick"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch08-double-pump-harvey",
+            chapterNumber: 8,
+            topicCode: "1.5",
+            conceptTitle: "Harvey's closed loop & the mammalian four-chambered double pump",
+            frontPrompt: "Why does a mammal need a four-chambered double circulation with a thicker left ventricle, and why does blood flow slowest in capillaries despite their tiny diameter?",
+            backAnswer: "Lung capillaries drop blood pressure; returning oxygenated blood to the thick left ventricle re-pressurises it (~120 mmHg) for systemic flow while keeping right-ventricular pulmonary pressure low (~25 mmHg). Blood slows in capillaries because billions in parallel create a huge total cross-sectional area (v = Q / A_total).",
+            reversePrompt: "Name the continuity relationship (v = Q / A_total) explaining why blood slows to ~0.5 mm/s inside the capillary bed to allow gas and nutrient diffusion.",
+            keyTerms: ["pressure", "left ventricle", "pulmonary", "cross-sectional area", "capillaries"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch09-synapse-accommodation",
+            chapterNumber: 9,
+            topicCode: "7.4",
+            conceptTitle: "Unidirectional chemical synapses, eye accommodation & auxin phototropism",
+            frontPrompt: "Why can impulses cross a chemical synapse in one direction only, and how do the ciliary muscle and suspensory ligaments adjust to focus on a near book?",
+            backAnswer: "Synaptic vesicles release neurotransmitter only from the pre-synaptic terminal and receptors sit only on the post-synaptic membrane. For near focus, the circular ciliary muscle contracts inward, slackening suspensory ligaments so the elastic lens springs into a thicker, more convex shape.",
+            reversePrompt: "Name the plant hormone that accumulates on the shaded side of a shoot tip and stimulates faster cell elongation to bend the stem towards light.",
+            keyTerms: ["vesicles", "neurotransmitter", "receptors", "ciliary muscle", "slackening", "convex"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch10-nephron-homeostasis",
+            chapterNumber: 10,
+            topicCode: "1.1",
+            conceptTitle: "Glomerular ultrafiltration, selective reabsorption & negative feedback",
+            frontPrompt: "How do the kidney glomerulus and proximal convoluted tubule separate waste urea from essential glucose, and how do insulin and glucagon regulate blood glucose?",
+            backAnswer: "High hydrostatic pressure drives ultrafiltration of water, glucose, ions, and urea into Bowman's capsule; the proximal tubule actively reabsorbs 100% of glucose via SGLT cotransporters while leaving urea in urine. Insulin lowers blood glucose into liver glycogen; glucagon restores blood glucose from glycogen.",
+            reversePrompt: "Name the two-step nephron mechanism that filters 180 L/day of plasma at the glomerulus and rescues 100% of filtered glucose in the proximal tubule.",
+            keyTerms: ["ultrafiltration", "proximal tubule", "reabsorbs", "glucose", "urea", "insulin", "glucagon"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch11-dna-central-dogma",
+            chapterNumber: 11,
+            topicCode: "11.1",
+            conceptTitle: "Semi-conservative DNA replication, Chargaff rules & Central Dogma",
+            frontPrompt: "State Chargaff's complementary base-pairing rules, explain semi-conservative replication, and trace the sickle-cell mutation from DNA triplet to red blood cell.",
+            backAnswer: "Adenine pairs with Thymine (2 H-bonds; %A = %T) and Guanine pairs with Cytosine (3 H-bonds; %G = %C). Each daughter DNA duplex keeps one parent template strand and one new strand. In sickle-cell (GAG -> GTG), mRNA GUG translates to hydrophobic Valine instead of Glutamate, causing deoxy-HbS fibres to polymerise.",
+            reversePrompt: "Name the replication model proved by Meselson and Stahl's 15N/14N density experiment in which each daughter DNA helix retains one parental strand.",
+            keyTerms: ["Adenine", "Thymine", "Guanine", "Cytosine", "template", "Valine"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch12-mitosis-meiosis",
+            chapterNumber: 12,
+            topicCode: "12.1",
+            conceptTitle: "Mitosis (2n -> 2n) vs. Meiosis (2n -> n) & genomic equivalence",
+            frontPrompt: "Contrast the daughter cells of human mitosis and meiosis, and explain why a liver cell and a retina neuron differ in shape despite having identical DNA.",
+            backAnswer: "Mitosis separates sister chromatids once to yield 2 genetically identical diploid cells (2n = 46) for growth/repair. Meiosis pairs and separates homologous chromosomes (Meiosis I, with crossing over) then sister chromatids (Meiosis II) to yield 4 unique haploid gametes (n = 23). Somatic cells differ by differential gene expression.",
+            reversePrompt: "Name the principle stating that every nucleated somatic cell in your body carries the complete diploid genome, differing only in which genes are transcribed.",
+            keyTerms: ["diploid", "haploid", "homologous", "crossing over", "sister chromatids", "gene expression"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch13-mendel-punnett",
+            chapterNumber: 13,
+            topicCode: "13.1",
+            conceptTitle: "Mendelian segregation (3:1), conditional carrier probability & X-linkage",
+            frontPrompt: "When two heterozygous carriers (Cc × Cc) have a healthy, unaffected child, why is the probability that this healthy child is a carrier 2/3 (66.7%) rather than 1/2?",
+            backAnswer: "A Cc × Cc Punnett square produces 1 CC : 2 Cc : 1 cc. Knowing the child is unaffected rules out cc, leaving 3 equally likely genotypes (1 CC and 2 Cc), so 2 out of 3 (66.7%) unaffected offspring are heterozygous carriers.",
+            reversePrompt: "State the conditional probability that an unaffected child of two autosomal-recessive carrier parents (Cc × Cc) is a heterozygous carrier (Cc).",
+            keyTerms: ["Punnett", "unaffected", "genotypes", "heterozygous", "carriers"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch14-selection-hardy-weinberg",
+            chapterNumber: 14,
+            topicCode: "14.1",
+            conceptTitle: "Random pre-existing mutation, non-random selection & Hardy–Weinberg",
+            frontPrompt: "Why is it wrong to say bacteria 'mutate in order to resist an antibiotic', and how do you calculate carrier frequency 2pq when q² = 0.09?",
+            backAnswer: "Mutations arise randomly from replication errors before antibiotic exposure; the antibiotic acts as a selection pressure that kills susceptible cells and selects for pre-existing resistant mutants, shifting population allele frequency across generations. When q² = 0.09, q = 0.30 and p = 0.70, so heterozygous carrier frequency 2pq = 0.42 (42%).",
+            reversePrompt: "Calculate the heterozygous carrier frequency (2pq) in a Hardy–Weinberg population where 9% of individuals show the recessive phenotype (q² = 0.09).",
+            keyTerms: ["randomly", "pre-existing", "selection pressure", "allele frequency", "0.42", "population"]
+        ),
+        ChapterAtomicFlashcard(
+            id: "card-ch15-trophic-biomagnification",
+            chapterNumber: 15,
+            topicCode: "4.4",
+            conceptTitle: "10% trophic energy pyramid, eutrophication & biomagnification",
+            frontPrompt: "Why does energy flow one-way (~10% per trophic step) while matter cycles, and what is the difference between bioaccumulation and biomagnification?",
+            backAnswer: "At each trophic step ~90% of energy dissipates as metabolic heat via cellular respiration (Second Law of Thermodynamics), whereas decomposers recycle C and N atoms. Bioaccumulation is persistent toxin build-up within one organism over time; biomagnification is toxin concentration multiplying up trophic levels.",
+            reversePrompt: "Distinguish toxin build-up within a single organism over its lifetime from increasing toxin concentration across successive trophic levels of a food chain.",
+            keyTerms: ["90%", "respiration", "heat", "decomposers", "bioaccumulation", "biomagnification"]
+        ),
+    ]
+
+    static func atomicCard(for card: FSRSCardRecord) -> ChapterAtomicFlashcard? {
+        if let direct = atomicFlashcards.first(where: { $0.id == card.id }) {
+            return direct
+        }
+        return atomicFlashcards.first(where: { $0.chapterNumber == card.chapterNumber })
+    }
+
+    static func keyTerms(for card: FSRSCardRecord) -> [String] {
+        if let atomic = atomicFlashcards.first(where: { $0.id == card.id }) {
+            return atomic.keyTerms
+        }
+        let tokens = card.backAnswer
+            .components(separatedBy: CharacterSet.alphanumerics.inverted)
+            .filter { $0.count >= 5 }
+        var seen: Set<String> = []
+        var result: [String] = []
+        for tok in tokens {
+            let low = tok.lowercased()
+            if !seen.contains(low) {
+                seen.insert(low)
+                result.append(tok)
+            }
+            if result.count >= 6 { break }
+        }
+        return result
+    }
+
+    static func prompt(for card: FSRSCardRecord, mode: ChapterFlashcardStudyMode) -> String {
+        switch mode {
+        case .forward:
+            return card.frontPrompt
+        case .reverse:
+            if let atomic = atomicFlashcards.first(where: { $0.id == card.id }) {
+                return atomic.reversePrompt
+            }
+            let cloze = BioProgressiveDeletionComposer.render(
+                text: card.backAnswer,
+                keyTerms: keyTerms(for: card),
+                stage: 2
+            )
+            return "Reverse Recall (Topic \(card.topicCode) · Ch \(card.chapterNumber)) — Identify the mechanism or question answered by:\n“\(cloze)”"
+        case .clozeStage1:
+            let cloze = BioProgressiveDeletionComposer.render(
+                text: card.backAnswer,
+                keyTerms: keyTerms(for: card),
+                stage: 2
+            )
+            return "\(card.frontPrompt)\n\nFill in the masked key terms:\n\(cloze)"
+        case .clozeStage2:
+            let cloze = BioProgressiveDeletionComposer.render(
+                text: card.backAnswer,
+                keyTerms: keyTerms(for: card),
+                stage: 4
+            )
+            return "\(card.frontPrompt)\n\nCold Cloze Recall:\n\(cloze)"
+        }
+    }
+
+    static func evaluateDraft(
+        for card: FSRSCardRecord,
+        draftAnswer: String,
+        confidence: LearnerConfidenceStop?
+    ) -> FlashcardDraftEvaluation {
+        let terms = keyTerms(for: card)
+        let eval = AnswerComparison.evaluateRecall(
+            spoken: draftAnswer,
+            expected: card.backAnswer,
+            keyTerms: terms
+        )
+        let ratio = terms.isEmpty ? eval.combinedScore : Double(eval.matchedKeyTerms.count) / Double(terms.count)
+        let isPass = ratio >= 0.60 || eval.combinedScore >= 0.65
+        let isDontKnow = draftAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && (confidence == .zero)
+        let quadrant = ConfidenceVerdictQuadrant.compute(
+            isPass: isPass,
+            confidence: confidence,
+            isDontKnow: isDontKnow
+        )
+        return FlashcardDraftEvaluation(
+            matchedKeyTerms: eval.matchedKeyTerms,
+            missingKeyTerms: eval.missingKeyTerms,
+            combinedScore: eval.combinedScore,
+            isPass: isPass,
+            quadrant: quadrant,
+            feedbackSummary: eval.feedbackSummary
+        )
+    }
+
+    public static func endOfChapterQuestions(forChapter chapterNumber: Int) -> [ChapterEndSynthesisQuestion] {
+        let ch = max(0, min(15, chapterNumber))
+        let bridge = PhenomenonToMechanismBridge.bridge(forChapter: ch)
+        let quant = QuantitativeBioEngine.problems(forChapter: ch).first ?? QuantitativeBioEngine.allProblems[ch % QuantitativeBioEngine.allProblems.count]
+        let debate = BiologicalDebateCatalog.scenario(forChapter: ch)
+        let atomic = atomicFlashcards.first(where: { $0.chapterNumber == ch }) ?? atomicFlashcards[0]
+        let correctChoice = debate.choices.first(where: \.isCorrect) ?? debate.choices[0]
+        let trapChoice = debate.choices.first(where: { !$0.isCorrect }) ?? debate.choices[0]
+
+        return [
+            ChapterEndSynthesisQuestion(
+                id: "ch\(String(format: "%02d", ch))-eoc-r1",
+                chapterNumber: ch,
+                rungNumber: 1,
+                rungTitle: "1 · Mechanism Explain-Back",
+                marks: 2,
+                prompt: atomic.frontPrompt,
+                keywords: Array(atomic.keyTerms.prefix(4)),
+                modelAnswer: atomic.backAnswer,
+                transferTwinTitle: nil,
+                transferTwinPrompt: nil,
+                transferTwinAnswer: nil
+            ),
+            ChapterEndSynthesisQuestion(
+                id: "ch\(String(format: "%02d", ch))-eoc-r2",
+                chapterNumber: ch,
+                rungNumber: 2,
+                rungTitle: "2 · Quantitative & Unit Check",
+                marks: 3,
+                prompt: "\(quant.prompt) (Formula: \(quant.formulaDisplay); state your answer in \(quant.expectedUnit)).",
+                keywords: [String(format: "%g", quant.expectedNumericValue), quant.expectedUnit],
+                modelAnswer: "Using \(quant.formulaDisplay), the result is \(String(format: "%g", quant.expectedNumericValue)) \(quant.expectedUnit). Watch out for common unit slips: \(quant.traps.first?.diagnosticWhy ?? "always convert units before dividing.")",
+                transferTwinTitle: nil,
+                transferTwinPrompt: nil,
+                transferTwinAnswer: nil
+            ),
+            ChapterEndSynthesisQuestion(
+                id: "ch\(String(format: "%02d", ch))-eoc-r3",
+                chapterNumber: ch,
+                rungNumber: 3,
+                rungTitle: "3 · Misconception Autopsy",
+                marks: 3,
+                prompt: "Spot & repair the flaw in this claim: “\(trapChoice.claim)”",
+                keywords: Array(atomic.keyTerms.suffix(3)),
+                modelAnswer: "\(trapChoice.socraticRebuttal) Correct mechanism: \(correctChoice.claim) (\(correctChoice.invariantTakeaway))",
+                transferTwinTitle: nil,
+                transferTwinPrompt: nil,
+                transferTwinAnswer: nil
+            ),
+            ChapterEndSynthesisQuestion(
+                id: "ch\(String(format: "%02d", ch))-eoc-r4",
+                chapterNumber: ch,
+                rungNumber: 4,
+                rungTitle: "4 · Cross-Chapter & Exam Synthesis",
+                marks: 4,
+                prompt: "Connect the everyday observation (“\(bridge.observablePhenomenon)”) to the intracellular mechanism (“\(bridge.ahaMechanismInvariant)”) and state the governing biological rule.",
+                keywords: bridge.termMappings.map(\.symbolOrTerm),
+                modelAnswer: "\(bridge.ahaMechanismInvariant) (\(bridge.principleOrEquationDisplay)). Key causal chain: \(bridge.termMappings.map { "\($0.symbolOrTerm) (\($0.biologicalMeaning))" }.joined(separator: " -> ")).",
+                transferTwinTitle: "New Scenario · Perturbation Probe on Chapter \(ch)",
+                transferTwinPrompt: bridge.perturbationPrompt(for: bridge.termMappings[0]),
+                transferTwinAnswer: bridge.perturbationExplanation(for: bridge.termMappings[0])
+            ),
+        ]
+    }
+
+    public static func quickQuiz(forChapter chapterNumber: Int) -> [ChapterQuickQuizItem] {
+        let ch = max(0, min(15, chapterNumber))
+        let debate = BiologicalDebateCatalog.scenario(forChapter: ch)
+        let quant = QuantitativeBioEngine.problems(forChapter: ch).first ?? QuantitativeBioEngine.allProblems[ch % QuantitativeBioEngine.allProblems.count]
+        let atomic = atomicFlashcards.first(where: { $0.chapterNumber == ch }) ?? atomicFlashcards[0]
+        let prevCh = ch > 0 ? ch - 1 : 15
+        let prevAtomic = atomicFlashcards.first(where: { $0.chapterNumber == prevCh }) ?? atomicFlashcards[0]
+        let bridge = PhenomenonToMechanismBridge.bridge(forChapter: ch)
+
+        let debateOpts = debate.choices.map { "\($0.speakerName): \($0.claim)" }
+        let debateCorrectIdx = debate.choices.firstIndex(where: \.isCorrect) ?? 0
+        let correctChoice = debate.choices[debateCorrectIdx]
+
+        let trap0 = quant.traps.first
+        let trap1 = quant.traps.dropFirst().first
+        let quantOpts = [
+            "\(String(format: "%g", quant.expectedNumericValue)) \(quant.expectedUnit) — applying \(quant.formulaDisplay) with consistent units.",
+            "\(String(format: "%g", trap0?.buggyValue ?? (quant.expectedNumericValue * 10))) \(quant.expectedUnit) — \(trap0?.trapName ?? "unit conversion slip").",
+            "\(String(format: "%g", trap1?.buggyValue ?? (quant.expectedNumericValue * 0.5))) \(quant.expectedUnit) — \(trap1?.trapName ?? "inverted ratio trap").",
+        ]
+
+        return [
+            ChapterQuickQuizItem(
+                id: "qq-ch\(ch)-1-debate",
+                chapterNumber: ch,
+                badgeTitle: "1 · Misconception Hinge",
+                prompt: debate.mumbaiContextPrompt,
+                options: debateOpts,
+                correctIndex: debateCorrectIdx,
+                diagnosticExplanation: "\(correctChoice.socraticRebuttal) Takeaway: \(correctChoice.invariantTakeaway)"
+            ),
+            ChapterQuickQuizItem(
+                id: "qq-ch\(ch)-2-quant",
+                chapterNumber: ch,
+                badgeTitle: "2 · Quantitative & Unit Check",
+                prompt: quant.prompt,
+                options: quantOpts,
+                correctIndex: 0,
+                diagnosticExplanation: "Correct calculation: \(String(format: "%g", quant.expectedNumericValue)) \(quant.expectedUnit) via \(quant.formulaDisplay)."
+            ),
+            ChapterQuickQuizItem(
+                id: "qq-ch\(ch)-3-reverse",
+                chapterNumber: ch,
+                badgeTitle: "3 · Reverse Concept Recall",
+                prompt: atomic.reversePrompt,
+                options: [
+                    "\(atomic.conceptTitle) — \(atomic.backAnswer)",
+                    "Passive equilibrium without energy coupling, membrane selectivity, or structural specificity.",
+                    "A vitalist force operating independently of molecular collisions, gradients, or enzyme active sites.",
+                ],
+                correctIndex: 0,
+                diagnosticExplanation: atomic.backAnswer
+            ),
+            ChapterQuickQuizItem(
+                id: "qq-ch\(ch)-4-perturbation",
+                chapterNumber: ch,
+                badgeTitle: "4 · Counterfactual Perturbation",
+                prompt: bridge.perturbationPrompt(for: bridge.termMappings[0]),
+                options: [
+                    bridge.perturbationExplanation(for: bridge.termMappings[0]),
+                    "The biological system continues at 100% normal rate because adjacent organs compensate without cost.",
+                    "Only external appearance changes while intracellular flux and ATP turnover remain unaffected.",
+                ],
+                correctIndex: 0,
+                diagnosticExplanation: bridge.perturbationExplanation(for: bridge.termMappings[0])
+            ),
+            ChapterQuickQuizItem(
+                id: "qq-ch\(ch)-5-lagged",
+                chapterNumber: ch,
+                badgeTitle: "5 · Spaced Recall from Chapter \(prevCh)",
+                prompt: "[Spaced Retrieval · Ch \(prevCh)] \(prevAtomic.frontPrompt)",
+                options: [
+                    prevAtomic.backAnswer,
+                    "The process runs backward spontaneously at room temperature without enzymes or gradients.",
+                    "Macroscopic tissue size alone determines the outcome regardless of molecular structure.",
+                ],
+                correctIndex: 0,
+                diagnosticExplanation: "Spaced retrieval from Chapter \(prevCh) (\(prevAtomic.conceptTitle)): \(prevAtomic.backAnswer)"
+            ),
+        ]
+    }
+}

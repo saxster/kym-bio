@@ -1317,6 +1317,15 @@ def build(pdf=False, only=None, out=None, site_dir=None, head_extra=''):
             scale_assets[name] = 'data:image/webp;base64,' + base64.b64encode(open(art_path, 'rb').read()).decode()
     scale_art_json = json.dumps(scale_assets['neighbourhood'])
     scale_assets_json = json.dumps(scale_assets)
+    plates_src = os.path.join(ROOT, 'assets', 'plates')
+    if site_dir and os.path.isdir(plates_src):
+        plates_dst = os.path.join(site_dir, 'assets', 'plates')
+        os.makedirs(plates_dst, exist_ok=True)
+        for pfile in sorted(os.listdir(plates_src)):
+            if pfile.endswith(('.webp', '.json')):
+                src_p = os.path.join(plates_src, pfile)
+                shutil.copy(src_p, os.path.join(plates_dst, pfile))
+                sizes.append(('assets/plates/' + pfile, os.path.getsize(src_p), 'plate'))
     chunks_json = json.dumps(chunks).replace('</', '<\\/')
     text_for_fonts = re.sub(r'<[^>]+>', ' ', body) + TITLE + SUBTITLE + '0123456789'
     faces = font_faces(html.unescape(text_for_fonts))

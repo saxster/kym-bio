@@ -1,0 +1,1396 @@
+{
+  "version": "1.0-directors-cut",
+  "edition": "Kym's Private Director's Cut — Archival Plates, Micrographs & Science Writing Canon",
+  "chapters": [
+    {
+      "chapter": 0,
+      "plates": [
+        {
+          "id": "ch00_hooke_cork",
+          "targetSec": "0.2",
+          "eyebrow": "Plate 0.A · Royal Society Copperplate (1665)",
+          "title": "Robert Hooke's Micrographia — Schema XI: Thin-Sliced Cork",
+          "image": "assets/plates/ch00_hooke_cork.webp",
+          "mode": "archival",
+          "scale": "Magnification ~50× · Compound Leather-Tube Microscope",
+          "credit": "Wellcome Collection M0010579 (CC-BY 4.0 / Public Domain)",
+          "summary": "Hooke shaved a sliver of oak bark cork thin enough for light to pass through, revealing ~1,200 million air-filled suberin boxes per cubic inch.",
+          "pins": [
+            {
+              "x": 41,
+              "y": 44,
+              "label": "Longitudinal pores (B)",
+              "detail": "Cut lengthwise, the dead bark cells look like long honeycombs or bundles of reeds."
+            },
+            {
+              "x": 57,
+              "y": 46,
+              "label": "Transverse 'cells' (A)",
+              "detail": "Cut crosswise, Hooke saw microscopic walled rooms that reminded him of monks' cells (cella)."
+            },
+            {
+              "x": 50,
+              "y": 68,
+              "label": "Cork oak sprig (Fig. 2)",
+              "detail": "Hooke drew the macroscopic plant branch right below the microscopic view to bridge scales."
+            }
+          ]
+        },
+        {
+          "id": "ch00_leeuwenhoek_bacteria",
+          "targetSec": "0.2",
+          "eyebrow": "Plate 0.B · Royal Society Letter (Delft, 1683)",
+          "title": "Antonie van Leeuwenhoek — Living Oral Bacteria ('Animalcules')",
+          "image": "assets/plates/ch00_leeuwenhoek_bacteria.webp",
+          "mode": "archival",
+          "scale": "Magnification ~270× · Single Biconvex Soda-Lime Glass Bead",
+          "credit": "Wellcome Collection M0010661 · Arcana Naturae (1695)",
+          "summary": "Using a single 1.5 mm glass bead lens, Leeuwenhoek scraped white plaque from between his teeth and drew humanity's first portrait of living bacteria.",
+          "pins": [
+            {
+              "x": 38,
+              "y": 30,
+              "label": "Rod bacillus (Fig. A)",
+              "detail": "A stiff rod-shaped bacterium (~2–3 µm long) from human dental plaque."
+            },
+            {
+              "x": 49,
+              "y": 46,
+              "label": "Tumbling path (C → D)",
+              "detail": "Leeuwenhoek dotted the loop-the-loop trajectory of a motile bacterium swimming through water."
+            },
+            {
+              "x": 59,
+              "y": 65,
+              "label": "Spirochaete wave (Fig. G)",
+              "detail": "A corkscrew spirillum flexing through the water droplet."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch00_dekruif",
+          "targetSec": "0.2",
+          "author": "Paul de Kruif",
+          "work": "Microbe Hunters (Ch. 1: 'Leeuwenhoek')",
+          "year": "1926",
+          "badge": "Classic Narrative History",
+          "epigraph": "He squinted through his lens at the white matter from between his teeth—and stopped short. 'There are more animals living in the scum on the teeth in a man's mouth than there are men in a whole kingdom!'",
+          "whyItMatters": "De Kruif shows why Leeuwenhoek beat every university professor in Europe: instead of arguing from Aristotle's books, the Delft cloth-merchant ground 500 tiny glass beads and checked boiling rainwater and his own mouth with stubborn controls.",
+          "craftNote": "Notice how Leeuwenhoek translates an invisible micrometre count into a human benchmark—comparing the population of one tooth scraping to the entire Dutch Republic."
+        },
+        {
+          "id": "read_ch00_yong",
+          "targetSec": "0.3",
+          "author": "Ed Yong",
+          "work": "I Contain Multitudes: The Microbes Within Us and a Grander View of Life",
+          "year": "2016",
+          "badge": "Director's Cut · Modern Science Writing",
+          "epigraph": "Every one of us is a zoo in our own right—a colony enclosed within a single body. A multi-species collective. An entire world.",
+          "whyItMatters": "Yong turns Pasteur's and Leeuwenhoek's discoveries upside down: microbes are not merely 'germs' waiting in dust traps to spoil soup—roughly 38 trillion bacterial cells live harmlessly and usefully on and inside your body right now.",
+          "craftNote": "Yong shifts scale from a single lens in 1674 Delft to the modern microbiome, showing that cleanliness and sterility are not the same thing in biology."
+        }
+      ]
+    },
+    {
+      "chapter": 1,
+      "plates": [
+        {
+          "id": "ch01_goodsell_cell",
+          "targetSec": "1.3",
+          "eyebrow": "Plate 1.A · Atomic-Scale Cellular Landscape (1,000,000×)",
+          "title": "David S. Goodsell — The Crowded Molecular City Inside a Living Cell",
+          "image": "assets/plates/ch01_goodsell_cell.webp",
+          "mode": "specimen",
+          "scale": "1,000,000× · True X-Ray & Cryo-EM Atomic Proportions",
+          "credit": "David S. Goodsell / RCSB PDB-101 (CC-BY 4.0)",
+          "summary": "School diagrams draw the cell as an empty swimming pool. Goodsell paints every protein, lipid, and RNA molecule to true atomic scale: the cytoplasm is a bustling Mumbai local train at rush hour.",
+          "pins": [
+            {
+              "x": 48,
+              "y": 24,
+              "label": "Plasma membrane & receptors",
+              "detail": "A 5 nm phospholipid bilayer studded with transmembrane receptor proteins."
+            },
+            {
+              "x": 38,
+              "y": 52,
+              "label": "Crowded cytosol enzymes",
+              "detail": "Soluble enzymes sit less than a few nanometres apart, colliding millions of times per second via thermal motion."
+            },
+            {
+              "x": 62,
+              "y": 64,
+              "label": "Cytoskeletal & metabolic tracks",
+              "detail": "ATP-powered protein filaments and metabolic complexes channel chemical free energy into order."
+            }
+          ]
+        },
+        {
+          "id": "ch01_tmv_tem",
+          "targetSec": "1.5",
+          "eyebrow": "Plate 1.B · Transmission Electron Micrograph (150,000×)",
+          "title": "Tobacco Mosaic Virus (TMV) — Crystalline Protein Rods at Life's Border",
+          "image": "assets/plates/ch01_tmv_tem.webp",
+          "mode": "specimen",
+          "scale": "Rod diameter: 18 nm · Length: 300 nm · Electron Micrograph",
+          "credit": "USDA / Public Domain Electron Micrograph Archive",
+          "summary": "First crystallised by Wendell Stanley in 1935, TMV is a rigid 300 nm cylinder built from 2,130 identical coat proteins spiralling around one RNA strand—inert as salt in a jar, relentless inside a leaf cell.",
+          "pins": [
+            {
+              "x": 45,
+              "y": 38,
+              "label": "300 nm helical capsid rod",
+              "detail": "2,130 identical protein subunits self-assemble into a hollow 18 nm cylinder."
+            },
+            {
+              "x": 58,
+              "y": 52,
+              "label": "No ribosomes or ATP",
+              "detail": "Outside a host plant cell, TMV runs zero metabolism and generates zero ATP."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch01_schrodinger",
+          "targetSec": "1.3",
+          "author": "Erwin Schrödinger",
+          "work": "What Is Life? The Physical Aspect of the Living Cell (Dublin Lectures)",
+          "year": "1944",
+          "badge": "Foundational Physics-to-Biology Bridge",
+          "epigraph": "How would we express in terms of the statistical theory the marvellous faculty of a living organism, by which it delays the decay into thermodynamic equilibrium (death)? It feeds upon 'negative entropy', attracting a stream of order upon itself.",
+          "whyItMatters": "Nine years before Watson, Crick, and Franklin solved DNA's structure, physicist Erwin Schrödinger asked how a cell obeys the Second Law of Thermodynamics: it pays for internal molecular order by exporting heat and higher-entropy waste to its surroundings.",
+          "craftNote": "Schrödinger also predicted in 1944 that chromosomes must contain an 'aperiodic crystal'—a non-repeating sequence of chemical letters acting as a miniature code-script."
+        },
+        {
+          "id": "read_ch01_lane",
+          "targetSec": "1.3",
+          "author": "Nick Lane",
+          "work": "The Vital Question: Energy, Evolution, and the Origins of Complex Life",
+          "year": "2015",
+          "badge": "Director's Cut · Bioenergetics",
+          "epigraph": "Across a membrane just five millionths of a millimetre thick, a voltage of 150 millivolts produces a field strength of 30 million volts per metre—equal to a bolt of lightning.",
+          "whyItMatters": "Lane explains why a dry seed, a bacterium, and your own brain all rely on Yellapragada SubbaRow's ATP currency: life is kept far from equilibrium by continuous proton currents across nanometre-thin membranes.",
+          "craftNote": "Dividing 0.15 V by 5 × 10⁻⁹ m gives 3 × 10⁷ V/m—a simple division that reveals the astonishing electrical intensity inside every mitochondrion."
+        }
+      ]
+    },
+    {
+      "chapter": 2,
+      "plates": [
+        {
+          "id": "ch02_elodea_chloroplasts",
+          "targetSec": "2.1",
+          "eyebrow": "Plate 2.A · Optical Bright-Field Micrograph (400×)",
+          "title": "Elodea canadensis Leaf Cells — Living Chloroplasts & Cellulose Walls",
+          "image": "assets/plates/ch02_elodea_chloroplasts.webp",
+          "mode": "specimen",
+          "scale": "Cell length ~50–80 µm · Chloroplast diameter ~5 µm",
+          "credit": "Wikimedia Commons Micrograph Archive (CC-BY-SA)",
+          "summary": "Unlike Hooke's dead cork, living pondweed cells are packed with dozens of bright green lens-shaped chloroplasts streaming along the inside of the rectangular cellulose wall.",
+          "pins": [
+            {
+              "x": 36,
+              "y": 35,
+              "label": "Rigid cellulose cell wall",
+              "detail": "Straight, box-like walls prevent the plant cell from bursting when water enters by osmosis."
+            },
+            {
+              "x": 52,
+              "y": 48,
+              "label": "Chloroplast discs (~5 µm)",
+              "detail": "Chlorophyll-packed organelles that capture photons; notice how they cluster near the periphery."
+            },
+            {
+              "x": 64,
+              "y": 54,
+              "label": "Transparent central vacuole",
+              "detail": "The clear central region is filled with cell sap, pushing the chloroplasts outward against the wall."
+            }
+          ]
+        },
+        {
+          "id": "ch02_rbc_sem",
+          "targetSec": "2.4",
+          "eyebrow": "Plate 2.B · Scanning Electron Micrograph (2,400×)",
+          "title": "Specialist Human Blood Cells — Erythrocyte, Platelet & Leukocyte",
+          "image": "assets/plates/ch02_rbc_sem.webp",
+          "mode": "specimen",
+          "scale": "Red blood cell diameter: 7.5 µm · False-Colour SEM",
+          "credit": "National Cancer Institute (NCI) / Electron Microscopy Facility (Public Domain)",
+          "summary": "Three blood cell specialists side by side: the biconcave red blood cell (left) ejected its nucleus to maximise SA/V and haemoglobin space; the spiny platelet (centre) plugs leaks; the ruffled white blood cell (right) hunts pathogens.",
+          "pins": [
+            {
+              "x": 34,
+              "y": 48,
+              "label": "Biconcave red blood cell (7.5 µm)",
+              "detail": "Pinched-in disc shape gives ~40% more surface area than a sphere of the same volume and keeps every haemoglobin molecule within 1 µm of the membrane."
+            },
+            {
+              "x": 58,
+              "y": 56,
+              "label": "Activated platelet (~2 µm)",
+              "detail": "Cell fragment extending sticky filopodia to weave a fibrin blood clot."
+            },
+            {
+              "x": 70,
+              "y": 30,
+              "label": "Leukocyte (white blood cell)",
+              "detail": "Nucleated immune cell with ruffled membrane ready to squeeze out of capillaries and engulf bacteria."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch02_haldane",
+          "targetSec": "2.3",
+          "author": "J. B. S. Haldane",
+          "work": "'On Being the Right Size' (Possible Worlds and Other Essays)",
+          "year": "1926",
+          "badge": "Masterpiece of Quantitative Prose",
+          "epigraph": "You can drop a mouse down a thousand-yard mine shaft; and, on arriving at the bottom, it gets a slight shock and walks away, provided that the ground is fairly soft. A rat is killed, a man is broken, a horse splashes.",
+          "whyItMatters": "Haldane (who later became an Indian citizen and directed the Genetics and Biometry Lab in Bhubaneswar) wrote the sharpest essay in history on why geometry governs biology: when length multiplies by 10, surface area (air resistance, oxygen absorption, bone cross-section) multiplies by 100, while volume and weight multiply by 1,000.",
+          "craftNote": "Four verbs in ten words—'walks away', 'is killed', 'is broken', 'splashes'—turn the square-cube law (SA/V = 6/L) into a picture you can never forget."
+        },
+        {
+          "id": "read_ch02_thomas",
+          "targetSec": "2.2",
+          "author": "Lewis Thomas",
+          "work": "The Lives of a Cell: Notes of a Biology Watcher ('Organelles as Organisms')",
+          "year": "1974",
+          "badge": "Director's Cut · National Book Award",
+          "epigraph": "There they are, moving about in my cytoplasm, breathing for my own flesh, but essentially foreign little creatures, with their own DNA and their own RNA, quite different from mine.",
+          "whyItMatters": "Physician-essayist Lewis Thomas captures the emotional shock of Lynn Margulis's endosymbiosis discovery: the mitochondria powering your heartbeat and the chloroplasts greening Mumbai's banyan trees are the descendants of ancient bacteria that moved in two billion years ago.",
+          "craftNote": "Thomas uses first-person intimacy ('in my cytoplasm') to make cell biology feel immediate rather than abstract."
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "plates": [
+        {
+          "id": "ch03_plasmolysis_rhoeo",
+          "targetSec": "3.3",
+          "eyebrow": "Plate 3.A · Live Epidermal Osmosis Micrograph (400×)",
+          "title": "Rhoeo discolor Epidermis — Plasmolysis in Hypertonic Salt Solution",
+          "image": "assets/plates/ch03_plasmolysis_rhoeo.webp",
+          "mode": "specimen",
+          "scale": "Cell width ~45 µm · Natural Anthocyanin Vacuolar Pigment",
+          "credit": "Wikimedia Commons Cellular Physiology Archive (CC-BY-SA)",
+          "summary": "Because Rhoeo epidermal vacuoles contain natural purple anthocyanin dye, you can watch osmosis directly without artificial stains: bathed in salty water (lower water potential), water leaves the vacuole and the purple cytoplasm peels away from the rigid cell wall.",
+          "pins": [
+            {
+              "x": 38,
+              "y": 42,
+              "label": "Shrunken purple protoplast",
+              "detail": "As water exits down the water-potential gradient, the vacuole contracts into a tight purple sphere."
+            },
+            {
+              "x": 54,
+              "y": 36,
+              "label": "Rigid polygonal cell wall",
+              "detail": "The tough cellulose box keeps its hexagonal geometry even after turgor pressure drops to zero."
+            },
+            {
+              "x": 46,
+              "y": 54,
+              "label": "External solution gap",
+              "detail": "The clear space between the cell wall and the shrunken cell membrane is filled with the external salt solution."
+            }
+          ]
+        },
+        {
+          "id": "ch03_avicennia_mangrove",
+          "targetSec": "3.4",
+          "eyebrow": "Plate 3.B · Mumbai Coast & Halophyte Physiology",
+          "title": "Avicennia marina (Grey Mangrove) — Drinking Fresh Water from the Sea",
+          "image": "assets/plates/ch03_avicennia_mangrove.webp",
+          "mode": "specimen",
+          "scale": "Intertidal Estuary · 35 g/L NaCl Arabian Sea Water",
+          "credit": "Botanical Field Archive (CC-BY)",
+          "summary": "Along Carter Road and Thane Creek, grey mangroves stand in seawater salty enough to plasmolyse ordinary crops. Their roots exclude ~90% of salt by ultrafiltration while leaf glands spend ATP to pump excess Na⁺ and Cl⁻ onto the leaf surface.",
+          "pins": [
+            {
+              "x": 45,
+              "y": 38,
+              "label": "Salt-excreting leaf blades",
+              "detail": "Microscopic ATP-driven salt glands on the leaves pump NaCl out, leaving sparkling white salt crystals as water evaporates."
+            },
+            {
+              "x": 56,
+              "y": 60,
+              "label": "High intracellular solute banking",
+              "detail": "Root cells accumulate compatible organic solutes and K⁺ ions to keep internal water potential lower than the surrounding sea."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch03_mukherjee",
+          "targetSec": "3.2",
+          "author": "Siddhartha Mukherjee",
+          "work": "The Song of the Cell: An Exploration of Medicine and the New Human",
+          "year": "2022",
+          "badge": "Director's Cut · Pulitzer Prize Author",
+          "epigraph": "A membrane without channels and pumps is not a cell; it is a tomb. What makes the cell alive is that its boundary is selectively, furiously ajar.",
+          "whyItMatters": "Mukherjee emphasizes why a pure lipid bubble would starve and suffocate in seconds: a living membrane must block random ion leaks while opening aquaporin water gates and burning roughly a third of your resting ATP on Na⁺/K⁺-ATPase pumps.",
+          "craftNote": "The contrast between 'a tomb' (sealed box) and 'selectively, furiously ajar' captures the difference between passive impermeability and active transport."
+        },
+        {
+          "id": "read_ch03_agre",
+          "targetSec": "3.2",
+          "author": "Peter Agre",
+          "work": "Nobel Lecture: 'Aquaporin Water Channels'",
+          "year": "2003",
+          "badge": "Primary Nobel Discovery Lecture",
+          "epigraph": "Like frog eggs dropped into pond water, our CHIP28-injected oocytes swelled rapidly and exploded like popcorn—proving we had found the cell's long-sought water plumbing.",
+          "whyItMatters": "For decades biophysicists argued over how water crosses cell membranes so much faster than through synthetic lipid bilayers. In 1992, Agre compared six control frog eggs with six eggs carrying the CHIP28 (Aquaporin-1) protein in hypotonic water: within 3 minutes every aquaporin egg burst while the controls sat unharmed.",
+          "craftNote": "A single clean control-vs-experiment comparison settled a 50-year debate in three minutes."
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "plates": [
+        {
+          "id": "ch04_ramachandran_plot",
+          "targetSec": "4.2",
+          "eyebrow": "Plate 4.A · Biophysical Sterics Map (University of Madras, 1963)",
+          "title": "G. N. Ramachandran — Allowed (φ, ψ) Protein Backbone Angles",
+          "image": "assets/plates/ch04_ramachandran_plot.webp",
+          "mode": "archival",
+          "scale": "Dihedral Angles φ (−180° to +180°) vs. ψ (−180° to +180°)",
+          "credit": "Structural Bioinformatics Archive (CC-BY-SA)",
+          "summary": "Working in Madras with C. Ramakrishnan and V. Sasisekharan using desk calculators and hard-sphere atomic radii, Ramachandran proved that most backbone rotations cause atoms to collide—leaving only tiny allowed islands corresponding to α-helices and β-sheets.",
+          "pins": [
+            {
+              "x": 34,
+              "y": 28,
+              "label": "β-sheet island (upper left)",
+              "detail": "Extended pleated strands cluster around φ ≈ −120°, ψ ≈ +120° where side-chain atoms avoid steric overlap."
+            },
+            {
+              "x": 36,
+              "y": 54,
+              "label": "Right-handed α-helix island",
+              "detail": "Tightly coiled helices sit near φ ≈ −60°, ψ ≈ −45°."
+            },
+            {
+              "x": 62,
+              "y": 45,
+              "label": "Forbidden collision desert",
+              "detail": "In over 70% of the map, oxygen, nitrogen, and carbon atoms would physically overlap within their van der Waals radii."
+            }
+          ]
+        },
+        {
+          "id": "ch04_lysozyme_1lyz",
+          "targetSec": "4.3",
+          "eyebrow": "Plate 4.B · X-Ray Crystal Structure (PDB 1LYZ · 2.0 Å)",
+          "title": "Hen Egg-White Lysozyme — The Active-Site Cleft That Snaps Bacterial Walls",
+          "image": "assets/plates/ch04_lysozyme_1lyz.webp",
+          "mode": "specimen",
+          "scale": "Polypeptide length: 129 amino acids · Width ~4.5 nm",
+          "credit": "RCSB Protein Data Bank 1LYZ / EBI (CC0 Public Domain)",
+          "summary": "Solved by David Phillips in 1965 as the first enzyme ever seen at atomic resolution, lysozyme (found in your tears and saliva) folds its 129 amino acids into a deep crevice that grips a bacterial sugar chain and strains the bond toward its transition state.",
+          "pins": [
+            {
+              "x": 48,
+              "y": 42,
+              "label": "Catalytic active-site cleft",
+              "detail": "Glutamate-35 and Aspartate-52 sit on opposite sides of the groove to attack the glycosidic bond."
+            },
+            {
+              "x": 35,
+              "y": 32,
+              "label": "α-helical domain",
+              "detail": "Hydrogen-bonded α-helices (red/gold ribbons) form the upper jaw of the enzyme."
+            },
+            {
+              "x": 62,
+              "y": 55,
+              "label": "Disulfide & H-bond scaffold",
+              "detail": "Heating above 60 °C shakes apart the weak hydrogen bonds holding this 3D pocket together (denaturation)."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch04_feynman",
+          "targetSec": "4.3",
+          "author": "Richard P. Feynman",
+          "work": "The Feynman Lectures on Physics (Vol. I, Ch. 3: 'The Relation of Physics to Other Sciences')",
+          "year": "1963",
+          "badge": "First-Principles Physical Mechanism",
+          "epigraph": "Everything is made of atoms. Everything that living things do can be understood in terms of the jigglings and wigglings of atoms.",
+          "whyItMatters": "Feynman strips away every trace of vitalism from biochemistry: an enzyme does not 'know' which substrate to find or 'choose' to speed up a reaction. Random thermal motion (k_B T) drives millions of blind collisions per second; only the substrate whose 3D geometry and charges complement the active site binds and reacts.",
+          "craftNote": "Notice how Feynman explains both optimal catalysis (more frequent energetic collisions as temperature rises) and high-temperature denaturation (violent thermal jiggling shaking the folded chain loose) with the exact same physical cause."
+        },
+        {
+          "id": "read_ch04_perutz",
+          "targetSec": "4.2",
+          "author": "Max F. Perutz",
+          "work": "I Wish I'd Made You Angry Earlier / 'The Haemoglobin Molecule'",
+          "year": "1964",
+          "badge": "Director's Cut · Structural Biology",
+          "epigraph": "Why does a molecule containing ten thousand atoms exist to pick up four molecules of oxygen? Because its four folded chains click back and forth like a molecular lung.",
+          "whyItMatters": "After spending 22 years solving the X-ray crystal structure of haemoglobin at the Cavendish Laboratory, Perutz answered a question that puzzled every student: haemoglobin is huge not by accident, but so that binding the first O₂ molecule pulls an iron atom 0.04 nm into the porphyrin ring, levering the remaining subunits open to grab oxygen in the lungs and release it in working muscles.",
+          "craftNote": "Perutz shows that in biology, 3D shape is never static statue-work—proteins are moving mechanical linkages."
+        }
+      ]
+    },
+    {
+      "chapter": 5,
+      "plates": [
+        {
+          "id": "ch05_stomata_guard_cells",
+          "targetSec": "5.4",
+          "eyebrow": "Plate 5.A · Leaf Epidermis Gas-Exchange Valve",
+          "title": "Stoma & Paired Guard Cells — Balancing CO₂ Intake Against Water Loss",
+          "image": "assets/plates/ch05_stomata_guard_cells.webp",
+          "mode": "specimen",
+          "scale": "Stomatal pore length ~20 µm · Guard cell pair",
+          "credit": "Botanical Microscopy Archive (CC-BY-SA)",
+          "summary": "Unlike ordinary transparent epidermal cells, the two kidney-shaped guard cells contain chloroplasts. In sunlight they pump K⁺ ions in, swell with water by osmosis, and bow apart because their inner cellulose walls are thicker than their outer walls.",
+          "pins": [
+            {
+              "x": 49,
+              "y": 44,
+              "label": "Open stomatal pore",
+              "detail": "Atmospheric CO₂ (0.04%) diffuses inward through this adjustable gap while O₂ and water vapour diffuse out."
+            },
+            {
+              "x": 38,
+              "y": 42,
+              "label": "Chloroplast-rich guard cell",
+              "detail": "Photosynthesis and ATP-driven ion pumping lower the guard cell's water potential in the light."
+            },
+            {
+              "x": 58,
+              "y": 48,
+              "label": "Thickened inner cellulose wall",
+              "detail": "Inelastic radial microfibrils and a stiff inner rim force the turgid cells to curve into a bean shape rather than ballooning round."
+            }
+          ]
+        },
+        {
+          "id": "ch05_grew_xylem_1682",
+          "targetSec": "5.5",
+          "eyebrow": "Plate 5.B · Royal Society Copperplate (London, 1682)",
+          "title": "Nehemiah Grew — The Anatomy of Plants: Vascular Xylem & Phloem Architecture",
+          "image": "assets/plates/ch05_grew_xylem_1682.webp",
+          "mode": "archival",
+          "scale": "Macro-to-Micro Stem Cross-Section · Engraved Copperplate",
+          "credit": "Wellcome Collection L0023901 (CC-BY 4.0 / Public Domain)",
+          "summary": "Seventeen years after Hooke's cork, Nehemiah Grew mapped the complete vascular plumbing of plant stems, showing the ringed, hollow xylem conduits that pull water 50 metres into the air without a single moving mechanical pump.",
+          "pins": [
+            {
+              "x": 48,
+              "y": 38,
+              "label": "Hollow xylem vessel bundles",
+              "detail": "Dead, end-to-end tubes lacking cytoplasm or end walls so cohesive water columns flow with minimal resistance."
+            },
+            {
+              "x": 62,
+              "y": 50,
+              "label": "Lignified ring reinforcement",
+              "detail": "Spiral and annular lignin rings stop the microscopic pipes from collapsing inward under negative transpiration tension."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch05_feynman_trees",
+          "targetSec": "5.1",
+          "author": "Richard P. Feynman",
+          "work": "Fun to Imagine (BBC Television Series): 'Trees Come Out of the Air'",
+          "year": "1983",
+          "badge": "Director's Cut · Iconic Explanation",
+          "epigraph": "People look at a tree and think it comes out of the ground, that plants grow out of the ground. If you ask, where does the substance come from? You find out that it comes out of the air!",
+          "whyItMatters": "Over 85% of university graduates still repeat van Helmont's mistake, guessing that a 100-tonne banyan tree built its wood from soil or water. Feynman makes the conservation of atoms visceral: a tree is solidified atmospheric CO₂ stitched together with hydrogen from water by captured sunlight—and when a log burns in a fireplace, that stored sunlight and carbon simply leap back into the air as light, heat, and gas.",
+          "craftNote": "Feynman pairs the forward reaction (photosynthesis in the leaf) with the reverse reaction (burning wood in a hearth) so the mass balance of carbon and energy clicks into place."
+        },
+        {
+          "id": "read_ch05_wilson_jahren",
+          "targetSec": "5.3",
+          "author": "E. O. Wilson & Hope Jahren",
+          "work": "The Diversity of Life (1992) & Lab Girl (2016)",
+          "year": "1992 / 2016",
+          "badge": "Director's Cut · Botanical Ecology",
+          "epigraph": "Every leaf is a solar factory suspended in thin air, paying a continuous ransom of evaporated water for every molecule of carbon dioxide it captures.",
+          "whyItMatters": "Wilson and Jahren highlight the ruthless engineering trade-off inside every green leaf: because air contains ~10 to 30 times more water-vapour capacity than CO₂ (only ~0.04% of air), a terrestrial plant must transpire hundreds of water molecules through its stomata for every single carbon atom it fixes into glucose.",
+          "craftNote": "Seeing transpiration not as a 'mistake' but as the unavoidable physical price of opening pores to dry air explains why cuticle wax, sunken stomata, and guard cells evolved."
+        }
+      ]
+    },
+    {
+      "chapter": 6,
+      "plates": [
+        {
+          "id": "ch06_mitochondrion_tem",
+          "targetSec": "6.2",
+          "eyebrow": "Plate 6.A · Transmission Electron Micrograph (50,000×)",
+          "title": "Mammalian Lung Mitochondrion — Cristae Shelves & Oxidative Matrix",
+          "image": "assets/plates/ch06_mitochondrion_tem.webp",
+          "mode": "specimen",
+          "scale": "Organelle length ~1.2 µm · Cristae membrane thickness ~5 nm",
+          "credit": "Louisa Howard, Dartmouth Electron Microscope Facility (Public Domain)",
+          "summary": "This classic electron micrograph reveals why mitochondria are not smooth beans inside: the inner membrane folds into dozens of cristae shelves to multiply the surface area available for proton pumps and rotary ATP synthase turbines.",
+          "pins": [
+            {
+              "x": 32,
+              "y": 36,
+              "label": "Outer mitochondrial membrane",
+              "detail": "Smooth boundary separating the mitochondrion from the surrounding cytosol."
+            },
+            {
+              "x": 50,
+              "y": 46,
+              "label": "Folded cristae shelves",
+              "detail": "Infoldings of the inner membrane that pack electron-transport chains and ATP synthase motors at high density."
+            },
+            {
+              "x": 62,
+              "y": 54,
+              "label": "Mitochondrial matrix",
+              "detail": "Inner chamber holding circular mitochondrial DNA, 70S ribosomes, and Krebs-cycle enzymes."
+            }
+          ]
+        },
+        {
+          "id": "ch06_atp_synthase",
+          "targetSec": "6.2",
+          "eyebrow": "Plate 6.B · Molecular Rotary Turbine (PDB 1E79 · Boyer & Walker)",
+          "title": "FoF1-ATP Synthase — The World's Smallest Rotary Generator",
+          "image": "assets/plates/ch06_atp_synthase.webp",
+          "mode": "archival",
+          "scale": "Height ~20 nm · Crown diameter ~10 nm · Rotates at ~100–150 rev/s",
+          "credit": "Structural Biology Archive (CC-BY-SA)",
+          "summary": "Protons (H⁺) pumped into the intermembrane space rush back down their electrochemical gradient through the membrane-embedded Fo wheel, spinning the asymmetric γ-shaft inside the stationary F1 catalytic head to press ADP + Pi into ATP.",
+          "pins": [
+            {
+              "x": 49,
+              "y": 24,
+              "label": "Fo membrane rotor (c-ring)",
+              "detail": "Embedded in the inner mitochondrial membrane; proton flow drives mechanical rotation."
+            },
+            {
+              "x": 50,
+              "y": 48,
+              "label": "Central γ-axle shaft",
+              "detail": "Rotating camshaft that forces the three catalytic β-subunits through Open, Loose, and Tight conformations."
+            },
+            {
+              "x": 48,
+              "y": 64,
+              "label": "F1 catalytic crown (α₃β₃)",
+              "detail": "Mints three ATP molecules for every 360° turn of the rotor."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch06_levi",
+          "targetSec": "6.3",
+          "author": "Primo Levi",
+          "work": "The Periodic Table (Final Chapter: 'Carbon')",
+          "year": "1975",
+          "badge": "Director's Cut · Greatest Science Chapter Ever Written",
+          "epigraph": "Our character lies for hundreds of millions of years, bound to three atoms of oxygen and one of calcium, in the form of limestone rock… until a stroke of a pickaxe, a lime-kiln, a wind, a leaf, a glass of wine, and a nerve cell guide my hand to impress on the paper this dot, here, this one.",
+          "whyItMatters": "Italian chemist and writer Primo Levi traces the biography of a single carbon-12 atom from a prehistoric limestone cliff into atmospheric CO₂, through a grapevine stomatal pore via photosynthesis into glucose, down a human bloodstream into a motor neuron's mitochondrion, where cellular respiration oxidises that glucose back to CO₂ to fire the exact impulse that types the final period of his book.",
+          "craftNote": "The Royal Institution voted The Periodic Table the best science book ever written. Notice how Levi unites Chapters 5, 6, 8, 9, and 15 of our textbook inside the life of one real atom."
+        },
+        {
+          "id": "read_ch06_lane_atp",
+          "targetSec": "6.2",
+          "author": "Nick Lane",
+          "work": "Transformer: The Deep Chemistry of Life and Death",
+          "year": "2022",
+          "badge": "Director's Cut · Metabolic Chemistry",
+          "epigraph": "At rest, you turn over your own body weight in ATP every single day—about 50 kilograms of fuel minted and spent, each molecule recycled a thousand times every twenty-four hours.",
+          "whyItMatters": "Because your body holds only ~50 to 100 grams of ATP at any instant yet spends ~50 kg of ATP a day, every single ATP molecule in your cells is recharged by mitochondrial respiration and discharged by cellular work roughly once per minute.",
+          "craftNote": "This single calculation proves why cyanide or suffocation is fatal in minutes: the cell has almost no stored ATP warehouse; it lives hand-to-mouth on continuous rotary synthesis."
+        }
+      ]
+    },
+    {
+      "chapter": 7,
+      "plates": [
+        {
+          "id": "ch07_beaumont_st_martin",
+          "targetSec": "7.2",
+          "eyebrow": "Plate 7.A · Historical Physiology Archive (1825–1833)",
+          "title": "William Beaumont & Alexis St. Martin — The Window Into the Living Stomach",
+          "image": "assets/plates/ch07_beaumont_st_martin.webp",
+          "mode": "archival",
+          "scale": "238 Recorded Experiments · Gastric Fistula pH ~1.5–2.0",
+          "credit": "Wellcome / Historical Medical Library (Public Domain)",
+          "summary": "After a musket discharge at Mackinac Island left voyageur Alexis St. Martin with a permanent healed opening into his stomach, US Army surgeon William Beaumont lowered silk-tied morsels of beef and drew out pure gastric juice to prove digestion is chemical catalysis by HCl and pepsin.",
+          "pins": [
+            {
+              "x": 45,
+              "y": 42,
+              "label": "Direct gastric observation",
+              "detail": "Beaumont timed exact digestion rates inside the stomach and in glass vials held at 37.8 °C (100 °F)."
+            },
+            {
+              "x": 58,
+              "y": 54,
+              "label": "In-vitro chemical control",
+              "detail": "Boiled beef dissolved in extracted gastric juice in a warm bath, refuting the vitalist claim that only a living stomach wall could digest food."
+            }
+          ]
+        },
+        {
+          "id": "ch07_intestinal_villi",
+          "targetSec": "7.4",
+          "eyebrow": "Plate 7.B · Anatomical & Histological Plate",
+          "title": "Small Intestine Villi — Folding 30 m² of One-Cell-Thick Absorptive Velvet",
+          "image": "assets/plates/ch07_intestinal_villi.webp",
+          "mode": "archival",
+          "scale": "Villus height ~0.5–1.5 mm · Epithelial barrier: 1 cell (~25 µm) thick",
+          "credit": "Wellcome Collection L0001374 (CC-BY 4.0 / Public Domain)",
+          "summary": "If the small intestine were a smooth hosepipe, digested glucose and amino acids would pass right out before diffusing into the blood. Millions of finger-like villi—each carpeted with microscopic microvilli—pack a badminton-court-sized surface into your abdomen.",
+          "pins": [
+            {
+              "x": 38,
+              "y": 35,
+              "label": "One-cell-thick villus epithelium",
+              "detail": "Keeps diffusion distance for glucose and amino acids down to ~25 µm."
+            },
+            {
+              "x": 52,
+              "y": 48,
+              "label": "Dense capillary basket",
+              "detail": "Carries absorbed glucose and amino acids straight to the liver via the hepatic portal vein."
+            },
+            {
+              "x": 64,
+              "y": 52,
+              "label": "Central lacteal vessel",
+              "detail": "Blind-ended lymphatic capillary that absorbs reassembled fat droplets (chylomicrons)."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch07_bryson_gut",
+          "targetSec": "7.1",
+          "author": "Bill Bryson",
+          "work": "The Body: A Guide for Occupants ('The Gut')",
+          "year": "2019",
+          "badge": "Director's Cut · Quantitative Anatomy",
+          "epigraph": "Your alimentary canal is a forty-hour chemical disassembly line: you put a meal in at the top, and forty hours later what remains exits at the bottom, having passed through nine metres of acid vats, enzyme showers, and velvet absorption carpets.",
+          "whyItMatters": "Bryson makes the topology of the digestive tract crystal clear: topologically, the inside of your stomach and intestines is still 'outside' your body's cells until enzymes chop polymers (starch, proteins, triglycerides) into monomers small enough to cross the villus epithelium.",
+          "craftNote": "Framing the gut as a disassembly line (polymers → monomers) rather than a furnace prevents the classic exam confusion between digestion and cellular respiration."
+        },
+        {
+          "id": "read_ch07_roach",
+          "targetSec": "7.2",
+          "author": "Mary Roach",
+          "work": "Gulp: Adventures on the Alimentary Canal",
+          "year": "2013",
+          "badge": "Director's Cut · History of Physiology",
+          "epigraph": "Beaumont didn't just look through St. Martin's stomach window; he ran the first controlled clinical trials in physiology—keeping a vial of gastric juice tucked in his own armpit at body temperature to prove chemistry needed no vital soul.",
+          "whyItMatters": "Roach highlights Beaumont's decisive experimental control: when a piece of meat in a glass vial of gastric juice warmed to 37 °C broke down into the exact same chyme as meat suspended inside St. Martin's stomach, vitalism in digestion was dead forever.",
+          "craftNote": "Notice how a simple temperature-matched test tube acts as an irrefutable physical control."
+        }
+      ]
+    },
+    {
+      "chapter": 8,
+      "plates": [
+        {
+          "id": "ch08_harvey_valves_1628",
+          "targetSec": "8.2",
+          "eyebrow": "Plate 8.A · De Motu Cordis Copperplate (Frankfurt, 1628)",
+          "title": "William Harvey — Figura 1–4: One-Way Venous Valves in the Human Forearm",
+          "image": "assets/plates/ch08_harvey_valves_1628.webp",
+          "mode": "archival",
+          "scale": "Macroscopic Physiological Experiment · Reproducible on Your Own Arm",
+          "credit": "Wellcome Collection L0019696 (CC-BY 4.0 / Public Domain)",
+          "summary": "Arguably the most famous experiment diagram in medicine: Harvey tied a band above the elbow to swell the forearm veins and showed that a finger pressing blood from O toward H leaves the vein flat because the valve at O blocks any backward flow away from the heart.",
+          "pins": [
+            {
+              "x": 45,
+              "y": 24,
+              "label": "Swollen venous valve nodes (B, C, D)",
+              "detail": "Small semilunar pocket valves inside the veins bulge visibly when venous return is slowed."
+            },
+            {
+              "x": 52,
+              "y": 48,
+              "label": "Emptied segment (O → H)",
+              "detail": "Stroking the vein toward the hand against the valve fails to refill segment O–H from above."
+            },
+            {
+              "x": 42,
+              "y": 65,
+              "label": "One-way centripetal return",
+              "detail": "Releasing the finger at H immediately refills the vein from the hand toward the heart."
+            }
+          ]
+        },
+        {
+          "id": "ch08_alveolar_cell_tem",
+          "targetSec": "8.1",
+          "eyebrow": "Plate 8.B · Pulmonary Ultrastructure Micrograph",
+          "title": "Alveolar Wall & Capillary Interface — The 0.5 µm Diffusion Barrier",
+          "image": "assets/plates/ch08_alveolar_cell_tem.webp",
+          "mode": "specimen",
+          "scale": "Blood-air barrier thickness ~0.5 µm · 300 million alveoli per lung pair",
+          "credit": "Pulmonary Ultrastructure Archive (CC-BY-SA)",
+          "summary": "Why do oxygen and carbon dioxide cross the lungs in a fraction of a second without active transport pumps? Because the squamous alveolar wall and capillary endothelium are fused into a wet sheet twenty times thinner than a soap bubble.",
+          "pins": [
+            {
+              "x": 48,
+              "y": 38,
+              "label": "Ultrathin gas-exchange membrane",
+              "detail": "Fick's Law: cutting diffusion thickness to 0.5 µm maximizes O₂ and CO₂ flux."
+            },
+            {
+              "x": 58,
+              "y": 54,
+              "label": "Surfactant-secreting pneumocyte",
+              "detail": "Coats the wet alveolar lining so surface tension does not collapse the microscopic air sacs on exhalation."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch08_harvey",
+          "targetSec": "8.2",
+          "author": "William Harvey",
+          "work": "Exercitatio Anatomica de Motu Cordis et Sanguinis in Animalibus (Ch. VIII & IX)",
+          "year": "1628",
+          "badge": "Primary Scientific Revolution Text",
+          "epigraph": "Let us assume that the left ventricle ejects but half an ounce of blood at each contraction… In half an hour the heart makes more than a thousand beats, pumping out more blood than is contained in the whole body! It is therefore necessary to conclude that the blood in the animal body is impelled in a circle.",
+          "whyItMatters": "For 1,400 years physicians taught Galen's dogma that the liver manufactures fresh blood from food every hour and the tissues burn it up like lamp oil. Harvey destroyed that model with ten seconds of primary-school multiplication—even deliberately underestimating stroke volume by a factor of four so no critic could quibble with his numbers.",
+          "craftNote": "Harvey's 'deliberate lower bound' is one of the strongest quantitative moves in all of science: if even a 4× underestimate produces an impossible mountain of blood, the old theory is dead."
+        },
+        {
+          "id": "read_ch08_bryson_heart",
+          "targetSec": "8.3",
+          "author": "Bill Bryson",
+          "work": "The Body: A Guide for Occupants ('The Heart and Blood')",
+          "year": "2019",
+          "badge": "Director's Cut · Human Physiology",
+          "epigraph": "Your heart weighs less than three hundred grams—about the size of a clenched fist—yet it beats a hundred thousand times a day, thirty-five million times a year, without ever pausing to rest for a single minute across eighty years.",
+          "whyItMatters": "Bryson connects the anatomy of the four-chambered mammalian heart to its mechanical duty: the right ventricle pumps gently (~3.3 kPa) so delicate lung capillaries do not burst with fluid, while the thick-walled left ventricle re-pressurises the oxygenated blood (~16 kPa) to drive it from toe to brain.",
+          "craftNote": "Comparing wall thickness directly to pressure requirements turns heart anatomy from memorisation into engineering."
+        }
+      ]
+    },
+    {
+      "chapter": 9,
+      "plates": [
+        {
+          "id": "ch09_cajal_purkinje",
+          "targetSec": "9.2",
+          "eyebrow": "Plate 9.A · Original Silver-Chromate Ink Drawing (Madrid, 1899)",
+          "title": "Santiago Ramón y Cajal — Purkinje Neuron of the Human Cerebellum",
+          "image": "assets/plates/ch09_cajal_purkinje.webp",
+          "mode": "archival",
+          "scale": "Golgi 'Black Reaction' Silver Stain · Drawn Freehand by Camera Lucida",
+          "credit": "Instituto Cajal, CSIC Madrid (Public Domain)",
+          "summary": "While most 19th-century anatomists believed the brain was a single fused web of continuous pipes, Cajal used Camillo Golgi's silver stain (which colours only ~1% of neurons jet black) to prove that every neuron is an independent cell whose dendrites end freely across microscopic synaptic gaps.",
+          "pins": [
+            {
+              "x": 49,
+              "y": 28,
+              "label": "Branching dendritic arbour",
+              "detail": "A flat, fan-like tree of dendrites receiving over 100,000 synaptic inputs from parallel fibres."
+            },
+            {
+              "x": 48,
+              "y": 56,
+              "label": "Cell body (soma)",
+              "detail": "Integrates incoming postsynaptic potentials at the axon hillock."
+            },
+            {
+              "x": 53,
+              "y": 66,
+              "label": "Single output axon (a)",
+              "detail": "Carries all-or-nothing electrical action potentials outward toward deep cerebellar nuclei."
+            }
+          ]
+        },
+        {
+          "id": "ch09_synapse_tem",
+          "targetSec": "9.3",
+          "eyebrow": "Plate 9.B · Transmission Electron Micrograph (40,000×)",
+          "title": "Chemical Neuromuscular Junction — Vesicles & the 20 nm Synaptic Cleft",
+          "image": "assets/plates/ch09_synapse_tem.webp",
+          "mode": "specimen",
+          "scale": "Synaptic cleft width ~20–30 nm · Vesicle diameter ~40 nm",
+          "credit": "Cell Biology Electron Micrograph Archive (CC-BY)",
+          "summary": "Sixty years after Cajal inferred the synaptic gap with a light microscope, the electron microscope photographed it directly: notice that only the presynaptic terminal on top is packed with neurotransmitter vesicles, while the folded postsynaptic membrane below holds receptor gates—physically enforcing one-way signal traffic.",
+          "pins": [
+            {
+              "x": 46,
+              "y": 34,
+              "label": "Presynaptic vesicle pool",
+              "detail": "40 nm membrane spheres filled with acetylcholine molecules waiting for Ca²⁺ influx."
+            },
+            {
+              "x": 49,
+              "y": 52,
+              "label": "20 nm synaptic cleft",
+              "detail": "Fluid gap across which neurotransmitters diffuse by random Brownian motion in <0.5 milliseconds."
+            },
+            {
+              "x": 52,
+              "y": 64,
+              "label": "Postsynaptic junctional folds",
+              "detail": "Deeply folded muscle membrane packed with ligand-gated Na⁺ receptor channels."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch09_cajal",
+          "targetSec": "9.2",
+          "author": "Santiago Ramón y Cajal",
+          "work": "Recollections of My Life (1917) & Advice for a Young Investigator (1899)",
+          "year": "1899 / 1917",
+          "badge": "Father of Modern Neuroscience",
+          "epigraph": "Everything was sharp as a sketch in Chinese ink on transparent Japanese paper… To gaze upon the mysterious butterflies of the soul, the beating of whose wings may one day reveal to us the secret of mental life!",
+          "whyItMatters": "Working alone at his kitchen-table microscope in Valencia and Barcelona with virtually no institutional grant money, Cajal overturned the reticular dogma of the entire European medical establishment by looking at embryonic brains (before dense myelin hid the wiring) and drawing what was actually there.",
+          "craftNote": "Cajal proves that careful visual observation and drawing force you to notice structural boundaries (like free nerve endings) that a passive viewer skims past."
+        },
+        {
+          "id": "read_ch09_yong_kandel",
+          "targetSec": "9.3",
+          "author": "Ed Yong & Eric R. Kandel",
+          "work": "An Immense World (2022) & In Search of Memory (2006)",
+          "year": "2006 / 2022",
+          "badge": "Director's Cut · Rigorous Sensory & Synaptic Neurobiology",
+          "epigraph": "Whether a signal comes from a rod cell catching a photon in your eye, a hair cell vibrating in a bat's ear, or a temperature channel in Obaid Siddiqi's fruit flies, the brain speaks only one currency: the crackling Morse code of action potentials and chemical synapses.",
+          "whyItMatters": "Pulitzer winner Ed Yong and Nobel laureate Eric Kandel show why the nervous system is both universal and adaptable: every sensory receptor translates a physical stimulus (light, heat, pressure, molecules) into the exact same Na⁺/K⁺ membrane voltage spikes, while learning physically strengthens or prunes the chemical synapses between neurons.",
+          "craftNote": "Credible modern neurobiology grounds perception and memory in testable ion channels (like Siddiqi's para sodium channels) and synaptic vesicle plasticity."
+        }
+      ]
+    },
+    {
+      "chapter": 10,
+      "plates": [
+        {
+          "id": "ch10_glomerulus_capillaries",
+          "targetSec": "10.3",
+          "eyebrow": "Plate 10.A · Renal Microanatomy Plate",
+          "title": "The Glomerulus & Bowman's Capsule — Filtering Your Blood 40 Times a Day",
+          "image": "assets/plates/ch10_glomerulus_capillaries.webp",
+          "mode": "archival",
+          "scale": "Glomerular tuft diameter ~200 µm · 1,000,000 nephrons per kidney",
+          "credit": "Anatomical Archive (Public Domain / CC-BY-SA)",
+          "summary": "Why does the kidney throw away 180 litres of water, glucose, and salts every day only to reabsorb 99% of it along the tubule? Because evolving a passive molecular sieve that blocks big cells and proteins while rescuing useful small molecules (glucose, amino acids, water) is far simpler than building a hundred separate toxin-specific pumps.",
+          "pins": [
+            {
+              "x": 42,
+              "y": 38,
+              "label": "High-pressure capillary knot",
+              "detail": "A wide afferent arteriole feeds a narrower efferent arteriole, building hydrostatic pressure for ultrafiltration."
+            },
+            {
+              "x": 56,
+              "y": 48,
+              "label": "Bowman's capsule cup",
+              "detail": "Catches the protein-free filtrate (water, glucose, ions, urea) and funnels it into the proximal convoluted tubule."
+            }
+          ]
+        },
+        {
+          "id": "ch10_macrophage_phagocytosis",
+          "targetSec": "10.4",
+          "eyebrow": "Plate 10.B · False-Colour Scanning Electron Micrograph (NIAID / NIH)",
+          "title": "Phagocytosis in Action — Macrophage Engulfing Pathogenic Bacteria",
+          "image": "assets/plates/ch10_macrophage_phagocytosis.webp",
+          "mode": "specimen",
+          "scale": "Macrophage diameter ~20 µm · Bacterial rods ~1.5 µm",
+          "credit": "NIAID / National Institutes of Health (CC-BY 2.0 / Public Domain)",
+          "summary": "A front-line innate immune phagocyte extends flowing cytoplasmic pseudopods to snare, engulf, and digest invading bacteria inside enzyme-filled phagolysosomes—holding the line while specific B and T lymphocytes multiply.",
+          "pins": [
+            {
+              "x": 45,
+              "y": 45,
+              "label": "Macrophage pseudopods",
+              "detail": "Actin-driven membrane extensions wrap around foreign bacterial cells."
+            },
+            {
+              "x": 58,
+              "y": 38,
+              "label": "Pathogenic bacterial rods",
+              "detail": "Recognised by surface antigens and opsonin antibodies before being sealed inside a digestive vacuole."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch10_bernard_cannon",
+          "targetSec": "10.1",
+          "author": "Claude Bernard & Walter B. Cannon",
+          "work": "Introduction to the Study of Experimental Medicine (1865) & The Wisdom of the Body (1932)",
+          "year": "1865 / 1932",
+          "badge": "Founders of Homeostasis",
+          "epigraph": "La fixité du milieu intérieur est la condition de la vie libre, indépendante: The stability of the internal environment is the condition for a free and independent life.",
+          "whyItMatters": "A jellyfish or a frog is at the mercy of the pond's temperature and salinity. Claude Bernard realised that humans and birds can climb freezing mountains or walk through a 38 °C Mumbai May afternoon only because our cells never actually touch the outside world—they live inside a tightly regulated 'internal sea' (blood and tissue fluid) held steady by negative feedback.",
+          "craftNote": "Bernard's single sentence explains why chapters on temperature regulation, blood glucose (insulin/glucagon), and kidney osmoregulation all belong to one engineering principle."
+        },
+        {
+          "id": "read_ch10_mukherjee_mahalanabis",
+          "targetSec": "10.4",
+          "author": "Siddhartha Mukherjee & The Lancet",
+          "work": "The Song of the Cell (2022) & The 1971 Bongaon ORS Field Trial",
+          "year": "1978 / 2022",
+          "badge": "Director's Cut · Medical Triumph",
+          "epigraph": "Potentially the most important medical advance of the twentieth century: a pinch of salt and a scoop of glucose riding a single membrane cotransporter across the intestinal wall.",
+          "whyItMatters": "During the 1971 cholera outbreak in Bongaon refugee camps near Calcutta, paediatrician Dilip Mahalanabis ran out of intravenous saline bags. Knowing that the intestinal SGLT1 sodium-glucose cotransporter stays intact even when cholera toxin floods the gut, he mixed clean water, table salt, baking soda, and glucose in plastic drums—cutting cholera deaths from 30% to 3.6%.",
+          "craftNote": "Links Chapter 3 (membrane cotransport and osmosis), Chapter 7 (intestinal villi), and Chapter 10 (fluid homeostasis and infectious disease) into one life-saving mechanism."
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "plates": [
+        {
+          "id": "ch11_photo51_franklin",
+          "targetSec": "11.2",
+          "eyebrow": "Plate 11.A · X-Ray Fibre Diffraction (King's College London, May 1952)",
+          "title": "Rosalind Franklin & Raymond Gosling — Photo 51 and the B-DNA Helix",
+          "image": "assets/plates/ch11_photo51_franklin.webp",
+          "mode": "archival",
+          "scale": "Pitch = 3.4 nm (34 Å) · Step = 0.34 nm (3.4 Å) · Diameter = 2.0 nm (20 Å)",
+          "credit": "King's College London / Educational Diffraction Diagram (CC-BY-SA)",
+          "summary": "Exposed for 62 hours at 92% relative humidity, Photo 51 encodes the exact 3D geometry of DNA: the dark X-cross is the signature of a helix; the distance to the heavy top/bottom smudges measures the 0.34 nm base-pair step; the 10 layer lines per repeat prove 10 base pairs per 3.4 nm turn; and the missing 4th layer line reveals the offset between the two antiparallel sugar-phosphate backbones.",
+          "pins": [
+            {
+              "x": 64,
+              "y": 42,
+              "label": "Central X-shaped cross",
+              "detail": "Mathematical Fourier signature of a helical coil; the cross angle gives the 2.0 nm helix diameter."
+            },
+            {
+              "x": 65,
+              "y": 24,
+              "label": "Meridional arcs (0.34 nm)",
+              "detail": "Heavy top and bottom arcs at the 10th layer line measure the 0.34 nm vertical spacing between stacked base pairs."
+            },
+            {
+              "x": 54,
+              "y": 38,
+              "label": "Missing 4th layer line",
+              "detail": "Destructive interference at layer line 4 proves two strands offset to create a major groove and a minor groove."
+            }
+          ]
+        },
+        {
+          "id": "ch11_ribosome_translation",
+          "targetSec": "11.4",
+          "eyebrow": "Plate 11.B · Molecular Translation Factory",
+          "title": "The Ribosome — Reading mRNA Triplets Three Letters at a Time",
+          "image": "assets/plates/ch11_ribosome_translation.webp",
+          "mode": "archival",
+          "scale": "Ribosome diameter ~25–30 nm · Reading rate ~15–20 amino acids/second",
+          "credit": "Molecular Biology Archive (Public Domain)",
+          "summary": "The ribosome straddles the messenger RNA tape and uses transfer RNA (tRNA) adaptors—each carrying a 3-base anticodon at one end and its matching amino acid at the other—to translate the 4-letter nucleotide code into a 20-letter polypeptide chain.",
+          "pins": [
+            {
+              "x": 48,
+              "y": 58,
+              "label": "mRNA codon tape (5' → 3')",
+              "detail": "Copied from the nuclear DNA template; every three bases (AUG, GAG, UUU…) specify one amino acid."
+            },
+            {
+              "x": 45,
+              "y": 42,
+              "label": "tRNA anticodon pairing",
+              "detail": "Complementary hydrogen bonding (A=U, G≡C) ensures the right amino acid enters the ribosome."
+            },
+            {
+              "x": 52,
+              "y": 22,
+              "label": "Growing polypeptide chain",
+              "detail": "Peptide bonds link amino acids into a primary sequence that spontaneously folds into a 3D protein."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch11_watson_crick_franklin",
+          "targetSec": "11.2",
+          "author": "J. D. Watson, F. H. C. Crick & R. E. Franklin",
+          "work": "Nature, Vol. 171, pp. 737–741 (25 April 1953)",
+          "year": "1953",
+          "badge": "Primary 1-Page Landmark Paper",
+          "epigraph": "It has not escaped our notice that the specific pairing we have postulated immediately suggests a possible copying mechanism for the genetic material.",
+          "whyItMatters": "Watson and Crick's famous 1953 paper is barely 900 words long—shorter than a single section of this textbook! Published back-to-back with Rosalind Franklin and Raymond Gosling's X-ray paper in the same issue of Nature, that single closing sentence revealed why Chargaff's rule (%A = %T, %G = %C) is the physical secret of heredity: if you know the sequence of one strand, the complementary strand is automatically determined.",
+          "craftNote": "One sentence at the end of a 900-word note connected molecular geometry (Ch 11) directly to cell division (Ch 12) and Mendelian inheritance (Ch 13)."
+        },
+        {
+          "id": "read_ch11_ridley_mukherjee",
+          "targetSec": "11.3",
+          "author": "Matt Ridley & Siddhartha Mukherjee",
+          "work": "Genome: The Autobiography of a Species (1999) & The Gene: An Intimate History (2016)",
+          "year": "1999 / 2016",
+          "badge": "Director's Cut · Molecular Genetics",
+          "epigraph": "Life is digital. Not an analogue blend of fluids, as Aristotle and Darwin's contemporaries supposed, but a quaternary digital text written in four chemical letters and read in three-letter words.",
+          "whyItMatters": "Ridley and Mukherjee explain why Har Gobind Khorana's synthetic RNA experiments ((UC)n → Ser-Leu-Ser-Leu) were so revolutionary: unlike an analogue cassette tape that degrades every time you copy it, a digital 4-letter code can be copied across four billion years of cell divisions with fewer than one error per billion letters.",
+          "craftNote": "Understanding DNA as digital rather than analogue immediately explains why discrete point mutations (like GAG → GTG in sickle-cell haemoglobin) exist."
+        }
+      ]
+    },
+    {
+      "chapter": 12,
+      "plates": [
+        {
+          "id": "ch12_flemming_mitosis_1882",
+          "targetSec": "12.2",
+          "eyebrow": "Plate 12.A · Original Cytology Lithograph (Kiel, 1882)",
+          "title": "Walther Flemming — Zellsubstanz, Kern und Kerntheilung (Mitosis)",
+          "image": "assets/plates/ch12_flemming_mitosis_1882.webp",
+          "mode": "archival",
+          "scale": "Aniline-Dyed Salamander Gill Cells · Optical Light Microscope",
+          "credit": "Historical Cytology Archive (Public Domain)",
+          "summary": "Before anyone knew what DNA did, German anatomist Walther Flemming used synthetic aniline dyes to stain dividing salamander cells and named the colored nuclear threads 'chromatin'—drawing the exact choreography of chromosomes condensing, splitting lengthwise, and marching to opposite poles.",
+          "pins": [
+            {
+              "x": 38,
+              "y": 28,
+              "label": "Prophase chromatin skein",
+              "detail": "Diffuse nuclear DNA condenses into visible thread-like chromosomes (mitos = thread)."
+            },
+            {
+              "x": 49,
+              "y": 46,
+              "label": "Metaphase equatorial plate",
+              "detail": "Sister chromatids align along the cell's equator before separation."
+            },
+            {
+              "x": 54,
+              "y": 64,
+              "label": "Anaphase V-shaped pull",
+              "detail": "Spindle fibres pull identical sister chromatids toward opposite daughter nuclei."
+            }
+          ]
+        },
+        {
+          "id": "ch12_mitotic_spindle_confocal",
+          "targetSec": "12.2",
+          "eyebrow": "Plate 12.B · Multi-Channel Fluorescence Confocal Micrograph",
+          "title": "Dividing Mammalian Cells — Spindle Microtubules & Condensed Chromosomes",
+          "image": "assets/plates/ch12_mitotic_spindle_confocal.webp",
+          "mode": "specimen",
+          "scale": "Cell diameter ~25 µm · Fluorescence Antibody & DNA Staining",
+          "credit": "NIH / National Institute of General Medical Sciences (Public Domain)",
+          "summary": "Compare Flemming's 1882 hand-drawn lithograph with a modern fluorescence confocal micrograph of living mammalian cells: glowing microtubule spindle cables reach from the centrosome poles to grab the condensed chromosomes and deal an exact 2n = 46 copy to each daughter cell.",
+          "pins": [
+            {
+              "x": 46,
+              "y": 42,
+              "label": "Mitotic spindle fibres",
+              "detail": "Protein microtubules polymerising from opposite spindle poles to tug sister chromatids apart."
+            },
+            {
+              "x": 52,
+              "y": 48,
+              "label": "Condensed chromosomes",
+              "detail": "Replicated DNA packed 10,000-fold around histone spools so long strands do not tangle or snap."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch12_meselson_stahl",
+          "targetSec": "12.1",
+          "author": "Matthew Meselson, Franklin W. Stahl & Frederic L. Holmes",
+          "work": "'The Replication of DNA in Escherichia coli' (PNAS, 1958) & 'The Most Beautiful Experiment in Biology'",
+          "year": "1958 / 2001",
+          "badge": "Primary Experimental Masterpiece",
+          "epigraph": "After exactly one generation in light ¹⁴N medium, all the DNA settled into a single hybrid band halfway between heavy and light—eliminating conservative replication in a single photograph.",
+          "whyItMatters": "Why did John Cairns and Frederic Holmes call Meselson and Stahl's 1958 experiment 'the most beautiful experiment in biology'? Because instead of destructive chemical breakdown, they used two harmless stable isotopes of nitrogen (heavy ¹⁵N and light ¹⁴N) spun in a caesium chloride density gradient so the three competing hypotheses (conservative, semi-conservative, dispersive) predicted three unmistakably different stripe patterns.",
+          "craftNote": "Generation 1 ruled out conservative replication (no pure heavy + pure light split); Generation 2 ruled out dispersive replication (splitting into one hybrid band and one light band)."
+        },
+        {
+          "id": "read_ch12_mukherjee_ammal",
+          "targetSec": "12.4",
+          "author": "Siddhartha Mukherjee & V. Damodaran",
+          "work": "The Song of the Cell (2022) & E. K. Janaki Ammal: Life and Scientific Contributions (2022)",
+          "year": "2022",
+          "badge": "Director's Cut · Chromosomes & Differentiation",
+          "epigraph": "Every cell in your body carries the complete forty-six-volume encyclopaedia of your genome; what makes a neuron a neuron and a skin cell a skin cell is which volumes are propped open and which are latched shut.",
+          "whyItMatters": "John Gurdon's frog nuclear-transfer experiment proved that differentiated cells never throw away unused genes—they simply regulate gene expression via transcription factors. Meanwhile, in Coimbatore, cytogeneticist E. K. Janaki Ammal counted chromosome sets (2n = 80 to 128+) in wild Indian Saccharum spontaneum to breed vigorous, sweet polyploid sugarcane varieties that ended India's reliance on imported sugar.",
+          "craftNote": "Connects microscopic chromosome mechanics directly to agricultural breeding in India."
+        }
+      ]
+    },
+    {
+      "chapter": 13,
+      "plates": [
+        {
+          "id": "ch13_mendel_pea_traits",
+          "targetSec": "13.1",
+          "eyebrow": "Plate 13.A · Botanical Genetics Plate (Brno, 1865)",
+          "title": "Gregor Mendel — Discrete Contrasting Characters in Pisum sativum",
+          "image": "assets/plates/ch13_mendel_pea_traits.webp",
+          "mode": "archival",
+          "scale": "28,000 Pea Plants · 8 Years of Controlled Hand-Pollination (1856–1863)",
+          "credit": "Botanical Genetics Archive / Daniel Fairbanks (CC-BY)",
+          "summary": "Why did Mendel succeed where dozens of earlier hybridisers saw only confusing averages? Before running a single cross, he spent two years testing 34 pea varieties to select seven binary, non-blending traits (purple vs. white flowers, yellow vs. green cotyledons, axial vs. terminal pods) that bred 100% true.",
+          "pins": [
+            {
+              "x": 38,
+              "y": 36,
+              "label": "Dominant purple flower (AA / Aa)",
+              "detail": "A single functional copy of the bHLH transcription-factor allele produces full anthocyanin pigment."
+            },
+            {
+              "x": 62,
+              "y": 42,
+              "label": "Recessive white flower (aa)",
+              "detail": "Requires two loss-of-function alleles; vanishes in F1 (100% purple) and returns cleanly in F2 (705 : 224 ≈ 3.15 : 1)."
+            }
+          ]
+        },
+        {
+          "id": "ch13_sickle_cell_sem",
+          "targetSec": "13.2",
+          "eyebrow": "Plate 13.B · Scanning Electron Micrograph (Genotype → Phenotype)",
+          "title": "Normal Biconcave vs. Sickled Red Blood Cell — One Letter, Two Shapes",
+          "image": "assets/plates/ch13_sickle_cell_sem.webp",
+          "mode": "specimen",
+          "scale": "Cell diameter ~7.5 µm · β-globin Codon 6 (GAG → GTG)",
+          "credit": "EM Pathology Archive (CC-BY-SA)",
+          "summary": "The complete bridge from Johnstone's symbolic level (DNA alleles HbA vs. HbS) to submicroscopic protein folding and macroscopic cellular shape: when oxygen drops, hydrophobic Valine-6 patches lock deoxy-HbS molecules into stiff rods that warp the flexible disc (right) into a rigid crescent (left).",
+          "pins": [
+            {
+              "x": 34,
+              "y": 48,
+              "label": "Sickled erythrocyte (HbS/HbS)",
+              "detail": "Internal haemoglobin polymer rods distort the cell into a stiff crescent that jams 5 µm capillaries."
+            },
+            {
+              "x": 66,
+              "y": 46,
+              "label": "Normal biconcave disc (HbA/HbA)",
+              "detail": "Hydrophilic Glutamate-6 keeps haemoglobin tetramers soluble and flexible."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch13_mendel",
+          "targetSec": "13.1",
+          "author": "Gregor Johann Mendel",
+          "work": "Versuche über Pflanzen-Hybriden ('Experiments in Plant Hybridization', Read at Brno)",
+          "year": "1865",
+          "badge": "Primary Founding Paper of Genetics",
+          "epigraph": "Those characters which are transmitted entire, or almost unchanged in the hybridization, are termed the dominant, and those which become latent in the process, the recessive… In this generation [F2] there reappear, together with the dominant characters, also the recessive ones in their full peculiarity, and in the decisively expressed average proportion of 3 : 1.",
+          "whyItMatters": "Trained in physics and combinatorial mathematics under Christian Doppler in Vienna, Mendel did what no botanist had ever done: he counted every single seed and plant across generations (e.g., 5,474 round vs. 1,850 wrinkled seeds = 2.96 : 1) and recognized the binomial expansion (A + 2Aa + a) of paired discrete factors.",
+          "craftNote": "Mendel's phrase 'in their full peculiarity' is the death-knell of blending inheritance: the white-flower allele sat inside a purple F1 plant for an entire year without picking up a single speck of purple tint."
+        },
+        {
+          "id": "read_ch13_mukherjee_gene",
+          "targetSec": "13.2",
+          "author": "Siddhartha Mukherjee",
+          "work": "The Gene: An Intimate History ('The Missing Science of Heredity')",
+          "year": "2016",
+          "badge": "Director's Cut · History of Genetics",
+          "epigraph": "Darwin needed Mendel more than Mendel needed Darwin. Without discrete particles of heredity, natural selection was like trying to sculpt a statue out of water: every new variation would dissolve back into the average within three generations.",
+          "whyItMatters": "Mukherjee tells the dramatic irony of 19th-century biology: when Scottish engineer Fleeming Jenkin attacked Darwin in 1867 by arguing that any rare beneficial trait would blend away to 1/2, 1/4, 1/8 in a population, the exact mathematical proof that heredity is particulate—not blending—had already been printed in Brno a year earlier.",
+          "craftNote": "Connects Chapter 13 (Mendelian particulate alleles) directly to Chapter 14 (why natural selection has permanent variation to act upon)."
+        }
+      ]
+    },
+    {
+      "chapter": 14,
+      "plates": [
+        {
+          "id": "ch14_darwin_tree_1837",
+          "targetSec": "14.2",
+          "eyebrow": "Plate 14.A · Notebook B, Page 36 (London, July 1837)",
+          "title": "Charles Darwin — The 'I think' Evolutionary Tree Sketch",
+          "image": "assets/plates/ch14_darwin_tree_1837.webp",
+          "mode": "archival",
+          "scale": "Original Ink Manuscript Page · Cambridge University Library",
+          "credit": "Cambridge University Library / Public Domain",
+          "summary": "Four months after ornithologist John Gould told him that the Galápagos birds he had casually stuffed into bags were thirteen distinct species of finches, 28-year-old Charles Darwin wrote two words—'I think'—at the top of page 36 of Notebook B and drew the first branching tree of descent with modification.",
+          "pins": [
+            {
+              "x": 45,
+              "y": 18,
+              "label": "'I think' inscription",
+              "detail": "Darwin's tentative two-word heading above humanity's first evolutionary phylogeny."
+            },
+            {
+              "x": 46,
+              "y": 54,
+              "label": "Ancestral root (1)",
+              "detail": "A single common ancestral species diverges into multiple daughter lineages."
+            },
+            {
+              "x": 58,
+              "y": 38,
+              "label": "Living tips (A–D) & extinctions",
+              "detail": "Branches ending in crossbars represent living species; uncrossed twigs show extinct intermediates."
+            }
+          ]
+        },
+        {
+          "id": "ch14_gould_finches",
+          "targetSec": "14.2",
+          "eyebrow": "Plate 14.B · Zoology of the Voyage of H.M.S. Beagle (1837)",
+          "title": "John Gould — Adaptive Radiation of Galápagos Finch Beaks (Geospiza)",
+          "image": "assets/plates/ch14_gould_finches.webp",
+          "mode": "archival",
+          "scale": "1–4: Graded Beak Depth from Heavy Seed-Crusher to Cactus Prober",
+          "credit": "Biodiversity Heritage Library / Public Domain",
+          "summary": "Drawn by John and Elizabeth Gould from Darwin's Beagle specimens, this famousfour-panel plate shows how an ancestral South American finch population diversified across islands into heavy nutcracker beaks (1: Geospiza magnirostris) and slender probing beaks (4: Certhidea olivacea).",
+          "pins": [
+            {
+              "x": 34,
+              "y": 32,
+              "label": "1. Geospiza magnirostris",
+              "detail": "Deep, high-leverage crushing beak selected on islands dominated by hard, woody Tribulus seeds."
+            },
+            {
+              "x": 66,
+              "y": 32,
+              "label": "2. Geospiza fortis",
+              "detail": "Medium ground finch whose beak depth Peter and Rosemary Grant measured shifting in a single 1977 drought."
+            },
+            {
+              "x": 66,
+              "y": 60,
+              "label": "4. Certhidea olivacea",
+              "detail": "Slender warbler-finch beak adapted for snatching insects rather than cracking seeds."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch14_darwin_origin",
+          "targetSec": "14.2",
+          "author": "Charles Darwin",
+          "work": "On the Origin of Species by Means of Natural Selection (Final Paragraph: 'The Tangled Bank')",
+          "year": "1859",
+          "badge": "Monument of Scientific Literature",
+          "epigraph": "There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved.",
+          "whyItMatters": "In the closing sentence of the entire 490-page book—the only place in the first edition where the word 'evolved' appears—Darwin places natural selection alongside Newton's law of gravity: just as simple physical forces keep planets in orbit without daily miracles, blind heritable variation plus differential survival generates the entire living world.",
+          "craftNote": "Notice the tense of the final four words: 'have been, and are being, evolved'—evolution is not a finished historical chapter; it is running right now."
+        },
+        {
+          "id": "read_ch14_weiner",
+          "targetSec": "14.2",
+          "author": "Jonathan Weiner",
+          "work": "The Beak of the Finch: A Story of Evolution in Our Time",
+          "year": "1994",
+          "badge": "Director's Cut · Pulitzer Prize for General Nonfiction",
+          "epigraph": "Darwin thought evolution by natural selection took centuries or millennia—too slow for any human eye to witness. On the volcanic rock of Daphne Major, Peter and Rosemary Grant watched it happen with a pair of callipers in a single dry summer.",
+          "whyItMatters": "During the severe 1977 Galápagos drought, small soft seeds vanished first, leaving only rock-hard Tribulus caltrops. Out of 1,200 banded Geospiza fortis finches on Daphne Major, 85% died of starvation—and the survivors whose existing genes gave them beaks just 0.5 mm deeper passed those alleles to the 1978 hatchlings.",
+          "craftNote": "The Grants' calliper dataset is the decisive answer to anyone who claims evolution is 'just a philosophy' rather than a measurable physical process."
+        }
+      ]
+    },
+    {
+      "chapter": 15,
+      "plates": [
+        {
+          "id": "ch15_indian_leopard",
+          "targetSec": "15.2",
+          "eyebrow": "Plate 15.A · Trophic Pyramid Apex Predator (Panthera pardus fusca)",
+          "title": "The Indian Leopard — Why Sanjay Gandhi National Park Holds ~40 Leopards, Not 4,000",
+          "image": "assets/plates/ch15_indian_leopard.webp",
+          "mode": "specimen",
+          "scale": "Adult mass ~50–70 kg · Home range ~8–15 km² · Trophic Level 3–4",
+          "credit": "Wildlife Field Photography Archive (CC-BY-SA 4.0)",
+          "summary": "Surrounded by 20 million Mumbai residents, SGNP's 104 km² forest supports thousands of chital deer and langurs but only ~40–45 leopards. Because ~90% of chemical energy is lost as respiratory heat and unassimilated waste at each trophic transfer, the energy pyramid narrows tenfold at every step.",
+          "pins": [
+            {
+              "x": 48,
+              "y": 42,
+              "label": "Camouflaged rosette pelage",
+              "detail": "Disruptive spots break up the leopard's outline in dappled monsoon teak and bamboo shade."
+            },
+            {
+              "x": 58,
+              "y": 56,
+              "label": "The 10% energy constraint",
+              "detail": "1,000,000 kJ of sunlit forest leaves → ~100,000 kJ of herbivore prey → ~10,000 kJ of apex carnivore biomass."
+            }
+          ]
+        },
+        {
+          "id": "ch15_crispr_cas9_4oo8",
+          "targetSec": "15.4",
+          "eyebrow": "Plate 15.B · X-Ray Crystal Structure (PDB 4OO8 · Doudna & Charpentier)",
+          "title": "CRISPR-Cas9 Endonuclease — A Bacterial Immune Diary Turned Genome Editor",
+          "image": "assets/plates/ch15_crispr_cas9_4oo8.webp",
+          "mode": "specimen",
+          "scale": "Protein width ~10 nm · 20-nucleotide Guide RNA Address",
+          "credit": "RCSB PDB 4OO8 (Anders et al., 2014 / CC-BY-SA)",
+          "summary": "For billions of years bacteria saved snippets of invading bacteriophage DNA in CRISPR arrays and loaded RNA copies into Cas9 protein scissors. In 2012, Jennifer Doudna and Emmanuelle Charpentier showed that programming a 20-letter guide RNA directs Cas9 to unzip and cut any matching DNA sequence on Earth.",
+          "pins": [
+            {
+              "x": 49,
+              "y": 36,
+              "label": "Programmable guide RNA (blue)",
+              "detail": "20-base RNA sequence that base-pairs with the target genomic DNA strand."
+            },
+            {
+              "x": 68,
+              "y": 38,
+              "label": "Unzipped target DNA helix (violet)",
+              "detail": "Cas9 checks for the 5'-NGG-3' PAM motif before melting the DNA double helix."
+            },
+            {
+              "x": 42,
+              "y": 54,
+              "label": "HNH & RuvC nuclease blades (red)",
+              "detail": "Two catalytic domains cleave both strands of the target DNA at the exact base-pair address."
+            }
+          ]
+        }
+      ],
+      "readings": [
+        {
+          "id": "read_ch15_ali_wilson",
+          "targetSec": "15.1",
+          "author": "Salim Ali & E. O. Wilson",
+          "work": "The Fall of a Sparrow (1985) & 'The Little Things That Run the World' (1987)",
+          "year": "1985 / 1987",
+          "badge": "Director's Cut · Mumbai Natural History & Global Ecology",
+          "epigraph": "If all mankind were to disappear, the world would regenerate back to the rich state of equilibrium that existed ten thousand years ago. If insects and soil microbes were to vanish, the terrestrial environment would collapse into chaos within months.",
+          "whyItMatters": "When ten-year-old Salim Ali noticed a strange yellow patch on the throat of a sparrow in Khetwadi, Mumbai and walked into W. S. Millard's office at the Bombay Natural History Society, it launched eighty years of Indian field ecology. Paired with E. O. Wilson's famous biodiversity law, their work shows why soil nitrogen-fixing bacteria, fungi, and pollinators are the irreplaceable load-bearing beams of the biosphere.",
+          "craftNote": "Wilson's counterfactual thought experiment ('remove humans vs. remove invertebrates and microbes') instantly flips our anthropocentric view of food webs."
+        },
+        {
+          "id": "read_ch15_quammen_doudna",
+          "targetSec": "15.4",
+          "author": "David Quammen & Jennifer A. Doudna",
+          "work": "The Song of the Dodo (1996) & A Crack in Creation (2017)",
+          "year": "1996 / 2017",
+          "badge": "Director's Cut · Conservation & The Genomic Frontier",
+          "epigraph": "Take a fine Persian rug and slice it with a razor into thirty-six neat squares. What you have left is not thirty-six miniature rugs; it is thirty-six ragged fragments whose edges are rapidly unravelling.",
+          "whyItMatters": "Quammen's Persian-rug metaphor of island biogeography explains why isolated urban forest islands like Mumbai's Sanjay Gandhi National Park need wildlife corridors to keep top predators and genetic diversity alive—while Doudna reminds Kym's generation that having cracked the four-billion-year code of life with CRISPR, we now bear responsibility for both editing genomes and protecting the living web that wrote them.",
+          "craftNote": "Brings the entire 16-chapter arc full circle: from Hooke's first glance at a cork cell to editing the four-letter code and stewarding the biosphere."
+        }
+      ]
+    }
+  ]
+}

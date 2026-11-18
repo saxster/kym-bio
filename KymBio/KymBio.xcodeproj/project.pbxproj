@@ -39,6 +39,7 @@
 		280BF5D9BBB5E8BBCCF2A556 /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295575BBC7B389AA38535147 /* JournalCard.swift */; };
 		2BE1E1E0B4BE9F13971F5594 /* CalendarHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E110E3F7D257CA2DC85D5375 /* CalendarHomeView.swift */; };
 		31D07DCBC79E24862C4E5FD5 /* BiologyBreathingAndResilienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2540EFAC8517C19F9F4D338E /* BiologyBreathingAndResilienceView.swift */; };
+		3290DE2634C0EB5D02F7A6DE /* FlashcardAndSynthesisStudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36E3C56C5CF73893BCDAC7A /* FlashcardAndSynthesisStudioTests.swift */; };
 		334665F3CBF2AF14010F9D06 /* BiologyMemoryPalaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3D8EA49EB9CDD2F69ABDA /* BiologyMemoryPalaceView.swift */; };
 		34B11BA55E0D622AA431E8DC /* TutorProfileRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07D3F832FF43B013ADFBC2 /* TutorProfileRegistrationTests.swift */; };
 		34FD8B422F458D910826CBCC /* LivingWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E14A30B5BC7617CA23FE6F /* LivingWorldWebStageView.swift */; };
@@ -256,6 +257,7 @@
 		BA0FC0CF911CE0EC0F31021A /* teaching_kit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = teaching_kit; path = ../../teaching_kit; sourceTree = SOURCE_ROOT; };
 		BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCharacterizationTests.swift; sourceTree = "<group>"; };
 		BFD92E7CFBF4E9932CDAF290 /* MetacognitionAndBackupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetacognitionAndBackupView.swift; sourceTree = "<group>"; };
+		C36E3C56C5CF73893BCDAC7A /* FlashcardAndSynthesisStudioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardAndSynthesisStudioTests.swift; sourceTree = "<group>"; };
 		C4E46D9FB67FAB5991915697 /* TodayHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHomeView.swift; sourceTree = "<group>"; };
 		C5FEA855828D865527E94A13 /* LearningEngines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningEngines.swift; sourceTree = "<group>"; };
 		C6E6C70B5B5773239774B059 /* SortClassifyVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortClassifyVisual.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 		EBB6A134E025234F49EF25B1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				C36E3C56C5CF73893BCDAC7A /* FlashcardAndSynthesisStudioTests.swift */,
 				679A6F4FF3D0548775512FB0 /* KymBioDomainTests.swift */,
 				906320B1230DB7070EC1B5C3 /* LearningEngineCharacterizationTests.swift */,
 				BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */,
@@ -1057,6 +1060,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3290DE2634C0EB5D02F7A6DE /* FlashcardAndSynthesisStudioTests.swift in Sources */,
 				3F182D38A2E951B2E534F306 /* KymBioDomainTests.swift in Sources */,
 				15AD7C431DB920F2E73EFABE /* LearningEngineCharacterizationTests.swift in Sources */,
 				236AD3D287881A96749728A2 /* ThemeCharacterizationTests.swift in Sources */,

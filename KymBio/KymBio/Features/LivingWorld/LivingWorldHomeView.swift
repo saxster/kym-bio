@@ -522,6 +522,11 @@ struct LivingWorldHomeView: View {
             }
         }
 
+        // End-of-Chapter 4-Rung Questions & Answers, Flashcard & 5-Question Quick Quiz Bench
+        JournalSection(title: "End-of-Chapter Questions & Answers, Flashcards & Quick Quiz") {
+            ChapterMasteryAndQuizBenchView(chapterNumber: chapter.number, chapterTitle: chapter.title)
+        }
+
         // Closing Ligne-Claire Comic Resolution Strip
         if let closer = chapter.closerComic {
             BioComicStripCardView(strip: closer, chapterNumber: chapter.number)
@@ -725,6 +730,10 @@ struct LivingWorldHomeView: View {
                 }
             }
 
+            if currentIndex == beats.count - 1 {
+                ChapterMasteryAndQuizBenchView(chapterNumber: chapter.number, chapterTitle: chapter.title)
+            }
+
             if currentIndex == beats.count - 1, let closer = chapter.closerComic {
                 BioComicStripCardView(strip: closer, chapterNumber: chapter.number)
             }
@@ -825,6 +834,324 @@ struct LivingWorldHomeView: View {
                         .font(.kymaiaSerifProse)
                         .foregroundStyle(Color.kymaiaInk)
                 }
+            }
+        }
+    }
+}
+
+// MARK: - Chapter-End 4-Rung Q&A, Flashcards & 5-Question Checkpoint Quiz Bench
+
+struct ChapterMasteryAndQuizBenchView: View {
+    enum BenchTab: String, CaseIterable, Identifiable {
+        case endOfChapterQA = "End-of-Chapter Q&A (4 Rungs)"
+        case flashcards = "Chapter Flashcards"
+        case quickQuiz = "5-Question Quick Quiz"
+
+        var id: String { rawValue }
+    }
+
+    let chapterNumber: Int
+    let chapterTitle: String
+
+    @State private var activeTab: BenchTab = .endOfChapterQA
+    @State private var eocDrafts: [String: String] = [:]
+    @State private var eocRevealed: Set<String> = []
+    @State private var eocUsingTwin: Set<String> = []
+    @State private var eocConfidence: [String: LearnerConfidenceStop] = [:]
+    @State private var flashcardMode: ChapterFlashcardStudyMode = .forward
+    @State private var flashcardRevealed: Bool = false
+    @State private var flashcardDraft: String = ""
+    @State private var quizSelections: [String: Int] = [:]
+
+    private var synthesisQuestions: [ChapterEndSynthesisQuestion] {
+        ChapterFlashcardAndSynthesisCatalog.endOfChapterQuestions(forChapter: chapterNumber)
+    }
+
+    private var atomicCard: ChapterAtomicFlashcard {
+        ChapterFlashcardAndSynthesisCatalog.atomicFlashcards.first(where: { $0.chapterNumber == chapterNumber })
+            ?? ChapterFlashcardAndSynthesisCatalog.atomicFlashcards[0]
+    }
+
+    private var quizItems: [ChapterQuickQuizItem] {
+        ChapterFlashcardAndSynthesisCatalog.quickQuiz(forChapter: chapterNumber)
+    }
+
+    var body: some View {
+        JournalCard {
+            VStack(alignment: .leading, spacing: Spacing.md) {
+                HStack {
+                    JournalBadge(symbol: "graduationcap.fill", tint: .kymaiaPrimary, size: .row)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Chapter \(chapterNumber) Active Retrieval & Synthesis Bench")
+                            .font(.kymaiaCardTitle)
+                            .foregroundStyle(Color.kymaiaInk)
+                        Text("Climb the 4-rung Q&A ladder, flip bidirectional/cloze flashcards, or take the 5-question checkpoint sprint.")
+                            .font(.kymaiaCaption)
+                            .foregroundStyle(Color.kymaiaMutedInk)
+                    }
+                    Spacer()
+                }
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: Spacing.xs) {
+                        ForEach(BenchTab.allCases) { tab in
+                            Button(tab.rawValue) {
+                                activeTab = tab
+                            }
+                            .buttonStyle(
+                                JournalCapsuleButtonStyle(
+                                    prominence: activeTab == tab ? .filled : .tinted,
+                                    size: .small
+                                )
+                            )
+                            .accessibilityIdentifier("chapter-bench.tab.\(tab.rawValue)")
+                        }
+                    }
+                }
+
+                Divider()
+
+                switch activeTab {
+                case .endOfChapterQA:
+                    endOfChapterQASection
+                case .flashcards:
+                    chapterFlashcardSection
+                case .quickQuiz:
+                    quickQuizSection
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var endOfChapterQASection: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            ForEach(synthesisQuestions) { q in
+                let isTwin = eocUsingTwin.contains(q.id)
+                let isRevealed = eocRevealed.contains(q.id)
+                let draft = eocDrafts[q.id] ?? ""
+                let promptText = (isTwin && q.transferTwinPrompt != nil) ? "[\(q.transferTwinTitle ?? "New Scenario")] \(q.transferTwinPrompt!)" : q.prompt
+                let modelText = (isTwin && q.transferTwinAnswer != nil) ? q.transferTwinAnswer! : q.modelAnswer
+                let eval = AnswerComparison.evaluateRecall(spoken: draft, expected: modelText, keyTerms: q.keywords)
+
+                VStack(alignment: .leading, spacing: Spacing.sm) {
+                    HStack {
+                        JournalChip(text: q.rungTitle, tone: .accent)
+                        JournalChip(text: "\(q.marks) marks", tone: .neutral)
+                        Spacer()
+                        if q.transferTwinPrompt != nil {
+                            Button(isTwin ? "Switch to Original" : "Try Transfer Twin (New Scenario)") {
+                                if isTwin {
+                                    eocUsingTwin.remove(q.id)
+                                } else {
+                                    eocUsingTwin.insert(q.id)
+                                }
+                            }
+                            .buttonStyle(JournalCapsuleButtonStyle(prominence: isTwin ? .filled : .tinted, size: .small))
+                        }
+                    }
+
+                    Text(promptText)
+                        .font(.kymaiaSerifProse)
+                        .foregroundStyle(Color.kymaiaInk)
+
+                    TextField(
+                        "Write your answer or calculation before checking the mark scheme…",
+                        text: Binding(
+                            get: { draft },
+                            set: { eocDrafts[q.id] = $0 }
+                        ),
+                        axis: .vertical
+                    )
+                    .textFieldStyle(.roundedBorder)
+                    .learnerTextInput(.retrieval)
+
+                    if !isRevealed {
+                        Button("Check against Cambridge mark scheme") {
+                            eocRevealed.insert(q.id)
+                        }
+                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                    } else {
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
+                            HStack {
+                                JournalChip(
+                                    text: "\(eval.matchedKeyTerms.count) of \(q.keywords.count) key ideas matched",
+                                    tone: eval.matchedKeyTerms.count >= max(1, q.keywords.count / 2) ? .good : .warn
+                                )
+                                if !eval.matchedKeyTerms.isEmpty {
+                                    Text("Matched: \(eval.matchedKeyTerms.joined(separator: ", "))")
+                                        .font(.kymaiaCaption)
+                                        .foregroundStyle(Color.kymaiaSuccess)
+                                }
+                            }
+                            if !eval.missingKeyTerms.isEmpty {
+                                Text("Still to include: \(eval.missingKeyTerms.joined(separator: ", "))")
+                                    .font(.kymaiaCaption)
+                                    .foregroundStyle(Color.kymaiaWarning)
+                            }
+                            Text("Model answer: \(modelText)")
+                                .font(.kymaiaSerifProse)
+                                .foregroundStyle(Color.kymaiaInk)
+                        }
+                        .padding(Spacing.sm)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .fill(Color.kymaiaElevatedSurface)
+                        )
+                    }
+                }
+                .padding(Spacing.sm)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .fill(Color.kymaiaBackground)
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var chapterFlashcardSection: some View {
+        let syntheticFSRS = FSRSCardRecord(
+            id: atomicCard.id,
+            topicCode: atomicCard.topicCode,
+            chapterNumber: atomicCard.chapterNumber,
+            frontPrompt: atomicCard.frontPrompt,
+            backAnswer: atomicCard.backAnswer,
+            stability: 2.0,
+            difficulty: 4.2,
+            elapsedDays: 0,
+            scheduledDays: 1,
+            reps: 0,
+            lapses: 0,
+            state: 0,
+            dueAt: Date(),
+            lastReviewAt: nil
+        )
+        let promptText = ChapterFlashcardAndSynthesisCatalog.prompt(for: syntheticFSRS, mode: flashcardMode)
+        let eval = AnswerComparison.evaluateRecall(spoken: flashcardDraft, expected: atomicCard.backAnswer, keyTerms: atomicCard.keyTerms)
+
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: Spacing.xs) {
+                    ForEach(ChapterFlashcardStudyMode.allCases) { mode in
+                        Button(mode.title) {
+                            flashcardMode = mode
+                            flashcardRevealed = false
+                        }
+                        .buttonStyle(
+                            JournalCapsuleButtonStyle(
+                                prominence: flashcardMode == mode ? .filled : .ghost,
+                                size: .small
+                            )
+                        )
+                    }
+                }
+            }
+
+            Text(atomicCard.conceptTitle)
+                .font(.kymaiaCardTitle)
+                .foregroundStyle(Color.kymaiaPrimaryStrong)
+
+            Text(promptText)
+                .font(.kymaiaSerifProse)
+                .foregroundStyle(Color.kymaiaInk)
+
+            TextField("Type key terms before flipping…", text: $flashcardDraft, axis: .vertical)
+                .textFieldStyle(.roundedBorder)
+                .learnerTextInput(.retrieval)
+
+            Button(flashcardRevealed ? "Fold card back" : "Flip card & check key terms") {
+                flashcardRevealed.toggle()
+            }
+            .buttonStyle(JournalCapsuleButtonStyle(prominence: .filled, size: .small))
+
+            if flashcardRevealed {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("Anchor terms matched: \(eval.matchedKeyTerms.count) of \(atomicCard.keyTerms.count) (\(atomicCard.keyTerms.joined(separator: ", ")))")
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .foregroundStyle(Color.kymaiaSuccess)
+                    Text(atomicCard.backAnswer)
+                        .font(.kymaiaSerifProse)
+                        .foregroundStyle(Color.kymaiaInk)
+                }
+                .padding(Spacing.sm)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .fill(Color.kymaiaElevatedSurface)
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var quickQuizSection: some View {
+        let correctCount = quizItems.filter { quizSelections[$0.id] == $0.correctIndex }.count
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            HStack {
+                JournalChip(text: "5-Question Interleaved Checkpoint Sprint", tone: .accent)
+                JournalChip(text: "\(quizSelections.count)/\(quizItems.count) answered · \(correctCount) correct", tone: .good)
+                Spacer()
+                if !quizSelections.isEmpty {
+                    Button("Reset sprint") {
+                        quizSelections.removeAll()
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                }
+            }
+
+            ForEach(quizItems) { item in
+                let selected = quizSelections[item.id]
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    HStack {
+                        JournalChip(text: item.badgeTitle, tone: .neutral)
+                        if let selected {
+                            JournalChip(
+                                text: selected == item.correctIndex ? "Mechanism Verified" : "Misconception Trap",
+                                tone: selected == item.correctIndex ? .good : .warn
+                            )
+                        }
+                        Spacer()
+                    }
+
+                    Text(item.prompt)
+                        .font(.kymaiaSerifProse)
+                        .foregroundStyle(Color.kymaiaInk)
+
+                    ForEach(Array(item.options.enumerated()), id: \.offset) { idx, opt in
+                        Button {
+                            quizSelections[item.id] = idx
+                        } label: {
+                            HStack(alignment: .top, spacing: Spacing.xs) {
+                                Text(["A.", "B.", "C.", "D."][idx % 4])
+                                    .font(.kymaiaCaption.weight(.bold))
+                                Text(opt)
+                                    .font(.kymaiaBody)
+                                    .multilineTextAlignment(.leading)
+                                Spacer()
+                            }
+                            .padding(Spacing.xs)
+                            .background(
+                                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                    .fill(selected == idx ? Color.kymaiaSelectionFill : Color.kymaiaSurface)
+                            )
+                        }
+                        .buttonStyle(.plain)
+                    }
+
+                    if selected != nil {
+                        Text(item.diagnosticExplanation)
+                            .font(.kymaiaCaption)
+                            .foregroundStyle(Color.kymaiaSecondaryInk)
+                            .padding(Spacing.xs)
+                    }
+                }
+                .padding(Spacing.sm)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                        .fill(Color.kymaiaBackground)
+                )
             }
         }
     }
