@@ -1283,13 +1283,26 @@ final class ChapterAudioNarrator: ObservableObject {
         if allowsHardwareSpeech && synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
         }
+        KymLiveStaticTextNarrator.shared.stop()
         activeBeatId = beat.id
         isPlaying = true
 
         guard allowsHardwareSpeech else { return }
+        if KymLiveStaticTextNarrator.shared.hasElevenLabsKeyConfigured {
+            KymLiveStaticTextNarrator.shared.readAloud(
+                text: beat.spokenScript,
+                itemID: beat.id,
+                rate: Float(playbackSpeedMultiplier),
+                allowsHardwareSpeech: allowsHardwareSpeech
+            ) { [weak self] in
+                self?.isPlaying = false
+                self?.activeBeatId = nil
+            }
+            return
+        }
         let utterance = AVSpeechUtterance(string: beat.spokenScript)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-IN")
-            ?? AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+            ?? AVSpeechSynthesisVoice(language: "en-IN")
             ?? AVSpeechSynthesisVoice(language: "en-US")
         let baseRate = AVSpeechUtteranceDefaultSpeechRate
         utterance.rate = min(
@@ -1307,13 +1320,23 @@ final class ChapterAudioNarrator: ObservableObject {
         if synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
         }
+        if KymLiveStaticTextNarrator.shared.hasElevenLabsKeyConfigured {
+            KymLiveStaticTextNarrator.shared.readAloud(
+                text: caption,
+                itemID: "watch-step-\(activeWatchStepIndex)",
+                rate: Float(playbackSpeedMultiplier),
+                allowsHardwareSpeech: allowsHardwareSpeech
+            )
+            return
+        }
         let utterance = AVSpeechUtterance(string: caption)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-IN") ?? AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB") ?? AVSpeechSynthesisVoice(language: "en-IN")
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * Float(playbackSpeedMultiplier)
         synthesizer.speak(utterance)
     }
 
     func stop() {
+        KymLiveStaticTextNarrator.shared.stop()
         if allowsHardwareSpeech && synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
         }
