@@ -32,11 +32,6 @@ struct SchoolScienceHomeView: View {
                 unitDetailSection(for: unit)
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StandardThemeMenu()
-            }
-        }
         .sheet(item: $store.activePracticeQuestion) { question in
             NavigationStack {
                 QuestionProofPracticeView(question: question)

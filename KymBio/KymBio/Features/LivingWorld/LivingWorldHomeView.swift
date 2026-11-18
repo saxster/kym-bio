@@ -18,8 +18,9 @@ enum LivingWorldPresentationMode: String, CaseIterable, Identifiable, Sendable {
 
 struct LivingWorldHomeView: View {
     @EnvironmentObject private var store: AppStore
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject private var audioNarrator = ChapterAudioNarrator()
-    @State private var presentationMode: LivingWorldPresentationMode = .interactiveBeats
+    @State private var presentationMode: LivingWorldPresentationMode = .interactiveWebBook
     @State private var selectedVolumeNumber: Int = 1
     @State private var activeBeatIndexByChapter: [Int: Int] = [:]
     @State private var completedDebateChapterIds: Set<Int> = []
@@ -32,29 +33,30 @@ struct LivingWorldHomeView: View {
     }
 
     var body: some View {
-        JournalPage(
-            title: "The Living World",
-            eyebrow: "Story textbook",
-            subtitle: "First-principles biology across 4 volumes, 16 chapters and 4 interactive explorers"
-        ) {
-            modeAndExplorersSection
-            volumeAndChapterPickerSection
-            switch presentationMode {
-            case .interactiveBeats:
-                if let chapter = activeChapter {
-                    interactiveBeatsChapterView(chapter)
+        Group {
+            if presentationMode == .interactiveWebBook {
+                fullBleedInteractiveWebBookView
+            } else {
+                JournalPage(
+                    title: "The Living World",
+                    eyebrow: "Story textbook",
+                    subtitle: "First-principles biology across 4 volumes, 16 chapters and 4 interactive explorers"
+                ) {
+                    modeAndExplorersSection
+                    volumeAndChapterPickerSection
+                    switch presentationMode {
+                    case .interactiveBeats:
+                        if let chapter = activeChapter {
+                            interactiveBeatsChapterView(chapter)
+                        }
+                    case .nativeJournal:
+                        if let chapter = activeChapter {
+                            nativeChapterReaderSection(for: chapter)
+                        }
+                    case .interactiveWebBook:
+                        interactiveWebStageCard
+                    }
                 }
-            case .nativeJournal:
-                if let chapter = activeChapter {
-                    nativeChapterReaderSection(for: chapter)
-                }
-            case .interactiveWebBook:
-                interactiveWebStageCard
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StandardThemeMenu()
             }
         }
         .onChange(of: store.activeLivingWorldChapter) { _, newChapter in
@@ -66,6 +68,93 @@ struct LivingWorldHomeView: View {
         .onDisappear {
             audioNarrator.stop()
         }
+    }
+
+    // MARK: - Full-Bleed Illustrated Book & 3D Stage (No Outer ScrollView Fighting)
+
+    private var fullBleedInteractiveWebBookView: some View {
+        VStack(spacing: 0) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 6) {
+                    Menu {
+                        Picker("Reading mode", selection: $presentationMode) {
+                            ForEach(LivingWorldPresentationMode.allCases) { mode in
+                                Text(mode.title).tag(mode)
+                            }
+                        }
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "book.pages.fill")
+                            Text(horizontalSizeClass == .compact ? "Mode" : presentationMode.title)
+                            Image(systemName: "chevron.down")
+                                .font(.caption2)
+                        }
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                    .accessibilityIdentifier("living-world.mode-picker")
+
+                    Button("Book Cover") {
+                        store.activeExplorerId = "top"
+                        store.activeWidgetId = nil
+                    }
+                    .buttonStyle(
+                        JournalCapsuleButtonStyle(
+                            prominence: store.activeExplorerId == "top" ? .filled : .tinted,
+                            size: .small
+                        )
+                    )
+                    .accessibilityIdentifier("living-world.explorer.top")
+
+                    ForEach(store.pack.explorers) { explorer in
+                        Button(explorer.title) {
+                            store.activeExplorerId = explorer.id
+                            store.activeWidgetId = nil
+                        }
+                        .buttonStyle(
+                            JournalCapsuleButtonStyle(
+                                prominence: store.activeExplorerId == explorer.id ? .filled : .tinted,
+                                size: .small
+                            )
+                        )
+                        .accessibilityIdentifier("living-world.explorer.\(explorer.id)")
+                    }
+
+                    ForEach(store.pack.chapters) { ch in
+                        let isSelected = store.activeExplorerId == nil && ch.number == store.activeLivingWorldChapter
+                        Button("Ch \(ch.number): \(ch.title)") {
+                            store.activeExplorerId = nil
+                            store.activeWidgetId = nil
+                            store.activeLivingWorldChapter = ch.number
+                            store.updateChapterProgress(chapterNumber: ch.number, fraction: 0.6)
+                        }
+                        .buttonStyle(
+                            JournalCapsuleButtonStyle(
+                                prominence: isSelected ? .filled : .ghost,
+                                size: .small
+                            )
+                        )
+                        .accessibilityIdentifier("living-world.chapter.\(ch.number)")
+                    }
+                }
+                .padding(.vertical, 2)
+            }
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, 6)
+            .background(Color.kymaiaSurface)
+            .overlay(alignment: .bottom) {
+                Rectangle()
+                    .fill(Color.kymaiaHairline)
+                    .frame(height: 1)
+            }
+
+            LivingWorldWebStageView(
+                chapterNumber: store.activeLivingWorldChapter,
+                targetWidgetId: store.activeWidgetId,
+                targetExplorerId: store.activeExplorerId
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .background(KymaiaBackground())
     }
 
     // MARK: - Mode Switcher & 4 Front-Matter Explorers
@@ -206,10 +295,15 @@ struct LivingWorldHomeView: View {
                     targetExplorerId: store.activeExplorerId
                 )
                 .frame(minHeight: 680)
+                .padding(6)
+                .background(
+                    RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
+                        .fill(Color(red: 0.04, green: 0.08, blue: 0.11))
+                )
                 .clipShape(RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
-                        .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                        .strokeBorder(Color.kymaiaSuccess.opacity(0.45), lineWidth: 1.4)
                 )
             }
         }

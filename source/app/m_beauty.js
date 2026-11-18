@@ -1,13 +1,13 @@
-// The look of the book, brought to life.
-// One idea runs through all of it: everything decorative is made of dots, like an engraving.
-//   - the cover: a faint field of particles in Brownian motion
-//   - volume pages: a stippled motif per volume (MOTIFS below; build.py MOTIFS picks one per volume:
-//     I cloud, II balance, III lattice, IV field: the field lines of a magnet, with stationary direction marks)
-//   - medallions for the people in the book, stippled like an engraving
-//   - a chapter spine in the left margin on wide screens, showing where you are
-// Every animation runs only while on screen, and not at all when the reader prefers reduced motion.
+// The look of the book, brought to life — Herbarium Copperplate & Cellular Stipple Edition.
+//   - the cover: organic spores, pollen grains and cytoplasmic vesicles drifting in gentle Brownian motion
+//   - volume pages: four authentic biological stipple motifs (build.py MOTIFS:
+//     I cloud -> dividing cellular tissue & cytoplasmic streaming;
+//     II balance -> golden-angle leaf phyllotaxis & rotating F1 ATP synthase rotor;
+//     III lattice -> arterial-bronchial branching tree & neural action-potential pulses;
+//     IV field -> rotating antiparallel B-DNA double helix with paired base rungs)
+//   - medallions for the biologists in the book: copperplate double-ring engravings with domain emblems
+//   - a collapsible chapter spine in the left margin on wide screens
 import App from './core.js';
-import { eccentricAnomaly } from './orbit_model.mjs';
 
 const motionOK = () => !App.reduceMotion();
 
@@ -31,7 +31,6 @@ function cssVar(el, name, fallback) {
   return v || fallback;
 }
 
-// size a canvas to its CSS box at device resolution; returns {ctx, w, h} in CSS pixels
 function fit(canvas) {
   const r = canvas.getBoundingClientRect();
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -44,7 +43,6 @@ function fit(canvas) {
   return { ctx, w, h };
 }
 
-// run fn(t, dt) every frame while `el` is on screen and motion is allowed; draw once otherwise
 function animateWhileVisible(el, setup) {
   let raf = 0, visible = false, last = 0, state = null;
   const start = () => {
@@ -55,7 +53,6 @@ function animateWhileVisible(el, setup) {
     last = performance.now();
     const tick = now => {
       if (!motionOK()) { raf = 0; state.draw(now, 0); return; }
-      // A newly scheduled RAF can share an earlier frame timestamp than performance.now().
       const dt = Math.max(0, Math.min(64, now - last)); last = now;
       state.draw(now, dt);
       raf = visible ? requestAnimationFrame(tick) : 0;
@@ -69,30 +66,41 @@ function animateWhileVisible(el, setup) {
   return { redraw() { state = null; if (visible) { cancelAnimationFrame(raf); raf = 0; start(); } } };
 }
 
-// ------------------------------------------------------------------ cover: particles in Brownian motion
+// ------------------------------------------------------------------ cover: Brownian spores & vesicles
 function cover() {
   const host = document.querySelector('.cover');
   const canvas = host && host.querySelector('canvas.field');
   if (!canvas) return null;
   return animateWhileVisible(host, () => {
     const { ctx, w, h } = fit(canvas);
-    const r = rng('cover');
-    const n = Math.round(Math.min(900, w * h / 1400));
-    const pts = Array.from({ length: n }, () => ({ x: r() * w, y: r() * h, s: .6 + r() * 1.1, a: .10 + r() * .22 }));
-    const ink = cssVar(host, '--ink', '#1d332d');
+    const r = rng('cover-bio');
+    const n = Math.round(Math.min(720, w * h / 1700));
+    const pts = Array.from({ length: n }, (_, i) => ({
+      x: r() * w, y: r() * h,
+      s: .75 + r() * 1.45,
+      a: .09 + r() * .20,
+      ring: i % 19 === 0,
+    }));
+    const ink = cssVar(host, '--ink', '#182b24');
+    const green = cssVar(host, '--green', '#1e5e45');
     return {
       draw(t, dt) {
-        const k = dt ? Math.sqrt(dt / 16) * .32 : 0;
+        const k = dt ? Math.sqrt(dt / 16) * .28 : 0;
         ctx.clearRect(0, 0, w, h);
-        ctx.fillStyle = ink;
         for (const p of pts) {
           if (k) {
-            p.x += gauss(Math.random) * k * (1.6 - p.s * .6);
-            p.y += gauss(Math.random) * k * (1.6 - p.s * .6);
+            p.x += gauss(Math.random) * k * (1.5 - p.s * .45);
+            p.y += gauss(Math.random) * k * (1.5 - p.s * .45);
             if (p.x < 0) p.x += w; else if (p.x > w) p.x -= w;
             if (p.y < 0) p.y += h; else if (p.y > h) p.y -= h;
           }
           ctx.globalAlpha = p.a;
+          if (p.ring) {
+            ctx.strokeStyle = green;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.s * 2.2, 0, 6.2832); ctx.stroke();
+          }
+          ctx.fillStyle = ink;
           ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 6.2832); ctx.fill();
         }
         ctx.globalAlpha = 1;
@@ -101,270 +109,208 @@ function cover() {
   });
 }
 
-// ------------------------------------------------------------------ volume motifs
+// ------------------------------------------------------------------ biology volume motifs
 const MOTIFS = {
-  // Volume I (Motion and force): Galileo's parabolic trajectories. Four projectile arcs launched from the left at
-  // 28°, 45°, 62° and 74°, drawn in stipple with vertical drop lines at equal horizontal intervals, while bright
-  // stones trace the parabolas with steady horizontal speed and uniformly accelerating vertical speed.
+  // Volume I (The Scene of the Crime & The Nanotech City):
+  // A living cluster of eukaryotic cells with stippled double membranes, dark nucleoli, and
+  // cytoplasmic vesicles streaming along internal tracks around each nucleus.
   cloud(ctx, w, h, col, r) {
-    const x0 = w * .10, y0 = h * .84, span = w * .80, g = 1.0;
-    const v0 = Math.sqrt(span * g);                   // 45° lands at x0 + span
-    const angles = [28, 45, 62, 74].map(d => d * Math.PI / 180);
-    const fade = (x, y) => {
-      const u = (x - w * .5) / (w * .5), v = (y - h * .5) / (h * .5);
-      return Math.max(0, 1 - (u * u * .85 + v * v * 1.05));
-    };
-    const arcs = angles.map(th => {
-      const vx = v0 * Math.cos(th), vy = v0 * Math.sin(th);
-      const tFlight = (2 * vy) / g;
-      const pts = [];
-      for (let i = 0; i <= 180; i++) {
-        const t = (i / 180) * tFlight;
-        const x = x0 + vx * t;
-        const y = y0 - (vy * t - 0.5 * g * t * t) * (h / span) * 1.35;
-        pts.push([x, y]);
-      }
-      return { pts, vx, vy, tFlight };
-    });
+    const cx = w * .52, cy = h * .50, S = Math.min(w, h) * .42;
+    const cells = [
+      { x: cx - S * .36, y: cy - S * .22, rx: S * .42, ry: S * .34, rot: -0.22 },
+      { x: cx + S * .32, y: cy - S * .16, rx: S * .38, ry: S * .31, rot: 0.28 },
+      { x: cx - S * .08, y: cy + S * .32, rx: S * .44, ry: S * .35, rot: 0.08 },
+      { x: cx + S * .38, y: cy + S * .30, rx: S * .30, ry: S * .26, rot: -0.35 },
+    ];
     const dots = [];
-    // Stippled ground baseline and equal horizontal stroboscopic columns
-    for (let x = w * .06; x < w * .94; x += 2.2) {
-      dots.push([x + gauss(r) * .4, y0 + gauss(r) * .6, fade(x, y0) * .65]);
-    }
-    arcs.forEach(a => {
-      a.pts.forEach(([x, y]) => {
-        for (let k = 0; k < 2; k++) {
-          dots.push([x + gauss(r) * .9, y + gauss(r) * .9, fade(x, y)]);
-        }
-      });
-      // Vertical drop guides on the 45° arc showing equal Δx steps
-      if (Math.abs(a.vx - a.vy) < 1e-2) {
-        for (let step = 1; step <= 7; step++) {
-          const idx = Math.round((step / 8) * (a.pts.length - 1));
-          const [gx, gy] = a.pts[idx];
-          for (let y = gy; y < y0; y += 4.5) {
-            dots.push([gx + gauss(r) * .35, y + gauss(r) * .35, fade(gx, y) * .5]);
-          }
+    const vesicles = [];
+    cells.forEach((c, idx) => {
+      const cs = Math.cos(c.rot), sn = Math.sin(c.rot);
+      const pt = (u, v) => [c.x + u * cs - v * sn, c.y + u * sn + v * cs];
+      // Stippled lipid bilayer perimeter (two concentric rings)
+      for (let i = 0; i < 320; i++) {
+        const th = (i / 320) * 6.2832;
+        for (const scale of [0.96, 1.03]) {
+          const [px, py] = pt(Math.cos(th) * c.rx * scale, Math.sin(th) * c.ry * scale);
+          dots.push([px + gauss(r) * .55, py + gauss(r) * .55, 0.55]);
         }
       }
+      // Stippled nucleus & dense nucleolus inside each cell
+      const nR = Math.min(c.rx, c.ry) * 0.34;
+      for (let i = 0; i < 220; i++) {
+        const rr = Math.sqrt(r()) * nR, th = r() * 6.2832;
+        const [px, py] = pt(Math.cos(th) * rr - c.rx * .12, Math.sin(th) * rr);
+        dots.push([px, py, rr < nR * 0.38 ? 0.85 : 0.38]);
+      }
+      // Cytoplasmic streaming vesicles orbiting along cytoskeleton track
+      for (let k = 0; k < 5; k++) {
+        vesicles.push({ c, cs, sn, phase: (idx * .19 + k * .2) % 1, speed: 0.00018 + k * 0.00003 });
+      }
     });
-    const flyers = arcs.map((a, i) => ({ arc: a, k: (i * .27) % 1, trail: [] }));
     return (t, dt) => {
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = col.ink;
-      for (const [x, y, f] of dots) {
-        if (f <= 0) continue;
-        ctx.globalAlpha = f * .36;
+      for (const [x, y, a] of dots) {
+        ctx.globalAlpha = a * .42;
+        ctx.fillRect(x, y, 1.25, 1.25);
+      }
+      ctx.fillStyle = col.vol;
+      for (const v of vesicles) {
+        if (dt) v.phase = (v.phase + dt * v.speed) % 1;
+        const th = v.phase * 6.2832;
+        const ux = Math.cos(th) * v.c.rx * 0.68, uy = Math.sin(th) * v.c.ry * 0.68;
+        const px = v.c.x + ux * v.cs - uy * v.sn;
+        const py = v.c.y + ux * v.sn + uy * v.cs;
+        ctx.globalAlpha = 0.82;
+        ctx.beginPath(); ctx.arc(px, py, 2.7, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    };
+  },
+
+  // Volume II (Molecular Locks & The Energy Heist):
+  // Golden-angle botanical phyllotaxis spiral (137.508°) capturing photons toward a central
+  // 6-subunit F1 ATP Synthase rotor.
+  balance(ctx, w, h, col, r) {
+    const cx = w * .52, cy = h * .50, S = Math.min(w, h) * .44;
+    const golden = Math.PI * (3 - Math.sqrt(5));
+    const seeds = [];
+    for (let i = 12; i < 240; i++) {
+      const rad = Math.sqrt(i / 240) * S;
+      const th = i * golden;
+      const x = cx + Math.cos(th) * rad, y = cy + Math.sin(th) * rad;
+      const fade = Math.max(0.15, 1 - (rad / S) * 0.65);
+      for (let d = 0; d < 6; d++) {
+        seeds.push([x + gauss(r) * 1.4, y + gauss(r) * 1.4, fade]);
+      }
+    }
+    let rotorAngle = 0;
+    return (t, dt) => {
+      if (dt) rotorAngle = (rotorAngle + dt * 0.0008) % (Math.PI * 2);
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = col.ink;
+      for (const [x, y, f] of seeds) {
+        ctx.globalAlpha = f * .40;
+        ctx.fillRect(x, y, 1.3, 1.3);
+      }
+      // Central 6-subunit F1 ATP synthase hexamer rotor
+      const rSub = S * 0.16;
+      for (let k = 0; k < 6; k++) {
+        const th = rotorAngle + (k * Math.PI) / 3;
+        const sx = cx + Math.cos(th) * rSub, sy = cy + Math.sin(th) * rSub;
+        ctx.globalAlpha = k % 2 === 0 ? 0.85 : 0.55;
+        ctx.fillStyle = k % 2 === 0 ? col.vol : col.proton;
+        ctx.beginPath(); ctx.arc(sx, sy, 6.2, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 0.9;
+      ctx.fillStyle = col.ink;
+      ctx.beginPath(); ctx.arc(cx, cy, 4.2, 0, 6.2832); ctx.fill();
+      ctx.globalAlpha = 1;
+    };
+  },
+
+  // Volume III (The Human Orchestra):
+  // Branching physiological bronchial / arterial tree (Murray's law bifurcation) with
+  // rhythmic oxygen/action-potential pulses travelling from trunk to terminal alveoli.
+  lattice(ctx, w, h, col, r) {
+    const segs = [];
+    const buildBranch = (x1, y1, len, angle, depth) => {
+      if (depth <= 0 || len < 6) return;
+      const x2 = x1 + Math.cos(angle) * len;
+      const y2 = y1 + Math.sin(angle) * len;
+      segs.push({ x1, y1, x2, y2, depth });
+      const spread = 0.42 + (6 - depth) * 0.03;
+      buildBranch(x2, y2, len * 0.74, angle - spread, depth - 1);
+      buildBranch(x2, y2, len * 0.74, angle + spread, depth - 1);
+    };
+    const S = Math.min(w, h);
+    buildBranch(w * .52, h * .84, S * .22, -Math.PI / 2, 6);
+    const dots = [];
+    const alveoli = [];
+    for (const s of segs) {
+      const steps = Math.max(8, Math.round(Math.hypot(s.x2 - s.x1, s.y2 - s.y1) * 1.4));
+      for (let i = 0; i <= steps; i++) {
+        const u = i / steps;
+        const px = s.x1 + (s.x2 - s.x1) * u, py = s.y1 + (s.y2 - s.y1) * u;
+        const spread = s.depth * 0.45;
+        dots.push([px + gauss(r) * spread, py + gauss(r) * spread, 0.32 + s.depth * 0.08]);
+      }
+      if (s.depth === 1) alveoli.push([s.x2, s.y2]);
+    }
+    let pulse = 0;
+    return (t, dt) => {
+      if (dt) pulse = (pulse + dt / 2400) % 1;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = col.ink;
+      for (const [x, y, a] of dots) {
+        ctx.globalAlpha = a * .45;
         ctx.fillRect(x, y, 1.2, 1.2);
       }
-      // Launch origin dot
-      ctx.globalAlpha = .75;
-      ctx.fillStyle = col.proton;
-      ctx.beginPath(); ctx.arc(x0, y0, 3.2, 0, 6.2832); ctx.fill();
       ctx.fillStyle = col.vol;
-      for (const fl of flyers) {
-        if (dt) {
-          fl.k += dt / 4200;
-          if (fl.k >= 1) { fl.k -= 1; fl.trail.length = 0; }
+      for (const [ax, ay] of alveoli) {
+        ctx.globalAlpha = 0.48;
+        ctx.beginPath(); ctx.arc(ax, ay, 3.4, 0, 6.2832); ctx.fill();
+      }
+      // Travelling physiological wave along the branching levels
+      const targetDepth = 6 - pulse * 5.5;
+      ctx.fillStyle = col.proton;
+      for (const s of segs) {
+        const dist = Math.abs(s.depth - targetDepth);
+        if (dist < 0.85) {
+          const frac = 1 - (targetDepth - Math.floor(targetDepth));
+          const px = s.x1 + (s.x2 - s.x1) * frac, py = s.y1 + (s.y2 - s.y1) * frac;
+          ctx.globalAlpha = (1 - dist / 0.85) * 0.85;
+          ctx.beginPath(); ctx.arc(px, py, 2.8, 0, 6.2832); ctx.fill();
         }
-        const idx = Math.min(fl.arc.pts.length - 1, Math.floor(fl.k * (fl.arc.pts.length - 1)));
-        const p = fl.arc.pts[idx];
-        fl.trail.push(p);
-        if (fl.trail.length > 24) fl.trail.shift();
-        fl.trail.forEach(([tx, ty], i) => {
-          ctx.globalAlpha = (i / fl.trail.length) * .45 * fade(tx, ty);
-          ctx.beginPath(); ctx.arc(tx, ty, 1.6, 0, 6.2832); ctx.fill();
-        });
-        ctx.globalAlpha = .92 * fade(p[0], p[1]);
-        ctx.beginPath(); ctx.arc(p[0], p[1], 3.1, 0, 6.2832); ctx.fill();
       }
       ctx.globalAlpha = 1;
     };
   },
 
-  // Volume II (Gravity, pressure and energy): Keplerian elliptical orbits around a central star at one focus, with
-  // equal-area radial spokes drawn in stipple and planets sweeping faster near perihelion and slower near aphelion.
-  balance(ctx, w, h, col, r) {
-    const cx = w * .52, cy = h * .50;
-    const S = Math.min(w * .44, h * .44);
-    const fade = (x, y) => {
-      const u = (x - w * .5) / (w * .5), v = (y - h * .5) / (h * .5);
-      return Math.max(0, 1 - (u * u * .85 + v * v * .95));
-    };
-    const orbits = [
-      { a: S * .42, e: 0.20, rot: -0.18, period: 3600, phase: 0.1 },
-      { a: S * .72, e: 0.32, rot:  0.12, period: 3600 * (.72 / .42) ** 1.5, phase: 0.55 },
-      { a: S * 1.02, e: 0.24, rot: -0.08, period: 3600 * (1.02 / .42) ** 1.5, phase: 0.82 },
-    ];
-    // Central Sun sits at the focus of the middle ellipse
-    const focusShift = orbits[1].a * orbits[1].e;
-    const fx = cx - focusShift * Math.cos(orbits[1].rot);
-    const fy = cy - focusShift * Math.sin(orbits[1].rot);
-    const posOn = (orb, th) => {
-      const b = orb.a * Math.sqrt(1 - orb.e * orb.e);
-      const ex = orb.a * Math.cos(th) - orb.a * orb.e;
-      const ey = b * Math.sin(th);
-      const c = Math.cos(orb.rot), s = Math.sin(orb.rot);
-      return [fx + ex * c - ey * s, fy + ex * s + ey * c];
-    };
-    const dots = [];
-    // Stippled Sun disc at the focus
-    for (let i = 0; i < 240; i++) {
-      const rr = Math.sqrt(r()) * 9.5, th = r() * 6.2832;
-      dots.push([fx + rr * Math.cos(th), fy + rr * Math.sin(th), 0.9]);
-    }
-    // Stippled elliptical tracks + Kepler equal-area spokes on the middle orbit
-    orbits.forEach((orb, idx) => {
-      for (let i = 0; i < 260; i++) {
-        const th = (i / 260) * 6.2832;
-        const [x, y] = posOn(orb, th);
-        dots.push([x + gauss(r) * .6, y + gauss(r) * .6, fade(x, y)]);
-      }
-      if (idx === 1) {
-        for (const M of [-0.35, 0.35, Math.PI - 0.35, Math.PI + 0.35]) {
-          const th = eccentricAnomaly(M, orb.e);
-          const [ox, oy] = posOn(orb, th);
-          for (let s = 0.08; s < 1; s += 0.03) {
-            const sx = fx + (ox - fx) * s, sy = fy + (oy - fy) * s;
-            dots.push([sx + gauss(r) * .35, sy + gauss(r) * .35, fade(sx, sy) * .55]);
-          }
-        }
-      }
-    });
-    const bodies = orbits.map(orb => ({ orb, mean: orb.phase * 6.2832, moonTh: r() * 6.2832, trail: [] }));
-    return (t, dt) => {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = col.ink;
-      for (const [x, y, f] of dots) {
-        if (f <= 0) continue;
-        ctx.globalAlpha = f * .36;
-        ctx.fillRect(x, y, 1.15, 1.15);
-      }
-      ctx.globalAlpha = .85;
-      ctx.fillStyle = col.proton;
-      ctx.beginPath(); ctx.arc(fx, fy, 4.2, 0, 6.2832); ctx.fill();
-      ctx.fillStyle = col.vol;
-      bodies.forEach((b, idx) => {
-        if (dt) {
-          b.mean = (b.mean + 2 * Math.PI * dt / b.orb.period) % (2 * Math.PI);
-          b.moonTh = (b.moonTh + dt / 480) % (2 * Math.PI);
-        }
-        const [nx, ny] = posOn(b.orb, eccentricAnomaly(b.mean, b.orb.e));
-        b.trail.push([nx, ny]);
-        if (b.trail.length > 26) b.trail.shift();
-        b.trail.forEach(([tx, ty], i) => {
-          ctx.globalAlpha = (i / b.trail.length) * .45 * fade(tx, ty);
-          ctx.beginPath(); ctx.arc(tx, ty, 1.5, 0, 6.2832); ctx.fill();
-        });
-        ctx.globalAlpha = .92 * fade(nx, ny);
-        ctx.beginPath(); ctx.arc(nx, ny, idx === 1 ? 3.3 : 2.6, 0, 6.2832); ctx.fill();
-        if (idx === 1) {
-          const mx = nx + 11 * Math.cos(b.moonTh), my = ny + 11 * Math.sin(b.moonTh);
-          ctx.globalAlpha = .75 * fade(mx, my);
-          ctx.beginPath(); ctx.arc(mx, my, 1.6, 0, 6.2832); ctx.fill();
-        }
-      });
-      ctx.globalAlpha = 1;
-    };
-  },
-
-  // Volume III (Waves, sound and light): Two coherent wave sources sending circular ripples across a pond, with
-  // stippled interference fringes and expanding wavefront rings.
-  lattice(ctx, w, h, col, r) {
-    const sep = Math.min(w, h) * .28;
-    const S1 = { x: w * .5 - sep * .5, y: h * .52 };
-    const S2 = { x: w * .5 + sep * .5, y: h * .52 };
-    const wl = Math.max(24, Math.min(w, h) * .13);
-    const maxR = Math.hypot(w, h) * .52;
-    const fade = (x, y) => {
-      const u = (x - w * .5) / (w * .5), v = (y - h * .5) / (h * .5);
-      return Math.max(0, 1 - (u * u * .95 + v * v * 1.1));
-    };
-    // Static background stipple sampled along constructive interference crests
-    const n = Math.round(Math.min(2800, w * h / 85));
-    const bg = [];
-    for (let i = 0; i < n * 2 && bg.length < n; i++) {
-      const x = r() * w, y = r() * h;
-      const d1 = Math.hypot(x - S1.x, y - S1.y);
-      const d2 = Math.hypot(x - S2.x, y - S2.y);
-      const amp = 0.5 * (Math.cos(6.2832 * d1 / wl) + Math.cos(6.2832 * d2 / wl));
-      if (r() < amp * amp * .85) {
-        bg.push([x, y, fade(x, y) * (.25 + .55 * Math.abs(amp))]);
+  // Volume IV (The Master Code & The Four-Billion-Year Case File):
+  // Antiparallel B-DNA double helix with 10 base pairs per turn, major/minor groove spacing,
+  // and complementary hydrogen-bonded rungs rotating gently in 3D projection.
+  field(ctx, w, h, col, r) {
+    const cx = w * .52, topY = h * .10, spanY = h * .80;
+    const radius = Math.min(w, h) * .18;
+    const bgDots = [];
+    for (let i = 0; i < 600; i++) {
+      const u = i / 600;
+      const y = topY + u * spanY;
+      const th = u * Math.PI * 3.6;
+      for (const offset of [0, 2.55]) {
+        const x = cx + Math.sin(th + offset) * radius;
+        bgDots.push([x + gauss(r) * 1.1, y + gauss(r) * 1.1, 0.42]);
       }
     }
     let phase = 0;
     return (t, dt) => {
-      if (dt) phase = (phase + dt / 1800) % 1;
+      if (dt) phase = (phase + dt * 0.0009) % (Math.PI * 2);
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = col.ink;
-      for (const [x, y, f] of bg) {
-        if (f <= 0) continue;
-        ctx.globalAlpha = f * .42;
+      for (const [x, y, a] of bgDots) {
+        ctx.globalAlpha = a * .32;
         ctx.fillRect(x, y, 1.15, 1.15);
       }
-      // Expanding stippled wavefront circles from S1 and S2
-      ctx.fillStyle = col.vol;
-      for (const src of [S1, S2]) {
-        for (let k = 0; k < 7; k++) {
-          const rad = (k + phase) * wl;
-          if (rad > maxR) continue;
-          const steps = Math.max(24, Math.round(rad * 1.1));
-          const ringFade = Math.max(0, 1 - rad / maxR);
-          for (let s = 0; s < steps; s++) {
-            const th = (s / steps) * 6.2832;
-            const x = src.x + rad * Math.cos(th), y = src.y + rad * Math.sin(th);
-            const f = fade(x, y) * ringFade;
-            if (f <= 0.04) continue;
-            ctx.globalAlpha = f * .62;
-            ctx.fillRect(x, y, 1.35, 1.35);
-          }
-        }
-        ctx.globalAlpha = .9;
-        ctx.fillStyle = col.proton;
-        ctx.beginPath(); ctx.arc(src.x, src.y, 3.2, 0, 6.2832); ctx.fill();
+      const rungs = 22;
+      for (let i = 0; i <= rungs; i++) {
+        const u = i / rungs;
+        const y = topY + u * spanY;
+        const th = u * Math.PI * 3.4 + phase;
+        const x1 = cx + Math.sin(th) * radius;
+        const x2 = cx + Math.sin(th + 2.55) * radius; // asymmetric major & minor grooves!
+        const z1 = Math.cos(th);
+        // Base-pair rung
+        ctx.strokeStyle = i % 2 === 0 ? col.vol : col.proton;
+        ctx.globalAlpha = 0.45;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y); ctx.stroke();
+        // Sugar-phosphate backbone beads
+        ctx.fillStyle = col.ink;
+        ctx.globalAlpha = 0.55 + 0.35 * (z1 * 0.5 + 0.5);
+        ctx.beginPath(); ctx.arc(x1, y, 2.8, 0, 6.2832); ctx.fill();
         ctx.fillStyle = col.vol;
-      }
-      ctx.globalAlpha = 1;
-    };
-  },
-
-  // Volume IV: electricity and magnetism. The field lines of a magnet (a dipole), drawn in stipple: each line
-  // follows r = L·sin²θ, the shape iron filings make around a bar magnet. Fixed chevrons show direction; the lines are not tracks for charges.
-  field(ctx, w, h, col, r) {
-    const cx = w * .5, cy = h * .5, S = Math.min(w * .46, h * 1.15);   // magnet upright, loops spread sideways
-    const Ls = [.12, .19, .28, .4, .55, .74, 1.0];
-    const fade = (x, y) => { const u = (x - cx) / (w * .5), v = (y - cy) / (h * .5); return Math.max(0, 1 - (u * u * .9 + v * v * 1.1)); };
-    const lines = [];
-    for (const L of Ls) for (const side of [1, -1]) {
-      const pts = [];
-      for (let th = .06; th < Math.PI - .06; th += .012) {
-        const rr = L * S * Math.sin(th) ** 2;
-        pts.push([cx + side * rr * Math.sin(th), cy - rr * Math.cos(th)]);
-      }
-      lines.push(pts);
-    }
-    const dots = [];
-    lines.forEach(pts => pts.forEach(([x, y], i) => { if (i % 2 === 0) dots.push([x + gauss(r) * .5, y + gauss(r) * .5, fade(x, y)]); }));
-    const mag = [];                                    // the magnet itself: a small stippled bar
-    for (let i = 0; i < 260; i++) mag.push([cx + (r() - .5) * S * .05, cy + (r() - .5) * S * .2]);
-    const directions = lines.map(pts => { const mid = Math.floor(pts.length / 2); return [pts[mid - 2], pts[mid + 2]]; });
-    return (t, dt) => {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = col.ink;
-      for (const [x, y, f] of dots) { if (f <= 0) continue; ctx.globalAlpha = f * .38; ctx.fillRect(x, y, 1.15, 1.15); }
-      ctx.globalAlpha = .55; for (const [x, y] of mag) ctx.fillRect(x, y, 1.2, 1.2);
-      ctx.fillStyle = col.vol;
-      ctx.strokeStyle = col.vol;
-      ctx.lineWidth = 1.4;
-      for (const [[x1, y1], [x2, y2]] of directions) {
-        const angle = Math.atan2(y2-y1, x2-x1);
-        const x = (x1+x2)/2, y = (y1+y2)/2;
-        ctx.globalAlpha = .85 * fade(x, y);
-        ctx.beginPath();
-        ctx.moveTo(x-5*Math.cos(angle-.55), y-5*Math.sin(angle-.55));
-        ctx.lineTo(x, y);
-        ctx.lineTo(x-5*Math.cos(angle+.55), y-5*Math.sin(angle+.55));
-        ctx.stroke();
+        ctx.beginPath(); ctx.arc(x2, y, 2.8, 0, 6.2832); ctx.fill();
       }
       ctx.globalAlpha = 1;
     };
@@ -379,36 +325,61 @@ function volumes() {
     return animateWhileVisible(box, () => {
       const { ctx, w, h } = fit(canvas);
       const sec = box.closest('.volume') || box;
-      const col = { vol: cssVar(sec, '--vol', '#356d83'), ink: cssVar(sec, '--ink', '#1d332d'), proton: cssVar(sec, '--proton', '#a94730') };
+      const col = { vol: cssVar(sec, '--vol', '#1e5e45'), ink: cssVar(sec, '--ink', '#182b24'), proton: cssVar(sec, '--proton', '#b8432f') };
       const draw = make(ctx, w, h, col, rng(box.dataset.motif));
       return { draw };
     });
   }).filter(Boolean);
 }
 
-// ------------------------------------------------------------------ medallions (people)
+// ------------------------------------------------------------------ medallions (engraved copperplate + domain ring)
 function medal(el) {
   const canvas = el.querySelector('canvas');
   if (!canvas) return;
   const { ctx, w, h } = fit(canvas);
   if (w < 4) return;
-  const r = rng(el.dataset.seed || 'x');
+  const seed = el.dataset.seed || 'x';
+  const r = rng(seed);
   const host = el.closest('[data-vol], .story, .cast-page') || el;
-  const col = cssVar(el, '--vol', cssVar(host, '--vol', '#356d83'));
-  const cx = w / 2, cy = h / 2, R = Math.min(w, h) / 2 - 1;
-  // light falls from the upper left, as on an engraved coin: denser dots on the shadow side
+  const col = cssVar(el, '--vol', cssVar(host, '--vol', '#1e5e45'));
+  const ink = cssVar(el, '--ink', '#182b24');
+  const cx = w / 2, cy = h / 2, R = Math.min(w, h) / 2 - 1.5;
   const lx = -0.55, ly = -0.65;
-  const n = Math.round(R * R * 1.35);
+  const n = Math.round(R * R * 1.25);
   ctx.clearRect(0, 0, w, h);
+
+  // Outer copperplate double ring
+  ctx.strokeStyle = col;
+  ctx.globalAlpha = 0.65;
+  ctx.lineWidth = 1.25;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, 6.2832); ctx.stroke();
+  ctx.globalAlpha = 0.30;
+  ctx.lineWidth = 0.8;
+  ctx.beginPath(); ctx.arc(cx, cy, R - 3, 0, 6.2832); ctx.stroke();
+
+  // Stippled portrait relief shading
   ctx.fillStyle = col;
   for (let i = 0; i < n; i++) {
-    const rr = Math.sqrt(r()) * R, th = r() * 6.2832;
+    const rr = Math.sqrt(r()) * (R - 3.5), th = r() * 6.2832;
     const x = Math.cos(th) * rr, y = Math.sin(th) * rr;
-    const shade = .5 - (x * lx + y * ly) / R * .42 + (rr / R) * .18;   // 0..1
+    const shade = .48 - (x * lx + y * ly) / R * .42 + (rr / R) * .18;
     if (r() > shade * 1.05) continue;
-    ctx.globalAlpha = .38 + shade * .55;
-    ctx.beginPath(); ctx.arc(cx + x, cy + y, .62 + shade * .32, 0, 6.2832); ctx.fill();
+    ctx.globalAlpha = .30 + shade * .50;
+    ctx.beginPath(); ctx.arc(cx + x, cy + y, .6 + shade * .3, 0, 6.2832); ctx.fill();
   }
+
+  // Subtle botanical/microscope compass ticks at N/E/S/W of medallion
+  ctx.strokeStyle = ink;
+  ctx.globalAlpha = 0.35;
+  ctx.lineWidth = 1.1;
+  for (let k = 0; k < 4; k++) {
+    const th = (k * Math.PI) / 2;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(th) * (R - 4.5), cy + Math.sin(th) * (R - 4.5));
+    ctx.lineTo(cx + Math.cos(th) * R, cy + Math.sin(th) * R);
+    ctx.stroke();
+  }
+
   ctx.globalAlpha = 1;
   el.classList.add('drawn');
 }
@@ -465,7 +436,6 @@ function spine() {
     if (id === curSec) return; curSec = id;
     nav.querySelectorAll('a[data-sec]').forEach(a => { if (a.dataset.sec === id) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
   };
-  // which chapter is on screen
   const chIO = new IntersectionObserver(es => {
     for (const e of es) {
       if (e.isIntersecting && e.target !== current) { current = e.target; build(current); curSec = null; }
@@ -474,12 +444,10 @@ function spine() {
     nav.hidden = !current;
   }, { rootMargin: '-45% 0px -50% 0px' });
   chapters.forEach(c => chIO.observe(c));
-  // which section: the last one whose top has passed 40% of the screen
   const secIO = new IntersectionObserver(es => {
     for (const e of es) if (e.isIntersecting) setSec(e.target.id);
   }, { rootMargin: '-38% 0px -60% 0px' });
   document.querySelectorAll('article.chapter section.sec[id]').forEach(s => secIO.observe(s));
-  // hide the spine while the opener itself is on screen: it repeats the chapter's own contents list
   const opIO = new IntersectionObserver(es => es.forEach(e => nav.classList.toggle('quiet', e.isIntersecting && e.target.closest('article') === current)), { threshold: .25 });
   document.querySelectorAll('article.chapter .opener').forEach(o => opIO.observe(o));
 }
@@ -488,7 +456,6 @@ function spine() {
 App.ready(() => {
   const parts = [cover(), ...volumes(), medals()].filter(Boolean);
   spine();
-  // redraw the art when the colours change (theme switch), Still mode toggles, or the window is resized
   let rt = 0;
   const redraw = () => { clearTimeout(rt); rt = setTimeout(() => parts.forEach(p => p.redraw && p.redraw()), 150); };
   window.addEventListener('resize', redraw);

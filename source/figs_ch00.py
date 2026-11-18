@@ -4,81 +4,91 @@ from figs_core import Fig, figure
 
 
 def _cover_emblem(f: Fig, n: int, cx: float, cy: float):
-    """Draw a clean engraved biological icon at (cx, cy) for chapter tile n (0..15)."""
-    f.add(f'<g transform="translate({cx},{cy})" style="stroke:var(--sheet);fill:none">')
+    """Draw a rich Herbarium & Copperplate biological emblem at (cx, cy) for chapter tile n (0..15)."""
+    f.add(f'<g class="cover-emblem" transform="translate({cx},{cy})" style="stroke:var(--sheet);fill:none">')
+    # Subtle copperplate specimen medallion halo
+    f.add('<circle cx="0" cy="0" r="22" style="stroke:var(--sheet);stroke-opacity:.22;stroke-width:1;fill:var(--sheet);fill-opacity:.08"/>')
     if n == 0:
-        # Leeuwenhoek brass paddle microscope + microbe
-        f.rect(-12, -22, 24, 36, 'ln', rx=3, extra='style="stroke:var(--sheet)"')
-        f.circle(0, -8, 5, 'ln', extra='style="stroke:var(--sheet)"')
-        f.line(0, 14, 0, 25, 'ln', extra='style="stroke:var(--sheet)"')
+        # Leeuwenhoek brass paddle microscope + spherical bead + optical rays
+        f.rect(-10, -18, 20, 30, 'ln', rx=3, extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.14"')
+        f.circle(0, -6, 4.5, 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.35"')
+        f.line(0, 12, 0, 21, 'ln', extra='style="stroke:var(--sheet)"')
+        f.line(-5, 17, 5, 17, 'ln', extra='style="stroke:var(--sheet)"')
     elif n == 1:
-        # Seed sprouting vs flame
-        f.path('M-16,8 C-24,8 -24,-8 -12,-10 C-4,-10 -4,8 -16,8 Z', 'ln', extra='style="stroke:var(--sheet)"')
-        f.path('M-10,0 Q-2,-16 6,-22 M-2,-10 Q6,-12 10,-6', 'ln', extra='style="stroke:var(--sheet)"')
-        f.path('M14,14 C8,4 12,-8 18,-18 C24,-8 28,4 22,14 Z', 'ln', extra='style="stroke:var(--sheet)"')
+        # Sprouting moong seed cotyledons vs candle flame
+        f.path('M-13,9 C-20,9 -20,-6 -10,-8 C-2,-8 -2,9 -13,9 Z', 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.18"')
+        f.path('M-8,1 Q-2,-13 5,-18 M-1,-8 Q5,-10 8,-5', 'ln', extra='style="stroke:var(--sheet)"')
+        f.path('M13,12 C8,3 11,-7 16,-16 C21,-7 24,3 19,12 Z', 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.25"')
     elif n == 2:
-        # Plant/animal cell with nucleus
-        f.rect(-22, -16, 44, 32, 'ln', rx=6, extra='style="stroke:var(--sheet)"')
-        f.circle(-6, 0, 7, 'ln', extra='style="stroke:var(--sheet)"')
-        f.circle(-6, 0, 2.5, 'fill-ink', extra='style="fill:var(--sheet)"')
-        f.path('M8,-8 C16,-8 16,8 8,8 Z', 'ln', extra='style="stroke:var(--sheet)"')
+        # Eukaryotic cell cutaway with nucleolus, ER arc & cristae mitochondrion
+        f.rect(-19, -14, 38, 28, 'ln', rx=8, extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.12"')
+        f.circle(-6, 0, 6.5, 'ln', extra='style="stroke:var(--sheet)"')
+        f.circle(-6, 0, 2.4, 'fill-ink', extra='style="fill:var(--sheet)"')
+        f.path('M5,-6 C14,-6 14,6 5,6 Z', 'ln', extra='style="stroke:var(--sheet)"')
+        f.path('M7,-3 L9,3 L11,-3', 'ln', extra='style="stroke:var(--sheet);stroke-width:1.1"')
     elif n == 3:
-        # Osmosis semipermeable membrane + water molecules
-        f.line(0, -22, 0, 22, 'ln dash', extra='style="stroke:var(--sheet)"')
-        for x, y in ((-14, -10), (-10, 6), (-18, 12), (12, -6)):
-            f.circle(x, y, 3, 'fill-ink', extra='style="fill:var(--sheet)"')
-        f.circle(14, 10, 7, 'ln', extra='style="stroke:var(--sheet)"')
+        # Osmosis semipermeable membrane + water flux arrow
+        f.line(0, -18, 0, 18, 'ln dash', extra='style="stroke:var(--sheet)"')
+        for x, y in ((-12, -9), (-9, 5), (-15, 10), (10, -7)):
+            f.circle(x, y, 2.6, 'fill-ink', extra='style="fill:var(--sheet)"')
+        f.circle(12, 8, 6, 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.2"')
     elif n == 4:
-        # Enzyme lock and substrate key
-        f.path('M-18,-16 A18,18 0 1,0 -18,16 L-6,8 L-12,0 L-6,-8 Z', 'ln', extra='style="stroke:var(--sheet)"')
-        f.path('M2,-8 L-4,0 L2,8 L14,8 L14,-8 Z', 'ln', extra='style="stroke:var(--sheet)"')
+        # Enzyme active-site lock and substrate key (centered cleanly inside medallion—no left-edge clip!)
+        f.path('M-4,-14 A14,14 0 1,0 -4,14 L3,7 L-3,0 L3,-7 Z', 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.16"')
+        f.path('M7,-6 L2,0 L7,6 L16,6 L16,-6 Z', 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.3"')
     elif n == 5:
-        # Banyan leaf + sun rays
-        f.path('M-18,14 C-18,-10 4,-20 18,-16 C14,-2 4,18 -18,14 Z', 'ln', extra='style="stroke:var(--sheet)"')
-        f.line(-18, 14, 14, -12, 'ln', extra='style="stroke:var(--sheet)"')
+        # Botanical banyan leaf with midrib and secondary veins
+        f.path('M-16,13 C-16,-9 3,-18 16,-14 C12,-1 3,16 -16,13 Z', 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.18"')
+        f.line(-16, 13, 12, -10, 'ln', extra='style="stroke:var(--sheet)"')
+        f.line(-5, 4, -7, -4, 'ln', extra='style="stroke:var(--sheet);stroke-width:1.1"')
+        f.line(2, -2, 6, 3, 'ln', extra='style="stroke:var(--sheet);stroke-width:1.1"')
     elif n == 6:
-        # Mitochondrion cristae
-        f.add('<ellipse cx="0" cy="0" rx="22" ry="13" style="stroke:var(--sheet);fill:none;stroke-width:1.6"/>')
-        f.path('M-14,-8 L-10,5 L-4,-7 L2,6 L8,-7 L13,5', 'ln', extra='style="stroke:var(--sheet)"')
+        # Double-membrane mitochondrion with folded cristae
+        f.add('<ellipse cx="0" cy="0" rx="19" ry="11" style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.15;stroke-width:1.6"/>')
+        f.path('M-12,-6 L-8,5 L-3,-6 L2,5 L7,-6 L11,5', 'ln', extra='style="stroke:var(--sheet)"')
     elif n == 7:
-        # Intestinal villi folds
-        f.path('M-22,16 L-22,-6 Q-16,-18 -10,-6 L-10,10 Q-5,16 0,10 L0,-10 Q6,-22 12,-10 L12,16', 'ln', extra='style="stroke:var(--sheet)"')
+        # Intestinal villi brush-border folds with lacteal
+        f.path('M-18,14 L-18,-5 Q-13,-16 -8,-5 L-8,9 Q-4,14 0,9 L0,-9 Q5,-19 10,-9 L10,14', 'ln', extra='style="stroke:var(--sheet)"')
+        f.circle(15, -4, 2.5, 'fill-ink', extra='style="fill:var(--sheet)"')
     elif n == 8:
-        # Four-chambered heart loop
-        f.path('M0,18 C-22,4 -24,-14 -10,-16 C-3,-16 0,-10 0,-10 C0,-10 3,-16 10,-16 C24,-14 22,4 0,18 Z', 'ln', extra='style="stroke:var(--sheet)"')
-        f.line(0, -10, 0, 16, 'ln', extra='style="stroke:var(--sheet)"')
+        # Four-chambered double-pump heart with septum
+        f.path('M0,15 C-18,3 -20,-12 -8,-14 C-2,-14 0,-8 0,-8 C0,-8 2,-14 8,-14 C20,-12 18,3 0,15 Z', 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.18"')
+        f.line(0, -8, 0, 14, 'ln', extra='style="stroke:var(--sheet)"')
     elif n == 9:
-        # Neuron & action potential spike
-        f.path('M-24,6 L-10,6 L-4,-18 L2,16 L8,2 L24,2', 'ln', extra='style="stroke:var(--sheet)"')
+        # Action potential depolarization spike + axon myelin
+        f.path('M-19,5 L-9,5 L-3,-16 L2,14 L7,2 L19,2', 'ln', extra='style="stroke:var(--sheet)"')
     elif n == 10:
-        # Y-shaped Antibody
-        f.path('M-16,-18 L0,-2 L16,-18 M0,-2 L0,18 M-12,-18 L-3,-9 M12,-18 L3,-9', 'ln', extra='style="stroke:var(--sheet)"')
+        # Y-shaped immunoglobulin antibody with Fab binding clefts
+        f.path('M-14,-15 L0,-2 L14,-15 M0,-2 L0,15 M-10,-15 L-3,-8 M10,-15 L3,-8', 'ln', extra='style="stroke:var(--sheet)"')
     elif n == 11:
-        # DNA Double Helix
-        f.path('M-20,-12 C-8,-24 8,24 20,12 M-20,12 C-8,24 8,-24 20,-12', 'ln', extra='style="stroke:var(--sheet)"')
-        for x in (-12, -4, 4, 12):
-            f.line(x, -7, x, 7, 'ln', extra='style="stroke:var(--sheet)"')
+        # B-DNA antiparallel double helix with base-pair rungs
+        f.path('M-17,-10 C-7,-20 7,20 17,10 M-17,10 C-7,20 7,-20 17,-10', 'ln', extra='style="stroke:var(--sheet)"')
+        for x in (-10, -3, 3, 10):
+            f.line(x, -6, x, 6, 'ln', extra='style="stroke:var(--sheet)"')
     elif n == 12:
-        # Mitosis chromosome X
-        f.path('M-12,-18 C-2,-4 -2,4 -12,18 M12,-18 C2,-4 2,4 12,18', 'ln', extra='style="stroke:var(--sheet)"')
-        f.circle(0, 0, 3.5, 'fill-ink', extra='style="fill:var(--sheet)"')
+        # Sister chromatids with centromere kinetochore
+        f.path('M-10,-15 C-2,-3 -2,3 -10,15 M10,-15 C2,-3 2,3 10,15', 'ln', extra='style="stroke:var(--sheet)"')
+        f.circle(0, 0, 3.2, 'fill-ink', extra='style="fill:var(--sheet)"')
     elif n == 13:
-        # Punnett 2x2 grid
-        f.rect(-16, -16, 32, 32, 'ln', rx=2, extra='style="stroke:var(--sheet)"')
-        f.line(-16, 0, 16, 0, 'ln', extra='style="stroke:var(--sheet)"')
-        f.line(0, -16, 0, 16, 'ln', extra='style="stroke:var(--sheet)"')
+        # Mendelian 2x2 Punnett grid with 3:1 phenotype dots
+        f.rect(-14, -14, 28, 28, 'ln', rx=3, extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.12"')
+        f.line(-14, 0, 14, 0, 'ln', extra='style="stroke:var(--sheet)"')
+        f.line(0, -14, 0, 14, 'ln', extra='style="stroke:var(--sheet)"')
+        for px, py in ((-7, -7), (7, -7), (-7, 7)):
+            f.circle(px, py, 2.5, 'fill-ink', extra='style="fill:var(--sheet)"')
+        f.circle(7, 7, 2.5, 'ln', extra='style="stroke:var(--sheet)"')
     elif n == 14:
-        # Evolutionary branching tree
-        f.path('M0,18 L0,4 M0,4 L-14,-8 M0,4 L14,-8 M-14,-8 L-20,-18 M-14,-8 L-6,-18 M14,-8 L8,-18 M14,-8 L20,-18', 'ln', extra='style="stroke:var(--sheet)"')
+        # Phylogenetic branching coral of life
+        f.path('M0,15 L0,3 M0,3 L-11,-7 M0,3 L11,-7 M-11,-7 L-16,-15 M-11,-7 L-5,-15 M11,-7 L5,-15 M11,-7 L16,-15', 'ln', extra='style="stroke:var(--sheet)"')
     else:
-        # Trophic energy pyramid
-        f.path('M-22,16 L22,16 L16,4 L-16,4 Z M-14,2 L14,2 L8,-8 L-8,-8 Z M-6,-10 L6,-10 L0,-20 Z', 'ln', extra='style="stroke:var(--sheet)"')
+        # Lindeman trophic energy pyramid
+        f.path('M-18,14 L18,14 L13,4 L-13,4 Z M-11,2 L11,2 L6,-7 L-6,-7 Z M-5,-9 L5,-9 L0,-17 Z', 'ln', extra='style="stroke:var(--sheet);fill:var(--sheet);fill-opacity:.16"')
     f.add('</g>')
 
 
 @figure
 def cover_art():
-    """Sixteen biology milestone tiles (Chapters 0 to 15) arranged across four volumes."""
+    """Sixteen biology milestone specimen plates (Chapters 0 to 15) arranged across four volumes."""
     TILES = [
         (0, '270×', 'The lens', 1, 0),
         (1, 'ATP', 'Seed & flame', 1, 1),
@@ -97,9 +107,15 @@ def cover_art():
         (14, 'Δ allele', 'Selection', 4, 0),
         (15, 'Energy', 'Web of life', 4, 0),
     ]
+    VOL_FILL = {
+        1: '#16382C',  # Volume I: Kew Herbarium Forest
+        2: '#6E4715',  # Volume II: Warm Amber & Ochre
+        3: '#7A271E',  # Volume III: Arterial Copperplate
+        4: '#194A38',  # Volume IV: Deep Botanical Emerald
+    }
     W, H = 640, 530
     cw, ch, gap = 146, 118, 10
-    f = Fig(W, H, 'Sixteen tiles for the sixteen chapters of The Living World, grouped into four volumes from the dry seed to the thinking brain.')
+    f = Fig(W, H, 'Sixteen specimen tiles for the sixteen chapters of The Living World, grouped into four volumes from the dry seed to the thinking brain.')
     for n, sym, label, vol, hi in TILES:
         col = n % 4
         row = n // 4
@@ -107,12 +123,15 @@ def cover_art():
         y = 12 + row * (ch + gap)
         f.add(f'<g class="el on" style="--i:{n + 1}" data-ch="{n}">')
         cls = 'fill-vol' if hi else 'fill-ink'
-        f.rect(x, y, cw, ch, cls, 6)
-        f.text(x + 9, y + 18, f'Ch {n} · Vol {["I","II","III","IV"][vol - 1]}', 't', 'start', 10.5, extra='style="fill:var(--sheet);opacity:.72"')
-        _cover_emblem(f, n, x + 36, y + 61)
+        bg_style = f'style="fill:{VOL_FILL[vol]}"' if not hi else ''
+        f.rect(x, y, cw, ch, cls, 8, extra=bg_style)
+        # Inner copperplate folio keyline border
+        f.rect(x + 4, y + 4, cw - 8, ch - 8, 'ln', 5, extra='style="stroke:var(--sheet);stroke-opacity:.24;stroke-width:1"')
+        f.text(x + 10, y + 19, f'Ch {n} · Vol {["I","II","III","IV"][vol - 1]}', 't', 'start', 10.5, extra='style="fill:var(--sheet);opacity:.78"')
+        _cover_emblem(f, n, x + 38, y + 61)
         fsz = 13 if len(sym) > 7 else 15 if len(sym) > 4 else 18
-        f.text(x + 102, y + 66, sym, 't s', 'middle', fsz, 600, 'style="fill:var(--sheet)"')
-        f.text(x + cw / 2, y + ch - 12, label, 't', 'middle', 12.5, 500, 'style="fill:var(--sheet);opacity:.88"')
+        f.text(x + 104, y + 66, sym, 't s', 'middle', fsz, 600, 'style="fill:var(--sheet)"')
+        f.text(x + cw / 2, y + ch - 12, label, 't', 'middle', 12.5, 500, 'style="fill:var(--sheet);opacity:.92"')
         f.add('</g>')
     return f.svg()
 

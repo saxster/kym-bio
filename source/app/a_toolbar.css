@@ -5,8 +5,8 @@ html { font-size: calc(100% * var(--scale, 1)); }
 
 /* explicit themes. Dark is declared in book.css; light simply means "not dark"; sepia is warm paper. */
 :root[data-theme="sepia"] {
-  --paper: #f2e8d5; --sheet: #f8f0e0; --ink: #3a2e22; --ink-2: #4e4030; --muted: #7a6953;
-  --rule: #d9c9ab; --rule-2: #e7dbc2; --proton: #b8432f; --neutron: #b07818; --electron: #2f6d8f;
+  --paper: #f2e8d5; --sheet: #f8f0e0; --ink: #3a2e22; --ink-2: #4e4030; --muted: #655540;
+  --rule: #d9c9ab; --rule-2: #e7dbc2; --proton: #b8432f; --neutron: #7c510a; --electron: #2f6d8f;
   --green: #2e6f4e; --mark: #e9cd86; --mark-soft: rgba(233, 205, 134, .6); --plate: #faf3e6; --grid: #e6d9be;
   color-scheme: light;
 }

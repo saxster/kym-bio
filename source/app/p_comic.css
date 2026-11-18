@@ -3,13 +3,14 @@
    Moebius hatch & Risograph dot plates, and container-responsive grids across 390 / 520 / 744 / 1024 widths. */
 
 .atlas-comic-strip {
-  --stays-wash: color-mix(in srgb, var(--neutron, #B07C12) 13%, var(--sheet, #FFFDF7));
+  --stays-wash: color-mix(in srgb, var(--neutron, #B07C12) 15%, var(--sheet, #FFFDF7));
   container-type: inline-size;
-  margin: 22px 0 26px;
-  padding: 16px;
-  background: var(--sheet, #fbfaf5);
-  border: 1px solid var(--rule, #d5d3c6);
-  border-radius: 12px;
+  margin: 24px 0 28px;
+  padding: 18px;
+  background: var(--sheet, #fcf9f2);
+  border: 1.5px solid var(--ink, #18261f);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px -8px rgba(22, 42, 34, 0.14);
   box-sizing: border-box;
 }
 
@@ -111,7 +112,7 @@
 .atlas-comic-art {
   position: relative;
   flex: 1 1 auto;
-  min-height: 112px;
+  min-height: 128px;
   display: grid;
   place-items: center;
 }
@@ -119,7 +120,17 @@
 .atlas-comic-art svg {
   display: block;
   width: 100%;
-  height: 118px;
+  height: 136px;
+}
+
+.atlas-comic-art .cc-b {
+  font: 700 7.8px var(--mono, ui-monospace, monospace);
+  text-anchor: middle;
+}
+
+.atlas-comic-art .cc-n {
+  font: 700 11.5px 'Caveat', cursive, var(--sans, sans-serif);
+  text-anchor: end;
 }
 
 .atlas-comic-balloon-wrap {
@@ -174,7 +185,7 @@
   border-radius: 999px;
   background: var(--paper, #F7F4EC);
   border: 1px solid var(--rule, #D8CFC0);
-  font-size: 0.68rem;
+  font-size: 0.76rem;
   font-weight: 500;
   color: var(--muted, #686259);
 }
@@ -200,7 +211,7 @@
   background: transparent;
   border: 1px solid var(--rule, #d5d3c6);
   border-radius: 8px;
-  font: 500 0.8rem/1.2 var(--sans, system-ui, sans-serif);
+  font: 500 0.8rem/1.35 var(--sans, system-ui, sans-serif);
   color: var(--ink, #1F1B16);
   cursor: pointer;
 }
@@ -210,8 +221,8 @@
 
 /* Recurring 6-Character Repertory Cast Badges (Kym, Dash, Barnaby, Pip, Bento, Clara) + Datelines */
 .atlas-comic-dateline {
-  font: 600 0.72rem/1.2 var(--sans, system-ui, sans-serif);
-  letter-spacing: 0.06em;
+  font: 600 0.76rem/1.35 var(--sans, system-ui, sans-serif);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted, #686259);
   margin-bottom: 3px;
@@ -225,7 +236,7 @@
   border-radius: 999px;
   border: 1px solid var(--rule, #D8CFC0);
   background: var(--paper, #F7F4EC);
-  font: 600 0.72rem/1.1 var(--sans, system-ui, sans-serif);
+  font: 600 0.76rem/1.3 var(--sans, system-ui, sans-serif);
   color: var(--ink, #1F1B16);
 }
 

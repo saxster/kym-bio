@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TodayHomeView: View {
     @EnvironmentObject private var store: AppStore
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var showingFSRSReviewSheet = false
     @State private var todaySpotlightWidgetId: String = "seed_flame3d"
 
@@ -27,30 +28,27 @@ struct TodayHomeView: View {
     var body: some View {
         JournalPage(
             title: GreetingPeriod.current().greeting(for: "Kym"),
-            eyebrow: "Today",
-            subtitle: "8th-grade Biology · Cambridge Lower Secondary Science 8 & The Living World"
+            eyebrow: "FOLIO EDITION · MUMBAI & DELFT",
+            subtitle: "Cambridge Lower Secondary Science 8 & The Living World Herbarium"
         ) {
+            herbariumFolioHeroSpread
+            glanceTilesRow
+            dailyFlowCard
+            todayLiveAtlasSpotlightSection
             DailyAtelierHumourComicCard(
                 activeChapterNumber: store.activeLivingWorldChapter,
                 onOpenChapter: { chNum in
+                    store.activeExplorerId = nil
                     store.activeLivingWorldChapter = chNum
                     store.selectedRoom = .livingWorld
                 }
             )
-            glanceTilesRow
-            dailyFlowCard
-            todayLiveAtlasSpotlightSection
             if let q = nextQuestion {
                 nextQuestionProofCard(q)
             }
             phenomenonMechanismSpotlightSection
             coreBiologyUnitsSection
             featuredLabsAndDiagramsSection
-        }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StandardThemeMenu()
-            }
         }
         .sheet(isPresented: $showingFSRSReviewSheet) {
             NavigationStack {
@@ -72,6 +70,238 @@ struct TodayHomeView: View {
         }
     }
 
+    // MARK: - Option A: Naturalist's Field Herbarium & Copperplate Folio Hero Spread
+
+    private var herbariumFolioHeroSpread: some View {
+        let forestInk = Color(red: 0.08, green: 0.17, blue: 0.13)
+        let brassAccent = Color(red: 0.60, green: 0.40, blue: 0.09)
+        let ragSurface = Color(red: 0.99, green: 0.98, blue: 0.95)
+
+        return VStack(alignment: .leading, spacing: Spacing.lg) {
+            ViewThatFits(in: .horizontal) {
+                HStack(alignment: .center, spacing: Spacing.lg) {
+                    herbariumHeroCopyColumn(forestInk: forestInk, brassAccent: brassAccent)
+                        .frame(minWidth: 380, maxWidth: .infinity, alignment: .leading)
+                    herbariumCopperplatePlate(forestInk: forestInk, brassAccent: brassAccent)
+                        .frame(width: 260, height: 192)
+                }
+
+                VStack(alignment: .leading, spacing: Spacing.md) {
+                    herbariumHeroCopyColumn(forestInk: forestInk, brassAccent: brassAccent)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    herbariumCopperplatePlate(forestInk: forestInk, brassAccent: brassAccent)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 176)
+                }
+            }
+
+            // 4-Volume Herbarium Folio Cards (4 across on iPad, 2x2 on iPhone)
+            let volumesMeta: [(num: Int, chRange: String, firstCh: Int, title: String, sub: String, stroke: Color)] = [
+                (1, "VOLUME I · CH 0–3", 0, "The Nanotech City", "270× Lens · Seed vs Flame · Cells & Scale · Salty Sea", Color(red: 0.12, green: 0.37, blue: 0.27)),
+                (2, "VOLUME II · CH 4–6", 4, "Molecular Locks & Sunlight", "Enzymes · Banyan Green Engine · Mitochondrial ATP", Color(red: 0.60, green: 0.40, blue: 0.09)),
+                (3, "VOLUME III · CH 7–10", 7, "The Human Orchestra", "Digestion · Double Heart Pump · Nerves · Mumbai 37 °C", Color(red: 0.72, green: 0.20, blue: 0.16)),
+                (4, "VOLUME IV · CH 11–15", 11, "The Four-Letter Code", "Photo 51 DNA · Mitosis · Mendel · Selection · Ecology", Color(red: 0.12, green: 0.32, blue: 0.46)),
+            ]
+
+            let columns = [
+                GridItem(.adaptive(minimum: 190), spacing: Spacing.sm),
+            ]
+
+            LazyVGrid(columns: columns, spacing: Spacing.sm) {
+                ForEach(volumesMeta, id: \.num) { vol in
+                    Button {
+                        store.activeExplorerId = nil
+                        store.activeWidgetId = nil
+                        store.activeLivingWorldChapter = vol.firstCh
+                        store.selectedRoom = .livingWorld
+                    } label: {
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack {
+                                Text(vol.chRange)
+                                    .font(.system(size: 10.5, weight: .bold, design: .monospaced))
+                                    .tracking(0.6)
+                                    .foregroundStyle(vol.stroke)
+                                Spacer()
+                                Image(systemName: "arrow.up.right")
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .foregroundStyle(vol.stroke.opacity(0.8))
+                            }
+                            Text(vol.title)
+                                .font(.system(size: 16.5, weight: .bold, design: .serif))
+                                .foregroundStyle(forestInk)
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.85)
+                                .multilineTextAlignment(.leading)
+                            Text(vol.sub)
+                                .font(.system(size: 12.5, weight: .regular, design: .default))
+                                .foregroundStyle(Color(red: 0.28, green: 0.35, blue: 0.31))
+                                .lineLimit(2)
+                                .multilineTextAlignment(.leading)
+                        }
+                        .padding(14)
+                        .frame(maxWidth: .infinity, minHeight: 88, alignment: .topLeading)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(ragSurface)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .strokeBorder(vol.stroke.opacity(0.65), lineWidth: 1.4)
+                        )
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("today.folio.vol.\(vol.num)")
+                }
+            }
+        }
+        .padding(Spacing.lg)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color(red: 0.96, green: 0.94, blue: 0.89))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(brassAccent.opacity(0.45), lineWidth: 1.4)
+        )
+    }
+
+    private func herbariumHeroCopyColumn(forestInk: Color, brassAccent: Color) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("WRITTEN FOR KYM · NATURAL HISTORY & FORENSIC BIOLOGY")
+                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                .tracking(0.6)
+                .foregroundStyle(brassAccent)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Text("The Living World")
+                .font(.system(size: horizontalSizeClass == .compact ? 30 : 34, weight: .bold, design: .serif))
+                .foregroundStyle(forestInk)
+                .lineLimit(1)
+                .minimumScaleFactor(0.72)
+
+            Text("From a dry moong seed on a Malabar Hill kitchen shelf to thirty-seven trillion cooperating cells—sixteen detective investigations into how matter wakes up, steals sunlight, copies a four-letter code, and thinks.")
+                .font(.system(size: 15, weight: .regular, design: .serif))
+                .foregroundStyle(Color(red: 0.20, green: 0.28, blue: 0.24))
+                .lineSpacing(3)
+                .fixedSize(horizontal: false, vertical: true)
+
+            FlowLayout(spacing: 10) {
+                Button {
+                    store.activeExplorerId = "top"
+                    store.activeWidgetId = nil
+                    store.selectedRoom = .livingWorld
+                } label: {
+                    HStack(spacing: 6) {
+                        Text("Begin Chapter 0")
+                        Image(systemName: "arrow.right")
+                    }
+                    .font(.system(size: 13.5, weight: .semibold))
+                    .foregroundStyle(Color(red: 0.98, green: 0.96, blue: 0.91))
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(Capsule().fill(forestInk))
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("today.folio.begin-book")
+
+                Button {
+                    store.activeExplorerId = "x_cell"
+                    store.activeWidgetId = nil
+                    store.selectedRoom = .livingWorld
+                } label: {
+                    Text("Open 3D Cell Observatory")
+                        .font(.system(size: 13.5, weight: .semibold))
+                        .foregroundStyle(forestInk)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(
+                            Capsule()
+                                .strokeBorder(forestInk.opacity(0.65), lineWidth: 1.4)
+                        )
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("today.folio.open-cell")
+            }
+            .padding(.top, 4)
+        }
+    }
+
+    private func herbariumCopperplatePlate(forestInk: Color, brassAccent: Color) -> some View {
+        let goldStroke = Color(red: 0.82, green: 0.64, blue: 0.32)
+        let emeraldGlow = Color(red: 0.20, green: 0.72, blue: 0.50)
+        return ZStack {
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(forestInk)
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .strokeBorder(goldStroke, lineWidth: 1.8)
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .strokeBorder(goldStroke.opacity(0.45), lineWidth: 1.0)
+                .padding(5)
+
+            Canvas { ctx, size in
+                let w = size.width
+                let h = size.height
+                let cx = w * 0.5
+                let cy = h * 0.46
+                let r = min(w, h) * 0.30
+
+                // Central double copperplate ring
+                let outer = CGRect(x: cx - r, y: cy - r, width: r * 2, height: r * 2)
+                let inner = outer.insetBy(dx: 5, dy: 5)
+                ctx.stroke(Path(ellipseIn: outer), with: .color(goldStroke), lineWidth: 1.6)
+                ctx.stroke(Path(ellipseIn: inner), with: .color(emeraldGlow.opacity(0.6)), lineWidth: 1.1)
+
+                // Germinating seed + stem + two leaves
+                let seedRect = CGRect(x: cx - 12, y: cy + r * 0.42, width: 24, height: 14)
+                ctx.fill(Path(ellipseIn: seedRect), with: .color(Color(red: 0.85, green: 0.55, blue: 0.16)))
+                ctx.stroke(Path(ellipseIn: seedRect), with: .color(goldStroke), lineWidth: 1.4)
+
+                var stem = Path()
+                stem.move(to: CGPoint(x: cx, y: cy + r * 0.42))
+                stem.addLine(to: CGPoint(x: cx, y: cy - r * 0.45))
+                ctx.stroke(stem, with: .color(emeraldGlow), lineWidth: 2.4)
+
+                var leftLeaf = Path()
+                leftLeaf.move(to: CGPoint(x: cx, y: cy + 2))
+                leftLeaf.addQuadCurve(to: CGPoint(x: cx - r * 0.58, y: cy - r * 0.32), control: CGPoint(x: cx - r * 0.55, y: cy + 4))
+                leftLeaf.addQuadCurve(to: CGPoint(x: cx, y: cy + 2), control: CGPoint(x: cx - r * 0.15, y: cy - r * 0.45))
+                ctx.fill(leftLeaf, with: .color(emeraldGlow.opacity(0.75)))
+                ctx.stroke(leftLeaf, with: .color(goldStroke), lineWidth: 1.2)
+
+                var rightLeaf = Path()
+                rightLeaf.move(to: CGPoint(x: cx, y: cy - 4))
+                rightLeaf.addQuadCurve(to: CGPoint(x: cx + r * 0.58, y: cy - r * 0.42), control: CGPoint(x: cx + r * 0.55, y: cy - 2))
+                rightLeaf.addQuadCurve(to: CGPoint(x: cx, y: cy - 4), control: CGPoint(x: cx + r * 0.15, y: cy - r * 0.55))
+                ctx.fill(rightLeaf, with: .color(emeraldGlow.opacity(0.85)))
+                ctx.stroke(rightLeaf, with: .color(goldStroke), lineWidth: 1.2)
+
+                // 4 Corner Medallions (Mitochondrion, 270x Lens, DNA Helix, Heart)
+                let corners: [(CGPoint, Color)] = [
+                    (CGPoint(x: w * 0.16, y: h * 0.25), Color(red: 0.85, green: 0.55, blue: 0.16)),
+                    (CGPoint(x: w * 0.84, y: h * 0.25), Color(red: 0.22, green: 0.74, blue: 0.97)),
+                    (CGPoint(x: w * 0.16, y: h * 0.68), emeraldGlow),
+                    (CGPoint(x: w * 0.84, y: h * 0.68), Color(red: 0.94, green: 0.38, blue: 0.38)),
+                ]
+                for (pt, col) in corners {
+                    let mr: CGFloat = 17
+                    let rect = CGRect(x: pt.x - mr, y: pt.y - mr, width: mr * 2, height: mr * 2)
+                    ctx.stroke(Path(ellipseIn: rect), with: .color(col.opacity(0.85)), lineWidth: 1.4)
+                    let dot = CGRect(x: pt.x - 5, y: pt.y - 5, width: 10, height: 10)
+                    ctx.fill(Path(ellipseIn: dot), with: .color(col.opacity(0.45)))
+                }
+            }
+
+            VStack {
+                Spacer()
+                Text("4 VOLUMES · 16 CHAPTERS · 118 SPECIMEN PLATES · 32 ATELIER COMICS")
+                    .font(.system(size: 8.5, weight: .bold, design: .monospaced))
+                    .tracking(0.5)
+                    .foregroundStyle(goldStroke.opacity(0.9))
+                    .padding(.bottom, 10)
+            }
+        }
+    }
+
     // MARK: - 15-Minute Daily Session Composer
 
     private var dailyFlowCard: some View {
@@ -79,38 +309,14 @@ struct TodayHomeView: View {
         return JournalSection(title: "Today's 15-Minute Biology Plan") {
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
-                    HStack(spacing: Spacing.xs) {
-                        JournalChip(
-                            label: "\(plan.totalMinutes) min guided session",
-                            systemImage: "bolt.heart.fill",
-                            tone: .accent
-                        )
-                        JournalChip(
-                            text: plan.isWarmupReview
-                                ? "\(plan.dueCards.count) warm-up cards"
-                                : "\(plan.dueCards.count) cards to review",
-                            tone: .good
-                        )
-                        JournalChip(
-                            text: "Ch \(plan.chapter.number): \(plan.chapter.title)",
-                            tone: .neutral
-                        )
-                        Spacer()
-                    }
+                    Text("\(plan.totalMinutes) MIN GUIDED SESSION · \(plan.dueCards.count) CARDS READY · CH \(plan.chapter.number): \(plan.chapter.title.uppercased())")
+                        .font(.system(size: 10.5, weight: .bold, design: .monospaced))
+                        .tracking(0.6)
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
 
                     Text("Four short steps: review key ideas, explore how cells work with audio, solve a 'Who is right?' puzzle, and answer one Cambridge Science 8 question.")
                         .font(.kymaiaBody)
                         .foregroundStyle(Color.kymaiaInk)
-
-                    FlowLayout(spacing: Spacing.xs) {
-                        ForEach(DailyFlowStageKind.allCases) { stage in
-                            JournalChip(
-                                label: "\(stage.title) (\(stage.allocatedMinutes)m)",
-                                systemImage: stage.systemImage,
-                                tone: .neutral
-                            )
-                        }
-                    }
 
                     HStack(spacing: Spacing.sm) {
                         Button {
@@ -122,10 +328,11 @@ struct TodayHomeView: View {
                         .accessibilityIdentifier("today.daily-flow.start")
 
                         Button {
+                            store.activeExplorerId = nil
                             store.activeLivingWorldChapter = plan.chapter.number
                             store.selectedRoom = .livingWorld
                         } label: {
-                            Label("Read Chapter \(plan.chapter.number)", systemImage: "sparkles")
+                            Label("Read Chapter \(plan.chapter.number)", systemImage: "book.pages.fill")
                         }
                         .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted))
                         .accessibilityIdentifier("today.daily-flow.open-beats")
@@ -146,13 +353,11 @@ struct TodayHomeView: View {
         return JournalSection(title: "Interactive 3D & 2D Biology Stage · Try It Right Here") {
             JournalCard {
                 VStack(alignment: .leading, spacing: Spacing.md) {
-                    HStack(spacing: Spacing.xs) {
-                        JournalChip(
-                            label: "Live @saxster/atlas & 3D Lab",
-                            systemImage: "cube.transparent.fill",
-                            tone: .accent
-                        )
-                        JournalChip(text: activeSpec.title, tone: .good)
+                    HStack(alignment: .center, spacing: Spacing.xs) {
+                        Text("LIVE 3D & 2D SPECIMEN OBSERVATORY · \(activeSpec.title.uppercased())")
+                            .font(.system(size: 10.5, weight: .bold, design: .monospaced))
+                            .tracking(0.6)
+                            .foregroundStyle(Color.kymaiaPrimaryStrong)
                         Spacer()
                         Button {
                             store.activeWidgetId = activeSpec.id
@@ -183,10 +388,15 @@ struct TodayHomeView: View {
                         targetWidgetId: activeSpec.id
                     )
                     .frame(minHeight: 420)
+                    .padding(6)
+                    .background(
+                        RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
+                            .fill(Color(red: 0.04, green: 0.08, blue: 0.11))
+                    )
                     .clipShape(RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous))
                     .overlay(
                         RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
-                            .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                            .strokeBorder(Color.kymaiaSuccess.opacity(0.42), lineWidth: 1.4)
                     )
                 }
             }
@@ -200,46 +410,85 @@ struct TodayHomeView: View {
         }
     }
 
-    // MARK: - Glance Tiles
+    // MARK: - Herbarium Specimen Metric Tiles
 
     private var glanceTilesRow: some View {
-        JournalCardRow {
-            JournalGlanceTile(
-                tone: .accent,
-                watermark: "checkmark.seal.fill",
-                action: {
-                    store.selectedRoom = .schoolScience
+        let forestInk = Color(red: 0.08, green: 0.17, blue: 0.13)
+        let brassAccent = Color(red: 0.60, green: 0.40, blue: 0.09)
+        let emeraldStroke = Color(red: 0.12, green: 0.37, blue: 0.27)
+        let ragSurface = Color(red: 0.99, green: 0.98, blue: 0.95)
+
+        return JournalCardRow {
+            Button {
+                store.selectedRoom = .schoolScience
+            } label: {
+                HStack(alignment: .top, spacing: 12) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("CAMBRIDGE SCIENCE 8 · FIELD PROOFS")
+                            .font(.system(size: 10, weight: .bold, design: .monospaced))
+                            .tracking(0.6)
+                            .foregroundStyle(brassAccent)
+                        Text("\(provenQuestionsCount) of \(store.pack.schoolQuestions.count) answered solo")
+                            .font(.system(size: 21, weight: .bold, design: .serif).monospacedDigit())
+                            .foregroundStyle(forestInk)
+                        Text("Learner's Book 8 & Workbook 8 — tap to practice")
+                            .font(.system(size: 12.5, weight: .regular))
+                            .foregroundStyle(Color(red: 0.28, green: 0.35, blue: 0.31))
+                    }
+                    Spacer()
+                    Image(systemName: "checkmark.seal.fill")
+                        .font(.system(size: 26, weight: .semibold))
+                        .foregroundStyle(brassAccent.opacity(0.85))
                 }
-            ) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Cambridge Science 8 Questions")
-                        .font(.kymaiaCaption.weight(.semibold))
-                    Text("\(provenQuestionsCount) of \(store.pack.schoolQuestions.count) answered solo")
-                        .font(.kymaiaTitle3.weight(.bold).monospacedDigit())
-                    Text("Learner's Book 8 & Workbook 8")
-                        .font(.kymaiaCaption)
-                }
+                .padding(16)
+                .frame(maxWidth: .infinity, minHeight: 104, alignment: .topLeading)
+                .background(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(ragSurface)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .strokeBorder(brassAccent.opacity(0.55), lineWidth: 1.4)
+                )
             }
+            .buttonStyle(.plain)
             .accessibilityLabel("Cambridge Science 8 Practice Questions")
             .accessibilityValue("\(provenQuestionsCount) of \(store.pack.schoolQuestions.count) answered solo")
             .accessibilityIdentifier("today.tile.proofs")
 
-            JournalGlanceTile(
-                tone: .calm,
-                watermark: "rectangle.stack.fill",
-                action: {
-                    showingFSRSReviewSheet = true
+            Button {
+                showingFSRSReviewSheet = true
+            } label: {
+                HStack(alignment: .top, spacing: 12) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("SPACED RECALL · HERBARIUM DECK")
+                            .font(.system(size: 10, weight: .bold, design: .monospaced))
+                            .tracking(0.6)
+                            .foregroundStyle(emeraldStroke)
+                        Text("\(store.dueFSRSCards.count) cards ready")
+                            .font(.system(size: 21, weight: .bold, design: .serif).monospacedDigit())
+                            .foregroundStyle(forestInk)
+                        Text("Tap for a 3-minute active recall check")
+                            .font(.system(size: 12.5, weight: .regular))
+                            .foregroundStyle(Color(red: 0.28, green: 0.35, blue: 0.31))
+                    }
+                    Spacer()
+                    Image(systemName: "rectangle.stack.fill")
+                        .font(.system(size: 26, weight: .semibold))
+                        .foregroundStyle(emeraldStroke.opacity(0.85))
                 }
-            ) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Quick Memory Cards")
-                        .font(.kymaiaCaption.weight(.semibold))
-                    Text("\(store.dueFSRSCards.count) cards ready")
-                        .font(.kymaiaTitle3.weight(.bold).monospacedDigit())
-                    Text("Tap for a 3-minute recall check")
-                        .font(.kymaiaCaption)
-                }
+                .padding(16)
+                .frame(maxWidth: .infinity, minHeight: 104, alignment: .topLeading)
+                .background(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(ragSurface)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .strokeBorder(emeraldStroke.opacity(0.55), lineWidth: 1.4)
+                )
             }
+            .buttonStyle(.plain)
             .accessibilityLabel("Quick Memory Cards ready")
             .accessibilityValue("\(store.dueFSRSCards.count) cards ready")
             .accessibilityIdentifier("today.tile.fsrs")

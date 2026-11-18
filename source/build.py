@@ -86,40 +86,8 @@ def byrne_inline(text: str) -> str:
     return text
 
 
-def comic_panel_svg(char_id: str, idx: int, ch_n: int) -> str:
-    palettes = {
-        'kym': ('#23519C', '#E8F0FC', 'Kym · 10× Lens'),
-        'dash': ('#AE2B20', '#FCECE9', 'Dash · First Hunch'),
-        'barnaby': ('#AE2B20', '#FCECE9', 'Barnaby · Rival Claim'),
-        'pip': ('#B07C12', '#F8EACB', 'Dr. Zeta & Pip · 1 µm'),
-        'bento': ('#B07C12', '#F8EACB', 'Master Bento · Workbench'),
-        'clara': ('#2D6A4F', '#E6F3EC', 'Clara · Field Log'),
-    }
-    stroke, tint, tag = palettes.get(char_id, ('#23519C', '#F8EACB', 'Atelier Workbench'))
-    cx = 76 if idx % 2 == 1 else 244
-    gx = 216 if idx % 2 == 1 else 96
-    return (
-        f'<div class="atlas-comic-art" aria-hidden="true">'
-        f'<svg viewBox="0 0 320 118" preserveAspectRatio="xMidYMid meet">'
-        f'<rect x="6" y="6" width="308" height="106" rx="6" fill="{tint}" fill-opacity="0.45" stroke="#D8CFC0" stroke-width="1"/>'
-        f'<line x1="16" y1="92" x2="304" y2="92" stroke="#1F1B16" stroke-width="1.4"/>'
-        f'<g transform="translate({cx},54)">'
-        f'<circle cx="0" cy="-14" r="13" fill="#FFFDF7" stroke="#1F1B16" stroke-width="1.6"/>'
-        f'<circle cx="-4" cy="-16" r="1.6" fill="#1F1B16"/><circle cx="4" cy="-16" r="1.6" fill="#1F1B16"/>'
-        f'<path d="M-4,-9 Q0,-6 4,-9" fill="none" stroke="#1F1B16" stroke-width="1.3" stroke-linecap="round"/>'
-        f'<path d="M-14,18 C-14,3 14,3 14,18 Z" fill="{stroke}" fill-opacity="0.18" stroke="#1F1B16" stroke-width="1.5"/>'
-        f'<circle cx="18" cy="-8" r="7" fill="none" stroke="{stroke}" stroke-width="1.8"/>'
-        f'<line x1="13" y1="-3" x2="8" y2="4" stroke="{stroke}" stroke-width="1.8" stroke-linecap="round"/>'
-        f'</g>'
-        f'<g transform="translate({gx},50)">'
-        f'<rect x="-42" y="-24" width="84" height="52" rx="6" fill="#FFFDF7" stroke="#1F1B16" stroke-width="1.4"/>'
-        f'<circle cx="-16" cy="2" r="11" fill="#F8EACB" stroke="#B07C12" stroke-width="1.4"/>'
-        f'<circle cx="16" cy="2" r="11" fill="#E8F0FC" stroke="{stroke}" stroke-width="1.4"/>'
-        f'<path d="M-3,2 L3,2" stroke="#AE2B20" stroke-width="1.8" stroke-linecap="round"/>'
-        f'<text x="0" y="-12" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8.5" fill="#686259">{tag} · Ch.{ch_n}</text>'
-        f'</g>'
-        f'</svg></div>'
-    )
+from comic_cast_svg import comic_defs_svg, comic_panel_svg  # noqa: E402
+
 
 
 def md(text: str) -> str:
@@ -1371,6 +1339,7 @@ def build(pdf=False, only=None, out=None, site_dir=None, head_extra=''):
 <div class="bar" aria-hidden="true"><i></i></div>
 <nav class="navbtn" aria-label="Book navigation"><a href="#contents">Contents</a><div id="toolbar" class="toolbar" role="toolbar" aria-label="Reading tools"></div></nav>
 {DEFS}
+{comic_defs_svg()}
 <main class="book">
 {body}
 </main>

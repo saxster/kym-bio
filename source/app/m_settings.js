@@ -1,8 +1,16 @@
-// Reading settings: text size, theme (Auto / Light / Sepia / Dark), Still mode, Paper sounds, and Projector mode.
+// Reading settings: profiles, typeface, text size, line spacing, line length, theme, Still mode, Paper sounds, and Projector mode.
 import App from './core.js';
 
 const SIZES = [0.92, 1, 1.1, 1.22];
 const SIZE_NAMES = ['Smaller', 'Normal', 'Larger', 'Largest'];
+const FACES = [['literata', 'Literata'], ['georgia', 'New York'], ['sans', 'Lexend'], ['mono', 'Mono']];
+const SPACINGS = [['compact', 'Compact', '1.48'], ['comfortable', 'Comfortable', '1.65'], ['spacious', 'Spacious', '1.92']];
+const WIDTHS = [['narrow', 'Narrow', '31rem'], ['normal', 'Normal', '36rem'], ['wide', 'Wide', '43rem']];
+const PROFILES = [
+  ['read', 'Read', { face: 'literata', size: 1, spacing: 'comfortable', width: 'normal', theme: 'sepia' }],
+  ['study', 'Study', { face: 'georgia', size: 2, spacing: 'comfortable', width: 'narrow', theme: 'light' }],
+  ['evening', 'Evening', { face: 'literata', size: 2, spacing: 'spacious', width: 'normal', theme: 'dark' }],
+];
 const THEMES = [['auto', 'Auto'], ['light', 'Light'], ['sepia', 'Sepia'], ['dark', 'Dark']];
 const root = document.documentElement;
 
@@ -10,6 +18,14 @@ function apply() {
   const s = App.store.get('settings', {});
   const size = Number.isInteger(s.size) ? Math.max(0, Math.min(3, s.size)) : 0;  // default: the smallest size
   root.style.setProperty('--scale', SIZES[size]);
+  const face = FACES.some(f => f[0] === s.face) ? s.face : 'literata';
+  root.setAttribute('data-face', face);
+  const spEntry = SPACINGS.find(x => x[0] === s.spacing) || SPACINGS[1];
+  const spacing = spEntry[0];
+  root.style.setProperty('--lh', spEntry[2]);
+  const wdEntry = WIDTHS.find(x => x[0] === s.width) || WIDTHS[1];
+  const width = wdEntry[0];
+  root.style.setProperty('--measure', wdEntry[2]);
   const theme = s.theme || 'sepia';  // default: sepia
   if (theme !== 'auto') root.setAttribute('data-theme', theme);
   else root.removeAttribute('data-theme');
@@ -22,7 +38,7 @@ function apply() {
   const sound = s.sound !== false;
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute('content', getComputedStyle(root).getPropertyValue('--paper').trim() || '#f6f4ec');
-  return { size, theme, still, projector, sound };
+  return { size, face, spacing, width, theme, still, projector, sound };
 }
 apply(); // as early as the module runs, before the toolbar is drawn
 
@@ -34,10 +50,22 @@ App.ready(() => {
   const supportsPopover = typeof HTMLElement !== 'undefined' && 'popover' in HTMLElement.prototype;
   let state = apply();
 
+  const profileBtns = PROFILES.map(([k, label, patch]) => el('button', {
+    type: 'button', class: 'seg-b', 'aria-pressed': 'false', onclick: () => save(patch),
+  }, label));
+  const faceBtns = FACES.map(([k, label]) => el('button', {
+    type: 'button', class: 'seg-b', 'aria-pressed': 'false', onclick: () => save({ face: k }),
+  }, label));
   const sizeBtns = SIZES.map((_, i) => el('button', {
     type: 'button', class: 'seg-b', 'aria-pressed': 'false', 'aria-label': `Text size: ${SIZE_NAMES[i]}`,
     onclick: () => save({ size: i }),
   }, el('span', { style: `font-size:${0.78 + i * 0.13}rem`, 'aria-hidden': 'true' }, 'A')));
+  const spacingBtns = SPACINGS.map(([k, label]) => el('button', {
+    type: 'button', class: 'seg-b', 'aria-pressed': 'false', onclick: () => save({ spacing: k }),
+  }, label));
+  const widthBtns = WIDTHS.map(([k, label]) => el('button', {
+    type: 'button', class: 'seg-b', 'aria-pressed': 'false', onclick: () => save({ width: k }),
+  }, label));
   const themeBtns = THEMES.map(([k, label]) => el('button', {
     type: 'button', class: `seg-b th th-${k}`, 'aria-pressed': 'false', onclick: () => save({ theme: k }),
   }, el('span', { class: 'sw', 'aria-hidden': 'true' }), label));
@@ -56,8 +84,16 @@ App.ready(() => {
   }, 'Projector mode (classroom)');
 
   const panel = el('div', { class: 'iw-pop settings-pop', id: 'settings-pop', role: 'dialog', 'aria-label': 'Reading settings' },
+    el('p', { class: 'pop-h' }, 'Reading profiles'),
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'Reading profiles' }, profileBtns),
+    el('p', { class: 'pop-h' }, 'Typeface'),
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'Typeface' }, faceBtns),
     el('p', { class: 'pop-h' }, 'Text size'),
     el('div', { class: 'seg', role: 'group', 'aria-label': 'Text size' }, sizeBtns),
+    el('p', { class: 'pop-h' }, 'Line spacing'),
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'Line spacing' }, spacingBtns),
+    el('p', { class: 'pop-h' }, 'Line length'),
+    el('div', { class: 'seg', role: 'group', 'aria-label': 'Line length' }, widthBtns),
     el('p', { class: 'pop-h' }, 'Colours'),
     el('div', { class: 'seg seg-th', role: 'group', 'aria-label': 'Colour theme' }, themeBtns),
     el('p', { class: 'pop-h' }, 'Motion, sound & display'),
@@ -77,7 +113,15 @@ App.ready(() => {
   });
 
   function sync() {
+    profileBtns.forEach((b, i) => {
+      const p = PROFILES[i][2];
+      const match = state.face === p.face && state.size === p.size && state.spacing === p.spacing && state.width === p.width && state.theme === p.theme;
+      b.setAttribute('aria-pressed', String(match));
+    });
+    faceBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(FACES[i][0] === state.face)));
     sizeBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(i === state.size)));
+    spacingBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(SPACINGS[i][0] === state.spacing)));
+    widthBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(WIDTHS[i][0] === state.width)));
     themeBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(THEMES[i][0] === state.theme)));
     stillToggle.setAttribute('aria-pressed', String(!!state.still));
     soundToggle.setAttribute('aria-pressed', String(!!state.sound));
@@ -99,6 +143,7 @@ App.ready(() => {
       try { window.dispatchEvent(new CustomEvent('still:change', { detail: { still: state.still } })); } catch (e) {}
     }
   }
+  window.__applyKymBioSettings = save;
   sync();
 
   let open = false;

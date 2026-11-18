@@ -82,11 +82,6 @@ struct BiologyCoachView: View {
             }
         }
         .sessionJournalSafetyAlert(message: $safetySupportMessage)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StandardThemeMenu()
-            }
-        }
         .sheet(isPresented: $showAPIKeySheet) {
             NavigationStack {
                 VStack(alignment: .leading, spacing: Spacing.md) {

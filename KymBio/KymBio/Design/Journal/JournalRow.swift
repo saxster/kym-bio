@@ -121,12 +121,14 @@ struct JournalRow: View {
                 .font(isInList ? .kymaiaSubheadline.weight(.medium) : .kymaiaBody)
                 .foregroundStyle(Color.kymaiaInk)
                 .lineLimit(isInList ? 1 : 2)
+                .minimumScaleFactor(isInList ? 0.72 : 0.88)
                 .fixedSize(horizontal: false, vertical: true)
             if let subtitle {
                 Text(subtitle)
                     .font(isInList ? .kymaiaCaption2 : .kymaiaCaption)
                     .foregroundStyle(Color.kymaiaMutedInk)
                     .lineLimit(isInList ? 1 : 3)
+                    .minimumScaleFactor(isInList ? 0.75 : 0.90)
                     .fixedSize(horizontal: false, vertical: true)
             }
             if let detail {
@@ -137,6 +139,7 @@ struct JournalRow: View {
                     .padding(.top, Spacing.xs)
             }
         }
+        .layoutPriority(1)
     }
 
     private func glyph(_ symbol: String, tint: Color) -> some View {

@@ -1,27 +1,27 @@
-/* The Moving World — book stylesheet
-   Type: Literata (text & display) + Lexend (labels, notes, figures)
-   Colour: forest ink on notebook paper; four accent colours carry meaning (forces red, light ochre, vectors blue, green)
-   Volume tints: I blue (--electron), II ochre (--neutron), III red (--proton), IV green (--green) */
+/* The Living World — Naturalist's Field Herbarium & Confocal Observatory Stylesheet (A + D + C Synthesis)
+   Type: Literata (text & display) + Lexend (labels, notes, figures) + Caveat (handwritten margin notes & flaps)
+   Colour: Kew Herbarium forest ink on warm cotton rag paper; Confocal dark stage for 3D explorers & night mode */
 
 :root {
-  --paper: #f6f3ec;
-  --sheet: #fbfaf5;
-  --ink: #1d332d;
-  --ink-2: #33483f;
-  --muted: #5d6c66;
-  --rule: #d5d3c6;
-  --rule-2: #e6e3d7;
-  --proton: #b8432f;
-  --neutron: #b07818;
-  --electron: #2f6d8f;
-  --green: #2e6f4e;
+  --paper: #f4efe4;
+  --sheet: #fcf9f2;
+  --ink: #162a22;
+  --ink-2: #2b4138;
+  --muted: #52645b;
+  --rule: #cfc7b4;
+  --rule-2: #e2dbca;
+  --proton: #b83d27;
+  --neutron: #7c510a;
+  --electron: #216080;
+  --green: #1e6446;
   --mark: #f1d978;
   --mark-soft: rgba(241, 217, 120, .55);
-  --plate: #fdfcf8;
-  --grid: #e9e6da;
+  --plate: #fdfbf6;
+  --grid: #e5decb;
   --vol: var(--electron);
-  --vol-wash: rgba(53, 109, 131, .07);
+  --vol-wash: rgba(33, 96, 128, .08);
   --measure: 36rem;
+  --lh: 1.65;
   --side: 15.5rem;
   --gap: 2.75rem;
   --serif: "Literata", "Literata Static", "Iowan Old Style", Georgia, serif;
@@ -29,30 +29,33 @@
   --hand: "Caveat", "Bradley Hand", "Segoe Print", cursive;
   color-scheme: light;
 }
-.vol-2 { --vol: var(--neutron); --vol-wash: rgba(147, 96, 34, .07); }
-.vol-3 { --vol: var(--proton); --vol-wash: rgba(169, 71, 48, .065); }
-.vol-4 { --vol: var(--green); --vol-wash: rgba(46, 96, 74, .07); }
+:root[data-face="georgia"] { --serif: "Iowan Old Style", "New York", Georgia, serif; }
+:root[data-face="sans"] { --serif: "Lexend", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+:root[data-face="mono"] { --serif: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+.vol-2 { --vol: var(--neutron); --vol-wash: rgba(173, 114, 20, .08); }
+.vol-3 { --vol: var(--proton); --vol-wash: rgba(184, 61, 39, .075); }
+.vol-4 { --vol: var(--green); --vol-wash: rgba(30, 100, 70, .08); }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #141b19; --sheet: #18211e; --ink: #e6e3d6; --ink-2: #cfccbf; --muted: #9eaaa4;
-    --rule: #34423c; --rule-2: #26312d; --proton: #e0896f; --neutron: #d4a35f; --electron: #78b3cb;
-    --green: #7cbf9c; --mark: #8a7424; --mark-soft: rgba(176, 148, 52, .45); --plate: #1b2522; --grid: #23302b;
+    --paper: #09131a; --sheet: #101e28; --ink: #e8f3ee; --ink-2: #c4d9d0; --muted: #8ea99e;
+    --rule: #243b4a; --rule-2: #192b38; --proton: #fb7185; --neutron: #fbbf24; --electron: #38bdf8;
+    --green: #34d399; --mark: #8a7424; --mark-soft: rgba(176, 148, 52, .45); --plate: #0d1821; --grid: #162633;
     color-scheme: dark;
   }
-  :root:not([data-theme="light"]) .vol-1 { --vol-wash: rgba(120, 179, 203, .08); }
-  :root:not([data-theme="light"]) .vol-2 { --vol-wash: rgba(212, 163, 95, .08); }
-  :root:not([data-theme="light"]) .vol-3 { --vol-wash: rgba(224, 137, 111, .08); }
-  :root:not([data-theme="light"]) .vol-4 { --vol-wash: rgba(124, 191, 156, .08); }
+  :root:not([data-theme="light"]) .vol-1 { --vol-wash: rgba(56, 189, 248, .10); }
+  :root:not([data-theme="light"]) .vol-2 { --vol-wash: rgba(251, 191, 36, .10); }
+  :root:not([data-theme="light"]) .vol-3 { --vol-wash: rgba(251, 113, 133, .10); }
+  :root:not([data-theme="light"]) .vol-4 { --vol-wash: rgba(52, 211, 153, .10); }
 }
-:root[data-theme="dark"] .vol-1 { --vol-wash: rgba(120, 179, 203, .08); }
-:root[data-theme="dark"] .vol-2 { --vol-wash: rgba(212, 163, 95, .08); }
-:root[data-theme="dark"] .vol-3 { --vol-wash: rgba(224, 137, 111, .08); }
-:root[data-theme="dark"] .vol-4 { --vol-wash: rgba(124, 191, 156, .08); }
+:root[data-theme="dark"] .vol-1 { --vol-wash: rgba(56, 189, 248, .10); }
+:root[data-theme="dark"] .vol-2 { --vol-wash: rgba(251, 191, 36, .10); }
+:root[data-theme="dark"] .vol-3 { --vol-wash: rgba(251, 113, 133, .10); }
+:root[data-theme="dark"] .vol-4 { --vol-wash: rgba(52, 211, 153, .10); }
 :root[data-theme="dark"] {
-  --paper: #141b19; --sheet: #18211e; --ink: #e6e3d6; --ink-2: #cfccbf; --muted: #9eaaa4;
-  --rule: #34423c; --rule-2: #26312d; --proton: #e0896f; --neutron: #d4a35f; --electron: #78b3cb;
-  --green: #7cbf9c; --mark: #8a7424; --mark-soft: rgba(176, 148, 52, .45); --plate: #1b2522; --grid: #23302b;
+  --paper: #09131a; --sheet: #101e28; --ink: #e8f3ee; --ink-2: #c4d9d0; --muted: #8ea99e;
+  --rule: #243b4a; --rule-2: #192b38; --proton: #fb7185; --neutron: #fbbf24; --electron: #38bdf8;
+  --green: #34d399; --mark: #8a7424; --mark-soft: rgba(176, 148, 52, .45); --plate: #0d1821; --grid: #162633;
   color-scheme: dark;
 }
 
@@ -66,7 +69,7 @@ body {
   color: var(--ink);
   font-family: var(--serif);
   font-size: 1.075rem;
-  line-height: 1.65;
+  line-height: var(--lh, 1.65);
   font-variant-numeric: lining-nums proportional-nums;
   font-kerning: normal;
   hyphens: manual;
@@ -203,7 +206,7 @@ mark.term {
 .sec ul, .sec ol { padding-left: 1.3rem; margin: 0 0 1em; }
 .sec li { margin-bottom: .3em; }
 .sec li::marker { color: var(--vol); }
-.sec blockquote { margin: 0 0 1em; padding: 0 0 0 1.1rem; border-left: 1px solid var(--rule); color: var(--ink-2); font-style: italic; }
+.sec blockquote, blockquote { margin: 0 0 1em; padding: .05rem 0 .05rem 1.1rem; border-left: 1px solid var(--rule); color: var(--ink-2); font-style: italic; }
 
 /* nuclear symbols: [[nuc:A:Z:X:q]] */
 .nuc { display: inline-flex; align-items: flex-start; font-variant-numeric: lining-nums; white-space: nowrap; vertical-align: -.32em; line-height: 1; }
@@ -454,7 +457,7 @@ figure.live-lifting .live-stage {
 
 .careful { background: color-mix(in srgb, var(--proton) 5%, var(--sheet)); border: 1px solid color-mix(in srgb, var(--proton) 32%, var(--rule)); border-radius: 10px; }
 .careful .bh { color: var(--proton); }
-.careful blockquote { margin: 0 0 .7em; padding: 0; border: 0; font-style: italic; color: var(--ink); }
+.careful blockquote { margin: 0 0 .7em; padding: .15rem 0 .15rem .95rem; border-left: 2px solid color-mix(in srgb, var(--proton) 45%, var(--rule)); font-style: italic; color: var(--ink); }
 
 .try { border: 1px solid color-mix(in srgb, var(--vol) 40%, var(--rule)); background: var(--vol-wash); border-radius: 10px; }
 .try .bh { color: var(--vol); }
@@ -660,7 +663,7 @@ html.sd-open { overflow: hidden; }
 
 
 /* ------------------------------------------------------------------ physics blocks: predict, recall, school */
-.predict { background: var(--sheet); border: 1px solid var(--rule); border-top: 3px solid var(--vol); }
+.predict { background: var(--sheet); border: 1.5px solid color-mix(in srgb, var(--vol) 42%, var(--rule)); }
 .predict .bh { color: var(--vol); }
 .predict .pq > :last-child { margin-bottom: .6rem; }
 .pred-opts { margin: 0 0 .8rem; padding-left: 1.6rem; }
@@ -762,7 +765,7 @@ figure[data-live], figure[data-labs] {
     --paper: #fff !important; --sheet: #fff !important; --plate: #fff !important;
     --ink: #141b19 !important; --ink-2: #33483f !important; --muted: #5d6c66 !important;
     --rule: #d5d3c6 !important; --rule-2: #e6e3d7 !important; --grid: #e9e6da !important;
-    --proton: #b8432f !important; --neutron: #b07818 !important;
+    --proton: #b8432f !important; --neutron: #7c510a !important;
     --electron: #2f6d8f !important; --green: #2e6f4e !important;
     --mark: #f1d978 !important; --mark-soft: rgba(241,217,120,.55) !important;
     color-scheme: light !important;

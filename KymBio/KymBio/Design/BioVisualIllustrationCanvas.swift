@@ -192,6 +192,7 @@ struct DailyAtelierHumourComicCard: View {
     let activeChapterNumber: Int
     var onOpenChapter: ((Int) -> Void)? = nil
 
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var selectedChapterOverride: Int? = nil
     @State private var showRulePunchline: Bool = true
 
@@ -203,13 +204,11 @@ struct DailyAtelierHumourComicCard: View {
         let gag = currentGag
         JournalCard {
             VStack(alignment: .leading, spacing: Spacing.md) {
-                HStack(spacing: Spacing.xs) {
-                    JournalChip(
-                        label: "Malabar Hill Atelier · Comic Strip",
-                        systemImage: "sparkles.rectangle.stack.fill",
-                        tone: .accent
-                    )
-                    JournalChip(text: "Ch \(gag.chapterNumber) · \(gag.dateline)", tone: .neutral)
+                HStack(alignment: .center, spacing: Spacing.xs) {
+                    Text("OPENING DISPATCH · MALABAR HILL ATELIER · CH \(gag.chapterNumber)")
+                        .font(.system(size: 10.5, weight: .bold, design: .monospaced))
+                        .tracking(0.6)
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
                     Spacer()
                     Button {
                         let currentIdx = BioDailyHumourGag.allGags.firstIndex(where: { $0.id == gag.id }) ?? 0
@@ -226,30 +225,8 @@ struct DailyAtelierHumourComicCard: View {
                     .font(.kymaiaTitle3)
                     .foregroundStyle(Color.kymaiaInk)
 
-                // Two-Panel Ligne-Claire Diptych
-                ViewThatFits(in: .horizontal) {
-                    HStack(alignment: .top, spacing: Spacing.md) {
-                        comicPanelBox(
-                            panelNumber: 1,
-                            kicker: "Panel 1 · The Tempting Shortcut",
-                            character: gag.setupSpeaker,
-                            speech: gag.setupSpeech,
-                            chapterNumber: gag.chapterNumber,
-                            isResolution: false
-                        )
-                        .frame(maxWidth: .infinity)
-
-                        comicPanelBox(
-                            panelNumber: 2,
-                            kicker: "Panel 2 · Reality Strikes Back",
-                            character: gag.punchlineSpeaker,
-                            speech: gag.punchlineSpeech,
-                            chapterNumber: gag.chapterNumber,
-                            isResolution: true
-                        )
-                        .frame(maxWidth: .infinity)
-                    }
-
+                // Two-Panel Ligne-Claire Diptych: side-by-side on iPad/macOS, stacked on compact iPhone
+                if horizontalSizeClass == .compact {
                     VStack(spacing: Spacing.md) {
                         comicPanelBox(
                             panelNumber: 1,
@@ -267,6 +244,28 @@ struct DailyAtelierHumourComicCard: View {
                             chapterNumber: gag.chapterNumber,
                             isResolution: true
                         )
+                    }
+                } else {
+                    HStack(alignment: .top, spacing: Spacing.md) {
+                        comicPanelBox(
+                            panelNumber: 1,
+                            kicker: "Panel 1 · The Tempting Shortcut",
+                            character: gag.setupSpeaker,
+                            speech: gag.setupSpeech,
+                            chapterNumber: gag.chapterNumber,
+                            isResolution: false
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+
+                        comicPanelBox(
+                            panelNumber: 2,
+                            kicker: "Panel 2 · Reality Strikes Back",
+                            character: gag.punchlineSpeaker,
+                            speech: gag.punchlineSpeech,
+                            chapterNumber: gag.chapterNumber,
+                            isResolution: true
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     }
                 }
 
@@ -362,6 +361,7 @@ struct DailyAtelierHumourComicCard: View {
 struct BioComicStripCardView: View {
     let strip: LivingWorldComicStrip
     let chapterNumber: Int
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var body: some View {
         JournalCard {
@@ -380,16 +380,17 @@ struct BioComicStripCardView: View {
                     .font(.kymaiaTitle3)
                     .foregroundStyle(Color.kymaiaInk)
 
-                ViewThatFits(in: .horizontal) {
+                if horizontalSizeClass == .compact {
+                    VStack(spacing: Spacing.sm) {
+                        ForEach(strip.panels) { panel in
+                            stripPanelView(panel)
+                        }
+                    }
+                } else {
                     HStack(alignment: .top, spacing: Spacing.sm) {
                         ForEach(strip.panels) { panel in
                             stripPanelView(panel)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                        }
-                    }
-                    VStack(spacing: Spacing.sm) {
-                        ForEach(strip.panels) { panel in
-                            stripPanelView(panel)
                         }
                     }
                 }
@@ -486,59 +487,212 @@ struct BioComicPanelIllustrationView: View {
                 gx += 14
             }
 
-            // 2. Moebius workbench floor line & 45° cross-hatching
+            // 2. Teak workbench floor band & 45° cross-hatching
             let floorY = h * 0.78
+            let benchBand = CGRect(x: 0, y: floorY, width: w, height: h - floorY)
+            ctx.fill(Path(benchBand), with: .color(amber.opacity(0.14)))
             var floor = Path()
-            floor.move(to: CGPoint(x: w * 0.05, y: floorY))
-            floor.addLine(to: CGPoint(x: w * 0.95, y: floorY))
-            ctx.stroke(floor, with: .color(ink.opacity(0.65)), lineWidth: 1.6)
+            floor.move(to: CGPoint(x: w * 0.03, y: floorY))
+            floor.addLine(to: CGPoint(x: w * 0.97, y: floorY))
+            ctx.stroke(floor, with: .color(ink.opacity(0.75)), lineWidth: 1.8)
 
-            var hx: CGFloat = w * 0.08
-            while hx < w * 0.92 {
+            var hx: CGFloat = w * 0.06
+            while hx < w * 0.94 {
                 var hatch = Path()
                 hatch.move(to: CGPoint(x: hx, y: floorY))
                 hatch.addLine(to: CGPoint(x: hx - 7, y: min(h - 2, floorY + 10)))
                 ctx.stroke(hatch, with: .color(faint), lineWidth: 1)
-                hx += 11
+                hx += 12
             }
 
-            // 3. Left: Ligne-Claire Character Silhouette & Prop
-            let charX = w * 0.23
-            let headR: CGFloat = 13
-            let headCenter = CGPoint(x: charX, y: floorY - 46)
-            let torsoRect = CGRect(x: charX - 14, y: floorY - 31, width: 28, height: 31)
-            ctx.fill(Path(roundedRect: torsoRect, cornerRadius: 6), with: .color(character.tint.opacity(0.24)))
-            ctx.stroke(Path(roundedRect: torsoRect, cornerRadius: 6), with: .color(ink), lineWidth: 1.6)
-            ctx.fill(Path(ellipseIn: CGRect(x: headCenter.x - headR, y: headCenter.y - headR, width: headR * 2, height: headR * 2)), with: .color(Color.kymaiaSurface))
-            ctx.stroke(Path(ellipseIn: CGRect(x: headCenter.x - headR, y: headCenter.y - headR, width: headR * 2, height: headR * 2)), with: .color(ink), lineWidth: 1.6)
+            // 3. Left: Solid Ligne-Claire Character Bust & Signature Instrument (Option C Riso/Atelier)
+            let charX = w * 0.20
+            let headR: CGFloat = min(h * 0.165, 19.0)
+            let headCenter = CGPoint(x: charX, y: floorY - headR * 2.55)
+            let skinColor = Color(red: 0.95, green: 0.82, blue: 0.67)
+            let outlineColor = Color(red: 0.09, green: 0.15, blue: 0.12)
 
-            // Character signature prop
+            let coatColor: Color = {
+                switch character {
+                case .kym: return Color(red: 0.12, green: 0.37, blue: 0.27)
+                case .barnaby: return Color(red: 0.60, green: 0.11, blue: 0.11)
+                case .dash: return Color(red: 0.92, green: 0.35, blue: 0.05)
+                case .pip: return Color(red: 0.01, green: 0.52, blue: 0.78)
+                case .bento: return Color(red: 0.71, green: 0.33, blue: 0.04)
+                case .clara: return Color(red: 0.18, green: 0.42, blue: 0.31)
+                }
+            }()
+
+            // Solid shoulders / coat silhouette
+            var coat = Path()
+            coat.move(to: CGPoint(x: charX - headR * 1.38, y: floorY))
+            coat.addQuadCurve(
+                to: CGPoint(x: charX - headR * 0.98, y: floorY - headR * 1.75),
+                control: CGPoint(x: charX - headR * 1.38, y: floorY - headR * 1.35)
+            )
+            coat.addLine(to: CGPoint(x: charX + headR * 0.98, y: floorY - headR * 1.75))
+            coat.addQuadCurve(
+                to: CGPoint(x: charX + headR * 1.38, y: floorY),
+                control: CGPoint(x: charX + headR * 1.38, y: floorY - headR * 1.35)
+            )
+            coat.closeSubpath()
+            ctx.fill(coat, with: .color(coatColor))
+            ctx.stroke(coat, with: .color(outlineColor), lineWidth: 1.8)
+
+            // Crisp white shirt collar V-cut
+            var lapel = Path()
+            lapel.move(to: CGPoint(x: charX - headR * 0.38, y: floorY - headR * 1.75))
+            lapel.addLine(to: CGPoint(x: charX, y: floorY - headR * 0.95))
+            lapel.addLine(to: CGPoint(x: charX + headR * 0.38, y: floorY - headR * 1.75))
+            lapel.closeSubpath()
+            ctx.fill(lapel, with: .color(Color(red: 0.99, green: 0.98, blue: 0.94)))
+            ctx.stroke(lapel, with: .color(outlineColor), lineWidth: 1.4)
+
+            // Warm skin head circle
+            let headRect = CGRect(
+                x: headCenter.x - headR,
+                y: headCenter.y - headR,
+                width: headR * 2,
+                height: headR * 2
+            )
+            ctx.fill(Path(ellipseIn: headRect), with: .color(skinColor))
+            ctx.stroke(Path(ellipseIn: headRect), with: .color(outlineColor), lineWidth: 1.8)
+
+            // Character-specific hair, spectacles, facial hair, and signature instrument
             switch character {
-            case .kym, .clara:
-                // Magnifying loupe
-                let loupe = CGRect(x: charX + 14, y: floorY - 44, width: 16, height: 16)
-                ctx.stroke(Path(ellipseIn: loupe), with: .color(blue), lineWidth: 2.2)
+            case .kym:
+                // Ponytail + hair cap + round spectacles + 10x brass loupe
+                let ponytail = CGRect(x: headCenter.x - headR * 1.42, y: headCenter.y - headR * 0.35, width: headR * 0.55, height: headR * 0.55)
+                ctx.fill(Path(ellipseIn: ponytail), with: .color(outlineColor))
+                var hair = Path()
+                hair.move(to: CGPoint(x: headCenter.x - headR * 0.95, y: headCenter.y - headR * 0.25))
+                hair.addQuadCurve(
+                    to: CGPoint(x: headCenter.x + headR * 0.95, y: headCenter.y - headR * 0.25),
+                    control: CGPoint(x: headCenter.x, y: headCenter.y - headR * 1.55)
+                )
+                ctx.fill(hair, with: .color(outlineColor))
+                let leftLens = CGRect(x: headCenter.x - headR * 0.58, y: headCenter.y - headR * 0.25, width: headR * 0.48, height: headR * 0.48)
+                let rightLens = CGRect(x: headCenter.x + headR * 0.10, y: headCenter.y - headR * 0.25, width: headR * 0.48, height: headR * 0.48)
+                ctx.fill(Path(ellipseIn: leftLens), with: .color(.white.opacity(0.65)))
+                ctx.fill(Path(ellipseIn: rightLens), with: .color(.white.opacity(0.65)))
+                ctx.stroke(Path(ellipseIn: leftLens), with: .color(outlineColor), lineWidth: 1.4)
+                ctx.stroke(Path(ellipseIn: rightLens), with: .color(outlineColor), lineWidth: 1.4)
+                let loupe = CGRect(x: charX + headR * 1.15, y: floorY - headR * 2.55, width: headR * 0.95, height: headR * 0.95)
+                ctx.fill(Path(ellipseIn: loupe), with: .color(blue.opacity(0.25)))
+                ctx.stroke(Path(ellipseIn: loupe), with: .color(amber), lineWidth: 2.2)
             case .barnaby:
-                // Flip-chart board with red X when overruled
-                let chart = CGRect(x: charX + 12, y: floorY - 52, width: 26, height: 32)
-                ctx.fill(Path(roundedRect: chart, cornerRadius: 3), with: .color(Color.kymaiaSurface))
-                ctx.stroke(Path(roundedRect: chart, cornerRadius: 3), with: .color(red), lineWidth: 1.6)
+                // Pince-nez + walrus moustache + brass coat buttons + wooden pointer
+                let leftLens = CGRect(x: headCenter.x - headR * 0.58, y: headCenter.y - headR * 0.25, width: headR * 0.46, height: headR * 0.46)
+                let rightLens = CGRect(x: headCenter.x + headR * 0.12, y: headCenter.y - headR * 0.25, width: headR * 0.46, height: headR * 0.46)
+                ctx.fill(Path(ellipseIn: leftLens), with: .color(.white.opacity(0.75)))
+                ctx.fill(Path(ellipseIn: rightLens), with: .color(.white.opacity(0.75)))
+                ctx.stroke(Path(ellipseIn: leftLens), with: .color(outlineColor), lineWidth: 1.4)
+                ctx.stroke(Path(ellipseIn: rightLens), with: .color(outlineColor), lineWidth: 1.4)
+                var moustache = Path()
+                moustache.move(to: CGPoint(x: headCenter.x - headR * 0.55, y: headCenter.y + headR * 0.35))
+                moustache.addQuadCurve(
+                    to: CGPoint(x: headCenter.x + headR * 0.55, y: headCenter.y + headR * 0.35),
+                    control: CGPoint(x: headCenter.x, y: headCenter.y + headR * 0.05)
+                )
+                ctx.stroke(moustache, with: .color(outlineColor), lineWidth: 2.6)
+                var pointer = Path()
+                pointer.move(to: CGPoint(x: charX + headR * 0.95, y: floorY - headR * 0.85))
+                pointer.addLine(to: CGPoint(x: charX + headR * 2.15, y: floorY - headR * 2.15))
+                ctx.stroke(pointer, with: .color(amber), lineWidth: 2.6)
             case .dash:
-                // What-If lever
+                // Wind-swept spiky hair + lightning stripe + stopwatch
+                var spikes = Path()
+                spikes.move(to: CGPoint(x: headCenter.x - headR * 0.85, y: headCenter.y - headR * 0.45))
+                spikes.addLine(to: CGPoint(x: headCenter.x - headR * 0.35, y: headCenter.y - headR * 1.45))
+                spikes.addLine(to: CGPoint(x: headCenter.x + headR * 0.05, y: headCenter.y - headR * 0.85))
+                spikes.addLine(to: CGPoint(x: headCenter.x + headR * 0.55, y: headCenter.y - headR * 1.40))
+                spikes.addLine(to: CGPoint(x: headCenter.x + headR * 0.85, y: headCenter.y - headR * 0.45))
+                spikes.closeSubpath()
+                ctx.fill(spikes, with: .color(outlineColor))
                 var lever = Path()
-                lever.move(to: CGPoint(x: charX + 18, y: floorY))
-                lever.addLine(to: CGPoint(x: charX + 28, y: floorY - 36))
-                ctx.stroke(lever, with: .color(red), lineWidth: 2.4)
-            case .pip, .bento:
-                // Brass balance scale / microscope tube
-                let scope = CGRect(x: charX + 14, y: floorY - 40, width: 14, height: 28)
-                ctx.fill(Path(roundedRect: scope, cornerRadius: 3), with: .color(amber.opacity(0.35)))
-                ctx.stroke(Path(roundedRect: scope, cornerRadius: 3), with: .color(ink), lineWidth: 1.5)
+                lever.move(to: CGPoint(x: charX + headR * 1.25, y: floorY))
+                lever.addLine(to: CGPoint(x: charX + headR * 1.85, y: floorY - headR * 2.05))
+                ctx.stroke(lever, with: .color(red), lineWidth: 2.5)
+                let knob = CGRect(x: charX + headR * 1.65, y: floorY - headR * 2.30, width: 8, height: 8)
+                ctx.fill(Path(ellipseIn: knob), with: .color(red))
+            case .pip:
+                // 1 µm diving reticle bubble + pith helmet
+                let bubble = CGRect(x: headCenter.x - headR * 1.65, y: headCenter.y - headR * 1.45, width: headR * 3.3, height: headR * 3.3)
+                ctx.stroke(Path(ellipseIn: bubble), with: .color(green.opacity(0.65)), style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+                var helmet = Path()
+                helmet.move(to: CGPoint(x: headCenter.x - headR * 1.05, y: headCenter.y - headR * 0.35))
+                helmet.addQuadCurve(
+                    to: CGPoint(x: headCenter.x + headR * 1.05, y: headCenter.y - headR * 0.35),
+                    control: CGPoint(x: headCenter.x, y: headCenter.y - headR * 1.45)
+                )
+                helmet.closeSubpath()
+                ctx.fill(helmet, with: .color(amber))
+                ctx.stroke(helmet, with: .color(outlineColor), lineWidth: 1.5)
+            case .bento:
+                // Square spectacles + craftsman apron + balance beam
+                let sqL = CGRect(x: headCenter.x - headR * 0.58, y: headCenter.y - headR * 0.22, width: headR * 0.48, height: headR * 0.36)
+                let sqR = CGRect(x: headCenter.x + headR * 0.10, y: headCenter.y - headR * 0.22, width: headR * 0.48, height: headR * 0.36)
+                ctx.fill(Path(sqL), with: .color(.white.opacity(0.75)))
+                ctx.fill(Path(sqR), with: .color(.white.opacity(0.75)))
+                ctx.stroke(Path(sqL), with: .color(outlineColor), lineWidth: 1.4)
+                ctx.stroke(Path(sqR), with: .color(outlineColor), lineWidth: 1.4)
+                var beam = Path()
+                beam.move(to: CGPoint(x: charX + headR * 1.05, y: floorY - headR * 1.85))
+                beam.addLine(to: CGPoint(x: charX + headR * 2.15, y: floorY - headR * 1.85))
+                beam.move(to: CGPoint(x: charX + headR * 1.60, y: floorY - headR * 2.10))
+                beam.addLine(to: CGPoint(x: charX + headR * 1.60, y: floorY - headR * 0.50))
+                ctx.stroke(beam, with: .color(amber), lineWidth: 2.0)
+            case .clara:
+                // Botanical sun hat + field notebook
+                var brim = Path()
+                brim.move(to: CGPoint(x: headCenter.x - headR * 1.25, y: headCenter.y - headR * 0.45))
+                brim.addQuadCurve(
+                    to: CGPoint(x: headCenter.x + headR * 1.25, y: headCenter.y - headR * 0.45),
+                    control: CGPoint(x: headCenter.x, y: headCenter.y - headR * 1.20)
+                )
+                ctx.fill(brim, with: .color(amber))
+                ctx.stroke(brim, with: .color(outlineColor), lineWidth: 1.6)
             }
 
-            // 4. Right: Chapter-Specific Biological Mechanism Schematic
-            let mechCenter = CGPoint(x: w * 0.68, y: h * 0.44)
-            let mechR = min(w * 0.22, h * 0.30)
+            // Eyes & smile
+            ctx.fill(
+                Path(ellipseIn: CGRect(x: headCenter.x - headR * 0.38, y: headCenter.y - 2, width: 3.0, height: 3.0)),
+                with: .color(outlineColor)
+            )
+            ctx.fill(
+                Path(ellipseIn: CGRect(x: headCenter.x + headR * 0.20, y: headCenter.y - 2, width: 3.0, height: 3.0)),
+                with: .color(outlineColor)
+            )
+            var mouth = Path()
+            mouth.move(to: CGPoint(x: headCenter.x - 4, y: headCenter.y + headR * 0.34))
+            mouth.addQuadCurve(
+                to: CGPoint(x: headCenter.x + 4, y: headCenter.y + headR * 0.34),
+                control: CGPoint(x: headCenter.x, y: headCenter.y + headR * (isResolution ? 0.58 : 0.22))
+            )
+            ctx.stroke(mouth, with: .color(outlineColor), lineWidth: 1.4)
+
+            // 4. Right: Framed Herbarium Specimen Card on the Workbench + Biological Mechanism
+            let cardRect = CGRect(
+                x: w * 0.43,
+                y: h * 0.10,
+                width: w * 0.51,
+                height: floorY - h * 0.10
+            )
+            ctx.fill(Path(roundedRect: cardRect, cornerRadius: 8), with: .color(Color.kymaiaSurface))
+            ctx.stroke(
+                Path(roundedRect: cardRect, cornerRadius: 8),
+                with: .color(isResolution ? green.opacity(0.75) : amber.opacity(0.65)),
+                lineWidth: 1.6
+            )
+            let innerRect = cardRect.insetBy(dx: 3.5, dy: 3.5)
+            ctx.stroke(
+                Path(roundedRect: innerRect, cornerRadius: 5.5),
+                with: .color(faint),
+                style: StrokeStyle(lineWidth: 1.0, dash: [3, 2])
+            )
+
+            let mechCenter = CGPoint(x: cardRect.midX, y: cardRect.midY)
+            let mechR = min(cardRect.width * 0.36, cardRect.height * 0.42)
             BioChapterDiagramArtist.drawChapterMotif(
                 in: &ctx,
                 center: mechCenter,
@@ -758,60 +912,136 @@ struct BioSpecimenPlateCanvas: View {
     let callouts: [DiagramCalloutPin]
 
     var body: some View {
-        Canvas { ctx, size in
-            let w = size.width
-            let h = size.height
-            let center = CGPoint(x: w * 0.5, y: h * 0.5)
-            let radius = min(w, h) * 0.36
-            let ink = Color.kymaiaInk
-            let blue = Color.kymaiaPrimary
-            let amber = Color.kymaiaWarning
-            let red = Color.kymaiaError
-            let green = Color.kymaiaSuccess
+        ZStack {
+            Canvas { ctx, size in
+                let w = size.width
+                let h = size.height
+                let center = CGPoint(x: w * 0.5, y: h * 0.5)
+                let radius = min(w * 0.28, h * 0.44)
+                let ink = Color.kymaiaInk
+                let blue = Color.kymaiaPrimary
+                let amber = Color.kymaiaWarning
+                let red = Color.kymaiaError
+                let green = Color.kymaiaSuccess
 
-            // Subtle laboratory grid
-            var gx: CGFloat = 16
-            while gx < w {
-                var gy: CGFloat = 16
-                while gy < h {
-                    ctx.fill(
-                        Path(ellipseIn: CGRect(x: gx, y: gy, width: 1.5, height: 1.5)),
-                        with: .color(Color.kymaiaHairline)
-                    )
-                    gy += 18
+                // Herbarium copperplate double frame + subtle laboratory grid
+                let outerFrame = CGRect(x: 6, y: 6, width: w - 12, height: h - 12)
+                let innerFrame = outerFrame.insetBy(dx: 4, dy: 4)
+                ctx.stroke(Path(roundedRect: outerFrame, cornerRadius: 8), with: .color(amber.opacity(0.55)), lineWidth: 1.4)
+                ctx.stroke(Path(roundedRect: innerFrame, cornerRadius: 6), with: .color(amber.opacity(0.28)), lineWidth: 0.9)
+
+                var gx: CGFloat = 18
+                while gx < w - 14 {
+                    var gy: CGFloat = 18
+                    while gy < h - 14 {
+                        ctx.fill(
+                            Path(ellipseIn: CGRect(x: gx, y: gy, width: 1.5, height: 1.5)),
+                            with: .color(Color.kymaiaHairline)
+                        )
+                        gy += 18
+                    }
+                    gx += 18
                 }
-                gx += 18
+
+                // Left & right comparative specimen medallions so wide iPad plates feel richly populated
+                let leftCenter = CGPoint(x: w * 0.22, y: h * 0.52)
+                let rightCenter = CGPoint(x: w * 0.78, y: h * 0.52)
+                let sideRadius = min(w * 0.14, h * 0.32)
+
+                let leftRing = CGRect(x: leftCenter.x - sideRadius, y: leftCenter.y - sideRadius, width: sideRadius * 2, height: sideRadius * 2)
+                ctx.fill(Path(ellipseIn: leftRing), with: .color(amber.opacity(0.08)))
+                ctx.stroke(Path(ellipseIn: leftRing), with: .color(amber.opacity(0.45)), style: StrokeStyle(lineWidth: 1.2, dash: [4, 3]))
+
+                BioChapterDiagramArtist.drawChapterMotif(
+                    in: &ctx,
+                    center: leftCenter,
+                    radius: sideRadius * 0.85,
+                    chapterNumber: chapterNumber,
+                    highlightResolution: false,
+                    ink: ink,
+                    blue: blue,
+                    amber: amber,
+                    red: red,
+                    green: green
+                )
+
+                let rightRing = CGRect(x: rightCenter.x - sideRadius, y: rightCenter.y - sideRadius, width: sideRadius * 2, height: sideRadius * 2)
+                ctx.fill(Path(ellipseIn: rightRing), with: .color(green.opacity(0.09)))
+                ctx.stroke(Path(ellipseIn: rightRing), with: .color(green.opacity(0.55)), lineWidth: 1.3)
+
+                BioChapterDiagramArtist.drawChapterMotif(
+                    in: &ctx,
+                    center: rightCenter,
+                    radius: sideRadius * 0.85,
+                    chapterNumber: max(0, (chapterNumber + 1) % 16),
+                    highlightResolution: true,
+                    ink: ink,
+                    blue: blue,
+                    amber: amber,
+                    red: red,
+                    green: green
+                )
+
+                // Connecting flow arrows to central specimen
+                var leftArrow = Path()
+                leftArrow.move(to: CGPoint(x: leftCenter.x + sideRadius + 6, y: center.y))
+                leftArrow.addLine(to: CGPoint(x: center.x - radius - 10, y: center.y))
+                ctx.stroke(leftArrow, with: .color(amber.opacity(0.65)), style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+
+                var rightArrow = Path()
+                rightArrow.move(to: CGPoint(x: center.x + radius + 10, y: center.y))
+                rightArrow.addLine(to: CGPoint(x: rightCenter.x - sideRadius - 6, y: center.y))
+                ctx.stroke(rightArrow, with: .color(green.opacity(0.65)), style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+
+                // Central primary specimen plate
+                let centerRing = CGRect(x: center.x - radius * 1.12, y: center.y - radius * 1.05, width: radius * 2.24, height: radius * 2.10)
+                ctx.fill(Path(roundedRect: centerRing, cornerRadius: 12), with: .color(blue.opacity(0.06)))
+                ctx.stroke(Path(roundedRect: centerRing, cornerRadius: 12), with: .color(blue.opacity(0.45)), lineWidth: 1.4)
+
+                BioChapterDiagramArtist.drawChapterMotif(
+                    in: &ctx,
+                    center: center,
+                    radius: radius,
+                    chapterNumber: chapterNumber,
+                    highlightResolution: true,
+                    ink: ink,
+                    blue: blue,
+                    amber: amber,
+                    red: red,
+                    green: green
+                )
+
+                // Draw leader lines from anatomical loci to numbered callout pins
+                for pin in callouts {
+                    let pt = CGPoint(x: pin.x * w, y: pin.y * h)
+                    let anchor = CGPoint(
+                        x: center.x + (pt.x - center.x) * 0.38,
+                        y: center.y + (pt.y - center.y) * 0.38
+                    )
+                    var leader = Path()
+                    leader.move(to: anchor)
+                    leader.addLine(to: pt)
+                    ctx.stroke(leader, with: .color(blue.opacity(0.65)), style: StrokeStyle(lineWidth: 1.4, dash: [4, 3]))
+                    ctx.fill(
+                        Path(ellipseIn: CGRect(x: anchor.x - 3, y: anchor.y - 3, width: 6, height: 6)),
+                        with: .color(red)
+                    )
+                }
             }
 
-            // Draw chapter-accurate biological schematic
-            BioChapterDiagramArtist.drawChapterMotif(
-                in: &ctx,
-                center: center,
-                radius: radius,
-                chapterNumber: chapterNumber,
-                highlightResolution: true,
-                ink: ink,
-                blue: blue,
-                amber: amber,
-                red: red,
-                green: green
-            )
-
-            // Draw leader lines from anatomical loci to numbered callout pins
-            for pin in callouts {
-                let pt = CGPoint(x: pin.x * w, y: pin.y * h)
-                let anchor = CGPoint(
-                    x: center.x + (pt.x - center.x) * 0.38,
-                    y: center.y + (pt.y - center.y) * 0.38
-                )
-                var leader = Path()
-                leader.move(to: anchor)
-                leader.addLine(to: pt)
-                ctx.stroke(leader, with: .color(blue.opacity(0.65)), style: StrokeStyle(lineWidth: 1.4, dash: [4, 3]))
-                ctx.fill(
-                    Path(ellipseIn: CGRect(x: anchor.x - 3, y: anchor.y - 3, width: 6, height: 6)),
-                    with: .color(red)
-                )
+            VStack {
+                HStack {
+                    Text("PLATE CH.\(chapterNumber) · COMPARATIVE SPECIMEN")
+                        .font(.system(size: 9.5, weight: .bold, design: .monospaced))
+                        .foregroundStyle(Color.kymaiaMutedInk)
+                    Spacer()
+                    Text("SCALE · 10 µm — 1 mm")
+                        .font(.system(size: 9.5, weight: .bold, design: .monospaced))
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 12)
+                Spacer()
             }
         }
         .background(Color.kymaiaSurface)

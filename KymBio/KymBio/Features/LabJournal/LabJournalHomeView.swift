@@ -67,11 +67,6 @@ struct LabJournalHomeView: View {
             }
         }
         .sessionJournalSafetyAlert(message: $safetySupportMessage)
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StandardThemeMenu()
-            }
-        }
     }
 
     private func saveAndScanJournalEntry(_ entry: LabJournalEntryRecord, latestFieldText: String) {

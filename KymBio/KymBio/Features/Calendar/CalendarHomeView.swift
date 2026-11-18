@@ -105,11 +105,6 @@ struct CalendarHomeView: View {
             deadlinesSection
             wetLabsSection
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StandardThemeMenu()
-            }
-        }
     }
 
     // MARK: - Run My Day (30-Minute Interleaved Study Block)

@@ -245,8 +245,7 @@
   padding: .85rem 1rem;
   border-radius: 10px;
   background: var(--paper);
-  border: 1px solid var(--rule);
-  border-left: 3px solid var(--vol);
+  border: 1.5px solid color-mix(in srgb, var(--vol) 38%, var(--rule));
   font-family: var(--sans);
   font-size: .86rem;
   line-height: 1.52;
@@ -268,8 +267,7 @@
 .xp-tour {
   margin-top: .9rem;
   padding: 1rem 1.1rem;
-  border: 1px solid var(--rule);
-  border-top: 3px solid var(--vol);
+  border: 1.5px solid color-mix(in srgb, var(--vol) 38%, var(--rule));
   border-radius: 10px;
   background: var(--paper);
 }
@@ -282,8 +280,8 @@
   margin-bottom: .65rem;
 }
 .xp-tour-kicker {
-  font: 700 .72rem/1.2 var(--sans);
-  letter-spacing: .08em;
+  font: 700 .76rem/1.35 var(--sans);
+  letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--vol);
   margin: 0;
@@ -380,4 +378,34 @@
 
 @media print {
   .explore .explore-stage { display: none !important; }
+}
+
+/* Option D Synthesis: Bioluminescent Deep-Cell Confocal Observatory Preview Card */
+.explore-preview-card {
+  margin: 1.2rem 0 1.1rem;
+  padding: 1.1rem 1.25rem 1rem;
+  border-radius: 14px;
+  background: #07111a;
+  border: 1.5px solid rgba(52, 211, 153, .42);
+  box-shadow: 0 16px 36px -18px rgba(4, 12, 20, .55);
+  color: #e2f1ec;
+}
+.explore-preview-kicker {
+  font: 700 .72rem/1.25 var(--sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #6ee7b7;
+  margin: 0 0 .65rem;
+}
+.explore-preview-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.explore-preview-card figcaption {
+  font: 400 .9rem/1.5 var(--sans);
+  color: #cbd5e1 !important;
+  margin-top: .65rem;
+  max-width: none;
 }

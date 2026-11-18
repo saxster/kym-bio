@@ -91,11 +91,6 @@ struct LabsAtlasHomeView: View {
                 atlasLessonsSection
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                StandardThemeMenu()
-            }
-        }
         .onAppear {
             if store.activeDiagramPlateId != nil {
                 benchMode = .diagramRecall

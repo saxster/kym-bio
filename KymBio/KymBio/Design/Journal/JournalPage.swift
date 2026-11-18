@@ -4,6 +4,11 @@ import SwiftUI
 /// The Standard's `EditorialHeader` (eyebrow, serif title, muted subtitle) with an inline
 /// navigation title; a nested page keeps the large navigation title and the subtitle line.
 struct JournalPage<Content: View>: View {
+    @AppStorage("kymbio.reader.face") private var rawFace: String = KymBioReadingFace.literata.rawValue
+    @AppStorage("kymbio.reader.sizeStep") private var sizeStep: Int = 1
+    @AppStorage("kymbio.reader.lineSpacing") private var rawSpacing: String = KymBioLineSpacing.comfortable.rawValue
+    @AppStorage("kymbio.reader.lineWidth") private var rawWidth: String = KymBioReadingWidth.normal.rawValue
+
     let title: String
     var eyebrow: String?
     var subtitle: String?
@@ -11,6 +16,36 @@ struct JournalPage<Content: View>: View {
     var floatingAction: JournalAction?
     var column: JournalLayout.Column
     private let content: Content
+
+    private var activeFace: KymBioReadingFace {
+        KymBioReadingFace(rawValue: rawFace) ?? .literata
+    }
+
+    private var activeSpacing: KymBioLineSpacing {
+        KymBioLineSpacing(rawValue: rawSpacing) ?? .comfortable
+    }
+
+    private var activeWidth: KymBioReadingWidth {
+        KymBioReadingWidth(rawValue: rawWidth) ?? .normal
+    }
+
+    private var activeDynamicTypeSize: DynamicTypeSize {
+        switch sizeStep {
+        case 0: return .medium
+        case 1: return .large
+        case 2: return .xLarge
+        default: return .xxLarge
+        }
+    }
+
+    private var resolvedMaxWidth: CGFloat {
+        switch column {
+        case .page:
+            return activeWidth.pageMaxWidth
+        default:
+            return column.maxWidth
+        }
+    }
 
     init(
         title: String,
@@ -45,11 +80,14 @@ struct JournalPage<Content: View>: View {
                     }
                     content
                 }
-                .frame(maxWidth: column.maxWidth, alignment: .leading)
+                .frame(maxWidth: resolvedMaxWidth, alignment: .leading)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, JournalLayout.pageGutter)
                 .padding(.top, Spacing.xs)
                 .padding(.bottom, Spacing.lg)
+                .fontDesign(activeFace.fontDesign)
+                .lineSpacing(activeSpacing.swiftUILineSpacing)
+                .dynamicTypeSize(activeDynamicTypeSize)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if let floatingAction {
@@ -63,7 +101,7 @@ struct JournalPage<Content: View>: View {
             }
         }
         .foregroundStyle(Color.kymaiaInk)
-        .modifier(JournalNavigationTitle(title: title, display: eyebrow == nil ? .large : .inline))
+        .modifier(JournalNavigationTitle(title: eyebrow == nil ? title : "", display: eyebrow == nil ? .large : .inline))
     }
 
     private func subtitleLine(_ text: String) -> some View {
