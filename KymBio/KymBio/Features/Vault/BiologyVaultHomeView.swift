@@ -227,16 +227,54 @@ public enum BiologyVaultCatalog {
     ]
 }
 
-// MARK: - Speech Helper for Vault & Coach
+import AVFoundation
+
+// MARK: - Speech Helper for Vault & Coach (ElevenLabs British English en-GB + System en-GB Fallback)
 
 @MainActor
 public final class BioSpeechSynthesizer: ObservableObject {
     public static let shared = BioSpeechSynthesizer()
     private let synthesizer = AVSpeechSynthesizer()
+    private let familyKeychain = KymLiveFamilyKeychain()
+    private var audioEngine: AVAudioEngine?
+    private var playerNode: AVAudioPlayerNode?
+    private var elevenTask: Task<Void, Never>?
     @Published public var isSpeaking: Bool = false
 
     public func speak(_ text: String, rate: Float = 0.48) {
-        synthesizer.stopSpeaking(at: .immediate)
+        stop()
+        let cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleaned.isEmpty else { return }
+
+        let elevenKey = (familyKeychain.loadElevenLabsAPIKey() ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        if !elevenKey.isEmpty {
+            let preset = KymLiveBritishVoiceCatalog.preset(forID: familyKeychain.loadPreferredBritishVoiceID())
+            isSpeaking = true
+            elevenTask = Task { @MainActor [weak self] in
+                guard let self else { return }
+                do {
+                    let req = try KymLiveElevenLabsClient.buildStreamingPCM24kRequest(
+                        apiKey: elevenKey,
+                        voiceID: preset.elevenLabsVoiceID,
+                        text: cleaned
+                    )
+                    let (pcmData, resp) = try await URLSession.shared.data(for: req)
+                    guard !Task.isCancelled else { return }
+                    if (resp as? HTTPURLResponse)?.statusCode == 200, pcmData.count >= 2 {
+                        self.playPCM24k(pcmData)
+                        return
+                    }
+                } catch {}
+                guard !Task.isCancelled else { return }
+                self.speakWithSystemVoice(cleaned, rate: rate)
+            }
+            return
+        }
+
+        speakWithSystemVoice(cleaned, rate: rate)
+    }
+
+    private func speakWithSystemVoice(_ text: String, rate: Float) {
         let utterance = AVSpeechUtterance(string: text)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-GB") ?? AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = rate
@@ -244,7 +282,51 @@ public final class BioSpeechSynthesizer: ObservableObject {
         isSpeaking = true
     }
 
+    private func playPCM24k(_ pcm16Data: Data) {
+        guard let format = AVAudioFormat(commonFormat: .pcmFormatInt16, sampleRate: 24_000, channels: 1, interleaved: true) else {
+            speakWithSystemVoice("", rate: 0.48)
+            return
+        }
+        let frameCount = AVAudioFrameCount(pcm16Data.count / 2)
+        guard frameCount > 0,
+              let pcmBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount)
+        else { return }
+        pcmBuffer.frameLength = frameCount
+        if let dst = pcmBuffer.int16ChannelData?[0] {
+            pcm16Data.withUnsafeBytes { raw in
+                if let base = raw.baseAddress {
+                    memcpy(dst, base, Int(frameCount) * 2)
+                }
+            }
+        }
+        do {
+            if audioEngine == nil {
+                let engine = AVAudioEngine()
+                let player = AVAudioPlayerNode()
+                engine.attach(player)
+                engine.connect(player, to: engine.mainMixerNode, format: format)
+                try engine.start()
+                self.audioEngine = engine
+                self.playerNode = player
+            }
+            guard let player = playerNode else { return }
+            player.stop()
+            player.scheduleBuffer(pcmBuffer) { [weak self] in
+                Task { @MainActor in
+                    self?.isSpeaking = false
+                }
+            }
+            player.play()
+            isSpeaking = true
+        } catch {
+            isSpeaking = false
+        }
+    }
+
     public func stop() {
+        elevenTask?.cancel()
+        elevenTask = nil
+        playerNode?.stop()
         synthesizer.stopSpeaking(at: .immediate)
         isSpeaking = false
     }

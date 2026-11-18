@@ -33,7 +33,7 @@ struct JournalCard<Media: View, Content: View, Footer: View>: View {
     private var hasFooter: Bool { Footer.self != EmptyView.self }
 
     var body: some View {
-        let shape = RoundedRectangle(cornerRadius: CornerRadius.card, style: .continuous)
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
         VStack(alignment: .leading, spacing: 0) {
             if hasMedia {
                 media
@@ -49,9 +49,14 @@ struct JournalCard<Media: View, Content: View, Footer: View>: View {
             .padding(JournalLayout.cardInsets(hasMedia: hasMedia, hasFooter: hasFooter))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.kymaiaSurface)
+        .background(Color.kymaiaSurface, in: shape)
         .clipShape(shape)
-        .kymaiaCardChrome(shape, increasedContrast: contrast == .increased)
+        .overlay(
+            shape.strokeBorder(
+                contrast == .increased ? Color.kymaiaControlBorder : Color.kymaiaHairline,
+                lineWidth: 1
+            )
+        )
         .accessibilityElement(children: .contain)
     }
 }

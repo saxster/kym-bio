@@ -298,21 +298,73 @@ final class KymBioLiveAIClient: ObservableObject {
 
     @Published var budgetSnapshot: AIBudgetSnapshot
 
+    private let familyKeychain = KymLiveFamilyKeychain()
+
     var configuredAPIKey: String {
         get {
             if let envKey = ProcessInfo.processInfo.environment["GEMINI_API_KEY"], !envKey.isEmpty {
                 return envKey
             }
+            if let familyKey = familyKeychain.loadGeminiAPIKey(), !familyKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                return familyKey
+            }
             return UserDefaults.standard.string(forKey: Self.apiKeyStorageKey) ?? ""
         }
         set {
-            UserDefaults.standard.set(newValue.trimmingCharacters(in: .whitespacesAndNewlines), forKey: Self.apiKeyStorageKey)
+            let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            UserDefaults.standard.set(trimmed, forKey: Self.apiKeyStorageKey)
+            try? familyKeychain.saveAPIKey(trimmed, provider: "gemini")
             objectWillChange.send()
         }
     }
 
-    var hasLiveAPIKey: Bool {
+    var configuredElevenLabsKey: String {
+        get {
+            familyKeychain.loadElevenLabsAPIKey() ?? ""
+        }
+        set {
+            let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            try? familyKeychain.saveElevenLabsAPIKey(trimmed)
+            objectWillChange.send()
+        }
+    }
+
+    var hasGeminiKey: Bool {
         !configuredAPIKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    var hasElevenLabsKey: Bool {
+        !configuredElevenLabsKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    var hasLiveAPIKey: Bool {
+        hasGeminiKey || hasElevenLabsKey
+    }
+
+    var activeVoiceProviderMode: KymLiveVoiceProviderMode {
+        familyKeychain.loadPreferredVoiceProviderMode()
+    }
+
+    var activeBritishVoicePreset: KymLiveBritishVoicePreset {
+        KymLiveBritishVoiceCatalog.preset(forID: familyKeychain.loadPreferredBritishVoiceID())
+    }
+
+    var activeEngineBadgeLabel: String {
+        let preset = activeBritishVoicePreset.displayName.components(separatedBy: " · ").first ?? "Charlotte"
+        if hasGeminiKey && hasElevenLabsKey {
+            return "Full-Duplex + ElevenLabs · \(preset) (en-GB)"
+        }
+        if hasGeminiKey {
+            return "Gemini Live Duplex · \(preset) (en-GB)"
+        }
+        if hasElevenLabsKey {
+            return "ElevenLabs en-GB · \(preset)"
+        }
+        return "Local Grounded Tutor · Set Keys"
+    }
+
+    func refreshCredentialsFromFamilyKeychain() {
+        objectWillChange.send()
     }
 
     private init() {
@@ -450,5 +502,171 @@ final class KymBioLiveAIClient: ObservableObject {
         budgetSnapshot.totalRequests += 1
         budgetSnapshot.lastProviderUsed = "Local Grounded Biology Engine"
         persistLedger()
+    }
+}
+
+// MARK: - 4. Full-Duplex 1-on-1 Live Voice Tutor Controller (Gemini Live Duplex + ElevenLabs en-GB)
+
+@MainActor
+final class KymBioFullDuplexTutorController: ObservableObject {
+    @Published var connectionState: BookKitLiveVoiceClient.ConnectionState = .disconnected
+    @Published var isThinkingHoldActive: Bool = false
+    @Published var statusLine: String = "Ready · 1-on-1 Full-Duplex Tutor (British English en-GB)"
+    @Published var latestMentorUtterance: String = ""
+
+    private let familyKeychain = KymLiveFamilyKeychain()
+    private var voiceClient: BookKitLiveVoiceClient?
+    private var accumulatedMentorText: String = ""
+    private var accumulatedLearnerText: String = ""
+
+    var onTurnCompleted: ((_ learnerTranscript: String?, _ mentorTranscript: String, _ engineTag: String) -> Void)?
+    var onSafetyIntervention: ((String) -> Void)?
+
+    var isLiveCallActive: Bool {
+        connectionState != .disconnected
+    }
+
+    func toggleLiveSession(
+        chapterContext: String,
+        persona: TutorPersona,
+        guidanceStyle: TutorGuidanceStyle
+    ) {
+        if isLiveCallActive {
+            stopLiveSession()
+        } else {
+            startLiveSession(
+                chapterContext: chapterContext,
+                persona: persona,
+                guidanceStyle: guidanceStyle
+            )
+        }
+    }
+
+    func startLiveSession(
+        chapterContext: String,
+        persona: TutorPersona,
+        guidanceStyle: TutorGuidanceStyle
+    ) {
+        stopLiveSession()
+        let geminiKey = KymBioLiveAIClient.shared.configuredAPIKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        let elevenKey = KymBioLiveAIClient.shared.configuredElevenLabsKey.trimmingCharacters(in: .whitespacesAndNewlines)
+        let preset = KymLiveBritishVoiceCatalog.preset(forID: familyKeychain.loadPreferredBritishVoiceID())
+        let modelTier = familyKeychain.loadPreferredLiveModelTier()
+        let thinkingTier = familyKeychain.loadPreferredThinkingTier()
+
+        let client = BookKitLiveVoiceClient(
+            profile: .kymBio,
+            modelTier: modelTier,
+            thinkingTier: thinkingTier
+        )
+        self.voiceClient = client
+        self.accumulatedMentorText = ""
+        self.accumulatedLearnerText = ""
+        self.isThinkingHoldActive = false
+
+        let instruction = """
+        You are \(preset.displayName) (\(persona.name)), Kym's 1-on-1 British English (en-GB) biology tutor for \(chapterContext).
+        - Speak in warm, natural British English (en-GB): colour, centre, metre, litre, haemoglobin, oesophagus.
+        - Teach from first principles (the physical/cellular mechanism before the technical label), in under 60 words (~12 seconds) per turn.
+        - Guidance style: \(guidanceStyle.label). If Kym says 'just explain', give a clear step-by-step explanation immediately.
+        """
+
+        client.onStateChange = { [weak self] newState in
+            guard let self else { return }
+            self.connectionState = newState
+            switch newState {
+            case .disconnected:
+                self.statusLine = "Ready · 1-on-1 Full-Duplex Tutor (British English en-GB)"
+            case .connecting:
+                self.statusLine = "Connecting 1-on-1 Live Voice (\(preset.displayName))…"
+            case .listening:
+                self.statusLine = self.isThinkingHoldActive
+                    ? "Thinking Hold · Microphone paused while you think"
+                    : "Live Full-Duplex · Listening (\(preset.displayName) · en-GB)"
+            case .speaking:
+                self.statusLine = "Tutor Speaking (\(preset.displayName)) · Speak anytime to barge in"
+            case .interrupted:
+                self.statusLine = "Interrupted · Listening to you (\(preset.displayName))"
+            }
+        }
+
+        client.onLearnerTranscript = { [weak self] fragment in
+            self?.accumulatedLearnerText += fragment
+        }
+
+        client.onMentorTranscript = { [weak self] fragment in
+            guard let self else { return }
+            self.accumulatedMentorText += fragment
+            self.latestMentorUtterance = self.accumulatedMentorText
+        }
+
+        client.onPolicyFallback = { [weak self] fallback in
+            self?.onSafetyIntervention?(fallback)
+        }
+
+        client.onTurnComplete = { [weak self] in
+            guard let self else { return }
+            let mentorOut = self.accumulatedMentorText.trimmingCharacters(in: .whitespacesAndNewlines)
+            let learnerOut = self.accumulatedLearnerText.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.accumulatedMentorText = ""
+            self.accumulatedLearnerText = ""
+            guard !mentorOut.isEmpty else { return }
+            let tag = !geminiKey.isEmpty && !elevenKey.isEmpty
+                ? "Gemini Live Duplex + ElevenLabs en-GB (\(preset.displayName))"
+                : (!geminiKey.isEmpty ? "Gemini Live Full-Duplex (\(preset.displayName))" : "ElevenLabs en-GB (\(preset.displayName))")
+            self.onTurnCompleted?(learnerOut.isEmpty ? nil : learnerOut, mentorOut, tag)
+            if !elevenKey.isEmpty && client.voiceProviderMode == .geminiLiveHybridElevenLabs {
+                BioSpeechSynthesizer.shared.speak(mentorOut)
+            }
+        }
+
+        do {
+            if !geminiKey.isEmpty {
+                try client.connectGeminiLive(
+                    apiKey: geminiKey,
+                    elevenLabsKey: elevenKey.isEmpty ? nil : elevenKey,
+                    model: modelTier.rawValue,
+                    voicePreset: preset,
+                    surfaceInstruction: instruction,
+                    enableHardwareAudio: true
+                )
+            } else if !elevenKey.isEmpty {
+                try client.connectElevenLabsBritish(
+                    elevenLabsKey: elevenKey,
+                    voicePreset: preset,
+                    surfaceInstruction: instruction,
+                    enableHardwareAudio: true
+                )
+                BioSpeechSynthesizer.shared.speak("Hello Kym! I am \(preset.displayName). We are looking at \(chapterContext). What would you like to explore together?")
+            } else {
+                connectionState = .listening
+                statusLine = "Live Tutor Ready (Local British Voice · Add Gemini Live or ElevenLabs key in Settings for cloud full-duplex)"
+                BioSpeechSynthesizer.shared.speak("Hello Kym! I am your one-on-one biology tutor for \(chapterContext). You can add your Gemini Live or ElevenLabs API key in Settings anytime for cloud full-duplex voice.")
+            }
+        } catch {
+            statusLine = "Could not start live voice session: \(error.localizedDescription)"
+            connectionState = .disconnected
+        }
+    }
+
+    func toggleThinkingHold() {
+        isThinkingHoldActive.toggle()
+        voiceClient?.conductor.handleFloorCommand(isThinkingHoldActive ? .giveMeAMoment : .letMeTryAgain)
+        if isThinkingHoldActive {
+            BioSpeechSynthesizer.shared.stop()
+            statusLine = "Thinking Hold · Microphone paused while you think"
+        } else if isLiveCallActive {
+            let preset = KymLiveBritishVoiceCatalog.preset(forID: familyKeychain.loadPreferredBritishVoiceID())
+            statusLine = "Live Full-Duplex · Listening (\(preset.displayName) · en-GB)"
+        }
+    }
+
+    func stopLiveSession() {
+        BioSpeechSynthesizer.shared.stop()
+        voiceClient?.disconnect()
+        voiceClient = nil
+        isThinkingHoldActive = false
+        connectionState = .disconnected
+        statusLine = "Ready · 1-on-1 Full-Duplex Tutor (British English en-GB)"
     }
 }

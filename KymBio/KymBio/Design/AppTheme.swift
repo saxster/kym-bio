@@ -322,6 +322,13 @@ struct KymBioAppearanceSettingsSheet: View {
                     StandardThemeGallery()
                 }
 
+                // 6. 1-on-1 Full-Duplex Voice Tutor & ElevenLabs British Voice (en-GB) API Keys
+                BookKitVoiceAndTutorSettingsCard(initiallyUnlocked: true) { geminiKey, elevenKey in
+                    KymBioLiveAIClient.shared.configuredAPIKey = geminiKey
+                    KymBioLiveAIClient.shared.configuredElevenLabsKey = elevenKey
+                    KymBioLiveAIClient.shared.refreshCredentialsFromFamilyKeychain()
+                }
+
                 Button("Reset to Herbarium Defaults") {
                     applyProfile(.read)
                 }

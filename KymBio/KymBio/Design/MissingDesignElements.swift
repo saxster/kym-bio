@@ -56,19 +56,19 @@ extension StrokeWidth {
 public struct KymaiaSecondaryButtonStyle: ButtonStyle {
     public init() {}
     public func makeBody(configuration: Configuration) -> some View {
-        configuration.label
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        return configuration.label
             .padding()
             .frame(minHeight: 44)
-            .contentShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .background(Color.kymaiaPrimary.opacity(configuration.isPressed ? 0.18 : 0.12))
-            .foregroundColor(.kymaiaPrimaryStrong)
+            .contentShape(shape)
+            .background(Color.kymaiaSurface.opacity(configuration.isPressed ? 0.85 : 1.0))
+            .foregroundColor(.kymaiaInk)
             .overlay(
-                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
-                    .strokeBorder(Color.kymaiaControlBorder, lineWidth: StrokeWidth.light)
+                shape.strokeBorder(Color.kymaiaControlBorder, lineWidth: StrokeWidth.thin)
             )
-            .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .kymaiaPointerHighlight(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .clipShape(shape)
+            .kymaiaPointerHighlight(shape)
+            .scaleEffect(configuration.isPressed ? 0.99 : 1.0)
     }
 }
 
@@ -79,29 +79,32 @@ public struct KymaiaOptionButtonStyle: ButtonStyle {
     var isCorrect: Bool?
 
     public func makeBody(configuration: Configuration) -> some View {
-        configuration.label
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        return configuration.label
             .padding()
             .frame(minHeight: 44)
-            .contentShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .background(isSelected ? (isCorrect == true ? Color.kymaiaSuccess : Color.kymaiaPrimary) : Color.kymaiaSurface)
+            .contentShape(shape)
+            .background(isSelected ? (isCorrect == true ? Color.kymaiaSuccess : Color.kymaiaInk) : Color.kymaiaSurface)
             .foregroundColor(isSelected ? Color.kymaiaBackground : Color.kymaiaInk)
             .overlay(
-                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
-                    .strokeBorder(Color.kymaiaControlBorder, lineWidth: StrokeWidth.light)
+                shape.strokeBorder(isSelected ? Color.kymaiaInk : Color.kymaiaControlBorder, lineWidth: StrokeWidth.thin)
             )
-            .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .kymaiaPointerHighlight(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .clipShape(shape)
+            .kymaiaPointerHighlight(shape)
+            .scaleEffect(configuration.isPressed ? 0.99 : 1.0)
     }
 }
 
 public struct KymaiaCardStyleModifier: ViewModifier {
     public func body(content: Content) -> some View {
-        content
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        return content
             .padding()
             .background(Color.kymaiaSurface)
-            .clipShape(RoundedRectangle(cornerRadius: CornerRadius.card, style: .continuous))
-            .kymaiaCardChrome(RoundedRectangle(cornerRadius: CornerRadius.card, style: .continuous))
+            .clipShape(shape)
+            .overlay(
+                shape.strokeBorder(Color.kymaiaHairline, lineWidth: StrokeWidth.thin)
+            )
     }
 }
 
@@ -114,29 +117,37 @@ extension View {
 public struct KymaiaPrimaryButtonStyle: ButtonStyle {
     public init() {}
     public func makeBody(configuration: Configuration) -> some View {
-        configuration.label
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        return configuration.label
             .padding()
             .frame(minHeight: 44)
-            .contentShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .background(Color.kymaiaPrimary.opacity(configuration.isPressed ? 0.76 : 1))
+            .contentShape(shape)
+            .background(Color.kymaiaInk.opacity(configuration.isPressed ? 0.82 : 1))
             .foregroundColor(Color.kymaiaBackground)
-            .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .kymaiaPointerHighlight(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .overlay(
+                shape.strokeBorder(Color.kymaiaInk, lineWidth: StrokeWidth.thin)
+            )
+            .clipShape(shape)
+            .kymaiaPointerHighlight(shape)
+            .scaleEffect(configuration.isPressed ? 0.99 : 1.0)
     }
 }
 
 public struct SessionGhostButtonStyle: ButtonStyle {
     public init() {}
     public func makeBody(configuration: Configuration) -> some View {
-        configuration.label
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        return configuration.label
             .font(.kymaiaControlLabel)
             .padding(.horizontal, Spacing.md)
             .padding(.vertical, Spacing.xs)
             .frame(minHeight: 36)
-            .background(Color.kymaiaControlFill.opacity(configuration.isPressed ? 0.9 : 0.6))
-            .foregroundStyle(Color.kymaiaPrimaryStrong)
-            .clipShape(Capsule())
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .background(Color.kymaiaSurface.opacity(configuration.isPressed ? 0.9 : 0.6))
+            .foregroundStyle(Color.kymaiaInk)
+            .overlay(
+                shape.strokeBorder(Color.kymaiaControlBorder, lineWidth: StrokeWidth.thin)
+            )
+            .clipShape(shape)
+            .scaleEffect(configuration.isPressed ? 0.99 : 1.0)
     }
 }

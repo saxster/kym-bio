@@ -155,19 +155,30 @@ struct JournalChip: View {
     }
 
     private var chipContent: some View {
-        HStack(spacing: 4) {
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        return HStack(alignment: .firstTextBaseline, spacing: 5) {
             if let systemImage {
                 Image(systemName: systemImage)
                     .font(.kymaiaCaption)
+                    .imageScale(.small)
             }
             Text(text)
                 .font(.kymaiaCaption.weight(.semibold))
+                .fixedSize(horizontal: false, vertical: true)
         }
         .foregroundStyle(isFilter ? (isSelected ? Color.kymaiaBackground : Color.kymaiaInk) : foreground)
-        .padding(.horizontal, Spacing.sm + 1)
-        .padding(.vertical, Spacing.xs)
-        .background(isFilter ? (isSelected ? Color.kymaiaInk : Color.clear) : fill, in: Capsule())
-        .overlay(Capsule().stroke(isFilter && !isSelected ? Color.kymaiaHairline : Color.clear, lineWidth: 1))
+        .padding(.horizontal, Spacing.sm + 2)
+        .padding(.vertical, Spacing.xs + 1)
+        .background(shape.fill(isFilter ? (isSelected ? Color.kymaiaInk : Color.clear) : Color.kymaiaSurface))
+        .overlay(
+            shape.strokeBorder(
+                isFilter
+                    ? (isSelected ? Color.clear : Color.kymaiaControlBorder)
+                    : Color.kymaiaHairline,
+                lineWidth: 1
+            )
+        )
+        .contentShape(shape)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
@@ -184,18 +195,81 @@ struct JournalChip: View {
         case .warn: return Color.kymaiaWarning
         }
     }
+}
 
-    private var fill: Color {
-        switch tone {
-        case .accent: return Color.kymaiaSelectionFill
-        case .muted: return Color.kymaiaControlFill
-        case .success: return Color.kymaiaSuccess.opacity(0.14)
-        case .warn: return Color.kymaiaWarning.opacity(0.16)
-        }
+/// Editorial print hairline rule (modeled after `learn_language` `PolyglotRule`: 1pt hairline, preferred over nested boxes).
+struct EditorialRule: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.kymaiaHairline)
+            .frame(height: 1)
+            .accessibilityHidden(true)
     }
 }
 
-/// A card's primary or secondary action: an accent, tinted, or ghost capsule, at least 44 points tall.
+/// Editorial choice button for aligned multi-option grids (modeled after `learn_language` `EditorialChoice` & `polyglotSelectionInversion`):
+/// - Every cell fills its grid column (`maxWidth: .infinity`, `minHeight: 44`) so all choices align on left and right edges.
+/// - Active choice uses solid ink inversion (`Color.kymaiaInk` ground, `Color.kymaiaBackground` text).
+/// - Inactive choice uses crisp `4pt` (`CornerRadius.micro`) corners and a `1pt` `Color.kymaiaControlBorder` outline on paper ground (zero muddy shaded wash).
+struct EditorialAlignedChoiceButton: View {
+    let title: String
+    var subtitle: String? = nil
+    var systemImage: String? = nil
+    let isSelected: Bool
+    var identifier: String = ""
+    let action: () -> Void
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        Button(action: action) {
+            HStack(alignment: .firstTextBaseline, spacing: Spacing.xs + 2) {
+                if let systemImage {
+                    Image(systemName: systemImage)
+                        .font(.kymaiaCaption.weight(.semibold))
+                        .imageScale(.small)
+                        .opacity(isSelected ? 0.95 : 0.78)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.kymaiaControlLabel)
+                        .fixedSize(horizontal: false, vertical: true)
+                    if let subtitle, !subtitle.isEmpty {
+                        Text(subtitle)
+                            .font(.kymaiaCaption)
+                            .opacity(0.82)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                if isSelected {
+                    Image(systemName: "checkmark")
+                        .font(.kymaiaCaption.weight(.bold))
+                        .imageScale(.small)
+                        .accessibilityHidden(true)
+                }
+            }
+            .multilineTextAlignment(.leading)
+            .padding(.horizontal, Spacing.sm + 4)
+            .padding(.vertical, Spacing.xs + 3)
+            .frame(maxWidth: .infinity, minHeight: Theme.Dimension.minimumTarget, maxHeight: .infinity, alignment: .leading)
+            .foregroundStyle(isSelected ? Color.kymaiaBackground : Color.kymaiaInk)
+            .background(shape.fill(isSelected ? Color.kymaiaInk : Color.clear))
+            .overlay(
+                shape.strokeBorder(isSelected ? Color.clear : Color.kymaiaControlBorder, lineWidth: 1)
+            )
+            .contentShape(shape)
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? [.isSelected, .isButton] : .isButton)
+        .accessibilityIdentifier(identifier)
+    }
+}
+
+/// A card's primary or secondary action modeled after `learn_language`'s `PolyglotCapsuleButtonStyle`:
+/// - Crisp `4pt` (`CornerRadius.micro`) corners instead of bloated `Capsule()` ovals.
+/// - `.filled`: solid ink inversion (`Color.kymaiaInk` fill, `Color.kymaiaBackground` text).
+/// - `.tinted` / `.ghost`: crisp `1pt` `Color.kymaiaControlBorder` outline on clear/surface ground, zero muddy shaded fill.
 struct JournalCapsuleButtonStyle: ButtonStyle {
     enum Prominence: Equatable, Sendable {
         case filled
@@ -210,43 +284,37 @@ struct JournalCapsuleButtonStyle: ButtonStyle {
 
     var prominence: Prominence = .filled
     var size: Size = .regular
+    @Environment(\.isEnabled) private var isEnabled
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
+        let shape = RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+        let filled = prominence == .filled && isEnabled
+        return configuration.label
+            .labelStyle(EditorialBaselineLabelStyle())
             .font(size == .small ? .kymaiaCaption.weight(.semibold) : .kymaiaControlLabel)
-            .foregroundStyle(foregroundStyle)
-            .padding(.horizontal, size == .small ? Spacing.md - 2 : Spacing.md + 2)
-            .padding(.vertical, size == .small ? Spacing.xs + 2 : Spacing.sm)
+            .fixedSize(horizontal: false, vertical: true)
+            .foregroundStyle(!isEnabled ? Color.kymaiaMutedInk : (filled ? Color.kymaiaBackground : Color.kymaiaInk))
+            .padding(.horizontal, size == .small ? Spacing.sm + 4 : Spacing.md + 2)
+            .padding(.vertical, size == .small ? Spacing.xs + 3 : Spacing.sm)
             .frame(minHeight: Theme.Dimension.minimumTarget)
-            .background(backgroundFill(isPressed: configuration.isPressed), in: Capsule())
+            .background(shape.fill(filled ? Color.kymaiaInk : (configuration.isPressed ? Color.kymaiaControlFill : Color.clear)))
             .overlay(
-                Capsule()
-                    .strokeBorder(borderColor, lineWidth: prominence == .ghost ? 1 : 0)
+                shape.strokeBorder(
+                    filled ? Color.clear : Color.kymaiaControlBorder,
+                    style: StrokeStyle(lineWidth: 1, dash: isEnabled ? [] : [3, 3])
+                )
             )
-            .contentShape(Capsule())
-            .kymaiaPointerHighlight(Capsule())
+            .contentShape(shape)
+            .opacity(isEnabled && configuration.isPressed ? 0.76 : 1.0)
     }
+}
 
-    private var foregroundStyle: Color {
-        switch prominence {
-        case .filled: return Color.kymaiaBackground
-        case .tinted: return Color.kymaiaPrimaryStrong
-        case .ghost: return Color.kymaiaInk
+/// Icon and title on one baseline, the icon a step quieter (ported from `learn_language` `EditorialLabelStyle`).
+struct EditorialBaselineLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 6) {
+            configuration.icon.imageScale(.small).opacity(0.85)
+            configuration.title
         }
-    }
-
-    private func backgroundFill(isPressed: Bool) -> Color {
-        let base: Color = {
-            switch prominence {
-            case .filled: return Color.kymaiaPrimary
-            case .tinted: return Color.kymaiaSelectionFill
-            case .ghost: return Color.kymaiaSurface
-            }
-        }()
-        return isPressed ? base.opacity(0.75) : base
-    }
-
-    private var borderColor: Color {
-        prominence == .ghost ? Color.kymaiaControlBorder : .clear
     }
 }

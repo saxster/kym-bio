@@ -48,6 +48,10 @@ targets:
         product: KymLearning
       - package: TeachingKit
         product: KymTutorAI
+      - package: TeachingKit
+        product: KymLiveVoice
+      - package: TeachingKit
+        product: KymBookKit
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio
@@ -94,6 +98,10 @@ targets:
         product: KymLearning
       - package: TeachingKit
         product: KymTutorAI
+      - package: TeachingKit
+        product: KymLiveVoice
+      - package: TeachingKit
+        product: KymBookKit
       - target: KymBioWidgets
         embed: true
       - target: KymBioShareExtension

@@ -43,6 +43,7 @@
 		334665F3CBF2AF14010F9D06 /* BiologyMemoryPalaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F3D8EA49EB9CDD2F69ABDA /* BiologyMemoryPalaceView.swift */; };
 		34B11BA55E0D622AA431E8DC /* TutorProfileRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B07D3F832FF43B013ADFBC2 /* TutorProfileRegistrationTests.swift */; };
 		34FD8B422F458D910826CBCC /* LivingWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E14A30B5BC7617CA23FE6F /* LivingWorldWebStageView.swift */; };
+		3BDB51F76953134FC598DEB3 /* KymLiveVoice in Frameworks */ = {isa = PBXBuildFile; productRef = 3CCF5681D3BE8D931154B042 /* KymLiveVoice */; };
 		3F182D38A2E951B2E534F306 /* KymBioDomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A6F4FF3D0548775512FB0 /* KymBioDomainTests.swift */; };
 		3F51C1C18E3D7379A65564D6 /* SortClassifyVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E6C70B5B5773239774B059 /* SortClassifyVisual.swift */; };
 		4129F821B7C344A90D14FE66 /* PHScaleVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6BD0FCCCA9C55ABAEACD9F /* PHScaleVisual.swift */; };
@@ -72,6 +73,7 @@
 		64587DED37EC9283D1D1CDF1 /* SubjectTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F127F5D8874861F36CED6A4E /* SubjectTip.swift */; };
 		66322E6D934E4FEC66309161 /* BiologyClaimAutopsyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F95F848FB8E51D04DDB06 /* BiologyClaimAutopsyView.swift */; };
 		67AB8CFA03725D1BB58D079E /* KymBioAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82277DA223CD7386C66F33BD /* KymBioAppIntents.swift */; };
+		67CC8F7EBC84752C851D0736 /* VoiceCoachAndSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB60DB78CBB354830923E28 /* VoiceCoachAndSettingsTests.swift */; };
 		688FFE0740583DA3EF50C8B0 /* MentorPersonasAndCouncil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F289F4810568415F2351A8D8 /* MentorPersonasAndCouncil.swift */; };
 		6E4AD8450B38CEEBFEDDAF09 /* SubjectTipVisualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB402C42356C7AC0C963B2E /* SubjectTipVisualView.swift */; };
 		7344869EA1A16B58F497837C /* SliderRelationVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4094E4DAF9DD569559F8749C /* SliderRelationVisual.swift */; };
@@ -104,6 +106,7 @@
 		9F9A738911E30B35B9DF860F /* SystemSurfaceSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF9113970EC37568792E396 /* SystemSurfaceSnapshotStore.swift */; };
 		A00776737D14E57AD1133A52 /* KymDesign in Frameworks */ = {isa = PBXBuildFile; productRef = 83C2F5EE83E8F413713F22C9 /* KymDesign */; };
 		A12A9AED906E6F88AA6DB52D /* LearningEngines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FEA855828D865527E94A13 /* LearningEngines.swift */; };
+		A33211361CDEF756B89731FA /* KymBookKit in Frameworks */ = {isa = PBXBuildFile; productRef = E1276332702E13757F6B0EA6 /* KymBookKit */; };
 		A5657028A249700841065238 /* KymBioShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D18F10BB3F56E417E14288AC /* KymBioShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A768252794D9D9790E2E5C06 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 1733F6CC961F765CA9E2A533 /* GRDB */; };
 		A7BAB27A935B0FDD00F9EEBA /* Info-iPad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7EC29F5CAC4DB87F80EF49D8 /* Info-iPad.plist */; };
@@ -127,6 +130,7 @@
 		C8B174D3C1AAC06F4F7B203C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3BB03481AA6E2E94B726495 /* Assets.xcassets */; };
 		C908CE0A48A64ADAE04E2EDE /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295575BBC7B389AA38535147 /* JournalCard.swift */; };
 		CC257D0BFF8DBF6F8DF8820C /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = B026F68BA5DFEDB39B1D7A4C /* GRDB */; };
+		CCBE052787866A452F3C8259 /* KymLiveVoice in Frameworks */ = {isa = PBXBuildFile; productRef = B99F63B88D1F60F821B00DAD /* KymLiveVoice */; };
 		CEB9BD6F88E59EC109E525D4 /* LivingWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E14A30B5BC7617CA23FE6F /* LivingWorldWebStageView.swift */; };
 		CF17A427F1EBC2D60CFCE326 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2E0EE5C6A4BB211E4B87E0 /* DatabaseManager.swift */; };
 		D2532A15C1F21EA9E8052A3E /* CircuitToggleVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE79A1BCCA12DF0AFC56893 /* CircuitToggleVisual.swift */; };
@@ -145,6 +149,7 @@
 		E1CB3115314F506454DFBDE7 /* TutorAI+KymBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450F2A793751C6E0D77CFFE2 /* TutorAI+KymBio.swift */; };
 		E28F67689AD5B9CF25EA96C2 /* LabsAtlasHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EE7A675E9468CD6D8CD965 /* LabsAtlasHomeView.swift */; };
 		E59C716F93E2D8A5C8925D53 /* LabJournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C84E5FB736919474439ECD3 /* LabJournalHomeView.swift */; };
+		E61300CF39495CC84B1876A7 /* KymBookKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5F2807CED7C5AC2627DC9480 /* KymBookKit */; };
 		E62CA3AE6A6F556089C792F3 /* SystemSurfaceSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF9113970EC37568792E396 /* SystemSurfaceSnapshotStore.swift */; };
 		EA99A2173F795FD8C96F6800 /* KymBioWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD351C75CF064804B688D92F /* KymBioWidgets.swift */; };
 		F0D7ABC16F5EDE432377AC78 /* TodayHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E46D9FB67FAB5991915697 /* TodayHomeView.swift */; };
@@ -211,6 +216,7 @@
 		1A6696E3D2E17FC6D06D7EE2 /* BioVisualIllustrationCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioVisualIllustrationCanvas.swift; sourceTree = "<group>"; };
 		1C2E0EE5C6A4BB211E4B87E0 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		1DBE06B4322788A9DF654609 /* AtomBuilderVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomBuilderVisual.swift; sourceTree = "<group>"; };
+		1FB60DB78CBB354830923E28 /* VoiceCoachAndSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCoachAndSettingsTests.swift; sourceTree = "<group>"; };
 		24FBD5BCAAF2B7301D16F13A /* TextbookPageScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextbookPageScannerView.swift; sourceTree = "<group>"; };
 		2540EFAC8517C19F9F4D338E /* BiologyBreathingAndResilienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiologyBreathingAndResilienceView.swift; sourceTree = "<group>"; };
 		295575BBC7B389AA38535147 /* JournalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalCard.swift; sourceTree = "<group>"; };
@@ -298,6 +304,8 @@
 				F283CA7D655452BB0D876339 /* KymDesign in Frameworks */,
 				21DA4F341C8E0C05051A3FB9 /* KymLearning in Frameworks */,
 				4E2FA1361B78D7CFDFFD1477 /* KymTutorAI in Frameworks */,
+				CCBE052787866A452F3C8259 /* KymLiveVoice in Frameworks */,
+				E61300CF39495CC84B1876A7 /* KymBookKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +325,8 @@
 				A00776737D14E57AD1133A52 /* KymDesign in Frameworks */,
 				4B12C925EACE2BAF1E111036 /* KymLearning in Frameworks */,
 				547F5473B95C8001C1EEF8C8 /* KymTutorAI in Frameworks */,
+				3BDB51F76953134FC598DEB3 /* KymLiveVoice in Frameworks */,
+				A33211361CDEF756B89731FA /* KymBookKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +666,7 @@
 				BC130BF8B612FDEE95D044C9 /* ThemeCharacterizationTests.swift */,
 				700EA41CF63B4E37254B24AF /* ThemeTests.swift */,
 				8B07D3F832FF43B013ADFBC2 /* TutorProfileRegistrationTests.swift */,
+				1FB60DB78CBB354830923E28 /* VoiceCoachAndSettingsTests.swift */,
 				FE337D513FAB74ABCECBEF1E /* Golden */,
 			);
 			path = Tests;
@@ -761,6 +772,8 @@
 				83C2F5EE83E8F413713F22C9 /* KymDesign */,
 				1C7CB85A228E5A38882E2EE5 /* KymLearning */,
 				F89A1F2225703E10EB51253A /* KymTutorAI */,
+				3CCF5681D3BE8D931154B042 /* KymLiveVoice */,
+				E1276332702E13757F6B0EA6 /* KymBookKit */,
 			);
 			productName = "KymBio-iPad";
 			productReference = FD3507C510FBB2A104C64BF7 /* KymBio-iPad.app */;
@@ -822,6 +835,8 @@
 				C01B64FF1FAE1B25D3EA726D /* KymDesign */,
 				C0FCFF33D5247C7963832F4A /* KymLearning */,
 				D52F370A50EBFE8D75ECEF2B /* KymTutorAI */,
+				B99F63B88D1F60F821B00DAD /* KymLiveVoice */,
+				5F2807CED7C5AC2627DC9480 /* KymBookKit */,
 			);
 			productName = KymBio;
 			productReference = 9BD3AF5B4B3B942DE0A46939 /* KymBio.app */;
@@ -1072,6 +1087,7 @@
 				236AD3D287881A96749728A2 /* ThemeCharacterizationTests.swift in Sources */,
 				F900B6C7A82B5BFE523700F0 /* ThemeTests.swift in Sources */,
 				34B11BA55E0D622AA431E8DC /* TutorProfileRegistrationTests.swift in Sources */,
+				67CC8F7EBC84752C851D0736 /* VoiceCoachAndSettingsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1552,6 +1568,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = KymLearning;
 		};
+		3CCF5681D3BE8D931154B042 /* KymLiveVoice */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLiveVoice;
+		};
+		5F2807CED7C5AC2627DC9480 /* KymBookKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymBookKit;
+		};
 		83C2F5EE83E8F413713F22C9 /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymDesign;
@@ -1560,6 +1584,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B357B7C31C3BE73C1DACE700 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
+		};
+		B99F63B88D1F60F821B00DAD /* KymLiveVoice */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymLiveVoice;
 		};
 		C01B64FF1FAE1B25D3EA726D /* KymDesign */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1572,6 +1600,10 @@
 		D52F370A50EBFE8D75ECEF2B /* KymTutorAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KymTutorAI;
+		};
+		E1276332702E13757F6B0EA6 /* KymBookKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KymBookKit;
 		};
 		F89A1F2225703E10EB51253A /* KymTutorAI */ = {
 			isa = XCSwiftPackageProductDependency;

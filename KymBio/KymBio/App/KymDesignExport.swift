@@ -4,3 +4,7 @@
 @_exported import KymDesign
 @_exported import KymLearning
 @_exported import KymTutorAI
+@_exported import KymLiveVoice
+@_exported import KymBookKit
+@_exported import KymLiveVoice
+@_exported import KymBookKit

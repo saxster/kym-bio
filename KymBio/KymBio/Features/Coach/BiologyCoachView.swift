@@ -28,6 +28,7 @@ enum CoachTabMode: String, CaseIterable, Identifiable, Sendable {
 struct BiologyCoachView: View {
     @EnvironmentObject private var store: AppStore
     @ObservedObject private var liveAIClient = KymBioLiveAIClient.shared
+    @StateObject private var duplexTutor = KymBioFullDuplexTutorController()
     @State private var tabMode: CoachTabMode = .socraticChat
     @State private var selectedPersona: TutorPersona = .marieCurie
     @State private var selectedGuidanceStyle: TutorGuidanceStyle = .adaptive
@@ -41,6 +42,7 @@ struct BiologyCoachView: View {
     @State private var showConstitutionSheet: Bool = false
     @State private var apiKeyDraft: String = ""
     @State private var safetySupportMessage: String? = nil
+    @State private var takeawaySavedBanner: String? = nil
     @State private var messages: [CoachMessage] = [
         CoachMessage(
             isCoach: true,
@@ -84,38 +86,30 @@ struct BiologyCoachView: View {
         .sessionJournalSafetyAlert(message: $safetySupportMessage)
         .sheet(isPresented: $showAPIKeySheet) {
             NavigationStack {
-                VStack(alignment: .leading, spacing: Spacing.md) {
-                    Text("Configure an optional Gemini API key (`GEMINI_API_KEY`) for live cloud Socratic tutoring. When blank or offline, KymBio automatically uses its grounded local Cambridge Science 8 & Living World engine.")
-                        .font(.kymaiaBody)
-                        .foregroundStyle(Color.kymaiaSecondaryInk)
-
-                    SecureField("Paste Gemini API key (optional)", text: $apiKeyDraft)
-                        .learnerTextInput(.reflection)
-                        .textFieldStyle(.roundedBorder)
-
-                    HStack {
-                        JournalChip("Calls: \(liveAIClient.budgetSnapshot.totalRequests)", tone: .neutral)
-                        JournalChip("Provider: \(liveAIClient.budgetSnapshot.lastProviderUsed)", tone: .accent)
-                    }
-
-                    Spacer()
-                }
-                .padding(Spacing.lg)
-                .background(Color.kymaiaBackground)
-                .navigationTitle("AI Tutor Engine & Budget")
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") { showAPIKeySheet = false }
-                    }
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Save") {
-                            liveAIClient.configuredAPIKey = apiKeyDraft
-                            showAPIKeySheet = false
+                ScrollView {
+                    VStack(alignment: .leading, spacing: Spacing.md) {
+                        BookKitVoiceAndTutorSettingsCard(initiallyUnlocked: true) { geminiKey, elevenKey in
+                            liveAIClient.configuredAPIKey = geminiKey
+                            liveAIClient.configuredElevenLabsKey = elevenKey
+                            liveAIClient.refreshCredentialsFromFamilyKeychain()
                         }
+
+                        HStack {
+                            JournalChip("Calls: \(liveAIClient.budgetSnapshot.totalRequests)", tone: .neutral)
+                            JournalChip("Provider: \(liveAIClient.budgetSnapshot.lastProviderUsed)", tone: .accent)
+                        }
+                    }
+                    .padding(Spacing.lg)
+                }
+                .background(Color.kymaiaBackground)
+                .navigationTitle("1-on-1 Voice Tutor & AI Keys")
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Done") { showAPIKeySheet = false }
                     }
                 }
             }
-            .frame(minWidth: 420, minHeight: 260)
+            .frame(minWidth: 480, minHeight: 420)
         }
         .sheet(isPresented: $showConstitutionSheet) {
             NavigationStack {
@@ -174,38 +168,59 @@ struct BiologyCoachView: View {
         }
     }
 
+    private var twoColumnGrid: [GridItem] {
+        [
+            GridItem(.flexible(), spacing: Spacing.xs, alignment: .leading),
+            GridItem(.flexible(), spacing: Spacing.xs, alignment: .leading)
+        ]
+    }
+
     private var modePickerCard: some View {
         JournalCard {
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                HStack {
-                    JournalBadge(symbol: "bubble.left.and.text.bubble.right.fill", tint: .kymaiaPrimary, size: .row)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Active study context: Unit \(store.selectedUnitNumber) · Living World Ch \(store.activeLivingWorldChapter)")
-                            .font(.kymaiaCardTitle)
-                        Text("AI tutor, not a person. Governed by the KymBio AI Constitution (\(TutorConstitution.version)) — you are always in charge of pace and support mode.")
-                            .font(.kymaiaCaption)
-                            .foregroundStyle(Color.kymaiaMutedInk)
-                    }
-                    Spacer()
-                    Button {
-                        showConstitutionSheet = true
-                    } label: {
-                        Label("Constitution & Soul", systemImage: "shield.checkered")
-                    }
-                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
-                    .accessibilityIdentifier("coach.constitution-button")
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("AI TUTOR · UNIT \(store.selectedUnitNumber) · LIVING WORLD CH \(store.activeLivingWorldChapter)")
+                        .font(.kymaiaEyebrow)
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
+                    JournalChip(
+                        text: liveAIClient.activeEngineBadgeLabel,
+                        tone: liveAIClient.hasLiveAPIKey ? .good : .neutral
+                    )
+                }
 
-                    Button {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Active study context: Unit \(store.selectedUnitNumber) · Living World Ch \(store.activeLivingWorldChapter)")
+                        .font(.kymaiaCardTitle)
+                        .foregroundStyle(Color.kymaiaInk)
+                    Text("AI tutor, not a person. Governed by the KymBio AI Constitution (\(TutorConstitution.version)) — you are always in charge of pace and support mode.")
+                        .font(.kymaiaCaption)
+                        .foregroundStyle(Color.kymaiaMutedInk)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                EditorialRule()
+
+                LazyVGrid(columns: twoColumnGrid, spacing: Spacing.xs) {
+                    EditorialAlignedChoiceButton(
+                        title: "Constitution & Soul",
+                        systemImage: "shield.checkered",
+                        isSelected: false,
+                        identifier: "coach.constitution-button"
+                    ) {
+                        showConstitutionSheet = true
+                    }
+
+                    EditorialAlignedChoiceButton(
+                        title: "Voice & AI Keys",
+                        systemImage: liveAIClient.hasLiveAPIKey ? "waveform.circle.fill" : "key.fill",
+                        isSelected: liveAIClient.hasLiveAPIKey || liveAIClient.hasElevenLabsKey,
+                        identifier: "coach.voice-keys-button"
+                    ) {
                         apiKeyDraft = liveAIClient.configuredAPIKey
                         showAPIKeySheet = true
-                    } label: {
-                        Label(
-                            liveAIClient.hasLiveAPIKey ? "Gemini Live Ready" : "Local Grounded Engine",
-                            systemImage: liveAIClient.hasLiveAPIKey ? "sparkles" : "cpu"
-                        )
                     }
-                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                 }
+
                 AdaptiveOptionPicker(
                     "Coach mode",
                     selection: $tabMode,
@@ -217,15 +232,136 @@ struct BiologyCoachView: View {
         }
     }
 
-    // MARK: - 1. Socratic Biology Coach
+    // MARK: - 1. Socratic Biology Coach & 1-on-1 Full-Duplex Voice Tutor
+
+    private var activeStudyContextDescription: String {
+        let activeCh = store.pack.chapters.first(where: { $0.number == store.activeLivingWorldChapter })
+        return "Unit \(store.selectedUnitNumber) · Living World Ch \(store.activeLivingWorldChapter) (\(activeCh?.title ?? "The Living World"))"
+    }
+
+    private var liveDuplexVoiceCard: some View {
+        JournalCard {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("1-ON-1 FULL-DUPLEX VOICE TUTOR · EN-GB")
+                        .font(.kymaiaEyebrow)
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
+                    JournalChip(
+                        text: liveAIClient.activeBritishVoicePreset.displayName,
+                        tone: duplexTutor.isLiveCallActive ? .good : .accent
+                    )
+                }
+
+                Text(duplexTutor.statusLine)
+                    .font(.kymaiaBody)
+                    .foregroundStyle(Color.kymaiaInk)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                EditorialRule()
+
+                EditorialAlignedChoiceButton(
+                    title: duplexTutor.isLiveCallActive ? "End 1-on-1 Live Voice Call" : "Start 1-on-1 Live Voice",
+                    systemImage: duplexTutor.isLiveCallActive ? "phone.down.fill" : "waveform.circle.fill",
+                    isSelected: duplexTutor.isLiveCallActive,
+                    identifier: "coach.live-duplex.toggle"
+                ) {
+                    duplexTutor.onTurnCompleted = { learnerText, mentorText, engineTag in
+                        if let learnerText, !learnerText.isEmpty {
+                            messages.append(CoachMessage(isCoach: false, text: learnerText, contextTag: "Spoken · Unit \(store.selectedUnitNumber)"))
+                        }
+                        messages.append(
+                            CoachMessage(
+                                isCoach: true,
+                                text: mentorText,
+                                contextTag: engineTag,
+                                personaName: selectedPersona.name,
+                                councilApproved: true
+                            )
+                        )
+                    }
+                    duplexTutor.onSafetyIntervention = { supportMsg in
+                        safetySupportMessage = supportMsg
+                    }
+                    duplexTutor.toggleLiveSession(
+                        chapterContext: activeStudyContextDescription,
+                        persona: selectedPersona,
+                        guidanceStyle: selectedGuidanceStyle
+                    )
+                }
+
+                LazyVGrid(columns: twoColumnGrid, spacing: Spacing.xs) {
+                    EditorialAlignedChoiceButton(
+                        title: duplexTutor.isThinkingHoldActive ? "Resume listening" : "Give me a moment",
+                        systemImage: duplexTutor.isThinkingHoldActive ? "play.circle" : "pause.circle",
+                        isSelected: duplexTutor.isThinkingHoldActive,
+                        identifier: "coach.live-duplex.hold"
+                    ) {
+                        duplexTutor.toggleThinkingHold()
+                    }
+
+                    EditorialAlignedChoiceButton(
+                        title: "Test British Voice",
+                        systemImage: "speaker.wave.2.fill",
+                        isSelected: false,
+                        identifier: "coach.live-duplex.test-voice"
+                    ) {
+                        let preset = liveAIClient.activeBritishVoicePreset
+                        BioSpeechSynthesizer.shared.speak(
+                            "Hello Kym! I am \(preset.displayName), your one-on-one British voice tutor for \(activeStudyContextDescription). Ask me anything or interrupt me whenever you want to test an idea."
+                        )
+                    }
+
+                    EditorialAlignedChoiceButton(
+                        title: "Save Call Takeaway",
+                        systemImage: "bookmark.fill",
+                        isSelected: false,
+                        identifier: "coach.live-duplex.save-takeaway"
+                    ) {
+                        saveLatestCoachTakeawayToJournal()
+                    }
+
+                    EditorialAlignedChoiceButton(
+                        title: "ElevenLabs & Gemini Keys",
+                        systemImage: "key.fill",
+                        isSelected: false,
+                        identifier: "coach.live-duplex.keys"
+                    ) {
+                        showAPIKeySheet = true
+                    }
+                }
+
+                if let takeawaySavedBanner {
+                    Text(takeawaySavedBanner)
+                        .font(.kymaiaCaption)
+                        .foregroundStyle(Color.kymaiaSuccess)
+                }
+            }
+        }
+    }
+
+    private func saveLatestCoachTakeawayToJournal() {
+        guard let lastCoach = messages.last(where: { $0.isCoach }) else { return }
+        store.createJournalEntry(
+            title: "1-on-1 Coach Takeaway · Unit \(store.selectedUnitNumber) / Ch \(store.activeLivingWorldChapter)",
+            templateKind: "cornell",
+            paperStyle: "lined",
+            linkedChapter: store.activeLivingWorldChapter,
+            linkedUnit: store.selectedUnitNumber,
+            cuesText: "1-on-1 Voice Tutor (\(liveAIClient.activeBritishVoicePreset.displayName))",
+            bodyText: lastCoach.text,
+            summaryText: String(lastCoach.text.prefix(180))
+        )
+        takeawaySavedBanner = "Saved 1-on-1 Coach takeaway to your Lab Journal."
+    }
 
     private var socraticCoachSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
+            liveDuplexVoiceCard
             mentorControlsCard
             coachPhaseAndPlanCard
 
             JournalSection(title: "Quick Socratic prompts for your active topics") {
-                FlowLayout(spacing: Spacing.xs) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     socraticStarterChip("Why must I say 'energy is released' instead of 'made' in Unit 1.4?")
                     socraticStarterChip("Test me on the 3 components of tobacco smoke in Unit 7.3")
                     socraticStarterChip("Why do biceps and triceps work as an antagonistic pair in Unit 7.4?")
@@ -261,29 +397,34 @@ struct BiologyCoachView: View {
                     }
 
                     JournalCard {
-                        HStack(spacing: Spacing.sm) {
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
                             TextField("Ask a biology question, teach Sparky, or say 'just explain'…", text: $inputPrompt)
                                 .learnerTextInput(.retrieval)
                                 .textFieldStyle(.roundedBorder)
                                 .accessibilityIdentifier("coach.input")
-                            VoiceDictationButton(text: $inputPrompt, label: "Speak")
-                            Button {
-                                sendUserMessage(inputPrompt)
-                                inputPrompt = ""
-                            } label: {
-                                Label(isGeneratingReply ? "Thinking…" : "Send", systemImage: "arrow.up.circle.fill")
-                            }
-                            .buttonStyle(BrassButtonStyle())
-                            .disabled(isGeneratingReply || inputPrompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                            .accessibilityIdentifier("coach.send")
 
-                            if let lastCoach = messages.last(where: { $0.isCoach }) {
+                            HStack(spacing: Spacing.xs) {
+                                VoiceDictationButton(text: $inputPrompt, label: "Speak")
                                 Button {
-                                    BioSpeechSynthesizer.shared.speak(lastCoach.text)
+                                    sendUserMessage(inputPrompt)
+                                    inputPrompt = ""
                                 } label: {
-                                    Label("Read aloud", systemImage: "speaker.wave.2.fill")
+                                    Label(isGeneratingReply ? "Thinking…" : "Send", systemImage: "arrow.up.circle.fill")
                                 }
-                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                                .buttonStyle(BrassButtonStyle())
+                                .disabled(isGeneratingReply || inputPrompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                                .accessibilityIdentifier("coach.send")
+
+                                Spacer()
+
+                                if let lastCoach = messages.last(where: { $0.isCoach }) {
+                                    Button {
+                                        BioSpeechSynthesizer.shared.speak(lastCoach.text)
+                                    } label: {
+                                        Label("Read aloud", systemImage: "speaker.wave.2.fill")
+                                    }
+                                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                                }
                             }
                         }
                     }
@@ -295,125 +436,126 @@ struct BiologyCoachView: View {
     private var mentorControlsCard: some View {
         JournalCard {
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                HStack {
-                    Label("Mentor Persona & Guidance Controls", systemImage: selectedPersona.sfSymbolName)
-                        .font(.kymaiaCaption.weight(.semibold))
-                        .foregroundStyle(Color.kymaiaPrimary)
-                    Spacer()
-                    Text(selectedPersona.tagline)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("MENTOR PERSONA & GUIDANCE CONTROLS")
+                        .font(.kymaiaEyebrow)
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
+                    Text("\(selectedPersona.name) · \(selectedPersona.tagline)")
                         .font(.kymaiaCaption)
                         .foregroundStyle(Color.kymaiaMutedInk)
                 }
 
-                FlowLayout(spacing: Spacing.xs) {
+                LazyVGrid(columns: twoColumnGrid, spacing: Spacing.xs) {
                     ForEach(TutorPersona.allCases) { persona in
-                        Button {
+                        EditorialAlignedChoiceButton(
+                            title: persona.name,
+                            systemImage: persona.sfSymbolName,
+                            isSelected: selectedPersona == persona,
+                            identifier: "coach.persona.\(persona.rawValue)"
+                        ) {
                             selectedPersona = persona
-                        } label: {
-                            Label(persona.name, systemImage: persona.sfSymbolName)
                         }
-                        .buttonStyle(
-                            JournalCapsuleButtonStyle(
-                                prominence: selectedPersona == persona ? .filled : .tinted,
-                                size: .small
-                            )
-                        )
-                        .accessibilityIdentifier("coach.persona.\(persona.rawValue)")
                     }
                 }
 
-                Divider()
+                EditorialRule()
 
-                HStack(spacing: Spacing.md) {
-                    AdaptiveOptionPicker(
-                        "Support style",
-                        selection: $selectedGuidanceStyle,
-                        options: TutorGuidanceStyle.allCases,
-                        titleForOption: \.label
-                    )
-                    .accessibilityIdentifier("coach.guidance-picker")
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: Spacing.sm) {
+                        guidancePickerGroup
+                    }
+                    .frame(minWidth: 620)
 
-                    AdaptiveOptionPicker(
-                        "Intent",
-                        selection: $selectedIntent,
-                        options: MentorIntent.allCases,
-                        titleForOption: \.label
-                    )
-                    .accessibilityIdentifier("coach.intent-picker")
-
-                    AdaptiveOptionPicker(
-                        "Format",
-                        selection: $selectedConversationMode,
-                        options: ConversationMode.allCases,
-                        titleForOption: \.label
-                    )
-                    .accessibilityIdentifier("coach.format-picker")
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
+                        guidancePickerGroup
+                    }
                 }
             }
         }
     }
 
+    @ViewBuilder
+    private var guidancePickerGroup: some View {
+        AdaptiveOptionPicker(
+            "Support style",
+            selection: $selectedGuidanceStyle,
+            options: TutorGuidanceStyle.allCases,
+            titleForOption: \.label
+        )
+        .accessibilityIdentifier("coach.guidance-picker")
+
+        AdaptiveOptionPicker(
+            "Intent",
+            selection: $selectedIntent,
+            options: MentorIntent.allCases,
+            titleForOption: \.label
+        )
+        .accessibilityIdentifier("coach.intent-picker")
+
+        AdaptiveOptionPicker(
+            "Format",
+            selection: $selectedConversationMode,
+            options: ConversationMode.allCases,
+            titleForOption: \.label
+        )
+        .accessibilityIdentifier("coach.format-picker")
+    }
+
     private var coachPhaseAndPlanCard: some View {
         JournalCard {
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                HStack {
-                    Label("4-Phase Teaching Loop · \(lessonPlan.targetTitle)", systemImage: coachPhase.symbolName)
-                        .font(.kymaiaCaption.weight(.semibold))
-                        .foregroundStyle(Color.kymaiaPrimary)
-                    Spacer()
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("4-PHASE TEACHING LOOP · \(lessonPlan.targetTitle.uppercased())")
+                        .font(.kymaiaEyebrow)
+                        .foregroundStyle(Color.kymaiaPrimaryStrong)
                     JournalChip(lessonPlan.activeCheckKind.badgeLabel, systemImage: "sparkles", tone: .accent)
-                    Button("Skip probe & explain directly") {
-                        selectedGuidanceStyle = .explainDirectly
-                        coachPhase = .teach
-                        sendUserMessage("Just explain \(lessonPlan.targetTitle) directly step by step.")
-                    }
-                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
-                    .accessibilityIdentifier("coach.skip-probe-explain")
                 }
 
-                // 4-phase strip: 1. Probe -> 2. Plan -> 3. Teach -> 4. Practise
-                FlowLayout(spacing: Spacing.xs) {
+                // 4-phase aligned 2x2 grid: 1. Probe -> 2. Plan -> 3. Teach -> 4. Practise
+                LazyVGrid(columns: twoColumnGrid, spacing: Spacing.xs) {
                     ForEach(CoachSessionPhase.allCases) { phase in
-                        Button {
+                        EditorialAlignedChoiceButton(
+                            title: phase.title,
+                            systemImage: phase.symbolName,
+                            isSelected: coachPhase == phase,
+                            identifier: "coach.phase.\(phase.rawValue)"
+                        ) {
                             coachPhase = phase
-                        } label: {
-                            Label(phase.title, systemImage: phase.symbolName)
                         }
-                        .buttonStyle(
-                            JournalCapsuleButtonStyle(
-                                prominence: coachPhase == phase ? .filled : .tinted,
-                                size: .small
-                            )
-                        )
-                        .accessibilityIdentifier("coach.phase.\(phase.rawValue)")
                     }
                 }
+
+                EditorialAlignedChoiceButton(
+                    title: "Skip probe & explain directly",
+                    systemImage: "text.book.closed",
+                    isSelected: selectedGuidanceStyle == .explainDirectly,
+                    identifier: "coach.skip-probe-explain"
+                ) {
+                    selectedGuidanceStyle = .explainDirectly
+                    coachPhase = .teach
+                    sendUserMessage("Just explain \(lessonPlan.targetTitle) directly step by step.")
+                }
+
+                EditorialRule()
 
                 // Live Causal Dependency Plan DAG nodes
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text("Live Causal Plan (tap any prerequisite node to focus)")
-                        .font(.kymaiaCaption2)
+                    Text("LIVE CAUSAL PLAN · TAP ANY PREREQUISITE NODE TO FOCUS")
+                        .font(.kymaiaEyebrow)
                         .foregroundStyle(Color.kymaiaMutedInk)
-                    FlowLayout(spacing: Spacing.xs) {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
                         ForEach(Array(lessonPlan.causalStepNodeIDs.enumerated()), id: \.offset) { idx, nodeID in
                             let nodeTitle = BiologyConceptGraphEngine.nodes.first(where: { $0.id == nodeID })?.title ?? nodeID
                             let isDone = lessonPlan.completedNodeIDs.contains(nodeID)
                             let isCurrent = idx == lessonPlan.currentStepIndex
-                            Button {
+                            EditorialAlignedChoiceButton(
+                                title: "\(idx + 1). \(nodeTitle)",
+                                systemImage: isDone ? "checkmark.circle.fill" : (isCurrent ? "arrow.right.circle.fill" : "circle"),
+                                isSelected: isCurrent
+                            ) {
                                 lessonPlan.currentStepIndex = idx
                                 coachPhase = .teach
-                            } label: {
-                                Label(
-                                    "\(idx + 1). \(nodeTitle)",
-                                    systemImage: isDone ? "checkmark.circle.fill" : (isCurrent ? "arrow.right.circle.fill" : "circle")
-                                )
                             }
-                            .buttonStyle(
-                                JournalCapsuleButtonStyle(
-                                    prominence: isCurrent ? .filled : (isDone ? .tinted : .ghost),
-                                    size: .small
-                                )
-                            )
                         }
                     }
                 }
@@ -426,10 +568,13 @@ struct BiologyCoachView: View {
     }
 
     private func socraticStarterChip(_ prompt: String) -> some View {
-        Button(prompt) {
+        EditorialAlignedChoiceButton(
+            title: prompt,
+            systemImage: "text.bubble",
+            isSelected: false
+        ) {
             sendUserMessage(prompt)
         }
-        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
     }
 
     private func sendUserMessage(_ raw: String) {
@@ -512,15 +657,25 @@ struct BiologyCoachView: View {
                             councilApproved: council.approved
                         )
                     )
+                    if liveAIClient.hasElevenLabsKey || duplexTutor.isLiveCallActive {
+                        BioSpeechSynthesizer.shared.speak(cloudText)
+                    }
                 } else {
                     liveAIClient.recordLocalFallbackCall()
-                    messages.append(generateGroundedSocraticReply(for: trimmed, style: guidanceSnapshot))
+                    let fallback = generateGroundedSocraticReply(for: trimmed, style: guidanceSnapshot)
+                    messages.append(fallback)
+                    if liveAIClient.hasElevenLabsKey || duplexTutor.isLiveCallActive {
+                        BioSpeechSynthesizer.shared.speak(fallback.text)
+                    }
                 }
             }
         } else {
             liveAIClient.recordLocalFallbackCall()
             let reply = generateGroundedSocraticReply(for: trimmed, style: resolvedStyle)
             messages.append(reply)
+            if liveAIClient.hasElevenLabsKey || duplexTutor.isLiveCallActive {
+                BioSpeechSynthesizer.shared.speak(reply.text)
+            }
         }
     }
 
@@ -664,24 +819,20 @@ struct BiologyCoachView: View {
     private var quantitativeBenchSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             JournalSection(title: "16 Quantitative Biology Templates (Ch 0–15 & Science 8 Units 1–7)") {
-                FlowLayout(spacing: Spacing.xs) {
+                LazyVGrid(columns: twoColumnGrid, spacing: Spacing.xs) {
                     ForEach(QuantitativeBioEngine.allProblems) { prob in
                         let isSelected = prob.id == activeQuantProblem.id
-                        Button {
+                        EditorialAlignedChoiceButton(
+                            title: "Ch \(prob.chapterNumber) · \(prob.title)",
+                            systemImage: "function",
+                            isSelected: isSelected,
+                            identifier: "coach.quant.\(prob.id)"
+                        ) {
                             selectedQuantProblemId = prob.id
                             quantInput = ""
                             quantOutcome = nil
                             showQuantWorkedSolution = false
-                        } label: {
-                            Text("Ch \(prob.chapterNumber) · \(prob.title)")
                         }
-                        .buttonStyle(
-                            JournalCapsuleButtonStyle(
-                                prominence: isSelected ? .filled : .tinted,
-                                size: .small
-                            )
-                        )
-                        .accessibilityIdentifier("coach.quant.\(prob.id)")
                     }
                 }
             }
@@ -703,15 +854,19 @@ struct BiologyCoachView: View {
                         .padding(Spacing.sm)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(
-                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                            RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
                                 .fill(Color.kymaiaElevatedSurface)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+                                .strokeBorder(Color.kymaiaHairline, lineWidth: StrokeWidth.thin)
                         )
 
                     Text(activeQuantProblem.prompt)
                         .font(.kymaiaQuestion)
                         .foregroundStyle(Color.kymaiaInk)
 
-                    HStack(spacing: Spacing.sm) {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
                         TextField(
                             "Enter value and unit (e.g. \(Int(activeQuantProblem.expectedNumericValue)) \(activeQuantProblem.expectedUnit))",
                             text: $quantInput
@@ -720,21 +875,27 @@ struct BiologyCoachView: View {
                         .textFieldStyle(.roundedBorder)
                         .accessibilityIdentifier("coach.quant.input")
 
-                        Button {
-                            quantOutcome = QuantitativeBioEngine.evaluate(
-                                problem: activeQuantProblem,
-                                rawInput: quantInput
-                            )
-                        } label: {
-                            Label("Verify answer", systemImage: "checkmark.circle.fill")
-                        }
-                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
-                        .accessibilityIdentifier("coach.quant.verify")
+                        LazyVGrid(columns: twoColumnGrid, spacing: Spacing.xs) {
+                            EditorialAlignedChoiceButton(
+                                title: "Verify answer",
+                                systemImage: "checkmark.circle.fill",
+                                isSelected: true,
+                                identifier: "coach.quant.verify"
+                            ) {
+                                quantOutcome = QuantitativeBioEngine.evaluate(
+                                    problem: activeQuantProblem,
+                                    rawInput: quantInput
+                                )
+                            }
 
-                        Button(showQuantWorkedSolution ? "Hide steps" : "Show worked steps") {
-                            showQuantWorkedSolution.toggle()
+                            EditorialAlignedChoiceButton(
+                                title: showQuantWorkedSolution ? "Hide steps" : "Show worked steps",
+                                systemImage: "list.number",
+                                isSelected: showQuantWorkedSolution
+                            ) {
+                                showQuantWorkedSolution.toggle()
+                            }
                         }
-                        .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
                     }
 
                     if let outcome = quantOutcome {
@@ -766,8 +927,12 @@ struct BiologyCoachView: View {
                         .padding(Spacing.md)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(
-                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                            RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
                                 .fill(Color.kymaiaElevatedSurface)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: CornerRadius.micro, style: .continuous)
+                                .strokeBorder(Color.kymaiaHairline, lineWidth: StrokeWidth.thin)
                         )
                     }
                 }
