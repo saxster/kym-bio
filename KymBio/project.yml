@@ -32,6 +32,7 @@ targets:
         excludes:
           - "**/*.md"
           - "**/Resources/**"
+      - path: KymBio/Resources/Assets.xcassets
       - path: KymBio/Resources/ContentPacks
         type: folder
         buildPhase: resources
@@ -50,6 +51,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         INFOPLIST_KEY_CFBundleDisplayName: "KymBio"
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.education"
         INFOPLIST_KEY_NSMicrophoneUsageDescription: "KymBio uses the microphone for Biology voice study, pronunciation and Socratic Coach sessions."
@@ -76,6 +78,7 @@ targets:
         excludes:
           - "**/*.md"
           - "**/Resources/**"
+      - path: KymBio/Resources/Assets.xcassets
       - path: KymBio/Resources/ContentPacks
         type: folder
         buildPhase: resources
@@ -112,6 +115,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kymaia.bio.ipad
         PRODUCT_NAME: KymBio
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         DEVELOPMENT_TEAM: LJA377LKZF
         TARGETED_DEVICE_FAMILY: "1,2"
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO

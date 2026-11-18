@@ -1064,8 +1064,11 @@ def explore_html():
 
 
 FAVICON = ("%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E"
-           "%3Cpath d='M4 26 Q16 -2 28 26' fill='none' stroke='%232f6d8f' stroke-width='2.2' stroke-linecap='round'/%3E"
-           "%3Ccircle cx='16' cy='12' r='4.2' fill='%23b8432f'/%3E%3Cpath d='M3 27.5 H29' stroke='%232f6d8f' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+           "%3Ccircle cx='16' cy='16' r='14.5' fill='%2310261f' stroke='%23d8aa54' stroke-width='1.6'/%3E"
+           "%3Cpath d='M9 23 C8 15 13 8 23 8 C23 17 16 24 9 23 Z' fill='%232fa372' stroke='%23a6f4ce' stroke-width='1'/%3E"
+           "%3Cpath d='M9 11 C14 11 14 21 23 21' fill='none' stroke='%23df5337' stroke-width='2.2' stroke-linecap='round'/%3E"
+           "%3Cpath d='M11 9 C11 18 21 14 21 23' fill='none' stroke='%23f7c85c' stroke-width='2.2' stroke-linecap='round'/%3E"
+           "%3Ccircle cx='16' cy='16' r='2.2' fill='%23fff8e6'/%3E%3C/svg%3E")
 SITE_HEAD = (
     '<link rel="canonical" href="{url}">\n'
     '<link rel="manifest" href="manifest.webmanifest">\n'
@@ -1152,20 +1155,25 @@ self.addEventListener('fetch', e => {
 
 
 def make_images(index, site_dir):
+    for n in (192, 512):
+        root_icon = os.path.join( os.path.dirname(ROOT), f'icon-{n}.png')
+        if os.path.exists(root_icon) and os.path.abspath(root_icon) != os.path.abspath(os.path.join(site_dir, f'icon-{n}.png')):
+            shutil.copy2(root_icon, os.path.join(site_dir, f'icon-{n}.png'))
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        print('WARNING: Python playwright is not installed, so icon-192.png, icon-512.png and og.png were not made '
-              '(pip install playwright). Do not publish this folder.')
+        print('WARNING: Python playwright is not installed, so og.png was not remade '
+              '(pip install playwright).')
         return
-    icon = ('<html><body style="margin:0;background:#f6f3ec;display:grid;place-items:center;height:100vh">'
-            '<svg viewBox="0 0 32 32" style="width:62%">' + html.unescape(FAVICON.replace('%3C', '<').replace('%3E', '>')
-            .replace('%23', '#')).split('>', 1)[1] + '</body></html>')
     with sync_playwright() as p:
         br = p.chromium.launch()
         for n in (192, 512):
-            pg = br.new_page(viewport={'width': n, 'height': n}); pg.set_content(icon)
-            pg.screenshot(path=os.path.join(site_dir, f'icon-{n}.png')); pg.close()
+            if not os.path.exists(os.path.join(site_dir, f'icon-{n}.png')):
+                icon = ('<html><body style="margin:0;background:#10261f;display:grid;place-items:center;height:100vh">'
+                        '<svg viewBox="0 0 32 32" style="width:82%">' + html.unescape(FAVICON.replace('%3C', '<').replace('%3E', '>')
+                        .replace('%23', '#')).split('>', 1)[1] + '</body></html>')
+                pg = br.new_page(viewport={'width': n, 'height': n}); pg.set_content(icon)
+                pg.screenshot(path=os.path.join(site_dir, f'icon-{n}.png')); pg.close()
         pg = br.new_page(viewport={'width': 1200, 'height': 630}, device_scale_factor=1, reduced_motion='reduce')
         pg.goto('file://' + os.path.abspath(index), wait_until='load'); pg.wait_for_timeout(3500)
         pg.evaluate("document.querySelectorAll('.navbtn,.bar').forEach(e=>e.remove())")

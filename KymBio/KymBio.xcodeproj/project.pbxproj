@@ -124,11 +124,13 @@
 		C4583CD8E2B89C65737693AB /* AIAndVoiceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD58CF6102F95452A296E1F /* AIAndVoiceService.swift */; };
 		C51FA0B12AD407FA222E8BFE /* JournalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76D9521B142F884785E86C1 /* JournalRow.swift */; };
 		C89D9627FFEDFF8BCDCB5FD5 /* JournalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76D9521B142F884785E86C1 /* JournalRow.swift */; };
+		C8B174D3C1AAC06F4F7B203C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3BB03481AA6E2E94B726495 /* Assets.xcassets */; };
 		C908CE0A48A64ADAE04E2EDE /* JournalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295575BBC7B389AA38535147 /* JournalCard.swift */; };
 		CC257D0BFF8DBF6F8DF8820C /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = B026F68BA5DFEDB39B1D7A4C /* GRDB */; };
 		CEB9BD6F88E59EC109E525D4 /* LivingWorldWebStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E14A30B5BC7617CA23FE6F /* LivingWorldWebStageView.swift */; };
 		CF17A427F1EBC2D60CFCE326 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2E0EE5C6A4BB211E4B87E0 /* DatabaseManager.swift */; };
 		D2532A15C1F21EA9E8052A3E /* CircuitToggleVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE79A1BCCA12DF0AFC56893 /* CircuitToggleVisual.swift */; };
+		D310376F97D61D262B0ABEDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3BB03481AA6E2E94B726495 /* Assets.xcassets */; };
 		D412967C3D0A081F9DBCF0C0 /* JournalPaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D396F17C39592E7DCAF447 /* JournalPaper.swift */; };
 		D5024DE14A3E1B12DE5D5B6A /* EquationBalanceVisual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4580FC489949B13B7D341782 /* EquationBalanceVisual.swift */; };
 		D5FD5BCA68C6E14BB8C4A260 /* SubjectTipPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546DDC5FC77CF25E74D856CB /* SubjectTipPalette.swift */; };
@@ -273,6 +275,7 @@
 		DE5A8474044179821EF0E1E3 /* ForceArrowsVisual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceArrowsVisual.swift; sourceTree = "<group>"; };
 		E0210EB4B560579B693432C1 /* JournalInkCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalInkCanvasView.swift; sourceTree = "<group>"; };
 		E110E3F7D257CA2DC85D5375 /* CalendarHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHomeView.swift; sourceTree = "<group>"; };
+		E3BB03481AA6E2E94B726495 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E76D9521B142F884785E86C1 /* JournalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalRow.swift; sourceTree = "<group>"; };
 		E8A5FA1C594561AD3A349A65 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		E8D0512A54B9017882A9E70E /* SemanticStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticStyles.swift; sourceTree = "<group>"; };
@@ -587,6 +590,7 @@
 		CBD1F4D16EA9C5EBB0410898 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E3BB03481AA6E2E94B726495 /* Assets.xcassets */,
 				612AB90D6EB6138C9E2856EA /* ContentPacks */,
 				D2AE58A92BF60C23622A99C6 /* LivingWorldBook */,
 			);
@@ -884,6 +888,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8B174D3C1AAC06F4F7B203C /* Assets.xcassets in Resources */,
 				564E4DF55C253961E9C9D826 /* ContentPacks in Resources */,
 				998DB255329C2255CF5D0153 /* LivingWorldBook in Resources */,
 			);
@@ -902,6 +907,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D310376F97D61D262B0ABEDC /* Assets.xcassets in Resources */,
 				DAA68947B5D5ADC353584565 /* ContentPacks in Resources */,
 				A7BAB27A935B0FDD00F9EEBA /* Info-iPad.plist in Resources */,
 				207B362B781F0AE41A2CE30B /* LivingWorldBook in Resources */,
