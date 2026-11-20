@@ -17,10 +17,17 @@
 .lab-view-controls summary { padding:.6rem 0; min-height:44px; cursor:pointer; }
 .lab-scene-label { position:absolute; transform:translate(-50%,-100%); max-width:10rem; padding:.1rem .3rem; background:var(--plate); color:var(--ink); border-radius:3px; font:500 12px/1.35 var(--sans); pointer-events:none; text-align:center; }
 .lab-scene-label[hidden] { display:none; }
-figure[data-labs] .live-slider { max-width:100%; min-width:0; flex-wrap:wrap; }
+figure[data-labs] .live-slider { max-width:100%; min-width:0; flex:1 1 22rem; flex-wrap:wrap; }
 figure[data-labs] .live-slider label { white-space:normal; overflow-wrap:anywhere; flex:1 1 9rem; min-width:0; }
 figure[data-labs] .live-slider input { min-width:4rem; max-width:100%; flex:1 1 7rem; }
 figure[data-labs] .live-slider output { min-width:0; max-width:100%; overflow-wrap:anywhere; }
+@media (min-width: 520px) {
+  figure[data-labs] .live-slider { display:grid; grid-template-columns:max-content minmax(6.5rem, 1fr) max-content; align-items:center; gap:.35rem .65rem; }
+  figure[data-labs] .live-slider label,
+  figure[data-labs] .live-slider input,
+  figure[data-labs] .live-slider output { flex:none; min-width:auto; white-space:nowrap; }
+  figure[data-labs] .live-slider input { width:100%; min-width:6.5rem; }
+}
 figure[data-labs] .live-controls { min-width:0; }
 .lab-source-list { font-size:.85rem; overflow-wrap:anywhere; }
 @media print { .lab-open,.lab-return,.lab-story-links { display:none!important; } }

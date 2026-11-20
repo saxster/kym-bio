@@ -286,6 +286,81 @@ struct InteractiveWidgetSpec: Codable, Identifiable, Equatable, Sendable {
     let cutaway: String
     let idealised: String
     let watchSteps: [WidgetWatchStep]
+    var realPlateId: String? = nil
+    var hasSonification: Bool = false
+    var hasDataTable: Bool = false
+    var hasDirectManipulation: Bool = false
+    var cambridgeUnits: [Int] = []
+    var relatedBridgeIds: [String] = []
+    var facilitatorPredictPrompt: String = ""
+    var facilitatorTrap: String = ""
+    var facilitatorConceptQuestion: String = ""
+
+    enum CodingKeys: String, CodingKey {
+        case id, title, chapter, is3D, challengePrompt, cutaway, idealised, watchSteps
+        case realPlateId, hasSonification, hasDataTable, hasDirectManipulation
+        case cambridgeUnits, relatedBridgeIds
+        case facilitatorPredictPrompt, facilitatorTrap, facilitatorConceptQuestion
+    }
+
+    init(
+        id: String,
+        title: String,
+        chapter: Int,
+        is3D: Bool,
+        challengePrompt: String,
+        cutaway: String,
+        idealised: String,
+        watchSteps: [WidgetWatchStep],
+        realPlateId: String? = nil,
+        hasSonification: Bool = false,
+        hasDataTable: Bool = false,
+        hasDirectManipulation: Bool = false,
+        cambridgeUnits: [Int] = [],
+        relatedBridgeIds: [String] = [],
+        facilitatorPredictPrompt: String = "",
+        facilitatorTrap: String = "",
+        facilitatorConceptQuestion: String = ""
+    ) {
+        self.id = id
+        self.title = title
+        self.chapter = chapter
+        self.is3D = is3D
+        self.challengePrompt = challengePrompt
+        self.cutaway = cutaway
+        self.idealised = idealised
+        self.watchSteps = watchSteps
+        self.realPlateId = realPlateId
+        self.hasSonification = hasSonification
+        self.hasDataTable = hasDataTable
+        self.hasDirectManipulation = hasDirectManipulation
+        self.cambridgeUnits = cambridgeUnits
+        self.relatedBridgeIds = relatedBridgeIds
+        self.facilitatorPredictPrompt = facilitatorPredictPrompt
+        self.facilitatorTrap = facilitatorTrap
+        self.facilitatorConceptQuestion = facilitatorConceptQuestion
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        title = try c.decode(String.self, forKey: .title)
+        chapter = try c.decode(Int.self, forKey: .chapter)
+        is3D = try c.decode(Bool.self, forKey: .is3D)
+        challengePrompt = try c.decode(String.self, forKey: .challengePrompt)
+        cutaway = try c.decode(String.self, forKey: .cutaway)
+        idealised = try c.decode(String.self, forKey: .idealised)
+        watchSteps = try c.decodeIfPresent([WidgetWatchStep].self, forKey: .watchSteps) ?? []
+        realPlateId = try c.decodeIfPresent(String.self, forKey: .realPlateId)
+        hasSonification = try c.decodeIfPresent(Bool.self, forKey: .hasSonification) ?? false
+        hasDataTable = try c.decodeIfPresent(Bool.self, forKey: .hasDataTable) ?? false
+        hasDirectManipulation = try c.decodeIfPresent(Bool.self, forKey: .hasDirectManipulation) ?? false
+        cambridgeUnits = try c.decodeIfPresent([Int].self, forKey: .cambridgeUnits) ?? []
+        relatedBridgeIds = try c.decodeIfPresent([String].self, forKey: .relatedBridgeIds) ?? []
+        facilitatorPredictPrompt = try c.decodeIfPresent(String.self, forKey: .facilitatorPredictPrompt) ?? ""
+        facilitatorTrap = try c.decodeIfPresent(String.self, forKey: .facilitatorTrap) ?? ""
+        facilitatorConceptQuestion = try c.decodeIfPresent(String.self, forKey: .facilitatorConceptQuestion) ?? ""
+    }
 }
 
 struct WidgetWatchStep: Codable, Equatable, Sendable {

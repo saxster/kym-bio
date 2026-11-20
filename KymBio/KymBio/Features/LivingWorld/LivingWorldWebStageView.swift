@@ -1,6 +1,31 @@
 import SwiftUI
 import WebKit
 
+struct LivingWorldWebCommand: Equatable, Sendable {
+    let id: UUID
+    let kind: Kind
+
+    init(id: UUID = UUID(), kind: Kind) {
+        self.id = id
+        self.kind = kind
+    }
+
+    enum Kind: Equatable, Sendable {
+        case applyWatchStep(Int)
+        case reset
+        case captureSnapshot
+        case setCutaway(Bool)
+        case setSpecimen(Bool)
+    }
+}
+
+struct LivingWorldSnapshotPayload: Equatable, Sendable {
+    let widgetId: String
+    let readout: String
+    let trialsMarkdown: String
+    let pngData: Data?
+}
+
 /// Offline WKWebView stage that renders the bundled `Resources/LivingWorldBook/index.html`
 /// (with all 16 chapters, 4 Explorers, and 47 Three.js / Canvas simulations) and bridges
 /// theme palette tokens, chapter navigation, and challenge stamps bidirectionally with Swift.
@@ -15,6 +40,9 @@ struct LivingWorldWebStageView: View {
     let chapterNumber: Int
     var targetWidgetId: String? = nil
     var targetExplorerId: String? = nil
+    var pendingCommand: LivingWorldWebCommand? = nil
+    var onTelemetryEvent: ((String, String) -> Void)? = nil
+    var onSnapshotCaptured: ((LivingWorldSnapshotPayload) -> Void)? = nil
 
     var body: some View {
         let _ = (rawFace, sizeStep, rawSpacing, rawWidth)
@@ -25,6 +53,7 @@ struct LivingWorldWebStageView: View {
             theme: theme,
             syllabusBoard: store.syllabusBoard,
             stampedWidgetIds: Array(store.widgetStamps.keys),
+            pendingCommand: pendingCommand,
             onWidgetStamped: { widgetId, readout in
                 store.earnWidgetChallengeStamp(
                     widgetId: widgetId,
@@ -41,7 +70,9 @@ struct LivingWorldWebStageView: View {
                     confidenceTag: confidenceTag,
                     readingThinkingText: readingThinking
                 )
-            }
+            },
+            onTelemetryEvent: onTelemetryEvent,
+            onSnapshotCaptured: onSnapshotCaptured
         )
     }
 }
@@ -54,11 +85,19 @@ private struct LivingWorldWebRepresentable: UIViewRepresentable {
     let theme: StandardTheme
     let syllabusBoard: String
     let stampedWidgetIds: [String]
+    let pendingCommand: LivingWorldWebCommand?
     let onWidgetStamped: (String, String) -> Void
     var onCalloutSaved: ((String, String, String, String) -> Void)? = nil
+    var onTelemetryEvent: ((String, String) -> Void)? = nil
+    var onSnapshotCaptured: ((LivingWorldSnapshotPayload) -> Void)? = nil
 
     func makeCoordinator() -> LivingWorldWebCoordinator {
-        LivingWorldWebCoordinator(onWidgetStamped: onWidgetStamped, onCalloutSaved: onCalloutSaved)
+        LivingWorldWebCoordinator(
+            onWidgetStamped: onWidgetStamped,
+            onCalloutSaved: onCalloutSaved,
+            onTelemetryEvent: onTelemetryEvent,
+            onSnapshotCaptured: onSnapshotCaptured
+        )
     }
 
     func makeUIView(context: Context) -> WKWebView {
@@ -78,7 +117,12 @@ private struct LivingWorldWebRepresentable: UIViewRepresentable {
             explorerId: targetExplorerId,
             theme: theme,
             syllabusBoard: syllabusBoard,
-            stampedWidgetIds: stampedWidgetIds
+            stampedWidgetIds: stampedWidgetIds,
+            pendingCommand: pendingCommand,
+            onWidgetStamped: onWidgetStamped,
+            onCalloutSaved: onCalloutSaved,
+            onTelemetryEvent: onTelemetryEvent,
+            onSnapshotCaptured: onSnapshotCaptured
         )
     }
 }
@@ -90,11 +134,19 @@ private struct LivingWorldWebRepresentable: NSViewRepresentable {
     let theme: StandardTheme
     let syllabusBoard: String
     let stampedWidgetIds: [String]
+    let pendingCommand: LivingWorldWebCommand?
     let onWidgetStamped: (String, String) -> Void
     var onCalloutSaved: ((String, String, String, String) -> Void)? = nil
+    var onTelemetryEvent: ((String, String) -> Void)? = nil
+    var onSnapshotCaptured: ((LivingWorldSnapshotPayload) -> Void)? = nil
 
     func makeCoordinator() -> LivingWorldWebCoordinator {
-        LivingWorldWebCoordinator(onWidgetStamped: onWidgetStamped, onCalloutSaved: onCalloutSaved)
+        LivingWorldWebCoordinator(
+            onWidgetStamped: onWidgetStamped,
+            onCalloutSaved: onCalloutSaved,
+            onTelemetryEvent: onTelemetryEvent,
+            onSnapshotCaptured: onSnapshotCaptured
+        )
     }
 
     func makeNSView(context: Context) -> WKWebView {
@@ -112,7 +164,12 @@ private struct LivingWorldWebRepresentable: NSViewRepresentable {
             explorerId: targetExplorerId,
             theme: theme,
             syllabusBoard: syllabusBoard,
-            stampedWidgetIds: stampedWidgetIds
+            stampedWidgetIds: stampedWidgetIds,
+            pendingCommand: pendingCommand,
+            onWidgetStamped: onWidgetStamped,
+            onCalloutSaved: onCalloutSaved,
+            onTelemetryEvent: onTelemetryEvent,
+            onSnapshotCaptured: onSnapshotCaptured
         )
     }
 }
@@ -120,13 +177,18 @@ private struct LivingWorldWebRepresentable: NSViewRepresentable {
 
 final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavigationDelegate, WKURLSchemeHandler {
     static let bookScheme = "kymbio-book"
-    let onWidgetStamped: (String, String) -> Void
-    let onCalloutSaved: ((String, String, String, String) -> Void)?
+    var onWidgetStamped: (String, String) -> Void
+    var onCalloutSaved: ((String, String, String, String) -> Void)?
+    var onTelemetryEvent: ((String, String) -> Void)?
+    var onSnapshotCaptured: ((LivingWorldSnapshotPayload) -> Void)?
     private var hasLoaded = false
     private var isDocumentReady = false
     private var lastChapterNumber: Int = -999
     private var lastWidgetId: String? = nil
     private var lastExplorerId: String? = nil
+    private var lastThemeKey: String = ""
+    private var lastBoardAndStampsKey: String = ""
+    private var lastHandledCommandId: UUID? = nil
 
     private var pendingChapterNumber: Int = 1
     private var pendingWidgetId: String? = nil
@@ -134,13 +196,18 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
     private var pendingTheme: StandardTheme = .parchment
     private var pendingSyllabusBoard: String = "0893"
     private var pendingStampedWidgetIds: [String] = []
+    private var pendingCommand: LivingWorldWebCommand? = nil
 
     init(
         onWidgetStamped: @escaping (String, String) -> Void,
-        onCalloutSaved: ((String, String, String, String) -> Void)? = nil
+        onCalloutSaved: ((String, String, String, String) -> Void)? = nil,
+        onTelemetryEvent: ((String, String) -> Void)? = nil,
+        onSnapshotCaptured: ((LivingWorldSnapshotPayload) -> Void)? = nil
     ) {
         self.onWidgetStamped = onWidgetStamped
         self.onCalloutSaved = onCalloutSaved
+        self.onTelemetryEvent = onTelemetryEvent
+        self.onSnapshotCaptured = onSnapshotCaptured
     }
 
     static func resolveExplorerHash(_ rawId: String) -> String {
@@ -194,7 +261,34 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
                 }
                 window.__kymbioIsolateWidget = function(wid) {
                     var fig = document.querySelector('figure[data-live="' + wid + '"], [data-widget="' + wid + '"], #widget-' + wid);
+                    var labBtn = null;
+                    if (!fig) {
+                        var candidates = document.querySelectorAll('figure[data-labs]');
+                        for (var ci = 0; ci < candidates.length; ci++) {
+                            var f = candidates[ci];
+                            var b = f.querySelector('.lab-open[data-lesson-id="' + wid + '"]');
+                            if (b) {
+                                fig = f;
+                                labBtn = b;
+                                break;
+                            }
+                            try {
+                                var parsed = JSON.parse(f.getAttribute('data-labs') || '[]');
+                                if (parsed.some(function(item) { return item.id === wid || item.widget === wid; })) {
+                                    fig = f;
+                                    labBtn = f.querySelector('.lab-open[data-lesson-id="' + wid + '"]') || f.querySelector('.lab-open');
+                                    break;
+                                }
+                            } catch (_) {}
+                        }
+                    }
                     if (!fig) return;
+                    document.querySelectorAll('figure.live-on').forEach(function(other) {
+                        if (other !== fig) {
+                            var closeBtn = other.querySelector('.live-close');
+                            if (closeBtn) closeBtn.click();
+                        }
+                    });
                     document.querySelectorAll('.kymbio-active-widget').forEach(function(el) { el.classList.remove('kymbio-active-widget'); });
                     document.querySelectorAll('.kymbio-widget-ancestor').forEach(function(el) { el.classList.remove('kymbio-widget-ancestor'); });
                     fig.classList.add('kymbio-active-widget');
@@ -207,9 +301,14 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
                     if (window.App && window.App.reveal) {
                         window.App.reveal(fig);
                     }
-                    var openBtn = fig.querySelector('.live-open');
-                    if (openBtn && !fig.classList.contains('live-on')) {
-                        openBtn.click();
+                    if (labBtn) {
+                        var activeLesson = fig.dataset.activeLesson || '';
+                        if (activeLesson !== wid) labBtn.click();
+                    } else {
+                        var openBtn = fig.querySelector('.live-open');
+                        if (openBtn && !fig.classList.contains('live-on')) {
+                            openBtn.click();
+                        }
                     }
                     window.scrollTo(0, 0);
                 };
@@ -231,9 +330,13 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
                 Storage.prototype.setItem = function(key, val) {
                     origSetItem.call(this, key, val);
                     try {
-                        if (typeof key === 'string' && (key.indexOf('lw.stamp.') === 0 || key.indexOf('lw.challenge.') === 0)) {
-                            var wid = key.replace('lw.stamp.', '').replace('lw.challenge.', '');
-                            window.webkit.messageHandlers.kymbioBridge.postMessage({ widgetId: wid, readout: String(val) });
+                        if (window.__kymbioHydrating) return;
+                        if (typeof key === 'string' && (key.indexOf('mw:stamp:') === 0 || key.indexOf('lw.stamp.') === 0 || key.indexOf('lw.challenge.') === 0)) {
+                            var sVal = String(val);
+                            if (sVal === '1' || sVal === 'stamped') {
+                                var wid = key.replace('mw:stamp:', '').replace('lw.stamp.', '').replace('lw.challenge.', '');
+                                window.webkit.messageHandlers.kymbioBridge.postMessage({ widgetId: wid, readout: 'Completed challenge in interactive lab' });
+                            }
                         } else if (typeof key === 'string' && (key.indexOf('lw:chk:') === 0 || key.indexOf('lw:pred:') === 0)) {
                             var cid = key.replace('lw:', '');
                             var parsed = JSON.parse(val);
@@ -246,6 +349,26 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
                         }
                     } catch (e) {}
                 };
+                window.addEventListener('kym:sim-event', function(ev) {
+                    try {
+                        var d = ev && ev.detail ? ev.detail : {};
+                        window.webkit.messageHandlers.kymbioBridge.postMessage({
+                            telemetryWidgetId: String(d.widgetId || ''),
+                            telemetrySummary: String(d.summary || ''),
+                            telemetryType: String(d.type || 'change')
+                        });
+                    } catch (e) {}
+                });
+                window.addEventListener('kym:trial-recorded', function(ev) {
+                    try {
+                        var d = ev && ev.detail ? ev.detail : {};
+                        window.webkit.messageHandlers.kymbioBridge.postMessage({
+                            telemetryWidgetId: String(d.widgetId || ''),
+                            telemetrySummary: 'Trial recorded (' + ((d.rows && d.rows.length) || 1) + ')',
+                            telemetryType: 'trial'
+                        });
+                    } catch (e) {}
+                });
                 document.addEventListener('click', function(ev) {
                     var btn = ev.target && ev.target.closest ? ev.target.closest('[data-stamp-widget], .lw-stamp-btn') : null;
                     if (btn) {
@@ -363,7 +486,10 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
         lastChapterNumber = -999
         lastWidgetId = nil
         lastExplorerId = nil
+        lastThemeKey = ""
+        lastBoardAndStampsKey = ""
         applyState(in: webView)
+        dispatchPendingCommandIfNeeded(in: webView)
     }
 
     func syncState(
@@ -373,16 +499,103 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
         explorerId: String?,
         theme: StandardTheme,
         syllabusBoard: String,
-        stampedWidgetIds: [String]
+        stampedWidgetIds: [String],
+        pendingCommand: LivingWorldWebCommand?,
+        onWidgetStamped: @escaping (String, String) -> Void,
+        onCalloutSaved: ((String, String, String, String) -> Void)?,
+        onTelemetryEvent: ((String, String) -> Void)?,
+        onSnapshotCaptured: ((LivingWorldSnapshotPayload) -> Void)?
     ) {
+        self.onWidgetStamped = onWidgetStamped
+        self.onCalloutSaved = onCalloutSaved
+        self.onTelemetryEvent = onTelemetryEvent
+        self.onSnapshotCaptured = onSnapshotCaptured
         pendingChapterNumber = chapterNumber
         pendingWidgetId = widgetId
         pendingExplorerId = explorerId
         pendingTheme = theme
         pendingSyllabusBoard = syllabusBoard
         pendingStampedWidgetIds = stampedWidgetIds
+        self.pendingCommand = pendingCommand
         guard isDocumentReady else { return }
         applyState(in: webView)
+        dispatchPendingCommandIfNeeded(in: webView)
+    }
+
+    private func dispatchPendingCommandIfNeeded(in webView: WKWebView) {
+        guard isDocumentReady, let command = pendingCommand, command.id != lastHandledCommandId else { return }
+        lastHandledCommandId = command.id
+        let escapedWid = (pendingWidgetId ?? "")
+            .replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "'", with: "\\'")
+        let execBody: String
+        let isSnapshotCommand: Bool
+        switch command.kind {
+        case .applyWatchStep(let stepIdx):
+            execBody = "window.__kymIO.setState(activeWid, { watchStep: \(stepIdx) });"
+            isSnapshotCommand = false
+        case .reset:
+            execBody = "window.__kymIO.setState(activeWid, { reset: true });"
+            isSnapshotCommand = false
+        case .setCutaway(let enabled):
+            execBody = "window.__kymIO.setState(activeWid, { cutaway: \(enabled ? "true" : "false") });"
+            isSnapshotCommand = false
+        case .setSpecimen(let enabled):
+            execBody = "window.__kymIO.setState(activeWid, { specimen: \(enabled ? "true" : "false") });"
+            isSnapshotCommand = false
+        case .captureSnapshot:
+            execBody = """
+            var snap = window.__kymIO.captureSnapshot(activeWid);
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.kymbioBridge) {
+                window.webkit.messageHandlers.kymbioBridge.postMessage({
+                    kind: 'snapshot',
+                    snapshotWidgetId: (snap && snap.widgetId) || activeWid,
+                    readout: (snap && snap.readout) || '',
+                    trialsMarkdown: (snap && snap.trialsMarkdown) || '',
+                    pngBase64: (snap && snap.pngBase64) || ''
+                });
+            }
+            """
+            isSnapshotCommand = true
+        }
+        let js = """
+        (function() {
+            var targetWid = '\(escapedWid)';
+            var attempts = 0;
+            function tryRun() {
+                try {
+                    var activeWid = '';
+                    if (window.__kymIO) {
+                        if (targetWid && window.__kymIO.getState(targetWid)) {
+                            activeWid = targetWid;
+                        } else {
+                            var list = window.__kymIO.list();
+                            if (list && list.length) activeWid = list[0];
+                        }
+                    }
+                    if (activeWid) {
+                        \(execBody)
+                        return;
+                    }
+                } catch (e) {}
+                if (++attempts < 25) {
+                    setTimeout(tryRun, 60);
+                } else if (\(isSnapshotCommand ? "true" : "false")) {
+                    try {
+                        window.webkit.messageHandlers.kymbioBridge.postMessage({
+                            kind: 'snapshot',
+                            snapshotWidgetId: targetWid,
+                            readout: '',
+                            trialsMarkdown: '',
+                            pngBase64: ''
+                        });
+                    } catch (_) {}
+                }
+            }
+            tryRun();
+        })();
+        """
+        webView.evaluateJavaScript(js, completionHandler: nil)
     }
 
     private func applyState(in webView: WKWebView) {
@@ -391,24 +604,21 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
         let explorerId = pendingExplorerId
         let theme = pendingTheme
         let syllabusBoard = pendingSyllabusBoard
-        let stampedWidgetIds = pendingStampedWidgetIds
+        let stampedWidgetIds = pendingStampedWidgetIds.sorted()
 
-        let webTheme = AppTheme.webBookTheme(for: theme)
-        func css(_ hex: UInt32) -> String {
-            "rgb(\((hex >> 16) & 0xFF), \((hex >> 8) & 0xFF), \(hex & 0xFF))"
-        }
-        let bgCSS = css(theme.bgHex)
-        let surfCSS = css(theme.surfaceHex)
-        let inkCSS = css(theme.inkHex)
-        let accCSS = css(theme.brassHex)
-        let stampsJSON = (try? String(data: JSONEncoder().encode(stampedWidgetIds), encoding: .utf8)) ?? "[]"
         let readerFace = UserDefaults.standard.string(forKey: "kymbio.reader.face") ?? "literata"
         let readerSize = UserDefaults.standard.object(forKey: "kymbio.reader.sizeStep") as? Int ?? 1
         let readerSpacing = KymBioLineSpacing(rawValue: UserDefaults.standard.string(forKey: "kymbio.reader.lineSpacing") ?? "comfortable") ?? .comfortable
         let readerWidth = KymBioReadingWidth(rawValue: UserDefaults.standard.string(forKey: "kymbio.reader.lineWidth") ?? "normal") ?? .normal
-        let scaleValues = ["0.92", "1", "1.1", "1.22"]
-        let clampedSize = max(0, min(3, readerSize))
-        let webScale = scaleValues[clampedSize]
+
+        let themeKey = "\(theme.id)|\(readerFace)|\(readerSize)|\(readerSpacing.rawValue)|\(readerWidth.rawValue)"
+        let stampsKey = "\(syllabusBoard)|\(stampedWidgetIds.joined(separator: ","))"
+        let navChanged = (lastWidgetId != widgetId) || (lastExplorerId != explorerId) || (lastChapterNumber != chapterNumber)
+        let themeChanged = lastThemeKey != themeKey
+        let boardChanged = lastBoardAndStampsKey != stampsKey
+
+        guard themeChanged || boardChanged || navChanged else { return }
+
         var js = """
         (function() {
             if (!document.getElementById('kymbio-embed-style')) {
@@ -417,6 +627,22 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
                 st.textContent = '\(Self.embedStylesheet)';
                 document.head.appendChild(st);
             }
+        """
+
+        if themeChanged {
+            lastThemeKey = themeKey
+            let webTheme = AppTheme.webBookTheme(for: theme)
+            func css(_ hex: UInt32) -> String {
+                "rgb(\((hex >> 16) & 0xFF), \((hex >> 8) & 0xFF), \(hex & 0xFF))"
+            }
+            let bgCSS = css(theme.bgHex)
+            let surfCSS = css(theme.surfaceHex)
+            let inkCSS = css(theme.inkHex)
+            let accCSS = css(theme.brassHex)
+            let scaleValues = ["0.92", "1", "1.1", "1.22"]
+            let clampedSize = max(0, min(3, readerSize))
+            let webScale = scaleValues[clampedSize]
+            js += """
             document.documentElement.setAttribute('data-theme', '\(webTheme)');
             document.documentElement.setAttribute('data-kymbio-scheme', '\(theme.id)');
             document.documentElement.setAttribute('data-face', '\(readerFace)');
@@ -430,64 +656,79 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
             if (window.__applyKymBioSettings) {
                 window.__applyKymBioSettings({ face: '\(readerFace)', size: \(clampedSize), spacing: '\(readerSpacing.rawValue)', width: '\(readerWidth.rawValue)', theme: '\(webTheme)' });
             }
+            """
+        }
+
+        if boardChanged {
+            lastBoardAndStampsKey = stampsKey
+            let stampsJSON = (try? String(data: JSONEncoder().encode(stampedWidgetIds), encoding: .utf8)) ?? "[]"
+            js += """
             try {
+                window.__kymbioHydrating = true;
                 localStorage.setItem('lw.board', '\(syllabusBoard)');
                 var stamps = \(stampsJSON);
                 for (var i = 0; i < stamps.length; i++) {
+                    localStorage.setItem('mw:stamp:' + stamps[i], '1');
                     localStorage.setItem('lw.stamp.' + stamps[i], 'stamped');
                 }
-            } catch(e) {}
-        """
-
-        if let widgetId, !widgetId.isEmpty {
-            lastWidgetId = widgetId
-            lastExplorerId = nil
-            lastChapterNumber = chapterNumber
-            js += """
-            if (window.__kymbioIsolateWidget) {
-                window.__kymbioIsolateWidget('\(widgetId)');
-                if (window.App && window.App.ready) {
-                    window.App.ready(function() {
-                        window.__kymbioIsolateWidget('\(widgetId)');
-                        setTimeout(function() { window.__kymbioIsolateWidget('\(widgetId)'); }, 80);
-                    });
-                }
+            } catch(e) {} finally {
+                window.__kymbioHydrating = false;
             }
             """
-        } else {
-            lastWidgetId = nil
-            let targetHash: String
-            if let explorerId, !explorerId.isEmpty {
-                lastExplorerId = explorerId
-                lastChapterNumber = -999
-                targetHash = Self.resolveExplorerHash(explorerId)
-            } else {
+        }
+
+        if navChanged {
+            if let widgetId, !widgetId.isEmpty {
+                lastWidgetId = widgetId
                 lastExplorerId = nil
                 lastChapterNumber = chapterNumber
-                targetHash = chapterNumber < 0 ? "#top" : "#ch\(chapterNumber)"
-            }
-            js += """
-            document.documentElement.removeAttribute('data-kymbio-widget-only');
-            function routeFullBook() {
-                var hash = '\(targetHash)';
-                var el = document.querySelector(hash);
-                if (window.App && window.App.reveal && el) {
-                    window.App.reveal(el);
+                let escapedWid = widgetId.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "'", with: "\\'")
+                js += """
+                if (window.__kymbioIsolateWidget) {
+                    window.__kymbioIsolateWidget('\(escapedWid)');
+                    if (window.App && window.App.ready) {
+                        window.App.ready(function() {
+                            window.__kymbioIsolateWidget('\(escapedWid)');
+                            setTimeout(function() { window.__kymbioIsolateWidget('\(escapedWid)'); }, 80);
+                        });
+                    }
                 }
-                if (window.location.hash !== hash) {
-                    window.location.hash = hash;
-                }
-                window.scrollTo(0, 0);
-            }
-            if (window.App && window.App.ready) {
-                window.App.ready(function() {
-                    routeFullBook();
-                    setTimeout(routeFullBook, 60);
-                });
+                """
             } else {
-                setTimeout(routeFullBook, 100);
+                lastWidgetId = nil
+                let targetHash: String
+                if let explorerId, !explorerId.isEmpty {
+                    lastExplorerId = explorerId
+                    lastChapterNumber = -999
+                    targetHash = Self.resolveExplorerHash(explorerId)
+                } else {
+                    lastExplorerId = nil
+                    lastChapterNumber = chapterNumber
+                    targetHash = chapterNumber < 0 ? "#top" : "#ch\(chapterNumber)"
+                }
+                js += """
+                document.documentElement.removeAttribute('data-kymbio-widget-only');
+                function routeFullBook() {
+                    var hash = '\(targetHash)';
+                    var el = document.querySelector(hash);
+                    if (window.App && window.App.reveal && el) {
+                        window.App.reveal(el);
+                    }
+                    if (window.location.hash !== hash) {
+                        window.location.hash = hash;
+                    }
+                    window.scrollTo(0, 0);
+                }
+                if (window.App && window.App.ready) {
+                    window.App.ready(function() {
+                        routeFullBook();
+                        setTimeout(routeFullBook, 60);
+                    });
+                } else {
+                    setTimeout(routeFullBook, 100);
+                }
+                """
             }
-            """
         }
 
         js += "})();"
@@ -496,7 +737,35 @@ final class LivingWorldWebCoordinator: NSObject, WKScriptMessageHandler, WKNavig
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let body = message.body as? [String: Any] else { return }
-        if let widgetId = body["widgetId"] as? String {
+        let msgKind = body["kind"] as? String
+        if msgKind == "snapshot" || body["snapshotWidgetId"] != nil {
+            let snapWidgetId = (body["snapshotWidgetId"] as? String) ?? (body["widgetId"] as? String) ?? ""
+            guard !snapWidgetId.isEmpty else { return }
+            let readout = (body["readout"] as? String) ?? ""
+            let trialsMarkdown = (body["trialsMarkdown"] as? String) ?? ""
+            let rawB64 = (body["pngBase64"] as? String) ?? ""
+            let cleanB64: String = {
+                if let comma = rawB64.firstIndex(of: ",") {
+                    return String(rawB64[rawB64.index(after: comma)...])
+                }
+                return rawB64
+            }()
+            let pngData = cleanB64.isEmpty ? nil : Data(base64Encoded: cleanB64)
+            let payload = LivingWorldSnapshotPayload(
+                widgetId: snapWidgetId,
+                readout: readout,
+                trialsMarkdown: trialsMarkdown,
+                pngData: pngData
+            )
+            Task { @MainActor in
+                onSnapshotCaptured?(payload)
+            }
+        } else if let telWidgetId = body["telemetryWidgetId"] as? String {
+            let summary = (body["telemetrySummary"] as? String) ?? ""
+            Task { @MainActor in
+                onTelemetryEvent?(telWidgetId, summary)
+            }
+        } else if let widgetId = body["widgetId"] as? String, msgKind == nil || msgKind == "stamp" {
             let readout = (body["readout"] as? String) ?? "Completed in interactive stage"
             Task { @MainActor in
                 onWidgetStamped(widgetId, readout)

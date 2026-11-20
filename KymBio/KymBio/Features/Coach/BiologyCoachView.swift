@@ -74,6 +74,9 @@ struct BiologyCoachView: View {
             if let sharedMuddy = store.sharedMuddiestPointContext {
                 sharedMuddiestPointBanner(sharedMuddy)
             }
+            if let labTelemetry = store.activeLabTelemetryContext {
+                sharedLabTelemetryBanner(labTelemetry)
+            }
             switch tabMode {
             case .socraticChat:
                 socraticCoachSection
@@ -164,6 +167,30 @@ struct BiologyCoachView: View {
                 }
                 .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                 .accessibilityIdentifier("coach.clear-muddiest-point")
+            }
+        }
+    }
+
+    private func sharedLabTelemetryBanner(_ summary: String) -> some View {
+        JournalCard {
+            HStack(alignment: .top, spacing: Spacing.sm) {
+                JournalBadge(symbol: "waveform.path.ecg.rectangle", tint: .kymaiaPrimary, size: .row)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Shared run from 3D Labs")
+                        .font(.kymaiaCardTitle)
+                    Text(summary)
+                        .font(.kymaiaBody)
+                        .foregroundStyle(Color.kymaiaInk)
+                    Text("Coach can inspect this captured readout and guide you without giving away exam answers.")
+                        .font(.kymaiaCaption)
+                        .foregroundStyle(Color.kymaiaMutedInk)
+                }
+                Spacer()
+                Button("Clear lab run") {
+                    store.clearLabTelemetryContext()
+                }
+                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                .accessibilityIdentifier("coach.clear-lab-telemetry")
             }
         }
     }
@@ -622,14 +649,16 @@ struct BiologyCoachView: View {
         if liveAIClient.hasLiveAPIKey {
             isGeneratingReply = true
             let activeCh = store.pack.chapters.first(where: { $0.number == store.activeLivingWorldChapter })
-            let chContext = "Unit \(store.selectedUnitNumber), Ch \(store.activeLivingWorldChapter) (\(activeCh?.title ?? "The Living World"))"
+            let activeLabSnapshot = store.activeLabTelemetryContext
+            let baseChContext = "Unit \(store.selectedUnitNumber), Ch \(store.activeLivingWorldChapter) (\(activeCh?.title ?? "The Living World"))"
+            let chContext = activeLabSnapshot.map { "\(baseChContext) · Live lab: \($0)" } ?? baseChContext
             let misContext = store.pack.misconceptions.prefix(3).map { "\($0.topic): \($0.details)" }.joined(separator: " | ")
             let swContext = store.pack.schoolWordingEntries.prefix(4).map { "\($0.topicAndChapter): \($0.cambridgeWording)" }.joined(separator: " | ")
             let personaSnapshot = selectedPersona
             let guidanceSnapshot = resolvedStyle
             let intentSnapshot = selectedIntent
             let modeSnapshot = selectedConversationMode
-            let muddySnapshot = store.sharedMuddiestPointContext
+            let muddySnapshot: String? = store.sharedMuddiestPointContext
 
             Task { @MainActor in
                 defer { isGeneratingReply = false }
@@ -788,7 +817,14 @@ struct BiologyCoachView: View {
             }
         }
 
-        return finalizeLocalCoachMessage(rawText: coreText, query: query, tag: tag)
+        let withLabContext: String
+        if let labCtx = store.activeLabTelemetryContext, !labCtx.isEmpty {
+            withLabContext = "Lab telemetry shared:\n\(labCtx)\n\n\(coreText)"
+        } else {
+            withLabContext = coreText
+        }
+
+        return finalizeLocalCoachMessage(rawText: withLabContext, query: query, tag: tag)
     }
 
     private func finalizeLocalCoachMessage(rawText: String, query: String, tag: String) -> CoachMessage {

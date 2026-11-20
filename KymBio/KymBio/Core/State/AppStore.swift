@@ -79,6 +79,7 @@ final class AppStore: ObservableObject {
     // MARK: - Journal Muddiest-Point Privacy Lease (Ported from ../kym_tutor)
     // Coach never reads private Lab Journal entries unless Kym explicitly shares a muddiest point.
     @Published private(set) var sharedMuddiestPointContext: String? = nil
+    @Published private(set) var activeLabTelemetryContext: String? = nil
 
     func shareJournalMuddiestPointWithCoach(_ note: String) {
         let trimmed = note.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -89,6 +90,17 @@ final class AppStore: ObservableObject {
 
     func clearJournalPrivateContext() {
         sharedMuddiestPointContext = nil
+    }
+
+    func shareLabTelemetryWithCoach(_ summary: String) {
+        let trimmed = summary.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty, SafetyEscalationService().scan(trimmed) == nil else { return }
+        activeLabTelemetryContext = trimmed
+        selectedRoom = .coach
+    }
+
+    func clearLabTelemetryContext() {
+        activeLabTelemetryContext = nil
     }
 
     // MARK: - Persisted Learner State
@@ -355,9 +367,12 @@ final class AppStore: ObservableObject {
     func freezeWidgetIntoLabLog(
         widget: InteractiveWidgetSpec,
         readout: String,
+        trialsMarkdown: String = "",
         snapshotPNGData: Data? = nil
     ) -> LabJournalEntryRecord {
         let now = Date()
+        let cleanedTrials = trialsMarkdown.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trialsBlock = cleanedTrials.isEmpty ? "" : "\n\nRecorded trials:\n\(cleanedTrials)"
         let entry = LabJournalEntryRecord(
             id: "lablog-\(widget.id)-\(Int(now.timeIntervalSince1970))",
             title: "Lab Log: \(widget.title) (Ch \(widget.chapter))",
@@ -367,7 +382,7 @@ final class AppStore: ObservableObject {
             linkedChapterNumber: widget.chapter,
             linkedWidgetId: widget.id,
             cueColumnText: "Challenge:\n\(widget.challengePrompt)",
-            bodyNotesText: "Live readout:\n\(readout)\n\nSubmicroscopic cutaway:\n\(widget.cutaway)",
+            bodyNotesText: "Live readout:\n\(readout)\(trialsBlock)\n\nSubmicroscopic cutaway:\n\(widget.cutaway)",
             summaryText: "Model scope note: \(widget.idealised)",
             hypothesisText: widget.challengePrompt,
             independentVarText: "Slider parameter adjusted in \(widget.title)",

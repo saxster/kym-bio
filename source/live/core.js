@@ -193,11 +193,12 @@ function makeAudio() {
     }
     return ctx;
   }
-  function voice(src, gainNode, c) {
+  function voice(src, gainNode, c, panner = null) {
     const v = {
       src, gain: gainNode,
       setFreq(f) { if (src.frequency) src.frequency.setTargetAtTime(f, c.currentTime, 0.02); },
       setGain(g) { gainNode.gain.setTargetAtTime(g, c.currentTime, 0.03); },
+      setPan(p) { if (panner) panner.pan.setTargetAtTime(Math.max(-1, Math.min(1, p)), c.currentTime, 0.02); },
       stop(release = 0.08) {
         if (!voices.has(v)) return;
         const t = c.currentTime;
@@ -205,7 +206,11 @@ function makeAudio() {
       },
     };
     voices.add(v);
-    src.onended = () => { voices.delete(v); try { gainNode.disconnect(); } catch (e) {} };
+    src.onended = () => {
+      voices.delete(v);
+      try { gainNode.disconnect(); } catch (e) {}
+      try { panner && panner.disconnect(); } catch (e) {}
+    };
     return v;
   }
   const audio = {
@@ -214,23 +219,54 @@ function makeAudio() {
     get ctx() { return ensure(); },
     /** The master gain node every sound goes through. */
     get master() { ensure(); return master; },
-    /** Play a tone: tone(440, {gain: 0.3, type: 'sine'|'square'|'sawtooth'|'triangle', dur: 1, attack: 0.01, release: 0.08, wave}).
-        dur: Infinity holds it until voice.stop(). Returns a voice {setFreq(f), setGain(g), stop()} or null without Web Audio. */
-    tone(freq, { gain = 0.3, type = 'sine', dur = 1, attack = 0.01, release = 0.08, when = 0, wave = null } = {}) {
+    /** Play a tone: tone(440, {gain: 0.3, type: 'sine'|'square'|'sawtooth'|'triangle', dur: 1, attack: 0.01, release: 0.08, wave, pan, slideTo}).
+        dur: Infinity holds it until voice.stop(). Returns a voice {setFreq(f), setGain(g), setPan(p), stop()} or null without Web Audio. */
+    tone(freq, { gain = 0.3, type = 'sine', dur = 1, attack = 0.01, release = 0.08, when = 0, wave = null, pan = 0, slideTo = null } = {}) {
       const c = ensure(); if (!c) return null;
       const t0 = c.currentTime + when;
       const o = c.createOscillator();
       if (wave) o.setPeriodicWave(wave); else o.type = type;
-      o.frequency.value = freq;
+      const safeFreq = Math.max(40, Math.min(3200, freq));
+      o.frequency.setValueAtTime(safeFreq, t0);
+      if (slideTo != null && Number.isFinite(slideTo)) {
+        const endT = Number.isFinite(dur) ? t0 + Math.max(0.02, dur) : t0 + 0.16;
+        o.frequency.exponentialRampToValueAtTime(Math.max(40, Math.min(3200, slideTo)), endT);
+      }
       const g = c.createGain();
-      g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(gain, t0 + attack);
+      g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(gain, t0 + attack);
       if (Number.isFinite(dur)) {
         g.gain.setValueAtTime(gain, t0 + Math.max(attack, dur - release));
-        g.gain.linearRampToValueAtTime(0, t0 + dur);
+        g.gain.linearRampToValueAtTime(0.0001, t0 + dur);
       }
-      o.connect(g); g.connect(master); o.start(t0);
+      let panner = null;
+      if (typeof c.createStereoPanner === 'function') {
+        panner = c.createStereoPanner();
+        panner.pan.setValueAtTime(Math.max(-1, Math.min(1, Number(pan) || 0)), t0);
+        o.connect(g); g.connect(panner); panner.connect(master);
+      } else {
+        o.connect(g); g.connect(master);
+      }
+      o.start(t0);
       if (Number.isFinite(dur)) o.stop(t0 + dur + 0.02);
-      return voice(o, g, c);
+      return voice(o, g, c, panner);
+    },
+    /** A directional micro-click with optional stereo pan (-1 left .. +1 right). */
+    click({ dir = 1, pan = 0, gain = 0.14 } = {}) {
+      return audio.tone(dir >= 0 ? 520 : 390, {
+        slideTo: dir >= 0 ? 740 : 270,
+        dur: 0.042,
+        attack: 0.004,
+        release: 0.024,
+        type: 'triangle',
+        gain,
+        pan,
+      });
+    },
+    /** Semitone-scaled confirmation boop. */
+    boop({ streak = 0, baseFreq = 330, dur = 0.08, gain = 0.16, pan = 0 } = {}) {
+      const semi = Math.max(0, Math.min(12, streak));
+      const f0 = baseFreq * (2 ** (semi / 12));
+      return audio.tone(f0 * 0.92, { slideTo: f0 * 1.12, dur, attack: 0.006, release: 0.04, type: 'triangle', gain, pan });
     },
     /** A note built from harmonics: amps[k] is the amplitude of harmonic k+1 (frequency (k+1)·f0). Same options as tone(). */
     harmonics(amps, f0, opts = {}) {
@@ -251,6 +287,114 @@ function makeAudio() {
   return audio;
 }
 
+// ------------------------------------------------------------------ Kym-iO & lazy archival plate loader
+const kymIORegistry = new Map();
+let directorsCutPromise = null;
+
+function loadDirectorsCut() {
+  if (!directorsCutPromise) {
+    const url = new URL('assets/plates/directors_cut.json', document.baseURI).href;
+    directorsCutPromise = fetch(url)
+      .then((r) => {
+        if (!r.ok) {
+          directorsCutPromise = null;
+          return null;
+        }
+        return r.json();
+      })
+      .catch(() => {
+        directorsCutPromise = null;
+        return null;
+      });
+  }
+  return directorsCutPromise;
+}
+
+function encodePresetURL(widgetName, stateObj) {
+  try {
+    const payload = {
+      sliders: (stateObj.sliders || []).map((s) => s.value),
+      tabs: stateObj.tabs || [],
+      custom: stateObj.custom || undefined,
+    };
+    const u = new URL(location.href);
+    u.searchParams.set('wpreset', `${widgetName}:${JSON.stringify(payload)}`);
+    return u.href;
+  } catch (e) {
+    return location.href;
+  }
+}
+
+function readPresetFromURL(widgetName) {
+  try {
+    const raw = new URLSearchParams(location.search).get('wpreset');
+    if (!raw || !raw.startsWith(widgetName + ':')) return null;
+    return JSON.parse(raw.slice(widgetName.length + 1));
+  } catch (e) {
+    return null;
+  }
+}
+
+function captureCompositePNG(stage, ext) {
+  try {
+    if (ext.io?.beforeSnapshot) ext.io.beforeSnapshot();
+    const canvases = [...stage.querySelectorAll('canvas')].filter((cv) => cv.width > 0 && cv.height > 0);
+    if (!canvases.length) return null;
+    if (canvases.length === 1) {
+      const primary = canvases[0];
+      const w = primary.width;
+      const h = primary.height;
+      const out = document.createElement('canvas');
+      out.width = w;
+      out.height = h;
+      const ctx = out.getContext('2d');
+      if (!ctx) return primary.toDataURL('image/png');
+      ctx.fillStyle = colors().plate || '#fdfbf6';
+      ctx.fillRect(0, 0, w, h);
+      try { ctx.drawImage(primary, 0, 0, w, h); } catch (_) { /* ignore tainted */ }
+      return out.toDataURL('image/png');
+    }
+    const maxW = Math.max(...canvases.map((cv) => cv.width));
+    const gap = 8;
+    const heights = canvases.map((cv) => Math.max(1, Math.round((cv.height / cv.width) * maxW)));
+    const totalH = heights.reduce((a, b) => a + b, 0) + gap * (canvases.length - 1);
+    const out = document.createElement('canvas');
+    out.width = maxW;
+    out.height = totalH;
+    const ctx = out.getContext('2d');
+    if (!ctx) return canvases[0].toDataURL('image/png');
+    ctx.fillStyle = colors().plate || '#fdfbf6';
+    ctx.fillRect(0, 0, maxW, totalH);
+    let yOff = 0;
+    canvases.forEach((cv, idx) => {
+      const h = heights[idx];
+      try { ctx.drawImage(cv, 0, yOff, maxW, h); } catch (_) { /* ignore tainted */ }
+      yOff += h + gap;
+    });
+    return out.toDataURL('image/png');
+  } catch (e) {
+    return null;
+  }
+}
+
+if (typeof window !== 'undefined') {
+  window.__kymIO = {
+    list() { return [...kymIORegistry.keys()]; },
+    getState(name) {
+      const entry = kymIORegistry.get(name);
+      return entry ? entry.getState() : null;
+    },
+    setState(name, patch) {
+      const entry = kymIORegistry.get(name);
+      return entry ? entry.setState(patch) : false;
+    },
+    captureSnapshot(name) {
+      const entry = kymIORegistry.get(name);
+      return entry ? entry.captureSnapshot() : null;
+    },
+  };
+}
+
 // ------------------------------------------------------------------ the per-figure API
 function isReducedMotion() {
   return !!(reducedQuery.matches
@@ -266,6 +410,7 @@ function makeApi(fig, stage, controls, state) {
   const tabGroups = [];        // [{btns, activeIdx, onSelect}]
   const buttons = [];          // [{label, btn}]
   const changeListeners = new Set();
+  const calmListeners = new Set();
   let readoutText = '';
   let customChallenge = null;
   let customNumbers = null;
@@ -273,9 +418,16 @@ function makeApi(fig, stage, controls, state) {
   let customCutaway = null;
   let customCutawayCb = null;
   let customIdealised = null;
+  let customReset = null;
+  let customIO = null;
+  let trialsCtrl = null;
+  let sonifyCtrl = null;
+  let calmOverride = false;
   let interacted = false;
   let watched = false;
   let audio = null;
+  let lastEmitAt = 0;
+  let emitTimer = 0;
   const palette = colors();
   const themeObserver = new MutationObserver(() => {
     Object.assign(palette, colors());
@@ -283,11 +435,48 @@ function makeApi(fig, stage, controls, state) {
   });
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   cleanups.push(() => themeObserver.disconnect());
+  cleanups.push(() => { if (emitTimer) clearTimeout(emitTimer); });
 
-  const notifyChange = () => {
+  const emitTelemetry = (type = 'change', summary = '') => {
+    if (typeof window === 'undefined' || !state.widgetName) return;
+    const send = () => {
+      lastEmitAt = performance.now();
+      const entry = kymIORegistry.get(state.widgetName);
+      window.dispatchEvent(new CustomEvent('kym:sim-event', {
+        detail: {
+          widgetId: state.widgetName,
+          type,
+          summary: summary || readoutText,
+          state: entry ? entry.getState() : null,
+        },
+      }));
+    };
+    const now = performance.now();
+    if (type === 'stamp' || type === 'trial' || type === 'reset' || now - lastEmitAt > 240) {
+      if (emitTimer) { clearTimeout(emitTimer); emitTimer = 0; }
+      send();
+    } else if (!emitTimer) {
+      emitTimer = setTimeout(() => { emitTimer = 0; send(); }, 250);
+    }
+  };
+
+  const notifyChange = (reason = 'change') => {
     for (const fn of changeListeners) {
       try { fn(); } catch (e) { /* ignore */ }
     }
+    if (interacted || reason === 'reset' || reason === 'trial' || reason === 'stamp') {
+      emitTelemetry(reason);
+    }
+  };
+
+  const setCalm = (on) => {
+    calmOverride = !!on;
+    fig.dataset.calmMotion = calmOverride ? '1' : '0';
+    for (const fn of calmListeners) {
+      try { fn(calmOverride || isReducedMotion()); } catch (e) { /* ignore */ }
+    }
+    for (const fn of loops) fn(0, state.t);
+    notifyChange('calm');
   };
 
   const note = (text, cls = '') => {
@@ -298,11 +487,26 @@ function makeApi(fig, stage, controls, state) {
     cv.style.width = '100%'; cv.style.height = 'auto'; cv.style.aspectRatio = `${W} / ${H}`; cv.style.display = 'block';
     cv.style.setProperty('--drawing-width', W + 'px');
     cv.dataset.logicalWidth = W;
+    cv.dataset.logicalHeight = H;
+  };
+  const pointerXY = (target, ev) => {
+    const cv = target?.cv || target;
+    if (!cv || !cv.getBoundingClientRect) return { x: 0, y: 0 };
+    const r = cv.getBoundingClientRect();
+    const w = target?.W || Number(cv.dataset.logicalWidth) || cv.width || r.width || 1;
+    const h = target?.H || Number(cv.dataset.logicalHeight) || cv.height || r.height || 1;
+    return {
+      x: ((ev.clientX - r.left) / Math.max(1, r.width)) * w,
+      y: ((ev.clientY - r.top) / Math.max(1, r.height)) * h,
+    };
   };
   const api = {
     get reduced() { return isReducedMotion(); },
+    get calm() { return calmOverride || isReducedMotion(); },
+    get controls() { return controls; },
+    get stage() { return stage; },
     colors: () => palette,
-    draw, rng, gauss, EL,
+    draw, rng, gauss, EL, pointerXY,
     /** true while the figure is on screen */
     get visible() { return state.visible; },
     /** Start/pause from an explicit lesson button (for example, Run a motor). */
@@ -312,6 +516,296 @@ function makeApi(fig, stage, controls, state) {
     playback(enabled) { state.setPlaybackSupported?.(!!enabled); },
     /** Keep a lesson's controls beside its primary visual. */
     placeControls(slot) { slot.appendChild(controls); },
+    /** Register a custom reset handler invoked by the shared Reset button or 'R' key. */
+    reset(fn) { customReset = fn; },
+    /** Register Kym-iO bidirectional inspection hooks: { getState, setState, beforeSnapshot }. */
+    io(hooks) { customIO = hooks; },
+    /** Subscribe to Calm background motion changes. */
+    onCalmChange(fn) { calmListeners.add(fn); return () => calmListeners.delete(fn); },
+    /** Opt-in spatial audio sonification toggle synced with Still Mode and off-screen pause. */
+    sonifyToggle(label = 'Sonify', onToggle) {
+      let active = false;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'live-ctl live-sonify-btn';
+      btn.textContent = label;
+      btn.setAttribute('aria-pressed', 'false');
+      const set = (on) => {
+        const next = !!on && !isReducedMotion();
+        if (next === active) {
+          if (on && !next) notifyChange('sonify');
+          return;
+        }
+        active = next;
+        btn.setAttribute('aria-pressed', String(active));
+        if (!active && audio) audio.stop();
+        if (active) api.audio();
+        try { onToggle?.(active, active ? api.audio() : null); } catch (e) { /* ignore */ }
+        notifyChange('sonify');
+      };
+      btn.addEventListener('click', () => { interacted = true; set(!active); });
+      controls.appendChild(btn);
+      buttons.push({ label, btn });
+      const stopAudio = () => { if (active) set(false); };
+      hides.add(stopAudio);
+      cleanups.push(stopAudio);
+      const onStill = (e) => { if (e.detail?.still) stopAudio(); };
+      window.addEventListener('still:change', onStill);
+      cleanups.push(() => window.removeEventListener('still:change', onStill));
+      sonifyCtrl = {
+        get active() { return active; },
+        set,
+        btn,
+        label,
+      };
+      return sonifyCtrl;
+    },
+    /** Live Sim Data table + mini dot-plot + CSV/Snapshot export + optional biological noise toggle. */
+    trials({
+      columns = ['Trial', 'Value'],
+      maxRows = 8,
+      allowNoise = false,
+      noiseLabel = 'Biological noise',
+      onNoiseChange = null,
+      plotColumn = null,
+      plotLabel = null,
+      plotValue = null,
+    } = {}) {
+      const wrap = document.createElement('div');
+      wrap.className = 'live-trials';
+      const head = document.createElement('div');
+      head.className = 'live-trials-head';
+      const titleEl = document.createElement('span');
+      titleEl.className = 'live-trials-title';
+      titleEl.textContent = 'Live Sim Data (0)';
+      head.appendChild(titleEl);
+
+      let noiseOn = false;
+      let noiseInput = null;
+      if (allowNoise) {
+        const lab = document.createElement('label');
+        lab.className = 'live-check';
+        noiseInput = document.createElement('input');
+        noiseInput.type = 'checkbox';
+        noiseInput.checked = false;
+        const sp = document.createElement('span');
+        sp.textContent = noiseLabel;
+        lab.append(noiseInput, sp);
+        noiseInput.addEventListener('change', () => {
+          interacted = true;
+          noiseOn = !!noiseInput.checked;
+          try { onNoiseChange?.(noiseOn); } catch (e) { /* ignore */ }
+          notifyChange('noise');
+        });
+        head.appendChild(lab);
+      }
+
+      const actions = document.createElement('div');
+      actions.className = 'live-trials-actions';
+      const csvBtn = document.createElement('button');
+      csvBtn.type = 'button';
+      csvBtn.className = 'live-ctl live-csv-btn';
+      csvBtn.textContent = 'Copy CSV';
+      const snapBtn = document.createElement('button');
+      snapBtn.type = 'button';
+      snapBtn.className = 'live-ctl live-snapshot-btn';
+      snapBtn.textContent = 'Snapshot';
+      actions.append(csvBtn, snapBtn);
+      head.appendChild(actions);
+
+      const plotBox = document.createElement('div');
+      plotBox.className = 'live-trials-plot';
+      plotBox.hidden = true;
+
+      const scrollBox = document.createElement('div');
+      scrollBox.className = 'live-trials-scroll';
+      const tbl = document.createElement('table');
+      tbl.className = 'live-trials-table';
+      const thead = document.createElement('thead');
+      const trHead = document.createElement('tr');
+      columns.forEach((col) => {
+        const th = document.createElement('th');
+        th.textContent = col;
+        trHead.appendChild(th);
+      });
+      thead.appendChild(trHead);
+      const tbody = document.createElement('tbody');
+      tbl.append(thead, tbody);
+      scrollBox.appendChild(tbl);
+      wrap.append(head, plotBox, scrollBox);
+      wrap.hidden = !allowNoise;
+      controls.appendChild(wrap);
+
+      let recorded = [];
+
+      const rowValues = (r) => (Array.isArray(r) ? r : columns.map((c) => (r[c] != null ? r[c] : '')));
+      const toCSV = () => [columns, ...recorded.map(rowValues)]
+        .map((r) => r.map((cell) => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
+        .join('\n');
+      const toMarkdown = () => {
+        if (!recorded.length) return '';
+        const hdr = '| ' + columns.join(' | ') + ' |';
+        const sep = '| ' + columns.map(() => '---').join(' | ') + ' |';
+        const body = recorded.map((r) => '| ' + rowValues(r).map((v) => String(v ?? '')).join(' | ') + ' |').join('\n');
+        return [hdr, sep, body].join('\n');
+      };
+
+      const renderTable = () => {
+        titleEl.textContent = `Live Sim Data (${recorded.length})`;
+        wrap.hidden = !allowNoise && recorded.length === 0;
+        scrollBox.hidden = recorded.length === 0;
+        csvBtn.hidden = recorded.length === 0;
+        tbody.replaceChildren();
+        recorded.forEach((r) => {
+          const tr = document.createElement('tr');
+          rowValues(r).forEach((val) => {
+            const td = document.createElement('td');
+            td.textContent = String(val ?? '');
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        // Render inline trend dot-plot for explicit/outcome numeric metric from row 1
+        let explicitIdx = -1;
+        if (typeof plotColumn === 'number' && plotColumn >= 0 && plotColumn < columns.length) {
+          explicitIdx = plotColumn;
+        } else if (typeof plotColumn === 'string') {
+          explicitIdx = columns.indexOf(plotColumn);
+        }
+        let metricIdx = explicitIdx;
+        if (metricIdx < 0 && typeof plotValue !== 'function') {
+          for (let ci = columns.length - 1; ci >= 1; ci--) {
+            if (recorded.some((r) => Number.isFinite(parseFloat(rowValues(r)[ci])))) {
+              metricIdx = ci;
+              break;
+            }
+          }
+        }
+        const vals = recorded
+          .map((r) => {
+            if (typeof plotValue === 'function') return Number(plotValue(rowValues(r), r));
+            if (metricIdx >= 0) return parseFloat(rowValues(r)[metricIdx]);
+            return NaN;
+          })
+          .filter((n) => Number.isFinite(n));
+
+        plotBox.replaceChildren();
+        if (vals.length >= 1) {
+          const metricName = plotLabel || (metricIdx >= 0 ? columns[metricIdx] : 'Value');
+          const lo = Math.min(...vals);
+          const hi = Math.max(...vals);
+          const span = Math.max(1e-6, hi - lo);
+          const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+          const W = 260, H = 34, pad = 16;
+          const xAt = (v) => (vals.length === 1 ? W / 2 : pad + ((v - lo) / span) * (W - pad * 2));
+          const svgNS = 'http://www.w3.org/2000/svg';
+          const svg = document.createElementNS(svgNS, 'svg');
+          svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+          svg.setAttribute('aria-label', `Trial trend for ${metricName}`);
+          const mkSvg = (tag, attrs) => {
+            const el = document.createElementNS(svgNS, tag);
+            Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, String(v)));
+            return el;
+          };
+          svg.appendChild(mkSvg('line', { x1: pad, y1: 17, x2: W - pad, y2: 17, stroke: 'var(--rule)', 'stroke-width': 1.2 }));
+          if (vals.length >= 2) {
+            const mx = xAt(mean);
+            svg.appendChild(mkSvg('line', { x1: mx.toFixed(1), y1: 5, x2: mx.toFixed(1), y2: 29, stroke: 'var(--proton)', 'stroke-width': 1.8 }));
+            const pts = vals.map((v, idx) => `${xAt(v).toFixed(1)},${17 + ((idx % 3) - 1) * 5}`).join(' ');
+            svg.appendChild(mkSvg('polyline', { fill: 'none', stroke: 'var(--electron)', 'stroke-width': 1.3, opacity: 0.55, points: pts }));
+          }
+          vals.forEach((v, idx) => {
+            svg.appendChild(mkSvg('circle', {
+              cx: xAt(v).toFixed(1),
+              cy: (vals.length === 1 ? 17 : 17 + ((idx % 3) - 1) * 5).toFixed(1),
+              r: idx === vals.length - 1 ? 4.2 : 3.2,
+              fill: idx === vals.length - 1 ? 'var(--green)' : 'var(--electron)',
+              opacity: 0.92,
+            }));
+          });
+          const summaryEl = document.createElement('span');
+          summaryEl.className = 'live-trials-mean';
+          summaryEl.textContent = vals.length === 1
+            ? `${metricName} baseline: ${vals[0].toFixed(1)}`
+            : `${metricName} mean: ${mean.toFixed(1)} (${lo.toFixed(1)}–${hi.toFixed(1)})`;
+          plotBox.append(svg, summaryEl);
+          plotBox.hidden = false;
+        } else {
+          plotBox.hidden = true;
+        }
+      };
+
+      csvBtn.addEventListener('click', () => {
+        const csv = toCSV();
+        try { navigator.clipboard?.writeText(csv); } catch (_) { /* optional */ }
+        const prev = csvBtn.textContent;
+        csvBtn.textContent = 'Copied CSV';
+        setTimeout(() => { csvBtn.textContent = prev; }, 1400);
+      });
+
+      snapBtn.addEventListener('click', () => {
+        const wname = state.widgetName;
+        const snapData = wname ? window.__kymIO?.captureSnapshot(wname) : null;
+        let savedOk = false;
+        if (window.webkit?.messageHandlers?.kymbioBridge && snapData) {
+          try {
+            window.webkit.messageHandlers.kymbioBridge.postMessage({
+              kind: 'snapshot',
+              snapshotWidgetId: wname,
+              readout: snapData.readout || '',
+              trialsMarkdown: snapData.trialsMarkdown || '',
+              pngBase64: snapData.pngBase64 || '',
+            });
+            savedOk = true;
+          } catch (_) { /* ignore bridge failure */ }
+        } else if (snapData?.pngBase64) {
+          const a = document.createElement('a');
+          a.href = snapData.pngBase64;
+          a.download = `${wname || 'lab'}-snapshot.png`;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          savedOk = true;
+        }
+        const prev = snapBtn.textContent;
+        snapBtn.textContent = savedOk ? 'Saved' : 'Unavailable';
+        setTimeout(() => { snapBtn.textContent = prev; }, 1400);
+      });
+
+      renderTable();
+
+      trialsCtrl = {
+        record(row) {
+          interacted = true;
+          recorded = [...recorded.slice(-(maxRows - 1)), row];
+          renderTable();
+          if (typeof window !== 'undefined' && state.widgetName) {
+            window.dispatchEvent(new CustomEvent('kym:trial-recorded', {
+              detail: { widgetId: state.widgetName, row, rows: recorded.slice() },
+            }));
+          }
+          notifyChange('trial');
+          return recorded.slice();
+        },
+        clear() {
+          recorded = [];
+          renderTable();
+          notifyChange('trial');
+        },
+        rows: () => recorded.slice(),
+        get noise() { return noiseOn; },
+        setNoise(v) {
+          noiseOn = !!v;
+          if (noiseInput) noiseInput.checked = noiseOn;
+          try { onNoiseChange?.(noiseOn); } catch (e) { /* ignore */ }
+          notifyChange('noise');
+        },
+        toCSV,
+        toMarkdown,
+      };
+      return trialsCtrl;
+    },
     /** A canvas that fills the stage at a fixed logical size (W x H); drawing uses logical units. */
     canvas(W, H, label) {
       const cv = document.createElement('canvas');
@@ -762,13 +1256,20 @@ function makeApi(fig, stage, controls, state) {
       get readoutText() { return readoutText; },
       get interacted() { return interacted; },
       get watched() { return watched; },
-      setWatched(v) { watched = v; notifyChange(); },
+      setWatched(v) { watched = v; notifyChange('watch'); },
       get challenge() { return customChallenge; },
       get yourNumbers() { return customNumbers; },
       get watch() { return customWatch; },
       get cutaway() { return customCutaway; },
       get cutawayCb() { return customCutawayCb; },
       get idealised() { return customIdealised; },
+      get resetFn() { return customReset; },
+      get io() { return customIO; },
+      get trials() { return trialsCtrl; },
+      get sonify() { return sonifyCtrl; },
+      get calm() { return calmOverride || isReducedMotion(); },
+      setCalm,
+      notifyChange,
     },
   };
   return api;
@@ -804,6 +1305,15 @@ function makeSnapshot(ext) {
   };
 }
 
+function findPlateInManifest(manifest, plateId) {
+  if (!manifest || !Array.isArray(manifest.chapters)) return null;
+  for (const ch of manifest.chapters) {
+    const found = (ch.plates || []).find((p) => p.id === plateId);
+    if (found) return found;
+  }
+  return null;
+}
+
 function attachEnhancements(name, fig, stage, controls, api, openBtn) {
   const def = ENHANCEMENTS[name] || {};
   const ext = api._ext;
@@ -813,25 +1323,49 @@ function attachEnhancements(name, fig, stage, controls, api, openBtn) {
   const shots = ext.watch || def.watch;
   const cutawayText = ext.cutaway || def.cutaway;
   const idealText = ext.idealised || def.idealised;
+  const realPlateDef = def.realPlate;
+  const realPlateId = typeof realPlateDef === 'string' ? realPlateDef : realPlateDef?.id;
 
-  // 1. Challenge banner + circular rubber stamp at top of stage
+  // 1. Challenge banner + Open-Play / Verified phase + circular rubber stamp at top of stage
   let stampEl = null;
+  let phaseEl = null;
+  let challengeBar = null;
   const stampKey = 'mw:stamp:' + name;
   let stamped = false;
   try { stamped = localStorage.getItem(stampKey) === '1'; } catch (e) { /* ignore */ }
 
   if (chal && chal.prompt) {
-    const bar = document.createElement('div');
-    bar.className = 'live-challenge';
+    challengeBar = document.createElement('div');
+    challengeBar.className = 'live-challenge';
+    challengeBar.dataset.phase = stamped ? 'stamped' : 'open-play';
+    const txtWrap = document.createElement('div');
+    txtWrap.className = 'live-challenge-main';
     const txt = document.createElement('span');
     txt.className = 'live-challenge-text';
     txt.innerHTML = `<strong>Challenge:</strong> ${chal.prompt}`;
+    txtWrap.appendChild(txt);
+    if (def.predictHint) {
+      const det = document.createElement('details');
+      det.className = 'live-predict-hint';
+      const sum = document.createElement('summary');
+      sum.textContent = 'Predict first';
+      const hp = document.createElement('p');
+      hp.textContent = def.predictHint;
+      det.append(sum, hp);
+      txtWrap.appendChild(det);
+    }
+    const statusWrap = document.createElement('div');
+    statusWrap.className = 'live-challenge-status';
+    phaseEl = document.createElement('span');
+    phaseEl.className = 'live-challenge-phase';
+    phaseEl.textContent = stamped ? 'Verified' : 'Open play';
     stampEl = document.createElement('span');
     stampEl.className = 'live-stamp' + (stamped ? ' is-stamped' : '');
     stampEl.setAttribute('role', 'status');
     stampEl.textContent = stamped ? '✓ Stamped' : '◎ Goal';
-    bar.append(txt, stampEl);
-    stage.insertBefore(bar, stage.firstChild);
+    statusWrap.append(phaseEl, stampEl);
+    challengeBar.append(txtWrap, statusWrap);
+    stage.insertBefore(challengeBar, stage.firstChild);
   }
 
   // 2. Cut-away cross-section overlay card inside stage
@@ -854,6 +1388,151 @@ function attachEnhancements(name, fig, stage, controls, api, openBtn) {
       try { ext.cutawayCb(cutawayOpen); } catch (e) { /* ignore */ }
     }
   };
+  ext.setCutaway = setCutaway;
+  ext.isCutaway = () => cutawayOpen;
+
+  // 2b. Real specimen microscopy / archival plate overlay (fetched lazily on first toggle)
+  let specimenCard = null;
+  let specimenBtn = null;
+  let specimenOpen = false;
+  let specimenLoaded = false;
+
+  const renderSpecimenContent = (plate) => {
+    if (!specimenCard) return;
+    const title = plate?.title || (typeof realPlateDef === 'object' ? realPlateDef.title : '') || 'Real biological specimen';
+    const eyebrow = plate?.eyebrow || 'Micrograph & archival plate';
+    const scale = plate?.scale || (typeof realPlateDef === 'object' ? realPlateDef.scale : '') || '';
+    const summary = plate?.summary || (typeof realPlateDef === 'object' ? realPlateDef.summary : '') || '';
+    const credit = plate?.credit || '';
+    const imgSrc = new URL(`assets/plates/${realPlateId}.webp`, document.baseURI).href;
+    const pins = Array.isArray(plate?.pins) ? plate.pins : [];
+
+    specimenCard.innerHTML = '';
+    const hdr = document.createElement('div');
+    hdr.className = 'live-specimen-head';
+    const meta = document.createElement('div');
+    meta.className = 'live-specimen-meta';
+    const eb = document.createElement('span');
+    eb.className = 'live-cutaway-badge';
+    eb.textContent = eyebrow;
+    const ttl = document.createElement('strong');
+    ttl.className = 'live-specimen-title';
+    ttl.textContent = title;
+    meta.append(eb, ttl);
+    if (scale) {
+      const sc = document.createElement('span');
+      sc.className = 'live-specimen-scale';
+      sc.textContent = scale;
+      meta.appendChild(sc);
+    }
+    const closeSp = document.createElement('button');
+    closeSp.type = 'button';
+    closeSp.className = 'live-ctl live-specimen-close';
+    closeSp.textContent = 'Close';
+    closeSp.addEventListener('click', () => {
+      setSpecimen(false);
+      specimenBtn?.focus({ preventScroll: true });
+    });
+    hdr.append(meta, closeSp);
+
+    const frameStage = document.createElement('div');
+    frameStage.className = 'live-specimen-stage';
+    const frame = document.createElement('div');
+    frame.className = 'live-specimen-frame';
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = `${title}. ${summary}`.trim();
+    img.loading = 'lazy';
+    frame.appendChild(img);
+    frameStage.appendChild(frame);
+
+    const pinDetail = document.createElement('p');
+    pinDetail.className = 'live-specimen-pin-detail';
+
+    if (pins.length) {
+      const pinBtns = [];
+      const selectPin = (idx) => {
+        const p = pins[idx];
+        if (!p) return;
+        pinBtns.forEach((b, j) => b.setAttribute('aria-pressed', String(j === idx)));
+        pinDetail.replaceChildren();
+        const strong = document.createElement('strong');
+        strong.textContent = `${p.label}: `;
+        pinDetail.append(strong, document.createTextNode(p.detail || ''));
+      };
+      pins.forEach((p, idx) => {
+        const pb = document.createElement('button');
+        pb.type = 'button';
+        pb.className = 'live-spec-pin';
+        pb.style.left = `${p.x}%`;
+        pb.style.top = `${p.y}%`;
+        pb.textContent = String(idx + 1);
+        pb.setAttribute('aria-label', `${p.label}: ${p.detail}`);
+        pb.addEventListener('click', () => selectPin(idx));
+        pb.addEventListener('keydown', (ev) => {
+          if (ev.key === 'ArrowRight' || ev.key === 'ArrowDown') {
+            ev.preventDefault();
+            const nextIdx = (idx + 1) % pinBtns.length;
+            selectPin(nextIdx);
+            pinBtns[nextIdx]?.focus();
+          } else if (ev.key === 'ArrowLeft' || ev.key === 'ArrowUp') {
+            ev.preventDefault();
+            const prevIdx = (idx - 1 + pinBtns.length) % pinBtns.length;
+            selectPin(prevIdx);
+            pinBtns[prevIdx]?.focus();
+          }
+        });
+        frame.appendChild(pb);
+        pinBtns.push(pb);
+      });
+      selectPin(0);
+    } else if (summary) {
+      pinDetail.textContent = summary;
+    }
+
+    specimenCard.append(hdr, frameStage, pinDetail);
+    if (credit || (pins.length && summary)) {
+      const foot = document.createElement('p');
+      foot.className = 'live-specimen-foot';
+      foot.textContent = [pins.length ? summary : '', credit].filter(Boolean).join(' · ');
+      specimenCard.appendChild(foot);
+    }
+  };
+
+  const setSpecimen = (on) => {
+    if (!realPlateId) return;
+    specimenOpen = !!on;
+    if (specimenCard) specimenCard.hidden = !specimenOpen;
+    if (specimenBtn) specimenBtn.setAttribute('aria-pressed', String(specimenOpen));
+    if (specimenOpen && !specimenLoaded) {
+      specimenLoaded = true;
+      renderSpecimenContent(null);
+      loadDirectorsCut().then((manifest) => {
+        const match = findPlateInManifest(manifest, realPlateId);
+        if (match) renderSpecimenContent(match);
+      });
+    }
+  };
+  ext.setSpecimen = setSpecimen;
+  ext.isSpecimen = () => specimenOpen;
+  ext.isStamped = () => stamped;
+
+  if (realPlateId) {
+    specimenCard = document.createElement('div');
+    specimenCard.className = 'live-specimen-card';
+    specimenCard.hidden = true;
+    stage.appendChild(specimenCard);
+
+    specimenBtn = document.createElement('button');
+    specimenBtn.type = 'button';
+    specimenBtn.className = 'live-ctl live-specimen-btn';
+    specimenBtn.textContent = 'Real specimen';
+    specimenBtn.setAttribute('aria-pressed', 'false');
+    specimenBtn.addEventListener('click', () => {
+      setSpecimen(!specimenOpen);
+      if (window.__bookSound) window.__bookSound.play('lens');
+    });
+  }
 
   // 3. Live "Your Numbers" handwritten margin substitution strip at top of controls
   let numEl = null;
@@ -963,8 +1642,24 @@ function attachEnhancements(name, fig, stage, controls, api, openBtn) {
 
     wBar.append(wBtn, dotsWrap);
     if (cutawayBtn) wBar.appendChild(cutawayBtn);
+    if (specimenBtn) wBar.appendChild(specimenBtn);
     wBar.appendChild(capEl);
     controls.insertBefore(wBar, numEl ? numEl.nextSibling : controls.firstChild);
+    ext.watchCtrl = { applyShot, stopTour, count: shots.length };
+  } else {
+    if (cutawayText || ext.cutawayCb) {
+      cutawayBtn = document.createElement('button');
+      cutawayBtn.type = 'button';
+      cutawayBtn.className = 'live-ctl live-cutaway-btn';
+      cutawayBtn.textContent = '◐ Cut-away';
+      cutawayBtn.setAttribute('aria-pressed', 'false');
+      cutawayBtn.addEventListener('click', () => {
+        setCutaway(!cutawayOpen);
+        if (window.__bookSound) window.__bookSound.play('flap');
+      });
+      controls.appendChild(cutawayBtn);
+    }
+    if (specimenBtn) controls.appendChild(specimenBtn);
   }
 
   // 5. "What the model simplifies" 1-sentence honesty footnote
@@ -986,12 +1681,18 @@ function attachEnhancements(name, fig, stage, controls, api, openBtn) {
         lastNumStr = val;
       }
     }
+    if (!stamped && phaseEl && challengeBar && ext.interacted) {
+      challengeBar.dataset.phase = 'testing';
+      phaseEl.textContent = 'Exploring';
+    }
     if (!stamped && chal && typeof chal.check === 'function') {
       let ok = false;
       try { ok = !!chal.check(snap); } catch (e) { ok = false; }
       if (ok) {
         stamped = true;
         try { localStorage.setItem(stampKey, '1'); } catch (e) { /* ignore */ }
+        if (challengeBar) challengeBar.dataset.phase = 'stamped';
+        if (phaseEl) phaseEl.textContent = 'Verified';
         if (stampEl) {
           stampEl.textContent = '✓ Stamped';
           stampEl.classList.add('is-stamped', 'just-stamped');
@@ -1004,6 +1705,7 @@ function attachEnhancements(name, fig, stage, controls, api, openBtn) {
           openBtn.appendChild(b);
         }
         if (window.__bookSound) window.__bookSound.play('stamp');
+        ext.notifyChange?.('stamp');
       }
     }
   };
@@ -1067,19 +1769,44 @@ function setup(fig) {
   }
 
   let w = null, inst = null, api = null, stage = null, controls = null, playing = false, raf = 0, last = 0, liftTimer = 0;
-  const state = { visible: true, t: 0 };
+  let speed = 1;
+  const state = { visible: true, t: 0, widgetName: null };
   state.setPlaying = setPlaying;
   state.setPlaybackSupported = (enabled) => {
     state.playbackSupported = enabled;
     playBtn.hidden = !enabled;
+    speedBtn.hidden = !enabled;
+    stepBtn.hidden = !enabled;
     if (!enabled && playing) setPlaying(false);
   };
   const originalFigureName = { label: fig.getAttribute('aria-label'), by: fig.getAttribute('aria-labelledby') };
   const playBtn = document.createElement('button');
   playBtn.type = 'button'; playBtn.className = 'live-ctl live-play';
+  const speedBtn = document.createElement('button');
+  speedBtn.type = 'button'; speedBtn.className = 'live-ctl live-speed';
+  speedBtn.textContent = '0.25×'; speedBtn.setAttribute('aria-pressed', 'false');
+  speedBtn.setAttribute('aria-label', 'Toggle slow motion');
+  const stepBtn = document.createElement('button');
+  stepBtn.type = 'button'; stepBtn.className = 'live-ctl live-step';
+  stepBtn.textContent = 'Step'; stepBtn.setAttribute('aria-label', 'Step forward one frame');
+
+  speedBtn.addEventListener('click', () => {
+    speed = speed === 1 ? 0.25 : 1;
+    speedBtn.setAttribute('aria-pressed', String(speed < 1));
+    speedBtn.textContent = speed < 1 ? '0.25× Slow' : '0.25×';
+  });
+  stepBtn.addEventListener('click', () => {
+    if (!api) return;
+    if (playing) setPlaying(false);
+    const stepDt = 0.08;
+    state.t += stepDt;
+    for (const fn of api._loops) fn(stepDt, state.t);
+    api._ext.notifyChange('step');
+  });
 
   function frame(ts) {
-    const dt = Math.min(0.05, last ? (ts - last) / 1000 : 0.016);
+    const rawDt = Math.min(0.05, last ? (ts - last) / 1000 : 0.016);
+    const dt = rawDt * speed;
     last = ts; state.t += dt;
     const activeApi = api;
     for (const fn of activeApi._loops) {
@@ -1139,10 +1866,16 @@ function setup(fig) {
     controls = document.createElement('div'); controls.className = 'live-controls';
     fig.insertBefore(stage, open); fig.insertBefore(controls, open);
     state.t = 0;
+    speed = 1;
+    speedBtn.setAttribute('aria-pressed', 'false');
+    speedBtn.textContent = '0.25×';
+    state.widgetName = name;
     state.playbackSupported = !w.meta.static;
     playBtn.hidden = !state.playbackSupported;
+    speedBtn.hidden = !state.playbackSupported;
+    stepBtn.hidden = !state.playbackSupported;
     api = makeApi(fig, stage, controls, state);
-    if (!w.meta.static) controls.appendChild(playBtn);
+    if (!w.meta.static) controls.append(playBtn, speedBtn, stepBtn);
     try { inst = w.factory(stage, params, api) || {}; }
     catch (_) {
       closeLive(false);
@@ -1152,6 +1885,127 @@ function setup(fig) {
       fig.insertBefore(message, open); return;
     }
     attachEnhancements(name, fig, stage, controls, api, open);
+
+    const ext = api._ext;
+    const initialSliders = ext.sliders.map((s) => s.input.value);
+    const initialTabs = ext.tabGroups.map((g) => g.activeIdx);
+
+    const resetSim = () => {
+      if (playing) setPlaying(false);
+      speed = 1;
+      speedBtn.setAttribute('aria-pressed', 'false');
+      speedBtn.textContent = '0.25×';
+      state.t = 0;
+      ext.sonify?.set(false);
+      ext.setCutaway?.(false);
+      ext.setSpecimen?.(false);
+      if (typeof ext.resetFn === 'function') {
+        try { ext.resetFn(); } catch (e) { /* ignore */ }
+      } else {
+        ext.tabGroups.forEach((g, idx) => {
+          const targetIdx = initialTabs[idx] ?? 0;
+          if (g.btns[targetIdx] && g.activeIdx !== targetIdx) g.btns[targetIdx].click();
+        });
+        ext.sliders.forEach((s, idx) => {
+          const v = initialSliders[idx];
+          if (v !== undefined) s.drive(v);
+        });
+        ext.trials?.clear();
+      }
+      for (const fn of api._loops) fn(0, state.t);
+      ext.notifyChange('reset');
+    };
+
+    const resetBtn = document.createElement('button');
+    resetBtn.type = 'button'; resetBtn.className = 'live-ctl live-reset';
+    resetBtn.textContent = '↺ Reset'; resetBtn.setAttribute('aria-label', 'Reset simulation');
+    resetBtn.addEventListener('click', resetSim);
+    controls.appendChild(resetBtn);
+
+    const prefsBtn = document.createElement('button');
+    prefsBtn.type = 'button'; prefsBtn.className = 'live-ctl live-prefs-btn';
+    prefsBtn.textContent = '⚙'; prefsBtn.setAttribute('aria-label', 'Simulation preferences');
+    prefsBtn.setAttribute('aria-expanded', 'false');
+
+    const keysBtn = document.createElement('button');
+    keysBtn.type = 'button'; keysBtn.className = 'live-ctl live-keys-btn';
+    keysBtn.textContent = '?'; keysBtn.setAttribute('aria-label', 'Keyboard shortcuts');
+    keysBtn.setAttribute('aria-expanded', 'false');
+
+    const prefsPanel = document.createElement('div');
+    prefsPanel.className = 'live-panel live-prefs-panel';
+    prefsPanel.hidden = true;
+    const mkPref = (label, checked, onChange) => {
+      const l = document.createElement('label');
+      l.className = 'live-check';
+      const inp = document.createElement('input');
+      inp.type = 'checkbox';
+      inp.checked = !!checked;
+      const sp = document.createElement('span');
+      sp.textContent = label;
+      l.append(inp, sp);
+      inp.addEventListener('change', () => onChange(inp.checked, inp));
+      return { l, inp };
+    };
+    let savedHi = false;
+    try { savedHi = localStorage.getItem('mw:prefs:highlights') === '1'; } catch (_) {}
+    if (savedHi) fig.dataset.interactiveHighlights = '1';
+    const hiPref = mkPref('Interactive highlights', fig.dataset.interactiveHighlights === '1', (on) => {
+      if (on) fig.dataset.interactiveHighlights = '1';
+      else delete fig.dataset.interactiveHighlights;
+      try {
+        if (on) localStorage.setItem('mw:prefs:highlights', '1');
+        else localStorage.removeItem('mw:prefs:highlights');
+      } catch (_) {}
+    });
+    const calmPref = mkPref('Calm background motion', ext.calm, (on) => ext.setCalm(on));
+    prefsPanel.append(hiPref.l, calmPref.l);
+    let sonifyPref = null;
+    if (ext.sonify) {
+      sonifyPref = mkPref('Audio sonification', ext.sonify.active, (on) => ext.sonify.set(on));
+      prefsPanel.append(sonifyPref.l);
+      ext.changeListeners.add(() => {
+        if (sonifyPref) sonifyPref.inp.checked = ext.sonify.active;
+      });
+    }
+    const linkBtn = document.createElement('button');
+    linkBtn.type = 'button';
+    linkBtn.className = 'live-ctl live-link-btn';
+    linkBtn.textContent = 'Copy state link';
+    linkBtn.addEventListener('click', () => {
+      const entry = kymIORegistry.get(name);
+      const url = entry ? encodePresetURL(name, entry.getState()) : location.href;
+      try { navigator.clipboard?.writeText(url); } catch (_) { /* optional */ }
+      const prev = linkBtn.textContent;
+      linkBtn.textContent = 'Link copied';
+      setTimeout(() => { linkBtn.textContent = prev; }, 1400);
+    });
+    prefsPanel.appendChild(linkBtn);
+
+    const keysPanel = document.createElement('div');
+    keysPanel.className = 'live-panel live-keys-panel';
+    keysPanel.hidden = true;
+    keysPanel.innerHTML = '<dl class="live-keys-grid">' +
+      '<div><dt><kbd>Space</kbd></dt><dd>Play / Pause</dd></div>' +
+      '<div><dt><kbd>.</kbd></dt><dd>Step frame</dd></div>' +
+      '<div><dt><kbd>R</kbd></dt><dd>Reset simulation</dd></div>' +
+      '<div><dt><kbd>C</kbd></dt><dd>Toggle Cut-away</dd></div>' +
+      '<div><dt><kbd>M</kbd></dt><dd>Toggle Real specimen</dd></div>' +
+      '<div><dt><kbd>1–5</kbd></dt><dd>Guided tour shot</dd></div>' +
+      '<div><dt><kbd>Esc</kbd></dt><dd>Close open panels</dd></div>' +
+      '</dl>';
+
+    const setPanels = (which) => {
+      const openPrefs = which === 'prefs' ? prefsPanel.hidden : false;
+      const openKeys = which === 'keys' ? keysPanel.hidden : false;
+      prefsPanel.hidden = !openPrefs;
+      keysPanel.hidden = !openKeys;
+      prefsBtn.setAttribute('aria-expanded', String(openPrefs));
+      keysBtn.setAttribute('aria-expanded', String(openKeys));
+    };
+    prefsBtn.addEventListener('click', () => setPanels('prefs'));
+    keysBtn.addEventListener('click', () => setPanels('keys'));
+
     const close = document.createElement('button');
     close.type = 'button'; close.className = 'live-ctl live-close'; close.textContent = 'Back to the drawing';
     close.addEventListener('click', () => closeLive());
@@ -1162,7 +2016,7 @@ function setup(fig) {
     const detailHint = document.createElement('p');
     detailHint.className = 'live-detail-hint'; detailHint.hidden = true;
     detailHint.textContent = params.lesson ? 'Scroll sideways in the drawing to see all of it.' : 'Scroll sideways to see the full drawing. The controls below still work.';
-    controls.append(detail, detailHint);
+    controls.append(detail, prefsBtn, keysBtn, prefsPanel, keysPanel, detailHint);
     detail.addEventListener('click', () => {
       const full = stage.classList.toggle('live-inspect');
       detail.setAttribute('aria-pressed', String(full));
@@ -1182,11 +2036,118 @@ function setup(fig) {
       }
       // Canvas ResizeObservers redraw the same state; this changes no physical input or clock.
     });
+
+    const onKeyDown = (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key === 'Escape') {
+        if (!prefsPanel.hidden) { setPanels('none'); prefsBtn.focus({ preventScroll: true }); e.preventDefault(); return; }
+        if (!keysPanel.hidden) { setPanels('none'); keysBtn.focus({ preventScroll: true }); e.preventDefault(); return; }
+        if (ext.isSpecimen?.()) { ext.setSpecimen(false); fig.querySelector('.live-specimen-btn')?.focus({ preventScroll: true }); e.preventDefault(); return; }
+        if (ext.isCutaway?.()) { ext.setCutaway(false); e.preventDefault(); return; }
+        return;
+      }
+      const tag = e.target?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      if (e.key === ' ' && state.playbackSupported !== false) {
+        if (tag === 'BUTTON' || tag === 'SUMMARY' || tag === 'A') return;
+        e.preventDefault();
+        setPlaying(!playing);
+      } else if (e.key === '.' && state.playbackSupported !== false) {
+        e.preventDefault();
+        stepBtn.click();
+      } else if (e.key === 'r' || e.key === 'R') {
+        e.preventDefault();
+        resetSim();
+      } else if ((e.key === 'c' || e.key === 'C') && ext.setCutaway) {
+        e.preventDefault();
+        ext.setCutaway(!ext.isCutaway?.());
+      } else if ((e.key === 'm' || e.key === 'M') && ext.setSpecimen) {
+        e.preventDefault();
+        ext.setSpecimen(!ext.isSpecimen?.());
+      } else if (/^[1-5]$/.test(e.key) && ext.watchCtrl) {
+        const idx = Number(e.key) - 1;
+        if (idx < ext.watchCtrl.count) {
+          e.preventDefault();
+          ext.watchCtrl.stopTour();
+          ext.watchCtrl.applyShot(idx);
+        }
+      }
+    };
+    fig.addEventListener('keydown', onKeyDown);
+    api._cleanups.push(() => fig.removeEventListener('keydown', onKeyDown));
+
+    const getIOState = () => ({
+      name,
+      sliders: ext.sliders.map((s) => ({ label: s.label, value: Number(s.input.value), min: Number(s.input.min), max: Number(s.input.max) })),
+      tabs: ext.tabGroups.map((g) => g.activeIdx),
+      readout: ext.readoutText || '',
+      stamped: !!ext.isStamped?.(),
+      cutaway: !!ext.isCutaway?.(),
+      specimen: !!ext.isSpecimen?.(),
+      trials: ext.trials ? ext.trials.rows() : [],
+      custom: ext.io?.getState ? ext.io.getState() : null,
+    });
+    const setIOState = (patch = {}) => {
+      if (!patch || typeof patch !== 'object') return false;
+      if (patch.reset) { resetSim(); return true; }
+      if (Array.isArray(patch.tabs)) {
+        patch.tabs.forEach((tabIdx, groupIdx) => {
+          const g = ext.tabGroups[groupIdx];
+          if (g && g.btns[tabIdx]) g.btns[tabIdx].click();
+        });
+      }
+      if (Array.isArray(patch.sliders)) {
+        patch.sliders.forEach((val, idx) => {
+          const s = ext.sliders[idx];
+          if (s && val !== undefined) s.drive(val);
+        });
+      } else if (patch.sliders && typeof patch.sliders === 'object') {
+        Object.entries(patch.sliders).forEach(([k, v]) => {
+          const s = ext.sliders.find((x) => x.label.toLowerCase().includes(k.toLowerCase()));
+          if (s) s.drive(v);
+        });
+      }
+      if (typeof patch.watchStep === 'number' && ext.watchCtrl) {
+        ext.watchCtrl.stopTour();
+        ext.watchCtrl.applyShot(patch.watchStep);
+      }
+      if (typeof patch.cutaway === 'boolean') ext.setCutaway?.(patch.cutaway);
+      if (typeof patch.specimen === 'boolean') ext.setSpecimen?.(patch.specimen);
+      if (patch.custom && ext.io?.setState) ext.io.setState(patch.custom);
+      ext.notifyChange('io');
+      return true;
+    };
+    const activeWidgetName = name;
+    kymIORegistry.set(activeWidgetName, {
+      getState: getIOState,
+      setState: setIOState,
+      captureSnapshot: () => {
+        for (const fn of api._loops) fn(0, state.t);
+        const st = getIOState();
+        const pngBase64 = captureCompositePNG(stage, ext);
+        return {
+          widgetId: activeWidgetName,
+          readout: st.readout,
+          state: st,
+          trials: st.trials,
+          trialsMarkdown: ext.trials ? ext.trials.toMarkdown() : '',
+          pngBase64,
+        };
+      },
+    });
+    api._cleanups.push(() => { kymIORegistry.delete(activeWidgetName); });
+
+    const urlPreset = readPresetFromURL(name);
+    if (urlPreset) setIOState(urlPreset);
+
+    fig.tabIndex = -1;
     available.forEach(o => { o.button.hidden = true; });
     setPlaying(!params.lesson && !api.reduced && !w.meta.static);
     if (params.lesson) for (const fn of api._loops) fn(0, 0);
     if (w.meta.static) for (const fn of api._loops) fn(0, 0);
-    (stage.querySelector('.live-3d[tabindex],canvas[tabindex],button,input') || playBtn).focus?.({ preventScroll: true });
+    (stage.querySelector('.live-3d[tabindex],canvas[tabindex],button,input')
+      || controls.querySelector('button:not([hidden]),input')
+      || fig).focus?.({ preventScroll: true });
   }
   function closeLive(restoreFocus = true) {
     ++generation; // Also cancels a story experiment whose module is still loading.
@@ -1197,6 +2158,9 @@ function setup(fig) {
     stage?.remove(); controls?.remove();
     fig.classList.remove('live-on', 'live-lifting');
     delete fig.dataset.activeLesson;
+    delete fig.dataset.calmMotion;
+    delete fig.dataset.interactiveHighlights;
+    fig.removeAttribute('tabindex');
     for (const [attribute, value] of [['aria-label', originalFigureName.label], ['aria-labelledby', originalFigureName.by]]) {
       if (value === null) fig.removeAttribute(attribute); else fig.setAttribute(attribute, value);
     }
@@ -1242,5 +2206,21 @@ function setup(fig) {
 // every export must be listed here.
 window.__liveModule = { Live, colors, draw, rng, gauss, loadChunk };
 
-function init() { document.querySelectorAll('figure[data-live],figure[data-labs]').forEach(setup); }
+function init() {
+  document.querySelectorAll('figure[data-live],figure[data-labs]').forEach(setup);
+  try {
+    const rawPreset = new URLSearchParams(location.search).get('wpreset');
+    const sep = rawPreset ? rawPreset.indexOf(':') : -1;
+    if (sep > 0) {
+      const targetWid = rawPreset.slice(0, sep);
+      const fig = document.querySelector(`figure[data-live="${targetWid}"]`);
+      const openBtn = fig?.querySelector('.live-open');
+      if (fig && openBtn) {
+        window.App?.reveal?.(fig);
+        fig.scrollIntoView({ block: 'center' });
+        openBtn.click();
+      }
+    }
+  } catch (_) { /* ignore malformed preset param */ }
+}
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else setTimeout(init, 0);

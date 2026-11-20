@@ -422,22 +422,68 @@ def parse_atlas_lessons():
     return lessons
 
 
-def parse_widgets():
+def _extract_js_prop(chunk, key):
+    m = re.search(rf"{key}:\s*'((?:\\'|[^'])*)'", chunk)
+    if not m:
+        m = re.search(rf'{key}:\s*"((?:\\"|[^"])*)"', chunk)
+    if not m:
+        return ""
+    return m.group(1).replace("\\'", "'").replace('\\"', '"')
+
+
+def parse_widgets(chapters=None, school_textbook=None, bridges=None, misconceptions=None, school_wording=None):
     enh_path = SOURCE_DIR / "live" / "enhancements.js"
     raw = enh_path.read_text(encoding="utf-8") if enh_path.exists() else ""
 
-    # Map widget IDs to chapters by scanning w_chXX.js
+    # Map widget IDs to chapters by scanning :::live <widget_id> directives in source/src/ch*.md
     widget_to_chapter = {}
-    live_dir = SOURCE_DIR / "live"
-    for w_file in sorted(live_dir.glob("w_ch*.js")):
-        m_ch = re.search(r"w_ch(\d+)", w_file.name)
+    src_dir = SOURCE_DIR / "src"
+    for md_file in sorted(src_dir.glob("ch*.md")):
+        m_ch = re.search(r"ch(\d+)", md_file.name)
         ch_num = int(m_ch.group(1)) if m_ch else 0
-        w_text = w_file.read_text(encoding="utf-8")
-        for m_exp in re.finditer(r"export\s+function\s+([a-zA-Z0-9_]+)", w_text):
-            widget_to_chapter[m_exp.group(1)] = ch_num
+        md_text = md_file.read_text(encoding="utf-8")
+        for m_live in re.finditer(r":::live\s+([a-zA-Z0-9_]+)", md_text):
+            widget_to_chapter[m_live.group(1)] = ch_num
+
+    # Build lookup indexes for Cambridge units, cross-disciplinary bridges, and examiner traps
+    units_by_widget = {}
+    units_by_chapter = {}
+    bridges_by_widget = {}
+    if isinstance(school_textbook, dict):
+        for unit in school_textbook.get("units", []):
+            u_num = unit.get("unitNumber")
+            if u_num is None:
+                continue
+            for ch in unit.get("livingWorldChapters", []):
+                units_by_chapter.setdefault(ch, set()).add(u_num)
+            for topic in unit.get("topics", []):
+                for wid in topic.get("linkedWidgets", []):
+                    units_by_widget.setdefault(wid, set()).add(u_num)
+                    bridges_by_widget.setdefault(wid, set()).update(topic.get("bridgeIds", []))
+
+    bridges_by_chapter = {}
+    for br in bridges or []:
+        bid = br.get("id")
+        if not bid:
+            continue
+        for ch in br.get("livingWorldChapters", []):
+            bridges_by_chapter.setdefault(ch, []).append(bid)
+
+    traps_by_chapter = {}
+    for row in school_wording or []:
+        tag = row.get("topicAndChapter", "")
+        for m_ch in re.finditer(r"\bCh\s*(\d+)", tag, re.IGNORECASE):
+            c_idx = int(m_ch.group(1))
+            if c_idx not in traps_by_chapter and row.get("examinerTrap"):
+                traps_by_chapter[c_idx] = (row["examinerTrap"], row.get("firstPrinciples", ""))
+
+    mis_by_topic = list(misconceptions or [])
+
+    ch_title_by_num = {c.get("number"): c.get("title", "") for c in (chapters or [])}
 
     # Extract widget blocks from enhancements.js
     widgets = []
+    live_dir = SOURCE_DIR / "live"
     block_starts = list(re.finditer(r"\n  ([a-zA-Z0-9_]+):\s*\{\s*\n\s*challenge:", raw))
     for i, match in enumerate(block_starts):
         w_id = match.group(1)
@@ -445,27 +491,77 @@ def parse_widgets():
         end_pos = block_starts[i + 1].start() if i + 1 < len(block_starts) else len(raw)
         chunk = raw[start_pos:end_pos]
 
-        prompt_m = re.search(r"prompt:\s*'((?:\\'|[^'])*)'", chunk)
-        cutaway_m = re.search(r"cutaway:\s*'((?:\\'|[^'])*)'", chunk)
-        ideal_m = re.search(r"idealised:\s*'((?:\\'|[^'])*)'", chunk)
+        prompt = _extract_js_prop(chunk, "prompt")
+        cutaway = _extract_js_prop(chunk, "cutaway")
+        idealised = _extract_js_prop(chunk, "idealised")
+        real_plate = _extract_js_prop(chunk, "realPlate") or None
+        predict_hint = _extract_js_prop(chunk, "predictHint")
         watch_steps = []
-        for wm in re.finditer(r"\{\s*title:\s*'((?:\\'|[^'])*)',\s*caption:\s*'((?:\\'|[^'])*)'", chunk):
+        for wm in re.finditer(
+            r"\{\s*title:\s*(['\"])((?:\\\1|(?!\1).)*)\1\s*,\s*caption:\s*(['\"])((?:\\\3|(?!\3).)*)\3",
+            chunk,
+        ):
+            t_raw = wm.group(2).replace("\\'", "'").replace('\\"', '"')
+            c_raw = wm.group(4).replace("\\'", "'").replace('\\"', '"')
             watch_steps.append({
-                "title": wm.group(1).replace("\\'", "'"),
-                "caption": wm.group(2).replace("\\'", "'"),
+                "title": t_raw,
+                "caption": c_raw,
             })
 
+        w_file = live_dir / f"w_{w_id}.js"
+        w_src = w_file.read_text(encoding="utf-8") if w_file.exists() else ""
+        has_sonification = ("sonifyToggle" in w_src) or ("api.audio" in w_src)
+        has_data_table = "api.trials" in w_src
+        has_direct_manip = (
+            ("3d" in w_id.lower())
+            or ("three: true" in w_src)
+            or ("pointerdown" in w_src)
+            or ("onPointerDown" in w_src)
+            or ("canvas.addEventListener" in w_src)
+            or ("toolbox" in w_src.lower())
+        )
+
         ch_num = widget_to_chapter.get(w_id, 0)
+        cam_units = sorted(units_by_widget.get(w_id, set()) or units_by_chapter.get(ch_num, set()))
+        rel_bridges = list(dict.fromkeys(list(bridges_by_widget.get(w_id, set())) + bridges_by_chapter.get(ch_num, [])))
+
+        trap_entry = traps_by_chapter.get(ch_num)
+        if not trap_entry and ch_title_by_num.get(ch_num):
+            title_words = {tok.lower() for tok in re.findall(r"[A-Za-z]{4,}", ch_title_by_num[ch_num])}
+            for m_item in mis_by_topic:
+                topic_words = {tok.lower() for tok in re.findall(r"[A-Za-z]{4,}", m_item.get("topic", ""))}
+                if title_words & topic_words:
+                    trap_entry = (m_item.get("details", ""), "")
+                    break
+        trap_text = trap_entry[0] if trap_entry else idealised
+        concept_text = (trap_entry[1] if trap_entry and trap_entry[1] else "")
+        if not concept_text:
+            concept_text = (
+                watch_steps[2]["caption"]
+                if len(watch_steps) >= 3
+                else (cutaway[:220] if cutaway else f"What causal mechanism in {ch_title_by_num.get(ch_num, 'this model')} explains the output?")
+            )
+        predict_prompt = predict_hint or f"Before touching any control: {prompt}"
+
         pretty_title = w_id.replace("_", " ").title().replace("3D", "3D").replace("Atp", "ATP").replace("Dna", "DNA").replace("Ph", "pH")
         widgets.append({
             "id": w_id,
             "title": pretty_title,
             "chapter": ch_num,
-            "is3D": "3d" in w_id.lower(),
-            "challengePrompt": prompt_m.group(1).replace("\\'", "'") if prompt_m else "",
-            "cutaway": cutaway_m.group(1).replace("\\'", "'") if cutaway_m else "",
-            "idealised": ideal_m.group(1).replace("\\'", "'") if ideal_m else "",
+            "is3D": ("3d" in w_id.lower()) or ("three: true" in w_src),
+            "challengePrompt": prompt,
+            "cutaway": cutaway,
+            "idealised": idealised,
             "watchSteps": watch_steps,
+            "realPlateId": real_plate,
+            "hasSonification": has_sonification,
+            "hasDataTable": has_data_table,
+            "hasDirectManipulation": has_direct_manip,
+            "cambridgeUnits": cam_units,
+            "relatedBridgeIds": rel_bridges,
+            "facilitatorPredictPrompt": predict_prompt,
+            "facilitatorTrap": trap_text,
+            "facilitatorConceptQuestion": concept_text,
         })
     return widgets
 
@@ -2209,13 +2305,19 @@ def main():
 
     chapters = parse_chapters()
     atlas_lessons = parse_atlas_lessons()
-    widgets = parse_widgets()
     explorers = build_explorers()
     bridges = build_cross_disciplinary_bridges()
     school_textbook = build_school_science_textbook()
     school_questions = build_school_questions()
     diagram_plates = build_diagram_recall_plates()
     misconceptions, school_wording = parse_research_grounding()
+    widgets = parse_widgets(
+        chapters=chapters,
+        school_textbook=school_textbook,
+        bridges=bridges,
+        misconceptions=misconceptions,
+        school_wording=school_wording,
+    )
 
     pack = {
         "schemaVersion": 1,

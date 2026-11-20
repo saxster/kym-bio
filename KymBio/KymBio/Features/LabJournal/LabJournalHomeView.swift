@@ -1,4 +1,9 @@
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 enum JournalTemplateKind: String, CaseIterable, Identifiable, Sendable {
     case cornell = "cornell"
@@ -40,6 +45,8 @@ struct LabJournalHomeView: View {
     @State private var coverAndTestMe: Bool = false
     @State private var entryStrokes: [[CGPoint]] = []
     @State private var activeStroke: [CGPoint] = []
+    @State private var cachedSnapshotImage: Image? = nil
+    @State private var isDrawingEnabled: Bool = true
     @State private var safetySupportMessage: String? = nil
     @State private var escalatedSafetyKeys: Set<String> = []
 
@@ -356,6 +363,35 @@ struct LabJournalHomeView: View {
                         }
                     }
 
+                    // Frozen live snapshot card (above & outside ink hit-testing so scrolling works freely)
+                    if let snapshotImg = cachedSnapshotImage {
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
+                            JournalChip(
+                                label: "Frozen live snapshot · \(entry.linkedWidgetId ?? "Simulation")",
+                                systemImage: "camera.viewfinder",
+                                tone: .accent
+                            )
+                            snapshotImg
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity, maxHeight: 280)
+                                .clipShape(RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                        .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                                )
+                        }
+                        .padding(Spacing.sm)
+                        .background(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .fill(Color.kymaiaSurface)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                        )
+                    }
+
                     // Apple Pencil Sketch & Apparatus Canvas on JournalPaperSheet
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         HStack {
@@ -363,6 +399,15 @@ struct LabJournalHomeView: View {
                                 .font(.kymaiaCaption.weight(.semibold))
                                 .foregroundStyle(Color.kymaiaMutedInk)
                             Spacer()
+                            Button {
+                                isDrawingEnabled.toggle()
+                            } label: {
+                                Label(
+                                    isDrawingEnabled ? "Ink: On" : "Ink: Off (scroll)",
+                                    systemImage: isDrawingEnabled ? "pencil.tip" : "hand.draw"
+                                )
+                            }
+                            .buttonStyle(JournalCapsuleButtonStyle(prominence: isDrawingEnabled ? .tinted : .ghost, size: .small))
                             Button("Clear ink") {
                                 entryStrokes.removeAll()
                                 activeStroke.removeAll()
@@ -375,46 +420,67 @@ struct LabJournalHomeView: View {
                         }
 
                         JournalPaperSheet(style: paperStyle, minHeight: 220) {
-                            ZStack(alignment: .topLeading) {
-                                if !entry.bodyNotesText.isEmpty && entry.parsedTemplateKind != .cornell {
-                                    Text(entry.bodyNotesText)
-                                        .font(.kymaiaSerifProse)
-                                        .foregroundStyle(Color.kymaiaMutedInk)
-                                        .padding(Spacing.md)
-                                }
-                                JournalInkCanvasView(
-                                    strokes: $entryStrokes,
-                                    activeStroke: $activeStroke,
-                                    strokeColor: Color.kymaiaInk,
-                                    lineWidth: 2.5,
-                                    onStrokesCommitted: { _, encoded in
-                                        var u = entry
-                                        u.drawingData = encoded
-                                        store.activeJournalEntry = u
-                                        store.saveJournalEntry(u)
-                                    },
-                                    onTextConverted: { recognized in
-                                        var u = entry
-                                        if u.bodyNotesText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                            u.bodyNotesText = recognized
-                                        } else {
-                                            u.bodyNotesText += "\n" + recognized
-                                        }
-                                        saveAndScanJournalEntry(u, latestFieldText: recognized)
+                            JournalInkCanvasView(
+                                strokes: $entryStrokes,
+                                activeStroke: $activeStroke,
+                                strokeColor: Color.kymaiaInk,
+                                lineWidth: 2.5,
+                                onStrokesCommitted: { _, encoded in
+                                    var u = entry
+                                    u.drawingData = encoded
+                                    store.activeJournalEntry = u
+                                    store.saveJournalEntry(u)
+                                },
+                                onTextConverted: { recognized in
+                                    var u = entry
+                                    if u.bodyNotesText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                        u.bodyNotesText = recognized
+                                    } else {
+                                        u.bodyNotesText += "\n" + recognized
                                     }
-                                )
-                                .frame(minHeight: 220)
-                            }
+                                    saveAndScanJournalEntry(u, latestFieldText: recognized)
+                                }
+                            )
+                            .frame(minHeight: 220)
+                            .allowsHitTesting(isDrawingEnabled)
                         }
+                    }
+
+                    // Scrollable captured / transcribed lab notes below the ink surface
+                    if !entry.bodyNotesText.isEmpty && entry.parsedTemplateKind != .cornell {
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
+                            Label("Captured observations & notes", systemImage: "doc.text")
+                                .font(.kymaiaCaption.weight(.semibold))
+                                .foregroundStyle(Color.kymaiaMutedInk)
+                            Text(entry.bodyNotesText)
+                                .font(.kymaiaSerifProse)
+                                .foregroundStyle(Color.kymaiaInk)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .textSelection(.enabled)
+                        }
+                        .padding(Spacing.md)
+                        .background(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .fill(Color.kymaiaSurface)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
+                        )
                     }
                 }
             }
             .onAppear {
                 entryStrokes = JournalInkDrawingCodec.decode(data: entry.drawingData)
+                cachedSnapshotImage = entry.snapshotPNGData.flatMap(Self.frozenSnapshotImage(data:))
             }
             .onChange(of: entry.id) { _, _ in
                 entryStrokes = JournalInkDrawingCodec.decode(data: entry.drawingData)
                 activeStroke.removeAll()
+                cachedSnapshotImage = entry.snapshotPNGData.flatMap(Self.frozenSnapshotImage(data:))
+            }
+            .onChange(of: entry.snapshotPNGData) { _, nextData in
+                cachedSnapshotImage = nextData.flatMap(Self.frozenSnapshotImage(data:))
             }
         }
     }
@@ -444,5 +510,17 @@ struct LabJournalHomeView: View {
         store.saveJournalEntry(entry)
         store.activeJournalEntry = entry
         coverAndTestMe = false
+    }
+
+    private static func frozenSnapshotImage(data: Data) -> Image? {
+        #if canImport(UIKit)
+        guard let ui = UIImage(data: data) else { return nil }
+        return Image(uiImage: ui)
+        #elseif canImport(AppKit)
+        guard let ns = NSImage(data: data) else { return nil }
+        return Image(nsImage: ns)
+        #else
+        return nil
+        #endif
     }
 }

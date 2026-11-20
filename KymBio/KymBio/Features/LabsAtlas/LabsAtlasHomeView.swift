@@ -32,12 +32,51 @@ enum DiagramFadingTier: String, CaseIterable, Identifiable, Sendable {
     }
 }
 
+private enum WidgetFacetFilter: String, CaseIterable, Identifiable {
+    case all
+    case unstamped
+    case stamped
+    case threeD
+    case dataLab
+    case audio
+    case specimen
+    case unit1
+    case unit4
+    case unit7
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .all: return "All"
+        case .unstamped: return "Unstamped"
+        case .stamped: return "Stamped"
+        case .threeD: return "3D WebGL"
+        case .dataLab: return "Data Lab"
+        case .audio: return "Audio"
+        case .specimen: return "Real Microscopy"
+        case .unit1: return "Bio Unit 1"
+        case .unit4: return "Bio Unit 4"
+        case .unit7: return "Bio Unit 7"
+        }
+    }
+}
+
 struct LabsAtlasHomeView: View {
     @EnvironmentObject private var store: AppStore
     @State private var benchMode: LabsAtlasBenchMode = .simulations
     @State private var selectedChapterFilter: Int? = nil
+    @State private var selectedFacet: WidgetFacetFilter = .all
     @State private var activeWatchStepIndex: Int = 0
     @State private var showCutaway: Bool = false
+    @State private var showSpecimen: Bool = false
+    @State private var showFacilitatorGuide: Bool = false
+    @State private var pendingWebCommand: LivingWorldWebCommand? = nil
+    @State private var latestLiveReadout: String = ""
+    @State private var awaitingFreezeWidget: InteractiveWidgetSpec? = nil
+    @State private var selectedBridge: CrossDisciplinaryBridge? = nil
+    @State private var revealBridgeAnswer: Bool = false
+    @State private var selectedAtlasLessonId: String? = nil
 
     // Diagram Recall State
     @State private var selectedFadingTier: DiagramFadingTier = .labelOnly
@@ -49,15 +88,30 @@ struct LabsAtlasHomeView: View {
 
     private var activeWidget: InteractiveWidgetSpec? {
         if let id = store.activeWidgetId,
-           let match = store.pack.widgets.first(where: { $0.id == id }) {
+           let match = filteredWidgets.first(where: { $0.id == id }) {
             return match
         }
-        return filteredWidgets.first ?? store.pack.widgets.first
+        return filteredWidgets.first
     }
 
     private var filteredWidgets: [InteractiveWidgetSpec] {
-        guard let ch = selectedChapterFilter else { return store.pack.widgets }
-        return store.pack.widgets.filter { $0.chapter == ch }
+        store.pack.widgets.filter { w in
+            if let ch = selectedChapterFilter, w.chapter != ch {
+                return false
+            }
+            switch selectedFacet {
+            case .all: return true
+            case .unstamped: return store.widgetStamps[w.id] == nil
+            case .stamped: return store.widgetStamps[w.id] != nil
+            case .threeD: return w.is3D
+            case .dataLab: return w.hasDataTable
+            case .audio: return w.hasSonification
+            case .specimen: return w.realPlateId != nil
+            case .unit1: return w.cambridgeUnits.contains(1)
+            case .unit4: return w.cambridgeUnits.contains(4)
+            case .unit7: return w.cambridgeUnits.contains(7)
+            }
+        }
     }
 
     private var filteredAtlasLessons: [AtlasLesson] {
@@ -77,10 +131,13 @@ struct LabsAtlasHomeView: View {
         JournalPage(
             title: "3D Labs, Atlas & Diagram Recall",
             eyebrow: "Labs and atlas",
-            subtitle: "47 interactive simulations, 117 3D Atlas lessons and 12 Apple Pencil specimen plates"
+            subtitle: "47 interactive simulations, 117 3D Atlas lessons and 24 Apple Pencil specimen plates"
         ) {
             modeSelectorCard
             chapterFilterStrip
+            if benchMode == .simulations {
+                widgetFacetFilterStrip
+            }
 
             switch benchMode {
             case .simulations:
@@ -94,6 +151,64 @@ struct LabsAtlasHomeView: View {
         .onAppear {
             if store.activeDiagramPlateId != nil {
                 benchMode = .diagramRecall
+            }
+        }
+        .sheet(item: $selectedBridge) { bridge in
+            bridgeDetailSheet(bridge)
+        }
+    }
+
+    @ViewBuilder
+    private func bridgeDetailSheet(_ bridge: CrossDisciplinaryBridge) -> some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.md) {
+                    JournalChip(text: "\(bridge.discipline.capitalized) · \(bridge.sourceRef)", tone: .accent)
+                    Text(bridge.title)
+                        .font(.kymaiaCardTitle)
+                        .foregroundStyle(Color.kymaiaInk)
+                    Text(bridge.summary)
+                        .font(.kymaiaSerifProse)
+                        .foregroundStyle(Color.kymaiaInk)
+                    if !bridge.keyEquation.isEmpty {
+                        Text(bridge.keyEquation)
+                            .font(.kymaiaCaption.monospaced())
+                            .foregroundStyle(Color.kymaiaPrimary)
+                            .padding(Spacing.sm)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                    .fill(Color.kymaiaElevatedSurface)
+                            )
+                    }
+                    if !bridge.microCheckQuestion.isEmpty {
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
+                            Label("Bridge check", systemImage: "questionmark.circle")
+                                .font(.kymaiaCaption.weight(.semibold))
+                                .foregroundStyle(Color.kymaiaPrimary)
+                            Text(bridge.microCheckQuestion)
+                                .font(.kymaiaBody)
+                                .foregroundStyle(Color.kymaiaInk)
+                            Button(revealBridgeAnswer ? "Hide answer" : "Check reasoning") {
+                                revealBridgeAnswer.toggle()
+                            }
+                            .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                            if revealBridgeAnswer && !bridge.microCheckAnswer.isEmpty {
+                                Text(bridge.microCheckAnswer)
+                                    .font(.kymaiaSerifProse)
+                                    .foregroundStyle(Color.kymaiaInk)
+                            }
+                        }
+                    }
+                }
+                .padding(Spacing.lg)
+            }
+            .background(Color.kymaiaBackground)
+            .navigationTitle(bridge.sourceBook)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { selectedBridge = nil }
+                }
             }
         }
     }
@@ -151,15 +266,31 @@ struct LabsAtlasHomeView: View {
         }
     }
 
+    private var widgetFacetFilterStrip: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Spacing.xs) {
+                ForEach(WidgetFacetFilter.allCases) { facet in
+                    JournalChip(facet.title, isSelected: selectedFacet == facet) {
+                        selectedFacet = facet
+                    }
+                    .accessibilityIdentifier("labs.facet.\(facet.rawValue)")
+                }
+            }
+        }
+    }
+
     // MARK: - 1. 47 Interactive Simulations Bench
 
     @ViewBuilder
     private var simulationsBenchSection: some View {
         if let widget = activeWidget {
+            let relatedBridges = store.pack.crossDisciplinaryBridges.filter {
+                widget.relatedBridgeIds.contains($0.id)
+            }
             JournalSection(title: "Active simulation · \(widget.title) (Chapter \(widget.chapter))") {
                 JournalCard {
                     VStack(alignment: .leading, spacing: Spacing.md) {
-                        HStack {
+                        HStack(spacing: Spacing.xs) {
                             JournalChip(text: widget.is3D ? "3D WebGL Stage" : "Interactive 2D Lab", tone: .accent)
                             JournalChip(text: "Chapter \(widget.chapter)", tone: .neutral)
                             if store.widgetStamps[widget.id] != nil {
@@ -167,10 +298,20 @@ struct LabsAtlasHomeView: View {
                             }
                             Spacer()
                             Button {
-                                _ = store.freezeWidgetIntoLabLog(
-                                    widget: widget,
-                                    readout: "Watch step \(activeWatchStepIndex + 1) · \(widget.challengePrompt)"
-                                )
+                                pendingWebCommand = LivingWorldWebCommand(kind: .reset)
+                                activeWatchStepIndex = 0
+                                showCutaway = false
+                                showSpecimen = false
+                                latestLiveReadout = ""
+                            } label: {
+                                Label("Reset Lab", systemImage: "arrow.counterclockwise")
+                            }
+                            .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                            .accessibilityIdentifier("labs.widget.reset")
+
+                            Button {
+                                awaitingFreezeWidget = widget
+                                pendingWebCommand = LivingWorldWebCommand(kind: .captureSnapshot)
                             } label: {
                                 Label("Freeze & Sketch in Lab Log", systemImage: "pencil.and.scribble")
                             }
@@ -187,20 +328,27 @@ struct LabsAtlasHomeView: View {
                                 Text(widget.challengePrompt)
                                     .font(.kymaiaBody)
                                     .foregroundStyle(Color.kymaiaInk)
-                                Button {
-                                    store.earnWidgetChallengeStamp(
-                                        widgetId: widget.id,
-                                        chapterNumber: widget.chapter,
-                                        readout: "Verified challenge in \(widget.title)"
+                                HStack(spacing: Spacing.xs) {
+                                    JournalChip(
+                                        label: store.widgetStamps[widget.id] != nil
+                                            ? "Challenge verified in simulation"
+                                            : "Complete the challenge in the live lab below to earn stamp",
+                                        systemImage: store.widgetStamps[widget.id] != nil ? "checkmark.seal.fill" : "flask.fill",
+                                        tone: store.widgetStamps[widget.id] != nil ? .good : .neutral
                                     )
-                                } label: {
-                                    Label(
-                                        store.widgetStamps[widget.id] != nil ? "Challenge completed" : "Mark challenge completed",
-                                        systemImage: "checkmark.seal.fill"
-                                    )
+                                    .accessibilityIdentifier("labs.widget.stamp")
+
+                                    Spacer()
+
+                                    Button {
+                                        let fallbackReadout = latestLiveReadout.isEmpty ? widget.challengePrompt : latestLiveReadout
+                                        store.shareLabTelemetryWithCoach("Active simulation: \(widget.title) (Ch \(widget.chapter)). Latest readout: \(fallbackReadout)")
+                                    } label: {
+                                        Label("Discuss this run with Coach", systemImage: "bubble.left.and.text.bubble.right.fill")
+                                    }
+                                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
+                                    .accessibilityIdentifier("labs.widget.discuss-coach")
                                 }
-                                .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
-                                .accessibilityIdentifier("labs.widget.stamp")
                             }
                             .padding(Spacing.md)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -213,7 +361,31 @@ struct LabsAtlasHomeView: View {
                         // Live Web Stage
                         LivingWorldWebStageView(
                             chapterNumber: widget.chapter,
-                            targetWidgetId: widget.id
+                            targetWidgetId: widget.id,
+                            pendingCommand: pendingWebCommand,
+                            onTelemetryEvent: { wid, summary in
+                                if wid == widget.id && !summary.isEmpty {
+                                    latestLiveReadout = summary
+                                }
+                            },
+                            onSnapshotCaptured: { payload in
+                                let target = awaitingFreezeWidget ?? widget
+                                awaitingFreezeWidget = nil
+                                let resolvedReadout: String
+                                if !payload.readout.isEmpty {
+                                    resolvedReadout = payload.readout
+                                } else if !latestLiveReadout.isEmpty {
+                                    resolvedReadout = latestLiveReadout
+                                } else {
+                                    resolvedReadout = "Watch step \(activeWatchStepIndex + 1) · \(target.challengePrompt)"
+                                }
+                                _ = store.freezeWidgetIntoLabLog(
+                                    widget: target,
+                                    readout: resolvedReadout,
+                                    trialsMarkdown: payload.trialsMarkdown,
+                                    snapshotPNGData: payload.pngData
+                                )
+                            }
                         )
                         .frame(minHeight: 480)
                         .clipShape(RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous))
@@ -221,6 +393,23 @@ struct LabsAtlasHomeView: View {
                             RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous)
                                 .strokeBorder(Color.kymaiaHairline, lineWidth: 1)
                         )
+
+                        if !latestLiveReadout.isEmpty {
+                            HStack(alignment: .top, spacing: Spacing.xs) {
+                                Image(systemName: "waveform.path.ecg")
+                                    .foregroundStyle(Color.kymaiaPrimary)
+                                Text(latestLiveReadout)
+                                    .font(.kymaiaCaption)
+                                    .foregroundStyle(Color.kymaiaInk)
+                                    .lineLimit(3)
+                            }
+                            .padding(Spacing.xs)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                RoundedRectangle(cornerRadius: CornerRadius.small, style: .continuous)
+                                    .fill(Color.kymaiaElevatedSurface)
+                            )
+                        }
 
                         // Guided Watch Tour
                         if !widget.watchSteps.isEmpty {
@@ -232,6 +421,7 @@ struct LabsAtlasHomeView: View {
                                     ForEach(Array(widget.watchSteps.enumerated()), id: \.offset) { idx, step in
                                         Button(step.title) {
                                             activeWatchStepIndex = idx
+                                            pendingWebCommand = LivingWorldWebCommand(kind: .applyWatchStep(idx))
                                         }
                                         .buttonStyle(
                                             JournalCapsuleButtonStyle(
@@ -249,12 +439,24 @@ struct LabsAtlasHomeView: View {
                             }
                         }
 
-                        // Cutaway & Model Honesty Footnote
-                        HStack(spacing: Spacing.sm) {
+                        // Cutaway, Real Specimen & Model Honesty Footnote
+                        FlowLayout(spacing: Spacing.xs) {
                             Button(showCutaway ? "Hide cell-scale view" : "Look inside at the cell & molecule scale") {
                                 showCutaway.toggle()
+                                pendingWebCommand = LivingWorldWebCommand(kind: .setCutaway(showCutaway))
                             }
-                            .buttonStyle(JournalCapsuleButtonStyle(prominence: .ghost, size: .small))
+                            .buttonStyle(JournalCapsuleButtonStyle(prominence: showCutaway ? .filled : .ghost, size: .small))
+
+                            if widget.realPlateId != nil {
+                                Button {
+                                    showSpecimen.toggle()
+                                    pendingWebCommand = LivingWorldWebCommand(kind: .setSpecimen(showSpecimen))
+                                } label: {
+                                    Label(showSpecimen ? "Hide real specimen plate" : "Real specimen", systemImage: "camera.macro")
+                                }
+                                .buttonStyle(JournalCapsuleButtonStyle(prominence: showSpecimen ? .filled : .tinted, size: .small))
+                                .accessibilityIdentifier("labs.widget.specimen")
+                            }
                         }
 
                         if showCutaway && !widget.cutaway.isEmpty {
@@ -273,12 +475,69 @@ struct LabsAtlasHomeView: View {
                             )
                         }
 
+                        if !relatedBridges.isEmpty {
+                            VStack(alignment: .leading, spacing: Spacing.xs) {
+                                Label("Related Cross-Disciplinary Bridges (tap to explore)", systemImage: "point.3.connected.trianglepath.dotted")
+                                    .font(.kymaiaCaption.weight(.semibold))
+                                    .foregroundStyle(Color.kymaiaMutedInk)
+                                FlowLayout(spacing: Spacing.xs) {
+                                    ForEach(relatedBridges) { bridge in
+                                        Button {
+                                            revealBridgeAnswer = false
+                                            selectedBridge = bridge
+                                        } label: {
+                                            JournalChip(text: "\(bridge.discipline.capitalized): \(bridge.title)", tone: .accent)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                }
+                            }
+                        }
+
+                        if !widget.facilitatorPredictPrompt.isEmpty || !widget.facilitatorTrap.isEmpty || !widget.facilitatorConceptQuestion.isEmpty {
+                            DisclosureGroup("Parent / Teacher Facilitation Guide (ILD)", isExpanded: $showFacilitatorGuide) {
+                                VStack(alignment: .leading, spacing: Spacing.xs) {
+                                    if !widget.facilitatorPredictPrompt.isEmpty {
+                                        Text("Predict before touching: \(widget.facilitatorPredictPrompt)")
+                                            .font(.kymaiaBody)
+                                            .foregroundStyle(Color.kymaiaInk)
+                                    }
+                                    if !widget.facilitatorTrap.isEmpty {
+                                        Text("Common exam trap: \(widget.facilitatorTrap)")
+                                            .font(.kymaiaBody)
+                                            .foregroundStyle(Color.kymaiaMutedInk)
+                                    }
+                                    if !widget.facilitatorConceptQuestion.isEmpty {
+                                        Text("Concept question: \(widget.facilitatorConceptQuestion)")
+                                            .font(.kymaiaSerifProse)
+                                            .foregroundStyle(Color.kymaiaInk)
+                                    }
+                                }
+                                .padding(.top, Spacing.xs)
+                            }
+                            .font(.kymaiaCaption.weight(.semibold))
+                            .foregroundStyle(Color.kymaiaPrimary)
+                        }
+
                         if !widget.idealised.isEmpty {
                             Text("What the model simplifies: \(widget.idealised)")
                                 .font(.kymaiaCaption)
                                 .foregroundStyle(Color.kymaiaTertiaryInk)
                         }
                     }
+                }
+            }
+        } else {
+            JournalCard {
+                VStack(alignment: .leading, spacing: Spacing.sm) {
+                    Text("No simulations match this chapter and facet filter.")
+                        .font(.kymaiaBody)
+                        .foregroundStyle(Color.kymaiaInk)
+                    Button("Clear filters") {
+                        selectedChapterFilter = nil
+                        selectedFacet = .all
+                    }
+                    .buttonStyle(JournalCapsuleButtonStyle(prominence: .tinted, size: .small))
                 }
             }
         }
@@ -290,10 +549,22 @@ struct LabsAtlasHomeView: View {
                     Button {
                         store.activeWidgetId = w.id
                         activeWatchStepIndex = 0
+                        showCutaway = false
+                        showSpecimen = false
+                        latestLiveReadout = ""
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: store.widgetStamps[w.id] != nil ? "checkmark.seal.fill" : (w.is3D ? "cube.fill" : "slider.horizontal.3"))
                             Text("Ch \(w.chapter) · \(w.title)")
+                            if w.hasSonification {
+                                Image(systemName: "waveform")
+                            }
+                            if w.hasDataTable {
+                                Image(systemName: "tablecells")
+                            }
+                            if w.realPlateId != nil {
+                                Image(systemName: "camera.macro")
+                            }
                         }
                     }
                     .buttonStyle(
@@ -525,13 +796,14 @@ struct LabsAtlasHomeView: View {
     // MARK: - 3. 117 3D Atlas Lessons
 
     private var atlasLessonsSection: some View {
-        let activeLessonChapter = selectedChapterFilter ?? (filteredAtlasLessons.first?.chapter ?? store.activeLivingWorldChapter)
+        let activeLesson = filteredAtlasLessons.first(where: { $0.id == selectedAtlasLessonId }) ?? filteredAtlasLessons.first
+        let activeLessonChapter = activeLesson?.chapter ?? selectedChapterFilter ?? store.activeLivingWorldChapter
         return VStack(alignment: .leading, spacing: Spacing.md) {
             JournalSection(title: "Live 3D Atlas Stage · Chapter \(activeLessonChapter)") {
                 JournalCard {
                     LivingWorldWebStageView(
                         chapterNumber: activeLessonChapter,
-                        targetWidgetId: filteredAtlasLessons.first?.widget
+                        targetWidgetId: activeLesson?.id
                     )
                     .frame(minHeight: 420)
                     .clipShape(RoundedRectangle(cornerRadius: CornerRadius.medium, style: .continuous))
@@ -585,6 +857,7 @@ struct LabsAtlasHomeView: View {
                                 HStack {
                                     Button {
                                         selectedChapterFilter = lesson.chapter
+                                        selectedAtlasLessonId = lesson.id
                                         store.activeLivingWorldChapter = lesson.chapter
                                         store.activeWidgetId = lesson.widget
                                     } label: {

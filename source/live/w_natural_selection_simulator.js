@@ -16,15 +16,25 @@ Live.register(
     let pressureStep = 3;
     let generationStep = 5;
     let capturedTrials = [];
+    let probeStep = null; // 0..10 interactive Data Probe
 
     const view = makeCanvas(
       api,
       640,
       360,
-      'Natural selection simulator: illustrative continuous drug exposure vs drug removal after step 3, Biston betularia industrial melanism and Clean Air recovery, and malaria HbS balancing selection'
+      'Natural selection simulator: continuous drug exposure vs drug removal, Biston betularia melanism, malaria HbS balancing selection, interactive Data Probe, and stochastic drift replicates'
     );
 
     const say = api.readout();
+    const trials = api.trials({
+      columns: ['#', 'Scenario', 'Pressure', 'Step', 'Favoured %', 'Wild %'],
+      maxRows: 6,
+      allowNoise: true,
+      noiseLabel: 'Stochastic drift (5 replicates)',
+      onNoiseChange: () => refresh(),
+      plotColumn: 'Favoured %',
+    });
+
     const tabs = api.tabs(
       SELECTION_MODES.map((m) => m.shortLabel),
       (idx) => {
@@ -83,14 +93,75 @@ Live.register(
         prev.pressureStep !== cap.pressureStep ||
         prev.generationStep !== cap.generationStep
       ) {
-        capturedTrials = [...capturedTrials.slice(-3), { ...cap, trialNumber: capturedTrials.length + 1 }];
+        const nextIdx = trials.rows().length + 1;
+        capturedTrials = [...capturedTrials.slice(-3), { ...cap, trialNumber: nextIdx }];
+        const pt = pointMetrics(state);
+        trials.record([
+          nextIdx,
+          state.mode.shortLabel,
+          state.pressure.shortLabel,
+          `S${state.generationStep}`,
+          `${pt.favouredPct}%`,
+          `${pt.wildPct}%`,
+        ]);
       }
       refresh();
     });
 
     api.button('Clear trials', () => {
       capturedTrials = [];
+      trials.clear();
       refresh();
+    });
+
+    const plotX = 48;
+    const plotY = 72;
+    const plotW = 304;
+    const plotH = 188;
+
+    const handleProbe = (e) => {
+      const { x: lx, y: ly } = api.pointerXY(view, e);
+      if (lx >= plotX && lx <= plotX + plotW && ly >= plotY - 8 && ly <= plotY + plotH + 14) {
+        probeStep = Math.max(0, Math.min(10, Math.round(((lx - plotX) / plotW) * 10)));
+        refresh();
+      }
+    };
+    view.cv.style.cursor = 'crosshair';
+    view.cv.addEventListener('pointerdown', handleProbe);
+    view.cv.addEventListener('pointermove', (e) => {
+      if (e.buttons) handleProbe(e);
+    });
+
+    api.reset(() => {
+      modeIndex = 0;
+      pressureStep = 3;
+      generationStep = 5;
+      capturedTrials = [];
+      probeStep = null;
+      tabs.setActive(0);
+      pressureSlider.set(3);
+      genSlider.set(5);
+      trials.clear();
+      refresh();
+    });
+
+    api.io({
+      getState: () => ({
+        modeIndex,
+        pressureStep,
+        generationStep,
+        probeStep,
+        stochasticDrift: trials.noise,
+        capturedCount: capturedTrials.length,
+      }),
+      setState: (patch = {}) => {
+        if (typeof patch.modeIndex === 'number') { modeIndex = patch.modeIndex; tabs.setActive(modeIndex); }
+        if (typeof patch.pressureStep === 'number') { pressureStep = patch.pressureStep; pressureSlider.set(pressureStep); }
+        if (typeof patch.generationStep === 'number') { generationStep = patch.generationStep; genSlider.set(generationStep); }
+        if (typeof patch.probeStep === 'number' || patch.probeStep === null) probeStep = patch.probeStep;
+        if (typeof patch.stochasticDrift === 'boolean') trials.setNoise(patch.stochasticDrift);
+        refresh();
+      },
     });
 
     function pointMetrics(pt) {
@@ -141,7 +212,7 @@ Live.register(
         ctx.fillStyle = c.sheet;
         ctx.fillRect(0, 0, W, H);
 
-        // Left Card: Trajectory Plot Across Steps 0..10
+        // Left Card: Trajectory Plot Across Steps 0..10 + Allele Proportion Strip
         ctx.fillStyle = c.plate;
         draw.roundRect(ctx, 14, 12, 360, 336, 10);
         ctx.fill();
@@ -162,16 +233,20 @@ Live.register(
           color: c.ink,
           align: 'center',
         });
-        draw.text(ctx, `${state.pressure.shortLabel} · ${state.timeLabel} (Step ${state.generationStep}/10)`, 194, 46, {
-          size: 8.4,
+        draw.text(ctx, `${state.pressure.shortLabel} · ${state.timeLabel} (Step ${state.generationStep}/10)`, 194, 44, {
+          size: 8.2,
           color: c.muted,
           align: 'center',
         });
 
-        const plotX = 48;
-        const plotY = 64;
-        const plotW = 304;
-        const plotH = 216;
+        // Inline curve legend cleanly above plot area (y = 58)
+        const legA = modeIndex === 3 ? 'HbS allele q' : 'Favoured %';
+        const legB = modeIndex <= 1 ? 'Total pop.' : modeIndex === 3 ? 'Carrier 2pq' : 'Wild-type %';
+        draw.text(ctx, `— ${legA}`, 76, 59, { size: 7.8, weight: 700, color: c.proton, align: 'left' });
+        draw.text(ctx, `— ${legB}`, 196, 59, { size: 7.8, weight: 700, color: modeIndex === 2 ? c.green : c.electron, align: 'center' });
+        if (trials.noise) {
+          draw.text(ctx, '~ Drift (5×)', 326, 59, { size: 7.8, weight: 600, color: c.muted, align: 'right' });
+        }
 
         ctx.strokeStyle = c.rule;
         ctx.lineWidth = 1.2;
@@ -189,6 +264,29 @@ Live.register(
           align: 'right',
         });
         draw.text(ctx, '0%', plotX - 6, plotY + plotH, { size: 8.0, color: c.muted, align: 'right' });
+
+        // 5 stochastic drift replicates when enabled
+        if (trials.noise) {
+          for (let rep = 0; rep < 5; rep++) {
+            const rGen = api.rng(9001 + modeIndex * 101 + pressureStep * 17 + rep * 37);
+            ctx.save();
+            ctx.beginPath();
+            ctx.strokeStyle = c.proton;
+            ctx.globalAlpha = 0.25;
+            ctx.lineWidth = 1.2;
+            let drift = 0;
+            traj.forEach((pt, idx) => {
+              if (idx > 0) drift += (rGen() - 0.5) * (maxY === 30 ? 3.2 : 9.5);
+              const val = Math.max(0, Math.min(maxY, pt.favouredPct + drift));
+              const px = plotX + (idx / 10) * plotW;
+              const py = plotY + plotH - (val / maxY) * plotH;
+              if (idx === 0) ctx.moveTo(px, py);
+              else ctx.lineTo(px, py);
+            });
+            ctx.stroke();
+            ctx.restore();
+          }
+        }
 
         if (modeIndex === 0 || modeIndex === 1) {
           ctx.beginPath();
@@ -275,6 +373,32 @@ Live.register(
           ctx.stroke();
         }
 
+        // Interactive Data Probe crosshair
+        if (probeStep != null) {
+          const pPt = traj[probeStep];
+          const px = plotX + (probeStep / 10) * plotW;
+          const py = plotY + plotH - (Math.min(maxY, pPt.favouredPct) / maxY) * plotH;
+          ctx.strokeStyle = c.neutron;
+          ctx.lineWidth = 1.3;
+          ctx.setLineDash([3, 2]);
+          ctx.beginPath();
+          ctx.moveTo(px, plotY);
+          ctx.lineTo(px, plotY + plotH);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.beginPath();
+          ctx.arc(px, py, 4.4, 0, Math.PI * 2);
+          ctx.fillStyle = c.neutron;
+          ctx.fill();
+          draw.text(
+            ctx,
+            `Probe S${probeStep}: Favoured ${pPt.favouredPct}% · Wild ${pPt.wildPct}%`,
+            194,
+            plotY + 11,
+            { size: 8.2, weight: 700, color: c.neutron, align: 'center' }
+          );
+        }
+
         // Current step dot
         const curX = plotX + (state.generationStep / 10) * plotW;
         const curY = plotY + plotH - (Math.min(maxY, cur.favouredPct) / maxY) * plotH;
@@ -285,16 +409,43 @@ Live.register(
 
         for (let s = 0; s <= 10; s += 2) {
           const sx = plotX + (s / 10) * plotW;
-          draw.text(ctx, `S${s}`, sx, plotY + plotH + 14, { size: 8.0, color: c.ink, align: 'center' });
+          draw.text(ctx, `S${s}`, sx, plotY + plotH + 13, { size: 8.0, color: c.ink, align: 'center' });
         }
+
+        // Allele / Hardy–Weinberg Proportion Strip (y = 284..296)
+        const barW = 304;
+        const barY = 284;
+        let favFrac = Math.max(0, Math.min(1, cur.favouredPct / 100));
+        let carFrac = 0;
+        let wildFrac = Math.max(0, 1 - favFrac);
+        let qHw = favFrac, pHw = 1 - favFrac;
+        if (modeIndex === 3) {
+          qHw = Math.max(0, Math.min(1, cur.favouredPct / 100));
+          pHw = 1 - qHw;
+          favFrac = qHw * qHw;      // HbS/HbS
+          carFrac = 2 * pHw * qHw;  // HbA/HbS carriers
+          wildFrac = pHw * pHw;     // HbA/HbA
+        }
+        ctx.fillStyle = c.proton;
+        ctx.fillRect(plotX, barY, barW * favFrac, 12);
+        if (carFrac > 0) {
+          ctx.fillStyle = c.electron;
+          ctx.fillRect(plotX + barW * favFrac, barY, barW * carFrac, 12);
+        }
+        ctx.fillStyle = c.green;
+        ctx.fillRect(plotX + barW * (favFrac + carFrac), barY, barW * wildFrac, 12);
+        ctx.strokeStyle = c.rule;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(plotX, barY, barW, 12);
 
         const legText =
           modeIndex === 0 || modeIndex === 1
             ? `Total load: ${state.totalCount} cells | Resistant: ${state.resistantPct}%`
             : modeIndex === 2
             ? `Dark carbonaria: ${state.darkCarbonariaPct}% | Pale typica: ${state.paleTypicaPct}%`
-            : `HbS allele q: ${state.hbsAllelePct}% | Carriers (HbAHbS): ${state.carrierHbASPct}%`;
-        draw.text(ctx, legText, 194, 326, { size: 8.4, weight: 700, color: c.ink, align: 'center' });
+            : `HbS/HbS q²=${(favFrac * 100).toFixed(1)}% | Carriers 2pq=${(carFrac * 100).toFixed(1)}% | HbA/HbA p²=${(wildFrac * 100).toFixed(1)}%`;
+        draw.text(ctx, legText, 194, 316, { size: modeIndex === 3 ? 7.8 : 8.4, weight: 700, color: c.ink, align: 'center' });
+        draw.text(ctx, 'Tap/drag chart to probe any generation step', 194, 334, { size: 7.8, color: c.muted, align: 'center' });
 
         // Top-Right Card: Step Snapshot & 6-Step Causal Chain
         ctx.fillStyle = c.plate;

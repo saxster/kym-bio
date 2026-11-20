@@ -7,7 +7,7 @@
 export const ENHANCEMENTS = {
   redi_jars: {
     challenge: {
-      prompt: 'Inspect Jar 3 (Fine gauze) at Day 5 or later to see where the flies lay their eggs when smell escapes but flies cannot enter.',
+      prompt: 'Test Jar 3 (Fine gauze) at Day 5 or later: where do flies lay eggs when scent escapes but insects cannot enter?',
       check: (s) => s.tab(0) === 3 && s.num('Day', 0) >= 5,
     },
     yourNumbers: (s) => {
@@ -24,11 +24,12 @@ export const ENHANCEMENTS = {
       { title: '5. Your turn', caption: '5/5 Your turn: Scrub through all 8 days or switch jars to compare the open, sealed, and gauze controls.', cutaway: false, act: (s) => s.selectTab(0, 0) },
     ],
     idealised: 'The simulation tracks macroscopic blowfly eggs and larvae; microscopic bacteria already on the meat continue decomposing all three samples until Pasteur’s later swan-neck flask experiment.',
+    predictHint: 'Before sliding to Day 6, predict where maggots will appear in Jar 3 if scent molecules cross the fine gauze.',
   },
 
   leeuwenhoek_scope: {
     challenge: {
-      prompt: 'Switch to the "2.0 mm (70×)" or "0.7 mm (275×)" lens and adjust Focus within 4 µm of 0 to bring the swimming animalcules into sharp view.',
+      prompt: 'Find the single-bead lens focus window (within 4 µm of 0) that resolves swimming pond animalcules sharply.',
       check: (s) => Math.abs(s.num('Focus', 18)) <= 4,
     },
     yourNumbers: (s) => {
@@ -47,11 +48,13 @@ export const ENHANCEMENTS = {
       { title: '5. Your turn', caption: '5/5 Your turn: Pull Focus back to 0 µm and compare all three glass bead sizes.', cutaway: false, act: (s) => s.setSlider('Focus', 0) },
     ],
     idealised: 'Real spherical glass beads suffer from chromatic fringes and edge curvature outside the central 30% of the field of view.',
+    predictHint: 'Predict how smaller glass-bead radius changes both apparent size and the depth of crisp focus.',
+    realPlate: 'ch00_leeuwenhoek_bacteria',
   },
 
   monsoon_imbibition: {
     challenge: {
-      prompt: 'Select "Monsoon soak (28 °C + water)" and advance Time to at least 24 hours to watch the radicle root break through the seed coat.',
+      prompt: 'Investigate "Monsoon soak (28 °C + water)" through 24+ hours to discover when water uptake triggers O₂ use and radicle emergence.',
       check: (s) => s.tab(0) === 1 && s.num('Time', 6) >= 24,
     },
     yourNumbers: (s) => {
@@ -68,11 +71,13 @@ export const ENHANCEMENTS = {
       { title: '5. Your turn', caption: '5/5 Your turn: Switch back to the living soaked seed at 36 hours to see the radicle root emerge.', cutaway: false, act: (s) => { s.selectTab(0, 1); s.setSlider('Time', 36); } },
     ],
     idealised: 'Respiration curves show representative Vigna radiata (moong bean) laboratory rates at 28 °C; individual seeds vary by coat thickness and age.',
+    predictHint: 'Predict whether a boiled seed still swells with water early on even with zero O₂ respiration.',
+    realPlate: 'ch01_goodsell_cell',
   },
 
   seed_flame3d: {
     challenge: {
-      prompt: 'Switch to "Living Seed Cell (ATP Engine)" and increase Metabolic rate above 1.2× to watch ATP packets shuttle energy from the enzyme hub to build the growing polymer chain.',
+      prompt: 'Explore inside "Living Seed Cell (ATP Engine)" above 1.2× Metabolic rate to contrast ATP packet coupling against a candle flame.',
       check: (s) => s.tab(0) === 1 && s.num('Metabolic rate', 1) >= 1.2,
     },
     yourNumbers: (s) => {
@@ -89,6 +94,8 @@ export const ENHANCEMENTS = {
       { title: '5. Your turn', caption: '5/5 Your turn: Rotate the 3D stage or switch between side-by-side, cell, and flame views.', cutaway: false, act: (s) => { s.selectTab(0, 0); s.setSlider('Metabolic rate', 1.0); } },
     ],
     idealised: 'Each glowing golden sphere represents a pool of thousands of ATP molecules diffusing across nanometre distances inside the cell.',
+    predictHint: 'Predict why a seed cell builds polymers at 28 °C while a candle with the same chemical energy only radiates heat and light.',
+    realPlate: 'ch01_tmv_tem',
   },
 
   cell_inventory: {
@@ -103,6 +110,8 @@ export const ENHANCEMENTS = {
       { title: '5. Explain the difference', caption: 'Compare the onion with the green leaf. Which job changes?', act: s => s.selectTab(0,2) },
     ],
     idealised: 'Each schematic is enlarged separately; membranes and ribosomes are oversized, and most molecular crowding is omitted.',
+    predictHint: 'Predict which organelles belong only to photosynthesising plant cells versus which power respiration in almost every eukaryote.',
+    realPlate: 'ch02_rbc_sem',
   },
 
   organelle_clues: {
@@ -117,10 +126,12 @@ export const ENHANCEMENTS = {
       { title: '5. Another bacterial branch', caption: 'Chloroplast genes trace their ancestry to cyanobacteria.', act: s => { s.selectTab(0,1); s.setSlider('Clue groups',4); } },
     ],
     idealised: 'The four clue groups organise evidence; they are not four equally weighted experiments or a replay of ancient engulfment.',
+    predictHint: 'Predict which clue (double membrane, circular DNA, or ribosome size) provides stronger evidence for endosymbiosis than shape alone.',
+    realPlate: 'ch02_elodea_chloroplasts',
   },
 
   sav_cubes3d: {
-    challenge: { prompt: 'Choose a 10 cm side and a 2 mm reached layer: how much of the volume remains untouched?', check: s => s.num('Side length',2) === 10 && Math.abs(s.num('Reached depth',.2)-.2) < .001 },
+    challenge: { prompt: 'Test a 10 cm side with a 2 mm reached layer: how much of the core stays untouched by diffusion alone?', check: s => s.num('Side length',2) === 10 && Math.abs(s.num('Reached depth',.2)-.2) < .001 },
     yourNumbers: s => {
       const a=s.num('Side length',2), d=s.num('Reached depth',.2);
       const reached=100*(1-(Math.max(0,a-2*d)/a)**3);
@@ -135,10 +146,12 @@ export const ENHANCEMENTS = {
       { title: '5. Test another depth', caption: 'Change depth and side independently. The 2D drawing keeps a fixed scale; the 3D view fills its frame.', act: s => { s.selectTab(0,0); s.setSlider('Reached depth',.3); } },
     ],
     idealised: 'A uniform sharp-front layer is a geometric assumption; real diffusion makes concentration gradients, and potato dye is not oxygen crossing a cell membrane.',
+    predictHint: 'Predict whether doubling a cube’s side halves its SA:V ratio or leaves even more of the centre unreachable by diffusion.',
+    realPlate: 'ch00_hooke_cork',
   },
 
   diffusion_membrane: {
-    challenge: { prompt: 'Start with 50 particles per side, keep the divider permeable, then step the model. Explain why counts can change despite equal starting concentrations.', check: s => s.num('Initially left',80) === 50 && s.tab(0) === 0 && !s.readout().includes('Actual crossings: 0 rightward, 0 leftward;') },
+    challenge: { prompt: 'Test equal starting counts (50 particles left, 50 right) across a permeable bilayer and step the simulation: why do individual crossings persist at equilibrium?', check: s => s.num('Initially left',80) === 50 && s.tab(0) === 0 && !s.readout().includes('Actual crossings: 0 rightward, 0 leftward;') },
     yourNumbers: s => `Initially left = ${s.num('Initially left',80)}; initially right = ${100-s.num('Initially left',80)} · total always 100 · actual crossing counts are below the drawing`,
     cutaway: 'The divider permits a crossing in either direction. Each step draws a new direction independently of concentration; no particle can inspect which side has more space.',
     watch: [
@@ -149,6 +162,8 @@ export const ENHANCEMENTS = {
       {title:'5. Your count',caption:'Press Step 20 bounces several times. Compare total crossings with their signed difference.',act:s=>s.selectTab(0,0)},
     ],
     idealised:'100 tokens follow a two-dimensional fixed-step random walk; solvent collisions are implicit, distances and steps are uncalibrated, and equilibrium fluctuates.',
+    predictHint:'When both chambers begin with 50 particles each, predict whether individual solute molecules stop crossing the bilayer.',
+    realPlate:'ch03_avicennia_mangrove',
   },
   water_potential: {
     challenge:{prompt:'Balance inside and outside water potential while their solute contributions remain different.',check:s=>Math.abs(s.num('Inside pressure',0)-.5)<.001},
@@ -162,9 +177,11 @@ export const ENHANCEMENTS = {
       {title:'5. Find the balance',caption:'Move the control yourself and explain what changes the direction.',act:s=>s.setSlider('Inside pressure',.1)},
     ],
     idealised:'Chosen potentials are held fixed as pressure is varied independently; the model predicts direction, not evolving cell volume, concentration or time.',
+    predictHint:'Predict what happens to inside water potential (Ψ = Ψs + Ψp) if turgor wall pressure rises while internal solute concentration stays unchanged.',
+    realPlate:'ch03_avicennia_mangrove',
   },
   osmosis_cells: {
-    challenge:{prompt:'Choose concentrated surroundings and show the plant membrane separating from its wall.',check:s=>s.tab(0)===2&&s.num('Response stage',0)===4},
+    challenge:{prompt:'Find the bath condition that pulls the plant plasma membrane away from its cellulose wall by stage 4 (plasmolysis).',check:s=>s.tab(0)===2&&s.num('Response stage',0)===4},
     yourNumbers:s=>`${['Dilute','Matching-solute','Concentrated'][s.tab(0)]} surroundings · stage ${s.num('Response stage',0)} of 4 · schematic, not minutes or measured volume`,
     cutaway:'The cellulose wall stays outside the cell membrane. The vacuole can lose water and shrink; sufficient water loss pulls the membrane-bound contents away from the wall.',
     watch:[
@@ -175,9 +192,11 @@ export const ENHANCEMENTS = {
       {title:'5. Compare',caption:'Change surroundings at the same selected stage; explain which boundary supports pressure.',act:s=>s.selectTab(0,1)},
     ],
     idealised:'Shapes and stages are qualitative; no salt permeability, membrane mechanics, time course or measured volume is calculated, and the 3D solid denotes the membrane envelope.',
+    predictHint:'Predict why a plant cell wall stays rigid during plasmolysis while an animal red blood cell shrinks or bursts.',
+    realPlate:'ch03_plasmolysis_rhoeo',
   },
   root_transport: {
-    challenge:{prompt:'Follow the proton pump and cotransporter through the whole energy relay.',check:s=>s.num('Relay stage',0)===4},
+    challenge:{prompt:'Trace all 4 relay stages to discover how an ATP-driven proton pump powers secondary sucrose uptake in roots.',check:s=>s.num('Relay stage',0)===4},
     yourNumbers:s=>`Relay stage ${s.num('Relay stage',0)} of 4 · ATP powers proton export; the proton gradient can power nitrate entry · no ATP-per-nitrate ratio assigned`,
     cutaway:'The ATP-driven proton pump and the nitrate cotransporter are different proteins. Stored proton electrochemical energy connects their actions.',
     watch:[
@@ -188,10 +207,11 @@ export const ENHANCEMENTS = {
       {title:'5. Explain the relay',caption:'Nitrate accumulation uses energy indirectly; water enters through its own water-potential gradient.',act:s=>s.setSlider('Relay stage',4)},
     ],
     idealised:'This is a manually stepped pathway diagram; it calculates neither ionic charge balance nor kinetic rates or fixed transport stoichiometry.',
+    predictHint:'Predict whether a root hair can keep importing mineral ions or sucrose if mitochondrial ATP synthesis stops.',
   },
 
   enzyme_barrier: {
-    challenge:{prompt:'Use matched chemistry, lower both hurdles by 35 chosen units, and reach stage 4 to regenerate the enzyme.',check:s=>s.interacted&&s.tab(0)===0&&s.num('Barrier lowering',35)===35&&s.num('Cycle stage',0)===4},
+    challenge:{prompt:'Test matched substrate chemistry with 35 units of barrier lowering through stage 4 to watch enzyme regeneration.',check:s=>s.interacted&&s.tab(0)===0&&s.num('Barrier lowering',35)===35&&s.num('Cycle stage',0)===4},
     yourNumbers:s=>`Forward barrier = 70 − ${s.tab(0)?0:s.num('Barrier lowering',35)}; reverse = 80 − ${s.tab(0)?0:s.num('Barrier lowering',35)}; net = −10 chosen units`,
     cutaway:'Complementary chemical groups position reactants and stabilise difficult arrangements. The contact symbols stand for interactions, not a rigid outline lock or atomic coordinates.',
     watch:[
@@ -202,6 +222,8 @@ export const ENHANCEMENTS = {
       {title:'5. Release and reuse',caption:'Return to matched chemistry, then release products and regenerate the enzyme.',act:s=>{s.selectTab(0,0);s.setSlider('Cycle stage',4);}},
     ],
     idealised:'Energies and geometry are chosen; progress is not time. No reaction rate, equilibrium shift or universal speed multiplier is calculated.',
+    predictHint:'Predict whether an enzyme alters the overall start-to-finish energy difference (ΔH) or only lowers the intermediate activation barrier.',
+    realPlate:'ch04_lysozyme_1lyz',
   },
   enzyme_conditions: {
     challenge:{prompt:'Compare the heat-exposed sample at assay temperature 60 °C and pH 7.0. Explain why its rate is lower than the fresh comparison at the same settings.',check:s=>s.interacted&&s.tab(0)===1&&s.num('Assay temperature',20)===60&&s.num('Assay pH',7)===7},
@@ -215,6 +237,8 @@ export const ENHANCEMENTS = {
       {title:'5. Fair residual-activity test',caption:'Compare a previously heat-exposed sample at the same assay pH and temperature. This is no recovery trajectory.',act:s=>{s.setSlider('Assay pH',7);s.selectTab(0,1);}},
     ],
     idealised:'No named enzyme is fitted. Parameters, fixed exposure and surviving share are invented; every setting is a new sample, not reversible damage or a human fever model.',
+    predictHint:'Predict whether a previously boiled enzyme regains normal reaction speed when cooled back down to 37 °C.',
+    realPlate:'ch04_ramachandran_plot',
   },
   food_detective: {
     challenge:{prompt:'Choose iodine and valid controls, then actually run the comparison. What does U reveal?',check:s=>s.tab(0)===1&&s.tab(1)===0&&s.readout().startsWith('Comparison run. Iodine: Detected.')},
@@ -228,6 +252,7 @@ export const ENHANCEMENTS = {
       {title:'5. Vitamin C',caption:'Run DCPIP, then deliberately fail the positive control and rerun. A negative unknown is then uninterpretable.',act:s=>{s.selectTab(0,4);s.clickBtn('Run comparison');}},
     ],
     idealised:'Unknown U and all outcomes are invented. Written observations replace colour measurement; extraction, sensitivity and matrix interference require real laboratory controls.',
+    predictHint:'Predict why every food reagent test must run alongside both a negative control (water) and a known positive standard.',
   },
   carbon_account: {
     challenge:{prompt:'Choose two accounting batches and reach stage 4. Check each element on both sides.',check:s=>s.interacted&&s.num('Accounting batches',1)===2&&s.num('Account stage',0)===4},
@@ -241,9 +266,10 @@ export const ENHANCEMENTS = {
       {title:'5. Conserve atoms',caption:'Double the fuller summary: double every material term, with water still on both sides.',act:s=>{s.setSlider('Accounting batches',2);s.setSlider('Account stage',4);}},
     ],
     idealised:'Formal glucose summaries, not single reactions or literal atom paths. No photon number, efficiency, measured yield or elapsed time is calculated.',
+    predictHint:'Predict how many CO₂ and H₂O molecules are required to conserve all C, H and O atoms for two molecules of glucose.',
   },
   limiting_lab: {
-    challenge:{prompt:'Clear trials. Capture L=20, CO₂=80, T=25 °C, then L=60 with the other two unchanged. Moving controls alone is not a trial.',check:s=>s.readout().includes('Controlled light comparison completed.')},
+    challenge:{prompt:'Isolate Light Intensity as a limiting factor: clear saved trials, hold CO₂ (80) and 25 °C constant, and record two Light levels (20 vs 60).',check:s=>s.readout().includes('Controlled light comparison completed.')},
     yourNumbers:s=>`L=${s.num('Light capacity',20)}; CO₂=${s.num('CO₂ capacity',80)} chosen units; T=${s.num('Temperature',25)} °C`,
     cutaway:'The smallest of three invented capacities caps gross photosynthesis. The chosen oxygen-use baseline is subtracted to obtain net exchange. Real plants have interacting, smoother responses.',
     watch:[
@@ -254,6 +280,8 @@ export const ENHANCEMENTS = {
       {title:'5. Respiration continues',caption:'In darkness gross oxygen production is zero; net exchange is negative because respiration continues.',act:s=>{s.setSlider('Temperature',25);s.setSlider('Light capacity',0);s.setSlider('CO₂ capacity',80);}},
     ],
     idealised:'R=min(L,C,max(0,100−((T−25)/2)²)); net=R−10, all invented relative units. Each setting is a new sample, not recovery; no calibrated bubbles, gas volume or universal optimum.',
+    predictHint:'Predict what happens to photosynthesis bubble rate if Light doubles while CO₂ stays locked below it.',
+    realPlate:'ch05_stomata_guard_cells',
   },
   sap_routes: {
     challenge:{prompt:'Follow stored carbohydrate upwards: choose Store → shoot phloem and reach stage 4.',check:s=>s.interacted&&s.tab(0)===2&&s.num('Transport stage',0)===4},
@@ -267,6 +295,8 @@ export const ENHANCEMENTS = {
       {title:'5. Send sugars upwards',caption:'A storage organ can supply a growing shoot: source to sink is not always downward.',act:s=>{s.selectTab(0,2);s.setSlider('Transport stage',4);}},
     ],
     idealised:'Enlarged separate pathways; stages focus attention, not calibrated sap motion. Passive and active loading occur; no opposing bulk streams in a single sieve tube.',
+    predictHint:'Predict which plant tissue (xylem vs phloem) reverses flow direction between winter dormancy and spring leaf flush.',
+    realPlate:'ch05_grew_xylem_1682',
   },
   respiration_relay: {
     challenge:{prompt:'Inspect stage 4 with O₂ available, then stage 4 under sustained O₂ absence. Explain what stops and why this does not mean all cellular ATP vanishes instantly.',check:s=>s.interacted&&s.tab(0)===1&&s.num('Relay stage',0)===4&&s.readout().includes('Both oxygen endpoints inspected.')},
@@ -280,6 +310,8 @@ export const ENHANCEMENTS = {
       {title:'5. Remove the terminal acceptor',caption:'Compare sustained O₂ absence after residual gradients dissipate. This aerobic relay stalls; glycolysis can still supply ATP if NAD⁺ is regenerated.',cutaway:false,act:s=>{s.selectTab(0,1);s.setSlider('Relay stage',4);}},
     ],
     idealised:'Manual causal-focus snapshots overlap in life; enlarged geometry and H⁺ tokens do not encode counts. The absent-O₂ comparison is settled after residual gradient loss, with no kinetic clock, speed, fixed coupling ratio or yield.',
+    predictHint:'Predict what happens first inside a mitochondrion when oxygen is withdrawn: carrier backlog or immediate disappearance of the H⁺ gradient?',
+    realPlate:'ch06_mitochondrion_tem',
   },
   oxidation_ledger: {
     challenge:{prompt:'At 1.0 kg, inspect Total inputs and products. Identify the incoming oxygen and explain why the combined products exceed the starting fuel mass while all inputs still balance all outputs. The original-fat allocation tab is optional deeper work.',check:s=>s.interacted&&s.tab(0)===0&&s.num('Fat oxidised',1)===1&&s.readout().includes('Input 3.9023 kg = output 3.9023 kg.')},
@@ -293,6 +325,7 @@ export const ENHANCEMENTS = {
       {title:'5. Go deeper: compare accounts',caption:'At one kilogram, total CO₂ is about 2.814 kg; only about 0.842 kg is assigned to the original fat in the separate convention.',cutaway:false,act:s=>{s.setSlider('Fat oxidised',1);s.selectTab(0,1);}},
     ],
     idealised:'Complete oxidation of representative C₅₅H₁₀₄O₆ uses nominal C12/H1/O16 masses. The approximately 84%/16% original-fat allocation assumes oxygen exchange; it is not the total product ratio, an isotope trace or a human mass-change model.',
+    predictHint:'When 1.0 kg of camel fat oxidises completely, predict why the combined CO₂ + H₂O outputs weigh nearly 4× more than the fat alone.',
   },
   carrier_routes: {
     challenge:{prompt:'Inspect carrier stage 4 in all three routes. Identify the electron recipient and explain why fermentation adds no ATP beyond glycolysis’s two net ATP.',check:s=>s.interacted&&s.num('Carrier stage',0)===4&&s.readout().includes('All three recycling endpoints inspected.')},
@@ -306,6 +339,8 @@ export const ENHANCEMENTS = {
       {title:'5. Lactate recycling',caption:'Pyruvate receives electrons to form lactate and restores NAD⁺. This route releases no CO₂; lactate can also form when O₂ is present.',cutaway:false,act:s=>{s.selectTab(0,2);s.setSlider('Carrier stage',4);}},
     ],
     idealised:'Three manually selected route accounts compress compartments and omit proton-balanced NAD chemistry. No clock, gas volume, rate or total aerobic ATP yield is calculated; mixed idli communities are outside this comparison.',
+    predictHint:'Predict why anaerobic fermentation regenerates NAD⁺ without extra ATP beyond glycolysis.',
+    realPlate:'ch06_atp_synthase',
   },
   digestive_steps: {
     challenge: { prompt: 'At stage 4, capture a product endpoint for each food. Compare the recorded products, then explain their different routes. The stamp records captures, not explanation accuracy.', check: s => s.interacted && s.readout().includes('Three endpoint routes captured for comparison.') },
@@ -319,6 +354,8 @@ export const ENHANCEMENTS = {
       {title:'5. Reach an absorbable sugar',caption:'Brush-border enzymes include maltase, which turns maltose plus water into glucose. Capture endpoints yourself to compare foods.',cutaway:false,act:s=>{s.selectTab(0,0);s.setSlider('Digestive stage',4);}},
     ],
     idealised: 'Three selected food routes, five manual focus states. Unit symbols omit atoms/end groups and are not a chemical mass ledger. No digestion clock, residence time or rate is calculated.',
+    predictHint: 'Predict why starch digestion pauses in stomach acid before resuming with pancreatic amylase in the duodenum.',
+    realPlate: 'ch07_beaumont_st_martin',
   },
   emulsification: {
     challenge: { prompt: 'Capture two positive-volume geometry trials with the same reference radius and different division. Compare saved areas; the stamp records this controlled comparison, not the accuracy of an explanation.',check:s=>s.interacted && s.readout().includes('Controlled geometry comparison captured: same volume, different division.') },
@@ -332,6 +369,7 @@ export const ENHANCEMENTS = {
       {title:'5. Change the amount',caption:'A 2 mm reference with division 2 is a different fat volume from the 3 mm reference. Do not call that a controlled fixed-volume comparison.',cutaway:false,act:s=>{s.setSlider('Reference radius',2);s.setSlider('Linear division',2);}},
     ],
     idealised:'All equal spheres are shown as a spread-out projection, with chosen millimetre dimensions and conserved 3D volume. Real droplets vary in size/shape. No molecular hydrolysis, enzyme kinetics or digestion-rate multiplier is inferred.',
+    predictHint:'Predict how splitting a single lipid drop into 64 small micelles changes total surface area at constant total volume.',
   },
   absorption_routes: {
     challenge:{prompt:'At stage 4 with positive supply, capture glucose and long-chain lipid endpoints. Compare their saved destinations. The stamp records endpoint captures, not explanation accuracy.',check:s=>s.interacted&&s.readout().includes('Glucose and long-chain lipid endpoints captured.')},
@@ -345,9 +383,11 @@ export const ENHANCEMENTS = {
       {title:'5. Keep an exception',caption:'Some shorter-chain fatty acids take the portal blood route. The route diagram remains meaningful at zero supply, but all material compartments are empty.',cutaway:false,act:s=>{s.selectTab(0,2);s.setSlider('Absorption stage',4);s.setSlider('Marked portions',0);}},
     ],
     idealised:'Manual focus states track abstract marked material, not unchanged molecules or a timed transport process. No permeability, tissue damage, absorption efficiency or transit time is modelled. Zero supply gives zero marked portions in every compartment.',
+    predictHint:'Predict why glucose enters hepatic portal blood directly whereas rebuilt long-chain chylomicrons route through lymphatic lacteals.',
+    realPlate:'ch07_intestinal_villi',
   },
   breathing_gradients: {
-    challenge:{prompt:'Capture one shallow rapid trial (250 mL × 24 breaths/min) and one quiet resting trial (500 mL × 12 breaths/min). Explain why both move 6.0 L/min in total yet deliver different fresh alveolar ventilation.',check:s=>s.interacted&&s.readout().includes('Equal minute ventilation, different alveolar ventilation: deeper breaths waste less dead space.')},
+    challenge:{prompt:'Compare shallow rapid panting (250 mL × 24/min) against quiet resting breaths (500 mL × 12/min): both move 6.0 L/min total airflow—which delivers more fresh gas to alveoli?',check:s=>s.interacted&&s.readout().includes('Equal minute ventilation, different alveolar ventilation: deeper breaths waste less dead space.')},
     yourNumbers:s=>{const vt=s.num('Tidal volume',500),r=s.num('Breathing rate',12),ve=(vt*r/1000).toFixed(1),va=(Math.max(0,vt-150)*r/1000).toFixed(1);return `${['Quiet inhalation','Quiet exhalation','Forced / exercise','Bell-jar check'][s.tab(0)]} · V_T ${vt} mL × ${r}/min · total ${ve} L/min · alveolar ${va} L/min`;},
     cutaway:'During inhalation, diaphragm and external intercostal contraction expands thoracic volume, lowering alveolar pressure slightly below atmospheric pressure (−1 mmHg) so outside air pushes in. In the chosen adult example, about 150 mL stays in the conducting airway dead space (trachea, bronchi, bronchioles) where no gas exchange occurs.',
     watch:[
@@ -358,9 +398,11 @@ export const ENHANCEMENTS = {
       {title:'5. Bell-jar model honesty check',caption:'Pulling the bottom rubber sheet lowers internal pressure like the diaphragm, but rigid jar walls cannot swing like ribs and the wide air gap is not a thin fluid-coupled pleural cavity.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Tidal volume',500);s.setSlider('Breathing rate',12);}},
     ],
     idealised:'Representative sea-level gauge pressures and a chosen adult 150 mL anatomical dead space illustrate Boyle’s-law bulk flow and partial-pressure diffusion. Adult two-lung alveolar counts (~300–500 million, Ochs et al. 2004 mean 480 million) vary widely with lung size and age.',
+    predictHint:'Before comparing 250 mL × 24/min against 500 mL × 12/min, predict how much fresh air reaches alveoli after subtracting 150 mL dead space.',
+    realPlate:'ch08_alveolar_cell_tem',
   },
   double_pump: {
-    challenge:{prompt:'Capture one Intact double pump state (tab 0) and one Post-natal VSD case state (tab 2). Explain why a hole in the post-natal ventricular septum pushes oxygenated blood left-to-right back into the lungs rather than sending deoxygenated blood into the aorta.',check:s=>s.interacted&&s.readout().includes('Intact and post-natal VSD states captured for comparison.')},
+    challenge:{prompt:'Compare an intact double-pump circulation against a post-natal ventricular septal defect (VSD): which direction does the LV–RV pressure difference push shunted blood?',check:s=>s.interacted&&s.readout().includes('Intact and post-natal VSD states captured for comparison.')},
     yourNumbers:s=>{const hr=s.num('Heart rate',70),sv=s.num('Stroke volume',60),co=(hr*sv/1000).toFixed(2);return `${['Intact double pump','Harvey 1628 vs Modern','Post-natal VSD','Fish single circuit'][s.tab(0)]} · stage ${s.num('Circuit stage',0)} · ${hr} bpm × ${sv} mL = ${co} L/min`;},
     cutaway:'Both ventricles pump the same volume per minute in series when the septum is intact, but the left ventricular wall is about three times thicker than the right so it can generate ~120 mmHg for the long systemic circuit while the right ventricle generates ~25 mmHg to protect thin alveolar capillaries. Because LV pressure far exceeds RV pressure after birth, an uncomplicated ventricular septal defect shunts oxygenated blood left-to-right.',
     watch:[
@@ -371,6 +413,8 @@ export const ENHANCEMENTS = {
       {title:'5. Fish single circulation comparison',caption:'In a fish, blood passes from the heart through gill capillaries directly to body capillaries without a second pump, so systemic pressure is much lower.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Circuit stage',2);s.setSlider('Heart rate',70);s.setSlider('Stroke volume',60);}},
     ],
     idealised:'Steady-state series flow and representative ventricular peak pressures; pressure falls along vessels before capillaries. Route stages select explanatory views while both sides of the heart operate together. The chosen postnatal VSD ratio is not a prediction for every defect. Harvey’s 1628 Troy/apothecaries’ lower-bound arithmetic is kept distinct from the chosen modern metric calculation (HR × SV).',
+    predictHint:'Predict which direction blood crosses an uncomplicated post-natal ventricular hole when LV pressure exceeds 110 mmHg and RV is ~30 mmHg.',
+    realPlate:'ch08_harvey_valves_1628',
   },
   vessel_exchange: {
     challenge:{prompt:'Capture Aorta (segment 0) and Capillary bed (segment 3). Explain why blood slows down ~1,000-fold in capillaries even though each individual capillary is microscopic.',check:s=>s.interacted&&s.readout().includes('Aorta and Capillary bed states captured for comparison.')},
@@ -384,9 +428,10 @@ export const ENHANCEMENTS = {
       {title:'5. Platelets and the fibrin mesh',caption:'At a wound, platelets trigger the conversion of soluble fibrinogen into insoluble fibrin threads that trap red blood cells to stop bleeding and block pathogens.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Vessel segment',3);s.setSlider('Cardiac output',4.9);}},
     ],
     idealised:'Continuity velocity v = Q / A_total uses representative adult total cross-sectional areas ; the fluid account shows net filtration and lymphatic return without fixed return fractions. Individual vessels and capillary beds vary dynamically with arteriole smooth-muscle tone.',
+    predictHint:'Even though an individual capillary is ~8 µm narrow, predict why blood slows down ~1,000× across the whole capillary bed.',
   },
   reflex_action_potential: {
-    challenge:{prompt:'Capture one Myelinated reflex arc trial (tab 0) and one Unmyelinated axon loop (tab 1), Voluntary ruler catch (tab 2), or Siddiqi para^ts blocked trial at ≥30 °C (tab 3). Explain why myelination or a spinal reflex loop cuts total response latency.',check:s=>s.interacted&&s.readout().includes('Contrasting reflex/conduction pathways captured for comparison.')},
+    challenge:{prompt:'Compare total latency between the myelinated spinal reflex arc and an unmyelinated, voluntary, or heat-blocked pathway to see why myelin and synaptic count decide reaction speed.',check:s=>s.interacted&&s.readout().includes('Contrasting reflex/conduction pathways captured for comparison.')},
     yourNumbers:s=>{const d=s.num('Axon diameter',12),t=s.num('Temperature',25),m=s.tab(0),names=['Myelinated reflex','Unmyelinated loop','Voluntary ruler catch','Siddiqi para^ts'];return `${names[m]} · ${d} µm · ${t} °C`;},
     cutaway:'A neurone is not a copper wire: no free electrons flow down the axon. Instead, Skou’s Na⁺/K⁺-ATPase pump uses ATP to keep Na⁺ high outside and K⁺ high inside (−70 mV rest). When depolarised to threshold (−55 mV), voltage-gated Na⁺ channels open so Na⁺ rushes in (+30 mV peak), followed by K⁺ channels opening to repolarise the membrane. In Obaid Siddiqi’s para^ts Drosophila mutant, warming above 30 °C reversibly silences the voltage-gated Na⁺ channels.',
     watch:[
@@ -397,9 +442,11 @@ export const ENHANCEMENTS = {
       {title:'5. Reversible thermal block at 32 °C',caption:'Warming the para^ts mutant to 32 °C disables its voltage-gated Na⁺ channels: the spike vanishes while the resting potential stays at −70 mV.',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Axon diameter',12);s.setSlider('Temperature',32);}},
     ],
     idealised:'Chosen conduction scaling and delays illustrate a defined pathway. They do not measure thermal withdrawal or Drosophila physiology. The para tab illustrates reversible channel failure; it is not a fly-speed prediction.',
+    predictHint:'Predict what happens to membrane voltage and conduction speed when temperature blocks para^ts Na⁺ channels or Schwann myelin wraps the axon.',
+    realPlate:'ch09_cajal_purkinje',
   },
   synapse_transmission: {
-    challenge:{prompt:'Capture one Forward (Pre → Post) trial that stimulates a postsynaptic impulse and one Reverse test (Post → Pre) trial. Explain how the location of vesicles and receptor proteins enforces one-way conduction.',check:s=>s.interacted&&s.readout().includes('Contrasting synapse transmission states captured for comparison.')},
+    challenge:{prompt:'Compare forward (Pre → Post) vs reverse (Post → Pre) synaptic stimulation to discover how vesicle and receptor placement enforces one-way conduction.',check:s=>s.interacted&&s.readout().includes('Contrasting synapse transmission states captured for comparison.')},
     yourNumbers:s=>{const f=s.num('Stimulus frequency',40),w=s.num('Synaptic gap width',20),m=s.tab(0),names=['Forward (Pre→Post)','Reverse (Post→Pre)','Receptor blocker','Enzyme block'];return `${names[m]} · ${f} Hz · ${w} nm gap`;},
     cutaway:'Cambridge 0610 Supplement four-step synapse sequence: (1) an arriving electrical impulse stimulates presynaptic vesicles to release neurotransmitter molecules into the synaptic gap, (2) neurotransmitter diffuses across the ~20 nm gap down its concentration gradient, (3) neurotransmitter binds with complementary receptor proteins on the postsynaptic membrane, and (4) an electrical impulse is stimulated in the next neurone. The release-and-receive arrangement gives this excitatory relay its forward direction; presynaptic regulatory receptors and inhibitory synapses also exist.',
     watch:[
@@ -410,9 +457,11 @@ export const ENHANCEMENTS = {
       {title:'5. Breakdown enzyme inhibition',caption:'Blocking acetylcholinesterase leaves neurotransmitter trapped in the cleft, keeping postsynaptic receptors bound and preventing the synapse from resetting.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Stimulus frequency',40);s.setSlider('Synaptic gap width',20);}},
     ],
     idealised:'A chosen excitatory relay: vesicle counts, receptor fractions and delays illustrate stage relationships rather than calibrated physiological rates. Inhibition and presynaptic regulation are not simulated.',
+    predictHint:'Predict what happens to synaptic delay vs postsynaptic firing when transmitter vesicles sit only on the presynaptic terminal.',
+    realPlate:'ch09_synapse_tem',
   },
   eye_accommodation_tropism: {
-    challenge:{prompt:'Capture one Near object focus (≤60 cm) and one Distant object focus (≥200 cm) in tab 0 (or two contrasting light/tropism states). Explain why contracting the circular ciliary muscle slackens the suspensory ligaments instead of pulling them tight.',check:s=>s.interacted&&s.readout().includes('Contrasting accommodation or tropism states captured for comparison.')},
+    challenge:{prompt:'Compare near-object vs distant-object eye accommodation (or opposing plant tropism states) to discover how circular ciliary contraction reshapes the lens.',check:s=>s.interacted&&s.readout().includes('Contrasting accommodation or tropism states captured for comparison.')},
     yourNumbers:s=>{const d=s.num('Object distance',35),l=s.num('Light intensity',75),m=s.tab(0),names=['Accommodation','Pupil reflex','Shoot phototropism','Gravitropism'];return `${names[m]} · dist ${d} cm · light ${l}%`;},
     cutaway:'For near focus, ciliary contraction reduces tension on the suspensory ligaments and the elastic lens becomes more convex. Relaxation restores ligament tension and flattens the lens for distant focus. Iris muscles control aperture rather than lens focus.',
     watch:[
@@ -423,9 +472,10 @@ export const ENHANCEMENTS = {
       {title:'5. Horizontal seedling gravitropism',caption:'Gravity concentrates auxin on the lower side (68%): in the shoot, high auxin stimulates elongation (+32.4° upward); in the root, high auxin inhibits elongation (−27.0° downward).',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Object distance',100);s.setSlider('Light intensity',80);}},
     ],
     idealised:'A chosen reduced eye uses 17 mm effective image distance. Component powers and plant auxin fractions, rates and bending are schematic, not measurements or individual predictions.',
+    predictHint:'Predict why contracting a circular sphincter-like ciliary ring slackens radial suspensory ligaments rather than pulling them taut.',
   },
   glucose_thermoregulation: {
-    challenge:{prompt:'Capture one hot or high-humidity state and one cold or contrasting glucose state (e.g. Dadar May 38 °C vs Cold room 15 °C, or Mango meal vs Fasting). Explain why arterioles vasodilate or vasoconstrict while capillaries stay fixed in position, or how insulin and glucagon oppose drifts from 5.0 mmol/L.',check:s=>s.interacted&&s.readout().includes('Contrasting thermoregulation or glucose feedback states captured for comparison:')},
+    challenge:{prompt:'Compare hot/high-humidity thermoregulation against cold cooling—or post-meal vs fasting glucose feedback—to see how fixed capillaries and opposing hormones maintain homeostatic set points.',check:s=>s.interacted&&s.readout().includes('Contrasting thermoregulation or glucose feedback states captured for comparison:')},
     yourNumbers:s=>{const t=s.num('Ambient temperature',38),p=s.num('Humidity or meal',65),m=s.tab(0),names=['Skin thermoregulation','Mumbai humidity','Glucose feedback','Type 1 diabetes'];return `${names[m]} · ${t} °C · ${p}%`;},
     cutaway:'Cambridge 0610 negative feedback around a set point: the brain (hypothalamus at 37.0 °C) coordinates sweat glands, skeletal muscle shivering, hair erector muscles and smooth muscle in the arterioles supplying skin surface capillaries (capillaries themselves never move toward or away from the surface). In blood glucose control (set point ~5.0 mmol/L), pancreatic islet beta cells secrete insulin to stimulate liver glucose-to-glycogen storage, whereas alpha cells secrete glucagon to stimulate liver glycogen-to-glucose breakdown.',
     watch:[
@@ -436,9 +486,10 @@ export const ENHANCEMENTS = {
       {title:'5. Type 1 diabetes and insulin injection rescue',caption:'Without insulin (30% slider), higher plasma glucose raises the filtered load beyond the chosen recovery capacity (330 mg/min) and spills into urine; injected insulin (75% slider) restores normal liver storage.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Ambient temperature',30);s.setSlider('Humidity or meal',75);}},
     ],
     idealised:'Illustrative scenarios, not individual predictions: thermal energy balance (metabolic generation, dry transfer and evaporative latent heat at 2,420 J/g) and two-hormone pancreatic negative feedback around a 5.0 mmol/L plasma glucose set point.',
+    predictHint:'When heat triggers sweating at 85% Mumbai humidity vs dry desert air, predict which heat-loss avenue stalls even while sweat glands stay active.',
   },
   nephron_filtration: {
-    challenge:{prompt:'Capture one Normal hydration state (5 mmol/L plasma glucose) and one Untreated hyperglycaemia state (16 mmol/L) or Dehydrated afternoon state. Explain why glucose appears in urine at 16 mmol/L even though the model stipulates an intact glomerular protein barrier.',check:s=>s.interacted&&s.readout().includes('Contrasting nephron filtration and reabsorption states captured for comparison:')},
+    challenge:{prompt:'Compare normal hydration against untreated hyperglycaemia or dehydration to discover when saturated proximal tubule carriers let filtered glucose spill into urine.',check:s=>s.interacted&&s.readout().includes('Contrasting nephron filtration and reabsorption states captured for comparison:')},
     yourNumbers:s=>{const g=s.num('Plasma glucose',5),f=s.num('GFR filtration rate',125),m=s.tab(0),names=['Normal hydration','Mumbai dehydration','High-protein meal','Hyperglycaemia'];return `${names[m]} · glucose ${g} mmol/L · GFR ${f} mL/min`;},
     cutaway:'This model follows two main stages across the cortex and medulla; all daily totals and capacity rates sum both kidneys: (1) High blood pressure in the glomerulus filters water, glucose, urea and ions into the renal capsule (~180 L/day) while retaining red blood cells and plasma proteins (0.0 g/100mL in filtrate); (2) The renal tubule selectively reabsorbs 100% of glucose (up to T_m ≈ 330 mg/min), most water (via aquaporins) and needed ions back into blood, leaving urea, excess water and excess ions to form urine in the collecting duct.',
     watch:[
@@ -449,9 +500,11 @@ export const ENHANCEMENTS = {
       {title:'5. Hyperglycaemia above renal T_m (16 mmol/L)',caption:'When untreated Type 1 diabetes raises filtrate glucose to 16 mmol/L, proximal tubule carriers saturate at 330 mg/min; the un-reabsorbed 30 mg/min spills into urine and pulls water with it by osmosis (3.8 L/day).',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Plasma glucose',16);s.setSlider('GFR filtration rate',125);}},
     ],
     idealised:'Two-kidney adult mass balance (GFR 80–140 mL/min, proximal glucose transport maximum T_m = 330 mg/min, 44% passive medullary urea recycling) chosen for teaching; the 1924 experiments support filtering and recovery, not these numerical parameters.',
+    predictHint:'If the glomerular protein filter stays completely intact, predict why glucose appears in urine once plasma concentration drives filtration past 330 mg/min.',
+    realPlate:'ch10_glomerulus_capillaries',
   },
   immunity_vaccine_memory: {
-    challenge:{prompt:'Capture one Primary response or Passive state and one Vaccinated secondary memory state (or Matching vs Mismatched antigen state). Explain how memory cells or complementary antigen shape change the speed, height and duration of protection.',check:s=>s.interacted&&s.readout().includes('Contrasting immunity or oral rehydration states captured for comparison:')},
+    challenge:{prompt:'Compare a primary response or passive antibody transfer against a vaccinated memory response (or matching vs mismatched antigen shape) to discover what drives speed, amplitude, and duration of protection.',check:s=>s.interacted&&s.readout().includes('Contrasting immunity or oral rehydration states captured for comparison:')},
     yourNumbers:s=>{const d=s.num('Days post-exposure',14),l=s.num('Memory or ORS support',80),m=s.tab(0),names=['Primary vs Memory','Antigen specificity','Active vs Passive','Cholera vs ORS'];return `${names[m]} · Day ${d} · level ${l}%`;},
     cutaway:'Specific active immunity depends on complementary 3D shape: lymphocytes carry receptors matching a pathogen’s specific antigen, divide, and secrete protein antibodies that either destroy pathogens directly or mark them for phagocytes, while leaving long-lived memory cells. Passive immunity (placenta, breast milk, antivenom) supplies borrowed antibodies for immediate short-term cover but produces zero memory cells.',
     watch:[
@@ -462,6 +515,8 @@ export const ENHANCEMENTS = {
       {title:'5. Cholera Cl⁻ toxin vs Oral Rehydration Solution',caption:'Cholera toxin drives Cl⁻ secretion into the small intestine so water leaves blood by osmosis; ORS supplies glucose and electrolytes; the chosen 80% support control uses intact Na⁺–glucose cotransport to support net absorption in this illustrative water ledger.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Days post-exposure',2);s.setSlider('Memory or ORS support',80);}},
     ],
     idealised:'Deterministic primary/secondary lymphocyte kinetics, exponential passive IgG catabolism (t₁/₂ = 21 days), and small-intestinal Na⁺–glucose cotransport vs cholera-toxin Cl⁻ secretion.',
+    predictHint:'Predict how long antibodies persist after passive mother-to-baby transfer versus active vaccination that builds memory lymphocytes.',
+    realPlate:'ch10_macrophage_phagocytosis',
   },
   dna_base_pairing: {
     challenge:{prompt:'Capture two contrasting DNA double-helix or Chargaff states (e.g. Human 30% A vs GC-rich 15% A, or a Complementary rung vs a Purine bulge test). Explain how complementary pairing (A=T, C≡G) enforces Chargaff’s rules and keeps the double helix a uniform 2.0 nm wide.',check:s=>s.interacted&&s.readout().includes('Contrasting DNA double-helix and Chargaff states captured for comparison:')},
@@ -475,6 +530,8 @@ export const ENHANCEMENTS = {
       {title:'5. Purine–purine mismatch bulge (>2.0 nm)',caption:'Forcing two 2-ring purines opposite each other at Rung 6 produces an exaggerated schematic bulge (not a measured mismatch width), showing why only purine–pyrimidine pairs fit.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Adenine percentage',35);s.setSlider('Inspected base pair',6);}},
     ],
     idealised:'B-form DNA helical geometry (3.4 nm pitch, 0.34 nm rise, 10 bp/turn, 2.0 nm diameter) and exact Watson–Crick base equivalence (%A = %T, %G = %C).',
+    predictHint:'If bacterial DNA contains 15% Adenine, predict %T, %C, and %G using Chargaff equivalence before sliding Adenine down.',
+    realPlate:'ch11_photo51_franklin',
   },
   codon_cipher_khorana: {
     challenge:{prompt:'Capture two contrasting synthetic RNA or reading-frame trials (e.g. Nirenberg poly-U vs Khorana (UC)n, or Frameshift +1 vs +3). Explain why 4 bases must be read in triplets (4³ = 64) and how +3 restores the reading frame.',check:s=>s.interacted&&s.readout().includes('Contrasting triplet cipher states captured for comparison:')},
@@ -488,9 +545,10 @@ export const ENHANCEMENTS = {
       {title:'5. Crick & Brenner +1 vs +3 reading-frame proof',caption:'Inserting +3 bases (+1 full triplet) into the phage message restores the downstream CAU (His) reading frame, whereas +1 or +2 scrambles every subsequent triplet.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Synthetic RNA template',1);s.setSlider('Reading-frame shift',3);}},
     ],
     idealised:'Cell-free translation of 18-nucleotide synthetic mRNA templates using the standard 64-codon genetic code (61 sense codons + 3 stop codons).',
+    predictHint:'Predict what happens to a growing polypeptide when you insert +1 base versus +3 bases before the stop codon.',
   },
   transcription_translation_ribosome: {
-    challenge:{prompt:'Capture two contrasting transcription-translation states (e.g. Child X Silent Codon 3 CTG→CTT vs Child Y Missense Codon 6 GAG→GTG, or Reference HbA vs Nonsense Stop). Explain why Child X encodes the usual beta-globin amino-acid sequence under this model’s assumptions while Child Y builds sticky HbS.',check:s=>s.interacted&&s.readout().includes('Contrasting transcription and translation states captured for comparison:')},
+    challenge:{prompt:'Compare two transcription–translation states (silent vs missense or premature stop) to discover when a single DNA base substitution alters the finished protein chain.',check:s=>s.interacted&&s.readout().includes('Contrasting transcription and translation states captured for comparison:')},
     yourNumbers:s=>{const c=s.num('Ribosome codon step',6),f=s.num('Protein machine family',1),m=s.tab(0),names=['Reference HbA','Child X Silent','Child Y Missense','Nonsense Stop'];return `${names[m]} · Codon ${c} · Family #${f}`;},
     cutaway:'Cambridge 0610 Topic 17.1 Supplement protein synthesis: (1) the gene coding for the protein remains in the nucleus; (2) messenger RNA (mRNA) is a copy of a gene; (3) mRNA is made in the nucleus and moves to the cytoplasm; (4) mRNA passes through ribosomes; (5) the ribosome assembles amino acids into protein molecules; and (6) the specific sequence of amino acids is determined by the sequence of bases in the mRNA. DNA controls cell function by encoding enzymes, membrane carriers, neurotransmitter receptors and antibodies.',
     watch:[
@@ -501,6 +559,8 @@ export const ENHANCEMENTS = {
       {title:'5. DNA control of membrane carriers & receptors',caption:'Switching to Protein Family #3 (Na⁺–glucose carrier) or #4 (synaptic neurotransmitter receptor) shows how the same sequence-to-folding pipeline governs every cell machine.',cutaway:false,act:s=>{s.selectTab(0,0);s.setSlider('Ribosome codon step',6);s.setSlider('Protein machine family',3);}},
     ],
     idealised:'Other protein-family pictures are analogies, not HBB mutation predictions for those genes. Models codons 1–7 of human beta-globin (HBB) after initiator methionine cleavage, following Vernon Ingram (1956–1957) and Cambridge IGCSE 0610 Topic 17.1.',
+    predictHint:'Before comparing Child X (CTG→CTT) and Child Y (GAG→GTG), predict which substitution changes the amino-acid sequence and which stays redundant.',
+    realPlate:'ch11_ribosome_translation',
   },
   dna_replication_meselson: {
     challenge:{prompt:'Capture two contrasting density-gradient trials. Explain which predicted bands distinguish semi-conservative copying from the alternatives.',check:s=>s.interacted&&s.readout().includes('Contrasting replication states captured for comparison:')},
@@ -514,6 +574,8 @@ export const ENHANCEMENTS = {
       {title:'5. Copying accuracy',caption:'Proofreading and repair reduce errors. Rates and origin counts in this separate fork view are illustrative approximations; mutations can remain.',cutaway:false,act:s=>{s.selectTab(0,3);s.setSlider('Generation in ¹⁴N',3);s.setSlider('Proofreading step',4);}},
     ],
     idealised:'Idealised isotope fractions and density bands; generation timing is chosen. The human nuclear-fork comparison is separate from the bacterial isotope experiment. High copying accuracy does not mean every cell preserves an exact unchanged genome.',
+    predictHint:'After exactly 2 rounds of DNA replication in ¹⁴N light medium, predict which density bands distinguish semi-conservative from dispersive copying.',
+    realPlate:'ch12_flemming_mitosis_1882',
   },
   mitosis_meiosis_stepper: {
     challenge:{prompt:'Capture two contrasting division states. Compare chromosome number, DNA-molecule number and ploidy separately.',check:s=>s.interacted&&s.readout().includes('Contrasting division states captured for comparison:')},
@@ -527,6 +589,8 @@ export const ENHANCEMENTS = {
       {title:'5. Triploid segregation is often unbalanced',caption:'Three homologous copies cannot divide into equal paired sets. Poor fertility and parthenocarpy help explain seedless Cavendish fruit; clonal propagation retains low diversity, with possible new mutations.',cutaway:true,act:s=>{s.selectTab(0,2);s.setSlider('Organism preset',3);s.setSlider('Division cycle stage',3);}},
     ],
     idealised:'Chromosome bookkeeping for chosen human and plant presets. Four meiotic products follow the sperm model. Mutation, unusual ploidy and incomplete segregation are not represented in normal mitosis; triploid products are schematic, not a prediction that every product is inviable.',
+    predictHint:'Right after S-phase replication of 46 human chromosomes, predict chromosome count vs DNA molecule count in the cell.',
+    realPlate:'ch12_mitotic_spindle_confocal',
   },
   stem_cell_expression_lab: {
     challenge:{prompt:'Capture two contrasting expression profiles. Explain how the ON entries change while the six displayed entries remain in this illustrative panel.',check:s=>s.interacted&&s.readout().includes('Contrasting expression states captured for comparison:')},
@@ -540,6 +604,7 @@ export const ENHANCEMENTS = {
       {title:'5. Reprogramming retained information',caption:'Gurdon nuclear transfer and Yamanaka reprogramming show that many specialised nuclei retain developmental information. They do not prove that every DNA sequence remains unchanged or that every cell reprogrammes.',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Differentiation stage',4);s.setSlider('Regulator switch',4);}},
     ],
     idealised:'Six-entry on/off panel with invented transcript counts, regulator overrides and progress percentages. Retaining6/6 displayed entries is a model assumption, not a whole-genome measurement. Housekeeping examples remain ON in the illustrated states; real expression is graded and context-dependent.',
+    predictHint:'Predict which genes stay ON in both a pancreas beta cell and a motor neurone even as specialised gene expression diverges.',
   },
   mendel_punnett_simulator: {
     challenge:{prompt:'Capture two contrasting Mendel crosses or sample sizes (e.g. 3:1 Hybrid Rr × Rr vs 1:1 Test Cross Rr × rr, or Small Pod N = 16 vs Mendel 1866 limit) to explain how gamete alleles produce 1:2:1 genotypes, 3:1 phenotypes, and 1:1 test crosses.',check:s=>s.interacted&&s.readout().includes('Contrasting crosses captured for comparison:')},
@@ -553,6 +618,8 @@ export const ENHANCEMENTS = {
       {title:'5. Brno 1866 ledger across 19,959 pea outcomes (2.98 : 1)',caption:'Across all seven pea characters in his 1866 Brno monograph, Johann Gregor Mendel counted 14,949 dominant and 5,010 recessive F₂ outcomes (2.98 : 1) and verified the hidden 1 RR : 2 Rr split in F₃.',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Pea character locus',1);s.setSlider('Fertilisation sample size',4);}},
     ],
     idealised:'Models monohybrid Punnett probabilities, haplosufficient enzyme dosage (100% RR, 50% Rr, 0% rr), and sample-size convergence against Johann Gregor Mendel’s 1866 Brno pea ledger.',
+    predictHint:'Compare a single 16-pea pod against 7,324 seeds: predict which sample size shows random scatter vs convergence on 3:1.',
+    realPlate:'ch13_mendel_pea_traits',
   },
   abo_codominance_pedigree: {
     challenge:{prompt:'Capture two contrasting ABO parental crosses (e.g. IᴬIᴼ × IᴮIᴼ 4-Group Cross vs IᴬIᴮ × IᴼIᴼ Swap Check, or IᴬIᴮ × IᴬIᴮ Codominance) to compare possible and excluded offspring blood groups.',check:s=>s.interacted&&s.readout().includes('Contrasting ABO crosses captured for comparison:')},
@@ -566,6 +633,7 @@ export const ENHANCEMENTS = {
       {title:'5. Pedigree Detective Rule 1 vs Rule 2',caption:'In family pedigrees, two unaffected parents having an affected child proves a recessive allele (Aa × Aa → aa); conversely, two affected parents having an unaffected child proves a dominant allele.',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Maternal ABO genotype',3);s.setSlider('Paternal ABO genotype',3);}},
     ],
     idealised:'Models diploid 2×2 Punnett inheritance across all 36 (6×6) parental combinations of ABO genotypes (IᴬIᴬ, IᴬIᴼ, IᴮIᴮ, IᴮIᴼ, IᴬIᴮ, IᴼIᴼ) and autosomal pedigree deduction rules.',
+    predictHint:'Predict why two parents with blood groups AB and O cannot biologically have a Group O child.',
   },
   sex_linked_cross_lab: {
     challenge:{prompt:'Capture two contrasting X-linked crosses (e.g. Carrier Mum × Normal Dad vs Normal Mum × Affected Dad, or Carrier Mum × Affected Dad) to explain why sons inherit X-linked traits from their mother and why fathers cannot pass X-linked traits to sons.',check:s=>s.interacted&&s.readout().includes('Contrasting X-linked crosses captured for comparison:')},
@@ -579,6 +647,7 @@ export const ENHANCEMENTS = {
       {title:'5. Morgan 1910 Drosophila white-eye chromosome proof (X⁺/Xʷ)',caption:'Switching to Fly eye colour models Thomas Hunt Morgan’s 1910 Columbia Fly Room discovery: F₂ white eyes appeared exclusively in males (XʷY), proving genes sit physically on chromosomes.',cutaway:true,act:s=>{s.selectTab(0,0);s.setSlider('Maternal XX genotype',1);s.setSlider('X-linked gene locus',3);}},
     ],
     idealised:'Models 2×2 X/Y gamete Punnett segregation and separate probabilities among daughters (XX), among sons (XY), and among all children for X-linked loci.',
+    predictHint:'Predict why an affected father never passes an X-linked allele to his sons, yet passes it to 100% of his daughters.',
   },
   variation_mutation_lab: {
     challenge:{prompt:'Capture two contrasting variation or mutation trials. Explain which differences are inherited and which values are assumptions.',check:s=>s.interacted&&s.readout().includes('Contrasting variation or mutation trials captured for comparison:')},
@@ -592,9 +661,11 @@ export const ENHANCEMENTS = {
       {title:'5. New variants and new combinations',caption:'Mutation changes DNA; meiosis and fertilisation reshuffle inherited variation. Neither predicts which change would help.',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Variation trait focus',1);s.setSlider('Mutagen or environment',2);}},
     ],
     idealised:'All distributions, plate coordinates, rate multipliers and mutation-effect fractions are illustrative. Continuous/categorical patterns do not guarantee particular genetic causes.',
+    predictHint:'Predict whether a resistant colony on replica plates arose only after touching antibiotic or already existed on the unexposed master plate.',
+    realPlate:'ch13_sickle_cell_sem',
   },
   natural_selection_simulator: {
-    challenge:{prompt:'Capture two contrasting culture or population trials. Compare both the number and the fraction of the favoured variant.',check:s=>s.interacted&&s.readout().includes('Contrasting natural selection trials captured for comparison:')},
+    challenge:{prompt:'Compare two selection regimes or replicates across generations to contrast raw survivor counts with the changing fraction of the favoured variant.',check:s=>s.interacted&&s.readout().includes('Contrasting natural selection trials captured for comparison:')},
     yourNumbers:s=>{const p=s.num('Selection pressure',3),g=s.num('Generation or model step',5),m=s.tab(0),modes=['Drug selection','Drug removed','Peppered Moths','Malaria & HbS'];return `${modes[m]} · pressure level ${p}/4 · step ${g}/10`;},
     cutaway:'Selection changes the contribution of inherited variants to descendants. Greater survival, mating success or fertility can matter. The culture model applies differential survival, then density-limited reproduction. It has no patient or immune system. Sickle-cell balancing selection uses constant relative reproductive contributions and random mating; historical parasite prevalence is a different measurement.',
     watch:[
@@ -605,6 +676,8 @@ export const ENHANCEMENTS = {
       {title:'5. Heterozygote advantage',caption:'The model recurrence uses wAS=1 and wSS=0.20. Higher malaria pressure lowers wAA, changing the balancing equilibrium; these are assumed fitness values.',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Selection pressure',4);s.setSlider('Generation or model step',9);}},
     ],
     idealised:'Culture steps are not clinical days or antibiotic-course advice. Moth curves are constructed; HbS follows an explicit large-population recurrence with no mutation or migration. Genotype fractions describe newborns before selection.',
+    predictHint:'When a population starts at 99% susceptible and 1% resistant, predict whether stopping antibiotic pressure restores the original ratio or slows its fall.',
+    realPlate:'ch14_gould_finches',
   },
   adaptive_features_selective_breeding: {
     challenge:{prompt:'Capture two contrasting plant, breeding or sequence comparisons. Explain a mechanism and identify the model assumptions.',check:s=>s.interacted&&s.readout().includes('Contrasting adaptation or breeding trials captured for comparison:')},
@@ -618,6 +691,8 @@ export const ENHANCEMENTS = {
       {title:'5. Count synthetic sequence differences',caption:'Compare X with invented species. Identity is counted from aligned bases; neither a tree root nor a divergence date is supplied by percentage alone.',cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Stress or generation',4);s.setSlider('Feature or lineage',1);}},
     ],
     idealised:'Plant dimensions and performance, breeding trajectories and homologous alignments are invented teaching examples. No universal hydrophyte cuticle rule, historical crop yield or exact molecular stopwatch is asserted.',
+    predictHint:'Predict how intensive artificial selection shifts yield rapidly while shrinking allelic diversity compared with wild populations.',
+    realPlate:'ch14_darwin_tree_1837',
   },
   ecosystem_trophic_lab: {
     challenge:{prompt:'Capture two contrasting ecosystem, pyramid, diet efficiency, or sigmoid growth trials (e.g. Direct Crop Diet vs Livestock Meat Diet, or Banyan Tree Pyramid vs SGNP Web) to compare trophic energy retention and carrying capacity.',check:s=>s.interacted&&s.readout().includes('Contrasting trophic or population trials captured for comparison:')},
@@ -631,6 +706,8 @@ export const ENHANCEMENTS = {
       {title:"5. Closed microbial culture: four commonly described phases",caption:"The illustrative batch culture has lag, rapid growth, a stationary region and decline as resources run low and wastes accumulate. Wild carrying capacity changes with conditions; real populations need not follow this precise curve.",cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Trophic transfer',12);s.setSlider('Plant share or scale',60);}},
     ],
     idealised:"Illustrative production/food-supply budgets, chosen loss shares and batch-culture curves. Not a universal 10% law, a measured SGNP census, a predator-viability threshold or a people-per-hectare prediction.",
+    predictHint:"If 10,000 kJ of crop harvest feeds humans directly versus through a 10%-efficient livestock step, predict how much food energy remains.",
+    realPlate:'ch15_indian_leopard',
   },
   nutrient_cycles_eutrophication: {
     challenge:{prompt:'Capture two contrasting nitrogen cycle, eutrophication, carbon cycle, or deforestation trials (e.g. Aerated Legumes vs Waterlogged Paddy, or Low vs High Nitrate Runoff in Powai Lake) to compare soil nitrate or dissolved oxygen.',check:s=>s.interacted&&s.readout().includes('Contrasting nutrient or eutrophication trials captured for comparison:')},
@@ -644,6 +721,7 @@ export const ENHANCEMENTS = {
       {title:"5. Canopy removal: compare illustrative watershed responses",caption:"The chosen canopy and rainfall settings illustrate plausible directions for biodiversity loss, erosion and runoff. The percentages and tonnes are model outputs, not field measurements or universal response rates.",cutaway:true,act:s=>{s.selectTab(0,3);s.setSlider('Legume or runoff load',80);s.setSlider('Aeration or sink cover',80);}},
     ],
     idealised:"Illustrative soil, oxygen, carbon and watershed response functions. Not calibrated Mumbai measurements, a compulsory seven-stage bloom sequence, a dated observed CO₂ record or a climate forecast.",
+    predictHint:"Predict what happens to dissolved oxygen overnight when nitrate runoff triggers a dense surface algal bloom followed by decomposer growth.",
   },
   biotech_fermenter_plasmid_lab: {
     challenge:{prompt:'Capture two contrasting recombinant plasmid, industrial fermenter, enzyme biotech, or GM crop trials (e.g. Optimum 37 °C vs Overheated 55 °C Fermenter, or Compatible vs Incompatible DNA Ends) to compare product yields.',check:s=>s.interacted&&s.readout().includes('Contrasting biotechnology trials captured for comparison:')},
@@ -657,5 +735,7 @@ export const ENHANCEMENTS = {
       {title:"5. Yeast and enzyme applications: distinct products and conditions",caption:"Compare CO₂ for raising dough, enzymes for stains and juice, and lactase for lactose hydrolysis. Enzyme optima depend on the preparation. Much ethanol leaves during baking, but this temperature control cannot predict a residual concentration.",cutaway:true,act:s=>{s.selectTab(0,2);s.setSlider('Ligase or temp or pest',40);s.setSlider('Culture or O₂ or refuge',80);}},
     ],
     idealised:"Illustrative assembly/growth and process-response models. Assumes intron-free DNA, bacterial controls and product processing; no residual-bread-ethanol estimate. Organism-specific optima, seed licences and editing outcomes require separate evidence.",
+    predictHint:"Predict why a plasmid cut with incompatible restriction ends fails to assemble recombinant insulin DNA even in the presence of ligase.",
+    realPlate:'ch15_crispr_cas9_4oo8',
   },
 };
